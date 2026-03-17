@@ -1,3 +1,28 @@
+# IDE / tools
 external/
 .codex/
 .opencode/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+
+# Data artifacts (large, reproducible)
+data/warmup/corpus/
+data/warmup/indices/
+data/final/corpus/
+data/final/indices/
+*.parquet
+*.faiss
+
+# Qdrant local storage
+qdrant_data/
+
+# Submission artifacts
+*.zip
+submission*.json

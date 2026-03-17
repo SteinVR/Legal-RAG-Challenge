@@ -1,43 +1,48 @@
 # Project State: Agentic-RAG-Challenge
 
-> Note: This file tracks compact RAPID project status. Keep it under 150 lines; compress old details into concise summaries.
+> Compact RAPID project status. Keep under 150 lines.
 
 ---
 
 ## 1. Delivery Snapshot
 
-> Purpose: Current delivery status at a glance.
-
 | Attribute | Value |
 |-----------|-------|
-| Active Task IDs | [e.g., TASK-001, TASK-002] |
-| Next Checkpoint | [YYYY-MM-DD or milestone] |
-| Blockers | [None / short list] |
+| Blockers | Competition API key needed for corpus download |
+| Methodology | RAPID |
 
 ---
 
 ## 2. Known Issues / Tech Debt
 
-> Purpose: Track unresolved risks and technical debt.
-
 | Date | Issue | Priority | Status |
 |------|-------|----------|--------|
-| YYYY-MM-DD | [Issue summary] | [High/Medium/Low] | [Open/Planned/Closed] |
+| 2026-03-17 | retrieved_chunk_pages [] vs non-empty ambiguity in EVALUATION.md | High | Open -- needs organizer clarification |
+| 2026-03-17 | Codex OAuth stability for 900-question batch untested | Medium | Open -- validate early |
 
 ---
 
 ## 3. Architecture Deviations
 
-> Purpose: Document intentional deviations from ARCHITECTURE.md with justification.
-
 | Date | Area | Deviation | Reason |
 |------|------|-----------|--------|
-| YYYY-MM-DD | [Component/Area] | [What changed] | [Why] |
+| -- | -- | None yet | -- |
 
 ---
 
-## 4. Accumulated Context
+## 4. Key Decisions Log
 
-> Compact archive for older context after compression.
+| Date | Decision | Rationale |
+|------|----------|-----------|
+| 2026-03-17 | RAPID methodology | Engineering competition with tight deadline, not ML training |
+| 2026-03-17 | PaddleOCR-VL-1.5 as primary parser | 0.9B, page-level, cross-page tables; ingestion is foundational |
+| 2026-03-17 | Qwen3-Embedding-0.6B + Qwen3-Reranker-0.6B | Unified ecosystem, instruction-aware, MRL, 32K context, matched reranker |
+| 2026-03-17 | Codex via OAuth as primary generation backend | Cost-efficient; provider abstraction for fallback |
+| 2026-03-17 | Qdrant embedded as vector store | Dense + sparse hybrid, payload filtering, persistence, no infra overhead |
+| 2026-03-17 | Grounding-first optimization | G is multiplicative in scoring formula; recall > precision (beta=2.5) |
+
+---
+
+## 5. Accumulated Context
 
 [No accumulated context yet.]
