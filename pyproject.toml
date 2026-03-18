@@ -19,6 +19,9 @@ dependencies = [
     "numpy>=1.26",
 ]
 
+[project.scripts]
+agentic-rag = "src.main:main"
+
 [project.optional-dependencies]
 paddle = [
     "paddleocr>=3.0",
@@ -34,6 +37,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
+include = ["src/resources/**/*.yaml"]
 
 [[tool.uv.index]]
 name = "local-cuda"

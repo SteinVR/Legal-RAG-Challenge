@@ -6,7 +6,7 @@
 
 ### Wave 1 -- Foundation
 
-- [ ] [TASK-W1A](./TASK-W1A.md) Workspace, config & corpus access
+- [x] [TASK-W1A](./TASK-W1A.md) Workspace, config & corpus access
 
 ### Wave 2 -- Evaluation & Corpus Framing
 

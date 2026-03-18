@@ -1,0 +1,31 @@
+# Baseline W1A config. Runtime env overrides:
+# - COMPETITION_API_KEY
+# - COMPETITION_PHASE
+# - COMPETITION_BASE_URL
+# - COMPETITION_DATA_ROOT
+# - COMPETITION_TIMEOUT_SECONDS
+# - COMPETITION_EXTRACT_DOCUMENTS
+# - COMPETITION_OVERWRITE_DOWNLOADS
+version: v001
+phase: warmup
+
+api:
+  base_url: https://platform.agentic-challenge.ai/api/v1
+  api_key_env: COMPETITION_API_KEY
+  timeout_seconds: 120.0
+  user_agent: agentic-rag-challenge/0.1.0
+
+storage:
+  root_dir: data
+  questions_dirname: questions
+  questions_filename: questions.json
+  documents_dirname: documents
+  documents_archive_name: documents.zip
+  extracted_documents_dirname: pdfs
+  manifests_dirname: manifests
+  manifest_filename: sync_manifest.json
+
+download:
+  extract_documents: true
+  overwrite: false
+  chunk_size_bytes: 1048576

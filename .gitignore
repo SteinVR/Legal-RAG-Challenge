@@ -13,10 +13,7 @@ build/
 .venv/
 
 # Data artifacts (large, reproducible)
-data/warmup/corpus/
-data/warmup/indices/
-data/final/corpus/
-data/final/indices/
+data/
 *.parquet
 *.faiss
 
