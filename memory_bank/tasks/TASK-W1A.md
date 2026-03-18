@@ -1,10 +1,11 @@
-# Task: TASK-001
+# Task: TASK-W1A
 
 ## 1. Summary
 
-**Title**: Project scaffold, API client, config system, corpus download  
+**Title**: Workspace, config & corpus access  
 **Description**: Set up runnable project skeleton: dependencies, config management, competition API client, download warm-up corpus and questions.  
 **Status**: Planned
+**Wave**: Wave 1 -- Foundation
 
 ## 2. Scope
 
@@ -31,4 +32,4 @@ Documents endpoint returns ZIP of PDFs; questions endpoint returns JSON array.
 ## 5. Outcome
 
 **Result**: [Pending]  
-**Next action**: implement after confirmation
+**Next action**: implement in Wave 1 after confirmation

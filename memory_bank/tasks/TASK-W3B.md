@@ -1,10 +1,11 @@
-# Task: TASK-005
+# Task: TASK-W3B
 
 ## 1. Summary
 
-**Title**: Retrieval pipeline & evidence compression  
+**Title**: Retrieval, reranking & evidence selection  
 **Description**: Hybrid search + reranking + support-page validation/compression. Core grounding module.  
 **Status**: Planned
+**Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
 
@@ -17,7 +18,7 @@
   - Null/unanswerable detection at retrieval level (no relevant pages -> empty set)
   - Retrieval budgets: candidate count, rerank count, evidence count
 - **Out of scope**: answer generation, telemetry packing
-- **Dependencies**: TASK-004 (indices)
+- **Dependencies**: TASK-W3A interface contract (indices); implementation may proceed in parallel with mocks/stubs once the contract is frozen
 
 ## 3. Implementation Plan
 
@@ -32,4 +33,4 @@ Qdrant hybrid query: fuse dense + sparse scores via RRF or custom weights; filte
 ## 5. Outcome
 
 **Result**: [Pending]  
-**Next action**: implement after TASK-004
+**Next action**: freeze retrieval/index contract, then implement in Wave 3 with stubs or against TASK-W3A outputs

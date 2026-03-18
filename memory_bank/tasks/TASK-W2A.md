@@ -1,10 +1,11 @@
-# Task: TASK-002
+# Task: TASK-W2A
 
 ## 1. Summary
 
-**Title**: Local evaluator & submission validator  
+**Title**: Evaluation contract & submission validation  
 **Description**: Implement local scoring and validation that mirrors challenge rules. Enables measurement before burning remote submissions.  
 **Status**: Planned
+**Wave**: Wave 2 -- Evaluation & Corpus Framing
 
 ## 2. Scope
 
@@ -17,7 +18,7 @@
   - Composite score calculator: (0.7*S_det + 0.3*S_asst) * G * T * F
   - Switchable unanswerable policy (empty vs non-empty retrieved_chunk_pages)
 - **Out of scope**: LLM-as-judge for free_text (use proxy/manual review instead)
-- **Dependencies**: TASK-001 (schemas)
+- **Dependencies**: TASK-W1A (workspace, shared schemas/config surfaces)
 
 ## 3. Implementation Plan
 
@@ -30,4 +31,4 @@ Known issue: EVALUATION.md says `retrieved_chunk_pages: []` for unanswerable (gr
 ## 5. Outcome
 
 **Result**: [Pending]  
-**Next action**: implement after TASK-001
+**Next action**: implement in Wave 2 after TASK-W1A

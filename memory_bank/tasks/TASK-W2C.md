@@ -1,10 +1,11 @@
-# Task: TASK-003
+# Task: TASK-W2C
 
 ## 1. Summary
 
-**Title**: Document ingestion pipeline  
+**Title**: Corpus parsing & canonicalization  
 **Description**: Parse legal PDFs into canonical page-level corpus with page map, table serialization, and quality control.  
 **Status**: Planned
+**Wave**: Wave 2 -- Evaluation & Corpus Framing
 
 ## 2. Scope
 
@@ -19,7 +20,7 @@
   - Debug markdown output per document
   - Corpus manifest (doc_id, filename, sha256, page_count, parse_status)
 - **Out of scope**: chunking, embedding, indexing
-- **Dependencies**: TASK-001 (config, corpus download), PaddleOCR-VL-1.5 model
+- **Dependencies**: TASK-W1A (config, corpus download), PaddleOCR-VL-1.5 model
 
 ## 3. Implementation Plan
 
@@ -34,4 +35,4 @@ Physical 1-based page numbers are critical -- all downstream scoring depends on 
 ## 5. Outcome
 
 **Result**: [Pending]  
-**Next action**: implement after TASK-001
+**Next action**: implement in Wave 2 after TASK-W1A

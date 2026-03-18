@@ -1,10 +1,11 @@
-# Task: TASK-004
+# Task: TASK-W3A
 
 ## 1. Summary
 
-**Title**: Structure-aware chunking & hybrid index building  
+**Title**: Chunking & hybrid indexing  
 **Description**: Chunk canonical corpus respecting legal document structure; build BM25 + dense + metadata indices.  
 **Status**: Planned
+**Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
 
@@ -16,7 +17,7 @@
   - Qdrant payload: doc_id, page_span, chunk_type, section, entities, dates
   - Page-parent map (chunk -> page mapping for evidence attribution)
 - **Out of scope**: retrieval logic, reranking, evidence compression
-- **Dependencies**: TASK-003 (canonical corpus)
+- **Dependencies**: TASK-W2C (canonical corpus)
 
 ## 3. Implementation Plan
 
@@ -31,4 +32,4 @@ Qdrant embedded mode: no Docker, in-process, persistent storage. Named vectors f
 ## 5. Outcome
 
 **Result**: [Pending]  
-**Next action**: implement after TASK-003
+**Next action**: define index contracts first, then implement in Wave 3 after TASK-W2C

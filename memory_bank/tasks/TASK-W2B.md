@@ -1,10 +1,11 @@
-# Task: TASK-008
+# Task: TASK-W2B
 
 ## 1. Summary
 
-**Title**: Dev benchmark, regression harness, consistency testing  
-**Description**: Build local evaluation infrastructure for controlled evolution of the pipeline.  
+**Title**: Dev benchmark, gold set & regression control  
+**Description**: Build local benchmark assets and regression controls for controlled evolution of the pipeline.  
 **Status**: Planned
+**Wave**: Wave 2 -- Evaluation & Corpus Framing
 
 ## 2. Scope
 
@@ -17,7 +18,7 @@
   - Versioned config comparison: before/after metrics per config change
   - Leaderboard log: submission UUID, config version, expected vs observed deltas
 - **Out of scope**: experiment tracks (backlog)
-- **Dependencies**: TASK-002 (scorer), TASK-007 (E2E pipeline)
+- **Dependencies**: TASK-W1A (corpus access), TASK-W2A (scorer/validator contract)
 
 ## 3. Implementation Plan
 
@@ -25,9 +26,9 @@
 
 ## 4. Working Notes
 
-Baseline changes only after regression run passes. Any new hypothesis must: (1) not break telemetry, (2) improve on fixed dev benchmark, (3) not hurt grounding-first profile.
+Baseline changes only after regression run passes. Any new hypothesis must: (1) not break telemetry, (2) improve on fixed dev benchmark, (3) not hurt grounding-first profile. Gold/silver assets start in this wave and expand as more pipeline stages become available.
 
 ## 5. Outcome
 
 **Result**: [Pending]  
-**Next action**: implement after TASK-007
+**Next action**: implement in Wave 2 after TASK-W1A and TASK-W2A; extend as later waves land
