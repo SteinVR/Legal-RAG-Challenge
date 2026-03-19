@@ -6,7 +6,7 @@ import os
 import re
 from collections.abc import Mapping
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import yaml
 from dotenv import dotenv_values
@@ -79,6 +79,14 @@ class DownloadSettings(BaseModel):
         return value
 
 
+class EvaluationSettings(BaseModel):
+    """Local evaluator/runtime policy toggles."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    unanswerable_retrieval_policy: Literal["allow_empty", "require_non_empty"] = "allow_empty"
+
+
 class AppConfig(BaseModel):
     """Complete configuration for the W1A foundation layer."""
 
@@ -89,6 +97,7 @@ class AppConfig(BaseModel):
     api: ApiSettings = Field(default_factory=ApiSettings)
     storage: StorageSettings = Field(default_factory=StorageSettings)
     download: DownloadSettings = Field(default_factory=DownloadSettings)
+    evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
 
     def resolve_api_key(self) -> str:
         """Return the competition API key from the configured environment variable."""
@@ -194,6 +203,7 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     timeout_override = env.get("COMPETITION_TIMEOUT_SECONDS")
     extract_override = env.get("COMPETITION_EXTRACT_DOCUMENTS")
     overwrite_override = env.get("COMPETITION_OVERWRITE_DOWNLOADS")
+    unanswerable_policy_override = env.get("COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY")
 
     if phase_override:
         config = config.model_copy(update={"phase": Phase(phase_override.strip().lower())})
@@ -223,6 +233,15 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     if overwrite_override:
         config = config.model_copy(
             update={"download": config.download.model_copy(update={"overwrite": _parse_bool(overwrite_override)})}
+        )
+
+    if unanswerable_policy_override:
+        config = config.model_copy(
+            update={
+                "evaluation": config.evaluation.model_copy(
+                    update={"unanswerable_retrieval_policy": unanswerable_policy_override.strip()}
+                )
+            }
         )
 
     return config

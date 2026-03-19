@@ -6,6 +6,7 @@
 # - COMPETITION_TIMEOUT_SECONDS
 # - COMPETITION_EXTRACT_DOCUMENTS
 # - COMPETITION_OVERWRITE_DOWNLOADS
+# - COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY
 version: v001
 phase: warmup
 
@@ -29,3 +30,6 @@ download:
   extract_documents: true
   overwrite: false
   chunk_size_bytes: 1048576
+
+evaluation:
+  unanswerable_retrieval_policy: allow_empty

@@ -37,3 +37,4 @@
 ## Notes
 - If instructions conflict, prefer the closest (most specific) AGENTS.md.
 - In `apm-start`, wait for confirmation before writing `ARCHITECTURE.md`.
+- Use the pre-built uv environment.
