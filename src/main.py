@@ -21,12 +21,9 @@ from src.evaluation.contracts import (
 )
 from src.evaluation.dev_benchmark import (
     BenchmarkMetadataRecord,
-    LegacyBenchmarkSummaryReport,
     analyze_run_consistency,
-    analyze_benchmark_consistency,
     benchmark_submission,
     build_benchmark_report,
-    compare_benchmark_runs,
     compare_benchmark_reports,
     load_benchmark_run_report,
 )
@@ -443,38 +440,23 @@ def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
 
 
 def _run_compare_benchmark_runs(args: argparse.Namespace) -> str:
-    baseline_payload = load_submission_payload(args.baseline_path)
-    candidate_payload = load_submission_payload(args.candidate_path)
-    if isinstance(baseline_payload, dict) and "run_metadata" in baseline_payload:
-        baseline = load_benchmark_run_report(args.baseline_path)
-        candidate = load_benchmark_run_report(args.candidate_path)
-        report = compare_benchmark_runs(baseline, candidate)
-    else:
-        report = compare_benchmark_reports(
-            LegacyBenchmarkSummaryReport.model_validate(baseline_payload),
-            LegacyBenchmarkSummaryReport.model_validate(candidate_payload),
-            baseline_label=args.baseline_label or "baseline",
-            candidate_label=args.candidate_label or "candidate",
-        )
+    baseline = load_benchmark_run_report(args.baseline_path)
+    candidate = load_benchmark_run_report(args.candidate_path)
+    report = compare_benchmark_reports(
+        baseline,
+        candidate,
+        baseline_label=args.baseline_label or "baseline",
+        candidate_label=args.candidate_label or "candidate",
+    )
     return _serialize_report(report, output_path=args.output_path)
 
 
 def _run_analyze_benchmark_consistency(args: argparse.Namespace) -> str:
-    first_payload = load_submission_payload(args.report_paths[0])
-    if isinstance(first_payload, dict) and "run_metadata" in first_payload:
-        reports = [load_benchmark_run_report(path) for path in args.report_paths]
-        report = analyze_run_consistency(
-            reports,
-            instability_threshold=args.instability_threshold,
-        )
-    else:
-        reports = [
-            LegacyBenchmarkSummaryReport.model_validate(load_submission_payload(path)) for path in args.report_paths
-        ]
-        report = analyze_benchmark_consistency(
-            reports,
-            instability_threshold=args.instability_threshold,
-        )
+    reports = [load_benchmark_run_report(path) for path in args.report_paths]
+    report = analyze_run_consistency(
+        reports,
+        instability_threshold=args.instability_threshold,
+    )
     return _serialize_report(report, output_path=args.output_path)
 
 

@@ -4,7 +4,7 @@
 
 **Title**: Evaluation contract & submission validation  
 **Description**: Implement local scoring and validation that mirrors challenge rules. Enables measurement before burning remote submissions.  
-**Status**: Planned
+**Status**: Completed
 **Wave**: Wave 2 -- Evaluation & Corpus Framing
 
 ## 2. Scope
@@ -30,5 +30,5 @@ Known issue: EVALUATION.md says `retrieved_chunk_pages: []` for unanswerable (gr
 
 ## 5. Outcome
 
-**Result**: [Pending]  
-**Next action**: implement in Wave 2 after TASK-W1A
+**Result**: Implemented and verified. The repo now has a local evaluator/validator contract, CLI commands for validation and scoring, and documented handling of the unanswerable-grounding ambiguity.  
+**Next action**: Use the W2A contract as the scoring/validation base for W2B regression work and later pipeline stages.

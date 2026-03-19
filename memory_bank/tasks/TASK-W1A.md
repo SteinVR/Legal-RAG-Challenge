@@ -4,7 +4,7 @@
 
 **Title**: Workspace, config & corpus access  
 **Description**: Set up runnable project skeleton: dependencies, config management, competition API client, download warm-up corpus and questions.  
-**Status**: Planned
+**Status**: Completed
 **Wave**: Wave 1 -- Foundation
 
 ## 2. Scope
@@ -31,5 +31,5 @@ Documents endpoint returns ZIP of PDFs; questions endpoint returns JSON array.
 
 ## 5. Outcome
 
-**Result**: [Pending]  
-**Next action**: implement in Wave 1 after confirmation
+**Result**: Implemented and verified. The foundation layer now includes config/env loading, competition API access, phase-local sync flows, CLI commands, and a live warmup sync with local artifacts.  
+**Next action**: Use W1A surfaces as the dependency base for Wave 2 and Wave 3 tasks.

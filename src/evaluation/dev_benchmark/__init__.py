@@ -20,7 +20,6 @@ from ..contracts import (
     UnanswerableRetrievalPolicy,
     load_assistant_score_records,
     load_question_records,
-    load_reference_records,
     load_submission_payload,
     question_types_from_questions,
 )
@@ -93,6 +92,15 @@ class BenchmarkSliceReport(BaseModel):
     @property
     def metrics(self) -> ScoreMetrics:
         return self.score.metrics
+
+    @property
+    def dimension(self) -> str:
+        return self.slice_id.split(":", maxsplit=1)[0]
+
+    @property
+    def value(self) -> str:
+        parts = self.slice_id.split(":", maxsplit=1)
+        return parts[1] if len(parts) == 2 else self.slice_id
 
 
 class BenchmarkRunReport(BaseModel):
@@ -186,9 +194,13 @@ class BenchmarkConsistencyReport(BaseModel):
     benchmark_id: str | None = None
     run_count: int
     instability_threshold: float
-    unstable_questions: list[str]
+    unstable_questions: list[BenchmarkQuestionConsistency]
     question_consistency: list[BenchmarkQuestionConsistency]
     metric_ranges: dict[str, BenchmarkMetricRange]
+
+    @property
+    def report_count(self) -> int:
+        return self.run_count
 
 
 def load_benchmark_dataset(path: str | Path) -> BenchmarkDataset:
@@ -242,6 +254,42 @@ def load_benchmark_summary_report(path: str | Path) -> BenchmarkRunReport:
     return load_benchmark_run_report(path)
 
 
+def build_benchmark_dataset_from_legacy(
+    *,
+    benchmark_name: str,
+    references: list[ReferenceAnswerRecord],
+    metadata: list[BenchmarkQuestionMetadata],
+    assistant_scores: list[AssistantScoreRecord] | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    notes: list[str] | None = None,
+) -> BenchmarkDataset:
+    """Build a structured benchmark dataset from legacy reference + metadata inputs."""
+
+    metadata_by_question = {record.question_id: record for record in metadata}
+    reference_ids = {reference.question_id for reference in references}
+    unknown_metadata_ids = sorted(set(metadata_by_question) - reference_ids)
+    if unknown_metadata_ids:
+        raise ValueError(
+            "Benchmark metadata contains unknown question_id values: "
+            + ", ".join(unknown_metadata_ids)
+        )
+
+    enriched_references = [
+        reference.model_copy(update=_reference_overlay(reference, metadata_by_question.get(reference.question_id)))
+        for reference in references
+    ]
+
+    return BenchmarkDataset(
+        benchmark_id=benchmark_name,
+        title=title or benchmark_name,
+        description=description,
+        references=enriched_references,
+        assistant_scores=assistant_scores or [],
+        notes=notes or [],
+    )
+
+
 def load_assistant_scores_or_none(path: str | Path | None) -> list[AssistantScoreRecord] | None:
     """Load assistant score rows only when a path is provided."""
 
@@ -262,38 +310,21 @@ def build_benchmark_report(
 ) -> BenchmarkRunReport:
     """Build a benchmark report by overlaying metadata onto references."""
 
-    metadata_by_question = {record.question_id: record for record in metadata}
-    reference_ids = {reference.question_id for reference in references}
-    unknown_metadata_ids = sorted(set(metadata_by_question) - reference_ids)
-    if unknown_metadata_ids:
-        raise ValueError(
-            "Benchmark metadata contains unknown question_id values: "
-            + ", ".join(unknown_metadata_ids)
-        )
-
-    enriched_references = [
-        reference.model_copy(update=_reference_overlay(reference, metadata_by_question.get(reference.question_id)))
-        for reference in references
-    ]
-
     resolved_options = options or ScoreOptions()
     if resolved_options.validation_question_types is None:
         resolved_options = ScoreOptions(
             unanswerable_retrieval_policy=resolved_options.unanswerable_retrieval_policy,
             documents_dir=resolved_options.documents_dir,
-            validation_question_types={
-                question.id: AnswerType(str(question.answer_type))
-                for question in questions
-            },
+            validation_question_types=question_types_from_questions(questions),
         )
 
     return run_benchmark(
         submission_payload,
-        dataset=BenchmarkDataset(
-            benchmark_id=benchmark_name,
-            title=benchmark_name,
-            references=enriched_references,
-            assistant_scores=assistant_scores or [],
+        dataset=build_benchmark_dataset_from_legacy(
+            benchmark_name=benchmark_name,
+            references=references,
+            metadata=metadata,
+            assistant_scores=assistant_scores,
         ),
         assistant_scores=assistant_scores,
         options=resolved_options,
@@ -318,24 +349,26 @@ def run_benchmark(
         options=resolved_options,
     )
 
-    slices = [
-        BenchmarkSliceReport(
-            slice_id=slice_id,
-            label=label,
-            question_ids=sorted({reference.question_id for reference in slice_references}),
-            question_count=len(slice_references),
-            score=score_submission(
-                submission_payload,
-                references=slice_references,
-                assistant_scores=_filter_assistant_scores(
-                    resolved_assistant_scores,
-                    question_ids={reference.question_id for reference in slice_references},
+    slices: list[BenchmarkSliceReport] = []
+    for slice_id, label, slice_references in build_default_slices(dataset.references):
+        question_ids = {reference.question_id for reference in slice_references}
+        slices.append(
+            BenchmarkSliceReport(
+                slice_id=slice_id,
+                label=label,
+                question_ids=sorted(question_ids),
+                question_count=len(slice_references),
+                score=score_submission(
+                    submission_payload,
+                    references=slice_references,
+                    assistant_scores=_filter_assistant_scores(
+                        resolved_assistant_scores,
+                        question_ids=question_ids,
+                    ),
+                    options=resolved_options,
                 ),
-                options=resolved_options,
-            ),
+            )
         )
-        for slice_id, label, slice_references in build_default_slices(dataset.references)
-    ]
 
     return BenchmarkRunReport(
         benchmark_id=dataset.benchmark_id,
@@ -475,25 +508,24 @@ def analyze_run_consistency(
             per_question_types[answer_score.question_id] = answer_score.answer_type
 
     question_consistency: list[BenchmarkQuestionConsistency] = []
-    unstable_questions: list[str] = []
+    unstable_questions: list[BenchmarkQuestionConsistency] = []
     for question_id in sorted(per_question_scores):
         values = per_question_scores[question_id]
         std_total_score = pstdev(values)
         unstable = std_total_score > instability_threshold
-        if unstable:
-            unstable_questions.append(question_id)
-        question_consistency.append(
-            BenchmarkQuestionConsistency(
-                question_id=question_id,
-                answer_type=per_question_types[question_id],
-                runs=len(values),
-                mean_total_score=mean(values),
-                std_total_score=std_total_score,
-                min_total_score=min(values),
-                max_total_score=max(values),
-                unstable=unstable,
-            )
+        record = BenchmarkQuestionConsistency(
+            question_id=question_id,
+            answer_type=per_question_types[question_id],
+            runs=len(values),
+            mean_total_score=mean(values),
+            std_total_score=std_total_score,
+            min_total_score=min(values),
+            max_total_score=max(values),
+            unstable=unstable,
         )
+        question_consistency.append(record)
+        if unstable:
+            unstable_questions.append(record)
 
     metric_ranges = {
         metric_name: BenchmarkMetricRange(
@@ -552,7 +584,8 @@ def build_default_slices(
             add(f"difficulty:{reference.difficulty.value}", f"Difficulty: {reference.difficulty.value}", reference)
 
         doc_count = len({page.doc_id for page in reference.gold_retrieval})
-        add(f"doc_count:{_doc_count_bucket(doc_count)}", f"Doc Count: {_doc_count_bucket(doc_count)}", reference)
+        add(f"doc_count:{doc_count}", f"Doc Count: {doc_count}", reference)
+        add(f"doc_count:{_doc_count_bucket(doc_count)}", f"Doc Count Bucket: {_doc_count_bucket(doc_count)}", reference)
 
         for tag in reference.tags:
             add(f"tag:{tag}", f"Tag: {tag}", reference)
