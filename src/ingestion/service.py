@@ -111,7 +111,8 @@ class CorpusParseService:
         if not pdf_paths:
             raise ValueError(f"No PDFs found for parsing in {self.paths.documents_dir}")
 
-        if not overwrite and self._artifact_set_complete(selected_doc_ids):
+        current_doc_ids = {path.stem for path in pdf_paths}
+        if not overwrite and self._artifact_set_complete(current_doc_ids):
             result.skipped_paths.extend(self._artifact_paths())
             return result
 
@@ -169,7 +170,7 @@ class CorpusParseService:
             self.paths.debug_dir,
         ]
 
-    def _artifact_set_complete(self, selected_doc_ids: set[str]) -> bool:
+    def _artifact_set_complete(self, current_doc_ids: set[str]) -> bool:
         if any(not path.exists() for path in self._artifact_paths()):
             return False
 
@@ -181,17 +182,15 @@ class CorpusParseService:
             return False
 
         manifest_doc_ids = {record.doc_id for record in manifest.records}
-        if selected_doc_ids and manifest_doc_ids != selected_doc_ids:
+        if manifest_doc_ids != current_doc_ids:
             return False
 
         required_doc_ids = {
             record.doc_id
             for record in manifest.records
             if record.parse_status is not ParseStatus.FAILED
-            and (not selected_doc_ids or record.doc_id in selected_doc_ids)
+            and record.doc_id in current_doc_ids
         }
-        if selected_doc_ids and required_doc_ids != selected_doc_ids:
-            return False
         return all((self.paths.debug_dir / f"{doc_id}.md").exists() for doc_id in required_doc_ids)
 
     def _write_jsonl(self, path: Path, records: Iterable[CanonicalPageRecord]) -> None:

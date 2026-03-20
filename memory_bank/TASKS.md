@@ -14,8 +14,6 @@
 - [X] [TASK-W2B](tasks/TASK-W2B.md) Dev benchmark, gold set & regression control
 - [ ] [TASK-W2C](tasks/TASK-W2C.md) Corpus parsing & canonicalization
 
-> Current note: `TASK-W2B` is only partially implemented. The benchmark/reporting contract is repaired and quality-gated in the local working tree, but benchmark assets and regression-control deliverables are still pending.
-
 ### Wave 3 -- Parallel Baseline Build
 
 - [ ] [TASK-W3A](tasks/TASK-W3A.md) Chunking & hybrid indexing

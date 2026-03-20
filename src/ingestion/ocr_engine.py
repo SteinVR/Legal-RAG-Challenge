@@ -36,6 +36,7 @@ class OcrTableExtraction:
     raw_markdown: str
     raw_html: str
     header_signature: list[str]
+    has_header: bool = False
     caption: str | None = None
     context_before: list[str] = field(default_factory=list)
     context_after: list[str] = field(default_factory=list)
@@ -174,6 +175,7 @@ def _extract_tables_from_lines(lines: list[OcrTextLine], page_number: int) -> li
             raw_markdown=_rows_to_markdown(rows),
             raw_html=_rows_to_html(rows),
             header_signature=list(rows[0]),
+            has_header=_should_treat_first_row_as_header(rows),
             caption=caption,
             context_before=context_before,
             context_after=context_after,
@@ -210,6 +212,33 @@ def _normalize_ocr_row(row: list[OcrTextLine], width: int) -> list[str]:
         return cells
     overflow = " ".join(cells[width - 1 :]).strip()
     return [*cells[: width - 1], overflow]
+
+
+def _should_treat_first_row_as_header(rows: list[list[str]]) -> bool:
+    if len(rows) < 2:
+        return False
+
+    width = max(len(row) for row in rows)
+    first = rows[0] + [""] * max(width - len(rows[0]), 0)
+    second = rows[1] + [""] * max(width - len(rows[1]), 0)
+    if not any(cell.strip() for cell in first):
+        return False
+
+    first_value_like = sum(1 for cell in first if _looks_value_like(cell))
+    second_value_like = sum(1 for cell in second if _looks_value_like(cell))
+    if first_value_like >= second_value_like:
+        return False
+
+    return any(first_cell.strip() != second_cell.strip() for first_cell, second_cell in zip(first, second))
+
+
+def _looks_value_like(cell: str) -> bool:
+    normalized = cell.strip().replace(",", "").replace("%", "").replace("$", "").replace("€", "")
+    if not normalized:
+        return False
+    if normalized.replace(".", "", 1).isdigit():
+        return True
+    return any(char.isdigit() for char in normalized) and any(separator in normalized for separator in ("/", "-", "."))
 
 
 def _table_context_from_lines(lines: list[OcrTextLine], table_bbox: BBox) -> tuple[str | None, list[str], list[str]]:

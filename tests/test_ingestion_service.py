@@ -190,3 +190,93 @@ def test_corpus_parse_service_rebuilds_selected_subset_when_subset_debug_artifac
     assert rebuilt.written_paths
     assert not rebuilt.skipped_paths
     assert debug_path.exists()
+
+
+def test_corpus_parse_service_skips_selected_subset_when_failed_docs_are_already_recorded(tmp_path: Path) -> None:
+    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+    broken_pdf = documents_dir / "broken.pdf"
+    broken_pdf.write_bytes(b"%PDF-1.4 broken content")
+
+    service = CorpusParseService(config)
+    first_result = service.parse_corpus(overwrite=True, doc_ids=["alpha", "broken"])
+    second_result = service.parse_corpus(overwrite=False, doc_ids=["alpha", "broken"])
+
+    assert first_result.parsed_document_count == 1
+    assert first_result.failed_document_count == 1
+    assert not second_result.written_paths
+    assert second_result.skipped_paths
+
+
+def test_corpus_parse_service_skips_full_run_when_failed_docs_are_already_recorded(tmp_path: Path) -> None:
+    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+    (documents_dir / "broken.pdf").write_bytes(b"%PDF-1.4 broken content")
+
+    service = CorpusParseService(config)
+    first_result = service.parse_corpus(overwrite=True)
+    second_result = service.parse_corpus(overwrite=False)
+
+    assert first_result.parsed_document_count == 1
+    assert first_result.failed_document_count == 1
+    assert not second_result.written_paths
+    assert second_result.skipped_paths
+
+
+def test_corpus_parse_service_rebuilds_full_run_when_pdf_set_changes(tmp_path: Path) -> None:
+    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+
+    service = CorpusParseService(config)
+    first_result = service.parse_corpus(overwrite=True)
+    _write_pdf(documents_dir / "beta.pdf", pages=["DIFC LAW NO. 2\nArticle 2"])
+
+    second_result = service.parse_corpus(overwrite=False)
+
+    assert first_result.parsed_document_count == 1
+    assert second_result.written_paths
+    assert not second_result.skipped_paths
+
+
+def test_corpus_parse_service_skips_failed_only_subset_without_debug_artifacts(tmp_path: Path) -> None:
+    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    broken_pdf = documents_dir / "broken.pdf"
+    broken_pdf.write_bytes(b"%PDF-1.4 broken content")
+
+    service = CorpusParseService(config)
+    first_result = service.parse_corpus(overwrite=True, doc_ids=["broken"])
+    second_result = service.parse_corpus(overwrite=False, doc_ids=["broken"])
+
+    assert first_result.parsed_document_count == 0
+    assert first_result.failed_document_count == 1
+    assert not second_result.written_paths
+    assert second_result.skipped_paths
+
+
+def test_corpus_parse_service_rebuilds_full_run_when_non_failed_debug_is_missing_but_failures_exist(
+    tmp_path: Path,
+) -> None:
+    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+    (documents_dir / "broken.pdf").write_bytes(b"%PDF-1.4 broken content")
+
+    service = CorpusParseService(config)
+    service.parse_corpus(overwrite=True)
+    debug_path = tmp_path / "data" / "warmup" / "corpus" / "debug" / "alpha.md"
+    debug_path.unlink()
+
+    rebuilt = service.parse_corpus(overwrite=False)
+
+    assert rebuilt.written_paths
+    assert not rebuilt.skipped_paths
+    assert debug_path.exists()

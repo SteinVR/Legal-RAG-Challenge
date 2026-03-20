@@ -7,7 +7,7 @@ import pytest
 
 from src.common.config import AppConfig
 from src.common.schemas import ParseStatus, SourceMode, TriageLabel
-from src.ingestion.ocr_engine import OcrPageResult, OcrTableExtraction
+from src.ingestion.ocr_engine import OcrPageResult, OcrTableExtraction, _should_treat_first_row_as_header
 from src.ingestion.pdf_parser import parse_pdf_document
 
 
@@ -240,6 +240,7 @@ def test_parse_pdf_document_uses_ocr_tables_and_recomputes_first_page_metadata(t
                         raw_markdown="| Type | Amount |\n| --- | --- |\n| Fee | 10 |",
                         raw_html="<table></table>",
                         header_signature=["Type", "Amount"],
+                        has_header=True,
                         caption="Schedule of fees",
                         context_before=["Schedule of fees"],
                         context_after=["Footnote"],
@@ -260,6 +261,51 @@ def test_parse_pdf_document_uses_ocr_tables_and_recomputes_first_page_metadata(t
     assert parsed.pages[0].document_family == "law_or_regulation"
     assert parsed.pages[0].tables[0].rows == [["Type", "Amount"], ["Fee", "10"]]
     assert parsed.pages[0].tables[0].row_page_numbers == [1, 1]
+    assert parsed.pages[0].tables[0].has_header is True
+
+
+def test_parse_pdf_document_preserves_ocr_header_semantics_for_blank_leading_header(tmp_path: Path) -> None:
+    pdf_path = tmp_path / "ocr_header_preserved.pdf"
+    _write_pdf(pdf_path, pages=[""])
+    config = AppConfig()
+    ocr_engine = StubOcrEngine(
+        [
+            OcrPageResult(
+                text="Schedule of fees\nFee 10",
+                text_blocks=["Schedule of fees", "Fee 10"],
+                table_candidates=[
+                    OcrTableExtraction(
+                        cells=[["", "Amount"], ["Fee", "10"]],
+                        raw_markdown="|  | Amount |\n| --- | --- |\n| Fee | 10 |",
+                        raw_html="<table></table>",
+                        header_signature=["", "Amount"],
+                        has_header=True,
+                        caption="Schedule of fees",
+                        context_before=["Schedule of fees"],
+                        context_after=["Footnote"],
+                        row_page_numbers=[1, 1],
+                    )
+                ],
+            )
+        ]
+    )
+
+    parsed = parse_pdf_document(pdf_path, config, ocr_engine=ocr_engine)
+
+    assert parsed.pages[0].source_mode is SourceMode.OCR
+    assert parsed.pages[0].tables[0].has_header is True
+    assert parsed.pages[0].tables[0].header_signature == ["", "Amount"]
+
+
+def test_ocr_header_inference_keeps_headerless_rows_as_data() -> None:
+    assert _should_treat_first_row_as_header([["Fee", "10"], ["Tax", "5"]]) is False
+    assert _should_treat_first_row_as_header([["", "Amount"], ["Fee", "10"]]) is True
+
+
+def test_ocr_header_inference_is_conservative_for_value_like_first_rows() -> None:
+    assert _should_treat_first_row_as_header([["Year", "2024"], ["Fee", "10"]]) is False
+    assert _should_treat_first_row_as_header([["2024", "10"], ["Fee", "Tax"]]) is False
+    assert _should_treat_first_row_as_header([["Type", "Amount"], ["Fee", "10"]]) is True
 
 
 def test_parse_pdf_document_marks_suspicious_ocr_replacement_as_ocr(tmp_path: Path) -> None:

@@ -250,6 +250,95 @@ def test_serialize_document_tables_preserves_blank_header_positions() -> None:
     assert "column_1: Fee; Amount: 10" in table_block.serialized_blocks[0].text
 
 
+def test_serialize_document_tables_respects_explicit_header_with_mixed_numeric_text_cells() -> None:
+    document = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        pages=[
+            _page(
+                1,
+                tables=[
+                    RawTableRecord(
+                        table_id="alpha-p1-t1",
+                        page_number=1,
+                        rows=[["Year", "2024"], ["Fee", "10"]],
+                        row_page_numbers=[1, 1],
+                        has_header=True,
+                        raw_markdown="| Year | 2024 |\n| --- | --- |\n| Fee | 10 |",
+                        raw_html="<table></table>",
+                        header_signature=["Year", "2024"],
+                        caption="Schedule of fees",
+                    )
+                ],
+            )
+        ],
+    )
+
+    serialized = serialize_document_tables(document)[1][0].serialized_blocks
+
+    assert [block.block_id for block in serialized] == ["alpha-p1-t1-row-1"]
+    assert "Year: Fee; 2024: 10" in serialized[0].text
+
+
+def test_serialize_document_tables_merges_explicit_blank_header_continuations() -> None:
+    document = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=2,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        pages=[
+            _page(
+                1,
+                tables=[
+                    RawTableRecord(
+                        table_id="alpha-p1-t1",
+                        page_number=1,
+                        rows=[["", "Amount"], ["Fee", "10"]],
+                        row_page_numbers=[1, 1],
+                        has_header=True,
+                        raw_markdown="|  | Amount |\n| --- | --- |\n| Fee | 10 |",
+                        raw_html="<table></table>",
+                        header_signature=["", "Amount"],
+                        caption="Schedule of fees",
+                        following_context=["continued"],
+                    )
+                ],
+            ),
+            _page(
+                2,
+                tables=[
+                    RawTableRecord(
+                        table_id="alpha-p2-t1",
+                        page_number=2,
+                        rows=[["", "Amount"], ["Tax", "5"]],
+                        row_page_numbers=[2, 2],
+                        has_header=True,
+                        raw_markdown="|  | Amount |\n| --- | --- |\n| Tax | 5 |",
+                        raw_html="<table></table>",
+                        header_signature=["", "Amount"],
+                        caption="Schedule of fees",
+                        preceding_context=["continued"],
+                    )
+                ],
+            ),
+        ],
+    )
+
+    merged = serialize_document_tables(document)[1][0]
+
+    assert merged.page_span == [1, 2]
+    assert merged.header_signature == ["", "Amount"]
+    assert [block.source_page_number for block in merged.serialized_blocks] == [1, 2]
+
+
 def test_serialize_document_tables_does_not_merge_headerless_tables_without_continuation_cue() -> None:
     document = ParsedDocument(
         doc_id="alpha",

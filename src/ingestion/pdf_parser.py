@@ -323,7 +323,7 @@ def _ocr_tables_to_records(doc_id: str, page_number: int, ocr_result: OcrPageRes
                 page_number=page_number,
                 rows=rows,
                 row_page_numbers=list(table.row_page_numbers or [page_number] * len(rows)),
-                has_header=False,
+                has_header=table.has_header,
                 raw_markdown=table.raw_markdown,
                 raw_html=table.raw_html,
                 header_signature=list(table.header_signature or (rows[0] if rows else [])),
