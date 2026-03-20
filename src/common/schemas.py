@@ -6,7 +6,20 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+
+def _empty_page_signal() -> "PageSignal":
+    return PageSignal(
+        text_char_count=0,
+        word_count=0,
+        image_block_count=0,
+        max_image_area_ratio=0.0,
+        drawing_count=0,
+        table_count=0,
+        legal_marker_count=0,
+        bad_char_ratio=0.0,
+    )
 
 
 class Phase(StrEnum):
@@ -94,6 +107,7 @@ class SerializedTableBlock(BaseModel):
 
     block_id: str
     text: str
+    source_page_number: int = Field(ge=1)
     row_anchor: str | None = None
     column_context: list[str] = Field(default_factory=list)
     table_caption: str | None = None
@@ -121,6 +135,9 @@ class RawTableRecord(BaseModel):
 
     table_id: str
     page_number: int = Field(ge=1)
+    rows: list[list[str]] = Field(default_factory=list)
+    row_page_numbers: list[int] = Field(default_factory=list)
+    has_header: bool = False
     raw_markdown: str | None = None
     raw_html: str | None = None
     header_signature: list[str] = Field(default_factory=list)
@@ -128,6 +145,33 @@ class RawTableRecord(BaseModel):
     footnotes: list[str] = Field(default_factory=list)
     preceding_context: list[str] = Field(default_factory=list)
     following_context: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="before")
+    @classmethod
+    def _compat_aliases(cls, value: Any) -> Any:
+        if not isinstance(value, dict):
+            return value
+
+        payload = dict(value)
+        if "rows" not in payload and "cells" in payload:
+            payload["rows"] = payload.pop("cells")
+        if "preceding_context" not in payload and "context_before" in payload:
+            payload["preceding_context"] = payload.pop("context_before")
+        if "following_context" not in payload and "context_after" in payload:
+            payload["following_context"] = payload.pop("context_after")
+        return payload
+
+    @property
+    def cells(self) -> list[list[str]]:
+        return self.rows
+
+    @property
+    def context_before(self) -> list[str]:
+        return self.preceding_context
+
+    @property
+    def context_after(self) -> list[str]:
+        return self.following_context
 
 
 class PageSignal(BaseModel):
@@ -160,10 +204,27 @@ class ParsedPage(BaseModel):
     text: str
     native_text: str | None = None
     ocr_text: str | None = None
+    text_blocks: list[str] = Field(default_factory=list)
     quality_score: float = Field(ge=0.0, le=1.0)
     quality_flags: list[str] = Field(default_factory=list)
-    signals: PageSignal
+    signals: PageSignal = Field(default_factory=_empty_page_signal)
+    resolution_notes: list[str] = Field(default_factory=list)
     tables: list[RawTableRecord] = Field(default_factory=list)
+
+    @model_validator(mode="before")
+    @classmethod
+    def _compat_aliases(cls, value: Any) -> Any:
+        if not isinstance(value, dict):
+            return value
+
+        payload = dict(value)
+        if "tables" not in payload and "table_candidates" in payload:
+            payload["tables"] = payload.pop("table_candidates")
+        return payload
+
+    @property
+    def table_candidates(self) -> list[RawTableRecord]:
+        return self.tables
 
 
 class ParsedDocument(BaseModel):

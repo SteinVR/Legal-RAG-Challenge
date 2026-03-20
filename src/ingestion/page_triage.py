@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from src.common.config import IngestionSettings
-from src.common.schemas import SourceMode, TriageLabel
+from src.common.schemas import PageSignal, TriageLabel
 
 LEGAL_MARKERS = (
     "article",
@@ -18,21 +18,6 @@ LEGAL_MARKERS = (
     "decision",
     "regulation",
 )
-
-
-@dataclass(slots=True)
-class PageSignals:
-    """Signals collected from one PDF page before OCR routing."""
-
-    page_number: int
-    text_char_count: int
-    word_count: int
-    image_block_count: int
-    max_image_area_ratio: float
-    drawing_count: int
-    table_count: int
-    bad_char_ratio: float
-    legal_marker_hits: list[str] = field(default_factory=list)
 
 
 @dataclass(slots=True)
@@ -61,7 +46,7 @@ def count_legal_markers(text: str) -> int:
     return len(_legal_marker_hits(text))
 
 
-def triage_page(signals: PageSignals, settings: IngestionSettings) -> TriageLabel:
+def triage_page(signals: PageSignal, settings: IngestionSettings) -> TriageLabel:
     """Choose the page routing label using deterministic thresholds."""
 
     if signals.text_char_count < settings.extractable_text_min_chars:
@@ -86,30 +71,13 @@ def triage_page(signals: PageSignals, settings: IngestionSettings) -> TriageLabe
     return TriageLabel.NATIVE_CLEAN
 
 
-def classify_page(signals: PageSignals, settings: IngestionSettings) -> tuple[TriageLabel, list[str]]:
+def classify_page(signals: PageSignal, settings: IngestionSettings) -> tuple[TriageLabel, list[str]]:
     """Compatibility wrapper returning triage label plus flags."""
 
     breakdown = score_page_quality(signals, settings)
     return triage_page(signals, settings), breakdown.flags
 
-
-def choose_source_mode(
-    triage_label: TriageLabel,
-    *,
-    used_ocr: bool,
-    used_native_text: bool,
-) -> SourceMode:
-    """Map the actual text sources used to a canonical source mode."""
-
-    del triage_label
-    if used_ocr and used_native_text:
-        return SourceMode.HYBRID
-    if used_ocr:
-        return SourceMode.OCR
-    return SourceMode.NATIVE
-
-
-def score_page_quality(signals: PageSignals, settings: IngestionSettings) -> QualityBreakdown:
+def score_page_quality(signals: PageSignal, settings: IngestionSettings) -> QualityBreakdown:
     """Score text quality using the W2C heuristic weighting."""
 
     text_completeness = min(signals.text_char_count / settings.text_completeness_target_chars, 1.0)
@@ -117,7 +85,7 @@ def score_page_quality(signals: PageSignals, settings: IngestionSettings) -> Qua
         signals.bad_char_ratio / max(settings.encoding_bad_char_threshold, 1e-6),
         1.0,
     )
-    legal_marker_score = min(len(signals.legal_marker_hits) / 3.0, 1.0)
+    legal_marker_score = min(signals.legal_marker_count / 3.0, 1.0)
 
     score = round(
         (0.5 * text_completeness) + (0.3 * encoding_cleanliness) + (0.2 * legal_marker_score),
@@ -133,7 +101,7 @@ def score_page_quality(signals: PageSignals, settings: IngestionSettings) -> Qua
         flags.append("large_image")
     if signals.table_count > 0:
         flags.append("has_tables")
-    if not signals.legal_marker_hits:
+    if signals.legal_marker_count == 0:
         flags.append("missing_legal_markers")
 
     return QualityBreakdown(
@@ -145,13 +113,13 @@ def score_page_quality(signals: PageSignals, settings: IngestionSettings) -> Qua
     )
 
 
-def compute_quality_score(signals: PageSignals, settings: IngestionSettings) -> float:
+def compute_quality_score(signals: PageSignal, settings: IngestionSettings) -> float:
     """Compatibility wrapper returning only the score."""
 
     return score_page_quality(signals, settings).score
 
 
-def quality_score_and_flags(signals: PageSignals, settings: IngestionSettings) -> tuple[float, list[str]]:
+def quality_score_and_flags(signals: PageSignal, settings: IngestionSettings) -> tuple[float, list[str]]:
     """Compatibility wrapper returning only score and flags."""
 
     breakdown = score_page_quality(signals, settings)
@@ -161,3 +129,6 @@ def quality_score_and_flags(signals: PageSignals, settings: IngestionSettings) -
 def _legal_marker_hits(text: str) -> list[str]:
     lowered = text.lower()
     return [marker for marker in LEGAL_MARKERS if marker in lowered]
+
+
+PageSignals = PageSignal

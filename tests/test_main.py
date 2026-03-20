@@ -214,7 +214,7 @@ def test_parse_corpus_writes_canonical_artifacts(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
+    monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
     config_path, env_path = _write_config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
@@ -250,6 +250,130 @@ def test_parse_corpus_writes_canonical_artifacts(
     corpus_rows = [json.loads(line) for line in corpus_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     assert corpus_rows[0]["doc_id"] == "alpha"
     assert corpus_rows[0]["page_number"] == 1
+
+
+def test_parse_corpus_doc_id_subset_rebuilds_against_existing_full_artifacts(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    config_path, env_path = _write_config(tmp_path)
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", page_count=1, page_texts=["DIFC LAW NO. 1\nArticle 1"])
+    _write_pdf(documents_dir / "beta.pdf", page_count=1, page_texts=["DIFC LAW NO. 2\nArticle 2"])
+
+    first_exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--force",
+        ]
+    )
+    second_exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--doc-id",
+            "beta",
+        ]
+    )
+
+    corpus_path = tmp_path / "data" / "warmup" / "corpus" / "corpus.jsonl"
+    corpus_rows = [json.loads(line) for line in corpus_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+    assert first_exit_code == 0
+    assert second_exit_code == 0
+    assert [row["doc_id"] for row in corpus_rows] == ["beta"]
+
+
+def test_parse_corpus_doc_id_subset_skips_when_subset_artifacts_are_complete(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    config_path, env_path = _write_config(tmp_path)
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", page_count=1, page_texts=["DIFC LAW NO. 1\nArticle 1"])
+    _write_pdf(documents_dir / "beta.pdf", page_count=1, page_texts=["DIFC LAW NO. 2\nArticle 2"])
+
+    first_exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--doc-id",
+            "beta",
+            "--force",
+        ]
+    )
+    second_exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--doc-id",
+            "beta",
+        ]
+    )
+    output = capsys.readouterr().out
+
+    assert first_exit_code == 0
+    assert second_exit_code == 0
+    assert "skipped_paths:" in output
+
+
+def test_parse_corpus_rebuilds_when_debug_artifact_is_missing_without_force(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    config_path, env_path = _write_config(tmp_path)
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", page_count=1, page_texts=["DIFC LAW NO. 1\nArticle 1"])
+
+    first_exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--force",
+        ]
+    )
+    debug_path = tmp_path / "data" / "warmup" / "corpus" / "debug" / "alpha.md"
+    debug_path.unlink()
+
+    second_exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+        ]
+    )
+    output = capsys.readouterr().out
+
+    assert first_exit_code == 0
+    assert second_exit_code == 0
+    assert debug_path.exists()
+    assert "written_paths:" in output
 
 
 def test_validate_and_score_commands_use_phase_defaults(tmp_path: Path, capsys) -> None:

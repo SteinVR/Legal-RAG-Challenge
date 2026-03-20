@@ -14,9 +14,11 @@ from src.common.schemas import (
     CorpusParseManifest,
     CorpusParseManifestRecord,
     PageMapRecord,
+    ParseStatus,
     TableBlock,
 )
 from src.ingestion.corpus_builder import CorpusBuilder, build_failed_manifest_record
+from src.ingestion.ocr_engine import build_ocr_engine
 from src.ingestion.pdf_parser import DocumentParser
 from src.ingestion.table_serializer import serialize_document_tables
 from src.submission.sync import PhasePaths
@@ -73,7 +75,8 @@ class CorpusParseService:
     def __init__(self, config: AppConfig) -> None:
         self.config = config
         self.paths = CorpusPaths.from_config(config)
-        self.parser = DocumentParser(config)
+        self.ocr_engine = build_ocr_engine(config.ingestion)
+        self.parser = DocumentParser(config, ocr_engine=self.ocr_engine)
         self.builder = CorpusBuilder(config)
 
     def parse_corpus(
@@ -84,12 +87,7 @@ class CorpusParseService:
         doc_ids: Sequence[str] | None = None,
     ) -> ParseCorpusResult:
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
-        planned_paths = [
-            self.paths.corpus_path,
-            self.paths.page_map_path,
-            self.paths.corpus_manifest_path,
-            self.paths.debug_dir,
-        ]
+        planned_paths = self._artifact_paths()
         result = ParseCorpusResult(
             command="parse-corpus",
             phase=self.config.phase.value,
@@ -106,25 +104,18 @@ class CorpusParseService:
                 "Run sync-phase first or pass a config with extracted PDFs."
             )
 
-        if (
-            self.paths.corpus_path.exists()
-            and self.paths.page_map_path.exists()
-            and self.paths.corpus_manifest_path.exists()
-            and not overwrite
-        ):
-            result.skipped_paths.extend(
-                [self.paths.corpus_path, self.paths.page_map_path, self.paths.corpus_manifest_path]
-            )
-            return result
-
-        self.paths.ensure_directories()
-
         selected_doc_ids = {doc_id for doc_id in (doc_ids or []) if doc_id}
         pdf_paths = sorted(self.paths.documents_dir.rglob("*.pdf"))
         if selected_doc_ids:
             pdf_paths = [path for path in pdf_paths if path.stem in selected_doc_ids]
         if not pdf_paths:
             raise ValueError(f"No PDFs found for parsing in {self.paths.documents_dir}")
+
+        if not overwrite and self._artifact_set_complete(selected_doc_ids):
+            result.skipped_paths.extend(self._artifact_paths())
+            return result
+
+        self.paths.ensure_directories()
 
         successful_documents = []
         serialized_tables_by_doc: dict[str, dict[int, list[TableBlock]]] = {}
@@ -164,13 +155,44 @@ class CorpusParseService:
         self._write_json(self.paths.corpus_manifest_path, manifest)
         self._write_debug_files(debug_markdown)
 
-        result.written_paths.extend(
-            [self.paths.corpus_path, self.paths.page_map_path, self.paths.corpus_manifest_path, self.paths.debug_dir]
-        )
+        result.written_paths.extend(self._artifact_paths())
         result.parsed_document_count = len(success_manifest_records)
         result.parsed_page_count = len(page_records)
         result.failed_document_count = failed_document_count
         return result
+
+    def _artifact_paths(self) -> list[Path]:
+        return [
+            self.paths.corpus_path,
+            self.paths.page_map_path,
+            self.paths.corpus_manifest_path,
+            self.paths.debug_dir,
+        ]
+
+    def _artifact_set_complete(self, selected_doc_ids: set[str]) -> bool:
+        if any(not path.exists() for path in self._artifact_paths()):
+            return False
+
+        try:
+            manifest = CorpusParseManifest.model_validate_json(
+                self.paths.corpus_manifest_path.read_text(encoding="utf-8")
+            )
+        except Exception:
+            return False
+
+        manifest_doc_ids = {record.doc_id for record in manifest.records}
+        if selected_doc_ids and manifest_doc_ids != selected_doc_ids:
+            return False
+
+        required_doc_ids = {
+            record.doc_id
+            for record in manifest.records
+            if record.parse_status is not ParseStatus.FAILED
+            and (not selected_doc_ids or record.doc_id in selected_doc_ids)
+        }
+        if selected_doc_ids and required_doc_ids != selected_doc_ids:
+            return False
+        return all((self.paths.debug_dir / f"{doc_id}.md").exists() for doc_id in required_doc_ids)
 
     def _write_jsonl(self, path: Path, records: Iterable[CanonicalPageRecord]) -> None:
         with path.open("w", encoding="utf-8") as handle:
@@ -188,6 +210,8 @@ class CorpusParseService:
             handle.write("\n")
 
     def _write_debug_files(self, debug_markdown: dict[str, str]) -> None:
+        for existing_file in self.paths.debug_dir.glob("*.md"):
+            existing_file.unlink()
         for doc_id, markdown in debug_markdown.items():
             target = self.paths.debug_dir / f"{doc_id}.md"
             with target.open("w", encoding="utf-8") as handle:

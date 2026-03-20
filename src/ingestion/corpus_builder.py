@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
@@ -16,50 +16,30 @@ from src.common.schemas import (
     CorpusParseManifestRecord,
     PageMapRecord,
     ParseStatus,
-    SourceMode,
     TableBlock,
-    TriageLabel,
 )
 
 from .pdf_parser import ParsedDocument
 
 
-@dataclass(slots=True)
-class FinalPageParse:
-    """Post-triage page result ready for corpus assembly."""
-
-    page_number: int
-    text: str
-    triage_label: TriageLabel
-    source_mode: SourceMode
-    parse_status: ParseStatus
-    quality_score: float
-    quality_flags: list[str] = field(default_factory=list)
-
-
 def build_canonical_page_records(
     document: ParsedDocument,
-    final_pages: list[FinalPageParse],
-    table_blocks: list[TableBlock],
+    table_blocks_by_page: dict[int, list[TableBlock]],
 ) -> list[CanonicalPageRecord]:
-    """Build canonical page-level records from page parse results."""
-
-    table_blocks_by_page: dict[int, list[TableBlock]] = {}
-    for table_block in table_blocks:
-        for page_number in table_block.page_span:
-            table_blocks_by_page.setdefault(page_number, []).append(table_block)
+    """Build canonical page-level records from parsed-page results."""
 
     records: list[CanonicalPageRecord] = []
-    for page in final_pages:
+    for page in document.pages:
         text_blocks = _text_blocks_for_page(document.doc_id, page.page_number, page.text)
         page_tables = table_blocks_by_page.get(page.page_number, [])
         table_content_blocks = _table_content_blocks_for_page(page.page_number, page_tables)
+        table_ids = list(dict.fromkeys(block.table_id for block in table_content_blocks if block.table_id))
         records.append(
             CanonicalPageRecord(
                 doc_id=document.doc_id,
                 page_number=page.page_number,
-                document_title=document.document_title,
-                document_family=document.document_family,
+                document_title=page.document_title,
+                document_family=page.document_family,
                 triage_label=page.triage_label,
                 source_mode=page.source_mode,
                 parse_status=page.parse_status,
@@ -67,7 +47,7 @@ def build_canonical_page_records(
                 quality_flags=page.quality_flags,
                 text=page.text,
                 blocks=[*text_blocks, *table_content_blocks],
-                table_ids=[table.table_id for table in page_tables],
+                table_ids=table_ids,
             )
         )
     return records
@@ -142,30 +122,9 @@ def build_corpus_artifacts(
     debug_markdown: dict[str, str] = {}
 
     for document in documents:
-        table_blocks = []
-        if serialized_tables_by_doc:
-            page_map = serialized_tables_by_doc.get(document.doc_id, {})
-            seen: set[str] = set()
-            for page_tables in page_map.values():
-                for table_block in page_tables:
-                    if table_block.table_id in seen:
-                        continue
-                    seen.add(table_block.table_id)
-                    table_blocks.append(table_block)
-
-        final_pages = [
-            FinalPageParse(
-                page_number=page.page_number,
-                text=page.text,
-                triage_label=page.triage_label,
-                source_mode=page.source_mode,
-                parse_status=page.parse_status,
-                quality_score=page.quality_score,
-                quality_flags=page.quality_flags,
-            )
-            for page in document.pages
-        ]
-        page_records = build_canonical_page_records(document, final_pages, table_blocks)
+        page_table_map = serialized_tables_by_doc.get(document.doc_id, {}) if serialized_tables_by_doc else {}
+        page_records = build_canonical_page_records(document, page_table_map)
+        table_blocks = _unique_table_blocks(page_table_map)
         corpus_records.extend(page_records)
         page_map_records.append(build_page_map_record(document))
         manifest_records.append(
@@ -245,7 +204,7 @@ def render_debug_markdown(
                 ]
             )
             for serialized_block in table_block.serialized_blocks:
-                lines.append(f"- {serialized_block.text}")
+                lines.append(f"- p{serialized_block.source_page_number}: {serialized_block.text}")
             lines.append("")
 
     return "\n".join(lines).strip() + "\n"
@@ -260,6 +219,18 @@ def sha256_for_file(path: str | Path) -> str:
         for chunk in iter(lambda: handle.read(1_048_576), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _unique_table_blocks(page_table_map: dict[int, list[TableBlock]]) -> list[TableBlock]:
+    seen: set[str] = set()
+    table_blocks: list[TableBlock] = []
+    for page_number in sorted(page_table_map):
+        for table_block in page_table_map[page_number]:
+            if table_block.table_id in seen:
+                continue
+            seen.add(table_block.table_id)
+            table_blocks.append(table_block)
+    return table_blocks
 
 
 def _text_blocks_for_page(doc_id: str, page_number: int, text: str) -> list[ContentBlock]:
@@ -284,17 +255,20 @@ def _table_content_blocks_for_page(page_number: int, table_blocks: list[TableBlo
     blocks: list[ContentBlock] = []
     for table_block in table_blocks:
         for serialized_block in table_block.serialized_blocks:
+            if serialized_block.source_page_number != page_number:
+                continue
             blocks.append(
                 ContentBlock(
                     block_id=serialized_block.block_id,
                     type=ContentBlockType.TABLE,
                     text=serialized_block.text,
-                    page_number=page_number,
+                    page_number=serialized_block.source_page_number,
                     table_id=table_block.table_id,
                     metadata={
                         "row_anchor": serialized_block.row_anchor,
                         "column_context": serialized_block.column_context,
                         "table_caption": serialized_block.table_caption,
+                        "source_page_number": serialized_block.source_page_number,
                     },
                 )
             )

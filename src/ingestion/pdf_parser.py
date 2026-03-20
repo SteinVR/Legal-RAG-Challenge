@@ -1,4 +1,4 @@
-"""Native PDF parsing with optional OCR fallback and table candidate extraction."""
+"""Native PDF parsing with OCR fallback and table candidate extraction."""
 
 from __future__ import annotations
 
@@ -11,10 +11,18 @@ from pathlib import Path
 import fitz
 
 from src.common.config import AppConfig
-from src.common.schemas import ParseStatus, SourceMode, TriageLabel
+from src.common.schemas import (
+    PageSignal,
+    ParsedDocument,
+    ParsedPage,
+    ParseStatus,
+    RawTableRecord,
+    SourceMode,
+    TriageLabel,
+)
 
-from .ocr_engine import OcrEngine, OcrUnavailableError, build_ocr_engine
-from .page_triage import PageSignals, choose_source_mode, score_page_quality, triage_page
+from .ocr_engine import OcrEngine, OcrPageResult, OcrUnavailableError, build_ocr_engine
+from .page_triage import score_page_quality, triage_page
 
 COURT_MARKERS = (
     "COURT OF",
@@ -42,53 +50,16 @@ LEGAL_MARKERS = (
 
 
 @dataclass(slots=True)
-class TableCandidate:
-    """Raw table extracted from one PDF page."""
+class _ResolvedPageState:
+    """Final parser-owned page state before schema serialization."""
 
-    table_id: str
-    page_number: int
-    raw_markdown: str | None
-    raw_html: str | None
-    cells: list[list[str]] = field(default_factory=list)
-    header_signature: list[str] = field(default_factory=list)
-    context_before: list[str] = field(default_factory=list)
-    context_after: list[str] = field(default_factory=list)
-    caption: str | None = None
-    footnotes: list[str] = field(default_factory=list)
-
-
-@dataclass(slots=True)
-class PageParseResult:
-    """Parsed page result consumed by corpus assembly."""
-
-    doc_id: str
-    page_number: int
     text: str
-    native_text: str
-    document_title: str | None
-    document_family: str
-    triage_label: TriageLabel
+    ocr_text: str | None
+    text_blocks: list[str]
+    tables: list[RawTableRecord]
     source_mode: SourceMode
     parse_status: ParseStatus
-    quality_score: float
-    quality_flags: list[str] = field(default_factory=list)
-    text_blocks: list[str] = field(default_factory=list)
-    table_candidates: list[TableCandidate] = field(default_factory=list)
-
-
-@dataclass(slots=True)
-class DocumentParseResult:
-    """Parsed document plus stable metadata."""
-
-    doc_id: str
-    filename: str
-    sha256: str
-    page_count: int
-    document_title: str | None
-    document_family: str
-    parse_status: ParseStatus
-    pages: list[PageParseResult] = field(default_factory=list)
-    failure_reason: str | None = None
+    notes: list[str] = field(default_factory=list)
 
 
 def parse_pdf_document(
@@ -96,8 +67,8 @@ def parse_pdf_document(
     config: AppConfig,
     *,
     ocr_engine: OcrEngine | None = None,
-) -> DocumentParseResult:
-    """Parse one PDF into page-level results suitable for corpus assembly."""
+) -> ParsedDocument:
+    """Parse one PDF into the canonical parsed-document contract."""
 
     path = Path(pdf_path)
     fitz.TOOLS.mupdf_display_warnings(False)
@@ -105,67 +76,80 @@ def parse_pdf_document(
     effective_ocr = ocr_engine if ocr_engine is not None else build_ocr_engine(config.ingestion)
 
     with fitz.open(path) as document:
-        first_page_text = document[0].get_text("text") if document.page_count else ""
-        document_title = _extract_document_title(document, first_page_text)
-        document_family = _classify_document_family(first_page_text)
-        pages: list[PageParseResult] = []
-        document_status = ParseStatus.PARSED
+        metadata_title = _extract_metadata_title(document)
+        document_title = metadata_title
+        document_family = "other_legal_document"
+        pages: list[ParsedPage] = []
 
         for page in document:
             page_number = page.number + 1
             native_text = page.get_text("text").strip()
-            text_blocks = _extract_text_blocks(page)
-            table_candidates = _extract_table_candidates(path.stem, page, text_blocks)
-            signals = _build_signals(page, native_text, len(table_candidates))
-            triage_label = triage_page(signals, config.ingestion)
+            native_text_blocks = _extract_text_blocks(page)
+            native_tables = _extract_table_candidates(path.stem, page_number, page, native_text_blocks)
+            native_signals = _build_signals(page, native_text, len(native_tables))
+            triage_label = triage_page(native_signals, config.ingestion)
 
-            ocr_text = ""
-            ocr_degraded = False
-            if effective_ocr is not None and triage_label in {TriageLabel.SCAN, TriageLabel.SUSPICIOUS}:
+            ocr_requested = triage_label in {TriageLabel.SCAN, TriageLabel.SUSPICIOUS}
+            ocr_result = OcrPageResult(text="")
+            ocr_unavailable = False
+
+            if ocr_requested and effective_ocr is not None:
                 try:
-                    ocr_text = effective_ocr.extract_page_text(page)
+                    ocr_result = effective_ocr.extract_page(page)
                 except OcrUnavailableError:
                     if config.ingestion.ocr_unavailable_policy == "error" and triage_label is TriageLabel.SCAN:
                         raise
-                    ocr_degraded = True
+                    ocr_unavailable = True
+            elif ocr_requested:
+                ocr_unavailable = True
 
-            final_text, used_ocr, used_native = _select_page_text(
+            resolved = _resolve_page_state(
+                doc_id=path.stem,
+                page_number=page_number,
                 native_text=native_text,
-                ocr_text=ocr_text,
+                native_text_blocks=native_text_blocks,
+                native_tables=native_tables,
                 triage_label=triage_label,
+                ocr_result=ocr_result,
+                ocr_requested=ocr_requested,
+                ocr_unavailable=ocr_unavailable,
             )
-            source_mode = choose_source_mode(
-                triage_label,
-                used_ocr=used_ocr,
-                used_native_text=used_native,
-            )
-            missing_required_ocr = triage_label is TriageLabel.SCAN and not used_ocr
-            parse_status = ParseStatus.DEGRADED if ocr_degraded or missing_required_ocr else ParseStatus.PARSED
-            if parse_status is ParseStatus.DEGRADED:
-                document_status = ParseStatus.DEGRADED
 
-            quality_signals = _build_signals(page, final_text, len(table_candidates))
+            if page_number == 1:
+                document_title = metadata_title or _extract_title_from_text(resolved.text)
+                document_family = _classify_document_family(resolved.text)
+
+            quality_signals = _build_signals(page, resolved.text, len(resolved.tables))
             quality = score_page_quality(quality_signals, config.ingestion)
 
             pages.append(
-                PageParseResult(
+                ParsedPage(
                     doc_id=path.stem,
                     page_number=page_number,
-                    text=final_text,
-                    native_text=native_text,
                     document_title=document_title,
                     document_family=document_family,
                     triage_label=triage_label,
-                    source_mode=source_mode,
-                    parse_status=parse_status,
+                    source_mode=resolved.source_mode,
+                    parse_status=resolved.parse_status,
+                    text=resolved.text,
+                    native_text=native_text or None,
+                    ocr_text=resolved.ocr_text,
+                    text_blocks=resolved.text_blocks,
                     quality_score=quality.score,
                     quality_flags=quality.flags,
-                    text_blocks=text_blocks,
-                    table_candidates=table_candidates,
+                    signals=quality_signals,
+                    resolution_notes=resolved.notes,
+                    tables=resolved.tables,
                 )
             )
 
-    return DocumentParseResult(
+    document_status = (
+        ParseStatus.PARSED
+        if all(page.parse_status is ParseStatus.PARSED for page in pages)
+        else ParseStatus.DEGRADED
+    )
+
+    return ParsedDocument(
         doc_id=path.stem,
         filename=path.name,
         sha256=_sha256_for_file(path),
@@ -177,12 +161,14 @@ def parse_pdf_document(
     )
 
 
-def _extract_document_title(document: fitz.Document, first_page_text: str) -> str | None:
+def _extract_metadata_title(document: fitz.Document) -> str | None:
     metadata = document.metadata or {}
     title = (metadata.get("title") or "").strip()
-    if title:
-        return title
-    lines = [line.strip() for line in first_page_text.splitlines() if line.strip()]
+    return title or None
+
+
+def _extract_title_from_text(text: str) -> str | None:
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
     return lines[0] if lines else None
 
 
@@ -206,8 +192,13 @@ def _extract_text_blocks(page: fitz.Page) -> list[str]:
     return results
 
 
-def _extract_table_candidates(doc_id: str, page: fitz.Page, text_blocks: list[str]) -> list[TableCandidate]:
-    candidates: list[TableCandidate] = []
+def _extract_table_candidates(
+    doc_id: str,
+    page_number: int,
+    page: fitz.Page,
+    text_blocks: list[str],
+) -> list[RawTableRecord]:
+    candidates: list[RawTableRecord] = []
     try:
         with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             tables = list(page.find_tables().tables)
@@ -218,22 +209,134 @@ def _extract_table_candidates(doc_id: str, page: fitz.Page, text_blocks: list[st
         rows = _normalize_rows(_extract_rows(table))
         if not rows:
             continue
-        header_signature = [cell for cell in rows[0] if cell]
         caption = text_blocks[-1] if text_blocks else None
         candidates.append(
-            TableCandidate(
-                table_id=f"{doc_id}-p{page.number + 1}-t{table_index}",
-                page_number=page.number + 1,
+            RawTableRecord(
+                table_id=f"{doc_id}-p{page_number}-t{table_index}",
+                page_number=page_number,
+                rows=rows,
+                row_page_numbers=[page_number] * len(rows),
+                has_header=False,
                 raw_markdown=_rows_to_markdown(rows),
                 raw_html=_rows_to_html(rows),
-                cells=rows,
-                header_signature=header_signature,
-                context_before=text_blocks[:3],
-                context_after=text_blocks[-3:],
+                header_signature=list(rows[0]),
                 caption=caption,
+                preceding_context=text_blocks[:3],
+                following_context=text_blocks[-3:],
             )
         )
     return candidates
+
+
+def _resolve_page_state(
+    *,
+    doc_id: str,
+    page_number: int,
+    native_text: str,
+    native_text_blocks: list[str],
+    native_tables: list[RawTableRecord],
+    triage_label: TriageLabel,
+    ocr_result: OcrPageResult,
+    ocr_requested: bool,
+    ocr_unavailable: bool,
+) -> _ResolvedPageState:
+    native_clean = native_text.strip()
+    ocr_clean = ocr_result.text.strip()
+    notes: list[str] = []
+
+    if ocr_unavailable:
+        notes.append("ocr_unavailable")
+    elif ocr_requested and not ocr_clean:
+        notes.append("ocr_empty")
+
+    if triage_label is TriageLabel.NATIVE_CLEAN:
+        return _ResolvedPageState(
+            text=native_clean,
+            ocr_text=ocr_clean or None,
+            text_blocks=native_text_blocks or _split_text_lines(native_clean),
+            tables=native_tables,
+            source_mode=SourceMode.NATIVE,
+            parse_status=ParseStatus.PARSED,
+            notes=notes,
+        )
+
+    if triage_label is TriageLabel.SCAN:
+        if ocr_clean:
+            notes.append("ocr_selected")
+            ocr_tables = _ocr_tables_to_records(doc_id, page_number, ocr_result)
+            if not ocr_tables and native_tables:
+                notes.append("native_tables_fallback")
+            return _ResolvedPageState(
+                text=ocr_clean,
+                ocr_text=ocr_clean,
+                text_blocks=ocr_result.text_blocks or _split_text_lines(ocr_clean),
+                tables=ocr_tables or native_tables,
+                source_mode=SourceMode.OCR,
+                parse_status=ParseStatus.PARSED,
+                notes=notes,
+            )
+
+        return _ResolvedPageState(
+            text=native_clean,
+            ocr_text=None,
+            text_blocks=native_text_blocks or _split_text_lines(native_clean),
+            tables=native_tables,
+            source_mode=SourceMode.NATIVE,
+            parse_status=ParseStatus.DEGRADED,
+            notes=notes,
+        )
+
+    if ocr_clean and (not native_clean or len(ocr_clean) > len(native_clean)):
+        notes.append("ocr_selected")
+        ocr_tables = _ocr_tables_to_records(doc_id, page_number, ocr_result)
+        if not ocr_tables and native_tables:
+            notes.append("native_tables_fallback")
+        return _ResolvedPageState(
+            text=ocr_clean,
+            ocr_text=ocr_clean,
+            text_blocks=ocr_result.text_blocks or _split_text_lines(ocr_clean),
+            tables=ocr_tables or native_tables,
+            source_mode=SourceMode.OCR,
+            parse_status=ParseStatus.PARSED,
+            notes=notes,
+        )
+
+    parse_status = ParseStatus.DEGRADED if ocr_requested and not ocr_clean else ParseStatus.PARSED
+    return _ResolvedPageState(
+        text=native_clean,
+        ocr_text=ocr_clean or None,
+        text_blocks=native_text_blocks or _split_text_lines(native_clean),
+        tables=native_tables,
+        source_mode=SourceMode.NATIVE,
+        parse_status=parse_status,
+        notes=notes,
+    )
+
+
+def _ocr_tables_to_records(doc_id: str, page_number: int, ocr_result: OcrPageResult) -> list[RawTableRecord]:
+    records: list[RawTableRecord] = []
+    for table_index, table in enumerate(ocr_result.table_candidates, start=1):
+        rows = _normalize_rows(table.cells)
+        records.append(
+            RawTableRecord(
+                table_id=f"{doc_id}-p{page_number}-t{table_index}",
+                page_number=page_number,
+                rows=rows,
+                row_page_numbers=list(table.row_page_numbers or [page_number] * len(rows)),
+                has_header=False,
+                raw_markdown=table.raw_markdown,
+                raw_html=table.raw_html,
+                header_signature=list(table.header_signature or (rows[0] if rows else [])),
+                caption=table.caption,
+                preceding_context=list(table.context_before),
+                following_context=list(table.context_after),
+            )
+        )
+    return records
+
+
+def _split_text_lines(text: str) -> list[str]:
+    return [line.strip() for line in text.splitlines() if line.strip()]
 
 
 def _extract_rows(table: object) -> list[list[object]]:
@@ -253,11 +356,11 @@ def _rows_to_markdown(rows: list[list[str]]) -> str:
     if not rows:
         return ""
     width = max(len(row) for row in rows)
-    normalized_rows = [row + [""] * (width - len(row)) for row in rows]
-    header = normalized_rows[0]
-    separator = ["---"] * width
-    body = normalized_rows[1:] or [[""] * width]
-    return "\n".join("| " + " | ".join(cell for cell in row) + " |" for row in [header, separator, *body])
+    padded_rows = [row + [""] * (width - len(row)) for row in rows]
+    header = "| " + " | ".join(padded_rows[0]) + " |"
+    separator = "| " + " | ".join(["---"] * width) + " |"
+    body = ["| " + " | ".join(row) + " |" for row in padded_rows[1:]]
+    return "\n".join([header, separator, *body]) if body else "\n".join([header, separator])
 
 
 def _rows_to_html(rows: list[list[str]]) -> str:
@@ -268,7 +371,7 @@ def _rows_to_html(rows: list[list[str]]) -> str:
     return "<table>" + "".join(html_rows) + "</table>"
 
 
-def _build_signals(page: fitz.Page, text: str, table_count: int) -> PageSignals:
+def _build_signals(page: fitz.Page, text: str, table_count: int) -> PageSignal:
     raw_page = page.get_text("rawdict")
     blocks = raw_page.get("blocks", [])
     image_blocks = [block for block in blocks if block.get("type") == 1]
@@ -279,16 +382,15 @@ def _build_signals(page: fitz.Page, text: str, table_count: int) -> PageSignals:
         image_area = max((x1 - x0) * (y1 - y0), 0.0)
         image_ratios.append(image_area / page_area)
 
-    return PageSignals(
-        page_number=page.number + 1,
+    return PageSignal(
         text_char_count=len(text),
         word_count=len(text.split()),
         image_block_count=len(image_blocks),
         max_image_area_ratio=max(image_ratios, default=0.0),
         drawing_count=len(page.get_drawings()),
         table_count=table_count,
+        legal_marker_count=len(_legal_marker_hits(text)),
         bad_char_ratio=_bad_char_ratio(text),
-        legal_marker_hits=_legal_marker_hits(text),
     )
 
 
@@ -304,23 +406,6 @@ def _legal_marker_hits(text: str) -> list[str]:
     return [marker for marker in LEGAL_MARKERS if marker in lowered]
 
 
-def _select_page_text(
-    *,
-    native_text: str,
-    ocr_text: str,
-    triage_label: TriageLabel,
-) -> tuple[str, bool, bool]:
-    native_clean = native_text.strip()
-    ocr_clean = ocr_text.strip()
-    if triage_label is TriageLabel.SCAN:
-        if ocr_clean:
-            return ocr_clean, True, False
-        return native_clean, False, bool(native_clean)
-    if triage_label is TriageLabel.SUSPICIOUS and ocr_clean and len(ocr_clean) > len(native_clean):
-        return ocr_clean, True, bool(native_clean)
-    return native_clean, False, bool(native_clean)
-
-
 def _sha256_for_file(path: Path) -> str:
     digest = sha256()
     with path.open("rb") as handle:
@@ -329,9 +414,10 @@ def _sha256_for_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-ParsedDocument = DocumentParseResult
-ParsedPage = PageParseResult
-ParsedTableCandidate = TableCandidate
+DocumentParseResult = ParsedDocument
+PageParseResult = ParsedPage
+TableCandidate = RawTableRecord
+ParsedTableCandidate = RawTableRecord
 extract_pdf_document = parse_pdf_document
 
 
@@ -342,5 +428,5 @@ class DocumentParser:
         self.config = config
         self.ocr_engine = ocr_engine
 
-    def parse_document(self, pdf_path: str | Path) -> DocumentParseResult:
+    def parse_document(self, pdf_path: str | Path) -> ParsedDocument:
         return parse_pdf_document(pdf_path, self.config, ocr_engine=self.ocr_engine)
