@@ -1,10 +1,10 @@
-"""Shared typed models for the foundation layer."""
+"""Shared typed models for the foundation and ingestion layers."""
 
 from __future__ import annotations
 
 from datetime import datetime
 from enum import StrEnum
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -14,6 +14,37 @@ class Phase(StrEnum):
 
     WARMUP = "warmup"
     FINAL = "final"
+
+
+class TriageLabel(StrEnum):
+    """Rule-based routing label for a parsed page."""
+
+    NATIVE_CLEAN = "native_clean"
+    SCAN = "scan"
+    SUSPICIOUS = "suspicious"
+
+
+class SourceMode(StrEnum):
+    """Source used for the final page text."""
+
+    NATIVE = "native"
+    OCR = "ocr"
+    HYBRID = "hybrid"
+
+
+class ParseStatus(StrEnum):
+    """Parse completion state for a page or document."""
+
+    PARSED = "parsed"
+    DEGRADED = "degraded"
+    FAILED = "failed"
+
+
+class ContentBlockType(StrEnum):
+    """Retrieval-facing block type inside a canonical page record."""
+
+    TEXT = "text"
+    TABLE = "table"
 
 
 class QuestionRecord(BaseModel):
@@ -54,3 +85,169 @@ class PhaseSyncManifest(BaseModel):
     extracted_pdf_count: int | None = None
     artifacts: dict[str, ArtifactMetadata] = Field(default_factory=dict)
     notes: list[str] = Field(default_factory=list)
+
+
+class SerializedTableBlock(BaseModel):
+    """Self-contained retrieval block derived from a raw table."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    block_id: str
+    text: str
+    row_anchor: str | None = None
+    column_context: list[str] = Field(default_factory=list)
+    table_caption: str | None = None
+    footnotes: list[str] = Field(default_factory=list)
+    legal_context: list[str] = Field(default_factory=list)
+
+
+class TableBlock(BaseModel):
+    """Structured table representation preserved in the canonical corpus."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    table_id: str
+    page_span: list[int] = Field(default_factory=list)
+    raw_markdown: str | None = None
+    raw_html: str | None = None
+    header_signature: list[str] = Field(default_factory=list)
+    serialized_blocks: list[SerializedTableBlock] = Field(default_factory=list)
+
+
+class RawTableRecord(BaseModel):
+    """Raw table extracted from a page before retrieval-friendly serialization."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    table_id: str
+    page_number: int = Field(ge=1)
+    raw_markdown: str | None = None
+    raw_html: str | None = None
+    header_signature: list[str] = Field(default_factory=list)
+    caption: str | None = None
+    footnotes: list[str] = Field(default_factory=list)
+    preceding_context: list[str] = Field(default_factory=list)
+    following_context: list[str] = Field(default_factory=list)
+
+
+class PageSignal(BaseModel):
+    """Low-level diagnostic signals collected during parsing."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    text_char_count: int = Field(ge=0)
+    word_count: int = Field(ge=0)
+    image_block_count: int = Field(ge=0)
+    max_image_area_ratio: float = Field(ge=0.0, le=1.0)
+    drawing_count: int = Field(ge=0)
+    table_count: int = Field(ge=0)
+    legal_marker_count: int = Field(ge=0)
+    bad_char_ratio: float = Field(ge=0.0, le=1.0)
+
+
+class ParsedPage(BaseModel):
+    """Intermediate parsed-page representation used before corpus assembly."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    doc_id: str
+    page_number: int = Field(ge=1)
+    document_title: str | None = None
+    document_family: str | None = None
+    triage_label: TriageLabel
+    source_mode: SourceMode
+    parse_status: ParseStatus = ParseStatus.PARSED
+    text: str
+    native_text: str | None = None
+    ocr_text: str | None = None
+    quality_score: float = Field(ge=0.0, le=1.0)
+    quality_flags: list[str] = Field(default_factory=list)
+    signals: PageSignal
+    tables: list[RawTableRecord] = Field(default_factory=list)
+
+
+class ParsedDocument(BaseModel):
+    """Intermediate parsed-document representation used before corpus assembly."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    doc_id: str
+    filename: str
+    sha256: str
+    page_count: int = Field(ge=0)
+    document_title: str | None = None
+    document_family: str | None = None
+    parse_status: ParseStatus = ParseStatus.PARSED
+    failure_reason: str | None = None
+    pages: list[ParsedPage] = Field(default_factory=list)
+
+
+class ContentBlock(BaseModel):
+    """Retrieval-facing block stored on a page."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    block_id: str
+    type: ContentBlockType
+    text: str
+    page_number: int = Field(ge=1)
+    table_id: str | None = None
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class CanonicalPageRecord(BaseModel):
+    """Canonical page-level record emitted by the ingestion stage."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    doc_id: str
+    page_number: int = Field(ge=1)
+    document_title: str | None = None
+    document_family: str | None = None
+    triage_label: TriageLabel
+    source_mode: SourceMode
+    parse_status: ParseStatus = ParseStatus.PARSED
+    quality_score: float = Field(ge=0.0, le=1.0)
+    quality_flags: list[str] = Field(default_factory=list)
+    text: str
+    blocks: list[ContentBlock] = Field(default_factory=list)
+    table_ids: list[str] = Field(default_factory=list)
+
+
+class PageMapRecord(BaseModel):
+    """Document-level page map summary for downstream lookups."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    doc_id: str
+    filename: str
+    document_title: str | None = None
+    document_family: str | None = None
+    page_count: int = Field(ge=0)
+    page_numbers: list[int] = Field(default_factory=list)
+
+
+class CorpusParseManifestRecord(BaseModel):
+    """Document-level parse outcome recorded in the corpus manifest."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    doc_id: str
+    filename: str
+    sha256: str
+    page_count: int = Field(ge=0)
+    parse_status: ParseStatus
+    failure_reason: str | None = None
+
+
+class CorpusParseManifest(BaseModel):
+    """Top-level manifest for a parse-corpus run."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    phase: Phase
+    parsed_at: datetime
+    document_count: int = Field(ge=0)
+    page_count: int = Field(ge=0)
+    failed_document_count: int = Field(ge=0)
+    records: list[CorpusParseManifestRecord] = Field(default_factory=list)

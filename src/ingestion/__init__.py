@@ -1,0 +1,85 @@
+"""Corpus parsing stage exports."""
+
+from .corpus_builder import (
+    CorpusArtifacts,
+    CorpusBuilder,
+    CorpusBuildResult,
+    build_corpus_artifacts,
+    render_debug_markdown,
+)
+from .ocr_engine import (
+    OCREngine,
+    OcrEngine,
+    OcrResolution,
+    OCRUnavailableError,
+    PaddleOcrAdapter,
+    build_ocr_engine,
+)
+from .page_triage import (
+    PageSignals,
+    QualityBreakdown,
+    classify_page,
+    compute_quality_score,
+    quality_score_and_flags,
+    score_page_quality,
+    triage_page,
+)
+from .pdf_parser import (
+    DocumentParser,
+    DocumentParseResult,
+    PageParseResult,
+    ParsedDocument,
+    ParsedPage,
+    ParsedTableCandidate,
+    TableCandidate,
+    parse_pdf_document,
+)
+from .service import CorpusParseService, ParseCorpusResult, format_parse_result
+from .table_serializer import (
+    PageTableAssignments,
+    TableSerializer,
+    detect_tables,
+    extract_document_tables,
+    merge_adjacent_tables,
+    serialize_document_tables,
+    serialize_table,
+)
+
+__all__ = [
+    "CorpusArtifacts",
+    "CorpusBuildResult",
+    "CorpusBuilder",
+    "CorpusParseService",
+    "DocumentParseResult",
+    "DocumentParser",
+    "OCREngine",
+    "OCRUnavailableError",
+    "OcrEngine",
+    "OcrResolution",
+    "PageParseResult",
+    "PageSignals",
+    "PageTableAssignments",
+    "PaddleOcrAdapter",
+    "ParsedDocument",
+    "ParsedPage",
+    "ParsedTableCandidate",
+    "ParseCorpusResult",
+    "QualityBreakdown",
+    "TableCandidate",
+    "TableSerializer",
+    "build_corpus_artifacts",
+    "build_ocr_engine",
+    "classify_page",
+    "compute_quality_score",
+    "detect_tables",
+    "extract_document_tables",
+    "format_parse_result",
+    "merge_adjacent_tables",
+    "parse_pdf_document",
+    "quality_score_and_flags",
+    "render_debug_markdown",
+    "score_page_quality",
+    "serialize_document_tables",
+    "serialize_table",
+    "triage_page",
+]

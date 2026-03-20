@@ -7,6 +7,8 @@
 # - COMPETITION_EXTRACT_DOCUMENTS
 # - COMPETITION_OVERWRITE_DOWNLOADS
 # - COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY
+# - COMPETITION_ENABLE_OCR
+# - COMPETITION_OCR_UNAVAILABLE_POLICY
 version: v001
 phase: warmup
 
@@ -25,6 +27,11 @@ storage:
   extracted_documents_dirname: pdfs
   manifests_dirname: manifests
   manifest_filename: sync_manifest.json
+  corpus_dirname: corpus
+  corpus_filename: corpus.jsonl
+  page_map_filename: page_map.json
+  corpus_manifest_filename: corpus_manifest.json
+  debug_dirname: debug
 
 download:
   extract_documents: true
@@ -33,3 +40,13 @@ download:
 
 evaluation:
   unanswerable_retrieval_policy: allow_empty
+
+ingestion:
+  enable_ocr: true
+  ocr_unavailable_policy: degraded
+  extractable_text_min_chars: 50
+  suspicious_text_max_chars: 200
+  large_image_area_ratio: 0.25
+  scan_image_area_ratio: 0.70
+  text_completeness_target_chars: 1500
+  encoding_bad_char_threshold: 0.05

@@ -60,6 +60,11 @@ class StorageSettings(BaseModel):
     extracted_documents_dirname: str = "pdfs"
     manifests_dirname: str = "manifests"
     manifest_filename: str = "sync_manifest.json"
+    corpus_dirname: str = "corpus"
+    corpus_filename: str = "corpus.jsonl"
+    page_map_filename: str = "page_map.json"
+    corpus_manifest_filename: str = "corpus_manifest.json"
+    debug_dirname: str = "debug"
 
 
 class DownloadSettings(BaseModel):
@@ -87,6 +92,35 @@ class EvaluationSettings(BaseModel):
     unanswerable_retrieval_policy: Literal["allow_empty", "require_non_empty"] = "allow_empty"
 
 
+class IngestionSettings(BaseModel):
+    """Configurable policies for the corpus parsing stage."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    enable_ocr: bool = True
+    ocr_unavailable_policy: Literal["error", "degraded"] = "degraded"
+    extractable_text_min_chars: int = 50
+    suspicious_text_max_chars: int = 200
+    large_image_area_ratio: float = 0.25
+    scan_image_area_ratio: float = 0.70
+    text_completeness_target_chars: int = 1500
+    encoding_bad_char_threshold: float = 0.05
+
+    @field_validator("extractable_text_min_chars", "suspicious_text_max_chars", "text_completeness_target_chars")
+    @classmethod
+    def ensure_positive_int(cls, value: int) -> int:
+        if value <= 0:
+            raise ValueError("ingestion integer thresholds must be positive.")
+        return value
+
+    @field_validator("large_image_area_ratio", "scan_image_area_ratio", "encoding_bad_char_threshold")
+    @classmethod
+    def ensure_ratio(cls, value: float) -> float:
+        if not 0 <= value <= 1:
+            raise ValueError("ingestion ratio thresholds must be between 0 and 1.")
+        return value
+
+
 class AppConfig(BaseModel):
     """Complete configuration for the W1A foundation layer."""
 
@@ -98,6 +132,7 @@ class AppConfig(BaseModel):
     storage: StorageSettings = Field(default_factory=StorageSettings)
     download: DownloadSettings = Field(default_factory=DownloadSettings)
     evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
+    ingestion: IngestionSettings = Field(default_factory=IngestionSettings)
 
     def resolve_api_key(self) -> str:
         """Return the competition API key from the configured environment variable."""
@@ -204,6 +239,8 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     extract_override = env.get("COMPETITION_EXTRACT_DOCUMENTS")
     overwrite_override = env.get("COMPETITION_OVERWRITE_DOWNLOADS")
     unanswerable_policy_override = env.get("COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY")
+    enable_ocr_override = env.get("COMPETITION_ENABLE_OCR")
+    ocr_unavailable_policy_override = env.get("COMPETITION_OCR_UNAVAILABLE_POLICY")
 
     if phase_override:
         config = config.model_copy(update={"phase": Phase(phase_override.strip().lower())})
@@ -240,6 +277,20 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
             update={
                 "evaluation": config.evaluation.model_copy(
                     update={"unanswerable_retrieval_policy": unanswerable_policy_override.strip()}
+                )
+            }
+        )
+
+    if enable_ocr_override:
+        config = config.model_copy(
+            update={"ingestion": config.ingestion.model_copy(update={"enable_ocr": _parse_bool(enable_ocr_override)})}
+        )
+
+    if ocr_unavailable_policy_override:
+        config = config.model_copy(
+            update={
+                "ingestion": config.ingestion.model_copy(
+                    update={"ocr_unavailable_policy": ocr_unavailable_policy_override.strip()}
                 )
             }
         )

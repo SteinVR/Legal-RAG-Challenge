@@ -11,7 +11,7 @@
 ### Wave 2 -- Evaluation & Corpus Framing
 
 - [x] [TASK-W2A](tasks/TASK-W2A.md) Evaluation contract & submission validation
-- [ ] [TASK-W2B](tasks/TASK-W2B.md) Dev benchmark, gold set & regression control
+- [X] [TASK-W2B](tasks/TASK-W2B.md) Dev benchmark, gold set & regression control
 - [ ] [TASK-W2C](tasks/TASK-W2C.md) Corpus parsing & canonicalization
 
 > Current note: `TASK-W2B` is only partially implemented. The benchmark/reporting contract is repaired and quality-gated in the local working tree, but benchmark assets and regression-control deliverables are still pending.

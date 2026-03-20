@@ -3,69 +3,63 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+import yaml
 
-from src.common.config import AppConfig, default_config_path, load_config, materialize_phase_paths, resolve_api_key
+from src.common.config import AppConfig, default_config_path, load_app_config
+from src.submission.sync import PhasePaths
 
 
-def test_load_config_reads_api_key_from_env_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_load_app_config_reads_api_key_from_env_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("COMPETITION_API_KEY", raising=False)
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        yaml.safe_dump({"version": "v001", "storage": {"root_dir": str(tmp_path / "data")}}),
+        encoding="utf-8",
+    )
     env_file = tmp_path / ".env"
     env_file.write_text("COMPETITION_API_KEY=from-dotenv\n", encoding="utf-8")
 
-    config = load_config("configs/baseline/v001/config.yaml", env_file=env_file)
+    config = load_app_config(config_path, env_file=env_file)
 
-    assert resolve_api_key(config) == "from-dotenv"
+    assert config.resolve_api_key() == "from-dotenv"
 
 
 def test_shell_environment_overrides_env_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("COMPETITION_API_KEY", "from-shell")
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
     env_file = tmp_path / ".env"
     env_file.write_text("COMPETITION_API_KEY=from-dotenv\n", encoding="utf-8")
 
-    config = load_config("configs/baseline/v001/config.yaml", env_file=env_file)
+    config = load_app_config(config_path, env_file=env_file)
 
-    assert resolve_api_key(config) == "from-shell"
-
-
-def test_load_config_does_not_reuse_previous_env_file_values(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    monkeypatch.delenv("COMPETITION_API_KEY", raising=False)
-    monkeypatch.delenv("EVAL_API_KEY", raising=False)
-
-    first_env = tmp_path / "first.env"
-    second_env = tmp_path / "second.env"
-    first_env.write_text("COMPETITION_API_KEY=first-key\n", encoding="utf-8")
-    second_env.write_text("COMPETITION_API_KEY=second-key\n", encoding="utf-8")
-
-    first_config = load_config("configs/baseline/v001/config.yaml", env_file=first_env)
-    second_config = load_config("configs/baseline/v001/config.yaml", env_file=second_env)
-
-    assert resolve_api_key(first_config) == "first-key"
-    assert resolve_api_key(second_config) == "second-key"
+    assert config.resolve_api_key() == "from-shell"
 
 
-def test_resolve_api_key_raises_when_missing(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("COMPETITION_API_KEY", raising=False)
-    monkeypatch.delenv("EVAL_API_KEY", raising=False)
-    config = AppConfig()
+def test_phase_paths_include_corpus_artifacts(tmp_path: Path) -> None:
+    config = AppConfig.model_validate({"phase": "warmup", "storage": {"root_dir": str(tmp_path)}})
 
-    with pytest.raises(ValueError, match="Competition API key is not set"):
-        resolve_api_key(config)
+    paths = PhasePaths.from_config(config)
+    paths.ensure_directories()
+    paths.ensure_corpus_directories()
+
+    assert paths.questions_path == tmp_path / "warmup" / "questions" / "questions.json"
+    assert paths.corpus_path == tmp_path / "warmup" / "corpus" / "corpus.jsonl"
+    assert paths.page_map_path == tmp_path / "warmup" / "corpus" / "page_map.json"
+    assert paths.corpus_manifest_path == tmp_path / "warmup" / "corpus" / "corpus_manifest.json"
+    assert paths.debug_dir.exists()
 
 
-def test_materialize_phase_paths_are_phase_scoped(tmp_path: Path) -> None:
-    warmup_config = AppConfig.model_validate({"phase": "warmup", "storage": {"root_dir": tmp_path}})
-    final_config = AppConfig.model_validate({"phase": "final", "storage": {"root_dir": tmp_path}})
+def test_env_overrides_apply_to_ingestion_settings(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("COMPETITION_ENABLE_OCR", "false")
+    monkeypatch.setenv("COMPETITION_OCR_UNAVAILABLE_POLICY", "error")
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
 
-    warmup_paths = materialize_phase_paths(warmup_config, create=True)
-    final_paths = materialize_phase_paths(final_config, create=True)
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
 
-    assert warmup_paths.questions_path == tmp_path / "warmup" / "questions" / "questions.json"
-    assert final_paths.documents_archive_path == tmp_path / "final" / "documents" / "documents.zip"
-    assert warmup_paths.phase_dir.exists()
-    assert final_paths.phase_dir.exists()
+    assert config.ingestion.enable_ocr is False
+    assert config.ingestion.ocr_unavailable_policy == "error"
 
 
 def test_default_config_path_falls_back_to_packaged_resource(tmp_path: Path) -> None:

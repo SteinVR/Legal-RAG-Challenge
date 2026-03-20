@@ -25,6 +25,11 @@ class PhasePaths:
     documents_dir: Path
     documents_archive_path: Path
     documents_extract_dir: Path
+    corpus_dir: Path
+    corpus_path: Path
+    page_map_path: Path
+    corpus_manifest_path: Path
+    debug_dir: Path
     manifests_dir: Path
     manifest_path: Path
 
@@ -33,6 +38,7 @@ class PhasePaths:
         phase_dir = config.storage.root_dir / config.phase.value
         questions_dir = phase_dir / config.storage.questions_dirname
         documents_dir = phase_dir / config.storage.documents_dirname
+        corpus_dir = phase_dir / config.storage.corpus_dirname
         manifests_dir = phase_dir / config.storage.manifests_dirname
 
         return cls(
@@ -42,6 +48,11 @@ class PhasePaths:
             documents_dir=documents_dir,
             documents_archive_path=documents_dir / config.storage.documents_archive_name,
             documents_extract_dir=documents_dir / config.storage.extracted_documents_dirname,
+            corpus_dir=corpus_dir,
+            corpus_path=corpus_dir / config.storage.corpus_filename,
+            page_map_path=corpus_dir / config.storage.page_map_filename,
+            corpus_manifest_path=corpus_dir / config.storage.corpus_manifest_filename,
+            debug_dir=corpus_dir / config.storage.debug_dirname,
             manifests_dir=manifests_dir,
             manifest_path=manifests_dir / config.storage.manifest_filename,
         )
@@ -50,6 +61,10 @@ class PhasePaths:
         self.questions_dir.mkdir(parents=True, exist_ok=True)
         self.documents_dir.mkdir(parents=True, exist_ok=True)
         self.manifests_dir.mkdir(parents=True, exist_ok=True)
+
+    def ensure_corpus_directories(self) -> None:
+        self.corpus_dir.mkdir(parents=True, exist_ok=True)
+        self.debug_dir.mkdir(parents=True, exist_ok=True)
 
 
 @dataclass(slots=True)
@@ -65,6 +80,9 @@ class CommandResult:
     skipped_paths: list[Path] = field(default_factory=list)
     questions_count: int | None = None
     extracted_pdf_count: int | None = None
+    parsed_document_count: int | None = None
+    parsed_page_count: int | None = None
+    failed_document_count: int | None = None
 
 
 class PhaseSyncService:

@@ -29,6 +29,7 @@ from src.evaluation.dev_benchmark import (
 )
 from src.evaluation.scorer import ScoreOptions, score_submission
 from src.evaluation.validator import SubmissionValidator, ValidationPolicy, build_corpus_registry
+from src.ingestion.service import CorpusParseService
 from src.submission.api_client import CompetitionApiClient
 from src.submission.sync import CommandResult, PhasePaths, PhaseSyncService
 
@@ -49,6 +50,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_download_questions_command(subparsers)
     _add_download_documents_command(subparsers)
     _add_sync_command(subparsers)
+    _add_parse_corpus_command(subparsers)
     _add_submit_command(subparsers)
     _add_submission_status_command(subparsers)
     _add_validate_submission_command(subparsers)
@@ -117,6 +119,19 @@ def _add_submit_command(subparsers: argparse._SubParsersAction[argparse.Argument
 def _add_submission_status_command(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     parser = subparsers.add_parser("submission-status", help="Query submission processing status.")
     parser.add_argument("--submission-uuid", required=True)
+
+
+def _add_parse_corpus_command(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser("parse-corpus", help="Parse extracted PDFs into canonical page-level corpus files.")
+    parser.add_argument("--phase", choices=[phase.value for phase in Phase], help="Override the config phase.")
+    parser.add_argument("--dry-run", action="store_true", help="Resolve phase-local parse paths without writing files.")
+    parser.add_argument("--force", action="store_true", help="Overwrite existing corpus artifacts.")
+    parser.add_argument(
+        "--doc-id",
+        dest="doc_ids",
+        action="append",
+        help="Optional document ID filter. Pass multiple times to parse a subset.",
+    )
 
 
 def _add_validate_submission_command(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -230,6 +245,14 @@ def _run_command(args: argparse.Namespace, config: AppConfig, client_factory: Cl
     if args.command in {"download-questions", "download-documents", "sync", "sync-phase"}:
         service = PhaseSyncService(config)
         result = _run_phase_command(args, service, config, client_factory)
+        return _format_result(result)
+    if args.command == "parse-corpus":
+        service = CorpusParseService(config)
+        result = service.parse_corpus(
+            dry_run=args.dry_run,
+            overwrite=args.force,
+            doc_ids=args.doc_ids,
+        )
         return _format_result(result)
     if args.command == "submit":
         return _run_submit(args, config, client_factory)
@@ -468,11 +491,25 @@ def _format_result(result: CommandResult) -> str:
         f"manifest: {result.manifest_path}",
     ]
 
-    if result.questions_count is not None:
-        lines.append(f"questions_count: {result.questions_count}")
+    questions_count = getattr(result, "questions_count", None)
+    if questions_count is not None:
+        lines.append(f"questions_count: {questions_count}")
 
-    if result.extracted_pdf_count is not None:
-        lines.append(f"extracted_pdf_count: {result.extracted_pdf_count}")
+    extracted_pdf_count = getattr(result, "extracted_pdf_count", None)
+    if extracted_pdf_count is not None:
+        lines.append(f"extracted_pdf_count: {extracted_pdf_count}")
+
+    parsed_document_count = getattr(result, "parsed_document_count", None)
+    if parsed_document_count is not None:
+        lines.append(f"parsed_document_count: {parsed_document_count}")
+
+    parsed_page_count = getattr(result, "parsed_page_count", None)
+    if parsed_page_count is not None:
+        lines.append(f"parsed_page_count: {parsed_page_count}")
+
+    failed_document_count = getattr(result, "failed_document_count", None)
+    if failed_document_count is not None:
+        lines.append(f"failed_document_count: {failed_document_count}")
 
     if result.planned_paths:
         lines.append("planned_paths:")

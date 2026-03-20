@@ -95,6 +95,36 @@ def test_sync_phase_writes_phase_artifacts_and_manifest(tmp_path: Path) -> None:
     assert manifest["extracted_pdf_count"] == 1
 
 
+def test_parse_corpus_writes_canonical_outputs(tmp_path: Path) -> None:
+    config_path, env_path = _write_config(tmp_path)
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", page_count=1, page_texts=["DIFC LAW\nArticle 1\nA fine applies."])
+
+    exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+        ]
+    )
+
+    assert exit_code == 0
+    corpus_path = tmp_path / "data" / "warmup" / "corpus" / "corpus.jsonl"
+    page_map_path = tmp_path / "data" / "warmup" / "corpus" / "page_map.json"
+    manifest_path = tmp_path / "data" / "warmup" / "corpus" / "corpus_manifest.json"
+    debug_path = tmp_path / "data" / "warmup" / "corpus" / "debug" / "alpha.md"
+    assert corpus_path.exists()
+    assert page_map_path.exists()
+    assert manifest_path.exists()
+    assert debug_path.exists()
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest["document_count"] == 1
+    assert manifest["failed_document_count"] == 0
+
+
 def test_submit_and_status_commands_return_success(tmp_path: Path) -> None:
     config_path, env_path = _write_config(tmp_path)
     submission_path = tmp_path / "submission.json"
@@ -136,6 +166,90 @@ def test_submit_and_status_commands_return_success(tmp_path: Path) -> None:
     assert status_code == 0
     assert submit_client.closed is True
     assert status_client.closed is True
+
+
+def test_parse_corpus_dry_run_reports_planned_paths(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    config_path, env_path = _write_config(tmp_path)
+
+    exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--dry-run",
+        ]
+    )
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert "command: parse-corpus" in output
+    assert "dry_run: true" in output
+    assert "corpus.jsonl" in output
+    assert "page_map.json" in output
+    assert "corpus_manifest.json" in output
+
+
+def test_parse_corpus_requires_downloaded_documents(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    config_path, env_path = _write_config(tmp_path)
+
+    with pytest.raises(SystemExit) as exc_info:
+        main(
+            [
+                "--config",
+                str(config_path),
+                "--env-file",
+                str(env_path),
+                "parse-corpus",
+            ]
+        )
+
+    assert exc_info.value.code == 1
+    assert "Documents directory does not exist" in capsys.readouterr().err
+
+
+def test_parse_corpus_writes_canonical_artifacts(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
+    config_path, env_path = _write_config(tmp_path)
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_count=1,
+        page_texts=["EMPLOYMENT LAW\nArticle 1\nThe law applies."],
+    )
+
+    exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--force",
+        ]
+    )
+    output = capsys.readouterr().out
+
+    corpus_path = tmp_path / "data" / "warmup" / "corpus" / "corpus.jsonl"
+    page_map_path = tmp_path / "data" / "warmup" / "corpus" / "page_map.json"
+    manifest_path = tmp_path / "data" / "warmup" / "corpus" / "corpus_manifest.json"
+    debug_path = tmp_path / "data" / "warmup" / "corpus" / "debug" / "alpha.md"
+
+    assert exit_code == 0
+    assert "parsed_document_count: 1" in output
+    assert corpus_path.exists()
+    assert page_map_path.exists()
+    assert manifest_path.exists()
+    assert debug_path.exists()
+    corpus_rows = [json.loads(line) for line in corpus_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert corpus_rows[0]["doc_id"] == "alpha"
+    assert corpus_rows[0]["page_number"] == 1
 
 
 def test_validate_and_score_commands_use_phase_defaults(tmp_path: Path, capsys) -> None:
@@ -549,9 +663,12 @@ def test_benchmark_commands_generate_summary_compare_and_consistency(tmp_path: P
     assert "q1" in unstable_ids
 
 
-def _write_pdf(path: Path, *, page_count: int) -> None:
+def _write_pdf(path: Path, *, page_count: int, page_texts: list[str] | None = None) -> None:
     document = fitz.open()
-    for _ in range(page_count):
-        document.new_page()
+    page_texts = page_texts or []
+    for page_index in range(page_count):
+        page = document.new_page()
+        if page_index < len(page_texts):
+            page.insert_text((72, 72), page_texts[page_index])
     document.save(path)
     document.close()
