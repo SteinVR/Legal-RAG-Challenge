@@ -4,7 +4,7 @@
 
 **Title**: Answer routing & typed solving  
 **Description**: Route questions by answer_type; implement extraction-based solvers and grounded free-text generator.  
-**Status**: Planned
+**Status**: Done
 **Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
@@ -26,7 +26,9 @@
 
 ## 3. Implementation Plan
 
-
+- Implemented the answering service layer in `src/answering/service.py` plus provider abstractions in `src/providers/`.
+- Added dedicated answering tests covering routing/solver behavior and integrated the service into the merged Wave 3 baseline.
+- Merged task branch into `main` after quality-gate review and final integrated verification.
 ## 4. Working Notes
 
 For deterministic types, prefer extraction over generation where possible.
@@ -35,5 +37,5 @@ Free-text: 5 criteria (correctness, completeness, grounding, confidence calibrat
 
 ## 5. Outcome
 
-**Result**: [Pending]  
-**Next action**: freeze answer I/O contract, then implement in Wave 3 with stubs or against TASK-W3B outputs
+**Result**: Completed on 2026-03-21. Wave 3C delivered the answering service layer, provider surface, and dedicated tests, then merged to `main` in the recorded Wave 3 orchestration flow.  
+**Next action**: Integrate the merged answering layer into TASK-W3D pipeline orchestration, telemetry packing, and submission assembly.

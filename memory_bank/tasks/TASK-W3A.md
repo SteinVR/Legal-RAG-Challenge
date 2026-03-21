@@ -4,7 +4,7 @@
 
 **Title**: Chunking & hybrid indexing  
 **Description**: Chunk canonical corpus respecting legal document structure; build BM25 + dense + metadata indices.  
-**Status**: Planned
+**Status**: Done
 **Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
@@ -21,7 +21,9 @@
 
 ## 3. Implementation Plan
 
-
+- Implemented `src/indexing/service.py` as the Wave 3A service surface for chunking/index preparation.
+- Added indexing-focused tests and post-merge verification for the service contract.
+- Merged task branch into `main` after quality-gate review and final integrated verification.
 
 ## 4. Working Notes
 
@@ -31,5 +33,5 @@ Qdrant embedded mode: no Docker, in-process, persistent storage. Named vectors f
 
 ## 5. Outcome
 
-**Result**: [Pending]  
-**Next action**: define index contracts first, then implement in Wave 3 after TASK-W2C
+**Result**: Completed on 2026-03-21. Wave 3A delivered the indexing service layer and dedicated test coverage, then merged to `main` as part of the recorded Wave 3 orchestration flow.  
+**Next action**: Expose the merged indexing layer to TASK-W3D pipeline orchestration and any remaining benchmark/regression workflows.

@@ -4,7 +4,7 @@
 
 **Title**: Retrieval, reranking & evidence selection  
 **Description**: Hybrid search + reranking + support-page validation/compression. Core grounding module.  
-**Status**: Planned
+**Status**: Done
 **Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
@@ -22,7 +22,9 @@
 
 ## 3. Implementation Plan
 
-
+- Implemented retrieval pipeline modules and `src/retrieval/service.py` against the Wave 3 indexing contract.
+- Added dedicated retrieval component/service tests covering hybrid retrieval and evidence-selection behavior.
+- Merged task branch into `main` after quality-gate review and final integrated verification.
 
 ## 4. Working Notes
 
@@ -32,5 +34,5 @@ Qdrant hybrid query: fuse dense + sparse scores via RRF or custom weights; filte
 
 ## 5. Outcome
 
-**Result**: [Pending]  
-**Next action**: freeze retrieval/index contract, then implement in Wave 3 with stubs or against TASK-W3A outputs
+**Result**: Completed on 2026-03-21. Wave 3B delivered the retrieval service layer with supporting tests and was merged to `main` in the Wave 3 orchestration cycle.  
+**Next action**: Wire the merged retrieval layer into TASK-W3D end-to-end orchestration and benchmark/regression execution.
