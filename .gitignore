@@ -23,3 +23,5 @@ qdrant_data/
 # Submission artifacts
 *.zip
 submission*.json
+
+.apm/
