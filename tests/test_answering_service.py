@@ -271,6 +271,29 @@ def test_answering_service_normalizes_iso_date_without_provider() -> None:
     assert provider.calls == []
 
 
+@pytest.mark.parametrize(
+    ("evidence_text", "page_number"),
+    [
+        ("Date of issue: March 5, 2026.", 33),
+        ("Date of issue: March 5 2026.", 34),
+    ],
+)
+def test_answering_service_normalizes_month_first_date_without_provider(
+    evidence_text: str,
+    page_number: int,
+) -> None:
+    service, _, provider = _build_service(
+        pages=[_page(page_number=page_number, text=evidence_text)]
+    )
+
+    result = service.answer_question(_question(text="What is the date of issue?", answer_type="date"))
+
+    assert _result_field(result, "answer") == "2026-03-05"
+    assert _result_field(result, "confidence") == pytest.approx(1.0)
+    assert _grouped_refs(result) == [("alpha", [page_number])]
+    assert provider.calls == []
+
+
 def test_answering_service_returns_null_for_conflicting_deterministic_evidence() -> None:
     service, _, provider = _build_service(
         pages=[
@@ -408,6 +431,29 @@ def test_answering_service_rejects_free_text_that_introduces_date_not_present_in
         service.answer_question(_question(text="Summarize the termination date.", answer_type="free_text"))
 
 
+@pytest.mark.parametrize(
+    "answer_text",
+    [
+        "The agreement terminates on March 5, 2026.",
+        "The agreement terminates on March 5 2026.",
+    ],
+)
+def test_answering_service_accepts_month_first_free_text_date_grounding(answer_text: str) -> None:
+    service, _, _ = _build_service(
+        pages=[_page(page_number=35, text="The agreement terminates on March 5, 2026.")],
+        provider_response={
+            "answer": answer_text,
+            "confidence": 0.64,
+        },
+    )
+
+    result = service.answer_question(_question(text="Summarize the termination date.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == answer_text
+    assert _result_field(result, "confidence") == pytest.approx(0.64)
+    assert _grouped_refs(result) == [("alpha", [35])]
+
+
 def test_answering_service_accepts_written_number_evidence_for_digit_summary() -> None:
     service, _, _ = _build_service(
         pages=[_page(page_number=17, text="Costs must be paid within five days of the order.")],
@@ -477,6 +523,19 @@ def test_answering_service_rejects_free_text_that_introduces_unsupported_single_
 
     with pytest.raises(ValueError, match="evidence|contrad|names"):
         service.answer_question(_question(text="Summarize the respondent.", answer_type="free_text"))
+
+
+def test_answering_service_does_not_treat_no_later_than_as_negative_boolean_cue() -> None:
+    service, _, provider = _build_service(
+        pages=[_page(page_number=36, text="Payment must be made no later than 10 days from the invoice.")]
+    )
+
+    result = service.answer_question(_question(text="Is payment prohibited?", answer_type="boolean"))
+
+    assert _result_field(result, "answer") is None
+    assert _result_field(result, "confidence") == pytest.approx(0.0)
+    assert _grouped_refs(result) == []
+    assert provider.calls == []
 
 
 def test_answering_service_rejects_free_text_that_introduces_outcome_not_present_in_evidence() -> None:

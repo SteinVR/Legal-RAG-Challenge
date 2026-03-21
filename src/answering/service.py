@@ -14,6 +14,7 @@ from typing import Any, Callable, Protocol
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference
 from src.providers.base import FreeTextProvider
+from src.retrieval.service import RetrievalResult
 
 CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER = "There is no information on this question in the provided documents."
 
@@ -58,6 +59,12 @@ _DATE_PATTERN = re.compile(
     + r")\s+(?P<year>\d{4})(?!\d)",
     re.IGNORECASE,
 )
+_MONTH_FIRST_DATE_PATTERN = re.compile(
+    r"(?<!\d)(?P<month>"
+    + "|".join(_MONTHS)
+    + r")\s+(?P<day>\d{1,2})(?:,\s*|\s+)(?P<year>\d{4})(?!\d)",
+    re.IGNORECASE,
+)
 _ISO_DATE_PATTERN = re.compile(r"(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)")
 _NAME_PATTERN = re.compile(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b")
 _UPPER_ENTITY_PATTERN = re.compile(r"\b[A-Z][A-Z0-9&'/-]*(?:\.?\s+[A-Z][A-Z0-9&'/-]*)+\.?\b")
@@ -66,7 +73,6 @@ _ENTITY_LIST_ITEM_PATTERN = re.compile(
 )
 _BOOLEAN_NEGATIVE = (
     "not permitted",
-    "no",
     "not allowed",
     "prohibited",
     "forbidden",
@@ -82,6 +88,44 @@ _BOOLEAN_POSITIVE = (
     "can",
     "shall",
     "must",
+)
+_PERMISSION_QUESTION_HINTS = frozenset(
+    {
+        "allow",
+        "allowed",
+        "allows",
+        "can",
+        "forbid",
+        "forbidden",
+        "forbids",
+        "may",
+        "permit",
+        "permitted",
+        "permits",
+        "prohibit",
+        "prohibited",
+        "prohibits",
+    }
+)
+_OBLIGATION_QUESTION_HINTS = frozenset(
+    {
+        "must",
+        "obligation",
+        "obligations",
+        "obliged",
+        "require",
+        "required",
+        "requires",
+        "shall",
+    }
+)
+_BOOLEAN_NO_PERMISSION_PATTERN = re.compile(
+    r"\bno\s+\w+(?:\s+\w+){0,4}\s+(?:is|are|was|were)\s+(?:permitted|allowed)\b",
+    re.IGNORECASE,
+)
+_BOOLEAN_NO_MODAL_PATTERN = re.compile(
+    r"\bno\s+\w+(?:\s+\w+){0,4}\s+(?:may|can|shall|must)\b",
+    re.IGNORECASE,
 )
 _TEMPORAL_UNITS = ("day", "days", "week", "weeks", "month", "months", "year", "years", "hour", "hours")
 _DURATION_QUESTION_HINTS = frozenset(_TEMPORAL_UNITS) | {
@@ -179,8 +223,8 @@ _SINGLE_TOKEN_ENTITY_EXCLUSIONS = {
 class Retriever(Protocol):
     """Retrieval interface expected by the answering service."""
 
-    def retrieve(self, question: QuestionRecord) -> list[dict[str, Any]]:
-        """Return candidate evidence pages."""
+    def retrieve(self, question: QuestionRecord) -> RetrievalResult | list[dict[str, Any]]:
+        """Return candidate evidence pages or a typed retrieval result."""
 
 
 @dataclass(slots=True)
@@ -196,8 +240,12 @@ class AnswerResult:
 @dataclass(slots=True)
 class _PageCandidate:
     doc_id: str
-    page_number: int
+    page_numbers: tuple[int, ...]
     text: str
+
+    @property
+    def page_number(self) -> int:
+        return self.page_numbers[0]
 
 
 @dataclass(slots=True)
@@ -217,7 +265,7 @@ class AnsweringService:
         self._provider = provider
 
     def answer_question(self, question: QuestionRecord) -> AnswerResult:
-        pages = [_coerce_page(page) for page in self._retriever.retrieve(question)]
+        pages, retrieval_refs = _coerce_retrieval_payload(self._retriever.retrieve(question))
 
         try:
             answer_type = AnswerType(str(question.answer_type))
@@ -225,7 +273,7 @@ class AnsweringService:
             raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
 
         if answer_type == AnswerType.FREE_TEXT:
-            return self._answer_free_text(question=question, pages=pages)
+            return self._answer_free_text(question=question, pages=pages, retrieval_refs=retrieval_refs)
 
         if not pages:
             return _empty_result(question_id=question.id)
@@ -273,7 +321,13 @@ class AnsweringService:
         answer, supporting_pages = next(iter(per_answer.values()))
         return _SolvedAnswer(answer=answer, supporting_pages=_dedupe_pages(supporting_pages))
 
-    def _answer_free_text(self, *, question: QuestionRecord, pages: list[_PageCandidate]) -> AnswerResult:
+    def _answer_free_text(
+        self,
+        *,
+        question: QuestionRecord,
+        pages: list[_PageCandidate],
+        retrieval_refs: list[PageReference] | None = None,
+    ) -> AnswerResult:
         if not pages:
             return AnswerResult(
                 question_id=question.id,
@@ -283,7 +337,7 @@ class AnsweringService:
             )
 
         evidence_pages = [
-            {"doc_id": page.doc_id, "page_number": page.page_number, "text": page.text}
+            _provider_evidence_page(page)
             for page in pages
         ]
         response = self._provider.generate(
@@ -305,16 +359,41 @@ class AnsweringService:
             question_id=question.id,
             answer=answer,
             confidence=confidence,
-            evidence_pages=_group_page_references(pages),
+            evidence_pages=list(retrieval_refs) if retrieval_refs else _group_page_references(pages),
         )
 
 
 def _coerce_page(page: Mapping[str, Any]) -> _PageCandidate:
+    page_number = int(page["page_number"])
     return _PageCandidate(
         doc_id=str(page["doc_id"]),
-        page_number=int(page["page_number"]),
+        page_numbers=(page_number,),
         text=str(page["text"]),
     )
+
+
+def _coerce_retrieval_payload(
+    retrieval_output: RetrievalResult | Iterable[Mapping[str, Any]],
+) -> tuple[list[_PageCandidate], list[PageReference] | None]:
+    if isinstance(retrieval_output, RetrievalResult):
+        pages: list[_PageCandidate] = []
+        for chunk in retrieval_output.evidence_chunks:
+            page_numbers = tuple(sorted({int(page) for page in chunk.page_span if int(page) > 0}))
+            if not page_numbers:
+                continue
+            pages.append(
+                _PageCandidate(
+                    doc_id=chunk.doc_id,
+                    page_numbers=page_numbers,
+                    text=chunk.text,
+                )
+            )
+        return pages, list(retrieval_output.retrieved_chunk_pages)
+
+    if isinstance(retrieval_output, Mapping) or isinstance(retrieval_output, str | bytes):
+        raise TypeError("Retriever must return a RetrievalResult or an iterable of page mappings.")
+
+    return [_coerce_page(page) for page in retrieval_output], None
 
 
 def _empty_result(*, question_id: str) -> AnswerResult:
@@ -376,14 +455,25 @@ def _extract_number(*, page: _PageCandidate, question_tokens: set[str]) -> _Solv
 
 def _extract_boolean(*, page: _PageCandidate, question_tokens: set[str]) -> _SolvedAnswer | None:
     candidates: list[tuple[float, bool]] = []
+    permission_question = bool(question_tokens & _PERMISSION_QUESTION_HINTS)
+    obligation_question = bool(question_tokens & _OBLIGATION_QUESTION_HINTS)
+    if not permission_question and not obligation_question:
+        permission_question = True
+        obligation_question = True
     for sentence in _sentences(page.text):
         score = _score_context(context=sentence, question_tokens=question_tokens)
         if score <= 0:
             continue
-        if _contains_boolean_phrase(sentence, _BOOLEAN_NEGATIVE):
+        if permission_question and _contains_permission_negation(sentence):
             candidates.append((score + 1.0, False))
             continue
-        if _contains_boolean_phrase(sentence, _BOOLEAN_POSITIVE):
+        if obligation_question and _contains_boolean_phrase(sentence, ("must not", "shall not")):
+            candidates.append((score + 1.0, False))
+            continue
+        if permission_question and _contains_boolean_phrase(sentence, ("permitted", "allowed", "may", "can")):
+            candidates.append((score, True))
+            continue
+        if obligation_question and _contains_boolean_phrase(sentence, ("must", "shall")):
             candidates.append((score, True))
 
     answer = _unique_best_value(candidates)
@@ -525,6 +615,11 @@ def _extract_date_candidates(text: str) -> list[tuple[str, int, int]]:
         if iso_value is not None:
             candidates.append((iso_value, match.start(), match.end()))
     for match in _DATE_PATTERN.finditer(text):
+        iso_value = _safe_iso_date_from_textual_match(match)
+        if iso_value is None:
+            continue
+        candidates.append((iso_value, match.start(), match.end()))
+    for match in _MONTH_FIRST_DATE_PATTERN.finditer(text):
         iso_value = _safe_iso_date_from_textual_match(match)
         if iso_value is None:
             continue
@@ -683,7 +778,7 @@ def _match_is_negated(text: str, match_start: int) -> bool:
 def _group_page_references(pages: Iterable[_PageCandidate]) -> list[PageReference]:
     grouped: dict[str, set[int]] = defaultdict(set)
     for page in pages:
-        grouped[page.doc_id].add(page.page_number)
+        grouped[page.doc_id].update(page.page_numbers)
 
     return [
         PageReference(doc_id=doc_id, page_numbers=sorted(page_numbers))
@@ -692,15 +787,34 @@ def _group_page_references(pages: Iterable[_PageCandidate]) -> list[PageReferenc
 
 
 def _dedupe_pages(pages: Iterable[_PageCandidate]) -> list[_PageCandidate]:
-    seen: set[tuple[str, int]] = set()
+    seen: set[tuple[str, tuple[int, ...]]] = set()
     deduped: list[_PageCandidate] = []
     for page in pages:
-        key = (page.doc_id, page.page_number)
+        key = (page.doc_id, page.page_numbers)
         if key in seen:
             continue
         seen.add(key)
         deduped.append(page)
     return deduped
+
+
+def _provider_evidence_page(page: _PageCandidate) -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "doc_id": page.doc_id,
+        "page_number": page.page_number,
+        "text": page.text,
+    }
+    if len(page.page_numbers) > 1:
+        payload["page_numbers"] = list(page.page_numbers)
+    return payload
+
+
+def _contains_permission_negation(text: str) -> bool:
+    return (
+        _contains_boolean_phrase(text, _BOOLEAN_NEGATIVE)
+        or bool(_BOOLEAN_NO_PERMISSION_PATTERN.search(text))
+        or bool(_BOOLEAN_NO_MODAL_PATTERN.search(text))
+    )
 
 
 def _answer_key(answer: Any) -> str:
