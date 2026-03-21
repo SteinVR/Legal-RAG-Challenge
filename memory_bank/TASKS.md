@@ -11,8 +11,8 @@
 ### Wave 2 -- Evaluation & Corpus Framing
 
 - [x] [TASK-W2A](tasks/TASK-W2A.md) Evaluation contract & submission validation
-- [X] [TASK-W2B](tasks/TASK-W2B.md) Dev benchmark, gold set & regression control
-- [ ] [TASK-W2C](tasks/TASK-W2C.md) Corpus parsing & canonicalization
+- [x] [TASK-W2B](tasks/TASK-W2B.md) Dev benchmark, gold set & regression control
+- [x] [TASK-W2C](tasks/TASK-W2C.md) Corpus parsing & canonicalization
 
 ### Wave 3 -- Parallel Baseline Build
 

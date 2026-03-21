@@ -30,5 +30,5 @@ Baseline changes only after regression run passes. Any new hypothesis must: (1) 
 
 ## 5. Outcome
 
-**Result**: Partially implemented. The dev benchmark/reporting layer was repaired, benchmark compare/consistency flows were aligned to the current run-report schema, and recorded verification is green; however, the broader W2B scope is not finished because the dev gold set, dev silver set, populated regression assets, and leaderboard-style tracking artifacts are still pending. The latest repair diff also remains uncommitted in the working tree.  
-**Next action**: Preserve and integrate the current benchmark/reporting repair, then complete the remaining W2B deliverables: benchmark assets, regression-control datasets, and tracking/reporting artifacts.
+**Result**: Partially implemented. The dev benchmark/reporting layer was repaired, benchmark compare/consistency flows were aligned to the current run-report schema, and recorded verification is green; however, the broader W2B scope is not finished because the dev gold set, dev silver set, populated regression assets, and leaderboard-style tracking artifacts are still pending. The repaired benchmark/reporting surface is now committed in the main branch.  
+**Next action**: Complete the remaining W2B deliverables: benchmark assets, regression-control datasets, and tracking/reporting artifacts.

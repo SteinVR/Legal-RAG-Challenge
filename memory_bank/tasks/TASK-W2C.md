@@ -4,7 +4,7 @@
 
 **Title**: Corpus parsing & canonicalization  
 **Description**: Parse legal PDFs into canonical page-level corpus with page map, table serialization, and quality control.  
-**Status**: Planned
+**Status**: Completed
 **Wave**: Wave 2 -- Evaluation & Corpus Framing
 
 ## 2. Scope
@@ -77,5 +77,5 @@ Physical 1-based page numbers are critical -- all downstream scoring depends on 
 
 ## 5. Outcome
 
-**Result**: [Pending]  
-**Next action**: execute clean rebuild with unified contracts, invariant-driven tests, and final quality gate
+**Result**: Implemented and verified. W2C now uses `src/common/schemas.py` as the ingestion SSOT, resolves page provenance in one parser path, serializes headered/headerless tables without row loss, enforces complete-artifact skip semantics, and ships with expanded invariant-based parser/serializer/builder/service/CLI coverage. The integrated surface passed targeted and full verification, quality gate review, final independent review, and real warmup smoke validation on available PDFs.  
+**Next action**: Use the completed corpus contract as the dependency base for Wave 3 indexing/retrieval work, and add or retain dedicated scanned fixtures to smoke-test OCR-specific provenance because the available warmup PDFs did not trigger OCR-selected pages.
