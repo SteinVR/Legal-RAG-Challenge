@@ -59,72 +59,33 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 
 ## 5. Component Design
 
+Detailed implementation notes live in `docs/component_design.md`. This section stays intentionally short so the project has one detailed component document instead of two drifting copies.
+
 ### A. Ingestion (`src/ingestion/`)
-- **Responsibility**: PDF -> canonical page-level corpus with text, layout, tables, metadata.
-- **Key modules**:
-  - `pdf_parser.py` -- native text extraction (PyMuPDF)
-  - `ocr_engine.py` -- PaddleOCR-VL-1.5 page-level parsing
-  - `page_triage.py` -- rule-based routing (native_clean / scan / suspicious)
-  - `table_serializer.py` -- tables into self-contained retrieval blocks (ERC2 pattern)
-  - `corpus_builder.py` -- assembles canonical JSONL corpus with page map
-- **Output**: `data/{phase}/corpus.jsonl`, `data/{phase}/page_manifest.json`
+- **Responsibility**: PDF -> canonical page-level corpus with text, tables, quality metadata, and parse manifests.
 
 ### B. Indexing (`src/indexing/`)
-- **Responsibility**: chunking + index construction via Qdrant embedded.
-- **Key modules**:
-  - `chunker.py` -- structure-aware chunking (heading/clause/table-level), page span preservation
-  - `embedder.py` -- Qwen3-Embedding-0.6B batch embedding
-  - `index_builder.py` -- Qdrant collection setup (dense vectors + BM25 sparse vectors + payload metadata), population
-- **Output**: Qdrant persistent storage under `data/{phase}/qdrant/`
+- **Responsibility**: structure-aware chunking plus dense/sparse local index construction in embedded Qdrant.
 
 ### C. Retrieval (`src/retrieval/`)
-- **Responsibility**: hybrid search via Qdrant, reranking, evidence compression.
-- **Key modules**:
-  - `hybrid_search.py` -- Qdrant hybrid query (dense + sparse fusion with payload filtering)
-  - `reranker.py` -- Qwen3-Reranker-0.6B
-  - `evidence_compressor.py` -- support-page validator + pruner (ERC2 pattern)
-  - `page_lifter.py` -- chunk-to-page aggregation
-- **Output**: candidate pages, final evidence set with page refs
+- **Responsibility**: hybrid search, reranking, evidence compression, and chunk-to-page grounding.
 
 ### D. Answering (`src/answering/`)
-- **Responsibility**: routing by answer_type, typed extraction, free-text generation.
-- **Key modules**:
-  - `router.py` -- routes by answer_type + query shape
-  - `solvers/` -- typed solvers (number, boolean, name, names, date, null_detector)
-  - `free_text_gen.py` -- grounded short-form generator (max 280 chars)
-  - `self_check.py` -- answer validation (type, length, contradiction)
-- **Output**: structured answer + confidence
+- **Responsibility**: deterministic extraction-first answering plus grounded free-text answering.
 
 ### E. Evaluation (`src/evaluation/`)
-- **Responsibility**: local scoring mirroring challenge formula.
-- **Key modules**:
-  - `scorer.py` -- deterministic scoring, grounding F-beta, TTFT factor, telemetry factor
-  - `validator.py` -- submission JSON schema + telemetry validation
-  - `dev_benchmark.py` -- dev gold/silver set management
-- **Output**: evaluation report (JSON/HTML)
+- **Responsibility**: local validation, scoring, dev benchmark slicing, and regression analysis.
 
 ### F. Submission (`src/submission/`)
-- **Responsibility**: telemetry packing, submission assembly, submit gate.
-- **Key modules**:
-  - `telemetry_packer.py` -- timing, usage, retrieval page refs
-  - `packager.py` -- submission.json + code_archive.zip assembly
-  - `submit_gate.py` -- pre-submit sanity checks
-  - `pipeline.py` -- W3D orchestration, restart-safe reuse checks, trace manifests, local validation, packaging
-  - `api_client.py` -- competition API wrapper (download docs/questions, submit)
+- **Responsibility**: phase sync, pipeline orchestration, telemetry packing, packaging, and submit-time checks.
 
 ### G. Providers (`src/providers/`)
-- **Responsibility**: LLM provider abstraction.
-- **Key modules**:
-  - `base.py` -- abstract interface (generate, extract, embed)
-  - `codex_provider.py` -- Codex via OAuth
-  - `fallback_provider.py` -- alternative public API backend
+- **Responsibility**: free-text provider abstraction and concrete model-backed generation path.
 
 ### H. Common (`src/common/`)
-- **Responsibility**: shared utilities.
-- **Key modules**:
-  - `config.py` -- config loader, versioned config management
-  - `schemas.py` -- Pydantic models (Question, Answer, Telemetry, Submission, Page, Chunk)
-  - `tracing.py` -- trace ID generation, per-question logging
+- **Responsibility**: shared config and schema contracts used across the full pipeline.
+
+See `memory_bank/component_design.md` for real module ownership, artifact paths, current limitations, and test anchors.
 
 ---
 
