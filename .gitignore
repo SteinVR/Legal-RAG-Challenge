@@ -2,6 +2,7 @@
 external/
 .codex/
 .opencode/
+.claude/
 .env
 
 # Python
