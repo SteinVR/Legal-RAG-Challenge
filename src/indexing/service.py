@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Mapping
 from uuid import NAMESPACE_URL, uuid5
 
 from qdrant_client import QdrantClient, models
@@ -79,6 +79,7 @@ class IndexPaths:
     qdrant_dir: Path
     page_parent_map_path: Path
     manifest_path: Path
+    sparse_encoder_state_path: Path
 
     @classmethod
     def from_config(cls, config: AppConfig) -> "IndexPaths":
@@ -92,6 +93,7 @@ class IndexPaths:
             qdrant_dir=index_dir / "qdrant",
             page_parent_map_path=index_dir / "page_parent_map.json",
             manifest_path=index_dir / "index_manifest.json",
+            sparse_encoder_state_path=index_dir / "sparse_encoder_state.json",
         )
 
     def ensure_directories(self) -> None:
@@ -360,6 +362,40 @@ class BM25SparseEncoder:
             "vocabulary_size": len(self.term_index),
         }
 
+    def export_state(self) -> dict[str, Any]:
+        return {
+            "version": 1,
+            "metadata": self.metadata(),
+            "term_index": dict(self.term_index),
+            "inverse_document_frequency": dict(self.inverse_document_frequency),
+        }
+
+    @classmethod
+    def from_state(cls, state: Mapping[str, Any]) -> "BM25SparseEncoder":
+        metadata = state.get("metadata")
+        term_index_raw = state.get("term_index")
+        idf_raw = state.get("inverse_document_frequency")
+        if not isinstance(metadata, Mapping):
+            raise ValueError("sparse encoder state must include metadata.")
+        if not isinstance(term_index_raw, Mapping) or not term_index_raw:
+            raise ValueError("sparse encoder state must include term_index mapping.")
+        if not isinstance(idf_raw, Mapping) or not idf_raw:
+            raise ValueError("sparse encoder state must include inverse_document_frequency mapping.")
+
+        encoder = cls.__new__(cls)
+        encoder.k1 = float(metadata.get("k1", BM25_K1))
+        encoder.b = float(metadata.get("b", BM25_B))
+        encoder.document_count = int(metadata.get("document_count", 1))
+        encoder.average_document_length = float(metadata.get("average_document_length", 1.0))
+        encoder.document_lengths = [1] * max(encoder.document_count, 1)
+        encoder.term_index = {str(term): int(index) for term, index in term_index_raw.items()}
+        encoder.inverse_document_frequency = {
+            str(term): float(weight) for term, weight in idf_raw.items() if str(term) in encoder.term_index
+        }
+        if not encoder.inverse_document_frequency:
+            raise ValueError("sparse encoder inverse_document_frequency cannot be empty.")
+        return encoder
+
 
 class HybridIndexService:
     """Builds phase-local hybrid indices from canonical corpus artifacts."""
@@ -377,7 +413,7 @@ class HybridIndexService:
         overwrite: bool | None = None,
     ) -> BuildIndexResult:
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
-        planned_paths = self._artifact_paths()
+        planned_paths = [*self._artifact_paths(), *self._optional_artifact_paths()]
         result = BuildIndexResult(
             command="build-indices",
             phase=self.config.phase.value,
@@ -398,7 +434,7 @@ class HybridIndexService:
         if not overwrite:
             existing_manifest = self._load_existing_manifest(source_manifest)
             if existing_manifest is not None:
-                result.skipped_paths.extend(planned_paths)
+                result.skipped_paths.extend(path for path in planned_paths if path.exists())
                 result.chunk_count = existing_manifest.get("chunk_count")
                 return result
 
@@ -429,9 +465,14 @@ class HybridIndexService:
             },
             "dense_encoder": dense_encoder_contract(dense_embedder),
             "sparse_encoder": sparse_encoder.metadata(),
+            "sparse_encoder_state": {
+                "path": self.paths.sparse_encoder_state_path.name,
+            },
         }
 
         self._write_json(self.paths.page_parent_map_path, page_parent_map)
+        self._write_json(self.paths.sparse_encoder_state_path, sparse_encoder.export_state())
+        manifest_payload["sparse_encoder_state"]["sha256"] = _sha256_for_file(self.paths.sparse_encoder_state_path)
         self._write_json(self.paths.manifest_path, manifest_payload)
 
         result.written_paths.extend(planned_paths)
@@ -439,7 +480,14 @@ class HybridIndexService:
         return result
 
     def _artifact_paths(self) -> list[Path]:
-        return [self.paths.qdrant_dir, self.paths.page_parent_map_path, self.paths.manifest_path]
+        return [
+            self.paths.qdrant_dir,
+            self.paths.page_parent_map_path,
+            self.paths.manifest_path,
+        ]
+
+    def _optional_artifact_paths(self) -> list[Path]:
+        return [self.paths.sparse_encoder_state_path]
 
     def _load_corpus_inputs(
         self,
@@ -979,6 +1027,17 @@ def _load_page_parent_map(
         if not page_span or not all(isinstance(page_number, int) and page_number >= 1 for page_number in page_span):
             return None
     return normalized
+
+
+def _load_sparse_encoder_state(path: Path) -> dict[str, Any] | None:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            return None
+        BM25SparseEncoder.from_state(payload)
+    except Exception:
+        return None
+    return payload
 
 
 def _normalize_page_parent_map_payload(raw_payload: Any) -> dict[str, dict[str, Any]]:

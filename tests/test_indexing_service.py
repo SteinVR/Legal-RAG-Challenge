@@ -349,6 +349,7 @@ def test_build_indices_persists_hybrid_index_and_exact_page_parent_map(
     assert result.manifest_path.exists()
     assert service.paths.qdrant_dir.exists()
     assert service.paths.page_parent_map_path.exists()
+    assert service.paths.sparse_encoder_state_path.exists()
     assert dense_embedder.calls, "Dense embedder should be used during index construction"
 
     with _qdrant_client(service.paths.qdrant_dir) as client:
@@ -360,6 +361,12 @@ def test_build_indices_persists_hybrid_index_and_exact_page_parent_map(
     manifest_payload = json.loads(result.manifest_path.read_text(encoding="utf-8"))
     assert manifest_payload["dense_encoder"]["model_name"] == module.DEFAULT_QWEN3_EMBEDDING_MODEL
     assert manifest_payload["sparse_encoder"]["scheme"] == "bm25_okapi"
+    sparse_state_manifest = manifest_payload["sparse_encoder_state"]
+    assert Path(sparse_state_manifest["path"]).name == service.paths.sparse_encoder_state_path.name
+    assert isinstance(sparse_state_manifest.get("sha256"), str) and sparse_state_manifest["sha256"]
+    sparse_state_payload = json.loads(service.paths.sparse_encoder_state_path.read_text(encoding="utf-8"))
+    assert sparse_state_payload["term_index"]
+    assert sparse_state_payload["inverse_document_frequency"]
 
     records = _scroll_all_records(service.paths.qdrant_dir)
     assert len(records) == result.chunk_count
@@ -441,6 +448,25 @@ def test_build_indices_rebuilds_when_page_parent_map_is_missing(
     assert rebuilt.written_paths
     assert not rebuilt.skipped_paths
     assert service.paths.page_parent_map_path.exists()
+
+
+def test_build_indices_keeps_dense_index_runnable_when_sparse_compat_state_is_missing(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_indexing_module()
+    config = _config(tmp_path)
+    _write_corpus_inputs(config)
+    monkeypatch.setattr(module, "build_dense_embedder", lambda _settings: StubDenseEmbedder())
+
+    service = module.HybridIndexService(config)
+    service.build_indices(dry_run=False, overwrite=True)
+    service.paths.sparse_encoder_state_path.unlink()
+
+    second_result = service.build_indices(dry_run=False, overwrite=False)
+
+    assert not second_result.written_paths
+    assert second_result.skipped_paths
 
 
 def test_build_indices_rebuilds_when_page_parent_map_is_unreadable(
