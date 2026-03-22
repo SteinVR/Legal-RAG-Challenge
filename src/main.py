@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Any, Callable, Sequence
 
@@ -392,7 +393,7 @@ def _run_build_submission(args: argparse.Namespace, config: AppConfig) -> str:
     service = BuildSubmissionService(
         config,
         provider_class=CodexFreeTextProvider,
-        provider_api_key=_load_provider_api_key_from_env_file(Path(args.env_file)),
+        provider_api_key=_resolve_provider_api_key(Path(args.env_file)),
     )
     result = service.build_submission(
         questions_path=args.questions_path,
@@ -411,12 +412,16 @@ def _run_build_indices(args: argparse.Namespace, config: AppConfig) -> str:
     return format_build_index_result(result)
 
 
-def _load_provider_api_key_from_env_file(env_file: Path) -> str | None:
-    if not env_file.exists():
-        return None
-
-    env_values = dotenv_values(env_file)
+def _resolve_provider_api_key(env_file: Path) -> str | None:
+    env_values = dotenv_values(env_file) if env_file.exists() else {}
     for key in ("CODEX_OAUTH_TOKEN", "OPENAI_API_KEY", "CODEX_API_KEY"):
+        # If the key exists in process env, that source overrides env-file for this key.
+        if key in os.environ:
+            token = os.environ[key].strip()
+            if token:
+                return token
+            continue
+
         value = env_values.get(key)
         if value:
             token = str(value).strip()

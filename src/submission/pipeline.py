@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import inspect
 import re
 import time
 from dataclasses import dataclass, field
@@ -319,7 +320,10 @@ class BuildSubmissionService:
         return answer_result, fallback_answering_service, fallback_provider, fallback_model
 
     def _build_provider(self, model: str) -> Any:
-        return self.provider_class(model=model, api_key=self.provider_api_key)
+        provider_kwargs: dict[str, Any] = {"model": model}
+        if self.provider_api_key and _supports_api_key_argument(self.provider_class):
+            provider_kwargs["api_key"] = self.provider_api_key
+        return self.provider_class(**provider_kwargs)
 
 
 def format_build_submission_result(result: BuildSubmissionResult) -> str:
@@ -682,6 +686,20 @@ def _architecture_summary() -> str:
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]
+
+
+def _supports_api_key_argument(provider_class: type[Any]) -> bool:
+    try:
+        signature = inspect.signature(provider_class)
+    except (TypeError, ValueError):
+        return False
+
+    for parameter in signature.parameters.values():
+        if parameter.kind is inspect.Parameter.VAR_KEYWORD:
+            return True
+        if parameter.name == "api_key":
+            return True
+    return False
 
 
 def _close_quietly(resource: Any) -> None:

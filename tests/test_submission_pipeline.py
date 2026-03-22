@@ -606,6 +606,179 @@ def test_build_submission_uses_provider_token_from_env_file_when_process_env_is_
     assert EnvFileAwareProvider.seen_api_keys == ["test-token"]
 
 
+def test_build_submission_prefers_process_env_provider_token_over_env_file(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class ProcessEnvAwareProvider:
+        seen_api_keys: list[str | None] = []
+
+        def __init__(self, *, model: str = "gpt-5.4-mini", api_key: str | None = None, **_: Any) -> None:
+            self.model = model
+            self.api_key = api_key
+            type(self).seen_api_keys.append(api_key)
+
+        def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
+            del question, evidence_pages, max_chars
+            return {
+                "answer": "The tribunal dismissed the claim with costs.",
+                "confidence": 0.81,
+            }
+
+    _patch_pipeline_dependencies(
+        monkeypatch,
+        provider_class=ProcessEnvAwareProvider,
+        inject_provider_env=False,
+    )
+    monkeypatch.setenv("CODEX_OAUTH_TOKEN", "process-token")
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.delenv("CODEX_API_KEY", raising=False)
+    config_path, env_path = _write_config(tmp_path, include_provider_token=True)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q-free", "question": "Summarize the order.", "answer_type": "free_text"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["The tribunal dismissed the claim with costs and ordered payment within 14 days."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+
+    assert exit_code == 0
+    assert ProcessEnvAwareProvider.seen_api_keys == ["process-token"]
+
+
+def test_build_submission_does_not_fallback_to_same_env_file_key_when_process_env_key_is_blank(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class BlankProcessEnvProvider:
+        seen_api_keys: list[str | None] = []
+
+        def __init__(self, *, model: str = "gpt-5.4-mini", api_key: str | None = None, **_: Any) -> None:
+            self.model = model
+            self.api_key = api_key
+            type(self).seen_api_keys.append(api_key)
+
+        def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
+            del question, evidence_pages, max_chars
+            return {
+                "answer": "The tribunal dismissed the claim with costs.",
+                "confidence": 0.81,
+            }
+
+    _patch_pipeline_dependencies(
+        monkeypatch,
+        provider_class=BlankProcessEnvProvider,
+        inject_provider_env=False,
+    )
+    monkeypatch.setenv("CODEX_OAUTH_TOKEN", "   ")
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.delenv("CODEX_API_KEY", raising=False)
+    config_path, env_path = _write_config(tmp_path, include_provider_token=False)
+    env_path.write_text(
+        "\n".join(
+            [
+                "COMPETITION_API_KEY=test-key",
+                "CODEX_OAUTH_TOKEN=env-file-codex-token",
+                "OPENAI_API_KEY=env-file-openai-token",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q-free", "question": "Summarize the order.", "answer_type": "free_text"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["The tribunal dismissed the claim with costs and ordered payment within 14 days."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+
+    assert exit_code == 0
+    assert BlankProcessEnvProvider.seen_api_keys == ["env-file-openai-token"]
+
+
+def test_build_submission_supports_custom_provider_without_api_key_constructor_parameter(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class ModelOnlyProvider:
+        seen_models: list[str] = []
+
+        def __init__(self, *, model: str = "gpt-5.4-mini") -> None:
+            self.model = model
+            type(self).seen_models.append(model)
+
+        def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
+            del question, evidence_pages, max_chars
+            return {
+                "answer": "The tribunal dismissed the claim with costs.",
+                "confidence": 0.81,
+            }
+
+    _patch_pipeline_dependencies(
+        monkeypatch,
+        provider_class=ModelOnlyProvider,
+        inject_provider_env=False,
+    )
+    monkeypatch.setenv("CODEX_OAUTH_TOKEN", "process-token")
+    config_path, env_path = _write_config(tmp_path, include_provider_token=True)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q-free", "question": "Summarize the order.", "answer_type": "free_text"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["The tribunal dismissed the claim with costs and ordered payment within 14 days."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+    payload = load_submission_payload(output_dir / "submission.json")
+
+    assert exit_code == 0
+    assert payload["answers"][0]["answer"] == "The tribunal dismissed the claim with costs."
+    assert payload["answers"][0]["telemetry"]["model_name"] == "gpt-5.4-mini"
+    assert ModelOnlyProvider.seen_models == ["gpt-5.4-mini"]
+
+
 def test_build_submission_does_not_require_provider_credentials_for_deterministic_only_runs(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
