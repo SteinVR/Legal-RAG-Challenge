@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Callable, Sequence
 
 import httpx
+from dotenv import dotenv_values
 
 from src.common.config import DEFAULT_CONFIG_PATH, AppConfig, ConfigError, load_app_config
 from src.common.schemas import Phase
@@ -388,7 +389,11 @@ def _run_submission_status(args: argparse.Namespace, config: AppConfig, client_f
 
 
 def _run_build_submission(args: argparse.Namespace, config: AppConfig) -> str:
-    service = BuildSubmissionService(config, provider_class=CodexFreeTextProvider)
+    service = BuildSubmissionService(
+        config,
+        provider_class=CodexFreeTextProvider,
+        provider_api_key=_load_provider_api_key_from_env_file(Path(args.env_file)),
+    )
     result = service.build_submission(
         questions_path=args.questions_path,
         documents_dir=args.documents_dir,
@@ -404,6 +409,20 @@ def _run_build_indices(args: argparse.Namespace, config: AppConfig) -> str:
         overwrite=args.force,
     )
     return format_build_index_result(result)
+
+
+def _load_provider_api_key_from_env_file(env_file: Path) -> str | None:
+    if not env_file.exists():
+        return None
+
+    env_values = dotenv_values(env_file)
+    for key in ("CODEX_OAUTH_TOKEN", "OPENAI_API_KEY", "CODEX_API_KEY"):
+        value = env_values.get(key)
+        if value:
+            token = str(value).strip()
+            if token:
+                return token
+    return None
 
 
 def _run_with_client_json(

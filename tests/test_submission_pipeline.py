@@ -40,6 +40,7 @@ def _write_config(
     tmp_path: Path,
     *,
     unanswerable_retrieval_policy: str | None = None,
+    include_provider_token: bool = True,
 ) -> tuple[Path, Path]:
     config_path = tmp_path / "config.yaml"
     config_payload: dict[str, Any] = {
@@ -60,7 +61,10 @@ def _write_config(
         encoding="utf-8",
     )
     env_path = tmp_path / ".env"
-    env_path.write_text("COMPETITION_API_KEY=test-key\nCODEX_OAUTH_TOKEN=test-token\n", encoding="utf-8")
+    env_lines = ["COMPETITION_API_KEY=test-key"]
+    if include_provider_token:
+        env_lines.append("CODEX_OAUTH_TOKEN=test-token")
+    env_path.write_text("\n".join(env_lines) + "\n", encoding="utf-8")
     return config_path, env_path
 
 
@@ -260,11 +264,17 @@ def _simple_qwen_rerank(
     return reranked[: max(int(top_k), 0)]
 
 
-def _patch_pipeline_dependencies(monkeypatch: pytest.MonkeyPatch, *, provider_class: type[Any] | None = None) -> None:
+def _patch_pipeline_dependencies(
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    provider_class: type[Any] | None = None,
+    inject_provider_env: bool = True,
+) -> None:
     monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
     monkeypatch.setattr("src.indexing.service.build_dense_embedder", lambda _settings: StubDenseEmbedder())
     monkeypatch.setattr("src.retrieval.reranker.QwenReranker.rerank", _simple_qwen_rerank)
-    monkeypatch.setenv("CODEX_OAUTH_TOKEN", "test-token")
+    if inject_provider_env:
+        monkeypatch.setenv("CODEX_OAUTH_TOKEN", "test-token")
 
     if provider_class is None:
         return
@@ -542,6 +552,104 @@ def test_build_submission_falls_back_from_gpt_5_4_mini_to_gpt_5_mini_on_http_mod
     assert payload["answers"][0]["telemetry"]["model_name"] == "gpt-5-mini"
 
 
+def test_build_submission_uses_provider_token_from_env_file_when_process_env_is_empty(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class EnvFileAwareProvider:
+        seen_api_keys: list[str | None] = []
+
+        def __init__(self, *, model: str = "gpt-5.4-mini", api_key: str | None = None, **_: Any) -> None:
+            self.model = model
+            self.api_key = api_key
+            type(self).seen_api_keys.append(api_key)
+
+        def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
+            del question, evidence_pages, max_chars
+            return {
+                "answer": "The tribunal dismissed the claim with costs.",
+                "confidence": 0.81,
+            }
+
+    _patch_pipeline_dependencies(
+        monkeypatch,
+        provider_class=EnvFileAwareProvider,
+        inject_provider_env=False,
+    )
+    monkeypatch.delenv("CODEX_OAUTH_TOKEN", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.delenv("CODEX_API_KEY", raising=False)
+    config_path, env_path = _write_config(tmp_path, include_provider_token=True)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q-free", "question": "Summarize the order.", "answer_type": "free_text"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["The tribunal dismissed the claim with costs and ordered payment within 14 days."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+
+    assert exit_code == 0
+    assert EnvFileAwareProvider.seen_api_keys == ["test-token"]
+
+
+def test_build_submission_does_not_require_provider_credentials_for_deterministic_only_runs(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class ExplodingProvider:
+        def __init__(self, **_: Any) -> None:
+            raise AssertionError("Provider should not be instantiated for deterministic-only runs.")
+
+    _patch_pipeline_dependencies(
+        monkeypatch,
+        provider_class=ExplodingProvider,
+        inject_provider_env=False,
+    )
+    monkeypatch.delenv("CODEX_OAUTH_TOKEN", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.delenv("CODEX_API_KEY", raising=False)
+    config_path, env_path = _write_config(tmp_path, include_provider_token=False)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q1", "question": "Within how many days must payment be made?", "answer_type": "number"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["Section 4 Notice. Payment must be made within 10 days after invoice."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+    payload = load_submission_payload(output_dir / "submission.json")
+
+    assert exit_code == 0
+    assert payload["answers"][0]["answer"] == pytest.approx(10.0)
+
+
 def test_build_submission_fails_fast_when_local_validation_detects_invalid_page_refs(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -717,6 +825,46 @@ def test_build_submission_rebuilds_corpus_and_index_when_pdf_content_changes(
     assert build_indices_calls >= 1
 
 
+def test_build_submission_sanitizes_question_id_before_writing_trace_files(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _patch_pipeline_dependencies(monkeypatch, inject_provider_env=False)
+    config_path, env_path = _write_config(tmp_path, include_provider_token=False)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "external/q1", "question": "Within how many days must payment be made?", "answer_type": "number"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["Section 4 Notice. Payment must be made within 10 days after invoice."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+
+    trace_manifest = load_submission_payload(output_dir / "trace_manifest.json")
+    trace_record = trace_manifest["traces"][0]
+    trace_relative_path = Path(trace_record["path"])
+
+    assert exit_code == 0
+    assert trace_record["question_id"] == "external/q1"
+    assert len(trace_relative_path.parts) == 2
+    assert trace_relative_path.parts[0] == "traces"
+    assert "external" not in trace_relative_path.name or "/" not in trace_relative_path.name
+    assert (output_dir / trace_relative_path).exists()
+
+
 def test_code_archive_excludes_env_secret_files(tmp_path: Path) -> None:
     project_root = tmp_path / "project"
     project_root.mkdir(parents=True, exist_ok=True)
@@ -737,6 +885,30 @@ def test_code_archive_excludes_env_secret_files(tmp_path: Path) -> None:
     assert ".env" not in names
     assert ".env.local" not in names
     assert "nested/.env.production" not in names
+
+
+def test_code_archive_excludes_env_example_even_when_explicitly_included(tmp_path: Path) -> None:
+    project_root = tmp_path / "project"
+    src_dir = project_root / "src"
+    src_dir.mkdir(parents=True, exist_ok=True)
+    (src_dir / "main.py").write_text("print('hello')\n", encoding="utf-8")
+    (project_root / ".env.example").write_text("CODEX_OAUTH_TOKEN=template\n", encoding="utf-8")
+    (project_root / ".env.production").write_text("CODEX_OAUTH_TOKEN=secret\n", encoding="utf-8")
+
+    archive_path = tmp_path / "code_archive.zip"
+    packager = SubmissionPackager()
+    packager.create_code_archive(
+        output_path=archive_path,
+        project_root=project_root,
+        include_paths={"src", ".env.example", ".env.production"},
+    )
+
+    with ZipFile(archive_path) as archive:
+        names = set(archive.namelist())
+
+    assert "src/main.py" in names
+    assert ".env.example" not in names
+    assert ".env.production" not in names
 
 
 def test_code_archive_exclusion_handles_paths_outside_project_root(tmp_path: Path) -> None:

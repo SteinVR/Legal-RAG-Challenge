@@ -53,7 +53,6 @@ CODE_ARCHIVE_INCLUDE_PATHS = (
     "pyproject.toml",
     "uv.lock",
     ".python-version",
-    ".env.example",
 )
 
 
@@ -83,12 +82,14 @@ class BuildSubmissionService:
         preferred_model: str = DEFAULT_PREFERRED_MODEL,
         fallback_model: str = DEFAULT_FALLBACK_MODEL,
         max_code_archive_bytes: int = MAX_CODE_ARCHIVE_BYTES,
+        provider_api_key: str | None = None,
         clock: Any | None = None,
     ) -> None:
         self.config = config
         self.provider_class = provider_class
         self.preferred_model = preferred_model
         self.fallback_model = fallback_model
+        self.provider_api_key = provider_api_key
         self.unanswerable_retrieval_policy = UnanswerableRetrievalPolicy(
             config.evaluation.unanswerable_retrieval_policy
         )
@@ -209,7 +210,7 @@ class BuildSubmissionService:
         )
 
         provider_model = self.preferred_model
-        provider = self.provider_class(model=provider_model)
+        provider = _LazyProvider(factory=self._build_provider, model=provider_model)
 
         retrieval_service = RetrievalService(
             hybrid_search=RRFHybridSearch(backend=backend),
@@ -312,10 +313,13 @@ class BuildSubmissionService:
 
         _close_quietly(provider)
         fallback_model = self.fallback_model
-        fallback_provider = self.provider_class(model=fallback_model)
+        fallback_provider = self._build_provider(fallback_model)
         fallback_answering_service = AnsweringService(retriever=retriever, provider=fallback_provider)
         answer_result = fallback_answering_service.answer_question(question)
         return answer_result, fallback_answering_service, fallback_provider, fallback_model
+
+    def _build_provider(self, model: str) -> Any:
+        return self.provider_class(model=model, api_key=self.provider_api_key)
 
 
 def format_build_submission_result(result: BuildSubmissionResult) -> str:
@@ -354,6 +358,27 @@ class _CachingRetriever:
             self._latest_result = None
             return result
         return self.delegate.retrieve(question)
+
+
+@dataclass(slots=True)
+class _LazyProvider:
+    factory: Any
+    model: str
+    _delegate: Any | None = field(default=None, init=False, repr=False)
+
+    def generate(self, **kwargs: Any) -> Any:
+        return self._provider().generate(**kwargs)
+
+    def close(self) -> None:
+        if self._delegate is None:
+            return
+        _close_quietly(self._delegate)
+        self._delegate = None
+
+    def _provider(self) -> Any:
+        if self._delegate is None:
+            self._delegate = self.factory(self.model)
+        return self._delegate
 
 
 def _validate_locally_before_packaging(
@@ -607,7 +632,7 @@ def _write_trace_artifacts(*, output_dir: Path, phase: str, traces: list[dict[st
     trace_files: list[dict[str, str]] = []
     for entry in traces:
         question_id = str(entry["question_id"])
-        trace_path = trace_dir / f"{question_id}.json"
+        trace_path = trace_dir / _trace_filename(question_id)
         with trace_path.open("w", encoding="utf-8") as handle:
             json.dump(entry, handle, ensure_ascii=False, indent=2)
             handle.write("\n")
@@ -635,6 +660,15 @@ def _write_trace_artifacts(*, output_dir: Path, phase: str, traces: list[dict[st
         )
         handle.write("\n")
     return manifest_path
+
+
+def _trace_filename(question_id: str) -> str:
+    normalized = re.sub(r"[^A-Za-z0-9._-]+", "_", question_id).strip("._")
+    if not normalized:
+        normalized = "question"
+    safe_prefix = normalized[:48]
+    digest = sha256(question_id.encode("utf-8")).hexdigest()[:12]
+    return f"{safe_prefix}__{digest}.json"
 
 
 def _architecture_summary() -> str:
