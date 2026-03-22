@@ -4,7 +4,7 @@
 
 **Title**: Answer routing & typed solving  
 **Description**: Route questions by answer_type; implement extraction-based solvers and grounded free-text generator.  
-**Status**: Done (baseline merged; corrective runnable-completeness pass open)
+**Status**: Done (baseline merged; runnable-completeness closed by W3D integration)
 **Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
@@ -29,16 +29,17 @@
 - Implemented the answering service layer in `src/answering/service.py` plus provider abstractions in `src/providers/`.
 - Added dedicated answering tests covering routing/solver behavior and integrated the service into the merged Wave 3 baseline.
 - Merged task branch into `main` after quality-gate review and final integrated verification.
-- Independent post-merge review later found two classes of gaps: runnable integration defects on the W3B retrieval boundary and the absence of a concrete free-text provider implementation.
-- Corrective follow-up for this task is limited to making the answering layer runnable on top of the W3B retrieval contract and shipping a concrete provider implementation; submission orchestration remains outside W3C.
+- The integrated W3D submission path now exercises the concrete provider path on top of the runnable retrieval contract.
+- No corrective follow-up remains inside W3C; submission orchestration lives in W3D.
+
 ## 4. Working Notes
 
 For deterministic types, prefer extraction over generation where possible.
 Null is a first-class answer: if both reference and prediction are null -> 1 point.
 Free-text: 5 criteria (correctness, completeness, grounding, confidence calibration, clarity). Keep short and grounded.
-Provider abstraction alone is no longer considered sufficient completion for W3C. Final acceptance now requires a concrete provider path plus system-level coverage against the real W3B retrieval contract.
+Provider abstraction alone was no longer considered sufficient completion for W3C. The W3D runnable pipeline now exercises a concrete provider path plus system-level coverage against the real W3B retrieval contract.
 
 ## 5. Outcome
 
-**Result**: Completed on 2026-03-21 as a baseline answering layer and merged to `main`, but later independent review found that runnable completeness was still open.  
-**Next action**: Close the W3C corrective gap by finishing the runnable retrieval boundary and concrete provider path, without expanding scope into W3D orchestration or submission packaging.
+**Result**: Completed on 2026-03-21 as a baseline answering layer and merged to `main`; the W3D runnable pipeline now confirms the concrete provider path and answer routing on top of retrieval.  
+**Next action**: None for W3C; use as a stable baseline for post-baseline tracks.

@@ -4,7 +4,7 @@
 
 **Title**: Retrieval, reranking & evidence selection  
 **Description**: Hybrid search + reranking + support-page validation/compression. Core grounding module.  
-**Status**: Done (baseline merged; corrective runnable-completeness pass open)
+**Status**: Done (baseline merged; runnable-completeness closed by W3D integration)
 **Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
@@ -25,17 +25,17 @@
 - Implemented retrieval pipeline modules and `src/retrieval/service.py` against the Wave 3 indexing contract.
 - Added dedicated retrieval component/service tests covering hybrid retrieval and evidence-selection behavior.
 - Merged task branch into `main` after quality-gate review and final integrated verification.
-- Independent post-merge review later found that the merged baseline stopped at protocol/orchestration layers and did not ship a concrete Qdrant-backed candidate searcher over the persisted W3A index.
-- Corrective follow-up for this task is limited to delivering a concrete runnable retrieval backend and its tests; full pipeline orchestration remains outside W3B.
+- The integrated W3D submission path now exercises a concrete Qdrant-backed retrieval backend over persisted W3A artifacts.
+- No corrective follow-up remains inside W3B; full pipeline orchestration lives in W3D.
 
 ## 4. Working Notes
 
 Grounding is F-beta with beta=2.5: recall >> precision, but precision still matters.
 Search broadly, report narrowly. Internal candidate set can be large; final evidence set must be minimal.
 Qdrant hybrid query: fuse dense + sparse scores via RRF or custom weights; filter by payload (doc_id, chunk_type) where needed.
-The original Wave 3B baseline accepted a protocol-only backend, which is no longer considered sufficient. Final acceptance for this task now requires real retrieval against persisted W3A artifacts, not only mocks/test doubles.
+The original Wave 3B baseline accepted a protocol-only backend, which was no longer considered sufficient. The W3D runnable pipeline now exercises real retrieval against persisted W3A artifacts, not only mocks/test doubles.
 
 ## 5. Outcome
 
-**Result**: Completed on 2026-03-21 as a baseline retrieval service layer and merged to `main`, but later independent review found the runnable backend path incomplete.  
-**Next action**: Close the W3B corrective gap by shipping a concrete Qdrant-backed retrieval backend over W3A artifacts, without expanding scope into W3D orchestration.
+**Result**: Completed on 2026-03-21 as a baseline retrieval service layer and merged to `main`; the W3D runnable pipeline now confirms the concrete retrieval backend path.  
+**Next action**: None for W3B; use as a stable baseline for post-baseline tracks.

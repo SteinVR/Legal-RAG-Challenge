@@ -109,6 +109,7 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
   - `telemetry_packer.py` -- timing, usage, retrieval page refs
   - `packager.py` -- submission.json + code_archive.zip assembly
   - `submit_gate.py` -- pre-submit sanity checks
+  - `pipeline.py` -- W3D orchestration, restart-safe reuse checks, trace manifests, local validation, packaging
   - `api_client.py` -- competition API wrapper (download docs/questions, submit)
 
 ### G. Providers (`src/providers/`)
@@ -129,7 +130,7 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 
 ## 6. Code Organization Pattern
 
-- `src/main.py` -- CLI entrypoint: orchestrates full pipeline or individual stages
+- `src/main.py` -- CLI entrypoint: orchestrates sync, parse, build-indices, build-submission, validation, scoring, and benchmark commands
 - `src/common/config.py` -- config loading and validation
 - `src/common/schemas.py` -- all data models (Pydantic)
 - `configs/baseline/v001/` -- baseline config YAML files
@@ -153,6 +154,7 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 
 - **Modularity**: each pipeline stage is independently runnable and testable.
 - **Page attribution**: every chunk traces back to physical PDF page(s); this is non-negotiable.
+- **Submission gate**: `build-submission` validates locally before packaging and writes `submission.json`, `code_archive.zip`, and `trace_manifest.json` only after checks pass.
 - **Logging**: structured JSON logs to `logs/`; trace ID per pipeline run and per question.
 - **Configs**: all tunable parameters in versioned config files, never hardcoded.
 - **Known ambiguity**: `retrieved_chunk_pages: []` for unanswerable vs telemetry "non-empty" requirement. Track as open issue; default to `[]` for unanswerable, switchable via config.

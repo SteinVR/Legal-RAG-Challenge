@@ -29,8 +29,11 @@ from src.evaluation.dev_benchmark import (
 )
 from src.evaluation.scorer import ScoreOptions, score_submission
 from src.evaluation.validator import SubmissionValidator, ValidationPolicy, build_corpus_registry
+from src.indexing.service import HybridIndexService, format_build_index_result
 from src.ingestion.service import CorpusParseService
+from src.providers.codex_provider import CodexFreeTextProvider
 from src.submission.api_client import CompetitionApiClient
+from src.submission.pipeline import BuildSubmissionService, format_build_submission_result
 from src.submission.sync import CommandResult, PhasePaths, PhaseSyncService
 
 ClientFactory = Callable[[AppConfig], CompetitionApiClient]
@@ -51,6 +54,8 @@ def build_parser() -> argparse.ArgumentParser:
     _add_download_documents_command(subparsers)
     _add_sync_command(subparsers)
     _add_parse_corpus_command(subparsers)
+    _add_build_indices_command(subparsers)
+    _add_build_submission_command(subparsers)
     _add_submit_command(subparsers)
     _add_submission_status_command(subparsers)
     _add_validate_submission_command(subparsers)
@@ -131,6 +136,35 @@ def _add_parse_corpus_command(subparsers: argparse._SubParsersAction[argparse.Ar
         dest="doc_ids",
         action="append",
         help="Optional document ID filter. Pass multiple times to parse a subset.",
+    )
+
+
+def _add_build_indices_command(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser("build-indices", help="Build phase-local hybrid retrieval indices.")
+    parser.add_argument("--phase", choices=[phase.value for phase in Phase], help="Override the config phase.")
+    parser.add_argument("--dry-run", action="store_true", help="Resolve index artifact paths without writing files.")
+    parser.add_argument("--force", action="store_true", help="Rebuild index artifacts even when cache is valid.")
+
+
+def _add_build_submission_command(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "build-submission",
+        help="Run the full pipeline and create submission.json + code_archive.zip.",
+    )
+    parser.add_argument(
+        "--questions-path",
+        required=True,
+        help="Path to questions.json used for pipeline execution and local validation.",
+    )
+    parser.add_argument(
+        "--documents-dir",
+        required=True,
+        help="Path to extracted PDFs used by corpus/index/pipeline execution.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        required=True,
+        help="Output directory for submission artifacts.",
     )
 
 
@@ -254,6 +288,10 @@ def _run_command(args: argparse.Namespace, config: AppConfig, client_factory: Cl
             doc_ids=args.doc_ids,
         )
         return _format_result(result)
+    if args.command == "build-indices":
+        return _run_build_indices(args, config)
+    if args.command == "build-submission":
+        return _run_build_submission(args, config)
     if args.command == "submit":
         return _run_submit(args, config, client_factory)
     if args.command == "submission-status":
@@ -347,6 +385,25 @@ def _run_submission_status(args: argparse.Namespace, config: AppConfig, client_f
         client_factory,
         lambda client: client.get_submission_status(args.submission_uuid),
     )
+
+
+def _run_build_submission(args: argparse.Namespace, config: AppConfig) -> str:
+    service = BuildSubmissionService(config, provider_class=CodexFreeTextProvider)
+    result = service.build_submission(
+        questions_path=args.questions_path,
+        documents_dir=args.documents_dir,
+        output_dir=args.output_dir,
+    )
+    return format_build_submission_result(result)
+
+
+def _run_build_indices(args: argparse.Namespace, config: AppConfig) -> str:
+    service = HybridIndexService(config)
+    result = service.build_indices(
+        dry_run=args.dry_run,
+        overwrite=args.force,
+    )
+    return format_build_index_result(result)
 
 
 def _run_with_client_json(

@@ -19,7 +19,7 @@
 - [x] [TASK-W3A](tasks/TASK-W3A.md) Chunking & hybrid indexing
 - [x] [TASK-W3B](tasks/TASK-W3B.md) Retrieval, reranking & evidence selection
 - [x] [TASK-W3C](tasks/TASK-W3C.md) Answer routing & typed solving
-- [ ] [TASK-W3D](tasks/TASK-W3D.md) Pipeline orchestration & submission packaging
+- [x] [TASK-W3D](tasks/TASK-W3D.md) Pipeline orchestration & submission packaging
 
 ## 2. Post-Baseline Tracks
 

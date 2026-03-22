@@ -4,7 +4,7 @@
 
 **Title**: Pipeline orchestration & submission packaging  
 **Description**: Wire all stages into single pipeline run; implement telemetry and submission packaging.  
-**Status**: Planned
+**Status**: Done
 **Wave**: Wave 3 -- Parallel Baseline Build
 
 ## 2. Scope
@@ -21,15 +21,18 @@
 
 ## 3. Implementation Plan
 
-
+- Implemented `src/submission/{telemetry_packer.py, submit_gate.py, packager.py, pipeline.py}`.
+- Wired `build-submission` in `src/main.py` and kept the rest of the CLI surface intact.
+- Added restart-safe reuse checks, trace manifest writing, wall-clock telemetry, local validation before packaging, code archive size/secret gates, and free-text model fallback.
 
 ## 4. Working Notes
 
-TTFT measurement: time from question receipt to first token of final answer. If no streaming, ttft_ms = total_time_ms.
-Code archive max 25 MB.
-doc_id must be PDF filename (SHA-like string), page_numbers must be physical 1-based.
+TTFT measurement: time from question receipt to first token of final answer. If no streaming, `ttft_ms = total_time_ms`.
+Code archive max 25 MB and excludes secret files such as `.env` / `.env.*`.
+`build-submission` writes `submission.json`, `code_archive.zip`, and `trace_manifest.json` only after local validation passes.
+`SubmitGate` follows the configured unanswerable retrieval policy.
 
 ## 5. Outcome
 
-**Result**: [Pending]  
-**Next action**: freeze orchestration contracts, then implement in Wave 3 with test doubles and bind to real stages as they land
+**Result**: Completed on 2026-03-22; the W3D submission pipeline is runnable and the submission-suite is green.
+**Next action**: None for W3D; remaining work belongs to lint cleanup and post-baseline tracks.

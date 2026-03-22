@@ -8,11 +8,11 @@
 
 | Attribute | Value |
 |-----------|-------|
-| Blockers | Wave 3 runnable-completeness gaps remain in W3A/W3B/W3C; public evaluation-doc ambiguity on unanswerable grounding also remains |
+| Blockers | No active product blockers for the current runnable baseline; remaining open items are unanswerable-grounding docs ambiguity and repo lint debt |
 | Methodology | RAPID |
-| Completed scope | TASK-W1A, TASK-W2A, TASK-W2B, and TASK-W2C are complete; TASK-W3A/W3B/W3C are merged as baseline service layers but still have open corrective runnable-completeness work; TASK-W3D is still pending |
-| Current focus | Close runnable-completeness gaps inside TASK-W3A/TASK-W3B/TASK-W3C before starting TASK-W3D orchestration/submission packaging |
-| Validation baseline | Verified on 2026-03-21 from `.venv`: `pytest -q` -> `150 passed`, `python -m compileall src` -> clean; current full `ruff check src tests` is not green because of 3 existing issues in `src/evaluation/goldset.py` and `tests/test_goldset.py` |
+| Completed scope | TASK-W1A, TASK-W2A, TASK-W2B, TASK-W2C, TASK-W3A, TASK-W3B, TASK-W3C, and TASK-W3D are complete; W3A/W3B/W3C are now runnable through the W3D submission pipeline |
+| Current focus | Clean up repo-wide `ruff` debt in `src/evaluation/goldset.py` and `tests/test_goldset.py`; keep an eye on the first real warmup/private submission smoke |
+| Validation baseline | Verified on 2026-03-22 from `.venv`: `PYTHONPATH=. pytest -q` -> `180 passed`, `PYTHONPATH=. python -m compileall src` -> clean; `PYTHONPATH=. ruff check src tests` still fails because of 3 existing issues in `src/evaluation/goldset.py` and `tests/test_goldset.py` |
 
 ---
 
@@ -22,11 +22,8 @@
 |------|-------|----------|--------|
 | 2026-03-17 | retrieved_chunk_pages [] vs non-empty ambiguity in EVALUATION.md | High | Open -- needs organizer clarification |
 | 2026-03-17 | Codex OAuth stability for 900-question batch untested | Medium | Open -- validate early |
-| 2026-03-22 | W3A persisted sparse/query path is incomplete for restartable retrieval | High | Open -- corrective pass needed inside W3A |
-| 2026-03-22 | W3B lacks a concrete Qdrant-backed retrieval backend over persisted W3A artifacts | High | Open -- corrective pass needed inside W3B |
-| 2026-03-22 | W3C lacks a concrete free-text provider and had post-merge runnable-boundary defects | High | Open -- corrective pass needed inside W3C |
 | 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Medium | Open -- available warmup PDFs validate native/table/artifact paths well, but OCR provenance still depends on dedicated fixtures/scanned samples |
-| 2026-03-21 | Repository-wide `ruff check src tests` currently fails | Medium | Open -- 2 `E501` violations in `src/evaluation/goldset.py` and 1 import-order violation in `tests/test_goldset.py` |
+| 2026-03-22 | Repository-wide `ruff check src tests` currently fails | Medium | Open -- 2 `E501` violations in `src/evaluation/goldset.py` and 1 import-order violation in `tests/test_goldset.py` |
 
 ---
 
@@ -34,7 +31,7 @@
 
 | Date | Area | Deviation | Reason |
 |------|------|-----------|--------|
-| 2026-03-22 | Wave 3 retrieval architecture | Baseline Wave 3 used a custom sparse-encoding/protocol-oriented path instead of a fully Qdrant-native runnable retrieval path | Independent review showed the baseline layers were mergeable and unit-tested but not yet runnable after restart |
+| 2026-03-22 | Current runnable baseline | No active architecture deviation is currently tracked for the W3A/W3B/W3C/W3D submission path | The remaining work is lint debt and post-baseline exploration, not a design mismatch |
 
 ---
 
@@ -51,7 +48,7 @@
 | 2026-03-19 | Benchmark compare/consistency CLI now targets the current benchmark run-report schema only | Removes misleading legacy fallback and keeps W2B report contracts explicit |
 | 2026-03-21 | W2C canonical corpus contract is now schema-first and quality-gated | Reduces parser/serializer/service drift and locks page/table provenance to one ingestion SSOT |
 | 2026-03-21 | Wave 3 baseline service layers were merged to `main` before pipeline orchestration | Indexing, retrieval, and answering can now progress independently of the still-pending end-to-end orchestration/package layer |
-| 2026-03-22 | Wave 3 corrective work now targets runnable completeness inside W3A/W3B/W3C before any W3D implementation | Independent review found that baseline-complete did not equal runnable-complete; acceptance now requires restartable artifacts, concrete retrieval/provider implementations, and system-level verification |
+| 2026-03-22 | W3D submission orchestration completed the runnable Wave 3 path | `build-submission`, telemetry packing, local validation, trace manifests, and archive gating now bind W3A/W3B/W3C into a runnable submission pipeline |
 
 ---
 
@@ -64,5 +61,5 @@
 - 2026-03-20 to 2026-03-21: TASK-W2C was rebuilt around `src/common/schemas.py` as the ingestion SSOT, with centralized page provenance, hardened table serialization, complete-artifact skip logic, expanded invariant-based tests, green quality gate, and final independent review approval.
 - 2026-03-21: Real warmup smoke validation passed on 10 selected PDFs and then on all 30 available warmup PDFs; native/table/artifact paths looked healthy, but the current dataset did not trigger any OCR-selected pages.
 - 2026-03-21: TASK-W3A, TASK-W3B, and TASK-W3C were implemented in isolated worktrees, quality-gated, merged to `main`, and recorded in `logs/agents/W3ABC_Codex_wave-3-orchestration_23-06_21-03-2026.md`.
-- 2026-03-21: Current `main` now contains `src/indexing/service.py`, `src/retrieval/service.py`, `src/answering/service.py`, provider abstractions, and dedicated tests; end-to-end orchestration/submission packaging remains outside the merged scope.
-- 2026-03-22: Independent review clarified that the merged Wave 3 baseline is not yet a runnable pipeline: W3A artifacts are not restart-complete for retrieval, W3B lacks a concrete Qdrant-backed backend, and W3C still needs a concrete provider path plus the already-started runnable-boundary fixes.
+- 2026-03-22: TASK-W3D completed the submission pipeline in `src/submission/` and `src/main.py`; the current test baseline is `180 passed`.
+- 2026-03-22: `ruff check src tests` still reports 3 pre-existing issues in `src/evaluation/goldset.py` and `tests/test_goldset.py`.
