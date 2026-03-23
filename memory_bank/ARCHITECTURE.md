@@ -52,7 +52,7 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 - **Reranker**: Qwen3-Reranker-0.6B loaded as `AutoModelForCausalLM`. Scoring: yes/no next-token probability via `log_softmax(logits[:, -1, [no_id, yes_id]])[:, 1].exp()`. Not a sequence classifier.
 - **Lexical search**: BM25 (rank-bm25 or tantivy-py)
 - **Vector store**: Qdrant embedded mode (dense + sparse vectors, payload filtering, persistence)
-- **Generation backend**: OpenAI API (primary); provider abstraction for fallback
+- **Generation backend**: OpenAI API (primary); provider abstraction for fallback. Default model: `gpt-5.4-mini` (reasoning model; `DEFAULT_CODEX_MODEL` in `src/providers/codex_provider.py`). Reasoning effort is configurable per answer type.
 - **Canonical data format**: JSONL (structured) + Markdown (debug); raw parse artifacts use JSON sidecars
 - **Config management**: versioned YAML configs under `configs/`
 - **Competition API client**: `arlc` SDK or custom thin wrapper
@@ -62,7 +62,7 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 - **opendataloader-pdf hybrid mode**: required default for born-digital and layout-complex pages; local-only is fallback, not peer default (TASK-W4C).
 - **Table extraction**: `table_method="cluster"` is the required default; any deviation requires measured regression evidence.
 - **Two-pass page attribution**: Pass A prunes retrieved candidates before answer emission; Pass B finalizes emitted pages after answering. Validation degrades before suppressing answers (TASK-W4A).
-- **Typed extraction per answer type**: boolean polarity, name/names entity logic, number spurious-literal rejection, confidence calibration; LLM table serialization is default-on but benchmark-gated with kill switch (TASK-W4B).
+- **Schema-first typed solving**: per-type Pydantic schema registry (`is_answerable`, typed `final_answer`, `relevant_pages`, short `reasoning_summary`); schema-bound structured outputs are the primary post-retrieval answering path; deterministic logic operates as guardrails (candidate generation, validation, normalization, rejection); reasoning effort configurable per type (high for boolean/name/names; medium for number/date/free_text) (TASK-W4B).
 - **Retrieval backbone unchanged**: Qdrant hybrid (dense+sparse) stays as-is; no separate BM25 system; prefilters are soft (non-blocking) (TASK-W4D).
 - **Out of scope for Wave 4**: annex/schedule chunk family; XY-Cut++ calibration.
 
@@ -82,7 +82,10 @@ Detailed implementation notes live in `docs/component_design.md`. This section s
 - **Responsibility**: hybrid search, reranking, evidence compression, and chunk-to-page grounding.
 
 ### D. Answering (`src/answering/`)
-- **Responsibility**: deterministic extraction-first answering plus grounded free-text answering.
+- **Responsibility**: retrieval-first, schema-first typed solving stack:
+  1. Retrieval and evidence packaging (solver-ready, page-stable bundles from TASK-W4D).
+  2. Schema-bound typed solving -- structured outputs per Pydantic answer-type schema via provider abstraction with reasoning effort controls.
+  3. Deterministic validation and normalization guardrails (polarity check, spurious-literal rejection, entity filtering, null policy).
 
 ### E. Evaluation (`src/evaluation/`)
 - **Responsibility**: local validation, scoring, dev benchmark slicing, and regression analysis.
