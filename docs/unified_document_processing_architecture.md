@@ -262,7 +262,7 @@ Required chunk families:
 - microchunks;
 - row-level table chunks;
 - semantic serialized-table chunks;
-- optional annex/schedule chunks where the normalized structure exposes them cleanly.
+- preserve annex/schedule markers in normalization metadata for later use, but do not make annex/schedule-specific chunk families a Wave 4 requirement.
 
 Chunk sizing must be token-aware rather than character-only. The initial target should be approximately 300 tokens with approximately 50 tokens overlap for clause-like text, followed by benchmark calibration on legal PDFs with long sections and schedules.
 
@@ -373,7 +373,6 @@ Recommended decomposition targets:
 - amendment vs current-version comparisons;
 - party A vs party B comparisons;
 - jurisdiction A vs jurisdiction B comparisons;
-- annex/schedule vs main body comparisons;
 - temporal comparisons across versions or dates.
 
 Cross-case and multi-document reasoning should be treated as a primary upgrade track rather than a distant edge-case optimization because the baseline already shows this slice is material.
@@ -488,7 +487,6 @@ Primary checks:
 
 - page parse quality on hard legal PDFs;
 - heading continuity;
-- annex and schedule recovery;
 - cross-page table continuity;
 - table-answer recall;
 - page grounding precision;

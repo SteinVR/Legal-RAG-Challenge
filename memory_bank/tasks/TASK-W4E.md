@@ -121,7 +121,7 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 
 **Entity extraction for routing (adapt pattern):**
 - `external/RAG-Challenge-2/src/questions_processing.py` `_extract_companies_from_subset()` (lines 163-182) — matches entity names from a lookup table (CSV, sorted by length). Simple but effective.
-  - **Adapt:** use legal-entity extraction from W4B instead of CSV company lookup. Routing logic: 1 entity → single-doc path, 2+ entities → decomposition candidate.
+  - **Adapt:** use legal-entity extraction from W4B instead of CSV company lookup. Entity count may inform decomposition likelihood or retrieval-breadth hints, but it must not hard-route questions into a single-document path.
 
 ### Enhance in current `src/`
 
@@ -134,11 +134,11 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 
 ### New code
 
-- Decomposition trigger policy — decides which questions escalate. Candidates: questions with 2+ legal entities from W4B extraction, questions classified as `cross_case` by question metadata, questions with explicit comparative language or legal-version/jurisdiction contrast.
+- Decomposition trigger policy — decides which questions escalate. Candidates: questions with multiple strong legal entities from W4B extraction, questions classified as `cross_case` by question metadata, questions with explicit comparative language, and questions with legal-version or jurisdiction contrast.
 - Sub-questions must reuse the same per-type schemas, reasoning-effort defaults, and validator rules defined in `TASK-W4B`.
 - Sub-question interface and provenance tracking (mapping original question → sub-questions → sub-results → final answer).
 - Page-list recomposition with minimization (not mechanical union of sub-question pages).
-- Legal-domain decomposition targets: amendment vs current-version, party A vs party B, jurisdiction A vs B, annex/schedule vs main body, temporal comparisons.
+- Legal-domain decomposition targets: amendment vs current-version, party A vs party B, jurisdiction A vs B, temporal comparisons.
 
 ## 4. Working Notes
 
