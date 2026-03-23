@@ -81,40 +81,17 @@ import sys
 
 import torch
 from sentence_transformers import SentenceTransformer
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+from src.retrieval.reranker import TransformersQwenRerankerBackend
 
 EMBED_REPO = "Qwen/Qwen3-Embedding-0.6B"
-RERANK_REPO = "Qwen/Qwen3-Reranker-0.6B"
+RERANK_QUERY = "what is the filing deadline?"
+RERANK_DOCUMENT = "the filing deadline is 30 days after service."
 
 
 def reranker_forward(device: str) -> float:
-    tokenizer = AutoTokenizer.from_pretrained(
-        RERANK_REPO,
-        trust_remote_code=True,
-        local_files_only=True,
-    )
-    model = AutoModelForSequenceClassification.from_pretrained(
-        RERANK_REPO,
-        trust_remote_code=True,
-        local_files_only=True,
-    )
-    model.to(device)
-    model.eval()
-
-    inputs = tokenizer(
-        ["what is the filing deadline?"],
-        ["the filing deadline is 30 days after service."],
-        padding=True,
-        truncation=True,
-        return_tensors="pt",
-    )
-    model_inputs = {key: value.to(device) for key, value in inputs.items()}
-    with torch.no_grad():
-        outputs = model(**model_inputs)
-    logits = getattr(outputs, "logits", outputs)
-    if hasattr(logits, "squeeze"):
-        logits = logits.squeeze(-1)
-    score = logits.detach().float().reshape(-1)[0].item()
+    backend = TransformersQwenRerankerBackend(device=device)
+    score = backend.score(RERANK_QUERY, [RERANK_DOCUMENT])[0]
     return float(score)
 
 

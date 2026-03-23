@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
+import torch
 
 from src.common.schemas import QuestionRecord
 from src.retrieval import (
@@ -12,7 +13,7 @@ from src.retrieval import (
     SupportPageEvidenceCompressor,
     extract_physical_pages,
 )
-from src.retrieval.reranker import LexicalFallbackReranker
+from src.retrieval.reranker import LexicalFallbackReranker, TransformersQwenRerankerBackend
 
 
 def _chunk(
@@ -61,6 +62,94 @@ class StubQwenBackend:
         if self.error is not None:
             raise self.error
         return list(self.scores)
+
+
+class FakeTokenizerResult:
+    def __init__(self, input_ids: list[int]) -> None:
+        self.input_ids = input_ids
+
+
+class FakeTokenizer:
+    def __init__(self) -> None:
+        self.pad_token = None
+        self.eos_token = "<eos>"
+        self.padding_side = "right"
+        self.pairs_seen: list[str] = []
+        self.pad_inputs: dict[str, Any] | None = None
+
+    def encode(self, text: str, add_special_tokens: bool = False) -> list[int]:
+        del add_special_tokens
+        if text.startswith("<|im_start|>system"):
+            return [91, 92]
+        if text.startswith("<|im_end|>"):
+            return [93, 94]
+        return [len(text) % 97]
+
+    def __call__(
+        self,
+        text: str | list[str],
+        *,
+        add_special_tokens: bool = False,
+        padding: bool | str = False,
+        truncation: str | bool | None = None,
+        return_attention_mask: bool = False,
+        max_length: int | None = None,
+    ) -> Any:
+        del add_special_tokens, padding, truncation, return_attention_mask, max_length
+        if isinstance(text, str):
+            if text == "yes":
+                return FakeTokenizerResult([7])
+            if text == "no":
+                return FakeTokenizerResult([3])
+            raise AssertionError(f"Unexpected scalar tokenization input: {text}")
+
+        self.pairs_seen = list(text)
+        return {"input_ids": [[10, 11], [20, 21, 22]]}
+
+    def pad(
+        self,
+        inputs: dict[str, list[list[int]]],
+        *,
+        padding: bool | str,
+        return_tensors: str,
+        max_length: int | None = None,
+    ) -> dict[str, torch.Tensor]:
+        del padding, return_tensors, max_length
+        self.pad_inputs = {"input_ids": [list(item) for item in inputs["input_ids"]]}
+        max_tokens = max(len(item) for item in inputs["input_ids"])
+        padded_ids: list[list[int]] = []
+        attention_masks: list[list[int]] = []
+        for item in inputs["input_ids"]:
+            pad_count = max_tokens - len(item)
+            padded_ids.append(([0] * pad_count) + list(item))
+            attention_masks.append(([0] * pad_count) + ([1] * len(item)))
+        return {
+            "input_ids": torch.tensor(padded_ids, dtype=torch.long),
+            "attention_mask": torch.tensor(attention_masks, dtype=torch.long),
+        }
+
+
+class FakeCausalModel:
+    def __init__(self) -> None:
+        self.device = "cpu"
+        self.calls: list[dict[str, torch.Tensor]] = []
+
+    def to(self, device: str) -> "FakeCausalModel":
+        self.device = device
+        return self
+
+    def eval(self) -> "FakeCausalModel":
+        return self
+
+    def __call__(self, **inputs: torch.Tensor) -> Any:
+        self.calls.append(inputs)
+        batch_size, seq_len = inputs["input_ids"].shape
+        logits = torch.zeros((batch_size, seq_len, 8), dtype=torch.float32)
+        logits[0, -1, 7] = 4.0
+        logits[0, -1, 3] = 1.0
+        logits[1, -1, 7] = 0.5
+        logits[1, -1, 3] = 2.5
+        return type("Output", (), {"logits": logits})()
 
 
 def test_rrf_hybrid_search_uses_rank_fusion_not_raw_score_addition() -> None:
@@ -113,6 +202,45 @@ def test_qwen_reranker_uses_backend_scores_to_order_candidates() -> None:
     ]
     assert [item["chunk_id"] for item in results] == ["c2", "c1", "c3"]
     assert results[0]["rerank_score"] == pytest.approx(0.97)
+
+
+def test_transformers_qwen_backend_uses_causal_lm_yes_no_scoring(monkeypatch: pytest.MonkeyPatch) -> None:
+    fake_tokenizer = FakeTokenizer()
+    fake_model = FakeCausalModel()
+
+    monkeypatch.setattr(
+        "transformers.AutoTokenizer.from_pretrained",
+        lambda *args, **kwargs: fake_tokenizer,
+    )
+    monkeypatch.setattr(
+        "transformers.AutoModelForCausalLM.from_pretrained",
+        lambda *args, **kwargs: fake_model,
+    )
+    monkeypatch.setattr(
+        "src.retrieval.reranker.snapshot_download",
+        lambda *args, **kwargs: "/tmp/fake-qwen-reranker",
+        raising=False,
+    )
+
+    backend = TransformersQwenRerankerBackend(device="cpu", max_length=64, instruction="Custom instruction")
+    scores = backend.score("What is the termination fee?", ["Relevant clause", "Irrelevant boilerplate"])
+
+    assert fake_tokenizer.padding_side == "left"
+    assert fake_tokenizer.pad_token == fake_tokenizer.eos_token
+    assert fake_model.device == "cpu"
+    assert len(fake_model.calls) == 1
+    assert len(scores) == 2
+    assert scores[0] > scores[1]
+    assert scores[0] == pytest.approx(0.95257, rel=1e-4)
+    assert scores[1] == pytest.approx(0.11920, rel=1e-4)
+    assert fake_tokenizer.pairs_seen == [
+        "<Instruct>: Custom instruction\n<Query>: What is the termination fee?\n<Document>: Relevant clause",
+        "<Instruct>: Custom instruction\n<Query>: What is the termination fee?\n<Document>: Irrelevant boilerplate",
+    ]
+    assert fake_tokenizer.pad_inputs is not None
+    for input_ids in fake_tokenizer.pad_inputs["input_ids"]:
+        assert input_ids[:2] == [91, 92]
+        assert input_ids[-2:] == [93, 94]
 
 
 def test_qwen_reranker_uses_fallback_only_when_explicitly_configured() -> None:

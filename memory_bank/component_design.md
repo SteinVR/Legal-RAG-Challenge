@@ -154,7 +154,6 @@ The model is lazy-loaded through `SentenceTransformer(..., trust_remote_code=Tru
 
 ### Important Notes
 
-- The older architecture note mentioned separate `chunker.py`, `embedder.py`, and `index_builder.py` modules. In the current repository those responsibilities are consolidated in `src/indexing/service.py`.
 - Dense query encoding and dense passage encoding share the same `encode()` contract. There is no separate query encoder API in the current code.
 - Token counts are recorded as metadata and used for sparse encoding context, but token budget is not the primary chunk boundary mechanism.
 

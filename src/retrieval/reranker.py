@@ -6,9 +6,17 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
+from huggingface_hub import snapshot_download
+
 from src.common.schemas import QuestionRecord
 
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
+DEFAULT_QWEN3_RERANK_INSTRUCTION = "Given a web search query, retrieve relevant passages that answer the query"
+DEFAULT_QWEN3_RERANK_SYSTEM_PROMPT = (
+    'Judge whether the Document meets the requirements based on the Query and the Instruct provided. '
+    'Note that the answer can only be "yes" or "no".'
+)
+DEFAULT_QWEN3_RERANK_SUFFIX = "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
 DEFAULT_STOPWORDS = frozenset(
     {
         "a",
@@ -51,16 +59,26 @@ class CandidateReranker(Protocol):
 
 @dataclass(slots=True)
 class TransformersQwenRerankerBackend:
-    """Lazy Transformers backend for `Qwen/Qwen3-Reranker-0.6B`."""
+    """Lazy Transformers backend for `Qwen/Qwen3-Reranker-0.6B`.
+
+    The official Qwen reranker checkpoint is a causal LM. Rerank scores come from the
+    next-token probability of answering "yes" versus "no" for a formatted query/document prompt.
+    """
 
     model_name: str = "Qwen/Qwen3-Reranker-0.6B"
     device: str | None = None
     batch_size: int = 8
-    max_length: int = 1024
+    max_length: int = 8192
+    instruction: str | None = DEFAULT_QWEN3_RERANK_INSTRUCTION
+    system_prompt: str = DEFAULT_QWEN3_RERANK_SYSTEM_PROMPT
     trust_remote_code: bool = True
     _tokenizer: Any = field(default=None, init=False, repr=False)
     _model: Any = field(default=None, init=False, repr=False)
     _runtime_device: str | None = field(default=None, init=False, repr=False)
+    _token_false_id: int | None = field(default=None, init=False, repr=False)
+    _token_true_id: int | None = field(default=None, init=False, repr=False)
+    _prefix_token_ids: list[int] | None = field(default=None, init=False, repr=False)
+    _suffix_token_ids: list[int] | None = field(default=None, init=False, repr=False)
 
     def score(self, query: str, documents: list[str]) -> list[float]:
         if not documents:
@@ -73,55 +91,97 @@ class TransformersQwenRerankerBackend:
         scores: list[float] = []
         for start in range(0, len(documents), self.batch_size):
             batch_documents = documents[start : start + self.batch_size]
-            inputs = self._tokenizer(
-                [query] * len(batch_documents),
-                batch_documents,
-                padding=True,
-                truncation=True,
-                max_length=self.max_length,
-                return_tensors="pt",
+            model_inputs = self._tokenize_pairs(
+                [self._format_pair(query, document) for document in batch_documents]
             )
-            model_inputs = {
-                key: value.to(self._runtime_device)
-                for key, value in inputs.items()
-            }
 
             with torch.no_grad():
                 outputs = self._model(**model_inputs)
-                logits = _extract_logits(outputs)
-                batch_scores = logits.detach().float().cpu().tolist()
+                batch_logits = outputs.logits[:, -1, :]
+                true_vector = batch_logits[:, self._token_true_id]
+                false_vector = batch_logits[:, self._token_false_id]
+                rerank_logits = torch.stack([false_vector, true_vector], dim=1)
+                batch_scores = torch.nn.functional.log_softmax(rerank_logits, dim=1)[:, 1].exp()
 
-            if isinstance(batch_scores, list):
-                scores.extend(float(score) for score in batch_scores)
-            else:
-                scores.append(float(batch_scores))
+            scores.extend(float(score) for score in batch_scores.detach().float().cpu().tolist())
 
         return scores
 
     def _ensure_loaded(self) -> None:
-        if self._model is not None and self._tokenizer is not None and self._runtime_device is not None:
+        if (
+            self._model is not None
+            and self._tokenizer is not None
+            and self._runtime_device is not None
+            and self._token_true_id is not None
+            and self._token_false_id is not None
+            and self._prefix_token_ids is not None
+            and self._suffix_token_ids is not None
+        ):
             return
 
         import torch
-        from transformers import AutoModelForSequenceClassification, AutoTokenizer
+        from transformers import AutoModelForCausalLM, AutoTokenizer
 
         runtime_device = self.device or ("cuda" if torch.cuda.is_available() else "cpu")
+        model_path = snapshot_download(repo_id=self.model_name, local_files_only=True)
         tokenizer = AutoTokenizer.from_pretrained(
-            self.model_name,
+            model_path,
             trust_remote_code=self.trust_remote_code,
             local_files_only=True,
         )
-        model = AutoModelForSequenceClassification.from_pretrained(
-            self.model_name,
+        tokenizer.padding_side = "left"
+        if tokenizer.pad_token is None and tokenizer.eos_token is not None:
+            tokenizer.pad_token = tokenizer.eos_token
+
+        model = AutoModelForCausalLM.from_pretrained(
+            model_path,
             trust_remote_code=self.trust_remote_code,
             local_files_only=True,
         )
         model.to(runtime_device)
         model.eval()
 
+        token_false_id = _single_token_id(tokenizer, "no")
+        token_true_id = _single_token_id(tokenizer, "yes")
+        prefix = f"<|im_start|>system\n{self.system_prompt}<|im_end|>\n<|im_start|>user\n"
+        prefix_token_ids = tokenizer.encode(prefix, add_special_tokens=False)
+        suffix_token_ids = tokenizer.encode(DEFAULT_QWEN3_RERANK_SUFFIX, add_special_tokens=False)
+
         self._tokenizer = tokenizer
         self._model = model
         self._runtime_device = runtime_device
+        self._token_false_id = token_false_id
+        self._token_true_id = token_true_id
+        self._prefix_token_ids = list(prefix_token_ids)
+        self._suffix_token_ids = list(suffix_token_ids)
+
+    def _format_pair(self, query: str, document: str) -> str:
+        instruction = self.instruction or DEFAULT_QWEN3_RERANK_INSTRUCTION
+        return f"<Instruct>: {instruction}\n<Query>: {query}\n<Document>: {document}"
+
+    def _tokenize_pairs(self, pairs: list[str]) -> dict[str, Any]:
+        assert self._tokenizer is not None
+        assert self._runtime_device is not None
+        assert self._prefix_token_ids is not None
+        assert self._suffix_token_ids is not None
+
+        content_max_length = max(self.max_length - len(self._prefix_token_ids) - len(self._suffix_token_ids), 1)
+        tokenized = self._tokenizer(
+            pairs,
+            padding=False,
+            truncation="longest_first",
+            return_attention_mask=False,
+            max_length=content_max_length,
+        )
+        for index, input_ids in enumerate(tokenized["input_ids"]):
+            tokenized["input_ids"][index] = self._prefix_token_ids + list(input_ids) + self._suffix_token_ids
+
+        padded_inputs = self._tokenizer.pad(
+            tokenized,
+            padding=True,
+            return_tensors="pt",
+        )
+        return {key: value.to(self._runtime_device) for key, value in padded_inputs.items()}
 
 
 @dataclass(slots=True)
@@ -220,13 +280,11 @@ class LexicalFallbackReranker:
         return overlap / len(query_tokens)
 
 
-def _extract_logits(outputs: Any) -> Any:
-    logits = getattr(outputs, "logits", outputs)
-    if isinstance(logits, (tuple, list)):
-        logits = logits[0]
-    if hasattr(logits, "squeeze"):
-        logits = logits.squeeze(-1)
-    return logits
+def _single_token_id(tokenizer: Any, text: str) -> int:
+    input_ids = getattr(tokenizer(text, add_special_tokens=False), "input_ids", None)
+    if not input_ids or len(input_ids) != 1:
+        raise RuntimeError(f"Expected '{text}' to map to a single token for Qwen reranker scoring.")
+    return int(input_ids[0])
 
 
 def _score(value: Any) -> float:
