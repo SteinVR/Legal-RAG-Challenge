@@ -14,13 +14,13 @@ from typing import Any
 from uuid import uuid4
 
 import fitz
-import httpx
 
 import src.indexing.service as indexing_service
 from src.answering.service import (
     CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
     AnsweringService,
     AnswerResult,
+    FreeTextGroundingValidationError,
 )
 from src.common.config import AppConfig
 from src.common.schemas import CorpusParseManifest, ParseStatus, Phase, QuestionRecord
@@ -47,8 +47,7 @@ from src.submission.submit_gate import MAX_CODE_ARCHIVE_BYTES, SubmitGate
 from src.submission.sync import PhasePaths
 from src.submission.telemetry_packer import build_answer_telemetry
 
-DEFAULT_PREFERRED_MODEL = "gpt-5.4-mini"
-DEFAULT_FALLBACK_MODEL = "gpt-5.4-mini"
+FREE_TEXT_MODEL = "gpt-5.4-mini"
 DETERMINISTIC_MODEL_NAME = "deterministic-extractor"
 CODE_ARCHIVE_INCLUDE_PATHS = (
     "src",
@@ -84,16 +83,13 @@ class BuildSubmissionService:
         config: AppConfig,
         *,
         provider_class: type = CodexFreeTextProvider,
-        preferred_model: str = DEFAULT_PREFERRED_MODEL,
-        fallback_model: str = DEFAULT_FALLBACK_MODEL,
         max_code_archive_bytes: int = MAX_CODE_ARCHIVE_BYTES,
         provider_api_key: str | None = None,
         clock: Any | None = None,
     ) -> None:
         self.config = config
         self.provider_class = provider_class
-        self.preferred_model = preferred_model
-        self.fallback_model = fallback_model
+        self.free_text_model = FREE_TEXT_MODEL
         self.provider_api_key = provider_api_key
         self.unanswerable_retrieval_policy = UnanswerableRetrievalPolicy(
             config.evaluation.unanswerable_retrieval_policy
@@ -214,7 +210,7 @@ class BuildSubmissionService:
             enable_sparse_compat=True,
         )
 
-        provider_model = self.preferred_model
+        provider_model = self.free_text_model
         provider = _LazyProvider(factory=self._build_provider, model=provider_model)
 
         retrieval_service = RetrievalService(
@@ -232,12 +228,9 @@ class BuildSubmissionService:
                 question_trace_id = uuid4().hex
                 question_started_at = self._clock()
 
-                answer_result, answering_service, provider, provider_model = self._answer_question_with_fallback(
+                answer_result = self._answer_question(
                     question=question,
                     answering_service=answering_service,
-                    retriever=retriever,
-                    provider=provider,
-                    provider_model=provider_model,
                 )
                 total_time_ms = _elapsed_milliseconds(
                     started_at=question_started_at,
@@ -295,22 +288,16 @@ class BuildSubmissionService:
 
         return answers, traces
 
-    def _answer_question_with_fallback(
+    def _answer_question(
         self,
         *,
         question: QuestionRecord,
         answering_service: AnsweringService,
-        retriever: "_CachingRetriever",
-        provider: Any,
-        provider_model: str,
-    ) -> tuple[AnswerResult, AnsweringService, Any, str]:
+    ) -> AnswerResult:
         try:
-            answer_result = answering_service.answer_question(question)
-            return answer_result, answering_service, provider, provider_model
-        except ValueError:
-            # Grounding validation or extraction failure — return safe fallback
-            # instead of crashing the entire pipeline for one question.
-            fallback_result = AnswerResult(
+            return answering_service.answer_question(question)
+        except FreeTextGroundingValidationError:
+            return AnswerResult(
                 question_id=question.id,
                 answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
                 if question.answer_type == AnswerType.FREE_TEXT.value
@@ -318,22 +305,6 @@ class BuildSubmissionService:
                 confidence=0.0,
                 evidence_pages=[],
             )
-            return fallback_result, answering_service, provider, provider_model
-        except httpx.HTTPStatusError as exc:
-            if not _should_fallback_to_default_model(
-                question=question,
-                error=exc,
-                active_model=provider_model,
-                preferred_model=self.preferred_model,
-            ):
-                raise
-
-        _close_quietly(provider)
-        fallback_model = self.fallback_model
-        fallback_provider = self._build_provider(fallback_model)
-        fallback_answering_service = AnsweringService(retriever=retriever, provider=fallback_provider)
-        answer_result = fallback_answering_service.answer_question(question)
-        return answer_result, fallback_answering_service, fallback_provider, fallback_model
 
     def _build_provider(self, model: str) -> Any:
         provider_kwargs: dict[str, Any] = {"model": model}
@@ -436,50 +407,6 @@ def _first_validation_error_message(report: SubmissionValidationReport) -> str |
             if issue.severity == "error":
                 return issue.message
     return None
-
-
-def _should_fallback_to_default_model(
-    *,
-    question: QuestionRecord,
-    error: httpx.HTTPStatusError,
-    active_model: str,
-    preferred_model: str,
-) -> bool:
-    if question.answer_type != AnswerType.FREE_TEXT.value:
-        return False
-    if active_model != preferred_model:
-        return False
-
-    status_code = error.response.status_code
-    if status_code not in {400, 404}:
-        return False
-
-    error_message = _extract_http_error_message(error.response).lower()
-    return (
-        "model" in error_message
-        and (
-            "does not exist" in error_message
-            or "unknown model" in error_message
-            or "invalid model" in error_message
-            or "model_not_found" in error_message
-            or "not found" in error_message
-        )
-    )
-
-
-def _extract_http_error_message(response: httpx.Response) -> str:
-    try:
-        payload = response.json()
-    except ValueError:
-        return response.text
-
-    if isinstance(payload, dict):
-        error_payload = payload.get("error")
-        if isinstance(error_payload, dict):
-            message = error_payload.get("message")
-            if isinstance(message, str) and message:
-                return message
-    return response.text
 
 
 def _estimate_input_tokens(*, question: QuestionRecord, retrieval_result: RetrievalResult) -> int:

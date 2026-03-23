@@ -497,13 +497,11 @@ def test_build_submission_reuses_persisted_w3a_artifacts_on_restart(
     assert second_answer["telemetry"]["model_name"] == first_answer["telemetry"]["model_name"]
 
 
-def test_build_submission_falls_back_from_gpt_5_4_mini_to_gpt_5_mini_on_http_model_errors(
+def test_build_submission_fails_when_gpt_5_4_mini_is_unavailable(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """When the single configured model errors, the pipeline should not crash but
-    should fall back to a safe unanswerable answer for free_text questions via
-    the ValueError safety net (provider HTTP error → ValueError in answer routing)."""
+    """Free-text generation must fail loudly when the only supported model is unavailable."""
 
     class FailingProvider:
         def __init__(self, *, model: str = "gpt-5.4-mini", **_: Any) -> None:
@@ -544,6 +542,91 @@ def test_build_submission_falls_back_from_gpt_5_4_mini_to_gpt_5_mini_on_http_mod
             output_dir=output_dir,
         )
     assert exc_info.value.code == 1
+    assert not (output_dir / "submission.json").exists()
+
+
+def test_build_submission_returns_canonical_unanswerable_for_grounding_validation_failures(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class UngroundedProvider:
+        def __init__(self, *, model: str = "gpt-5.4-mini", **_: Any) -> None:
+            self.model = model
+
+        def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
+            del question, evidence_pages, max_chars
+            return {"answer": "The tribunal granted the claim.", "confidence": 0.81}
+
+    _patch_pipeline_dependencies(monkeypatch, provider_class=UngroundedProvider)
+    config_path, env_path = _write_config(tmp_path)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q-free", "question": "Summarize the order.", "answer_type": "free_text"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["The tribunal dismissed the claim with costs and ordered payment within 14 days."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+    payload = load_submission_payload(output_dir / "submission.json")
+
+    assert exit_code == 0
+    assert payload["answers"][0]["answer"] == (
+        "There is no information on this question in the provided documents."
+    )
+
+
+def test_build_submission_does_not_mask_generic_free_text_value_errors(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class BrokenProvider:
+        def __init__(self, *, model: str = "gpt-5.4-mini", **_: Any) -> None:
+            self.model = model
+
+        def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
+            del question, evidence_pages, max_chars
+            raise ValueError("missing credentials")
+
+    _patch_pipeline_dependencies(monkeypatch, provider_class=BrokenProvider)
+    config_path, env_path = _write_config(tmp_path)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q-free", "question": "Summarize the order.", "answer_type": "free_text"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["The tribunal dismissed the claim with costs and ordered payment within 14 days."],
+    )
+
+    with pytest.raises(SystemExit) as exc_info:
+        _run_build_submission(
+            config_path=config_path,
+            env_path=env_path,
+            questions_path=questions_path,
+            documents_dir=documents_dir,
+            output_dir=output_dir,
+        )
+
+    assert exc_info.value.code == 1
+    assert not (output_dir / "submission.json").exists()
 
 
 def test_build_submission_uses_provider_token_from_env_file_when_process_env_is_empty(

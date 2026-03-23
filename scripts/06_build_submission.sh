@@ -123,7 +123,9 @@ if [ "$DOCUMENTS_DIR" != "$PHASE_DOCUMENTS_DIR" ]; then
     echo "FAIL: build-submission expects the phase-local documents directory: $PHASE_DOCUMENTS_DIR"
     exit 1
 fi
-if [ "$PROVIDER_API_KEY_PRESENT" != "1" ]; then
+echo "  Provider key source: ${PROVIDER_API_KEY_SOURCE:-none}"
+echo "  Provider required: $QUESTION_SET_REQUIRES_PROVIDER"
+if [ "$QUESTION_SET_REQUIRES_PROVIDER" = "1" ] && [ "$PROVIDER_API_KEY_PRESENT" != "1" ]; then
     echo "FAIL: no provider credential found in process env or $ENV_FILE (checked CODEX_OAUTH_TOKEN, OPENAI_API_KEY, CODEX_API_KEY)"
     exit 1
 fi
@@ -136,7 +138,6 @@ fi
 if [ -f "$INDEX_MANIFEST_PATH" ] && [ -f "$PAGE_PARENT_MAP_PATH" ] && [ -f "$SPARSE_ENCODER_STATE_PATH" ] && [ -d "$QDRANT_DIR" ]; then
     INDEX_READY=1
 fi
-echo "  Provider key source: ${PROVIDER_API_KEY_SOURCE:-none}"
 echo "  Corpus artifacts ready: $CORPUS_READY"
 echo "  Index artifacts ready: $INDEX_READY"
 

@@ -10,6 +10,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 from src.common.config import load_app_config
+from src.evaluation.contracts import AnswerType, load_question_records
 
 
 def _resolve_provider_api_key_source(env_file: Path) -> str:
@@ -22,6 +23,16 @@ def _resolve_provider_api_key_source(env_file: Path) -> str:
         if file_value:
             return key
     return ""
+
+
+def _question_set_requires_provider(questions_path: Path) -> bool:
+    if not questions_path.exists():
+        return False
+    try:
+        questions = load_question_records(questions_path)
+    except (OSError, ValueError):
+        return False
+    return any(str(question.answer_type) == AnswerType.FREE_TEXT.value for question in questions)
 
 
 def _build_context(*, config_path: Path, env_file: Path, phase_override: str | None) -> dict[str, str]:
@@ -39,6 +50,7 @@ def _build_context(*, config_path: Path, env_file: Path, phase_override: str | N
     submission_dir = phase_dir / "submission"
 
     provider_key_source = _resolve_provider_api_key_source(env_file)
+    question_set_requires_provider = _question_set_requires_provider(questions_path)
 
     return {
         "PHASE": phase,
@@ -60,6 +72,7 @@ def _build_context(*, config_path: Path, env_file: Path, phase_override: str | N
         "SUBMISSION_PATH": str(submission_dir / "submission.json"),
         "TRACE_MANIFEST_PATH": str(submission_dir / "trace_manifest.json"),
         "TRACES_DIR": str(submission_dir / "traces"),
+        "QUESTION_SET_REQUIRES_PROVIDER": "1" if question_set_requires_provider else "0",
         "PROVIDER_API_KEY_PRESENT": "1" if provider_key_source else "0",
         "PROVIDER_API_KEY_SOURCE": provider_key_source,
     }

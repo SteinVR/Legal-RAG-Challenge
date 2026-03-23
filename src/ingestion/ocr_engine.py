@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
@@ -130,8 +131,8 @@ def _extract_ocr_lines_v3(results: Any) -> list[OcrTextLine]:
         return lines
 
     for ocr_result in results:
-        dt_polys = getattr(ocr_result, "dt_polys", None) or ocr_result.get("dt_polys", [])
-        rec_texts = getattr(ocr_result, "rec_texts", None) or ocr_result.get("rec_texts", [])
+        dt_polys = _ocr_result_field(ocr_result, "dt_polys", [])
+        rec_texts = _ocr_result_field(ocr_result, "rec_texts", [])
 
         for poly, text in zip(dt_polys, rec_texts):
             text = str(text).strip()
@@ -141,6 +142,15 @@ def _extract_ocr_lines_v3(results: Any) -> list[OcrTextLine]:
             lines.append(OcrTextLine(text=text, bbox=bbox))
 
     return sorted(lines, key=lambda line: (_bbox_center_y(line.bbox), line.bbox[0]))
+
+
+def _ocr_result_field(ocr_result: Any, field_name: str, default: Any) -> Any:
+    value = getattr(ocr_result, field_name, None)
+    if value is not None:
+        return value
+    if isinstance(ocr_result, Mapping):
+        return ocr_result.get(field_name, default)
+    return default
 
 
 def _extract_ocr_lines(results: Any) -> list[OcrTextLine]:
@@ -167,6 +177,8 @@ def _extract_ocr_lines(results: Any) -> list[OcrTextLine]:
 
 
 def _normalize_bbox(raw_bbox: Any) -> BBox:
+    if isinstance(raw_bbox, numpy.ndarray):
+        raw_bbox = raw_bbox.tolist()
     if isinstance(raw_bbox, (list, tuple)) and raw_bbox:
         if len(raw_bbox) == 4 and all(isinstance(value, (int, float)) for value in raw_bbox):
             x0, y0, x1, y1 = raw_bbox

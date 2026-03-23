@@ -8,11 +8,11 @@
 
 | Attribute | Value |
 |-----------|-------|
-| Blockers | No active product blockers for the current runnable baseline; remaining open items are unanswerable-grounding docs ambiguity and repo lint debt |
+| Blockers | No active product blockers; baseline is runnable end-to-end with operator scripts |
 | Methodology | RAPID |
-| Completed scope | TASK-W1A, TASK-W2A, TASK-W2B, TASK-W2C, TASK-W3A, TASK-W3B, TASK-W3C, and TASK-W3D are complete; W3A/W3B/W3C are now runnable through the W3D submission pipeline |
-| Current focus | Clean up repo-wide `ruff` debt in `src/evaluation/goldset.py` and `tests/test_goldset.py`; keep an eye on the first real warmup/private submission smoke |
-| Validation baseline | Verified on 2026-03-22 from `.venv`: `PYTHONPATH=. pytest -q` -> `180 passed`, `PYTHONPATH=. python -m compileall src` -> clean; `PYTHONPATH=. ruff check src tests` still fails because of 3 existing issues in `src/evaluation/goldset.py` and `tests/test_goldset.py` |
+| Completed scope | TASK-W1A through TASK-W3D complete; full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
+| Current focus | Post-baseline exploration tracks (TRACK-DENSE-AB, TRACK-OCR-HARD-PAGES, etc.); first real warmup/private submission |
+| Validation baseline | Verified on 2026-03-23 from `.venv`: `PYTHONPATH=. pytest -q` → `187 passed`; `PYTHONPATH=. ruff check src tests` → `All checks passed!` |
 
 ---
 
@@ -23,7 +23,7 @@
 | 2026-03-17 | retrieved_chunk_pages [] vs non-empty ambiguity in EVALUATION.md | High | Open -- needs organizer clarification |
 | 2026-03-17 | Codex OAuth stability for 900-question batch untested | Medium | Open -- validate early |
 | 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Medium | Open -- available warmup PDFs validate native/table/artifact paths well, but OCR provenance still depends on dedicated fixtures/scanned samples |
-| 2026-03-22 | Repository-wide `ruff check src tests` currently fails | Medium | Open -- 2 `E501` violations in `src/evaluation/goldset.py` and 1 import-order violation in `tests/test_goldset.py` |
+| 2026-03-22 | ~~Repository-wide `ruff check src tests` currently fails~~ | Medium | **Resolved** 2026-03-23 -- all lint issues fixed |
 
 ---
 
@@ -49,6 +49,10 @@
 | 2026-03-21 | W2C canonical corpus contract is now schema-first and quality-gated | Reduces parser/serializer/service drift and locks page/table provenance to one ingestion SSOT |
 | 2026-03-21 | Wave 3 baseline service layers were merged to `main` before pipeline orchestration | Indexing, retrieval, and answering can now progress independently of the still-pending end-to-end orchestration/package layer |
 | 2026-03-22 | W3D submission orchestration completed the runnable Wave 3 path | `build-submission`, telemetry packing, local validation, trace manifests, and archive gating now bind W3A/W3B/W3C into a runnable submission pipeline |
+| 2026-03-23 | PaddleOCR v3 `.predict()` migration | Old `.ocr()` API replaced; `ocr_unavailable_policy` set to `error` to catch missing runtime early |
+| 2026-03-23 | Qwen3 embedding prompt_name split: `"document"` for indexing, `"query"` for retrieval | Aligns with Qwen3-Embedding best practices; `build_query_embedder()` added |
+| 2026-03-23 | Reranker `local_files_only=True` | Prevents accidental HuggingFace downloads at runtime |
+| 2026-03-23 | Operator scripts pipeline (`scripts/00_*`–`07_*`) | Reproducible numbered shell scripts for full baseline execution |
 
 ---
 
@@ -61,5 +65,5 @@
 - 2026-03-20 to 2026-03-21: TASK-W2C was rebuilt around `src/common/schemas.py` as the ingestion SSOT, with centralized page provenance, hardened table serialization, complete-artifact skip logic, expanded invariant-based tests, green quality gate, and final independent review approval.
 - 2026-03-21: Real warmup smoke validation passed on 10 selected PDFs and then on all 30 available warmup PDFs; native/table/artifact paths looked healthy, but the current dataset did not trigger any OCR-selected pages.
 - 2026-03-21: TASK-W3A, TASK-W3B, and TASK-W3C were implemented in isolated worktrees, quality-gated, merged to `main`, and recorded in `logs/agents/W3ABC_Codex_wave-3-orchestration_23-06_21-03-2026.md`.
-- 2026-03-22: TASK-W3D completed the submission pipeline in `src/submission/` and `src/main.py`; the current test baseline is `180 passed`.
-- 2026-03-22: `ruff check src tests` still reports 3 pre-existing issues in `src/evaluation/goldset.py` and `tests/test_goldset.py`.
+- 2026-03-22: TASK-W3D completed the submission pipeline in `src/submission/` and `src/main.py`.
+- 2026-03-23: First smoke baseline run applied on-site corrections: PaddleOCR v3 API migration, Qwen3 embedding prompt_name split (`document`/`query`), reranker offline-only loading, pipeline ValueError fallback for safe per-question failure, lint debt fully resolved. Operator scripts (`scripts/00_*`–`07_*`) added for reproducible end-to-end execution. Test baseline: `187 passed`, `ruff: All checks passed`.

@@ -18,6 +18,11 @@ from src.retrieval.service import RetrievalResult
 
 CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER = "There is no information on this question in the provided documents."
 
+
+class FreeTextGroundingValidationError(ValueError):
+    """Raised when a generated free-text answer is unsupported by the evidence."""
+
+
 _MONTHS = {
     "january": 1,
     "february": 2,
@@ -542,7 +547,9 @@ def _validate_free_text_grounding(*, answer: str, pages: Iterable[_PageCandidate
     answer_numbers = _extract_numeric_values(answer)
     unsupported_numbers = answer_numbers - evidence_numbers
     if unsupported_numbers:
-        raise ValueError("free_text answer contradicts the evidence with unsupported numbers.")
+        raise FreeTextGroundingValidationError(
+            "free_text answer contradicts the evidence with unsupported numbers."
+        )
 
     evidence_dates = set()
     for page in pages:
@@ -551,19 +558,25 @@ def _validate_free_text_grounding(*, answer: str, pages: Iterable[_PageCandidate
     answer_dates = _extract_dates_from_text(answer)
     missing_dates = answer_dates - evidence_dates
     if missing_dates:
-        raise ValueError("free_text answer contradicts the evidence with unsupported dates.")
+        raise FreeTextGroundingValidationError(
+            "free_text answer contradicts the evidence with unsupported dates."
+        )
 
     evidence_names = _extract_names_from_text(evidence_text)
     answer_names = _extract_names_from_text(answer)
     unsupported_names = answer_names - evidence_names
     if unsupported_names:
-        raise ValueError("free_text answer contradicts the evidence with unsupported names.")
+        raise FreeTextGroundingValidationError(
+            "free_text answer contradicts the evidence with unsupported names."
+        )
 
     evidence_outcomes = _extract_outcomes(evidence_text)
     answer_outcomes = _extract_outcomes(answer)
     unsupported_outcomes = answer_outcomes - evidence_outcomes
     if unsupported_outcomes:
-        raise ValueError("free_text answer contradicts the evidence with unsupported outcomes.")
+        raise FreeTextGroundingValidationError(
+            "free_text answer contradicts the evidence with unsupported outcomes."
+        )
 
     _validate_fact_polarity(answer=answer, evidence_text=evidence_text)
 
@@ -573,7 +586,9 @@ def _validate_free_text_grounding(*, answer: str, pages: Iterable[_PageCandidate
             continue
         unsupported_tokens = clause_tokens - evidence_tokens
         if len(unsupported_tokens) >= 2:
-            raise ValueError("free_text answer contradicts the evidence with unsupported rationale or clauses.")
+            raise FreeTextGroundingValidationError(
+                "free_text answer contradicts the evidence with unsupported rationale or clauses."
+            )
 
 
 def _validate_provider_confidence(raw_confidence: Any) -> float:
@@ -747,7 +762,9 @@ def _validate_fact_polarity(*, answer: str, evidence_text: str) -> None:
         if not evidence_values:
             continue
         if answer_values.isdisjoint(evidence_values):
-            raise ValueError("free_text answer contradicts the evidence with unsupported polarity or state.")
+            raise FreeTextGroundingValidationError(
+                "free_text answer contradicts the evidence with unsupported polarity or state."
+            )
 
 
 def _extract_fact_states(text: str) -> dict[str, set[str]]:

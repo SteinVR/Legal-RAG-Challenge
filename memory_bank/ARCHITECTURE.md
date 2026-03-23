@@ -45,7 +45,7 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 ## 4. Technology Decisions
 
 - **Language**: Python 3.11+
-- **OCR / Document Parsing**: PaddleOCR-VL-1.5 (primary), PyMuPDF/pdfplumber (native text fast path)
+- **OCR / Document Parsing**: PaddleOCR v3 `.predict()` API (primary), PyMuPDF/pdfplumber (native text fast path)
 - **Embeddings**: Qwen3-Embedding-0.6B (32K context, instruction-aware, MRL)
 - **Reranker**: Qwen3-Reranker-0.6B
 - **Lexical search**: BM25 (rank-bm25 or tantivy-py)
@@ -85,6 +85,11 @@ Detailed implementation notes live in `docs/component_design.md`. This section s
 ### H. Common (`src/common/`)
 - **Responsibility**: shared config and schema contracts used across the full pipeline.
 
+### I. Operator Scripts (`scripts/`)
+- **Responsibility**: reproducible numbered shell pipeline for full baseline execution on a fresh machine.
+- **Scripts**: `00_check_env` → `00_repair_gpu_runtime` → `01_install_deps` → `02_download_models` → `03_lint_and_test` → `04_parse_corpus` → `05_build_indices` → `06_build_submission` → `07_validate_submission`.
+- Each script is idempotent, self-documenting, and exits non-zero on failure.
+
 See `memory_bank/component_design.md` for real module ownership, artifact paths, current limitations, and test anchors.
 
 ---
@@ -97,6 +102,8 @@ See `memory_bank/component_design.md` for real module ownership, artifact paths,
 - `configs/baseline/v001/` -- baseline config YAML files
 - `data/{warmup,final}/` -- phase-isolated corpus and index data
 - `data/dev/` -- dev gold/silver question sets
+- `scripts/` -- numbered operator scripts for end-to-end baseline execution
+- `tools/` -- developer utilities (`operator_context.py`)
 
 ---
 
