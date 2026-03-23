@@ -6,7 +6,7 @@ This document is the canonical target architecture for the project's document-pr
 It combines three sources into one opinionated design:
 
 1. `opendataloader-pdf` for layout-aware parsing, structural recovery, and parser-side sanitation.
-2. `external/RAG-Challenge-2` for rich intermediate parse artifacts, mandatory LLM table serialization, parent-page retrieval ideas, reranking patterns, and selective comparative decomposition.
+2. `external/RAG-Challenge-2` for rich intermediate parse artifacts, benchmark-gated LLM table serialization, parent-page retrieval ideas, reranking patterns, and selective comparative decomposition.
 3. The current project implementation for page-grounded canonical artifacts, cross-page table provenance, local hybrid retrieval, typed answering, validation, and submission discipline.
 
 The goal is not to "switch parser and hope." The goal is to build a stronger, grounded, competition-grade evidence pipeline without throwing away the parts of the current stack that already solve the legal challenge correctly.
@@ -20,8 +20,11 @@ The correct synthesis is:
 - keep the current canonical page-grounded corpus as the downstream SSOT;
 - add a richer upstream parser layer with structure, coordinates, and parser arbitration;
 - preserve and strengthen the current table provenance logic;
-- add LLM table serialization as a required enrichment stage, not a side experiment;
+- treat LLM table serialization as a default-on enrichment track that must survive legal-domain A/B testing rather than as a permanent axiom;
 - import parent-page retrieval, reranking, and selective decomposition ideas from `RAG-Challenge-2`;
+- add an explicit page-attribution-precision stage between retrieval and final answer emission;
+- upgrade typed extraction explicitly by answer type rather than treating extraction-first answering as "already solved";
+- use question-side legal entity extraction as a retrieval prefilter signal, not as a hard one-document router;
 - use parser structure to replace heuristic heading recovery where available.
 
 This remains a grounded legal evidence engine, not a generic document chatbot.
@@ -62,7 +65,7 @@ Reject:
 Primary responsibility:
 
 - rich intermediate report pattern before flattening;
-- mandatory LLM table serialization;
+- benchmark-gated LLM table serialization;
 - parent-page retrieval pattern;
 - reranking pattern;
 - selective comparative decomposition.
@@ -79,6 +82,7 @@ Adopt:
 Adapt:
 
 - convert their parent-document retrieval idea into parent-page retrieval for legal PDFs;
+- convert company-style document routing into soft legal prefilter signals such as `case_id`, `statute_id`, and document-title matches;
 - apply decomposition to legal question classes rather than company comparisons;
 - keep structured answering prompts and page-reference validation, but subordinate them to the current extraction-first answering backbone.
 
@@ -120,12 +124,14 @@ Keep authoritative:
 | Canonical page corpus | Current project | Keep | Downstream SSOT remains page-grounded and validator-friendly. |
 | Heading recovery | `opendataloader-pdf` + current | Adapt | Structural headings override current regex heuristics; heuristics remain fallback. |
 | Cross-page table continuity | Current project | Keep | Current merge and row provenance logic remains authoritative. |
-| LLM table serialization | `RAG-Challenge-2` | Adopt | Mandatory enrichment stage; raw tables alone are insufficient. |
+| LLM table serialization | `RAG-Challenge-2` | Adapt | Run as default-on enrichment during experiments, but keep an explicit kill switch if legal-domain A/B shows net retrieval degradation. |
 | Chunk families | Current project + synthesis | Adapt | Emit page, section, clause, microchunk, row-table, and semantic-table chunks. |
 | Vector backend | Current project | Keep | Main backend remains local hybrid Qdrant, not per-document FAISS. |
 | BM25 | Current project | Keep | Sparse retrieval remains part of the main hybrid path; do not leave it as an unused side index. |
 | Parent expansion | `RAG-Challenge-2` | Adapt | Expand from retrieved chunks to parent pages after candidate narrowing. |
 | Reranking | `RAG-Challenge-2` + current roadmap | Adopt + adapt | Add bounded reranking after hybrid candidate generation; do not use reranking as first-pass retrieval. |
+| Query-side legal prefilters | `RAG-Challenge-2` pattern + current domain | Adapt | Use extracted `case_id`, `statute_id`, and title cues as soft retrieval filters or boosts, never as one-document lock-in. |
+| Page attribution precision | Baseline-driven synthesis | Adopt | Add a dedicated minimal-evidence selection stage after retrieval and before answer finalization. |
 | Comparative decomposition | `RAG-Challenge-2` | Adapt | Use selectively for legal comparison classes, not as default routing. |
 | Typed answering | Current project | Keep | Stay extraction-first; borrow only prompt/schema discipline and page-reference validation. |
 | Local validation | Current project | Keep | Submission correctness, telemetry validation, and page-reference discipline remain non-negotiable. |
@@ -139,10 +145,20 @@ The stack should become explicitly hybrid.
 Recommended routing:
 
 1. Run the current cheap native analysis first for every document/page.
-2. Route scan-like or OCR-dominant pages through the current OCR path as the default safety mechanism.
-3. Route born-digital, tagged, or layout-complex pages through `opendataloader-pdf` as the structural parser.
-4. If the structural parser fails, yields empty structure, or returns poor coverage, fall back to the current parser output.
-5. Preserve parser provenance per page and per normalized block.
+2. Route pages with broken-font signals, high replacement-character density, or OCR-dominant characteristics through the current OCR path as the default safety mechanism.
+3. Route tagged PDFs through `opendataloader-pdf` with structure-tree extraction enabled as a distinct fast path.
+4. Route born-digital or layout-complex pages through `opendataloader-pdf` hybrid mode as the preferred structural parser path when the Docling backend is available.
+5. Use local-only `opendataloader-pdf` mode only as a fallback structural path when hybrid mode is unavailable or fails health checks.
+6. If the structural parser fails, yields empty structure, or returns poor coverage, fall back to the current parser output.
+7. Preserve parser provenance per page and per normalized block.
+
+Preferred structural-parser PoC configuration:
+
+- batch documents per `convert()` invocation to amortize JVM startup cost;
+- persist JSON sidecars as the required raw output format;
+- prefer `table_method="cluster"` for legal table extraction experiments;
+- record whether the page used structure-tree extraction, hybrid mode, or local-only mode;
+- treat Docling backend availability as an explicit infrastructure dependency of the hybrid path.
 
 This means the future system is not "Paddle vs OpenDataLoader." It is a routed, parser-arbitrated stack.
 
@@ -167,6 +183,8 @@ Each sidecar should preserve:
 - raw table objects including cell-level structure when available;
 - parser diagnostics and route decisions.
 
+JSON is the required sidecar format because bbox, node typing, caption links, and parser diagnostics must survive intact. Markdown, HTML, and plain-text renders can exist as debug artifacts only.
+
 This layer exists to preserve truth and support A/B parser experiments. It is not the main retrieval contract.
 
 ### 3. Structural Normalization Layer
@@ -176,11 +194,15 @@ Normalize rich parser output into a legal-document-friendly intermediate represe
 Required behaviors:
 
 - remove headers, footers, TOC noise, and layout poison;
+- remove parser-visible glyph garbage and other post-parse artifacts that pollute retrieval text without carrying legal meaning;
 - preserve heading hierarchy;
-- preserve list semantics and clause boundaries when explicit;
+- preserve list semantics, nesting depth, and clause boundaries when explicit;
 - preserve annex, schedule, appendix, and footnote markers;
+- preserve caption-to-table or caption-to-image linkage when available so downstream table serialization can inherit local context;
 - preserve page-local reading order;
 - preserve source block ids and bbox for debug linkage.
+
+Normalization should also retain parser calibration metadata when useful, including whether reading order came from tagged structure or XY-Cut-style recovery, because legal multi-column pages may require parser-tuning experiments.
 
 When structural headings are available from the parser, they override current regex heading inference.
 When they are absent, the current heuristics remain the fallback path.
@@ -221,11 +243,12 @@ Required policy:
 
 - preserve the current cross-page table merge and row-level page provenance as authoritative;
 - preserve raw table HTML and JSON for every table that reaches the canonical corpus;
-- run LLM table serialization over HTML tables with nearby textual context;
+- run LLM table serialization over HTML tables with nearby textual context and caption-linked context when available;
 - keep semantic serialized-table blocks alongside row-level table blocks;
-- index both row-level and semantic table evidence.
+- index both row-level and semantic table evidence;
+- keep a config-level kill switch so semantic table blocks can be disabled if legal-domain A/B testing shows worse retrieval precision or poorer signal-to-noise.
 
-LLM table serialization is mandatory in the target design because preprocessing budget is available and legal tables often carry decisive evidence in schedules, appendices, tariffs, sanctions tables, and fee grids.
+LLM table serialization is still worth treating as a serious enrichment track because preprocessing budget is available and legal tables often carry decisive evidence in schedules, appendices, tariffs, sanctions tables, and fee grids. It should, however, be retained only if legal-domain A/B testing confirms a net score benefit.
 
 ### 6. Chunking and Indexing
 
@@ -241,6 +264,8 @@ Required chunk families:
 - semantic serialized-table chunks;
 - optional annex/schedule chunks where the normalized structure exposes them cleanly.
 
+Chunk sizing must be token-aware rather than character-only. The initial target should be approximately 300 tokens with approximately 50 tokens overlap for clause-like text, followed by benchmark calibration on legal PDFs with long sections and schedules.
+
 Chunk metadata should include at minimum:
 
 - `doc_id`;
@@ -254,6 +279,8 @@ Chunk metadata should include at minimum:
 
 The main index backend remains the current local hybrid Qdrant stack.
 Do not replace it with per-document FAISS.
+
+The current Qwen3 embedding path remains the default baseline, but enriched chunk families such as semantic tables and clause chunks should trigger an explicit embedding-quality review before the architecture is considered stable.
 
 ### 7. Retrieval
 
@@ -271,9 +298,31 @@ Required upgrades:
 
 - reranking is candidate refinement, not first-pass retrieval;
 - parent-page expansion happens after narrowing, not before;
-- table chunks and clause chunks must survive early recall stages rather than being flattened into page text too early.
+- table chunks and clause chunks must survive early recall stages rather than being flattened into page text too early;
+- query-side `case_id`, `statute_id`, and title signals should act as soft retrieval filters or boosts when extracted reliably;
+- retrieval tuning must be asymmetric by question class: favor page precision for `case` and `statute` questions, but preserve multi-document breadth for `cross_case` questions.
 
-### 8. Answering and Grounding Guardrails
+### 8. Page Attribution Precision
+
+The stack needs a dedicated two-pass stage around answering so final page attribution is both minimal and temporally consistent.
+
+Pass A happens after retrieval and before answer finalization.
+It prunes candidate pages down to the smallest evidence set that still plausibly supports extraction or generation.
+
+Pass B happens after an answer attempt.
+It finalizes the page list for the emitted answer and is the only stage that may emit an empty page list for a true no-answer outcome.
+
+Required behaviors:
+
+- in Pass A, choose minimal sufficient candidate pages instead of forwarding raw top-k retrieval pages;
+- suppress title pages, cover pages, indexes, and repeated boilerplate unless they carry direct answer evidence;
+- prefer answer-bearing pages over neighboring context pages when both are available;
+- in Pass B, emit empty retrieved-page lists only when the final answer is a true no-answer and the system cannot support a grounded positive answer;
+- preserve traceability from final pages back to the candidate chunks that justified them.
+
+This stage exists because grounding precision is a score multiplier, and baseline results show that over-retrieval is currently a larger problem than missing all evidence.
+
+### 9. Answering and Grounding Guardrails
 
 Keep the current extraction-first typed answering backbone.
 
@@ -286,6 +335,16 @@ Import only these ideas from `RAG-Challenge-2`:
 Do not convert the whole answering stack into chain-of-thought-first generation.
 The current project is right to keep deterministic extraction as the default path.
 
+Typed extraction upgrade is required, not optional.
+
+Required typed-answer tracks:
+
+- boolean extraction with explicit negation and polarity handling;
+- number extraction with better title-page and year suppression;
+- name and names extraction with canonical entity-span selection for case ids, party names, and document labels;
+- date extraction with stricter normalization and ambiguity handling;
+- confidence calibration so abstention is thresholded and type-aware rather than binary and overly conservative.
+
 Recommended decomposition targets:
 
 - amendment vs current-version comparisons;
@@ -294,7 +353,9 @@ Recommended decomposition targets:
 - annex/schedule vs main body comparisons;
 - temporal comparisons across versions or dates.
 
-### 9. Validation and Submission Discipline
+Cross-case and multi-document reasoning should be treated as a primary upgrade track rather than a distant edge-case optimization because the baseline already shows this slice is material.
+
+### 10. Validation and Submission Discipline
 
 The current project's validation discipline remains authoritative.
 
@@ -308,6 +369,8 @@ Keep:
 
 Imported page-reference validation from `RAG-Challenge-2` should be used as a final guardrail after retrieval and answering, not as the main grounding mechanism.
 
+Grounding validation must degrade pages before it destroys answer content. The validator should first attempt to trim unsupported pages or downgrade page attribution confidence, and only collapse to a fallback answer when the answer text itself is not supportable.
+
 ## Target Public Contract Additions
 
 The document implies these interface-level additions for later implementation work:
@@ -317,7 +380,10 @@ The document implies these interface-level additions for later implementation wo
 - preserved raw table HTML and raw table JSON in canonical or sidecar-adjacent artifacts;
 - semantic serialized-table blocks as a new retrieval-facing chunk family;
 - heading-path metadata propagated from normalization into chunking;
-- optional source block ids or normalized block ids for debug linkage from chunks back to raw parser output.
+- optional source block ids or normalized block ids for debug linkage from chunks back to raw parser output;
+- optional query-side legal prefilter signals such as `case_id`, `statute_id`, or title matches;
+- minimal-evidence page selection metadata for final grounding decisions;
+- typed-extraction confidence signals that can be calibrated per answer type.
 
 These are additive changes. The current canonical page-grounded corpus remains the stable operational contract until later code changes deliberately revise it.
 
@@ -340,40 +406,53 @@ Do not import these parts from `opendataloader-pdf` as direct architecture choic
 
 ## Phased Implementation Sequence
 
-### Phase 1. Canonical document and navigation cleanup
+### Phase 1. Page attribution precision and validation policy
 
-- promote this synthesis to the canonical `docs/` entrypoint;
-- keep the old `docs/addition/` version only as an archive or redirect;
-- fix docs navigation so agents and humans land on the right file first.
+- add Pass A minimal-evidence page pruning after retrieval and before final answer emission;
+- add title-page and boilerplate suppression rules;
+- align Pass B final page attribution with grounded no-answer behavior;
+- change grounding validation from answer-suppression-first to page-degradation-first.
 
-### Phase 2. Raw parse sidecars and parser branch contract
+The intended mainline pipeline should include both Pass A pruning and page-degradation-first validation because they address different observed failure modes. The A/B plan separates them only to measure contribution cleanly.
+
+### Phase 2. Typed extraction and query-side prefilters
+
+- add per-type extraction upgrades for boolean, number, name, names, and date;
+- add canonical legal entity extraction for `case_id`, `statute_id`, and document-title cues;
+- feed those cues into retrieval as soft filters or boosts;
+- enable baseline multi-document reasoning without decomposition: better cross-case retrieval breadth, entity-aware matching, and typed extraction over evidence from multiple documents.
+
+### Phase 3. Raw parse sidecars and parser branch contract
 
 - add raw parse artifact families;
 - define parser provenance and route decisions;
-- create one-to-one parser branch comparisons on the same documents.
+- create one-to-one parser branch comparisons on the same documents;
+- validate `opendataloader-pdf` hybrid mode, local-only mode, `table_method="cluster"`, and JVM batching assumptions on warmup legal PDFs.
 
-### Phase 3. Structural normalization
+### Phase 4. Structural normalization
 
 - build the normalization layer from structural parser output to canonical legal blocks;
 - replace regex heading recovery with structural headings when available;
-- keep current heuristics as fallback only.
+- keep current heuristics as fallback only;
+- add artifact cleaning, caption linkage preservation, and list-nesting preservation.
 
-### Phase 4. Unified table pipeline
+### Phase 5. Unified table pipeline
 
 - preserve raw table HTML/JSON;
 - keep current row-level table blocks authoritative;
-- add mandatory LLM table serialization;
+- add default-on, benchmark-gated LLM table serialization;
 - emit both row-level and semantic-table chunk families.
 
-### Phase 5. Retrieval upgrade
+### Phase 6. Retrieval upgrade
 
 - add reranking;
 - add parent-page expansion;
-- make chunk-family-aware retrieval and compression a first-class design rule.
+- make chunk-family-aware retrieval and compression a first-class design rule;
+- add asymmetric tuning by question class.
 
-### Phase 6. Selective legal decomposition track
+### Phase 7. Cross-case decomposition track
 
-- add decomposition only after parser, table, and retrieval upgrades land;
+- add full question decomposition and orchestration for comparative or cross-case questions once the baseline multi-document path from Phase 2 is stable;
 - treat it as a targeted escalation path, not a default answer route.
 
 ## Validation and A/B Plan
@@ -389,23 +468,30 @@ Primary checks:
 - table-answer recall;
 - page grounding precision;
 - deterministic-answer accuracy;
+- fallback suppression rate on answerable free-text questions;
+- cross-case and multi-document slice score;
 - unanswerable behavior;
 - preprocessing runtime and failure rate.
 
 Mandatory A/B comparisons:
 
 1. Current parser baseline vs current parser + raw structural sidecars.
-2. Current parser baseline vs `opendataloader-pdf` branch on born-digital and tagged pages.
-3. Current table pipeline vs current table pipeline + mandatory LLM table serialization.
-4. Current retrieval vs retrieval + reranking + parent-page expansion.
-5. Current answering vs selective legal decomposition on suitable question slices.
+2. Current parser baseline vs `opendataloader-pdf` tagged fast path with structure-tree extraction on tagged PDFs.
+3. Current retrieval vs retrieval + Pass A minimal-evidence page pruning.
+4. Current validation policy vs page-degradation-first validation with unchanged retrieval pages.
+5. Current retrieval/validation vs the combined Pass A pruning + page-degradation-first validation stack.
+6. Current answering vs typed-extraction upgrade with calibrated abstention thresholds.
+7. Current parser baseline vs `opendataloader-pdf` hybrid vs local-only on born-digital and tagged pages.
+8. Current table pipeline vs current table pipeline + default-on LLM table serialization.
+9. Current retrieval vs retrieval + reranking + parent-page expansion + query-side legal prefilters.
+10. Current answering vs selective legal decomposition on suitable question slices.
 
 ## Net Takeaway
 
 The target split of responsibility is:
 
 - `opendataloader-pdf`: parser truth, structure, sanitation, layout semantics.
-- `external/RAG-Challenge-2`: table enrichment, parent-page retrieval pattern, reranking pattern, and selective decomposition pattern.
+- `external/RAG-Challenge-2`: benchmark-gated table enrichment, parent-page retrieval pattern, reranking pattern, and selective decomposition pattern.
 - current project: canonical grounding contract, legal page provenance, local hybrid retrieval, typed answering, validation, and submission correctness.
 
 That is the correct synthesis for this project.
