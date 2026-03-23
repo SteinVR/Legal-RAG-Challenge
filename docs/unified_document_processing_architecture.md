@@ -1,4 +1,4 @@
-# Unified Ingestion Stack Synthesis
+# Unified Document Processing Architecture
 
 ## Purpose
 

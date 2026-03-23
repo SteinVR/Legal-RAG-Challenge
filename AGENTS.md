@@ -37,13 +37,12 @@
 - For complex tasks, decompose work into independent subtasks and delegate to subagents.
 - Parallelize only tasks with low file overlap and explicit ownership boundaries.
 - Define each delegation with expected output format and acceptance checks.
-- Use `apm-subagent` to form role-appropriate delegation requests.
+- Use skill `apm-subagent` to form role-appropriate delegation requests.
 - Before final integration, reconcile outputs and run verification.
 
 ## Activity log
-- If project structure or code was modified, load and follow the apm-report skill to form the Activity log after completing the assigned task.
+- If project structure or code was modified, load and follow the skill `apm-report` to form the Activity log after completing the assigned task.
 
 ## Notes
 - If instructions conflict, prefer the closest (most specific) AGENTS.md.
-- In `apm-start`, wait for confirmation before writing `ARCHITECTURE.md`.
 - Use the pre-built uv environment (.venv).

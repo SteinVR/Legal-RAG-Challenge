@@ -1,8 +1,8 @@
-# Archived Unified Ingestion Stack Note
+# Legacy Ingestion Stack Note
 
 This path is kept only as a compatibility pointer for older references.
 
-The canonical unified stack document now lives at [../ingestion_stack_synthesis.md](/home/xeliaray/Projects/Agentic-RAG-Challenge/docs/ingestion_stack_synthesis.md).
+The canonical standalone architecture document now lives at [../unified_document_processing_architecture.md](/home/xeliaray/Projects/Agentic-RAG-Challenge/docs/unified_document_processing_architecture.md).
 
 Use that top-level file for the current target architecture that combines:
 
