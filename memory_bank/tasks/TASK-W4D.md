@@ -2,7 +2,7 @@
 
 # About
 
-This task formalizes the retrieval-side upgrade that should happen after Wave 4 establishes stronger page attribution, typed extraction signals, and structural artifacts accepted from `TASK-W4C`. Its goal is to improve retrieval precision and coverage using richer chunking, richer query cues, and question-class-aware tuning.
+This task formalizes the retrieval-side upgrade that should happen after Wave 4 establishes stronger page attribution, structured typed solving signals, and structural artifacts accepted from `TASK-W4C`. Its goal is to improve retrieval precision and coverage using richer chunking, richer query cues, question-class-aware tuning, and solver-ready evidence packaging.
 
 This task owns retrieval/index behavior. It does not own parser routing, typed solver internals, or full question decomposition orchestration.
 
@@ -21,6 +21,10 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
   - current and accepted new chunk families from `TASK-W4C`;
   - query-side legal prefilter signals from `TASK-W4B`;
   - page-attribution contract from `TASK-W4A`.
+- Retrieval outputs must preserve solver-ready evidence metadata:
+  - stable page numbers;
+  - chunk/page provenance;
+  - parent-page relationships needed for Pass B and typed solver page reporting.
 - Chunking/index config must expose:
   - token-aware sizing and overlap;
   - chunk-family enable/disable controls;
@@ -48,7 +52,7 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
 - Token-aware chunk sizing is explicitly defined and benchmarked.
 - Query-side legal entities can influence retrieval as soft boosts/filters.
 - Retrieval behavior is measurably tunable by question class.
-- Reranking and parent-page expansion are integrated without breaking final page-attribution expectations.
+- Reranking and parent-page expansion are integrated without breaking typed solver page reporting or final page-attribution expectations.
 - Embedding quality is evaluated on the chunk families that `TASK-W4C` freezes as accepted. If the current embedding model degrades on semantic-table or clause-heavy chunks, the degradation is documented explicitly and flagged for resolution.
 
 ## Test and evaluation expectations
@@ -62,6 +66,7 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
   - retrieval with vs without reranking;
   - retrieval with vs without parent-page expansion;
   - question-class-specific slices for `case`, `statute`, and `cross_case`.
+- Retrieval regressions must include evidence-bundle integrity checks for the structured typed solver (`TASK-W4B`) and Pass B narrowing (`TASK-W4A`).
 - Chunk-size experiments must compare the baseline against the initial token-aware target and justify the retained default.
 
 ## Dependency assumptions
@@ -89,7 +94,7 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
   - retrieval telemetry for later ablations
 - **Out of scope**:
   - parser branch ownership
-  - typed extraction internals
+  - typed solver internals
   - comparative decomposition orchestration
 - **Dependencies**:
   - `TASK-W4A` page-attribution contract
@@ -98,10 +103,10 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
 
 ## 3. Implementation Plan
 
-- Freeze which chunk families and metadata are available for retrieval consumption.
+- Freeze which chunk families and metadata are available for retrieval consumption and structured typed solving.
 - Introduce token-aware chunk-size defaults and calibrate them on legal documents.
 - Integrate legal-prefilter signals as soft (non-blocking) guidance.
-- Tune reranking and parent expansion without violating page-attribution expectations.
+- Tune reranking and parent expansion without violating page-attribution expectations or solver-ready evidence packaging.
 - Benchmark retrieval by question class and lock the asymmetric tuning policy.
 
 ## Source References & Adaptation Map
@@ -118,6 +123,7 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
 - `src/retrieval/hybrid_search.py` `QdrantHybridSearchBackend` (lines 35-142) — dense-first with RRF sparse fusion. Add prefilter payload conditions from W4B legal entities.
 - `src/retrieval/reranker.py` `QwenReranker` (lines 192-254) — current Qwen3-Reranker-0.6B. Keep as-is but study RAG-Challenge-2 hybrid scoring pattern for potential improvement.
 - `src/retrieval/service.py` budgets (candidate_budget=10, rerank_budget=5, evidence_budget=3) — make these per-question-class: tighter for case/statute (precision), wider for cross_case (breadth).
+- `src/retrieval/service.py` evidence payloads — preserve page-stable metadata so W4B structured schemas can report `relevant_pages` and W4A can validate them.
 
 **Embedding (evaluate, extend if needed):**
 - `src/indexing/service.py` `Qwen3DenseEmbedder` (lines 227-292) — current embedder. Evaluate quality on new chunk types (semantic tables, clause chunks) from W4C. If degradation found, document and flag.
@@ -149,5 +155,5 @@ If `TASK-W4C` produces rich artifacts that do not survive retrieval A/B, this ta
 
 ## 5. Outcome
 
-**Result target**: Stable retrieval/index upgrade that consumes Wave 4 signals cleanly and exposes tuned behavior across question classes.  
-**Next action**: Hand a stable multi-document retrieval substrate to `TASK-W4E`.
+**Result target**: Stable retrieval/index upgrade that consumes Wave 4 signals cleanly, emits solver-ready evidence bundles, and exposes tuned behavior across question classes.  
+**Next action**: Hand a stable multi-document retrieval substrate and page-stable evidence packaging to `TASK-W4B` and `TASK-W4E`.

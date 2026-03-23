@@ -2,9 +2,9 @@
 
 # About
 
-This task formalizes the most complex Wave 4 track: full cross-case decomposition and orchestration for comparative or multi-document questions. It is intentionally last because it should build on a stronger non-decomposition baseline rather than trying to compensate for weak extraction or weak retrieval.
+This task formalizes the most complex Wave 4 track: full cross-case decomposition and orchestration for comparative or multi-document questions. It is intentionally last because it should build on a stronger non-decomposition baseline rather than trying to compensate for weak typed solving or weak retrieval.
 
-This task owns orchestration for decomposed multi-document reasoning only. It does not own the baseline typed extractors, parser branch, or retrieval fundamentals.
+This task owns orchestration for decomposed multi-document reasoning only. It does not own the baseline typed schema registry, validator rules, parser branch, or retrieval fundamentals.
 
 # Specification
 
@@ -19,7 +19,7 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 ## Required interfaces and artifacts
 
 - The task must consume:
-  - stable baseline multi-document answering signals from `TASK-W4B`;
+  - stable baseline multi-document structured solver outputs from `TASK-W4B`;
   - stable retrieval behavior from `TASK-W4D`;
   - final page-attribution contract from `TASK-W4A`.
 - Decomposition flow must preserve:
@@ -83,7 +83,7 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
   - evidence and page-attribution recomposition
   - comparative / cross-case benchmark slices
 - **Out of scope**:
-  - baseline typed extraction
+  - baseline typed solving
   - parser branch ownership
   - retrieval backbone tuning outside decomposition needs
 - **Dependencies**:
@@ -94,7 +94,7 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 ## 3. Implementation Plan
 
 - Define trigger rules for when decomposition is allowed.
-- Define subquestion and sub-result interfaces that preserve provenance.
+- Define subquestion and sub-result interfaces that preserve provenance and reuse the `TASK-W4B` schema registry.
 - Integrate subquestion execution with the stabilized retrieval and answering stack.
 - Define final answer and final page recomposition rules.
 - Validate that decomposition improves hard multi-document slices without becoming the default execution path.
@@ -127,7 +127,7 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 
 **Answering pipeline (extend with decomposition path):**
 - `src/submission/pipeline.py` `_answer_question()` (line ~420) — add decomposition routing before single-pass answering. If trigger fires → decompose → parallel sub-question execution → recompose → Pass B page finalization via W4A.
-- `src/answering/service.py` `AnsweringService` — currently handles one question at a time. Decomposition requires calling retrieval + answering per sub-question, then aggregating.
+- `src/answering/service.py` `AnsweringService` — currently handles one question at a time. Decomposition requires calling retrieval + schema-first typed solving per sub-question, then aggregating.
 
 **Page attribution recomposition:**
 - `src/retrieval/page_lifter.py` `PageLifter.to_page_references()` (lines 94-109) — produces deduplicated page lists. For decomposition: merge page lists from sub-questions into a candidate final page set, then run a decomposition-aware final page minimization step that obeys the W4A final attribution contract. Do **not** re-run W4A Pass A after sub-answer recomposition, because recomposition is already post-answer.
@@ -135,6 +135,7 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 ### New code
 
 - Decomposition trigger policy — decides which questions escalate. Candidates: questions with 2+ legal entities from W4B extraction, questions classified as `cross_case` by question metadata, questions with explicit comparative language or legal-version/jurisdiction contrast.
+- Sub-questions must reuse the same per-type schemas, reasoning-effort defaults, and validator rules defined in `TASK-W4B`.
 - Sub-question interface and provenance tracking (mapping original question → sub-questions → sub-results → final answer).
 - Page-list recomposition with minimization (not mechanical union of sub-question pages).
 - Legal-domain decomposition targets: amendment vs current-version, party A vs party B, jurisdiction A vs B, annex/schedule vs main body, temporal comparisons.

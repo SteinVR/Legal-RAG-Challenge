@@ -4,7 +4,7 @@
 
 This task formalizes the first score-recovery track after the warmup baseline: page attribution precision and validation behavior. The baseline showed that grounding is the main multiplicative blocker, with widespread extra-page citation and answer loss from overly strict grounding validation. This task exists to make the page-evidence path explicit, minimal, and temporally consistent.
 
-This task owns only page attribution and validation policy. It does not change typed extraction logic, decomposition logic, or parser architecture. It consumes retrieval outputs from the current baseline stack initially and from `TASK-W4D` retrieval once that contract stabilizes, and it must define a stable contract that both can target.
+This task owns only page attribution and validation policy. It does not change typed solving logic, decomposition logic, or parser architecture. It consumes retrieval outputs from the current baseline stack initially and from `TASK-W4D` retrieval once that contract stabilizes, and it must define a stable contract that both can target.
 
 # Specification
 
@@ -22,10 +22,12 @@ This task owns only page attribution and validation policy. It does not change t
 - A retrieval-to-answering contract that distinguishes:
   - raw retrieved candidate pages;
   - Pass A pruned candidate pages;
+  - solver-reported support pages;
   - Pass B final emitted pages.
 - Trace or telemetry fields must be rich enough to reconstruct:
   - which chunks/pages were originally retrieved;
   - which pages survived Pass A;
+  - which pages the structured solver reported as direct support;
   - which pages were finally emitted after Pass B;
   - whether validation trimmed pages or collapsed the answer.
 - Config surfaces must separate:
@@ -38,6 +40,8 @@ This task owns only page attribution and validation policy. It does not change t
 
 - Do not let Pass A decide that a question is truly unanswerable.
 - Do not bundle Pass A pruning and validation policy into one inseparable implementation surface.
+- Solver-reported pages may narrow Pass B only after subset/intersection validation against retrieval-backed pages.
+- Solver-reported pages must never add pages beyond retrieval-backed evidence.
 - Keep the intended mainline target as:
   - Pass A minimal-evidence pruning enabled;
   - page-degradation-first validation enabled.
@@ -53,6 +57,7 @@ This task owns only page attribution and validation policy. It does not change t
 - Boilerplate-heavy pages are suppressible without breaking answer-bearing pages on the same document.
 - Validation can downgrade or trim pages without automatically replacing a semantically supportable answer with fallback output.
 - No-answer handling can emit empty final pages without forcing empty retrieved candidates upstream.
+- Solver-reported support pages can improve final precision without replacing retrieval-grounded truth.
 - The task leaves a stable page-attribution contract that `TASK-W4B`, `TASK-W4D`, and `TASK-W4E` can rely on.
 
 ## Test and evaluation expectations
@@ -62,11 +67,13 @@ This task owns only page attribution and validation policy. It does not change t
   - Pass B finalization behavior;
   - boilerplate/title-page suppression;
   - validation degradation vs suppression;
+  - subset validation of solver-reported pages;
   - grounded no-answer page emission.
 - Regression slices must include:
   - questions with correct answer text but extra pages;
   - questions where title pages previously contaminated emitted pages;
   - free-text questions previously suppressed by grounding validation;
+  - typed answers where solver-reported pages should narrow the final set;
   - no-answer questions.
 - Required ablations:
   - baseline vs Pass A only;
@@ -95,7 +102,7 @@ This task owns only page attribution and validation policy. It does not change t
   - No-answer page-emission rules
   - Page-attribution telemetry and traceability
 - **Out of scope**:
-  - typed extraction upgrades
+  - typed solving upgrades
   - parser branch integration
   - cross-case question decomposition
 - **Dependencies**:
@@ -104,7 +111,7 @@ This task owns only page attribution and validation policy. It does not change t
 
 ## 3. Implementation Plan
 
-- Define the retrieval-to-answering page contract and the separation between raw candidates, Pass A pages, and final emitted pages.
+- Define the retrieval-to-answering page contract and the separation between raw candidates, Pass A pages, solver-reported pages, and final emitted pages.
 - Implement suppression heuristics for title pages and repeated boilerplate.
 - Define validation behavior that trims pages before suppressing answers.
 - Lock config flags so mainline behavior and A/B isolation are both supported.
@@ -122,6 +129,7 @@ This task owns only page attribution and validation policy. It does not change t
 **Pass B — post-answer page finalization (rework of grounding validation):**
 - Rework: `src/answering/service.py` `_validate_free_text_grounding()` (lines 560-609) — current grounding validation that raises `FreeTextGroundingValidationError`. This must become Pass B: instead of raising an exception that suppresses the answer, it trims unsupported pages and only collapses to fallback when the answer itself is unsupportable.
 - Rework: `src/submission/pipeline.py` `_answer_question()` (lines 428-445) — the `except FreeTextGroundingValidationError` block that currently replaces the answer with `CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER`. This catch-and-suppress pattern is the core of the over-eager fallback problem.
+- Incoming signal: `TASK-W4B` structured solver outputs — Pass B consumes solver-reported `relevant_pages` only after validating they are a subset of retrieval-backed page candidates.
 
 **Title-page / boilerplate suppression:**
 - `src/ingestion/corpus_builder.py` — canonical pages already carry `document_title`, `document_family`, `page_number`. Page 1 of most documents is a title/cover page. Suppression heuristics can use page_number=1 + low legal-marker density as signals.
@@ -136,6 +144,7 @@ This task owns only page attribution and validation policy. It does not change t
 - Two-pass temporal flow controller (Pass A → answering → Pass B) — no direct source in either codebase.
 - Pass A pruning heuristics (score threshold, chunk-type filtering, title-page detection).
 - Pass B page-degradation logic (trim pages before suppressing answers).
+- Solver-reported page intersection logic (`retrieved pages ∩ solver-reported pages`) for Pass B narrowing.
 - Config flags for A/B isolation (pass_a_enabled, validation_policy, combined).
 
 ## 4. Working Notes

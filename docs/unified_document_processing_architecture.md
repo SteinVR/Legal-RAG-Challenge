@@ -23,7 +23,7 @@ The correct synthesis is:
 - treat LLM table serialization as a default-on enrichment track that must survive legal-domain A/B testing rather than as a permanent axiom;
 - import parent-page retrieval, reranking, and selective decomposition ideas from `RAG-Challenge-2`;
 - add an explicit page-attribution-precision stage between retrieval and final answer emission;
-- upgrade typed extraction explicitly by answer type rather than treating extraction-first answering as "already solved";
+- upgrade typed answering explicitly by answer type rather than treating the current extraction-first path as "already solved";
 - use question-side legal entity extraction as a retrieval prefilter signal, not as a hard one-document router;
 - use parser structure to replace heuristic heading recovery where available.
 
@@ -84,7 +84,7 @@ Adapt:
 - convert their parent-document retrieval idea into parent-page retrieval for legal PDFs;
 - convert company-style document routing into soft legal prefilter signals such as `case_id`, `statute_id`, and document-title matches;
 - apply decomposition to legal question classes rather than company comparisons;
-- keep structured answering prompts and page-reference validation, but subordinate them to the current extraction-first answering backbone.
+- keep structured answering prompts, schema-bound outputs, and page-reference validation, but subordinate them to a retrieval-first, validation-first answering stack.
 
 Reject:
 
@@ -110,7 +110,7 @@ Keep authoritative:
 - current page-grounded `CanonicalPageRecord`;
 - cross-page table merge plus row provenance;
 - local hybrid retrieval and page-lifting;
-- typed answer routing and deterministic extraction-first logic;
+- typed answer routing plus deterministic validation and normalization discipline;
 - local validation, telemetry discipline, and submission packager.
 
 ## Adopt / Adapt / Reject Matrix
@@ -133,7 +133,7 @@ Keep authoritative:
 | Query-side legal prefilters | `RAG-Challenge-2` pattern + current domain | Adapt | Use extracted `case_id`, `statute_id`, and title cues as soft retrieval filters or boosts, never as one-document lock-in. |
 | Page attribution precision | Baseline-driven synthesis | Adopt | Add a dedicated minimal-evidence selection stage after retrieval and before answer finalization. |
 | Comparative decomposition | `RAG-Challenge-2` | Adapt | Use selectively for legal comparison classes, not as default routing. |
-| Typed answering | Current project | Keep | Stay extraction-first; borrow only prompt/schema discipline and page-reference validation. |
+| Typed answering | Current project + `RAG-Challenge-2` | Adapt | Use schema-first structured typed solving after retrieval, with deterministic validation/normalization as the guardrail layer. |
 | Local validation | Current project | Keep | Submission correctness, telemetry validation, and page-reference discipline remain non-negotiable. |
 
 ## Unified Target Architecture
@@ -324,26 +324,49 @@ This stage exists because grounding precision is a score multiplier, and baselin
 
 ### 9. Answering and Grounding Guardrails
 
-Keep the current extraction-first typed answering backbone.
+Use a retrieval-first, schema-first typed answering stack.
 
-Import only these ideas from `RAG-Challenge-2`:
+The answering layer should have three parts:
+
+1. retrieval and evidence packaging;
+2. schema-bound typed solving;
+3. deterministic validation and normalization.
+
+Import these ideas from `RAG-Challenge-2`:
 
 - explicit schema-specific prompting;
+- per-type Pydantic answer schemas and schema dispatch;
 - page-reference validation against retrieved pages;
 - selective comparative decomposition for hard legal question classes.
 
-Do not convert the whole answering stack into chain-of-thought-first generation.
-The current project is right to keep deterministic extraction as the default path.
+Do not use free-form generation for typed answers.
+Do not require long exposed chain-of-thought fields as part of the runtime answer contract.
+Reasoning-capable models and configurable reasoning effort are desirable, but the contract should stay capability-based rather than tied to one raw transport shape.
 
-Typed extraction upgrade is required, not optional.
+Structured typed solving should be the default post-retrieval path for:
+
+- boolean;
+- number;
+- name;
+- names;
+- date;
+- free_text.
+
+Deterministic logic remains mandatory, but as the guardrail layer:
+
+- candidate generation for exact literals and high-precision spans;
+- polarity and contradiction checks;
+- numeric normalization and rejection of year-vs-statute confusion;
+- entity-span filtering and output normalization;
+- abstention or rejection when the structured answer is not retrieval-supported.
 
 Required typed-answer tracks:
 
-- boolean extraction with explicit negation and polarity handling;
-- number extraction with better title-page and year suppression;
-- name and names extraction with canonical entity-span selection for case ids, party names, and document labels;
-- date extraction with stricter normalization and ambiguity handling;
-- confidence calibration so abstention is thresholded and type-aware rather than binary and overly conservative.
+- boolean solving with explicit negation and polarity handling;
+- number solving with better title-page and year suppression;
+- name and names solving with canonical entity-span control for case ids, party names, and document labels;
+- date solving with stricter normalization and ambiguity handling;
+- calibrated abstention so typed no-answer decisions remain type-aware and retrieval-backed.
 
 Recommended decomposition targets:
 
@@ -368,6 +391,7 @@ Keep:
 - artifact manifests and reproducible config discipline.
 
 Imported page-reference validation from `RAG-Challenge-2` should be used as a final guardrail after retrieval and answering, not as the main grounding mechanism.
+Model-reported support pages may narrow the final page set only after subset/intersection validation against retrieval-backed evidence; they must never expand or replace retrieval-grounded truth.
 
 Grounding validation must degrade pages before it destroys answer content. The validator should first attempt to trim unsupported pages or downgrade page attribution confidence, and only collapse to a fallback answer when the answer text itself is not supportable.
 
@@ -415,12 +439,13 @@ Do not import these parts from `opendataloader-pdf` as direct architecture choic
 
 The intended mainline pipeline should include both Pass A pruning and page-degradation-first validation because they address different observed failure modes. The A/B plan separates them only to measure contribution cleanly.
 
-### Phase 2. Typed extraction and query-side prefilters
+### Phase 2. Structured typed solving and query-side prefilters
 
-- add per-type extraction upgrades for boolean, number, name, names, and date;
+- add per-type structured schemas and solver defaults for boolean, number, name, names, date, and free_text;
+- add deterministic candidate generation and validation layers for typed answers;
 - add canonical legal entity extraction for `case_id`, `statute_id`, and document-title cues;
 - feed those cues into retrieval as soft filters or boosts;
-- enable baseline multi-document reasoning without decomposition: better cross-case retrieval breadth, entity-aware matching, and typed extraction over evidence from multiple documents.
+- enable baseline multi-document reasoning without decomposition: better cross-case retrieval breadth, entity-aware matching, and typed solving over evidence from multiple documents.
 
 ### Phase 3. Raw parse sidecars and parser branch contract
 
