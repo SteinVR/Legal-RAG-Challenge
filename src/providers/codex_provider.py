@@ -15,7 +15,7 @@ import httpx
 from src.common.runtime_logging import get_logger, log_event
 
 DEFAULT_CODEX_BASE_URL = "https://api.openai.com/v1"
-DEFAULT_CODEX_MODEL = "gpt-5-mini"
+DEFAULT_CODEX_MODEL = "gpt-5.4-mini"
 DEFAULT_PROVIDER_CONFIDENCE = 0.5
 DEFAULT_MAX_OUTPUT_TOKENS = 220
 LOGGER = get_logger("providers.codex")

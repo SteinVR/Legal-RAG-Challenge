@@ -50,11 +50,15 @@ This task owns answer-type-specific extraction behavior plus lightweight questio
 
 ## Acceptance criteria
 
+- All answer types use Structured Output with per-type Pydantic schemas via OpenAI API.
+- Every schema includes `step_by_step_analysis`, `reasoning_summary`, `relevant_pages`, and typed `final_answer`.
+- `relevant_pages` from model output is available as a page-attribution signal for W4A Pass B.
 - Typed extraction no longer behaves as a mostly binary abstain system.
 - `name` and `names` have explicit extraction logic rather than relying on generic span capture.
 - Boolean extraction has explicit polarity and negation handling.
 - Number extraction can suppress title-page years and similar spurious literals.
 - Query-side legal entities are available to retrieval as soft (non-blocking) guidance.
+- Reasoning effort is configurable per answer type via config.
 - The task produces a stable non-decomposition multi-document baseline that `TASK-W4E` can build on.
 
 ## Test and evaluation expectations
@@ -89,8 +93,11 @@ This task owns answer-type-specific extraction behavior plus lightweight questio
 ## 2. Scope
 
 - **In scope**:
+  - Structured Output with per-type Pydantic schemas (boolean, number, name, names, date, free_text)
+  - step_by_step_analysis + reasoning_summary + relevant_pages in every schema
   - per-type deterministic extraction upgrades
   - confidence calibration / abstention tuning
+  - reasoning effort configuration per answer type
   - legal-entity extraction from question text
   - soft retrieval boosts/filters from extracted entities
   - baseline multi-document reasoning without decomposition
@@ -111,6 +118,51 @@ This task owns answer-type-specific extraction behavior plus lightweight questio
 - Evaluate deterministic improvements by answer type and by high-grounding null slice.
 - Integrate legal-prefilter signals as soft (non-blocking) guidance.
 - Freeze the non-decomposition multi-document path before decomposition work begins.
+
+## Structured Output + Per-Type Schemas (high-impact upgrade)
+
+### Why this matters
+
+The current generation path (`src/providers/codex_provider.py`) uses a 2-line generic system prompt, no type-awareness, no reasoning, no page-reference discipline, and parses free-form JSON via `json.loads()`. RAG-Challenge-2 won the competition with detailed per-type Pydantic schemas enforced through Structured Output, chain-of-thought reasoning, and model-reported `relevant_pages`. This is the single highest-leverage change available.
+
+gpt-5.4-mini is a reasoning model with configurable reasoning effort. Its thinking tokens improve answer quality on multi-step extraction and polarity questions. TTFT includes thinking time, but the baseline TTFT (P50=780ms) leaves headroom, and accuracy gains from reasoning outweigh the TTFT penalty at current score levels (det=0.129 has massive upside).
+
+### Implementation
+
+**Replace the current plain-text JSON generation with OpenAI Structured Output API:**
+- Current: `src/providers/codex_provider.py` sends `_SYSTEM_PROMPT` (lines 23-27) → model returns free-form text → `json.loads()` parse (line 245).
+- Target: send `response_format={"type": "json_schema", "json_schema": {...}}` with per-type Pydantic schemas → model returns guaranteed-valid structured output. No parse failures, no missing keys.
+
+**Define per-type Pydantic answer schemas adapted from RAG-Challenge-2:**
+
+Each schema must include these fields in this order (reasoning before answer forces the model to think first):
+
+1. `step_by_step_analysis: str` — detailed chain-of-thought (5+ steps, 150+ words). Not included in submission, but improves model accuracy. For legal domain: replace financial/company framing with legal terminology (statutes, judgments, orders, parties).
+2. `reasoning_summary: str` — concise 50-word summary of reasoning.
+3. `relevant_pages: list[int]` — pages from evidence that directly support the answer. This is the **key page-attribution signal**: model-reported pages become a candidate input for W4A Pass B, potentially replacing or augmenting the current top-k retrieval pages in `retrieved_chunk_pages`.
+4. `final_answer` — typed per answer type (see below).
+
+**Per-type schema targets (adapt from RAG-Challenge-2 `prompts.py`):**
+
+| Type | Source reference | `final_answer` type | Key adaptation for legal domain |
+|---|---|---|---|
+| `boolean` | `AnswerWithRAGContextBooleanPrompt` (lines 241-282) | `bool` | Add explicit negation/polarity rules for legal questions: "does the statute prohibit X" → check for double negation. Add cross-case overlap rules. |
+| `number` | `AnswerWithRAGContextNumberPrompt` (lines 144-237) | `float \| int \| Literal["N/A"]` | Keep strict metric matching discipline. Add legal-specific rules: article numbers vs years, penalty amounts vs case IDs, statutory numbers vs page references. |
+| `name` | `AnswerWithRAGContextNamePrompt` (lines 95-140) | `str \| Literal["N/A"]` | Adapt for case IDs (e.g. `CFI 010/2024`, `SCT 169/2025`), party names, document titles. Add rule: extract exactly as appears, no title-page boilerplate. |
+| `names` | `AnswerWithRAGContextNamesPrompt` (lines 286-343) | `list[str] \| Literal["N/A"]` | Adapt for multi-party legal cases, multiple case references. Output as unordered list. |
+| `date` | New (no RAG-Challenge-2 equivalent) | `str \| Literal["N/A"]` | ISO 8601 format. Add rules for legal date extraction: judgment dates, filing dates, effective dates. |
+| `free_text` | Enhance current path | `str` | Keep 280-char limit. Add `relevant_pages` for page-attribution signal. |
+
+**`relevant_pages` as page-attribution signal:**
+- The model reports which evidence pages it actually used to derive the answer.
+- This signal feeds into W4A Pass B: model-reported pages can be intersected with retrieval-backed pages to produce minimal-evidence `retrieved_chunk_pages`.
+- RAG-Challenge-2's `_validate_page_references()` (lines 87-119) validates that reported pages are a subset of retrieved pages. Same validation applies here.
+
+**Reasoning effort configuration:**
+- gpt-5.4-mini supports configurable reasoning effort (low/medium/high).
+- For deterministic types (boolean, number, name, names, date): use higher reasoning effort — accuracy is the primary goal, TTFT penalty is acceptable given det=0.129 baseline.
+- For free_text: use medium reasoning effort — asst=0.987 is already near-perfect, marginal gains don't justify TTFT cost.
+- Expose reasoning effort as config parameter per answer type.
 
 ## Source References & Adaptation Map
 
