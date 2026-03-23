@@ -129,7 +129,7 @@ This task owns only page attribution and validation policy. It does not change t
 
 ### Reference from `external/RAG-Challenge-2`
 
-- `external/RAG-Challenge-2/src/questions_processing.py` `_validate_page_references()` (lines 87-119) — page-reference validation pattern: enforces min 2, max 8 pages, augments with neighboring pages. Useful as a reference for bounded page-set policies, though the min/max logic needs legal-domain adaptation.
+- `external/RAG-Challenge-2/src/questions_processing.py` `_validate_page_references()` (lines 87-119) — partial guardrail reference only. Reusable idea: emitted pages must be a subset of retrieval-backed pages. Do **not** port its `min_pages` backfill behavior, because padding page lists from retrieval results conflicts with W4A's minimal-evidence objective.
 
 ### New code
 

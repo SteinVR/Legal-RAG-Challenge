@@ -118,9 +118,9 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 ### Integrate from `external/opendataloader-pdf`
 
 **Python API (direct integration):**
-- `external/opendataloader-pdf/python/opendataloader-pdf/src/opendataloader_pdf/__init__.py` — public API: `opendataloader_pdf.convert()`. Call with: `input_path=[list of PDFs]`, `output_dir=sidecar_dir`, `format="json"`, `table_method="cluster"`, `reading_order="xycut"`, `hybrid="docling"` (or `"docling-fast"`), `hybrid_mode="auto"`, `hybrid_fallback=True`.
+- `external/opendataloader-pdf/python/opendataloader-pdf/src/opendataloader_pdf/__init__.py` — public API: `opendataloader_pdf.convert()`. For hybrid runs, call with: `input_path=[list of PDFs]`, `output_dir=sidecar_dir`, `format="json"`, `table_method="cluster"`, `reading_order="xycut"`, `hybrid="docling-fast"`, `hybrid_mode="auto"`, `hybrid_fallback=True`. For local-only runs, omit hybrid flags and keep the rest of the JSON sidecar contract unchanged.
 - `external/opendataloader-pdf/schema.json` — full JSON output schema. Key node types: `paragraph`, `heading` (with `heading level`), `table` (with `rows`, `cells`, `row span`, `column span`, `previous table id`, `next table id`), `list` (with `numbering style`, nested `list items`), `caption` (with `linked content id`), `image`, `header`, `footer`. Every element has `page number` and `bounding box [left, bottom, right, top]`.
-- `external/opendataloader-pdf/options.json` — full CLI option reference. Key flags: `use-struct-tree` (tagged PDF fast path), `table-method` (default vs cluster), `hybrid` (off/docling-fast/docling), `content-safety-off` (filter control).
+- `external/opendataloader-pdf/options.json` — full CLI option reference. Key flags: `use-struct-tree` (tagged PDF fast path), `table-method` (default vs cluster), `hybrid` (off/docling-fast), `content-safety-off` (filter control).
 - `external/opendataloader-pdf/python/opendataloader-pdf/src/opendataloader_pdf/wrapper.py` — Python-Java bridge. Each `convert()` call spawns a JVM process. Batch all documents in one invocation.
 
 **Integration pattern:**

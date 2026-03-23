@@ -127,16 +127,15 @@ This task owns answer-type-specific extraction behavior plus lightweight questio
 
 ### Adapt from `external/RAG-Challenge-2`
 
-**Prompt templates and structured output schemas (adapt for legal domain):**
-- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextBooleanPrompt` (lines 241-282) — chain-of-thought boolean answering with step-by-step analysis. Adapt: replace company/financial context with legal terminology (statutes, judgments, orders).
-- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextNumberPrompt` (lines 144-237) — strict metric matching: "metric must EXACTLY match, no proxy or similar, no calculations, return N/A if uncertain." This discipline is exactly what baseline number extraction lacks.
-- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextNamePrompt` (lines 95-140) — "extract exactly as appears in context, no extra words." Adapt for case IDs, party names, document labels.
-- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextNamesPrompt` (lines 286-343) — multi-name extraction with deduplication. Adapt for multi-party legal cases.
-- `external/RAG-Challenge-2/src/prompts.py` `build_system_prompt()` (lines 7-16) — pattern for building formatted prompts with JSON schema and examples. Reusable as-is via current provider abstraction.
-- `external/RAG-Challenge-2/src/prompts.py` Pydantic answer schemas (e.g. `AnswerSchema` at lines 245-261) — structured output enforcement. Adapt for current answering schema contract.
+**Schema discipline and extraction constraints (reference only, not execution model):**
+- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextBooleanPrompt` (lines 241-282) — reference for explicit polarity discipline and page-backed answer schema. Adapt the boolean decision rules into deterministic extraction and validation logic; do **not** port the chain-of-thought runtime path.
+- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextNumberPrompt` (lines 144-237) — reference for exact-match numeric discipline: no proxy metrics, no derived values, no "close enough" spans. Translate these rules into deterministic extractor scoring and rejection logic.
+- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextNamePrompt` (lines 95-140) — reference for exact-span extraction and no-extra-tokens discipline. Adapt the constraints to case IDs, party names, and document labels in the current extraction-first pipeline.
+- `external/RAG-Challenge-2/src/prompts.py` `AnswerWithRAGContextNamesPrompt` (lines 286-343) — reference for multi-entity deduplication and exact-surface-form extraction. Adapt for legal multi-party answers, but keep outputs as unordered lists in the current deterministic contract.
+- `external/RAG-Challenge-2/src/prompts.py` `build_system_prompt()` (lines 7-16) and nested Pydantic `AnswerSchema` classes (e.g. lines 245-261) — reference for documenting answer schemas, examples, and validation expectations. Do **not** import them as the primary runtime mechanism for W4B.
 
 **Question routing (reference, not direct port):**
-- `external/RAG-Challenge-2/src/questions_processing.py` `process_question()` (lines 184-198) — routing by detected answer type plus company count. Reference for how to route legal questions by entity count (single-doc vs multi-doc).
+- `external/RAG-Challenge-2/src/questions_processing.py` `process_question()` (lines 184-198) — reference for using entity-count signals during question analysis. In W4B, use this only to expose retrieval-breadth hints and multi-document likelihood signals; do **not** port company-style hard routing or decomposition decisions into this task.
 
 ### New code
 

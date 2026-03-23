@@ -130,11 +130,11 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 - `src/answering/service.py` `AnsweringService` — currently handles one question at a time. Decomposition requires calling retrieval + answering per sub-question, then aggregating.
 
 **Page attribution recomposition:**
-- `src/retrieval/page_lifter.py` `PageLifter.to_page_references()` (lines 94-109) — produces deduplicated page lists. For decomposition: must merge page lists from sub-questions, then apply W4A Pass A minimal-evidence pruning to the merged set (not union mechanically).
+- `src/retrieval/page_lifter.py` `PageLifter.to_page_references()` (lines 94-109) — produces deduplicated page lists. For decomposition: merge page lists from sub-questions into a candidate final page set, then run a decomposition-aware final page minimization step that obeys the W4A final attribution contract. Do **not** re-run W4A Pass A after sub-answer recomposition, because recomposition is already post-answer.
 
 ### New code
 
-- Decomposition trigger policy — decides which questions escalate. Candidates: questions with 2+ legal entities from W4B extraction, questions classified as `cross_case` by question metadata, questions where baseline non-decomposition path returns null.
+- Decomposition trigger policy — decides which questions escalate. Candidates: questions with 2+ legal entities from W4B extraction, questions classified as `cross_case` by question metadata, questions with explicit comparative language or legal-version/jurisdiction contrast.
 - Sub-question interface and provenance tracking (mapping original question → sub-questions → sub-results → final answer).
 - Page-list recomposition with minimization (not mechanical union of sub-question pages).
 - Legal-domain decomposition targets: amendment vs current-version, party A vs party B, jurisdiction A vs B, annex/schedule vs main body, temporal comparisons.
