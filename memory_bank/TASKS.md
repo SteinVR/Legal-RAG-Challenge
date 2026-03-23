@@ -25,6 +25,18 @@
 
 > Baseline score: `total=0.2273` (2026-03-23). Primary levers in priority order: grounding, deterministic extraction, free-text grounding validation.
 
+### Wave 4 -- Baseline Recovery & Structural Upgrade
+
+> Wave 4 converts the updated document-processing architecture into execution-ready work packages. `TASK-W4A`, `TASK-W4B`, and `TASK-W4C` start in parallel; `TASK-W4D` depends on stable outputs from `TASK-W4B` and the chunk/schema changes that `TASK-W4C` freezes as accepted; `TASK-W4E` depends on the baseline multi-document path from `TASK-W4B` plus stable retrieval behavior from `TASK-W4D`.
+
+- [ ] [TASK-W4A](tasks/TASK-W4A.md) Page attribution precision & validation policy
+- [ ] [TASK-W4B](tasks/TASK-W4B.md) Typed extraction, confidence calibration & legal prefilters
+- [ ] [TASK-W4C](tasks/TASK-W4C.md) Structural parser branch, normalization & table enrichment
+- [ ] [TASK-W4D](tasks/TASK-W4D.md) Retrieval upgrade, chunk calibration & asymmetric tuning
+- [ ] [TASK-W4E](tasks/TASK-W4E.md) Cross-case decomposition & multi-document orchestration
+
+> The grouped tracks below remain thematic backlog buckets. The Wave 4 tasks above are the authoritative implementation units for execution and acceptance.
+
 ### High Priority (score-blocking)
 
 - [ ] [TRACK-GROUNDING] Improve retrieved_chunk_pages precision -- G=0.570 is multiplicative; increase precision of page attribution

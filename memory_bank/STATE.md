@@ -10,10 +10,11 @@
 |-----------|-------|
 | Blockers | No active product blockers |
 | Methodology | RAPID |
-| Completed scope | TASK-W1A through TASK-W3D complete; logging regression fixes (TASK-W1A scope) applied 2026-03-23; full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
-| Current focus | Post-baseline optimization: grounding precision, deterministic extraction (especially name/names), free-text grounding validation tuning |
+| Completed scope | TASK-W1A through TASK-W3D complete; TASK-BASELINE postmortem complete; Wave 4 specs finalized (TASK-W4A/B/C/D/E); full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
+| Current focus | Wave 4 execution: W4A/W4B/W4C start in parallel; W4D depends on W4A+W4B+W4C; W4E depends on W4A+W4B+W4D |
 | Validation baseline | Verified on 2026-03-23 from `.venv`: `PYTHONPATH=. pytest -q` → `187 passed`; `PYTHONPATH=. ruff check src tests` → `All checks passed!` |
 | First full baseline result | 100-question warmup submission completed 2026-03-23; `total_score=0.2273`; grounding G=0.570 is primary optimization lever |
+| Canonical architecture | `docs/unified_document_processing_architecture.md` — target architecture combining opendataloader-pdf, external/RAG-Challenge-2, and current project. Review at `docs/Document_Processing_Architecture_Review.md` |
 
 ---
 
@@ -22,13 +23,12 @@
 | Date | Issue | Priority | Status |
 |------|-------|----------|--------|
 | 2026-03-17 | retrieved_chunk_pages [] vs non-empty ambiguity in EVALUATION.md | High | Open -- needs organizer clarification |
-| 2026-03-17 | Codex OAuth stability for 900-question batch untested | Medium | Open -- validate early |
-| 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Medium | Open -- available warmup PDFs validate native/table/artifact paths well, but OCR provenance still depends on dedicated fixtures/scanned samples |
-| 2026-03-22 | ~~Repository-wide `ruff check src tests` currently fails~~ | Medium | **Resolved** 2026-03-23 -- all lint issues fixed |
-| 2026-03-23 | Name extraction zero-correct (0/15 name questions) | High | Open -- extractors return null for all name-type questions; blocking deterministic score improvement |
-| 2026-03-23 | Deterministic extractor over-conservatism: 47/70 null answers | High | Open -- det=0.129; extractors too strict; many answerable questions return null |
-| 2026-03-23 | Free-text grounding validation too strict: 16 fallbacks to null | Medium | Open -- `FreeTextGroundingValidationError` triggers too aggressively; losing good LLM answers |
-| 2026-03-23 | Grounding G=0.570 -- retrieved_chunk_pages precision too low | High | Open -- multiplicative to all scores; primary optimization lever for next iteration |
+| 2026-03-17 | ~~Codex OAuth stability for 900-question batch untested~~ | Medium | **Resolved** -- generation backend uses OpenAI API |
+| 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Medium | Open -- OCR provenance depends on dedicated fixtures/scanned samples |
+| 2026-03-23 | Name extraction zero-correct (0/15 name questions) | High | Addressed by TASK-W4B (planned) |
+| 2026-03-23 | Deterministic extractor over-conservatism: 47/70 null answers | High | Addressed by TASK-W4B (planned) |
+| 2026-03-23 | Free-text grounding validation too strict: 16 fallbacks to null | Medium | Addressed by TASK-W4A validation policy (planned) |
+| 2026-03-23 | Grounding G=0.570 -- retrieved_chunk_pages precision too low | High | Addressed by TASK-W4A two-pass attribution (planned) |
 
 ---
 
@@ -36,7 +36,9 @@
 
 | Date | Area | Deviation | Reason |
 |------|------|-----------|--------|
-| 2026-03-22 | Current runnable baseline | No active architecture deviation is currently tracked for the W3A/W3B/W3C/W3D submission path | The remaining work is lint debt and post-baseline exploration, not a design mismatch |
+| 2026-03-22 | Current runnable baseline | No active architecture deviation tracked for the W3A/W3B/W3C/W3D submission path | The remaining work is post-baseline optimization, not a design mismatch |
+| 2026-03-23 | Parser | opendataloader-pdf hybrid mode not yet integrated; current baseline runs local-only | TASK-W4C is the planned integration point; local-only is acceptable fallback per spec |
+| 2026-03-23 | Table extraction | `table_method="cluster"` not yet set as default | TASK-W4C will enforce this; current baseline predates this decision |
 
 ---
 
@@ -47,34 +49,30 @@
 | 2026-03-17 | RAPID methodology | Engineering competition with tight deadline, not ML training |
 | 2026-03-17 | PaddleOCR-VL-1.5 as primary parser | 0.9B, page-level, cross-page tables; ingestion is foundational |
 | 2026-03-17 | Qwen3-Embedding-0.6B + Qwen3-Reranker-0.6B | Unified ecosystem, instruction-aware, MRL, 32K context, matched reranker |
-| 2026-03-17 | Codex via OAuth as primary generation backend | Cost-efficient; provider abstraction for fallback |
+| 2026-03-17 | OpenAI API as primary generation backend | Provider abstraction for fallback |
 | 2026-03-17 | Qdrant embedded as vector store | Dense + sparse hybrid, payload filtering, persistence, no infra overhead |
 | 2026-03-17 | Grounding-first optimization | G is multiplicative in scoring formula; recall > precision (beta=2.5) |
-| 2026-03-19 | Benchmark compare/consistency CLI now targets the current benchmark run-report schema only | Removes misleading legacy fallback and keeps W2B report contracts explicit |
 | 2026-03-21 | W2C canonical corpus contract is now schema-first and quality-gated | Reduces parser/serializer/service drift and locks page/table provenance to one ingestion SSOT |
-| 2026-03-21 | Wave 3 baseline service layers were merged to `main` before pipeline orchestration | Indexing, retrieval, and answering can now progress independently of the still-pending end-to-end orchestration/package layer |
 | 2026-03-22 | W3D submission orchestration completed the runnable Wave 3 path | `build-submission`, telemetry packing, local validation, trace manifests, and archive gating now bind W3A/W3B/W3C into a runnable submission pipeline |
-| 2026-03-23 | PaddleOCR v3 `.predict()` migration | Old `.ocr()` API replaced; `ocr_unavailable_policy` set to `error` to catch missing runtime early |
-| 2026-03-23 | Qwen3 embedding prompt_name split: `"document"` for indexing, `"query"` for retrieval | Aligns with Qwen3-Embedding best practices; `build_query_embedder()` added |
-| 2026-03-23 | Reranker `local_files_only=True` | Prevents accidental HuggingFace downloads at runtime |
 | 2026-03-23 | Reranker rewritten to causal LM scoring (yes/no probability) | `AutoModelForCausalLM` with system prompt template; correct approach for Qwen3-Reranker-0.6B |
 | 2026-03-23 | Operator scripts pipeline (`scripts/00_*`–`07_*`) | Reproducible numbered shell scripts for full baseline execution |
-| 2026-03-23 | Config `logging` section added; `ocr_unavailable_policy: error` | Structured JSONL+console logging now fully config-driven; OCR absence fails fast |
-| 2026-03-23 | Logging regression fixes | `LoggingSettings.normalize_level()` now `mode="before"` validator; JSONL directory creation skipped when disabled; `RuntimeLogContext.log_path` made optional |
+| 2026-03-23 | Logging fully config-driven; OCR absence fails fast | `LoggingSettings.normalize_level()` before-validator; JSONL dir skip when disabled; `log_path` optional |
+| 2026-03-23 | opendataloader-pdf hybrid mode is required path for Wave 4 | Local-only is fallback; hybrid is default for born-digital and layout-complex pages (TASK-W4C) |
+| 2026-03-23 | `table_method="cluster"` required default | Required default for Wave 4 parser; deviation requires measured regression on legal PDFs (TASK-W4C) |
+| 2026-03-23 | JSON is required sidecar format | Raw parse artifacts must be JSON; Markdown is debug only (TASK-W4C) |
+| 2026-03-23 | Two-pass page attribution required | Pass A pre-answer pruning; Pass B post-answer finalization; validation degrades before suppressing answers (TASK-W4A) |
+| 2026-03-23 | Typed extraction upgraded per answer type | Boolean polarity, name/names extraction, confidence calibration; LLM table serialization benchmark-gated with kill switch (TASK-W4B) |
+| 2026-03-23 | Qdrant hybrid (dense+sparse) stays as-is | No separate BM25 system; no architecture change to vector store (TASK-W4D) |
+| 2026-03-23 | Annex/schedule chunk family OUT of scope for Wave 4 | Not in TASK-W4C scope |
+| 2026-03-23 | XY-Cut++ calibration OUT of scope for Wave 4 | Not in TASK-W4C scope |
 
 ---
 
 ## 5. Accumulated Context
 
-- 2026-03-18 to 2026-03-19: TASK-W1A delivered config/env loading, phase-local sync, API client, CLI commands, and a live warmup sync with 100 questions and 30 PDFs staged under `data/warmup/`.
-- 2026-03-19: TASK-W2A delivered local submission validation/scoring, config-driven unanswerable retrieval policy, and evaluation CLI coverage.
-- 2026-03-19: TASK-W2B repaired the dev benchmark/reporting contract, unified compare/consistency flows around current run reports, and passed the recorded quality gate; the broader W2B deliverables remain in progress.
-- 2026-03-21: W2B is considered complete under the accepted task decision to build a goldset for all 100 warmup questions instead of maintaining a separate 25-30 question gold subset plus silver set.
-- 2026-03-20 to 2026-03-21: TASK-W2C was rebuilt around `src/common/schemas.py` as the ingestion SSOT, with centralized page provenance, hardened table serialization, complete-artifact skip logic, expanded invariant-based tests, green quality gate, and final independent review approval.
-- 2026-03-21: Real warmup smoke validation passed on 10 selected PDFs and then on all 30 available warmup PDFs; native/table/artifact paths looked healthy, but the current dataset did not trigger any OCR-selected pages.
-- 2026-03-21: TASK-W3A, TASK-W3B, and TASK-W3C were implemented in isolated worktrees, quality-gated, merged to `main`, and recorded in `logs/agents/W3ABC_Codex_wave-3-orchestration_23-06_21-03-2026.md`.
-- 2026-03-22: TASK-W3D completed the submission pipeline in `src/submission/` and `src/main.py`.
-- 2026-03-23: First smoke baseline run applied on-site corrections: PaddleOCR v3 API migration, Qwen3 embedding prompt_name split (`document`/`query`), reranker offline-only loading, pipeline ValueError fallback for safe per-question failure, lint debt fully resolved. Operator scripts (`scripts/00_*`–`07_*`) added for reproducible end-to-end execution. Test baseline: `187 passed`, `ruff: All checks passed`.
-- 2026-03-23: Reranker overhauled to causal LM scoring (yes/no token probability via `AutoModelForCausalLM`); was incorrectly using `AutoModelForSequenceClassification`. Number parsing fix: `_extract_number_candidates()` now catches ValueError for non-numeric regex matches.
-- 2026-03-23: Full 100-question warmup submission completed. Corpus: 30 docs, 590 pages, 0 failures. Index: 6631 chunks. Runtime: 132s. Score: `total=0.2273`, `det=0.129`, `asst=0.987`, `G=0.570`, `T=1.000`. 37 real answers, 47 null, 16 grounding-fallback. Key gaps: name extraction (0/15), extractor over-conservatism (47 nulls), grounding precision.
-- 2026-03-23: Logging regression fixes applied (TASK-W1A scope): lowercase YAML log levels now accepted via before-validator; JSONL directory creation skipped when disabled; `RuntimeLogContext.log_path` widened to `Path | None`. 9 targeted tests pass.
+- 2026-03-18 to 2026-03-21: W1A through W2C delivered config/env loading, evaluation contract, dev gold benchmark, and schema-first canonical corpus.
+- 2026-03-21 to 2026-03-22: W3A/W3B/W3C/W3D delivered chunking, retrieval, answering, and submission pipeline. All merged to `main`.
+- 2026-03-23: Baseline corrections (PaddleOCR v3 migration, Qwen3 prompt split, causal reranker, lint), operator scripts, logging fixes. Test baseline: `187 passed`, `ruff: All checks passed`.
+- 2026-03-23: First full 100-question warmup baseline completed. `total=0.2273`, `det=0.129`, `asst=0.987`, `G=0.570`, `T=1.000`. 37 real answers, 47 null, 16 grounding-fallback. Corpus: 30 docs, 590 pages, 6631 chunks. Full postmortem in `memory_bank/tasks/TASK-BASELINE.md`.
+- 2026-03-23: Canonical target architecture written at `docs/unified_document_processing_architecture.md`; review at `docs/Document_Processing_Architecture_Review.md`. Combines opendataloader-pdf, external/RAG-Challenge-2, and current project design.
+- 2026-03-23: Wave 4 task specs finalized -- TASK-W4A (page attribution), TASK-W4B (typed extraction), TASK-W4C (structural parser), TASK-W4D (retrieval upgrade), TASK-W4E (cross-case orchestration). W4A/W4B/W4C start in parallel. TASKS.md updated with Wave 4 section and dependency graph.

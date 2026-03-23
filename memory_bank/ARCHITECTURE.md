@@ -1,6 +1,8 @@
 # Project Architecture: Agentic-RAG-Challenge
 
 > Single source of truth for the project's logic, design, and behavior.
+>
+> **Wave 4 canonical target architecture**: `docs/unified_document_processing_architecture.md`. This document combines opendataloader-pdf, external/RAG-Challenge-2, and the current project into a unified document processing design. A review is at `docs/Document_Processing_Architecture_Review.md`. The Wave 4 task specs in `memory_bank/tasks/TASK-W4*.md` are the authoritative execution plans derived from that architecture.
 
 ---
 
@@ -50,10 +52,19 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 - **Reranker**: Qwen3-Reranker-0.6B loaded as `AutoModelForCausalLM`. Scoring: yes/no next-token probability via `log_softmax(logits[:, -1, [no_id, yes_id]])[:, 1].exp()`. Not a sequence classifier.
 - **Lexical search**: BM25 (rank-bm25 or tantivy-py)
 - **Vector store**: Qdrant embedded mode (dense + sparse vectors, payload filtering, persistence)
-- **Generation backend**: Codex via OAuth (primary); provider abstraction for fallback
-- **Canonical data format**: JSONL (structured) + Markdown (debug)
+- **Generation backend**: OpenAI API (primary); provider abstraction for fallback
+- **Canonical data format**: JSONL (structured) + Markdown (debug); raw parse artifacts use JSON sidecars
 - **Config management**: versioned YAML configs under `configs/`
 - **Competition API client**: `arlc` SDK or custom thin wrapper
+
+### Wave 4 architectural constraints (locked decisions)
+
+- **opendataloader-pdf hybrid mode**: required default for born-digital and layout-complex pages; local-only is fallback, not peer default (TASK-W4C).
+- **Table extraction**: `table_method="cluster"` is the required default; any deviation requires measured regression evidence.
+- **Two-pass page attribution**: Pass A prunes retrieved candidates before answer emission; Pass B finalizes emitted pages after answering. Validation degrades before suppressing answers (TASK-W4A).
+- **Typed extraction per answer type**: boolean polarity, name/names entity logic, number spurious-literal rejection, confidence calibration; LLM table serialization is default-on but benchmark-gated with kill switch (TASK-W4B).
+- **Retrieval backbone unchanged**: Qdrant hybrid (dense+sparse) stays as-is; no separate BM25 system; prefilters are soft (non-blocking) (TASK-W4D).
+- **Out of scope for Wave 4**: annex/schedule chunk family; XY-Cut++ calibration.
 
 ---
 
