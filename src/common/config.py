@@ -133,10 +133,12 @@ class LoggingSettings(BaseModel):
     debug_documents: bool = False
     debug_questions: bool = False
 
-    @field_validator("level")
+    @field_validator("level", mode="before")
     @classmethod
-    def normalize_level(cls, value: str) -> str:
-        return value.strip().upper()
+    def normalize_level(cls, value: Any) -> Any:
+        if isinstance(value, str):
+            return value.strip().upper()
+        return value
 
 
 class AppConfig(BaseModel):

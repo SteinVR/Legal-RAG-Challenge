@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+from pathlib import Path
 
 from src.common.config import AppConfig
 from src.common.runtime_logging import configure_runtime_logging, get_logger, log_event, shutdown_runtime_logging
@@ -47,3 +48,30 @@ def test_runtime_logging_writes_structured_jsonl_records(tmp_path) -> None:
     assert payloads[-1]["run_id"] == context.run_id
     assert payloads[-1]["command"] == "parse-corpus"
     assert payloads[-1]["phase"] == "warmup"
+
+
+def test_runtime_logging_skips_log_directory_when_jsonl_disabled(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    config = AppConfig.model_validate(
+        {
+            "phase": "warmup",
+            "logging": {
+                "directory": str(tmp_path / "logs" / "project" / "runtime"),
+                "console": True,
+                "jsonl": False,
+            },
+        }
+    )
+
+    def fail_mkdir(self, parents=False, exist_ok=False) -> None:
+        raise AssertionError("configure_runtime_logging should not create a log directory when jsonl is disabled")
+
+    monkeypatch.setattr(Path, "mkdir", fail_mkdir)
+
+    context = configure_runtime_logging(config, command="parse-corpus", phase=config.phase.value)
+    try:
+        assert context.log_path is None
+    finally:
+        shutdown_runtime_logging()

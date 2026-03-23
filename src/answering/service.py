@@ -667,7 +667,10 @@ def _extract_number_candidates(text: str) -> list[tuple[float, int, int]]:
     candidates: list[tuple[float, int, int]] = []
     for match in _NUMBER_PATTERN.finditer(text):
         raw_value = match.group(0).strip()
-        candidates.append((_parse_numeric_value(raw_value), match.start(), match.end()))
+        try:
+            candidates.append((_parse_numeric_value(raw_value), match.start(), match.end()))
+        except ValueError:
+            continue
     candidates.extend(_extract_written_number_candidates(text))
     candidates.sort(key=lambda item: (item[1], item[2]))
     return candidates

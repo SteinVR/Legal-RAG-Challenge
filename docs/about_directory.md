@@ -1,6 +1,6 @@
 # About This Directory
 Purpose: Human and agent-facing project documentation.
-Contains: Architecture notes, challenge-specific notes, evaluation docs, and the detailed component guide.
-Start Here: Open `component_design.md` for the current system shape, then `about_challenge/` or `evaluation/` for domain context.
-Key Files/Dirs: `component_design.md`, `about_challenge/`, `evaluation/`.
-Notes: Some files here capture discovery history; cross-check implementation claims against `src/` when precision matters.
+Contains: Challenge-specific notes, roadmap and synthesis docs, evaluation docs, and narrative discovery history.
+Start Here: Open `ingestion_stack_synthesis.md` for the parser/retrieval synthesis, then `Initial Roadmap.md`, `about_challenge/`, or `evaluation/` for supporting context.
+Key Files/Dirs: `ingestion_stack_synthesis.md`, `Initial Roadmap.md`, `about_challenge/`, `evaluation/`.
+Notes: Some files here capture discovery history; cross-check implementation claims against `src/` and `memory_bank/` when precision matters.

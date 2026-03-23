@@ -8,11 +8,12 @@
 
 | Attribute | Value |
 |-----------|-------|
-| Blockers | No active product blockers; baseline is runnable end-to-end with operator scripts |
+| Blockers | No active product blockers |
 | Methodology | RAPID |
-| Completed scope | TASK-W1A through TASK-W3D complete; full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
-| Current focus | Post-baseline exploration tracks (TRACK-DENSE-AB, TRACK-OCR-HARD-PAGES, etc.); first real warmup/private submission |
+| Completed scope | TASK-W1A through TASK-W3D complete; logging regression fixes (TASK-W1A scope) applied 2026-03-23; full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
+| Current focus | Post-baseline optimization: grounding precision, deterministic extraction (especially name/names), free-text grounding validation tuning |
 | Validation baseline | Verified on 2026-03-23 from `.venv`: `PYTHONPATH=. pytest -q` → `187 passed`; `PYTHONPATH=. ruff check src tests` → `All checks passed!` |
+| First full baseline result | 100-question warmup submission completed 2026-03-23; `total_score=0.2273`; grounding G=0.570 is primary optimization lever |
 
 ---
 
@@ -24,6 +25,10 @@
 | 2026-03-17 | Codex OAuth stability for 900-question batch untested | Medium | Open -- validate early |
 | 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Medium | Open -- available warmup PDFs validate native/table/artifact paths well, but OCR provenance still depends on dedicated fixtures/scanned samples |
 | 2026-03-22 | ~~Repository-wide `ruff check src tests` currently fails~~ | Medium | **Resolved** 2026-03-23 -- all lint issues fixed |
+| 2026-03-23 | Name extraction zero-correct (0/15 name questions) | High | Open -- extractors return null for all name-type questions; blocking deterministic score improvement |
+| 2026-03-23 | Deterministic extractor over-conservatism: 47/70 null answers | High | Open -- det=0.129; extractors too strict; many answerable questions return null |
+| 2026-03-23 | Free-text grounding validation too strict: 16 fallbacks to null | Medium | Open -- `FreeTextGroundingValidationError` triggers too aggressively; losing good LLM answers |
+| 2026-03-23 | Grounding G=0.570 -- retrieved_chunk_pages precision too low | High | Open -- multiplicative to all scores; primary optimization lever for next iteration |
 
 ---
 
@@ -52,7 +57,10 @@
 | 2026-03-23 | PaddleOCR v3 `.predict()` migration | Old `.ocr()` API replaced; `ocr_unavailable_policy` set to `error` to catch missing runtime early |
 | 2026-03-23 | Qwen3 embedding prompt_name split: `"document"` for indexing, `"query"` for retrieval | Aligns with Qwen3-Embedding best practices; `build_query_embedder()` added |
 | 2026-03-23 | Reranker `local_files_only=True` | Prevents accidental HuggingFace downloads at runtime |
+| 2026-03-23 | Reranker rewritten to causal LM scoring (yes/no probability) | `AutoModelForCausalLM` with system prompt template; correct approach for Qwen3-Reranker-0.6B |
 | 2026-03-23 | Operator scripts pipeline (`scripts/00_*`–`07_*`) | Reproducible numbered shell scripts for full baseline execution |
+| 2026-03-23 | Config `logging` section added; `ocr_unavailable_policy: error` | Structured JSONL+console logging now fully config-driven; OCR absence fails fast |
+| 2026-03-23 | Logging regression fixes | `LoggingSettings.normalize_level()` now `mode="before"` validator; JSONL directory creation skipped when disabled; `RuntimeLogContext.log_path` made optional |
 
 ---
 
@@ -67,3 +75,6 @@
 - 2026-03-21: TASK-W3A, TASK-W3B, and TASK-W3C were implemented in isolated worktrees, quality-gated, merged to `main`, and recorded in `logs/agents/W3ABC_Codex_wave-3-orchestration_23-06_21-03-2026.md`.
 - 2026-03-22: TASK-W3D completed the submission pipeline in `src/submission/` and `src/main.py`.
 - 2026-03-23: First smoke baseline run applied on-site corrections: PaddleOCR v3 API migration, Qwen3 embedding prompt_name split (`document`/`query`), reranker offline-only loading, pipeline ValueError fallback for safe per-question failure, lint debt fully resolved. Operator scripts (`scripts/00_*`–`07_*`) added for reproducible end-to-end execution. Test baseline: `187 passed`, `ruff: All checks passed`.
+- 2026-03-23: Reranker overhauled to causal LM scoring (yes/no token probability via `AutoModelForCausalLM`); was incorrectly using `AutoModelForSequenceClassification`. Number parsing fix: `_extract_number_candidates()` now catches ValueError for non-numeric regex matches.
+- 2026-03-23: Full 100-question warmup submission completed. Corpus: 30 docs, 590 pages, 0 failures. Index: 6631 chunks. Runtime: 132s. Score: `total=0.2273`, `det=0.129`, `asst=0.987`, `G=0.570`, `T=1.000`. 37 real answers, 47 null, 16 grounding-fallback. Key gaps: name extraction (0/15), extractor over-conservatism (47 nulls), grounding precision.
+- 2026-03-23: Logging regression fixes applied (TASK-W1A scope): lowercase YAML log levels now accepted via before-validator; JSONL directory creation skipped when disabled; `RuntimeLogContext.log_path` widened to `Path | None`. 9 targeted tests pass.

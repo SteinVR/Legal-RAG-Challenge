@@ -78,6 +78,18 @@ def test_env_overrides_apply_to_logging_settings(tmp_path: Path, monkeypatch: py
     assert config.logging.debug_questions is True
 
 
+def test_load_app_config_accepts_lowercase_logging_level_from_yaml(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        yaml.safe_dump({"version": "v001", "logging": {"level": "debug"}}),
+        encoding="utf-8",
+    )
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.logging.level == "DEBUG"
+
+
 def test_default_config_path_falls_back_to_packaged_resource(tmp_path: Path) -> None:
     module_file = tmp_path / "site-packages" / "src" / "common" / "config.py"
     module_file.parent.mkdir(parents=True, exist_ok=True)

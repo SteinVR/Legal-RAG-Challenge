@@ -25,7 +25,7 @@ class RuntimeLogContext:
     run_id: str
     command: str
     phase: str
-    log_path: Path
+    log_path: Path | None
     level: str
     debug_documents: bool
     debug_questions: bool
@@ -89,11 +89,13 @@ def configure_runtime_logging(config: AppConfig, *, command: str, phase: str) ->
 
     settings = config.logging
     effective_level_name = "DEBUG" if (settings.debug_documents or settings.debug_questions) else settings.level
-    log_dir = settings.directory / phase
-    log_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(tz=UTC).strftime("%Y%m%dT%H%M%SZ")
     run_id = uuid4().hex
-    log_path = log_dir / f"{timestamp}_{_safe_filename(command)}_{run_id}.jsonl"
+    log_path: Path | None = None
+    if settings.jsonl:
+        log_dir = settings.directory / phase
+        log_dir.mkdir(parents=True, exist_ok=True)
+        log_path = log_dir / f"{timestamp}_{_safe_filename(command)}_{run_id}.jsonl"
 
     project_logger = logging.getLogger(LOGGER_NAMESPACE)
     _reset_logger(project_logger)
@@ -106,6 +108,7 @@ def configure_runtime_logging(config: AppConfig, *, command: str, phase: str) ->
         project_logger.addHandler(console_handler)
 
     if settings.jsonl:
+        assert log_path is not None
         file_handler = logging.FileHandler(log_path, encoding="utf-8")
         file_handler.setFormatter(_JsonlFormatter())
         project_logger.addHandler(file_handler)
@@ -126,7 +129,7 @@ def configure_runtime_logging(config: AppConfig, *, command: str, phase: str) ->
         "runtime.configured",
         "Runtime logging configured.",
         stage="runtime",
-        log_path=str(log_path),
+        log_path=str(log_path) if log_path is not None else None,
         configured_level=effective_level_name,
         console=settings.console,
         jsonl=settings.jsonl,

@@ -138,8 +138,31 @@ class BuildSubmissionService:
                 f"({phase_paths.documents_extract_dir})."
             )
 
+        corpus_started = time.perf_counter()
         reused_corpus = self._ensure_corpus(runtime_config, resolved_documents_dir)
+        corpus_ms = round((time.perf_counter() - corpus_started) * 1000, 1)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.stage.corpus",
+            "Corpus stage completed.",
+            stage="submission",
+            reused=reused_corpus,
+            duration_ms=corpus_ms,
+        )
+
+        index_started = time.perf_counter()
         reused_index = self._ensure_index(runtime_config)
+        index_ms = round((time.perf_counter() - index_started) * 1000, 1)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.stage.index",
+            "Index stage completed.",
+            stage="submission",
+            reused=reused_index,
+            duration_ms=index_ms,
+        )
 
         questions = load_question_records(resolved_questions_path)
         log_event(
@@ -152,7 +175,19 @@ class BuildSubmissionService:
             reused_corpus=reused_corpus,
             reused_index=reused_index,
         )
+        qa_started = time.perf_counter()
         answers, traces = self._run_qa_pipeline(runtime_config, questions)
+        qa_ms = round((time.perf_counter() - qa_started) * 1000, 1)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.stage.qa",
+            "QA pipeline completed.",
+            stage="submission",
+            question_count=len(questions),
+            answer_count=len(answers),
+            duration_ms=qa_ms,
+        )
 
         submission_payload = build_submission_payload(
             architecture_summary=_architecture_summary(),

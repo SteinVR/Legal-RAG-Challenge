@@ -46,8 +46,8 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 
 - **Language**: Python 3.11+
 - **OCR / Document Parsing**: PaddleOCR v3 `.predict()` API (primary), PyMuPDF/pdfplumber (native text fast path)
-- **Embeddings**: Qwen3-Embedding-0.6B (32K context, instruction-aware, MRL)
-- **Reranker**: Qwen3-Reranker-0.6B
+- **Embeddings**: Qwen3-Embedding-0.6B (32K context, instruction-aware, MRL). Uses `prompt_name="document"` at index time (`build_dense_embedder`), `prompt_name="query"` at retrieval time (`build_query_embedder`).
+- **Reranker**: Qwen3-Reranker-0.6B loaded as `AutoModelForCausalLM`. Scoring: yes/no next-token probability via `log_softmax(logits[:, -1, [no_id, yes_id]])[:, 1].exp()`. Not a sequence classifier.
 - **Lexical search**: BM25 (rank-bm25 or tantivy-py)
 - **Vector store**: Qdrant embedded mode (dense + sparse vectors, payload filtering, persistence)
 - **Generation backend**: Codex via OAuth (primary); provider abstraction for fallback
