@@ -99,6 +99,46 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 - Define final answer and final page recomposition rules.
 - Validate that decomposition improves hard multi-document slices without becoming the default execution path.
 
+## Source References & Adaptation Map
+
+### Adapt from `external/RAG-Challenge-2`
+
+**Comparative decomposition (primary source, adapt for legal domain):**
+- `external/RAG-Challenge-2/src/questions_processing.py` `process_comparative_question()` (lines 453-518) — the core decomposition flow:
+  1. Line 461: calls LLM to rephrase comparative question into per-entity sub-questions.
+  2. Lines 470-481: helper function to process one entity's sub-question (retrieve + answer).
+  3. Lines 483-506: parallel execution via `ThreadPoolExecutor`.
+  4. Lines 509-514: calls LLM to produce comparative answer combining individual results.
+  - **Adapt:** replace "company name" entity with legal entities (`case_id`, `statute_id`, party names) from W4B. Replace per-company FAISS retrieval with per-entity filtered Qdrant retrieval from W4D.
+
+**Question decomposition prompt (adapt):**
+- `external/RAG-Challenge-2/src/prompts.py` `RephrasedQuestionsPrompt` (lines 18-70) — decomposes "Compare company A and B on X" into individual sub-questions. Schema: `RephrasedQuestion` with `company_name` + `rephrased_question` (lines 25-28).
+  - **Adapt:** replace `company_name` field with `legal_entity` (case ID, statute number, party). Replace company-comparison framing with legal-comparison framing (amendment vs current, party A vs party B, jurisdiction A vs B).
+
+**Comparative answer recomposition (adapt):**
+- `external/RAG-Challenge-2/src/prompts.py` `ComparativeAnswerPrompt` (lines 345-403) — takes individual answers + original question → produces comparative synthesis.
+  - **Adapt:** legal comparison language and answer types (current schema outputs boolean/number/name, not just free-text).
+
+**Entity extraction for routing (adapt pattern):**
+- `external/RAG-Challenge-2/src/questions_processing.py` `_extract_companies_from_subset()` (lines 163-182) — matches entity names from a lookup table (CSV, sorted by length). Simple but effective.
+  - **Adapt:** use legal-entity extraction from W4B instead of CSV company lookup. Routing logic: 1 entity → single-doc path, 2+ entities → decomposition candidate.
+
+### Enhance in current `src/`
+
+**Answering pipeline (extend with decomposition path):**
+- `src/submission/pipeline.py` `_answer_question()` (line ~420) — add decomposition routing before single-pass answering. If trigger fires → decompose → parallel sub-question execution → recompose → Pass B page finalization via W4A.
+- `src/answering/service.py` `AnsweringService` — currently handles one question at a time. Decomposition requires calling retrieval + answering per sub-question, then aggregating.
+
+**Page attribution recomposition:**
+- `src/retrieval/page_lifter.py` `PageLifter.to_page_references()` (lines 94-109) — produces deduplicated page lists. For decomposition: must merge page lists from sub-questions, then apply W4A Pass A minimal-evidence pruning to the merged set (not union mechanically).
+
+### New code
+
+- Decomposition trigger policy — decides which questions escalate. Candidates: questions with 2+ legal entities from W4B extraction, questions classified as `cross_case` by question metadata, questions where baseline non-decomposition path returns null.
+- Sub-question interface and provenance tracking (mapping original question → sub-questions → sub-results → final answer).
+- Page-list recomposition with minimization (not mechanical union of sub-question pages).
+- Legal-domain decomposition targets: amendment vs current-version, party A vs party B, jurisdiction A vs B, annex/schedule vs main body, temporal comparisons.
+
 ## 4. Working Notes
 
 This task should be judged narrowly. It is successful only if it improves hard cross-case reasoning while staying selective and grounded.

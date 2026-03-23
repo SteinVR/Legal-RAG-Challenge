@@ -110,6 +110,34 @@ This task owns only page attribution and validation policy. It does not change t
 - Lock config flags so mainline behavior and A/B isolation are both supported.
 - Validate against baseline regression slices where grounding precision is the main loss driver.
 
+## Source References & Adaptation Map
+
+### Enhance in current `src/`
+
+**Pass A — minimal-evidence pruning (new code, inserted between retrieval and answering):**
+- Insert point: `src/submission/pipeline.py` `_answer_question()` (line ~420). Currently this function calls retrieval then immediately calls answering. Pass A sits between those calls.
+- `src/retrieval/page_lifter.py` `PageLifter.to_page_references()` (lines 94-109) — current chunk-to-page lifting that produces the raw candidate page list. Pass A consumes this output and prunes it.
+- `src/retrieval/page_lifter.py` `PageLifter.lift()` (lines 53-92) — aggregates chunks with scores. Pass A can use rerank scores and chunk-type metadata to decide which pages to keep.
+
+**Pass B — post-answer page finalization (rework of grounding validation):**
+- Rework: `src/answering/service.py` `_validate_free_text_grounding()` (lines 560-609) — current grounding validation that raises `FreeTextGroundingValidationError`. This must become Pass B: instead of raising an exception that suppresses the answer, it trims unsupported pages and only collapses to fallback when the answer itself is unsupportable.
+- Rework: `src/submission/pipeline.py` `_answer_question()` (lines 428-445) — the `except FreeTextGroundingValidationError` block that currently replaces the answer with `CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER`. This catch-and-suppress pattern is the core of the over-eager fallback problem.
+
+**Title-page / boilerplate suppression:**
+- `src/ingestion/corpus_builder.py` — canonical pages already carry `document_title`, `document_family`, `page_number`. Page 1 of most documents is a title/cover page. Suppression heuristics can use page_number=1 + low legal-marker density as signals.
+- `src/ingestion/page_triage.py` `score_page_quality()` — quality breakdown includes `legal_marker_score`. Pages with high quality but zero legal markers are likely cover/index pages.
+
+### Reference from `external/RAG-Challenge-2`
+
+- `external/RAG-Challenge-2/src/questions_processing.py` `_validate_page_references()` (lines 87-119) — page-reference validation pattern: enforces min 2, max 8 pages, augments with neighboring pages. Useful as a reference for bounded page-set policies, though the min/max logic needs legal-domain adaptation.
+
+### New code
+
+- Two-pass temporal flow controller (Pass A → answering → Pass B) — no direct source in either codebase.
+- Pass A pruning heuristics (score threshold, chunk-type filtering, title-page detection).
+- Pass B page-degradation logic (trim pages before suppressing answers).
+- Config flags for A/B isolation (pass_a_enabled, validation_policy, combined).
+
 ## 4. Working Notes
 
 Baseline signals motivating this task:
