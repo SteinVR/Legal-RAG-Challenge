@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any, Callable, Sequence
@@ -12,6 +13,13 @@ import httpx
 from dotenv import dotenv_values
 
 from src.common.config import DEFAULT_CONFIG_PATH, AppConfig, ConfigError, load_app_config
+from src.common.runtime_logging import (
+    configure_runtime_logging,
+    get_logger,
+    log_event,
+    runtime_log_path,
+    shutdown_runtime_logging,
+)
 from src.common.schemas import Phase
 from src.evaluation.contracts import (
     UnanswerableRetrievalPolicy,
@@ -39,6 +47,7 @@ from src.submission.pipeline import BuildSubmissionService, format_build_submiss
 from src.submission.sync import CommandResult, PhasePaths, PhaseSyncService
 
 ClientFactory = Callable[[AppConfig], CompetitionApiClient]
+LOGGER = get_logger("main")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -264,17 +273,53 @@ def _add_analyze_benchmark_consistency_command(
 def main(argv: Sequence[str] | None = None, client_factory: ClientFactory | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    result = ""
 
     try:
         phase_override = getattr(args, "phase", None)
         config = load_app_config(Path(args.config), env_file=Path(args.env_file), phase_override=phase_override)
+        configure_runtime_logging(config, command=args.command, phase=config.phase.value)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "command.start",
+            "Starting CLI command.",
+            stage="cli",
+            command_name=args.command,
+            config_path=Path(args.config),
+            env_file=Path(args.env_file),
+        )
         result = _run_command(args, config, client_factory or CompetitionApiClient.from_config)
     except (ConfigError, ValueError, OSError, httpx.HTTPError) as exc:
+        if runtime_log_path() is not None:
+            log_event(
+                LOGGER,
+                logging.ERROR,
+                "command.error",
+                "CLI command failed.",
+                stage="cli",
+                command_name=getattr(args, "command", None),
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+                exc_info=(type(exc), exc, exc.__traceback__),
+            )
         parser.exit(status=1, message=f"error: {exc}\n")
         return 1
-
-    print(result)
-    return 0
+    else:
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "command.success",
+            "CLI command completed.",
+            stage="cli",
+            command_name=args.command,
+            output_length=len(result),
+            log_path=str(runtime_log_path()) if runtime_log_path() is not None else None,
+        )
+        print(result)
+        return 0
+    finally:
+        shutdown_runtime_logging()
 
 
 def _run_command(args: argparse.Namespace, config: AppConfig, client_factory: ClientFactory) -> str:
@@ -447,8 +492,18 @@ def _run_with_client_json(
 
 def _run_validate_submission(args: argparse.Namespace, config: AppConfig) -> str:
     questions_path = _resolve_questions_path(args.questions_path, config)
-
     documents_dir = _resolve_documents_dir(args.documents_dir, config, required=True)
+    log_event(
+        LOGGER,
+        logging.INFO,
+        "validate.start",
+        "Validating submission.",
+        stage="evaluation",
+        submission_path=args.submission_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_path=args.output_path,
+    )
     question_types = question_types_from_questions(load_question_records(questions_path))
     submission_payload = load_submission_payload(args.submission_path)
     validator = SubmissionValidator(
@@ -463,13 +518,32 @@ def _run_validate_submission(args: argparse.Namespace, config: AppConfig) -> str
         ),
     )
     report = validator.validate(submission_payload)
+    _log_report_summary(
+        event="validate.complete",
+        message="Submission validation completed.",
+        stage="evaluation",
+        report=report,
+        submission_path=args.submission_path,
+        output_path=args.output_path,
+    )
     return _serialize_report(report, output_path=args.output_path)
 
 
 def _run_score_submission(args: argparse.Namespace, config: AppConfig) -> str:
     questions_path = _resolve_questions_path(args.questions_path, config)
-
     documents_dir = _resolve_documents_dir(args.documents_dir, config, required=True)
+    log_event(
+        LOGGER,
+        logging.INFO,
+        "score.start",
+        "Scoring submission.",
+        stage="evaluation",
+        submission_path=args.submission_path,
+        reference_path=args.reference_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_path=args.output_path,
+    )
     submission_payload = load_submission_payload(args.submission_path)
     references = load_reference_records(args.reference_path)
     validation_question_types = question_types_from_questions(load_question_records(questions_path))
@@ -488,12 +562,34 @@ def _run_score_submission(args: argparse.Namespace, config: AppConfig) -> str:
             validation_question_types=validation_question_types,
         ),
     )
+    _log_report_summary(
+        event="score.complete",
+        message="Submission scoring completed.",
+        stage="evaluation",
+        report=report,
+        submission_path=args.submission_path,
+        output_path=args.output_path,
+    )
     return _serialize_report(report, output_path=args.output_path)
 
 
 def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
     questions_path = _resolve_questions_path(args.questions_path, config)
     documents_dir = _resolve_documents_dir(args.documents_dir, config, required=True)
+    log_event(
+        LOGGER,
+        logging.INFO,
+        "benchmark.start",
+        "Running benchmark summary.",
+        stage="evaluation",
+        submission_path=args.submission_path,
+        benchmark_path=args.benchmark_path,
+        reference_path=args.reference_path,
+        metadata_path=args.metadata_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_path=args.output_path,
+    )
     if args.benchmark_path:
         report = benchmark_submission(
             submission_path=args.submission_path,
@@ -540,10 +636,28 @@ def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
                 validation_question_types=question_types_from_questions(questions),
             ),
         )
+    _log_report_summary(
+        event="benchmark.complete",
+        message="Benchmark summary completed.",
+        stage="evaluation",
+        report=report,
+        submission_path=args.submission_path,
+        output_path=args.output_path,
+    )
     return _serialize_report(report, output_path=args.output_path)
 
 
 def _run_compare_benchmark_runs(args: argparse.Namespace) -> str:
+    log_event(
+        LOGGER,
+        logging.INFO,
+        "benchmark.compare.start",
+        "Comparing benchmark runs.",
+        stage="evaluation",
+        baseline_path=args.baseline_path,
+        candidate_path=args.candidate_path,
+        output_path=args.output_path,
+    )
     baseline = load_benchmark_run_report(args.baseline_path)
     candidate = load_benchmark_run_report(args.candidate_path)
     report = compare_benchmark_reports(
@@ -552,14 +666,41 @@ def _run_compare_benchmark_runs(args: argparse.Namespace) -> str:
         baseline_label=args.baseline_label or "baseline",
         candidate_label=args.candidate_label or "candidate",
     )
+    _log_report_summary(
+        event="benchmark.compare.complete",
+        message="Benchmark comparison completed.",
+        stage="evaluation",
+        report=report,
+        baseline_path=args.baseline_path,
+        candidate_path=args.candidate_path,
+        output_path=args.output_path,
+    )
     return _serialize_report(report, output_path=args.output_path)
 
 
 def _run_analyze_benchmark_consistency(args: argparse.Namespace) -> str:
+    log_event(
+        LOGGER,
+        logging.INFO,
+        "benchmark.consistency.start",
+        "Analyzing benchmark consistency.",
+        stage="evaluation",
+        report_paths=list(args.report_paths),
+        instability_threshold=args.instability_threshold,
+        output_path=args.output_path,
+    )
     reports = [load_benchmark_run_report(path) for path in args.report_paths]
     report = analyze_run_consistency(
         reports,
         instability_threshold=args.instability_threshold,
+    )
+    _log_report_summary(
+        event="benchmark.consistency.complete",
+        message="Benchmark consistency analysis completed.",
+        stage="evaluation",
+        report=report,
+        report_paths=list(args.report_paths),
+        output_path=args.output_path,
     )
     return _serialize_report(report, output_path=args.output_path)
 
@@ -647,6 +788,49 @@ def _serialize_report(report, *, output_path: str | None) -> str:
     if output_path:
         Path(output_path).write_text(f"{payload}\n", encoding="utf-8")
     return payload
+
+
+def _log_report_summary(*, event: str, message: str, stage: str, report: Any, **context: Any) -> None:
+    summary = _report_summary_payload(report)
+    log_event(
+        LOGGER,
+        logging.INFO,
+        event,
+        message,
+        stage=stage,
+        metrics=summary,
+        **context,
+    )
+
+
+def _report_summary_payload(report: Any) -> dict[str, Any]:
+    payload = report.model_dump(mode="json")
+    summary: dict[str, Any] = {}
+    if not isinstance(payload, dict):
+        return summary
+
+    if "valid" in payload:
+        summary["valid"] = payload["valid"]
+    if isinstance(payload.get("issues"), list):
+        summary["issue_count"] = len(payload["issues"])
+    if isinstance(payload.get("answers"), list):
+        summary["answer_count"] = len(payload["answers"])
+    if isinstance(payload.get("runs"), list):
+        summary["run_count"] = len(payload["runs"])
+    if isinstance(payload.get("question_results"), list):
+        summary["question_count"] = len(payload["question_results"])
+
+    overall = payload.get("overall")
+    if isinstance(overall, dict):
+        metrics = overall.get("metrics")
+        if isinstance(metrics, dict):
+            summary["overall_metrics"] = {
+                key: metrics[key]
+                for key in ("total_score", "deterministic", "assistant", "grounding", "telemetry")
+                if key in metrics
+            }
+
+    return summary
 
 
 if __name__ == "__main__":

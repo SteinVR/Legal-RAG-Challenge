@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import inspect
 import json
+import logging
 import re
 import time
 from dataclasses import dataclass, field
@@ -23,6 +24,7 @@ from src.answering.service import (
     FreeTextGroundingValidationError,
 )
 from src.common.config import AppConfig
+from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import CorpusParseManifest, ParseStatus, Phase, QuestionRecord
 from src.evaluation.contracts import (
     AnswerType,
@@ -49,6 +51,7 @@ from src.submission.telemetry_packer import build_answer_telemetry
 
 FREE_TEXT_MODEL = "gpt-5.4-mini"
 DETERMINISTIC_MODEL_NAME = "deterministic-extractor"
+LOGGER = get_logger("submission.pipeline")
 CODE_ARCHIVE_INCLUDE_PATHS = (
     "src",
     "configs",
@@ -111,6 +114,16 @@ class BuildSubmissionService:
         resolved_questions_path = Path(questions_path)
         resolved_documents_dir = Path(documents_dir)
         resolved_output_dir = Path(output_dir)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.start",
+            "Starting submission build.",
+            stage="submission",
+            questions_path=resolved_questions_path,
+            documents_dir=resolved_documents_dir,
+            output_dir=resolved_output_dir,
+        )
 
         if not resolved_questions_path.exists():
             raise ValueError(f"Questions file does not exist: {resolved_questions_path}")
@@ -129,6 +142,16 @@ class BuildSubmissionService:
         reused_index = self._ensure_index(runtime_config)
 
         questions = load_question_records(resolved_questions_path)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.qa.start",
+            "Starting QA pipeline.",
+            stage="submission",
+            question_count=len(questions),
+            reused_corpus=reused_corpus,
+            reused_index=reused_index,
+        )
         answers, traces = self._run_qa_pipeline(runtime_config, questions)
 
         submission_payload = build_submission_payload(
@@ -166,7 +189,7 @@ class BuildSubmissionService:
             code_archive_path=code_archive_path,
         )
 
-        return BuildSubmissionResult(
+        result = BuildSubmissionResult(
             command="build-submission",
             phase=runtime_config.phase.value,
             output_dir=resolved_output_dir,
@@ -177,24 +200,70 @@ class BuildSubmissionService:
             reused_corpus=reused_corpus,
             reused_index=reused_index,
         )
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.complete",
+            "Submission build completed.",
+            stage="submission",
+            answer_count=result.answer_count,
+            submission_path=result.submission_path,
+            code_archive_path=result.code_archive_path,
+            trace_manifest_path=result.trace_manifest_path,
+            reused_corpus=result.reused_corpus,
+            reused_index=result.reused_index,
+        )
+        return result
 
     def _ensure_corpus(self, config: AppConfig, documents_dir: Path) -> bool:
         corpus_paths = CorpusPaths.from_config(config)
         if _corpus_artifacts_complete(corpus_paths=corpus_paths, documents_dir=documents_dir):
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "build_submission.corpus.reuse",
+                "Reused existing corpus artifacts.",
+                stage="submission",
+                corpus_manifest_path=corpus_paths.corpus_manifest_path,
+            )
             return True
 
         service = CorpusParseService(config)
         # Force overwrite when our integrity check fails to avoid parse-corpus internal "skip" cache reuse.
         service.parse_corpus(dry_run=False, overwrite=True)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.corpus.rebuild",
+            "Rebuilt corpus artifacts for submission build.",
+            stage="submission",
+            corpus_manifest_path=corpus_paths.corpus_manifest_path,
+        )
         return False
 
     def _ensure_index(self, config: AppConfig) -> bool:
         index_paths = IndexPaths.from_config(config)
         if _index_artifacts_complete(index_paths=index_paths):
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "build_submission.index.reuse",
+                "Reused existing index artifacts.",
+                stage="submission",
+                index_manifest_path=index_paths.manifest_path,
+            )
             return True
 
         service = HybridIndexService(config)
         service.build_indices(dry_run=False, overwrite=False)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "build_submission.index.rebuild",
+            "Rebuilt index artifacts for submission build.",
+            stage="submission",
+            index_manifest_path=index_paths.manifest_path,
+        )
         return False
 
     def _run_qa_pipeline(
@@ -222,9 +291,10 @@ class BuildSubmissionService:
 
         answers: list[dict[str, Any]] = []
         traces: list[dict[str, Any]] = []
+        total_questions = len(questions)
 
         try:
-            for question in questions:
+            for index, question in enumerate(questions, start=1):
                 question_trace_id = uuid4().hex
                 question_started_at = self._clock()
 
@@ -282,6 +352,30 @@ class BuildSubmissionService:
                         ],
                     }
                 )
+                if questions_debug_enabled():
+                    log_event(
+                        LOGGER,
+                        logging.DEBUG,
+                        "build_submission.question.complete",
+                        "Question processed in QA pipeline.",
+                        stage="submission",
+                        question_id=question.id,
+                        answer_type=question.answer_type,
+                        candidate_count=retrieval_result.candidate_count,
+                        reranked_count=retrieval_result.reranked_count,
+                        evidence_chunk_count=len(retrieval_result.evidence_chunks),
+                        duration_ms=total_time_ms,
+                    )
+                if index % 10 == 0 or index == total_questions:
+                    log_event(
+                        LOGGER,
+                        logging.INFO,
+                        "build_submission.qa.progress",
+                        "QA pipeline progress updated.",
+                        stage="submission",
+                        processed_question_count=index,
+                        total_question_count=total_questions,
+                    )
         finally:
             _close_quietly(provider)
             _close_quietly(backend)
@@ -297,6 +391,15 @@ class BuildSubmissionService:
         try:
             return answering_service.answer_question(question)
         except FreeTextGroundingValidationError:
+            log_event(
+                LOGGER,
+                logging.WARNING,
+                "build_submission.question.grounding_fallback",
+                "Grounding validation failed; falling back to canonical unanswerable answer.",
+                stage="submission",
+                question_id=question.id,
+                answer_type=question.answer_type,
+            )
             return AnswerResult(
                 question_id=question.id,
                 answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER

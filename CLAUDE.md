@@ -34,11 +34,9 @@
 - A loaded skill's workflow is authoritative for its domain; follow it instead of improvising.
 
 ## Subagent paradigm
-- For complex tasks, decompose work into independent subtasks and delegate to subagents.
+- Decompose non-trivial work into independent subtasks and delegate to subagents.
 - Parallelize only tasks with low file overlap and explicit ownership boundaries.
-- Define each delegation with expected output format and acceptance checks.
-- Use `apm-subagent` to form role-appropriate delegation requests.
-- Before final integration, reconcile outputs and run verification.
+- Use `apm-subagent` skill to form role-appropriate delegation requests.
 
 ## Activity log
 - If project structure or code was modified, load and follow the apm-report skill to form the Activity log after completing the assigned task.

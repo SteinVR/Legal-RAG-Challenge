@@ -12,6 +12,7 @@ import pytest
 from qdrant_client import QdrantClient
 
 from src.common.config import AppConfig
+from src.common.runtime_logging import configure_runtime_logging, shutdown_runtime_logging
 from src.common.schemas import (
     CanonicalPageRecord,
     ContentBlock,
@@ -263,6 +264,41 @@ def _entry_page_span(entry: dict[str, Any]) -> list[int]:
         if isinstance(value, list):
             return value
     raise AssertionError("page_parent_map entry must expose page_span/page_numbers/parent_page_numbers")
+
+
+def test_build_indices_emits_skip_cache_runtime_event(tmp_path: Path) -> None:
+    module = _load_indexing_module()
+    config = AppConfig.model_validate(
+        {
+            "phase": "warmup",
+            "storage": {"root_dir": str(tmp_path / "data")},
+            "logging": {"directory": str(tmp_path / "logs" / "project" / "runtime"), "console": False},
+        }
+    )
+    _write_corpus_inputs(config)
+
+    monkeypatch = pytest.MonkeyPatch()
+    monkeypatch.setattr(module, "build_dense_embedder", lambda _settings: StubDenseEmbedder())
+    service = module.HybridIndexService(config)
+    try:
+        service.build_indices(overwrite=True)
+
+        context = configure_runtime_logging(config, command="build-indices", phase=config.phase.value)
+        try:
+            result = service.build_indices(overwrite=False)
+        finally:
+            shutdown_runtime_logging()
+    finally:
+        monkeypatch.undo()
+
+    payloads = [
+        json.loads(line)
+        for line in context.log_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+    assert result.chunk_count is not None
+    assert any(payload["event"] == "index.skip_cache" for payload in payloads)
 
 
 @contextmanager

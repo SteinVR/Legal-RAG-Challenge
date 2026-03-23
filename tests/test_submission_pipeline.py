@@ -41,6 +41,7 @@ def _write_config(
     *,
     unanswerable_retrieval_policy: str | None = None,
     include_provider_token: bool = True,
+    debug_questions: bool = False,
 ) -> tuple[Path, Path]:
     config_path = tmp_path / "config.yaml"
     config_payload: dict[str, Any] = {
@@ -51,6 +52,11 @@ def _write_config(
             "api_key_env": "COMPETITION_API_KEY",
         },
         "storage": {"root_dir": str(tmp_path / "data")},
+        "logging": {
+            "directory": str(tmp_path / "logs" / "project" / "runtime"),
+            "console": False,
+            "debug_questions": debug_questions,
+        },
     }
     if unanswerable_retrieval_policy is not None:
         config_payload["evaluation"] = {
@@ -66,6 +72,12 @@ def _write_config(
         env_lines.append("CODEX_OAUTH_TOKEN=test-token")
     env_path.write_text("\n".join(env_lines) + "\n", encoding="utf-8")
     return config_path, env_path
+
+
+def _latest_runtime_log(tmp_path: Path) -> Path:
+    log_files = sorted((tmp_path / "logs" / "project" / "runtime" / "warmup").glob("*.jsonl"))
+    assert log_files
+    return log_files[-1]
 
 
 def _write_questions(path: Path, questions: list[dict[str, Any]]) -> None:
@@ -990,7 +1002,14 @@ def test_build_submission_uses_elapsed_wall_clock_for_non_streaming_timing(
             return clock_values.pop(0)
         return 100.25
 
-    monkeypatch.setattr("src.submission.pipeline.time.perf_counter", _fake_perf_counter)
+    pipeline_module = importlib.import_module("src.submission.pipeline")
+    original_init = pipeline_module.BuildSubmissionService.__init__
+
+    def _init_with_fake_clock(self: Any, *args: Any, **kwargs: Any) -> None:
+        kwargs["clock"] = _fake_perf_counter
+        original_init(self, *args, **kwargs)
+
+    monkeypatch.setattr("src.submission.pipeline.BuildSubmissionService.__init__", _init_with_fake_clock)
 
     exit_code = _run_build_submission(
         config_path=config_path,
@@ -1113,6 +1132,45 @@ def test_build_submission_sanitizes_question_id_before_writing_trace_files(
     assert trace_relative_path.parts[0] == "traces"
     assert "external" not in trace_relative_path.name or "/" not in trace_relative_path.name
     assert (output_dir / trace_relative_path).exists()
+
+
+def test_build_submission_emits_question_debug_runtime_logs(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _patch_pipeline_dependencies(monkeypatch, inject_provider_env=False)
+    config_path, env_path = _write_config(tmp_path, include_provider_token=False, debug_questions=True)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q1", "question": "Within how many days must payment be made?", "answer_type": "number"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["Section 4 Notice. Payment must be made within 10 days after invoice."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+    payloads = [
+        json.loads(line)
+        for line in _latest_runtime_log(tmp_path).read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    events = {payload["event"] for payload in payloads}
+
+    assert exit_code == 0
+    assert "build_submission.question.complete" in events
+    assert "answer.complete" in events
 
 
 def test_code_archive_excludes_env_secret_files(tmp_path: Path) -> None:

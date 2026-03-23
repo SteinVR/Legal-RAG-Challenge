@@ -121,6 +121,24 @@ class IngestionSettings(BaseModel):
         return value
 
 
+class LoggingSettings(BaseModel):
+    """Runtime logging configuration."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    directory: Path = Path("logs/project/runtime")
+    level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
+    console: bool = True
+    jsonl: bool = True
+    debug_documents: bool = False
+    debug_questions: bool = False
+
+    @field_validator("level")
+    @classmethod
+    def normalize_level(cls, value: str) -> str:
+        return value.strip().upper()
+
+
 class AppConfig(BaseModel):
     """Complete configuration for the W1A foundation layer."""
 
@@ -133,6 +151,7 @@ class AppConfig(BaseModel):
     download: DownloadSettings = Field(default_factory=DownloadSettings)
     evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
     ingestion: IngestionSettings = Field(default_factory=IngestionSettings)
+    logging: LoggingSettings = Field(default_factory=LoggingSettings)
 
     def resolve_api_key(self) -> str:
         """Return the competition API key from the configured environment variable."""
@@ -241,6 +260,10 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     unanswerable_policy_override = env.get("COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY")
     enable_ocr_override = env.get("COMPETITION_ENABLE_OCR")
     ocr_unavailable_policy_override = env.get("COMPETITION_OCR_UNAVAILABLE_POLICY")
+    log_level_override = env.get("COMPETITION_LOG_LEVEL")
+    log_directory_override = env.get("COMPETITION_LOG_DIRECTORY")
+    debug_documents_override = env.get("COMPETITION_DEBUG_DOCUMENTS")
+    debug_questions_override = env.get("COMPETITION_DEBUG_QUESTIONS")
 
     if phase_override:
         config = config.model_copy(update={"phase": Phase(phase_override.strip().lower())})
@@ -292,6 +315,30 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
                 "ingestion": config.ingestion.model_copy(
                     update={"ocr_unavailable_policy": ocr_unavailable_policy_override.strip()}
                 )
+            }
+        )
+
+    if log_level_override:
+        config = config.model_copy(
+            update={"logging": config.logging.model_copy(update={"level": log_level_override.strip().upper()})}
+        )
+
+    if log_directory_override:
+        config = config.model_copy(
+            update={"logging": config.logging.model_copy(update={"directory": Path(log_directory_override.strip())})}
+        )
+
+    if debug_documents_override:
+        config = config.model_copy(
+            update={
+                "logging": config.logging.model_copy(update={"debug_documents": _parse_bool(debug_documents_override)})
+            }
+        )
+
+    if debug_questions_override:
+        config = config.model_copy(
+            update={
+                "logging": config.logging.model_copy(update={"debug_questions": _parse_bool(debug_questions_override)})
             }
         )
 

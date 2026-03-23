@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import json
+import logging
 import math
 import re
 import shutil
+import time
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -17,6 +19,7 @@ from uuid import NAMESPACE_URL, uuid5
 from qdrant_client import QdrantClient, models
 
 from src.common.config import AppConfig
+from src.common.runtime_logging import get_logger, log_event
 from src.common.schemas import (
     CanonicalPageRecord,
     ContentBlockType,
@@ -24,6 +27,8 @@ from src.common.schemas import (
     PageMapRecord,
 )
 from src.submission.sync import PhasePaths
+
+LOGGER = get_logger("indexing.service")
 
 DEFAULT_QWEN3_EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-0.6B"
 DEFAULT_QWEN3_PROMPT_NAME = "document"
@@ -420,6 +425,17 @@ class HybridIndexService:
     ) -> BuildIndexResult:
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
         planned_paths = [*self._artifact_paths(), *self._optional_artifact_paths()]
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "index.start",
+            "Starting index build.",
+            stage="indexing",
+            dry_run=dry_run,
+            overwrite=overwrite,
+            corpus_path=self.paths.corpus_path,
+            index_dir=self.paths.index_dir,
+        )
         result = BuildIndexResult(
             command="build-indices",
             phase=self.config.phase.value,
@@ -429,6 +445,14 @@ class HybridIndexService:
         )
 
         if dry_run:
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "index.dry_run",
+                "Index build dry-run completed.",
+                stage="indexing",
+                planned_paths=planned_paths,
+            )
             return result
 
         corpus_pages, page_map_records, corpus_manifest = self._load_corpus_inputs()
@@ -442,11 +466,22 @@ class HybridIndexService:
             if existing_manifest is not None:
                 result.skipped_paths.extend(path for path in planned_paths if path.exists())
                 result.chunk_count = existing_manifest.get("chunk_count")
+                log_event(
+                    LOGGER,
+                    logging.INFO,
+                    "index.skip_cache",
+                    "Skipped index build because artifacts are up to date.",
+                    stage="indexing",
+                    chunk_count=result.chunk_count,
+                    skipped_paths=result.skipped_paths,
+                )
                 return result
 
         chunks = build_index_chunks(corpus_pages)
         dense_embedder = build_dense_embedder(self.config)
+        embedding_started_at = time.perf_counter()
         dense_vectors = dense_embedder.encode([chunk.text for chunk in chunks])
+        embedding_duration_ms = round((time.perf_counter() - embedding_started_at) * 1000, 3)
         if len(dense_vectors) != len(chunks):
             raise ValueError("Dense embedder returned a mismatched number of vectors for indexing chunks.")
         sparse_encoder = BM25SparseEncoder([chunk.text for chunk in chunks])
@@ -483,6 +518,19 @@ class HybridIndexService:
 
         result.written_paths.extend(planned_paths)
         result.chunk_count = len(chunks)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "index.complete",
+            "Index build completed.",
+            stage="indexing",
+            indexed_document_count=result.indexed_document_count,
+            indexed_page_count=result.indexed_page_count,
+            chunk_count=result.chunk_count,
+            embedding_duration_ms=embedding_duration_ms,
+            dense_model=getattr(dense_embedder, "model_name", None),
+            written_paths=result.written_paths,
+        )
         return result
 
     def _artifact_paths(self) -> list[Path]:

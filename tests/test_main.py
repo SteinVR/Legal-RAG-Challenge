@@ -57,6 +57,11 @@ def _write_config(tmp_path: Path) -> tuple[Path, Path]:
                     "api_key_env": "COMPETITION_API_KEY",
                 },
                 "storage": {"root_dir": str(tmp_path / "data")},
+                "ingestion": {"enable_ocr": False},
+                "logging": {
+                    "directory": str(tmp_path / "logs" / "project" / "runtime"),
+                    "console": False,
+                },
             }
         ),
         encoding="utf-8",
@@ -64,6 +69,12 @@ def _write_config(tmp_path: Path) -> tuple[Path, Path]:
     env_path = tmp_path / ".env"
     env_path.write_text("COMPETITION_API_KEY=test-key\n", encoding="utf-8")
     return config_path, env_path
+
+
+def _latest_runtime_log(tmp_path: Path) -> Path:
+    log_files = sorted((tmp_path / "logs" / "project" / "runtime" / "warmup").glob("*.jsonl"))
+    assert log_files
+    return log_files[-1]
 
 
 def test_sync_phase_writes_phase_artifacts_and_manifest(tmp_path: Path) -> None:
@@ -189,6 +200,33 @@ def test_parse_corpus_dry_run_reports_planned_paths(tmp_path: Path, capsys: pyte
     assert "corpus.jsonl" in output
     assert "page_map.json" in output
     assert "corpus_manifest.json" in output
+
+
+def test_parse_corpus_dry_run_writes_runtime_log(tmp_path: Path) -> None:
+    config_path, env_path = _write_config(tmp_path)
+
+    exit_code = main(
+        [
+            "--config",
+            str(config_path),
+            "--env-file",
+            str(env_path),
+            "parse-corpus",
+            "--dry-run",
+        ]
+    )
+
+    payloads = [
+        json.loads(line)
+        for line in _latest_runtime_log(tmp_path).read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    events = {payload["event"] for payload in payloads}
+
+    assert exit_code == 0
+    assert "command.start" in events
+    assert "parse.dry_run" in events
+    assert "command.success" in events
 
 
 def test_parse_corpus_requires_downloaded_documents(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

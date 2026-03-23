@@ -6,6 +6,7 @@ from pathlib import Path
 import fitz
 
 from src.common.config import AppConfig
+from src.common.runtime_logging import configure_runtime_logging, shutdown_runtime_logging
 from src.ingestion.ocr_engine import OcrPageResult, OcrTableExtraction
 from src.ingestion.pdf_parser import DocumentParser
 from src.ingestion.service import CorpusParseService
@@ -33,8 +34,18 @@ def _write_pdf(path: Path, *, pages: list[str]) -> None:
     document.close()
 
 
+def _config(tmp_path: Path, *, logging_directory: Path | None = None) -> AppConfig:
+    payload: dict[str, object] = {
+        "storage": {"root_dir": str(tmp_path / "data")},
+        "ingestion": {"enable_ocr": False},
+    }
+    if logging_directory is not None:
+        payload["logging"] = {"directory": str(logging_directory), "console": False}
+    return AppConfig.model_validate(payload)
+
+
 def test_parse_corpus_writes_serialized_table_blocks_from_ocr_page(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=[""])
@@ -78,7 +89,7 @@ def test_parse_corpus_writes_serialized_table_blocks_from_ocr_page(tmp_path: Pat
 
 
 def test_corpus_parse_service_reuses_one_shared_ocr_engine(tmp_path: Path, monkeypatch) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=[""])
@@ -122,7 +133,7 @@ def test_corpus_parse_service_reuses_one_shared_ocr_engine(tmp_path: Path, monke
 
 
 def test_corpus_parse_service_rebuilds_when_debug_artifact_is_missing(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
@@ -142,7 +153,7 @@ def test_corpus_parse_service_rebuilds_when_debug_artifact_is_missing(tmp_path: 
 
 
 def test_corpus_parse_service_skips_when_artifacts_are_complete(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
@@ -156,8 +167,34 @@ def test_corpus_parse_service_skips_when_artifacts_are_complete(tmp_path: Path) 
     assert second_result.skipped_paths
 
 
+def test_corpus_parse_service_emits_skip_cache_runtime_event(tmp_path: Path) -> None:
+    config = _config(tmp_path, logging_directory=tmp_path / "logs" / "project" / "runtime")
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+
+    service = CorpusParseService(config)
+    first_result = service.parse_corpus(overwrite=True)
+    assert first_result.parsed_document_count == 1
+
+    context = configure_runtime_logging(config, command="parse-corpus", phase=config.phase.value)
+    try:
+        second_result = service.parse_corpus(overwrite=False)
+    finally:
+        shutdown_runtime_logging()
+
+    payloads = [
+        json.loads(line)
+        for line in context.log_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+    assert not second_result.written_paths
+    assert any(payload["event"] == "parse.skip_cache" for payload in payloads)
+
+
 def test_corpus_parse_service_skips_when_selected_doc_subset_artifacts_are_complete(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
@@ -173,7 +210,7 @@ def test_corpus_parse_service_skips_when_selected_doc_subset_artifacts_are_compl
 
 
 def test_corpus_parse_service_rebuilds_selected_subset_when_subset_debug_artifact_is_missing(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
@@ -193,7 +230,7 @@ def test_corpus_parse_service_rebuilds_selected_subset_when_subset_debug_artifac
 
 
 def test_corpus_parse_service_skips_selected_subset_when_failed_docs_are_already_recorded(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
@@ -211,7 +248,7 @@ def test_corpus_parse_service_skips_selected_subset_when_failed_docs_are_already
 
 
 def test_corpus_parse_service_skips_full_run_when_failed_docs_are_already_recorded(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
@@ -228,7 +265,7 @@ def test_corpus_parse_service_skips_full_run_when_failed_docs_are_already_record
 
 
 def test_corpus_parse_service_rebuilds_full_run_when_pdf_set_changes(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
@@ -245,7 +282,7 @@ def test_corpus_parse_service_rebuilds_full_run_when_pdf_set_changes(tmp_path: P
 
 
 def test_corpus_parse_service_skips_failed_only_subset_without_debug_artifacts(tmp_path: Path) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     broken_pdf = documents_dir / "broken.pdf"
@@ -264,7 +301,7 @@ def test_corpus_parse_service_skips_failed_only_subset_without_debug_artifacts(t
 def test_corpus_parse_service_rebuilds_full_run_when_non_failed_debug_is_missing_but_failures_exist(
     tmp_path: Path,
 ) -> None:
-    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path / "data")}})
+    config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
     _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])

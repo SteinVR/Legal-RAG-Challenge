@@ -9,6 +9,10 @@
 # - COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY
 # - COMPETITION_ENABLE_OCR
 # - COMPETITION_OCR_UNAVAILABLE_POLICY
+# - COMPETITION_LOG_LEVEL
+# - COMPETITION_LOG_DIRECTORY
+# - COMPETITION_DEBUG_DOCUMENTS
+# - COMPETITION_DEBUG_QUESTIONS
 version: v001
 phase: warmup
 
@@ -50,3 +54,11 @@ ingestion:
   scan_image_area_ratio: 0.70
   text_completeness_target_chars: 1500
   encoding_bad_char_threshold: 0.05
+
+logging:
+  directory: logs/project/runtime
+  level: INFO
+  console: true
+  jsonl: true
+  debug_documents: false
+  debug_questions: false

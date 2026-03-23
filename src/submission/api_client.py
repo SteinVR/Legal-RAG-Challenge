@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import logging
 import shutil
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, BinaryIO
@@ -12,7 +14,10 @@ from zipfile import ZipFile
 import httpx
 
 from src.common.config import AppConfig
+from src.common.runtime_logging import get_logger, log_event
 from src.common.schemas import QuestionRecord
+
+LOGGER = get_logger("submission.api_client")
 
 
 @dataclass(frozen=True)
@@ -71,6 +76,14 @@ class CompetitionApiClient:
         self.close()
 
     def download_questions(self, target_path: str | Path | None = None) -> list[QuestionRecord]:
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.questions.start",
+            "Downloading questions from competition API.",
+            stage="sync",
+            target_path=target_path,
+        )
         response = self._client.get("questions")
         response.raise_for_status()
         payload = response.json()
@@ -79,14 +92,41 @@ class CompetitionApiClient:
         questions = [QuestionRecord.model_validate(item) for item in payload]
         if target_path is not None:
             self._write_json(Path(target_path), [question.model_dump(mode="json") for question in questions])
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.questions.complete",
+            "Downloaded questions from competition API.",
+            stage="sync",
+            question_count=len(questions),
+            target_path=target_path,
+        )
         return questions
 
     def stream_documents(self, destination: BinaryIO, *, chunk_size: int = 1_048_576) -> None:
+        total_bytes = 0
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.documents.start",
+            "Streaming documents archive from competition API.",
+            stage="sync",
+            chunk_size=chunk_size,
+        )
         with self._client.stream("GET", "documents") as response:
             response.raise_for_status()
             for chunk in response.iter_bytes(chunk_size=chunk_size):
                 if chunk:
                     destination.write(chunk)
+                    total_bytes += len(chunk)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.documents.complete",
+            "Documents archive stream completed.",
+            stage="sync",
+            bytes_downloaded=total_bytes,
+        )
 
     def download_documents(self, zip_path: str | Path, extract_dir: str | Path) -> DocumentsDownloadResult:
         archive_path = Path(zip_path)
@@ -97,15 +137,36 @@ class CompetitionApiClient:
         documents_dir = Path(extract_dir)
         self._extract_archive(archive_path, documents_dir)
 
-        return DocumentsDownloadResult(
+        result = DocumentsDownloadResult(
             archive_path=archive_path,
             extract_dir=documents_dir,
             document_files=sorted(str(path.relative_to(documents_dir)) for path in documents_dir.rglob("*.pdf")),
         )
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.documents.extracted",
+            "Extracted downloaded document archive.",
+            stage="sync",
+            archive_path=archive_path,
+            extract_dir=documents_dir,
+            extracted_pdf_count=len(result.document_files),
+        )
+        return result
 
     def submit_submission(self, submission_path: str | Path, code_archive_path: str | Path) -> dict[str, Any]:
         submission = Path(submission_path)
         code_archive = Path(code_archive_path)
+        started_at = time.perf_counter()
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.submit.start",
+            "Submitting bundle to competition API.",
+            stage="submission",
+            submission_path=submission,
+            code_archive_path=code_archive,
+        )
 
         with submission.open("rb") as submission_handle, code_archive.open("rb") as archive_handle:
             response = self._client.post(
@@ -117,12 +178,43 @@ class CompetitionApiClient:
             )
 
         response.raise_for_status()
-        return response.json()
+        payload = response.json()
+        duration_ms = round((time.perf_counter() - started_at) * 1000, 3)
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.submit.complete",
+            "Submission accepted by competition API.",
+            stage="submission",
+            submission_uuid=payload.get("uuid"),
+            status=payload.get("status"),
+            duration_ms=duration_ms,
+        )
+        return payload
 
     def get_submission_status(self, submission_uuid: str) -> dict[str, Any]:
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.status.start",
+            "Fetching submission status from competition API.",
+            stage="submission",
+            submission_uuid=submission_uuid,
+        )
         response = self._client.get(f"submissions/{submission_uuid}/status")
         response.raise_for_status()
-        return response.json()
+        payload = response.json()
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "api.status.complete",
+            "Fetched submission status from competition API.",
+            stage="submission",
+            submission_uuid=submission_uuid,
+            status=payload.get("status"),
+            review_status=payload.get("review_status"),
+        )
+        return payload
 
     @staticmethod
     def _write_json(path: Path, payload: object) -> None:

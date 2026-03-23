@@ -62,6 +62,22 @@ def test_env_overrides_apply_to_ingestion_settings(tmp_path: Path, monkeypatch: 
     assert config.ingestion.ocr_unavailable_policy == "error"
 
 
+def test_env_overrides_apply_to_logging_settings(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("COMPETITION_LOG_LEVEL", "debug")
+    monkeypatch.setenv("COMPETITION_LOG_DIRECTORY", str(tmp_path / "runtime-logs"))
+    monkeypatch.setenv("COMPETITION_DEBUG_DOCUMENTS", "true")
+    monkeypatch.setenv("COMPETITION_DEBUG_QUESTIONS", "true")
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.logging.level == "DEBUG"
+    assert config.logging.directory == tmp_path / "runtime-logs"
+    assert config.logging.debug_documents is True
+    assert config.logging.debug_questions is True
+
+
 def test_default_config_path_falls_back_to_packaged_resource(tmp_path: Path) -> None:
     module_file = tmp_path / "site-packages" / "src" / "common" / "config.py"
     module_file.parent.mkdir(parents=True, exist_ok=True)

@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Iterable, Sequence
 
 from src.common.config import AppConfig
+from src.common.runtime_logging import documents_debug_enabled, get_logger, log_event
 from src.common.schemas import (
     CanonicalPageRecord,
     CorpusParseManifest,
@@ -22,6 +24,8 @@ from src.ingestion.ocr_engine import build_ocr_engine
 from src.ingestion.pdf_parser import DocumentParser
 from src.ingestion.table_serializer import serialize_document_tables
 from src.submission.sync import PhasePaths
+
+LOGGER = get_logger("ingestion.service")
 
 
 @dataclass(slots=True)
@@ -88,6 +92,17 @@ class CorpusParseService:
     ) -> ParseCorpusResult:
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
         planned_paths = self._artifact_paths()
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "parse.start",
+            "Starting corpus parse.",
+            stage="ingestion",
+            dry_run=dry_run,
+            overwrite=overwrite,
+            documents_dir=self.paths.documents_dir,
+            selected_doc_ids=list(doc_ids or []),
+        )
         result = ParseCorpusResult(
             command="parse-corpus",
             phase=self.config.phase.value,
@@ -96,6 +111,14 @@ class CorpusParseService:
             planned_paths=planned_paths,
         )
         if dry_run:
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "parse.dry_run",
+                "Corpus parse dry-run completed.",
+                stage="ingestion",
+                planned_paths=planned_paths,
+            )
             return result
 
         if not self.paths.documents_dir.exists():
@@ -114,6 +137,15 @@ class CorpusParseService:
         current_doc_ids = {path.stem for path in pdf_paths}
         if not overwrite and self._artifact_set_complete(current_doc_ids):
             result.skipped_paths.extend(self._artifact_paths())
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "parse.skip_cache",
+                "Skipped corpus parse because artifacts are complete.",
+                stage="ingestion",
+                document_count=len(current_doc_ids),
+                skipped_paths=result.skipped_paths,
+            )
             return result
 
         self.paths.ensure_directories()
@@ -125,12 +157,45 @@ class CorpusParseService:
 
         for pdf_path in pdf_paths:
             try:
+                if documents_debug_enabled():
+                    log_event(
+                        LOGGER,
+                        logging.DEBUG,
+                        "parse.document.start",
+                        "Parsing document.",
+                        stage="ingestion",
+                        doc_id=pdf_path.stem,
+                        pdf_path=pdf_path,
+                    )
                 document = self.parser.parse_document(pdf_path)
                 successful_documents.append(document)
                 serialized_tables_by_doc[document.doc_id] = serialize_document_tables(document)
+                if documents_debug_enabled():
+                    log_event(
+                        LOGGER,
+                        logging.DEBUG,
+                        "parse.document.complete",
+                        "Parsed document.",
+                        stage="ingestion",
+                        doc_id=document.doc_id,
+                        page_count=document.page_count,
+                        parse_status=document.parse_status.value,
+                    )
             except Exception as exc:
                 failed_document_count += 1
                 manifest_records.append(build_failed_manifest_record(pdf_path, str(exc)))
+                log_event(
+                    LOGGER,
+                    logging.ERROR,
+                    "parse.document.failed",
+                    "Document parsing failed.",
+                    stage="ingestion",
+                    doc_id=pdf_path.stem,
+                    pdf_path=pdf_path,
+                    error_type=type(exc).__name__,
+                    error_message=str(exc),
+                    exc_info=(type(exc), exc, exc.__traceback__),
+                )
 
         build_result = self.builder.build(
             phase=self.config.phase.value,
@@ -160,6 +225,17 @@ class CorpusParseService:
         result.parsed_document_count = len(success_manifest_records)
         result.parsed_page_count = len(page_records)
         result.failed_document_count = failed_document_count
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "parse.complete",
+            "Corpus parse completed.",
+            stage="ingestion",
+            parsed_document_count=result.parsed_document_count,
+            parsed_page_count=result.parsed_page_count,
+            failed_document_count=result.failed_document_count,
+            written_paths=result.written_paths,
+        )
         return result
 
     def _artifact_paths(self) -> list[Path]:

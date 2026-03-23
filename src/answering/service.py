@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import math
 import re
 import unicodedata
@@ -11,12 +12,14 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Any, Callable, Protocol
 
+from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference
 from src.providers.base import FreeTextProvider
 from src.retrieval.service import RetrievalResult
 
 CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER = "There is no information on this question in the provided documents."
+LOGGER = get_logger("answering.service")
 
 
 class FreeTextGroundingValidationError(ValueError):
@@ -278,21 +281,35 @@ class AnsweringService:
             raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
 
         if answer_type == AnswerType.FREE_TEXT:
-            return self._answer_free_text(question=question, pages=pages, retrieval_refs=retrieval_refs)
+            result = self._answer_free_text(question=question, pages=pages, retrieval_refs=retrieval_refs)
+        elif not pages:
+            result = _empty_result(question_id=question.id)
+        else:
+            solved = self._solve_deterministic(question=question, answer_type=answer_type, pages=pages)
+            if solved is None:
+                result = _empty_result(question_id=question.id)
+            else:
+                result = AnswerResult(
+                    question_id=question.id,
+                    answer=solved.answer,
+                    confidence=1.0,
+                    evidence_pages=_group_page_references(solved.supporting_pages),
+                )
 
-        if not pages:
-            return _empty_result(question_id=question.id)
-
-        solved = self._solve_deterministic(question=question, answer_type=answer_type, pages=pages)
-        if solved is None:
-            return _empty_result(question_id=question.id)
-
-        return AnswerResult(
-            question_id=question.id,
-            answer=solved.answer,
-            confidence=1.0,
-            evidence_pages=_group_page_references(solved.supporting_pages),
-        )
+        if questions_debug_enabled():
+            log_event(
+                LOGGER,
+                logging.DEBUG,
+                "answer.complete",
+                "Answering completed for question.",
+                stage="answering",
+                question_id=question.id,
+                answer_type=question.answer_type,
+                evidence_page_count=len(result.evidence_pages),
+                answered=result.answer is not None,
+                confidence=result.confidence,
+            )
+        return result
 
     def _solve_deterministic(
         self,

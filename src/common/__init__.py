@@ -7,6 +7,7 @@ from .config import (
     ConfigError,
     EvaluationSettings,
     IngestionSettings,
+    LoggingSettings,
     default_config_path,
     load_app_config,
 )
@@ -20,6 +21,7 @@ __all__ = [
     "DEFAULT_ENV_FILE",
     "EvaluationSettings",
     "IngestionSettings",
+    "LoggingSettings",
     "Phase",
     "PhaseSyncManifest",
     "QuestionRecord",

@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Protocol
 
 from qdrant_client import QdrantClient, models
 
+from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
 from src.indexing.service import BM25SparseEncoder
+
+LOGGER = get_logger("retrieval.hybrid_search")
 
 
 class SearchBackend(Protocol):
@@ -83,7 +87,20 @@ class QdrantHybridSearchBackend:
                 str(candidate["chunk_id"]),
             )
         )
-        return merged[:result_limit]
+        window = merged[:result_limit]
+        if questions_debug_enabled():
+            log_event(
+                LOGGER,
+                logging.DEBUG,
+                "retrieval.search.complete",
+                "Hybrid search completed for question.",
+                stage="retrieval",
+                question_id=question.id,
+                dense_hit_count=len(dense_hits),
+                sparse_hit_count=len(sparse_hits),
+                candidate_count=len(window),
+            )
+        return window
 
     def close(self) -> None:
         if self._client is None:
@@ -113,6 +130,16 @@ class QdrantHybridSearchBackend:
                 sparse_state_payload = json.loads(sparse_state_path.read_text(encoding="utf-8"))
                 self._sparse_encoder = BM25SparseEncoder.from_state(sparse_state_payload)
         self._is_loaded = True
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "retrieval.backend.loaded",
+            "Loaded persisted retrieval backend.",
+            stage="retrieval",
+            index_dir=self.index_dir,
+            collection_name=self._resolved_collection_name,
+            sparse_enabled=self._sparse_encoder is not None,
+        )
 
 
 @dataclass(slots=True)

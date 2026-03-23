@@ -2,13 +2,17 @@
 
 from __future__ import annotations
 
+import logging
 import re
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
 from huggingface_hub import snapshot_download
 
+from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
+
+LOGGER = get_logger("retrieval.reranker")
 
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 DEFAULT_QWEN3_RERANK_INSTRUCTION = "Given a web search query, retrieve relevant passages that answer the query"
@@ -218,6 +222,14 @@ class QwenReranker:
         except Exception:
             if self.fallback_reranker is None:
                 raise
+            log_event(
+                LOGGER,
+                logging.WARNING,
+                "retrieval.rerank.fallback",
+                "Primary reranker failed; using lexical fallback.",
+                stage="retrieval",
+                question_id=question.id,
+            )
             return self.fallback_reranker.rerank(question, candidates, result_limit)
 
         reranked.sort(
@@ -227,7 +239,19 @@ class QwenReranker:
                 str(candidate.get("chunk_id") or ""),
             ),
         )
-        return reranked[:result_limit]
+        window = reranked[:result_limit]
+        if questions_debug_enabled():
+            log_event(
+                LOGGER,
+                logging.DEBUG,
+                "retrieval.rerank.complete",
+                "Reranking completed for question.",
+                stage="retrieval",
+                question_id=question.id,
+                candidate_count=len(candidates),
+                reranked_count=len(window),
+            )
+        return window
 
 
 @dataclass(slots=True)

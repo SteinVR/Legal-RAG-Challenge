@@ -2,13 +2,17 @@
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
+from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import PageReference
 from src.retrieval.evidence_compressor import SupportPageEvidenceCompressor
 from src.retrieval.page_lifter import PageLifter, extract_physical_pages
+
+LOGGER = get_logger("retrieval.service")
 
 
 class HybridSearch(Protocol):
@@ -180,7 +184,7 @@ class RetrievalService:
                 reranked_count=reranked_count,
             )
 
-        return RetrievalResult(
+        result = RetrievalResult(
             question_id=question.id,
             query=question.question,
             answer_type=question.answer_type,
@@ -190,6 +194,20 @@ class RetrievalService:
             retrieved_chunk_pages=retrieved_chunk_pages,
             is_unanswerable=False,
         )
+        if questions_debug_enabled():
+            log_event(
+                LOGGER,
+                logging.DEBUG,
+                "retrieval.complete",
+                "Retrieval pipeline completed for question.",
+                stage="retrieval",
+                question_id=question.id,
+                candidate_count=result.candidate_count,
+                reranked_count=result.reranked_count,
+                evidence_chunk_count=len(result.evidence_chunks),
+                unanswerable=result.is_unanswerable,
+            )
+        return result
 
     def _apply_rerank_threshold(self, reranked: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Drop reranked candidates that do not clear the configured score threshold."""

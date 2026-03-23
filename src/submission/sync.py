@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import shutil
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -11,8 +12,11 @@ from pathlib import Path
 from zipfile import ZipFile
 
 from src.common.config import AppConfig
+from src.common.runtime_logging import get_logger, log_event
 from src.common.schemas import ArtifactMetadata, PhaseSyncManifest, QuestionRecord
 from src.submission.api_client import CompetitionApiClient
+
+LOGGER = get_logger("submission.sync")
 
 
 @dataclass(slots=True)
@@ -100,6 +104,16 @@ class PhaseSyncService:
         overwrite: bool | None = None,
     ) -> CommandResult:
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "sync.questions.start",
+            "Starting questions sync.",
+            stage="sync",
+            dry_run=dry_run,
+            overwrite=overwrite,
+            target_path=self.paths.questions_path,
+        )
 
         result = CommandResult(
             command="download-questions",
@@ -110,6 +124,14 @@ class PhaseSyncService:
         )
 
         if dry_run:
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "sync.questions.dry_run",
+                "Questions sync dry-run completed.",
+                stage="sync",
+                planned_paths=result.planned_paths,
+            )
             return result
 
         self.paths.ensure_directories()
@@ -119,6 +141,15 @@ class PhaseSyncService:
             manifest = self._write_manifest(["download-questions", "reuse-questions"])
             result.written_paths.append(self.paths.manifest_path)
             result.questions_count = manifest.questions_count
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "sync.questions.reuse",
+                "Reused existing questions file.",
+                stage="sync",
+                questions_count=manifest.questions_count,
+                skipped_path=self.paths.questions_path,
+            )
             return result
 
         if client is None:
@@ -130,6 +161,15 @@ class PhaseSyncService:
         manifest = self._write_manifest(["download-questions"])
         result.written_paths.extend([self.paths.questions_path, self.paths.manifest_path])
         result.questions_count = manifest.questions_count
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "sync.questions.complete",
+            "Questions sync completed.",
+            stage="sync",
+            questions_count=manifest.questions_count,
+            written_paths=result.written_paths,
+        )
         return result
 
     def download_documents(
@@ -143,6 +183,18 @@ class PhaseSyncService:
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
         extract_documents = (
             self.config.download.extract_documents if extract_documents is None else extract_documents
+        )
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "sync.documents.start",
+            "Starting documents sync.",
+            stage="sync",
+            dry_run=dry_run,
+            overwrite=overwrite,
+            extract_documents=extract_documents,
+            archive_path=self.paths.documents_archive_path,
+            extract_dir=self.paths.documents_extract_dir,
         )
 
         planned_paths = [self.paths.documents_archive_path, self.paths.manifest_path]
@@ -158,6 +210,14 @@ class PhaseSyncService:
         )
 
         if dry_run:
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "sync.documents.dry_run",
+                "Documents sync dry-run completed.",
+                stage="sync",
+                planned_paths=result.planned_paths,
+            )
             return result
 
         self.paths.ensure_directories()
@@ -165,6 +225,14 @@ class PhaseSyncService:
         archive_downloaded = False
         if self.paths.documents_archive_path.exists() and not overwrite:
             result.skipped_paths.append(self.paths.documents_archive_path)
+            log_event(
+                LOGGER,
+                logging.INFO,
+                "sync.documents.reuse_archive",
+                "Reused existing documents archive.",
+                stage="sync",
+                archive_path=self.paths.documents_archive_path,
+            )
         else:
             if client is None:
                 raise ValueError("A live API client is required unless dry_run=True.")
@@ -188,6 +256,16 @@ class PhaseSyncService:
         result.extracted_pdf_count = (
             extracted_pdf_count if extracted_pdf_count is not None else manifest.extracted_pdf_count
         )
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "sync.documents.complete",
+            "Documents sync completed.",
+            stage="sync",
+            extracted_pdf_count=result.extracted_pdf_count,
+            written_paths=result.written_paths,
+            skipped_paths=result.skipped_paths,
+        )
         return result
 
     def sync_phase(
@@ -198,6 +276,16 @@ class PhaseSyncService:
         overwrite: bool | None = None,
         extract_documents: bool | None = None,
     ) -> CommandResult:
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "sync.phase.start",
+            "Starting phase sync.",
+            stage="sync",
+            dry_run=dry_run,
+            overwrite=overwrite,
+            extract_documents=extract_documents,
+        )
         questions_result = self.download_questions(client=client, dry_run=dry_run, overwrite=overwrite)
         documents_result = self.download_documents(
             client=client,
@@ -229,6 +317,17 @@ class PhaseSyncService:
             result.questions_count = manifest.questions_count
             result.extracted_pdf_count = manifest.extracted_pdf_count
 
+        log_event(
+            LOGGER,
+            logging.INFO,
+            "sync.phase.complete",
+            "Phase sync completed.",
+            stage="sync",
+            questions_count=result.questions_count,
+            extracted_pdf_count=result.extracted_pdf_count,
+            written_paths=result.written_paths,
+            skipped_paths=result.skipped_paths,
+        )
         return result
 
     def _write_questions_file(self, questions: list[QuestionRecord]) -> None:

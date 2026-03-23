@@ -1,6 +1,6 @@
 # About This Directory
-Purpose: Stable project-level report outputs.
-Contains: Reusable report folders rather than per-agent scratch logs.
-Start Here: `reports/`.
-Key Files/Dirs: `reports/`.
-Notes: This is the right log subtree for artifacts that a human teammate is likely to revisit.
+Purpose: Stable project-level runtime logs and report outputs.
+Contains: `runtime/` for per-run application logs and `reports/` for reusable human-facing reports.
+Start Here: `runtime/` for execution evidence, `reports/` for generated summaries.
+Key Files/Dirs: `runtime/`, `reports/`.
+Notes: This subtree is for project behavior evidence, not agent-session notes.

@@ -3,17 +3,22 @@
 from __future__ import annotations
 
 import json
+import logging
 import math
 import os
+import time
 from dataclasses import dataclass, field
 from typing import Any
 
 import httpx
 
+from src.common.runtime_logging import get_logger, log_event
+
 DEFAULT_CODEX_BASE_URL = "https://api.openai.com/v1"
 DEFAULT_CODEX_MODEL = "gpt-5-mini"
 DEFAULT_PROVIDER_CONFIDENCE = 0.5
 DEFAULT_MAX_OUTPUT_TOKENS = 220
+LOGGER = get_logger("providers.codex")
 
 _SYSTEM_PROMPT = (
     "Answer strictly from the provided legal evidence. "
@@ -69,6 +74,7 @@ class CodexFreeTextProvider:
     ) -> dict[str, Any]:
         if max_chars <= 0:
             raise ValueError("max_chars must be positive.")
+        started_at = time.perf_counter()
 
         response = self._client.post(
             "responses",
@@ -108,10 +114,23 @@ class CodexFreeTextProvider:
 
         response_text = _extract_response_text(payload)
         answer, confidence = _parse_answer_payload(response_text, max_chars=max_chars)
-        return {
+        result = {
             "answer": answer,
             "confidence": confidence,
         }
+        log_event(
+            LOGGER,
+            logging.DEBUG,
+            "provider.generate.complete",
+            "Provider response received.",
+            stage="answering",
+            model=self.model,
+            evidence_page_count=len(evidence_pages),
+            max_chars=max_chars,
+            duration_ms=round((time.perf_counter() - started_at) * 1000, 3),
+            answer_chars=len(answer),
+        )
+        return result
 
     def close(self) -> None:
         self._client.close()
