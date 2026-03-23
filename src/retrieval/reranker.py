@@ -109,10 +109,12 @@ class TransformersQwenRerankerBackend:
         tokenizer = AutoTokenizer.from_pretrained(
             self.model_name,
             trust_remote_code=self.trust_remote_code,
+            local_files_only=True,
         )
         model = AutoModelForSequenceClassification.from_pretrained(
             self.model_name,
             trust_remote_code=self.trust_remote_code,
+            local_files_only=True,
         )
         model.to(runtime_device)
         model.eval()

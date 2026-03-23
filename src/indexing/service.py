@@ -26,7 +26,7 @@ from src.common.schemas import (
 from src.submission.sync import PhasePaths
 
 DEFAULT_QWEN3_EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-0.6B"
-DEFAULT_QWEN3_PROMPT_NAME = "passage"
+DEFAULT_QWEN3_PROMPT_NAME = "document"
 DEFAULT_EMBED_BATCH_SIZE = 16
 BM25_K1 = 1.5
 BM25_B = 0.75
@@ -288,9 +288,15 @@ class Qwen3DenseEmbedder(DenseEmbedder):
 
 
 def build_dense_embedder(_settings: AppConfig) -> DenseEmbedder:
-    """Build the dense embedder used for index construction."""
+    """Build the dense embedder used for index construction (prompt_name='document')."""
 
     return Qwen3DenseEmbedder()
+
+
+def build_query_embedder(_settings: AppConfig) -> DenseEmbedder:
+    """Build the dense embedder used for query-time retrieval (prompt_name='query')."""
+
+    return Qwen3DenseEmbedder(prompt_name="query")
 
 
 class BM25SparseEncoder:

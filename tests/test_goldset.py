@@ -3,8 +3,8 @@ from __future__ import annotations
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, AssistantScoreRecord, PageReference, ReferenceAnswerRecord
 from src.evaluation.goldset import (
-    GoldShardBundle,
     UNANSWERABLE_FREE_TEXT_ANSWER,
+    GoldShardBundle,
     build_shard_manifest,
     collect_reviewed_assistant_scores,
     merge_reviewed_shards,

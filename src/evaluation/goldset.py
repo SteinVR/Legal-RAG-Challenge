@@ -374,7 +374,8 @@ def validate_gold_shard_bundle(
     for score in bundle.assistant_scores:
         if score.question_id not in free_text_ids:
             raise ValueError(
-                f"assistant_score question_id={score.question_id} is not a free_text question in shard {bundle.shard_id}."
+                f"assistant_score question_id={score.question_id} is not a free_text question "
+                f"in shard {bundle.shard_id}."
             )
         if score.question_id in score_ids:
             raise ValueError(f"Duplicate assistant_score question_id={score.question_id}")
@@ -397,7 +398,8 @@ def validate_reference_answer_record(reference: ReferenceAnswerRecord, *, expect
     expected_type = AnswerType(str(expected_question.answer_type))
     if reference.answer_type != expected_type:
         raise ValueError(
-            f"answer_type mismatch for {reference.question_id}: {reference.answer_type.value!r} != {expected_type.value!r}"
+            f"answer_type mismatch for {reference.question_id}: "
+            f"{reference.answer_type.value!r} != {expected_type.value!r}"
         )
     if reference.question is None or reference.question.strip() != expected_question.question.strip():
         raise ValueError(f"question text mismatch for {reference.question_id}")

@@ -1,6 +1,6 @@
 # About This Directory
-Purpose: Standalone helper scripts for maintenance or one-off project workflows.
-Contains: Corpus audit automation and the CUDA wheel download helper.
-Start Here: Open the specific script you need; there is no shared script framework here.
-Key Files/Dirs: `audit_challenge_corpus.py`, `download_cuda_wheels.sh`.
-Notes: Prefer `src/main.py` for supported product workflows; use this directory for targeted maintenance tasks.
+Purpose: Operator-facing helper scripts for environment setup, GPU/runtime repair, visible-progress model download, config-aware pipeline stages, and targeted maintenance.
+Contains: Environment and dependency bootstrap scripts, NVIDIA device-node repair helpers, Hugging Face model download/verify helpers, quality gates, and phase-aware corpus/index/submission wrappers with dry-run or preflight support.
+Start Here: Use `00_check_env.sh` and `00_repair_gpu_runtime.sh` to confirm host GPU visibility, then `01_install_deps.sh`, `02_download_models.sh`, `03_lint_and_test.sh`, `04_parse_corpus.sh --dry-run`, `05_build_indices.sh --dry-run`, and `06_build_submission.sh --preflight` before committing to expensive runs.
+Key Files/Dirs: `00_check_env.sh`, `00_repair_gpu_runtime.sh`, `01_install_deps.sh`, `02_download_models.sh`, `03_lint_and_test.sh`, `04_parse_corpus.sh`, `05_build_indices.sh`, `06_build_submission.sh`, `07_validate_submission.sh`.
+Notes: Prefer `src/main.py` for product-supported flows; these scripts wrap common operator sequences and should stay aligned with config-derived paths, the cached CUDA/NVIDIA dependency strategy, the setuid `nvidia-modprobe` recovery path, and the shared Hugging Face cache.

@@ -43,7 +43,7 @@ evaluation:
 
 ingestion:
   enable_ocr: true
-  ocr_unavailable_policy: degraded
+  ocr_unavailable_policy: error
   extractable_text_min_chars: 50
   suspicious_text_max_chars: 200
   large_image_area_ratio: 0.25

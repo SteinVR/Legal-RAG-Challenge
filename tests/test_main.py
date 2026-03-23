@@ -215,6 +215,7 @@ def test_parse_corpus_writes_canonical_artifacts(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
     config_path, env_path = _write_config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
@@ -257,6 +258,7 @@ def test_parse_corpus_doc_id_subset_rebuilds_against_existing_full_artifacts(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
     config_path, env_path = _write_config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
@@ -299,6 +301,7 @@ def test_parse_corpus_doc_id_subset_skips_when_subset_artifacts_are_complete(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
     config_path, env_path = _write_config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
@@ -341,6 +344,7 @@ def test_parse_corpus_rebuilds_when_debug_artifact_is_missing_without_force(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
     config_path, env_path = _write_config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
@@ -382,6 +386,7 @@ def test_parse_corpus_doc_id_subset_skips_when_selected_failure_manifest_is_comp
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
     config_path, env_path = _write_config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
@@ -428,6 +433,7 @@ def test_parse_corpus_full_run_skips_when_failure_manifest_is_complete(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     monkeypatch.setattr("src.ingestion.service.build_ocr_engine", lambda _settings: None)
+    monkeypatch.setattr("src.ingestion.pdf_parser.build_ocr_engine", lambda _settings: None)
     config_path, env_path = _write_config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)

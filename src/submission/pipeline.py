@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-import json
 import inspect
+import json
 import re
 import time
 from dataclasses import dataclass, field
@@ -17,7 +17,11 @@ import fitz
 import httpx
 
 import src.indexing.service as indexing_service
-from src.answering.service import AnsweringService, AnswerResult
+from src.answering.service import (
+    CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+    AnsweringService,
+    AnswerResult,
+)
 from src.common.config import AppConfig
 from src.common.schemas import CorpusParseManifest, ParseStatus, Phase, QuestionRecord
 from src.evaluation.contracts import (
@@ -44,7 +48,7 @@ from src.submission.sync import PhasePaths
 from src.submission.telemetry_packer import build_answer_telemetry
 
 DEFAULT_PREFERRED_MODEL = "gpt-5.4-mini"
-DEFAULT_FALLBACK_MODEL = "gpt-5-mini"
+DEFAULT_FALLBACK_MODEL = "gpt-5.4-mini"
 DETERMINISTIC_MODEL_NAME = "deterministic-extractor"
 CODE_ARCHIVE_INCLUDE_PATHS = (
     "src",
@@ -203,7 +207,7 @@ class BuildSubmissionService:
         questions: list[QuestionRecord],
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         index_paths = IndexPaths.from_config(config)
-        dense_embedder = indexing_service.build_dense_embedder(config)
+        dense_embedder = indexing_service.build_query_embedder(config)
         backend = QdrantHybridSearchBackend(
             index_dir=index_paths.index_dir,
             dense_embedder=dense_embedder,
@@ -303,6 +307,18 @@ class BuildSubmissionService:
         try:
             answer_result = answering_service.answer_question(question)
             return answer_result, answering_service, provider, provider_model
+        except ValueError:
+            # Grounding validation or extraction failure — return safe fallback
+            # instead of crashing the entire pipeline for one question.
+            fallback_result = AnswerResult(
+                question_id=question.id,
+                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+                if question.answer_type == AnswerType.FREE_TEXT.value
+                else None,
+                confidence=0.0,
+                evidence_pages=[],
+            )
+            return fallback_result, answering_service, provider, provider_model
         except httpx.HTTPStatusError as exc:
             if not _should_fallback_to_default_model(
                 question=question,

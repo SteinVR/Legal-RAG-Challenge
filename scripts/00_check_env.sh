@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+# 00_check_env.sh — Validate environment prerequisites for the RAG pipeline.
+set -euo pipefail
+
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+VENV="$PROJECT_ROOT/.venv"
+PYTHON="$VENV/bin/python"
+WARN_COUNT=0
+
+warn() {
+    echo "WARN: $1"
+    WARN_COUNT=$((WARN_COUNT + 1))
+}
+
+echo "=== Environment Check ==="
+echo "Project root: $PROJECT_ROOT"
+
+# Python version
+if [ ! -x "$PYTHON" ]; then
+    echo "FAIL: .venv not found at $VENV"
+    exit 1
+fi
+PY_VERSION=$("$PYTHON" --version 2>&1)
+echo "Python: $PY_VERSION"
+
+# .env file
+if [ ! -f "$PROJECT_ROOT/.env" ]; then
+    echo "FAIL: .env file not found. Copy .env.example and fill in API keys."
+    exit 1
+fi
+echo ".env: present"
+
+# Required env keys
+for KEY in OPENAI_API_KEY; do
+    if ! grep -q "^${KEY}=" "$PROJECT_ROOT/.env" 2>/dev/null; then
+        warn "$KEY not found in .env"
+    else
+        VALUE=$(grep "^${KEY}=" "$PROJECT_ROOT/.env" | cut -d= -f2-)
+        if [ -z "$VALUE" ] || [ "$VALUE" = "set_in_real_env" ]; then
+            warn "$KEY is not set to a real value in .env"
+        else
+            echo "$KEY: set (${#VALUE} chars)"
+        fi
+    fi
+done
+
+# GPU
+if command -v nvidia-smi &>/dev/null; then
+    echo "--- GPU runtime ---"
+
+    if GPU_INFO=$(nvidia-smi --query-gpu=name,memory.total,memory.free --format=csv,noheader >/dev/null 2>&1); then
+        GPU_INFO=$(nvidia-smi --query-gpu=name,memory.total,memory.free --format=csv,noheader 2>/dev/null)
+        echo "GPU: $GPU_INFO"
+    else
+        echo "GPU: unavailable"
+        warn "NVIDIA tooling is present but the driver or device is not accessible."
+        warn "Python GPU packages may install, but CUDA runtime checks will fail until host GPU access is fixed."
+    fi
+
+    if [ -d /proc/driver/nvidia/gpus ] && find /proc/driver/nvidia/gpus -mindepth 1 -maxdepth 1 -type d | grep -q .; then
+        GPU_COUNT=$(find /proc/driver/nvidia/gpus -mindepth 1 -maxdepth 1 -type d | wc -l)
+        echo "Kernel NVIDIA GPUs: $GPU_COUNT"
+    else
+        echo "Kernel NVIDIA GPUs: not detected"
+    fi
+
+    MISSING_NODES=0
+    for NODE in /dev/nvidiactl /dev/nvidia0 /dev/nvidia-uvm; do
+        if [ -e "$NODE" ]; then
+            echo "Device node: present ($NODE)"
+        else
+            echo "Device node: missing ($NODE)"
+            MISSING_NODES=1
+        fi
+    done
+
+    if [ "$MISSING_NODES" -eq 1 ]; then
+        warn "Required NVIDIA device nodes are missing."
+        if [ -d /proc/driver/nvidia/gpus ] && find /proc/driver/nvidia/gpus -mindepth 1 -maxdepth 1 -type d | grep -q .; then
+            warn "Kernel sees an NVIDIA GPU, but /dev/nvidia* was not created. This usually points to a broken nvidia-modprobe/udev/device-node path."
+            warn "Run ./scripts/00_repair_gpu_runtime.sh to recreate the device nodes without reinstalling NVIDIA/CUDA packages."
+        fi
+    fi
+else
+    echo "GPU: not detected (CPU mode)"
+fi
+
+# Disk space
+DISK_FREE=$(df -h "$PROJECT_ROOT" 2>/dev/null | tail -1 | awk '{print $4}')
+echo "Disk free: $DISK_FREE"
+
+# Python runtime readiness
+echo "--- Python runtime ---"
+"$PYTHON" - <<'PY'
+from pathlib import Path
+
+try:
+    import torch
+
+    print(f"torch: {torch.__version__}")
+    print(f"torch.cuda.is_available: {torch.cuda.is_available()}")
+    print(f"torch.cuda.device_count: {torch.cuda.device_count()}")
+except Exception as exc:
+    print(f"WARN: torch check failed: {exc!r}")
+
+try:
+    import paddle
+
+    print(f"paddle: {paddle.__version__}")
+    print(f"paddle.device.is_compiled_with_cuda: {paddle.device.is_compiled_with_cuda()}")
+except Exception as exc:
+    print(f"WARN: paddle check failed: {exc!r}")
+
+hf_cache = Path.home() / ".cache" / "huggingface" / "hub"
+embedder_dir = hf_cache / "models--Qwen--Qwen3-Embedding-0.6B"
+reranker_dir = hf_cache / "models--Qwen--Qwen3-Reranker-0.6B"
+print(f"HF cache: {hf_cache}")
+print(f"Embedder cache: {'present' if embedder_dir.exists() else 'missing'}")
+print(f"Reranker cache: {'present' if reranker_dir.exists() else 'missing'}")
+PY
+
+# Data directories
+if [ -d "$PROJECT_ROOT/data/warmup/documents/pdfs" ]; then
+    PDF_COUNT=$(find "$PROJECT_ROOT/data/warmup/documents/pdfs" -name "*.pdf" | wc -l)
+    echo "Warmup PDFs: $PDF_COUNT"
+else
+    echo "Warmup PDFs: not downloaded yet"
+fi
+
+if [ -f "$PROJECT_ROOT/data/warmup/questions/questions.json" ]; then
+    echo "Warmup questions: present"
+else
+    echo "Warmup questions: not downloaded yet"
+fi
+
+if [ "$WARN_COUNT" -gt 0 ]; then
+    echo "=== Environment Check Completed With $WARN_COUNT Warning(s) ==="
+else
+    echo "=== Environment OK ==="
+fi

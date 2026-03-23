@@ -77,8 +77,8 @@ class PaddleOcrEngine:
         if channels == 4:
             image = image[:, :, :3]
 
-        results = ocr_client.ocr(image, cls=False)
-        lines = _extract_ocr_lines(results)
+        results = ocr_client.predict(image)
+        lines = _extract_ocr_lines_v3(results) if results else []
         text_blocks = [line.text for line in lines]
         table_candidates = _extract_tables_from_lines(lines, page.number + 1)
         return OcrPageResult(
@@ -99,7 +99,13 @@ class PaddleOcrEngine:
         except ImportError as exc:
             raise OcrUnavailableError("PaddleOCR is not installed. Install the paddle extra to enable OCR.") from exc
 
-        self._ocr_client = PaddleOCR(use_angle_cls=False, lang="en")
+        try:
+            self._ocr_client = PaddleOCR(use_textline_orientation=False, lang="en")
+        except (ImportError, ModuleNotFoundError) as exc:
+            raise OcrUnavailableError(
+                "PaddleOCR runtime dependency (paddle) is not installed. "
+                "Install paddlepaddle or paddlepaddle-gpu."
+            ) from exc
         return self._ocr_client
 
 
@@ -114,6 +120,27 @@ def build_ocr_engine(settings: IngestionSettings) -> OcrEngine | None:
         if settings.ocr_unavailable_policy == "error":
             raise
         return None
+
+
+def _extract_ocr_lines_v3(results: Any) -> list[OcrTextLine]:
+    """Parse PaddleOCR v3 .predict() results (list of OCRResult objects)."""
+
+    lines: list[OcrTextLine] = []
+    if not results:
+        return lines
+
+    for ocr_result in results:
+        dt_polys = getattr(ocr_result, "dt_polys", None) or ocr_result.get("dt_polys", [])
+        rec_texts = getattr(ocr_result, "rec_texts", None) or ocr_result.get("rec_texts", [])
+
+        for poly, text in zip(dt_polys, rec_texts):
+            text = str(text).strip()
+            if not text:
+                continue
+            bbox = _normalize_bbox(poly)
+            lines.append(OcrTextLine(text=text, bbox=bbox))
+
+    return sorted(lines, key=lambda line: (_bbox_center_y(line.bbox), line.bbox[0]))
 
 
 def _extract_ocr_lines(results: Any) -> list[OcrTextLine]:
