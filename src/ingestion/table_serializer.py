@@ -6,11 +6,39 @@ import contextlib
 import io
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import fitz
 
 from src.common.config import AppConfig
-from src.common.schemas import ParsedDocument, RawTableRecord, SerializedTableBlock, TableBlock
+from src.common.schemas import ParsedDocument, RawTableRecord, SemanticTableBlock, SerializedTableBlock, TableBlock
+
+if TYPE_CHECKING:
+    from src.providers.base import StructuredOutputProvider
+
+_SEMANTIC_BLOCKS_SCHEMA: dict[str, object] = {
+    "type": "object",
+    "properties": {
+        "blocks": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "block_id": {"type": "string"},
+                    "text": {"type": "string"},
+                    "source_page_number": {"type": "integer"},
+                },
+                "required": ["block_id", "text", "source_page_number"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["blocks"],
+    "additionalProperties": False,
+}
+_SEMANTIC_BLOCKS_SYSTEM_PROMPT = (
+    "Create context-independent table information blocks from the table and nearby context."
+)
 
 
 @dataclass(slots=True)
@@ -45,7 +73,12 @@ def extract_document_tables(pdf_path: str | Path) -> list[TableBlock]:
     return [serialize_table(candidate) for candidate in merged]
 
 
-def serialize_document_tables(document: ParsedDocument) -> dict[int, list[TableBlock]]:
+def serialize_document_tables(
+    document: ParsedDocument,
+    *,
+    enable_semantic_blocks: bool = False,
+    structured_provider: StructuredOutputProvider | None = None,
+) -> dict[int, list[TableBlock]]:
     """Serialize already extracted table candidates on a parsed document."""
 
     candidates: list[TableCandidate] = []
@@ -72,7 +105,11 @@ def serialize_document_tables(document: ParsedDocument) -> dict[int, list[TableB
     merged = merge_adjacent_tables(candidates)
     page_map: dict[int, list[TableBlock]] = {}
     for candidate in merged:
-        block = serialize_table(candidate)
+        block = serialize_table(
+            candidate,
+            enable_semantic_blocks=enable_semantic_blocks,
+            structured_provider=structured_provider,
+        )
         for page_number in candidate.page_span:
             page_map.setdefault(page_number, []).append(block)
     return page_map
@@ -152,7 +189,12 @@ def merge_adjacent_tables(candidates: list[TableCandidate]) -> list[TableCandida
     return merged
 
 
-def serialize_table(candidate: TableCandidate) -> TableBlock:
+def serialize_table(
+    candidate: TableCandidate,
+    *,
+    enable_semantic_blocks: bool = False,
+    structured_provider: StructuredOutputProvider | None = None,
+) -> TableBlock:
     """Convert a detected table into the canonical table block."""
 
     width = _width(candidate.rows)
@@ -222,6 +264,10 @@ def serialize_table(candidate: TableCandidate) -> TableBlock:
             )
         )
 
+    semantic_blocks: list[SemanticTableBlock] = []
+    if enable_semantic_blocks and structured_provider is not None:
+        semantic_blocks = _semantic_blocks_for_candidate(candidate, structured_provider=structured_provider)
+
     return TableBlock(
         table_id=candidate.table_id,
         page_span=candidate.page_span,
@@ -229,6 +275,7 @@ def serialize_table(candidate: TableCandidate) -> TableBlock:
         raw_html=candidate.raw_html,
         header_signature=list(candidate.header_signature),
         serialized_blocks=serialized_blocks,
+        semantic_blocks=semantic_blocks,
     )
 
 
@@ -364,6 +411,40 @@ def _table_context(
     after = [text for (_, by0, _, _), text in text_blocks if by0 >= y1]
     caption = before[-1] if before else None
     return caption, before[-3:], after[:3]
+
+
+def _semantic_blocks_for_candidate(
+    candidate: TableCandidate,
+    *,
+    structured_provider: StructuredOutputProvider,
+) -> list[SemanticTableBlock]:
+    if not candidate.raw_html:
+        return []
+
+    context_before = "\n".join(candidate.context_before[-3:])
+    context_after = "\n".join(candidate.context_after[:3])
+    user_prompt = (
+        f"Table HTML:\n{candidate.raw_html}\n\n"
+        f"Context before:\n{context_before}\n\n"
+        f"Context after:\n{context_after}"
+    )
+    result = structured_provider.generate_structured(
+        schema_name="serialized_table_blocks",
+        schema=_SEMANTIC_BLOCKS_SCHEMA,
+        system_prompt=_SEMANTIC_BLOCKS_SYSTEM_PROMPT,
+        user_prompt=user_prompt,
+        max_output_tokens=400,
+        reasoning_effort="medium",
+    )
+    blocks = result.get("blocks")
+    if not isinstance(blocks, list):
+        return []
+    semantic_blocks: list[SemanticTableBlock] = []
+    for block in blocks:
+        if not isinstance(block, dict):
+            continue
+        semantic_blocks.append(SemanticTableBlock.model_validate(block))
+    return semantic_blocks
 
 
 def _rows_to_markdown(rows: list[list[str]]) -> str:

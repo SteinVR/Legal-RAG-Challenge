@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from src.common.schemas import (
+    NormalizedStructuralBlock,
     PageSignal,
     ParsedDocument,
     ParsedPage,
@@ -241,3 +242,51 @@ def test_build_corpus_artifacts_table_ids_match_emitted_table_blocks_per_page() 
 
     assert artifacts.corpus_records[0].table_ids == ["alpha-p1-t1"]
     assert artifacts.corpus_records[1].table_ids == ["alpha-p2-t1"]
+
+
+def test_build_corpus_artifacts_adds_parser_provenance_heading_path_and_source_block_ids() -> None:
+    document = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        parser_provenance="opendataloader:tagged",
+        pages=[_page(1, "Clause 1")],
+    )
+
+    artifacts = build_corpus_artifacts(
+        phase="warmup",
+        documents=[document],
+        structural_blocks_by_doc={
+            "alpha": {
+                1: [
+                    NormalizedStructuralBlock(
+                        source_block_id="h1",
+                        page_number=1,
+                        text="Part 1",
+                        heading_path=["Part 1"],
+                        block_roles=["heading"],
+                    ),
+                    NormalizedStructuralBlock(
+                        source_block_id="c1",
+                        page_number=1,
+                        text="Clause 1",
+                        heading_path=["Part 1"],
+                        block_roles=["clause"],
+                    ),
+                ]
+            }
+        },
+    )
+
+    record = artifacts.corpus_records[0]
+
+    assert record.parser_provenance == "opendataloader:tagged"
+    assert record.heading_path == ["Part 1"]
+    assert record.block_roles == ["heading", "clause"]
+    assert record.source_block_ids == ["h1", "c1"]
+    assert record.blocks[0].metadata["source_block_id"] == "c1"
+    assert record.blocks[0].metadata["block_roles"] == ["clause"]

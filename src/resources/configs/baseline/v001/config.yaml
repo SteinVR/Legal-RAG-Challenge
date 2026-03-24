@@ -56,6 +56,14 @@ ingestion:
   scan_image_area_ratio: 0.70
   text_completeness_target_chars: 1500
   encoding_bad_char_threshold: 0.05
+  enable_semantic_table_blocks: false
+  opendataloader_table_method: cluster
+  opendataloader_reading_order: xycut
+  opendataloader_hybrid_backend: docling-fast
+  opendataloader_hybrid_mode: auto
+  opendataloader_hybrid_fallback: true
+  opendataloader_hybrid_url: null
+  opendataloader_hybrid_timeout_ms: 30000
 
 page_attribution:
   pass_a_enabled: true

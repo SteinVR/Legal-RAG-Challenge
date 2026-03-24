@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import contextlib
+import importlib.util
 import io
+import shutil
 from dataclasses import dataclass, field
 from hashlib import sha256
 from pathlib import Path
@@ -15,14 +17,20 @@ from src.common.schemas import (
     PageSignal,
     ParsedDocument,
     ParsedPage,
+    ParserRoute,
     ParseStatus,
+    RawParseNode,
+    RawParseSidecar,
+    RawParseTable,
     RawTableRecord,
     SourceMode,
     TriageLabel,
 )
 
 from .ocr_engine import OcrEngine, OcrPageResult, OcrUnavailableError, build_ocr_engine
+from .opendataloader_adapter import build_opendataloader_sidecar, route_provenance
 from .page_triage import score_page_quality, triage_page
+from .parser_routing import DocumentStructuralProfile, ParserAvailability, resolve_parser_route
 
 COURT_MARKERS = (
     "COURT OF",
@@ -46,6 +54,16 @@ LEGAL_MARKERS = (
     "order",
     "decision",
     "regulation",
+)
+
+_OPEN_DATALOADER_PACKAGE_PATH = (
+    Path(__file__).resolve().parents[2]
+    / "external"
+    / "opendataloader-pdf"
+    / "python"
+    / "opendataloader-pdf"
+    / "src"
+    / "opendataloader_pdf"
 )
 
 
@@ -80,9 +98,16 @@ def parse_pdf_document(
         document_title = metadata_title
         document_family = "other_legal_document"
         pages: list[ParsedPage] = []
+        page_geometry: dict[int, list[float]] = {}
 
         for page in document:
             page_number = page.number + 1
+            page_geometry[page_number] = [
+                float(page.rect.x0),
+                float(page.rect.y0),
+                float(page.rect.x1),
+                float(page.rect.y1),
+            ]
             native_text = page.get_text("text").strip()
             native_text_blocks = _extract_text_blocks(page)
             native_tables = _extract_table_candidates(path.stem, page_number, page, native_text_blocks)
@@ -143,10 +168,19 @@ def parse_pdf_document(
                 )
             )
 
+        parser_route = _resolve_document_route(document, pages, config)
+
     document_status = (
         ParseStatus.PARSED
         if all(page.parse_status is ParseStatus.PARSED for page in pages)
         else ParseStatus.DEGRADED
+    )
+    parser_provenance, raw_parse_sidecars = _build_raw_parse_sidecars(
+        doc_id=path.stem,
+        pages=pages,
+        page_geometry=page_geometry,
+        parser_route=parser_route,
+        config=config,
     )
 
     return ParsedDocument(
@@ -157,6 +191,8 @@ def parse_pdf_document(
         document_title=document_title,
         document_family=document_family,
         parse_status=document_status,
+        parser_provenance=parser_provenance,
+        raw_parse_sidecars=raw_parse_sidecars,
         pages=pages,
     )
 
@@ -412,6 +448,133 @@ def _sha256_for_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1_048_576), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _build_pymupdf_sidecar(
+    *,
+    doc_id: str,
+    pages: list[ParsedPage],
+    page_geometry: dict[int, list[float]],
+    parser_route: ParserRoute,
+) -> RawParseSidecar:
+    nodes: list[RawParseNode] = []
+    tables: list[RawParseTable] = []
+    for page in pages:
+        for block_index, text_block in enumerate(page.text_blocks, start=1):
+            nodes.append(
+                RawParseNode(
+                    node_id=f"{doc_id}-p{page.page_number}-b{block_index}",
+                    kind="paragraph",
+                    page_number=page.page_number,
+                    text=text_block,
+                    bbox=None,
+                )
+            )
+        for table in page.tables:
+            tables.append(
+                RawParseTable(
+                    table_id=table.table_id,
+                    page_number=table.page_number,
+                    bbox=None,
+                    raw_json={"rows": table.rows} if table.rows else None,
+                    raw_html=table.raw_html,
+                    linked_context_block_id=None,
+                )
+            )
+
+    return RawParseSidecar(
+        doc_id=doc_id,
+        parser_name="pymupdf",
+        parser_route=parser_route,
+        parser_provenance="pymupdf:native",
+        page_count=len(pages),
+        page_geometry=page_geometry,
+        diagnostics={},
+        route_decisions=[f"{parser_route.value}_selected"],
+        nodes=nodes,
+        tables=tables,
+    )
+
+
+def _build_raw_parse_sidecars(
+    *,
+    doc_id: str,
+    pages: list[ParsedPage],
+    page_geometry: dict[int, list[float]],
+    parser_route: ParserRoute,
+    config: AppConfig,
+) -> tuple[str, dict[str, RawParseSidecar]]:
+    pymupdf_sidecar = _build_pymupdf_sidecar(
+        doc_id=doc_id,
+        pages=pages,
+        page_geometry=page_geometry,
+        parser_route=parser_route,
+    )
+    if parser_route is ParserRoute.BASELINE_FALLBACK:
+        return "pymupdf:native", {"pymupdf": pymupdf_sidecar}
+
+    structural_sidecar = build_opendataloader_sidecar(
+        doc_id=doc_id,
+        pages=pages,
+        page_geometry=page_geometry,
+        parser_route=parser_route,
+        config=config,
+    )
+    return route_provenance(parser_route), {
+        "pymupdf": pymupdf_sidecar,
+        "opendataloader": structural_sidecar,
+    }
+
+
+def _resolve_document_route(document: fitz.Document, pages: list[ParsedPage], config: AppConfig) -> ParserRoute:
+    profile = DocumentStructuralProfile(
+        has_struct_tree=_has_struct_tree(document),
+        born_digital=_is_born_digital(pages, config),
+        layout_complex=_is_layout_complex(pages),
+    )
+    availability = _parser_availability(config)
+    return resolve_parser_route(profile, availability)
+
+
+def _parser_availability(config: AppConfig) -> ParserAvailability:
+    opendataloader_available = _is_opendataloader_available()
+    hybrid_backend_healthy = (
+        opendataloader_available
+        and config.ingestion.opendataloader_hybrid_backend != "off"
+        and bool((config.ingestion.opendataloader_hybrid_url or "").strip())
+    )
+    return ParserAvailability(
+        opendataloader_available=opendataloader_available,
+        hybrid_backend_healthy=hybrid_backend_healthy,
+    )
+
+
+def _is_opendataloader_available() -> bool:
+    has_python_package = importlib.util.find_spec("opendataloader_pdf") is not None
+    has_vendored_adapter = _OPEN_DATALOADER_PACKAGE_PATH.exists()
+    has_java_runtime = shutil.which("java") is not None
+    return has_python_package or has_vendored_adapter or has_java_runtime
+
+
+def _has_struct_tree(document: fitz.Document) -> bool:
+    try:
+        catalog_xref = document.pdf_catalog()
+        key_type, value = document.xref_get_key(catalog_xref, "StructTreeRoot")
+    except Exception:
+        return False
+    return key_type != "null" and bool(str(value).strip())
+
+
+def _is_born_digital(pages: list[ParsedPage], config: AppConfig) -> bool:
+    native_chars = sum(len((page.native_text or "").strip()) for page in pages)
+    return native_chars >= config.ingestion.extractable_text_min_chars
+
+
+def _is_layout_complex(pages: list[ParsedPage]) -> bool:
+    return any(
+        page.signals.table_count > 0 or page.signals.drawing_count > 0 or page.signals.image_block_count > 0
+        for page in pages
+    )
 
 
 DocumentParseResult = ParsedDocument

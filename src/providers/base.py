@@ -30,3 +30,19 @@ class FreeTextProvider(Protocol):
         reasoning_effort: str,
     ) -> Mapping[str, Any]:
         """Generate a schema-bound structured answer when supported."""
+
+
+class StructuredOutputProvider(Protocol):
+    """Minimal contract for generic schema-bound structured generation."""
+
+    def generate_structured(
+        self,
+        *,
+        schema_name: str,
+        schema: dict[str, object],
+        system_prompt: str,
+        user_prompt: str,
+        max_output_tokens: int,
+        reasoning_effort: str = "medium",
+    ) -> Mapping[str, Any]:
+        """Generate a structured JSON payload that matches the provided schema."""

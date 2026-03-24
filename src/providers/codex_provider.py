@@ -57,16 +57,11 @@ class CodexFreeTextProvider:
         if self.max_output_tokens <= 0:
             raise ValueError("max_output_tokens must be positive.")
 
-        self._client = httpx.Client(
-            base_url=self.base_url.rstrip("/") + "/",
-            headers={
-                "Authorization": f"Bearer {token}",
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "User-Agent": self.user_agent,
-            },
-            timeout=httpx.Timeout(self.timeout_seconds),
-            follow_redirects=True,
+        self._client = _build_http_client(
+            token=token,
+            base_url=self.base_url,
+            user_agent=self.user_agent,
+            timeout_seconds=self.timeout_seconds,
             transport=self.transport,
         )
 
@@ -221,6 +216,120 @@ class CodexFreeTextProvider:
 
     def __exit__(self, *_: object) -> None:
         self.close()
+
+
+@dataclass(slots=True)
+class CodexStructuredOutputProvider:
+    """HTTP provider that requests schema-bound structured outputs."""
+
+    model: str = DEFAULT_CODEX_MODEL
+    base_url: str = DEFAULT_CODEX_BASE_URL
+    api_key: str | None = None
+    timeout_seconds: float = 60.0
+    user_agent: str = "agentic-rag-challenge/0.1.0"
+    transport: httpx.BaseTransport | None = None
+    _client: httpx.Client = field(init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        token = _resolve_provider_token(self.api_key)
+        if not token:
+            raise ValueError(
+                "Codex provider token is missing. Set CODEX_OAUTH_TOKEN, OPENAI_API_KEY, "
+                "or pass api_key explicitly."
+            )
+        if self.timeout_seconds <= 0:
+            raise ValueError("timeout_seconds must be positive.")
+        self._client = _build_http_client(
+            token=token,
+            base_url=self.base_url,
+            user_agent=self.user_agent,
+            timeout_seconds=self.timeout_seconds,
+            transport=self.transport,
+        )
+
+    def generate_structured(
+        self,
+        *,
+        schema_name: str,
+        schema: dict[str, object],
+        system_prompt: str,
+        user_prompt: str,
+        max_output_tokens: int,
+        reasoning_effort: str = "medium",
+    ) -> dict[str, Any]:
+        if max_output_tokens <= 0:
+            raise ValueError("max_output_tokens must be positive.")
+
+        response = self._client.post(
+            "responses",
+            json={
+                "model": self.model,
+                "input": [
+                    {
+                        "role": "system",
+                        "content": [{"type": "input_text", "text": system_prompt}],
+                    },
+                    {
+                        "role": "user",
+                        "content": [{"type": "input_text", "text": user_prompt}],
+                    },
+                ],
+                "reasoning": {"effort": reasoning_effort},
+                "text": {
+                    "format": {
+                        "type": "json_schema",
+                        "name": schema_name,
+                        "schema": schema,
+                        "strict": True,
+                    }
+                },
+                "max_output_tokens": max_output_tokens,
+            },
+        )
+        response.raise_for_status()
+        payload = response.json()
+        if not isinstance(payload, dict):
+            raise ValueError("Provider response must be a JSON object.")
+
+        response_text = _extract_response_text(payload)
+        try:
+            parsed = json.loads(response_text)
+        except json.JSONDecodeError as exc:
+            raise ValueError("Provider structured payload is not valid JSON.") from exc
+        if not isinstance(parsed, dict):
+            raise ValueError("Provider structured payload must be a JSON object.")
+        return parsed
+
+    def close(self) -> None:
+        self._client.close()
+
+    def __enter__(self) -> "CodexStructuredOutputProvider":
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        self.close()
+
+
+def _build_http_client(
+    *,
+    token: str,
+    base_url: str,
+    user_agent: str,
+    timeout_seconds: float,
+    transport: httpx.BaseTransport | None,
+) -> httpx.Client:
+    return httpx.Client(
+        base_url=base_url.rstrip("/") + "/",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": user_agent,
+        },
+        timeout=httpx.Timeout(timeout_seconds),
+        follow_redirects=True,
+        transport=transport,
+    )
 
 
 def _resolve_provider_token(explicit_token: str | None) -> str:

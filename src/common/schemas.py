@@ -53,6 +53,15 @@ class ParseStatus(StrEnum):
     FAILED = "failed"
 
 
+class ParserRoute(StrEnum):
+    """Selected parser route for structural ingestion."""
+
+    TAGGED = "tagged"
+    HYBRID = "hybrid"
+    LOCAL_ONLY = "local_only"
+    BASELINE_FALLBACK = "baseline_fallback"
+
+
 class ContentBlockType(StrEnum):
     """Retrieval-facing block type inside a canonical page record."""
 
@@ -115,6 +124,16 @@ class SerializedTableBlock(BaseModel):
     legal_context: list[str] = Field(default_factory=list)
 
 
+class SemanticTableBlock(BaseModel):
+    """Semantic retrieval block produced from table serialization."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    block_id: str
+    text: str
+    source_page_number: int = Field(ge=1)
+
+
 class TableBlock(BaseModel):
     """Structured table representation preserved in the canonical corpus."""
 
@@ -126,6 +145,7 @@ class TableBlock(BaseModel):
     raw_html: str | None = None
     header_signature: list[str] = Field(default_factory=list)
     serialized_blocks: list[SerializedTableBlock] = Field(default_factory=list)
+    semantic_blocks: list[SemanticTableBlock] = Field(default_factory=list)
 
 
 class RawTableRecord(BaseModel):
@@ -172,6 +192,63 @@ class RawTableRecord(BaseModel):
     @property
     def context_after(self) -> list[str]:
         return self.following_context
+
+
+class RawParseNode(BaseModel):
+    """Typed structural node preserved in parser sidecars."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    node_id: str
+    kind: str
+    page_number: int = Field(ge=1)
+    text: str
+    bbox: list[float] | None = None
+    heading_level: int | None = None
+    linked_content_id: str | None = None
+
+
+class RawParseTable(BaseModel):
+    """Raw table object preserved in parser sidecars."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    table_id: str
+    page_number: int = Field(ge=1)
+    bbox: list[float] | None = None
+    raw_json: dict[str, Any] | None = None
+    raw_html: str | None = None
+    linked_context_block_id: str | None = None
+
+
+class RawParseSidecar(BaseModel):
+    """Sidecar artifact preserving parser-native structural outputs."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    doc_id: str
+    parser_name: str
+    parser_route: ParserRoute
+    parser_provenance: str
+    page_count: int = Field(ge=0)
+    page_geometry: dict[int, list[float]] = Field(default_factory=dict)
+    diagnostics: dict[str, Any] = Field(default_factory=dict)
+    route_decisions: list[str] = Field(default_factory=list)
+    nodes: list[RawParseNode] = Field(default_factory=list)
+    tables: list[RawParseTable] = Field(default_factory=list)
+
+
+class NormalizedStructuralBlock(BaseModel):
+    """Normalized structural block consumed by canonical corpus assembly."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    source_block_id: str
+    page_number: int = Field(ge=1)
+    text: str
+    heading_path: list[str] = Field(default_factory=list)
+    block_roles: list[str] = Field(default_factory=list)
+    linked_content_id: str | None = None
 
 
 class PageSignal(BaseModel):
@@ -240,6 +317,8 @@ class ParsedDocument(BaseModel):
     document_family: str | None = None
     parse_status: ParseStatus = ParseStatus.PARSED
     failure_reason: str | None = None
+    parser_provenance: str | None = None
+    raw_parse_sidecars: dict[str, RawParseSidecar] = Field(default_factory=dict)
     pages: list[ParsedPage] = Field(default_factory=list)
 
 
@@ -270,6 +349,10 @@ class CanonicalPageRecord(BaseModel):
     parse_status: ParseStatus = ParseStatus.PARSED
     quality_score: float = Field(ge=0.0, le=1.0)
     quality_flags: list[str] = Field(default_factory=list)
+    parser_provenance: str | None = None
+    heading_path: list[str] = Field(default_factory=list)
+    block_roles: list[str] = Field(default_factory=list)
+    source_block_ids: list[str] = Field(default_factory=list)
     text: str
     blocks: list[ContentBlock] = Field(default_factory=list)
     table_ids: list[str] = Field(default_factory=list)
