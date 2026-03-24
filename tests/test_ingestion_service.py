@@ -7,6 +7,16 @@ import fitz
 
 from src.common.config import AppConfig
 from src.common.runtime_logging import configure_runtime_logging, shutdown_runtime_logging
+from src.common.schemas import (
+    PageSignal,
+    ParsedDocument,
+    ParsedPage,
+    ParserRoute,
+    ParseStatus,
+    RawParseSidecar,
+    SourceMode,
+    TriageLabel,
+)
 from src.ingestion.ocr_engine import OcrPageResult, OcrTableExtraction
 from src.ingestion.pdf_parser import DocumentParser
 from src.ingestion.service import CorpusParseService
@@ -150,6 +160,69 @@ def test_corpus_parse_service_rebuilds_when_debug_artifact_is_missing(tmp_path: 
     assert second_result.written_paths
     assert not second_result.skipped_paths
     assert debug_path.exists()
+
+
+def test_corpus_parse_service_rebuilds_when_required_structural_sidecar_is_missing(
+    tmp_path: Path, monkeypatch
+) -> None:
+    config = _config(tmp_path)
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+
+    service = CorpusParseService(config)
+    parsed = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        parser_provenance="opendataloader:hybrid",
+        raw_parse_sidecars={
+            "pymupdf": RawParseSidecar(
+                doc_id="alpha",
+                parser_name="pymupdf",
+                parser_route=ParserRoute.HYBRID,
+                parser_provenance="pymupdf:native",
+                page_count=1,
+                page_geometry={1: [0.0, 0.0, 612.0, 792.0]},
+                diagnostics={},
+                route_decisions=["hybrid_selected"],
+                nodes=[],
+                tables=[],
+            ),
+            "opendataloader": RawParseSidecar(
+                doc_id="alpha",
+                parser_name="opendataloader",
+                parser_route=ParserRoute.HYBRID,
+                parser_provenance="opendataloader:hybrid",
+                page_count=1,
+                page_geometry={1: [0.0, 0.0, 612.0, 792.0]},
+                diagnostics={},
+                route_decisions=["hybrid_selected"],
+                nodes=[],
+                tables=[],
+            ),
+        },
+        pages=[_parsed_page("alpha", 1, "DIFC LAW NO. 1\nArticle 1")],
+    )
+    monkeypatch.setattr(service.parser, "parse_document", lambda _pdf_path: parsed)
+
+    first_result = service.parse_corpus(overwrite=True)
+    assert first_result.parsed_document_count == 1
+
+    structural_sidecar = (
+        tmp_path / "data" / "warmup" / "corpus" / "raw_parse" / "opendataloader" / "alpha.json"
+    )
+    structural_sidecar.unlink()
+
+    second_result = service.parse_corpus(overwrite=False)
+
+    assert second_result.written_paths
+    assert not second_result.skipped_paths
+    assert structural_sidecar.exists()
 
 
 def test_corpus_parse_service_skips_when_artifacts_are_complete(tmp_path: Path) -> None:
@@ -317,3 +390,160 @@ def test_corpus_parse_service_rebuilds_full_run_when_non_failed_debug_is_missing
     assert rebuilt.written_paths
     assert not rebuilt.skipped_paths
     assert debug_path.exists()
+
+
+def _parsed_page(doc_id: str, page_number: int, text: str) -> ParsedPage:
+    return ParsedPage(
+        doc_id=doc_id,
+        page_number=page_number,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        triage_label=TriageLabel.NATIVE_CLEAN,
+        source_mode=SourceMode.NATIVE,
+        parse_status=ParseStatus.PARSED,
+        text=text,
+        native_text=text,
+        ocr_text=None,
+        text_blocks=[text],
+        quality_score=0.95,
+        quality_flags=[],
+        signals=PageSignal(
+            text_char_count=len(text),
+            word_count=len(text.split()),
+            image_block_count=0,
+            max_image_area_ratio=0.0,
+            drawing_count=0,
+            table_count=0,
+            legal_marker_count=1,
+            bad_char_ratio=0.0,
+        ),
+        tables=[],
+    )
+
+
+def test_parse_corpus_writes_raw_parse_sidecars_for_current_and_structural_parsers(
+    tmp_path: Path, monkeypatch
+) -> None:
+    config = _config(tmp_path)
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+
+    service = CorpusParseService(config)
+
+    parsed = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        parser_provenance="opendataloader:hybrid",
+        raw_parse_sidecars={
+            "pymupdf": RawParseSidecar(
+                doc_id="alpha",
+                parser_name="pymupdf",
+                parser_route=ParserRoute.BASELINE_FALLBACK,
+                parser_provenance="pymupdf:native",
+                page_count=1,
+                page_geometry={1: [0.0, 0.0, 612.0, 792.0]},
+                diagnostics={},
+                route_decisions=["baseline_selected"],
+                nodes=[],
+                tables=[],
+            ),
+            "opendataloader": RawParseSidecar(
+                doc_id="alpha",
+                parser_name="opendataloader",
+                parser_route=ParserRoute.HYBRID,
+                parser_provenance="opendataloader:hybrid",
+                page_count=1,
+                page_geometry={1: [0.0, 0.0, 612.0, 792.0]},
+                diagnostics={"hybrid_backend": "healthy"},
+                route_decisions=["hybrid_selected"],
+                nodes=[],
+                tables=[],
+            ),
+        },
+        pages=[_parsed_page("alpha", 1, "DIFC LAW NO. 1\nArticle 1")],
+    )
+
+    monkeypatch.setattr(service.parser, "parse_document", lambda _pdf_path: parsed)
+
+    service.parse_corpus(overwrite=True)
+
+    current_sidecar = tmp_path / "data" / "warmup" / "corpus" / "raw_parse" / "pymupdf" / "alpha.json"
+    structural_sidecar = (
+        tmp_path / "data" / "warmup" / "corpus" / "raw_parse" / "opendataloader" / "alpha.json"
+    )
+
+    assert current_sidecar.exists()
+    assert structural_sidecar.exists()
+    assert json.loads(structural_sidecar.read_text(encoding="utf-8"))["parser_route"] == "hybrid"
+
+
+def test_corpus_parse_service_passes_structured_provider_when_semantic_table_blocks_enabled(
+    tmp_path: Path, monkeypatch
+) -> None:
+    config = AppConfig.model_validate(
+        {
+            "storage": {"root_dir": str(tmp_path / "data")},
+            "ingestion": {"enable_ocr": False, "enable_semantic_table_blocks": True},
+        }
+    )
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True, exist_ok=True)
+    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+
+    structured_provider = object()
+    monkeypatch.setattr(
+        "src.ingestion.service.CorpusParseService._build_structured_provider",
+        lambda self: structured_provider,
+    )
+
+    service = CorpusParseService(config)
+    parsed = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        parser_provenance="pymupdf:native",
+        raw_parse_sidecars={
+            "pymupdf": RawParseSidecar(
+                doc_id="alpha",
+                parser_name="pymupdf",
+                parser_route=ParserRoute.BASELINE_FALLBACK,
+                parser_provenance="pymupdf:native",
+                page_count=1,
+                page_geometry={1: [0.0, 0.0, 612.0, 792.0]},
+                diagnostics={},
+                route_decisions=["baseline_selected"],
+                nodes=[],
+                tables=[],
+            )
+        },
+        pages=[_parsed_page("alpha", 1, "DIFC LAW NO. 1\nArticle 1")],
+    )
+    monkeypatch.setattr(service.parser, "parse_document", lambda _pdf_path: parsed)
+
+    captured: dict[str, object] = {}
+
+    def fake_serialize_document_tables(document, *, enable_semantic_blocks, structured_provider):
+        captured["doc_id"] = document.doc_id
+        captured["enable_semantic_blocks"] = enable_semantic_blocks
+        captured["structured_provider"] = structured_provider
+        return {}
+
+    monkeypatch.setattr("src.ingestion.service.serialize_document_tables", fake_serialize_document_tables)
+
+    service.parse_corpus(overwrite=True)
+
+    assert captured == {
+        "doc_id": "alpha",
+        "enable_semantic_blocks": True,
+        "structured_provider": structured_provider,
+    }

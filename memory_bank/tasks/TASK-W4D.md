@@ -73,6 +73,7 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
 
 - Depends on stable query-prefilter outputs from `TASK-W4B`.
 - Depends on the chunk families and schema enrichments that `TASK-W4C` freezes as accepted.
+- Treat semantic-table artifacts from `TASK-W4C` as accepted candidate-only inputs until retrieval A/B explicitly promotes them; do not infer retrieval-default from artifact availability.
 - Must remain compatible with the page-attribution contract from `TASK-W4A`.
 - Must publish a stable multi-document retrieval path before `TASK-W4E` is accepted.
 

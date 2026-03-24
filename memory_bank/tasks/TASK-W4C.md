@@ -17,7 +17,7 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 
 ## Required interfaces and artifacts
 
-- Raw sidecars under `data/{phase}/raw_parse/...` for the current parser and the structural parser branch.
+- Raw sidecars under `data/{phase}/corpus/raw_parse/...` for the current parser and the structural parser branch.
 - Required sidecar format: JSON.
 - Sidecars must preserve:
   - parser provenance;
@@ -85,7 +85,7 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 
 **Title**: Structural parser branch, normalization & table enrichment  
 **Description**: Add a routed structural parser branch with JSON sidecars, richer normalization, and benchmark-gated semantic table enrichment while preserving the canonical page corpus.  
-**Status**: Planned  
+**Status**: Done
 **Wave**: Wave 4 -- Baseline Recovery & Structural Upgrade
 
 ## 2. Scope
@@ -107,11 +107,11 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 
 ## 3. Implementation Plan
 
-- Define parser routing and provenance surfaces.
-- Add JSON sidecar persistence and debug/trace linkage.
-- Implement normalization rules for headings, lists, captions, and parser-visible artifacts.
-- Preserve table artifacts in structural, canonical, and semantic forms.
-- Run parser and table-enrichment comparisons to decide which enrichments graduate into stable downstream use.
+- Implemented parser routing and provenance surfaces.
+- Added JSON sidecar persistence and debug/trace linkage.
+- Implemented normalization rules for headings, lists, captions, and parser-visible artifacts.
+- Preserved table artifacts in structural, canonical, and semantic forms.
+- Froze the downstream contract for `TASK-W4D` so retrieval adoption decisions are explicit rather than inferred from artifact existence.
 
 ## Source References & Adaptation Map
 
@@ -124,7 +124,7 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 - `external/opendataloader-pdf/python/opendataloader-pdf/src/opendataloader_pdf/wrapper.py` — Python-Java bridge. Each `convert()` call spawns a JVM process. Batch only documents that share the same resolved parser route and option set; do not mix tagged, hybrid, and local-only documents in one invocation.
 
 **Integration pattern:**
-1. Run parser arbitration first, then call `opendataloader_pdf.convert()` on per-route batches or single documents with a homogeneous option set → JSON sidecars in `data/{phase}/raw_parse/opendataloader/`.
+1. Run parser arbitration first, then call `opendataloader_pdf.convert()` on per-route batches or single documents with a homogeneous option set → JSON sidecars in `data/{phase}/corpus/raw_parse/opendataloader/`.
 2. Parse JSON sidecars using schema.json structure → extract typed nodes with bbox, page numbers, heading levels, table structure, caption links.
 3. Map parsed nodes into current `CanonicalPageRecord` enrichments (parser provenance, heading path, block roles, source block IDs).
 
@@ -155,7 +155,7 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 ### New code
 
 - Parser arbitration router (routes PDFs/pages to tagged, hybrid, local-only, or current parser based on structure tree presence, Docling health, and triage signals).
-- JSON sidecar persistence layer (write/read `data/{phase}/raw_parse/` artifacts).
+- JSON sidecar persistence layer (write/read `data/{phase}/corpus/raw_parse/` artifacts).
 - Structural normalization layer (typed nodes from opendataloader-pdf JSON → legal-friendly blocks with heading hierarchy, list nesting, caption linkage, artifact cleaning).
 - Benchmark gate for semantic table serialization (A/B comparison, kill switch).
 
@@ -167,5 +167,33 @@ The task must remain disciplined: richer parser artifacts are useful only if the
 
 ## 5. Outcome
 
-**Result target**: Stable structural parser branch plus additive canonical enrichments and benchmark-gated table enrichment artifacts.  
-**Next action**: Freeze any accepted schema/chunk additions for `TASK-W4D` consumption.
+**Result**: Completed on 2026-03-24. `W4C` now ships routed structural sidecars, additive canonical enrichments, benchmark-gated semantic table artifacts, and an explicit downstream freeze for `TASK-W4D`.
+**Next action**: `TASK-W4D` consumes the frozen contract below and decides retrieval adoption/defaults by A/B rather than by artifact existence.
+
+### Frozen downstream contract
+
+Guaranteed additive schema enrichments on `CanonicalPageRecord`:
+- `parser_provenance`
+- `heading_path`
+- `block_roles`
+- `source_block_ids`
+
+Guaranteed artifact families:
+- `data/{phase}/corpus/raw_parse/pymupdf/{doc_id}.json` for every successfully parsed document
+- `data/{phase}/corpus/raw_parse/opendataloader/{doc_id}.json` for documents whose selected route is not `baseline_fallback`
+- normalized structural blocks derived from `opendataloader` sidecars when that sidecar exists
+
+Guaranteed table artifacts:
+- `TableBlock.serialized_blocks` is the authoritative row-level table output from `W4C`
+- `TableBlock.semantic_blocks` is a required candidate artifact path behind `enable_semantic_table_blocks`
+- semantic blocks never replace row-level output inside `W4C`; they augment it
+
+Accepted chunk-family inputs for `TASK-W4D`:
+- existing retrieval families remain accepted and stable: `page`, `section`, `clause`, `microchunk`, and row-level `table`
+- semantic-table is frozen as an accepted candidate-only family for retrieval experiments and embedding-quality review
+- `TASK-W4D` owns whether semantic-table becomes enabled or default in retrieval/indexing
+
+Rejected or out-of-scope for the `W4C` freeze:
+- automatic semantic-table retrieval-default
+- annex/schedule-specific chunk families
+- parser-native JSON as a replacement for the canonical page corpus

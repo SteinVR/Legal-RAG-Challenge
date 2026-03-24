@@ -78,7 +78,10 @@ class PaddleOcrEngine:
         if channels == 4:
             image = image[:, :, :3]
 
-        results = ocr_client.predict(image)
+        try:
+            results = ocr_client.predict(image)
+        except Exception as exc:
+            raise OcrUnavailableError("PaddleOCR runtime failed during page prediction.") from exc
         lines = _extract_ocr_lines_v3(results) if results else []
         text_blocks = [line.text for line in lines]
         table_candidates = _extract_tables_from_lines(lines, page.number + 1)

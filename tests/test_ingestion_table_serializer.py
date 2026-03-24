@@ -443,3 +443,122 @@ def test_serialize_document_tables_merges_headerless_tables_with_continuation_cu
     assert merged.table_id == "alpha-p1-t1"
     assert merged.page_span == [1, 2]
     assert [block.source_page_number for block in merged.serialized_blocks] == [1, 2]
+
+
+class StubStructuredProvider:
+    def __init__(self) -> None:
+        self.calls: list[dict[str, object]] = []
+
+    def generate_structured(
+        self,
+        *,
+        schema_name: str,
+        schema: dict[str, object],
+        system_prompt: str,
+        user_prompt: str,
+        max_output_tokens: int,
+        reasoning_effort: str = "medium",
+    ) -> dict[str, object]:
+        self.calls.append(
+            {
+                "schema_name": schema_name,
+                "schema": schema,
+                "system_prompt": system_prompt,
+                "user_prompt": user_prompt,
+                "max_output_tokens": max_output_tokens,
+                "reasoning_effort": reasoning_effort,
+            }
+        )
+        return {
+            "blocks": [
+                {
+                    "block_id": "alpha-p1-t1-semantic-1",
+                    "text": "Fee amount is 10 under the schedule of fees.",
+                    "source_page_number": 1,
+                }
+            ]
+        }
+
+
+def test_serialize_document_tables_skips_semantic_blocks_when_kill_switch_is_disabled() -> None:
+    provider = StubStructuredProvider()
+    document = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        pages=[
+            _page(
+                1,
+                tables=[
+                    RawTableRecord(
+                        table_id="alpha-p1-t1",
+                        page_number=1,
+                        rows=[["Type", "Amount"], ["Fee", "10"]],
+                        row_page_numbers=[1, 1],
+                        has_header=True,
+                        raw_markdown="| Type | Amount |\n| --- | --- |\n| Fee | 10 |",
+                        raw_html="<table></table>",
+                        header_signature=["Type", "Amount"],
+                        caption="Schedule of fees",
+                    )
+                ],
+            )
+        ],
+    )
+
+    page_map = serialize_document_tables(
+        document,
+        enable_semantic_blocks=False,
+        structured_provider=provider,
+    )
+
+    assert provider.calls == []
+    assert page_map[1][0].semantic_blocks == []
+    assert [block.block_id for block in page_map[1][0].serialized_blocks] == ["alpha-p1-t1-row-1"]
+
+
+def test_serialize_document_tables_emits_semantic_blocks_without_replacing_row_level_output() -> None:
+    provider = StubStructuredProvider()
+    document = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        pages=[
+            _page(
+                1,
+                tables=[
+                    RawTableRecord(
+                        table_id="alpha-p1-t1",
+                        page_number=1,
+                        rows=[["Type", "Amount"], ["Fee", "10"]],
+                        row_page_numbers=[1, 1],
+                        has_header=True,
+                        raw_markdown="| Type | Amount |\n| --- | --- |\n| Fee | 10 |",
+                        raw_html="<table></table>",
+                        header_signature=["Type", "Amount"],
+                        caption="Schedule of fees",
+                    )
+                ],
+            )
+        ],
+    )
+
+    page_map = serialize_document_tables(
+        document,
+        enable_semantic_blocks=True,
+        structured_provider=provider,
+    )
+    table_block = page_map[1][0]
+
+    assert len(provider.calls) == 1
+    assert [block.block_id for block in table_block.serialized_blocks] == ["alpha-p1-t1-row-1"]
+    assert [block.block_id for block in table_block.semantic_blocks] == ["alpha-p1-t1-semantic-1"]
+    assert table_block.raw_html == "<table></table>"

@@ -1,6 +1,6 @@
 # About This Directory
-Purpose: Provider abstraction for free-text generation.
-Contains: The provider protocol and the concrete Codex-backed implementation.
-Start Here: `base.py` for the contract, then `codex_provider.py` for the actual HTTP integration.
+Purpose: Provider abstraction for free-text and schema-bound structured generation.
+Contains: Provider protocols and Codex-backed HTTP implementations for free-text and structured outputs.
+Start Here: `base.py` for contracts, then `codex_provider.py` for `/responses` integrations.
 Key Files/Dirs: `base.py`, `codex_provider.py`.
-Notes: This directory only covers the free-text generation backend, not retrieval or deterministic extraction.
+Notes: This directory covers generation providers only; retrieval and deterministic extraction live outside.

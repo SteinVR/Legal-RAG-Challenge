@@ -105,12 +105,27 @@ class IngestionSettings(BaseModel):
     scan_image_area_ratio: float = 0.70
     text_completeness_target_chars: int = 1500
     encoding_bad_char_threshold: float = 0.05
+    enable_semantic_table_blocks: bool = False
+    opendataloader_table_method: Literal["default", "cluster"] = "cluster"
+    opendataloader_reading_order: Literal["off", "xycut"] = "xycut"
+    opendataloader_hybrid_backend: Literal["off", "docling-fast"] = "docling-fast"
+    opendataloader_hybrid_mode: Literal["auto", "full"] = "auto"
+    opendataloader_hybrid_fallback: bool = True
+    opendataloader_hybrid_url: str | None = None
+    opendataloader_hybrid_timeout_ms: int = 30_000
 
     @field_validator("extractable_text_min_chars", "suspicious_text_max_chars", "text_completeness_target_chars")
     @classmethod
     def ensure_positive_int(cls, value: int) -> int:
         if value <= 0:
             raise ValueError("ingestion integer thresholds must be positive.")
+        return value
+
+    @field_validator("opendataloader_hybrid_timeout_ms")
+    @classmethod
+    def ensure_positive_timeout_ms(cls, value: int) -> int:
+        if value <= 0:
+            raise ValueError("ingestion opendataloader_hybrid_timeout_ms must be positive.")
         return value
 
     @field_validator("large_image_area_ratio", "scan_image_area_ratio", "encoding_bad_char_threshold")

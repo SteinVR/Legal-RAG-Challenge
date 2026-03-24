@@ -14,6 +14,7 @@ from src.common.schemas import (
     ContentBlockType,
     CorpusParseManifest,
     CorpusParseManifestRecord,
+    NormalizedStructuralBlock,
     PageMapRecord,
     ParseStatus,
     TableBlock,
@@ -25,15 +26,26 @@ from .pdf_parser import ParsedDocument
 def build_canonical_page_records(
     document: ParsedDocument,
     table_blocks_by_page: dict[int, list[TableBlock]],
+    structural_blocks_by_page: dict[int, list[NormalizedStructuralBlock]] | None = None,
 ) -> list[CanonicalPageRecord]:
     """Build canonical page-level records from parsed-page results."""
 
     records: list[CanonicalPageRecord] = []
+    structural_blocks_by_page = structural_blocks_by_page or {}
     for page in document.pages:
-        text_blocks = _text_blocks_for_page(document.doc_id, page.page_number, page.text)
+        page_structural_blocks = structural_blocks_by_page.get(page.page_number, [])
+        text_blocks = _text_blocks_for_page(
+            document.doc_id,
+            page.page_number,
+            page.text,
+            structural_blocks=page_structural_blocks,
+        )
         page_tables = table_blocks_by_page.get(page.page_number, [])
         table_content_blocks = _table_content_blocks_for_page(page.page_number, page_tables)
         table_ids = list(dict.fromkeys(block.table_id for block in table_content_blocks if block.table_id))
+        heading_path = _page_heading_path(page_structural_blocks)
+        block_roles = _page_block_roles(page_structural_blocks)
+        source_block_ids = [block.source_block_id for block in page_structural_blocks]
         records.append(
             CanonicalPageRecord(
                 doc_id=document.doc_id,
@@ -45,6 +57,10 @@ def build_canonical_page_records(
                 parse_status=page.parse_status,
                 quality_score=page.quality_score,
                 quality_flags=page.quality_flags,
+                parser_provenance=document.parser_provenance,
+                heading_path=heading_path,
+                block_roles=block_roles,
+                source_block_ids=source_block_ids,
                 text=page.text,
                 blocks=[*text_blocks, *table_content_blocks],
                 table_ids=table_ids,
@@ -113,6 +129,7 @@ def build_corpus_artifacts(
     phase: str,
     documents: list[ParsedDocument],
     serialized_tables_by_doc: dict[str, dict[int, list[TableBlock]]] | None = None,
+    structural_blocks_by_doc: dict[str, dict[int, list[NormalizedStructuralBlock]]] | None = None,
 ) -> CorpusArtifacts:
     """Build all canonical corpus outputs from parsed documents."""
 
@@ -120,10 +137,17 @@ def build_corpus_artifacts(
     page_map_records: list[PageMapRecord] = []
     manifest_records: list[CorpusParseManifestRecord] = []
     debug_markdown: dict[str, str] = {}
+    serialized_tables_by_doc = serialized_tables_by_doc or {}
+    structural_blocks_by_doc = structural_blocks_by_doc or {}
 
     for document in documents:
-        page_table_map = serialized_tables_by_doc.get(document.doc_id, {}) if serialized_tables_by_doc else {}
-        page_records = build_canonical_page_records(document, page_table_map)
+        page_table_map = serialized_tables_by_doc.get(document.doc_id, {})
+        page_structural_map = structural_blocks_by_doc.get(document.doc_id, {})
+        page_records = build_canonical_page_records(
+            document,
+            page_table_map,
+            structural_blocks_by_page=page_structural_map,
+        )
         table_blocks = _unique_table_blocks(page_table_map)
         corpus_records.extend(page_records)
         page_map_records.append(build_page_map_record(document))
@@ -233,7 +257,13 @@ def _unique_table_blocks(page_table_map: dict[int, list[TableBlock]]) -> list[Ta
     return table_blocks
 
 
-def _text_blocks_for_page(doc_id: str, page_number: int, text: str) -> list[ContentBlock]:
+def _text_blocks_for_page(
+    doc_id: str,
+    page_number: int,
+    text: str,
+    *,
+    structural_blocks: list[NormalizedStructuralBlock] | None = None,
+) -> list[ContentBlock]:
     paragraphs = [paragraph.strip() for paragraph in text.split("\n\n") if paragraph.strip()]
     if not paragraphs and text.strip():
         paragraphs = [text.strip()]
@@ -248,6 +278,7 @@ def _text_blocks_for_page(doc_id: str, page_number: int, text: str) -> list[Cont
                 page_number=page_number,
             )
         )
+    _attach_structural_metadata(blocks, structural_blocks or [])
     return blocks
 
 
@@ -275,6 +306,52 @@ def _table_content_blocks_for_page(page_number: int, table_blocks: list[TableBlo
     return blocks
 
 
+def _attach_structural_metadata(
+    text_blocks: list[ContentBlock],
+    structural_blocks: list[NormalizedStructuralBlock],
+) -> None:
+    if not text_blocks or not structural_blocks:
+        return
+
+    primary = _primary_structural_block(structural_blocks)
+    if primary is None:
+        return
+    for block in text_blocks:
+        block.metadata["source_block_id"] = primary.source_block_id
+        block.metadata["block_roles"] = list(primary.block_roles)
+
+
+def _primary_structural_block(
+    structural_blocks: list[NormalizedStructuralBlock],
+) -> NormalizedStructuralBlock | None:
+    for structural_block in structural_blocks:
+        if "clause" in structural_block.block_roles:
+            return structural_block
+    for structural_block in structural_blocks:
+        if "heading" not in structural_block.block_roles:
+            return structural_block
+    return structural_blocks[0] if structural_blocks else None
+
+
+def _page_heading_path(structural_blocks: list[NormalizedStructuralBlock]) -> list[str]:
+    for structural_block in structural_blocks:
+        if structural_block.heading_path:
+            return list(structural_block.heading_path)
+    return []
+
+
+def _page_block_roles(structural_blocks: list[NormalizedStructuralBlock]) -> list[str]:
+    roles: list[str] = []
+    seen: set[str] = set()
+    for structural_block in structural_blocks:
+        for role in structural_block.block_roles:
+            if role in seen:
+                continue
+            seen.add(role)
+            roles.append(role)
+    return roles
+
+
 CorpusBuildResult = CorpusArtifacts
 
 
@@ -290,9 +367,11 @@ class CorpusBuilder:
         phase: str,
         documents: list[ParsedDocument],
         serialized_tables_by_doc: dict[str, dict[int, list[TableBlock]]] | None = None,
+        structural_blocks_by_doc: dict[str, dict[int, list[NormalizedStructuralBlock]]] | None = None,
     ) -> CorpusArtifacts:
         return build_corpus_artifacts(
             phase=phase,
             documents=documents,
             serialized_tables_by_doc=serialized_tables_by_doc,
+            structural_blocks_by_doc=structural_blocks_by_doc,
         )

@@ -67,6 +67,7 @@
 | 2026-03-23 | Qdrant hybrid (dense+sparse) stays as-is | No separate BM25 system; no architecture change to vector store (TASK-W4D) |
 | 2026-03-23 | Annex/schedule chunk family OUT of scope for Wave 4 | Not in TASK-W4C scope |
 | 2026-03-23 | XY-Cut++ calibration OUT of scope for Wave 4 | Not in TASK-W4C scope |
+| 2026-03-24 | `TASK-W4C` freeze/handoff published for downstream consumers | Guarantees page-level schema enrichments and row-level table outputs; semantic-table is frozen as candidate-only, while retrieval-default remains a `TASK-W4D` decision |
 
 ---
 
@@ -79,3 +80,4 @@
 - 2026-03-23: Canonical target architecture written at `docs/unified_document_processing_architecture.md`; review at `docs/Document_Processing_Architecture_Review.md`. Combines opendataloader-pdf, external/RAG-Challenge-2, and current project design.
 - 2026-03-23: Wave 4 task specs finalized -- TASK-W4A (page attribution), TASK-W4B (typed extraction), TASK-W4C (structural parser), TASK-W4D (retrieval upgrade), TASK-W4E (cross-case orchestration). W4A/W4B/W4C start in parallel. TASKS.md updated with Wave 4 section and dependency graph.
 - 2026-03-24: Canonical architecture rewritten from "extraction-first typed answering" to "retrieval-first, schema-first typed solving with deterministic validation." TASK-W4B completely rewritten; schema registry with `is_answerable`, typed `final_answer`, `relevant_pages`, and short `reasoning_summary` is now the primary post-retrieval path. Deterministic extractors are guardrails. TASK-W4A Pass B now explicitly consumes solver-reported `relevant_pages` as narrowing signal. TASK-W4D retrieval owns solver-ready evidence packaging. TASK-W4E reuses W4B schema registry and validator rules. `codex_provider.py` model fixed from `gpt-5-mini` to `gpt-5.4-mini` (reasoning model).
+- 2026-03-24: `TASK-W4C` delivered its formal downstream freeze. Raw structural sidecars, normalized heading/role/source-id enrichments, and semantic table artifacts are now explicit contracts. Row-level `table` remains the authoritative table family in `W4C`; semantic-table is available as candidate-only input for `TASK-W4D` experiments and embedding review.

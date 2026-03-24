@@ -408,6 +408,8 @@ def test_build_indices_persists_hybrid_index_and_exact_page_parent_map(
     assert len(records) == result.chunk_count
     chunk_types = {record.payload["chunk_type"] for record in records}
     assert {"page", "section", "clause", "microchunk", "table"} <= chunk_types
+    assert "semantic-table" not in chunk_types
+    assert "semantic_table" not in chunk_types
 
     payload_doc_pages = {
         ("alpha", 1),

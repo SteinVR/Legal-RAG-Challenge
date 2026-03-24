@@ -5,7 +5,7 @@ import json
 import httpx
 import pytest
 
-from src.providers.codex_provider import CodexFreeTextProvider
+from src.providers.codex_provider import CodexFreeTextProvider, CodexStructuredOutputProvider
 
 
 def _json_request(request: httpx.Request) -> dict[str, object]:
@@ -116,3 +116,68 @@ def test_codex_provider_requires_auth_token(monkeypatch: pytest.MonkeyPatch) -> 
 
     with pytest.raises(ValueError, match="token"):
         CodexFreeTextProvider(api_key=None)
+
+
+def test_structured_provider_sends_json_schema_payload_and_parses_response() -> None:
+    captured_payloads: list[dict[str, object]] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured_payloads.append(_json_request(request))
+        return httpx.Response(
+            status_code=200,
+            json={
+                "output": [
+                    {
+                        "content": [
+                            {
+                                "type": "output_text",
+                                "text": (
+                                    '{"blocks":[{"block_id":"b1","text":"Fee amount is 10.",'
+                                    '"source_page_number":1}]}'
+                                ),
+                            }
+                        ]
+                    }
+                ]
+            },
+        )
+
+    provider = CodexStructuredOutputProvider(
+        api_key="test-token",
+        transport=httpx.MockTransport(handler),
+    )
+
+    result = provider.generate_structured(
+        schema_name="serialized_table_blocks",
+        schema={
+            "type": "object",
+            "properties": {
+                "blocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "block_id": {"type": "string"},
+                            "text": {"type": "string"},
+                            "source_page_number": {"type": "integer"},
+                        },
+                        "required": ["block_id", "text", "source_page_number"],
+                        "additionalProperties": False,
+                    },
+                }
+            },
+            "required": ["blocks"],
+            "additionalProperties": False,
+        },
+        system_prompt="Create context-independent blocks.",
+        user_prompt="HTML table + surrounding context.",
+        max_output_tokens=300,
+        reasoning_effort="medium",
+    )
+
+    assert result["blocks"][0]["block_id"] == "b1"
+    assert captured_payloads
+    assert captured_payloads[0]["reasoning"] == {"effort": "medium"}
+    text_payload = captured_payloads[0]["text"]
+    assert text_payload["format"]["type"] == "json_schema"
+    assert text_payload["format"]["name"] == "serialized_table_blocks"
