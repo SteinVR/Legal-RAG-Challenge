@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from src.common.config import AppConfig, default_config_path, load_app_config
+from src.common.config import AppConfig, ConfigError, default_config_path, load_app_config
 from src.submission.sync import PhasePaths
 
 
@@ -76,6 +76,51 @@ def test_env_overrides_apply_to_logging_settings(tmp_path: Path, monkeypatch: py
     assert config.logging.directory == tmp_path / "runtime-logs"
     assert config.logging.debug_documents is True
     assert config.logging.debug_questions is True
+
+
+def test_load_app_config_provides_page_attribution_defaults(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.page_attribution.pass_a_enabled is True
+    assert config.page_attribution.suppress_title_pages is True
+    assert config.page_attribution.suppress_repeated_boilerplate is True
+    assert config.page_attribution.validation_mode == "degrade_first"
+    assert config.page_attribution.emit_empty_pages_for_no_answer is True
+    assert config.page_attribution.allow_solver_page_narrowing is True
+
+
+def test_env_overrides_apply_to_page_attribution_settings(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("COMPETITION_PASS_A_ENABLED", "false")
+    monkeypatch.setenv("COMPETITION_PAGE_VALIDATION_MODE", "strict_suppress")
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.page_attribution.pass_a_enabled is False
+    assert config.page_attribution.validation_mode == "strict_suppress"
+
+
+def test_env_override_normalizes_page_validation_mode(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("COMPETITION_PAGE_VALIDATION_MODE", "  STRICT SUPPRESS  ")
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.page_attribution.validation_mode == "strict_suppress"
+
+
+def test_env_override_rejects_invalid_page_validation_mode(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("COMPETITION_PAGE_VALIDATION_MODE", "strict-mode")
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="COMPETITION_PAGE_VALIDATION_MODE"):
+        load_app_config(config_path, env_file=tmp_path / ".env")
 
 
 def test_load_app_config_accepts_lowercase_logging_level_from_yaml(tmp_path: Path) -> None:

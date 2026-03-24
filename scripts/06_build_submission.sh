@@ -3,7 +3,20 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PYTHON="$PROJECT_ROOT/.venv/bin/python"
+GIT_COMMON_DIR="$(git -C "$PROJECT_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+COMMON_ROOT="$PROJECT_ROOT"
+if [ -n "$GIT_COMMON_DIR" ]; then
+    COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
+fi
+
+if [ -x "$COMMON_ROOT/.venv/bin/python" ]; then
+    PYTHON="$COMMON_ROOT/.venv/bin/python"
+elif [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+else
+    echo "FAIL: python runtime missing; expected .venv/bin/python in $PROJECT_ROOT or $COMMON_ROOT"
+    exit 1
+fi
 cd "$PROJECT_ROOT"
 
 export PYTHONPATH=.
@@ -93,7 +106,11 @@ CONTEXT_ARGS=(--config "$CONFIG" --env-file "$ENV_FILE")
 if [ -n "$PHASE_OVERRIDE" ]; then
     CONTEXT_ARGS+=(--phase "$PHASE_OVERRIDE")
 fi
-eval "$("$PYTHON" tools/operator_context.py "${CONTEXT_ARGS[@]}" --format shell)"
+if ! CONTEXT_SHELL="$("$PYTHON" tools/operator_context.py "${CONTEXT_ARGS[@]}" --format shell)"; then
+    echo "FAIL: unable to resolve operator context with $PYTHON"
+    exit 1
+fi
+eval "$CONTEXT_SHELL"
 
 PHASE_QUESTIONS_PATH="$QUESTIONS_PATH"
 PHASE_DOCUMENTS_DIR="$DOCUMENTS_DIR"

@@ -28,9 +28,16 @@ def build_answer_telemetry(
     """
 
     resolved_ttft_ms = float(total_time_ms) if ttft_ms is None else float(ttft_ms)
+    preferred_pages: list[PageReference] | None
+    authoritative_preferred = answer_result.page_trace is not None
+    if answer_result.page_trace is not None:
+        preferred_pages = answer_result.evidence_pages
+    else:
+        preferred_pages = answer_result.evidence_pages or None
     resolved_pages = _coalesce_page_references(
-        preferred=answer_result.evidence_pages,
+        preferred=preferred_pages,
         fallback=retrieval_result.retrieved_chunk_pages,
+        authoritative_preferred=authoritative_preferred,
     )
     retrieved_chunk_pages = [_serialize_page_reference(reference) for reference in resolved_pages]
 
@@ -40,7 +47,10 @@ def build_answer_telemetry(
             "tpot_ms": float(tpot_ms),
             "total_time_ms": float(total_time_ms),
         },
-        "retrieval": {"retrieved_chunk_pages": retrieved_chunk_pages},
+        "retrieval": _build_retrieval_telemetry(
+            retrieved_chunk_pages=retrieved_chunk_pages,
+            answer_result=answer_result,
+        ),
         "usage": {
             "input_tokens": max(int(input_tokens), 0),
             "output_tokens": max(int(output_tokens), 0),
@@ -108,8 +118,12 @@ def _coalesce_page_references(
     *,
     preferred: list[PageReference] | None,
     fallback: list[PageReference] | None,
+    authoritative_preferred: bool = False,
 ) -> list[PageReference]:
-    candidates = preferred if preferred else fallback
+    if authoritative_preferred and preferred is not None:
+        candidates = preferred
+    else:
+        candidates = preferred if preferred else fallback
     if not candidates:
         return []
 
@@ -137,3 +151,27 @@ def _serialize_page_reference(reference: PageReference) -> dict[str, Any]:
         "doc_id": reference.doc_id,
         "page_numbers": list(reference.page_numbers),
     }
+
+
+def _build_retrieval_telemetry(
+    *,
+    retrieved_chunk_pages: list[dict[str, Any]],
+    answer_result: AnswerResult,
+) -> dict[str, Any]:
+    payload: dict[str, Any] = {"retrieved_chunk_pages": retrieved_chunk_pages}
+    page_trace = answer_result.page_trace
+    if page_trace is None:
+        return payload
+
+    payload["raw_retrieved_chunk_pages"] = [
+        _serialize_page_reference(reference) for reference in page_trace.raw_retrieved_chunk_pages
+    ]
+    payload["pass_a_pages"] = [_serialize_page_reference(reference) for reference in page_trace.pass_a_pages]
+    payload["solver_reported_pages"] = [
+        _serialize_page_reference(reference) for reference in page_trace.solver_reported_pages
+    ]
+    payload["page_validation"] = {
+        "action": page_trace.validation_action,
+        "collapsed_answer": page_trace.collapsed_answer,
+    }
+    return payload

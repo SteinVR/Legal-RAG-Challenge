@@ -18,6 +18,19 @@ from src.evaluation.contracts import AnswerType, PageReference
 from src.providers.base import FreeTextProvider
 from src.retrieval.service import RetrievalResult
 
+from .page_attribution import (
+    PageAttributionConfig,
+    PageAttributionTrace,
+    build_page_trace,
+    candidate_pages_from_chunks,
+    finalize_page_attribution,
+    group_page_reference_pairs,
+    prune_candidate_pages,
+)
+from .page_attribution import (
+    flatten_page_references as flatten_attribution_references,
+)
+
 CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER = "There is no information on this question in the provided documents."
 LOGGER = get_logger("answering.service")
 
@@ -243,6 +256,7 @@ class AnswerResult:
     answer: Any
     confidence: float
     evidence_pages: list[PageReference]
+    page_trace: PageAttributionTrace | None = None
 
 
 @dataclass(slots=True)
@@ -268,12 +282,39 @@ DeterministicExtractor = Callable[..., _SolvedAnswer | None]
 class AnsweringService:
     """Extraction-first answer routing with grounded free-text fallback."""
 
-    def __init__(self, *, retriever: Retriever, provider: FreeTextProvider) -> None:
+    def __init__(
+        self,
+        *,
+        retriever: Retriever,
+        provider: FreeTextProvider,
+        page_attribution_config: PageAttributionConfig | None = None,
+    ) -> None:
         self._retriever = retriever
         self._provider = provider
+        self._page_attribution_config = page_attribution_config or PageAttributionConfig()
 
     def answer_question(self, question: QuestionRecord) -> AnswerResult:
-        pages, retrieval_refs = _coerce_retrieval_payload(self._retriever.retrieve(question))
+        retrieval_output = self._retriever.retrieve(question)
+        pages, retrieval_refs = _coerce_retrieval_payload(retrieval_output)
+        raw_retrieval_refs = list(retrieval_refs) if retrieval_refs is not None else _group_page_references(pages)
+        pass_a_refs = list(raw_retrieval_refs)
+        if isinstance(retrieval_output, RetrievalResult):
+            pass_a_result = prune_candidate_pages(
+                candidate_pages_from_chunks(retrieval_output.evidence_chunks),
+                config=self._page_attribution_config,
+            )
+            pass_a_refs = group_page_reference_pairs(
+                {(page.doc_id, page.page_number) for page in pass_a_result.selected_pages}
+            )
+            selected_pairs = flatten_attribution_references(pass_a_refs)
+            if selected_pairs:
+                filtered_pages = [
+                    page
+                    for page in pages
+                    if any((page.doc_id, page_number) in selected_pairs for page_number in page.page_numbers)
+                ]
+                if filtered_pages:
+                    pages = filtered_pages
 
         try:
             answer_type = AnswerType(str(question.answer_type))
@@ -281,20 +322,76 @@ class AnsweringService:
             raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
 
         if answer_type == AnswerType.FREE_TEXT:
-            result = self._answer_free_text(question=question, pages=pages, retrieval_refs=retrieval_refs)
+            answer, confidence, supported_page_pairs, is_no_answer, validation_error = self._answer_free_text(
+                question=question,
+                pages=pages,
+            )
+            if validation_error is not None and not isinstance(retrieval_output, RetrievalResult):
+                raise validation_error
+            base_result = AnswerResult(
+                question_id=question.id,
+                answer=answer,
+                confidence=confidence,
+                evidence_pages=[],
+            )
+            solver_reported_pages: list[PageReference] = []
+            answer_supported = is_no_answer or validation_error is None
         elif not pages:
-            result = _empty_result(question_id=question.id)
+            base_result = _empty_result(question_id=question.id)
+            solver_reported_pages = []
+            supported_page_pairs = set()
+            is_no_answer = True
+            answer_supported = False
         else:
             solved = self._solve_deterministic(question=question, answer_type=answer_type, pages=pages)
             if solved is None:
-                result = _empty_result(question_id=question.id)
+                base_result = _empty_result(question_id=question.id)
+                solver_reported_pages = []
+                supported_page_pairs = set()
+                is_no_answer = True
+                answer_supported = False
             else:
-                result = AnswerResult(
+                solver_reported_pages = _group_page_references(solved.supporting_pages)
+                supported_page_pairs = flatten_attribution_references(solver_reported_pages)
+                base_result = AnswerResult(
                     question_id=question.id,
                     answer=solved.answer,
                     confidence=1.0,
-                    evidence_pages=_group_page_references(solved.supporting_pages),
+                    evidence_pages=solver_reported_pages,
                 )
+                is_no_answer = False
+                answer_supported = True
+
+        page_decision = finalize_page_attribution(
+            answer=base_result.answer,
+            answer_type=str(question.answer_type),
+            raw_retrieved_chunk_pages=raw_retrieval_refs,
+            pass_a_pages=pass_a_refs,
+            solver_reported_pages=solver_reported_pages,
+            supported_page_pairs=supported_page_pairs,
+            answer_supported=answer_supported,
+            is_no_answer=is_no_answer,
+            config=self._page_attribution_config,
+        )
+
+        result = AnswerResult(
+            question_id=base_result.question_id,
+            answer=(
+                CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+                if page_decision.collapsed_answer and answer_type == AnswerType.FREE_TEXT
+                else base_result.answer
+            ),
+            confidence=0.0 if page_decision.collapsed_answer else base_result.confidence,
+            evidence_pages=page_decision.final_pages,
+            page_trace=build_page_trace(
+                raw_retrieved_chunk_pages=raw_retrieval_refs,
+                pass_a_pages=pass_a_refs,
+                solver_reported_pages=solver_reported_pages,
+                final_emitted_pages=page_decision.final_pages,
+                validation_action=page_decision.validation_action,
+                collapsed_answer=page_decision.collapsed_answer,
+            ),
+        )
 
         if questions_debug_enabled():
             log_event(
@@ -348,20 +445,11 @@ class AnsweringService:
         *,
         question: QuestionRecord,
         pages: list[_PageCandidate],
-        retrieval_refs: list[PageReference] | None = None,
-    ) -> AnswerResult:
+    ) -> tuple[str, float, set[tuple[str, int]], bool, FreeTextGroundingValidationError | None]:
         if not pages:
-            return AnswerResult(
-                question_id=question.id,
-                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
-                confidence=0.0,
-                evidence_pages=[],
-            )
+            return CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER, 0.0, set(), True, None
 
-        evidence_pages = [
-            _provider_evidence_page(page)
-            for page in pages
-        ]
+        evidence_pages = [_provider_evidence_page(page) for page in pages]
         response = self._provider.generate(
             question=question.question,
             evidence_pages=evidence_pages,
@@ -374,15 +462,14 @@ class AnsweringService:
         if len(answer) > 280:
             raise ValueError("free_text answers must be at most 280 characters.")
 
-        _validate_free_text_grounding(answer=answer, pages=pages)
-
         confidence = _validate_provider_confidence(response.get("confidence", 0.0))
-        return AnswerResult(
-            question_id=question.id,
-            answer=answer,
-            confidence=confidence,
-            evidence_pages=list(retrieval_refs) if retrieval_refs else _group_page_references(pages),
-        )
+        validation_error: FreeTextGroundingValidationError | None = None
+        try:
+            _validate_free_text_grounding(answer=answer, pages=pages)
+        except FreeTextGroundingValidationError as exc:
+            validation_error = exc
+        supported_page_pairs = _free_text_supported_page_pairs(answer=answer, pages=pages)
+        return answer, confidence, supported_page_pairs, False, validation_error
 
 
 def _coerce_page(page: Mapping[str, Any]) -> _PageCandidate:
@@ -613,6 +700,24 @@ def _validate_provider_confidence(raw_confidence: Any) -> float:
     if not math.isfinite(confidence) or confidence < 0.0 or confidence > 1.0:
         raise ValueError("Provider confidence must be finite and between 0.0 and 1.0.")
     return confidence
+
+
+def _free_text_answer_supported(*, answer: str, pages: Iterable[_PageCandidate]) -> bool:
+    try:
+        _validate_free_text_grounding(answer=answer, pages=pages)
+    except FreeTextGroundingValidationError:
+        return False
+    return True
+
+
+def _free_text_supported_page_pairs(*, answer: str, pages: Iterable[_PageCandidate]) -> set[tuple[str, int]]:
+    supported: set[tuple[str, int]] = set()
+    for page in pages:
+        if not _free_text_answer_supported(answer=answer, pages=[page]):
+            continue
+        for page_number in page.page_numbers:
+            supported.add((page.doc_id, page_number))
+    return supported
 
 
 def _extract_numeric_values(text: str) -> set[float]:

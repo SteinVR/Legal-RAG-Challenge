@@ -121,6 +121,26 @@ class IngestionSettings(BaseModel):
         return value
 
 
+class PageAttributionSettings(BaseModel):
+    """Configurable two-pass page attribution behavior."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    pass_a_enabled: bool = True
+    suppress_title_pages: bool = True
+    suppress_repeated_boilerplate: bool = True
+    validation_mode: Literal["degrade_first", "strict_suppress"] = "degrade_first"
+    emit_empty_pages_for_no_answer: bool = True
+    allow_solver_page_narrowing: bool = True
+
+    @field_validator("validation_mode", mode="before")
+    @classmethod
+    def normalize_validation_mode(cls, value: Any) -> Any:
+        if isinstance(value, str):
+            return _parse_page_validation_mode(value)
+        return value
+
+
 class LoggingSettings(BaseModel):
     """Runtime logging configuration."""
 
@@ -153,6 +173,7 @@ class AppConfig(BaseModel):
     download: DownloadSettings = Field(default_factory=DownloadSettings)
     evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
     ingestion: IngestionSettings = Field(default_factory=IngestionSettings)
+    page_attribution: PageAttributionSettings = Field(default_factory=PageAttributionSettings)
     logging: LoggingSettings = Field(default_factory=LoggingSettings)
 
     def resolve_api_key(self) -> str:
@@ -262,6 +283,8 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     unanswerable_policy_override = env.get("COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY")
     enable_ocr_override = env.get("COMPETITION_ENABLE_OCR")
     ocr_unavailable_policy_override = env.get("COMPETITION_OCR_UNAVAILABLE_POLICY")
+    pass_a_enabled_override = env.get("COMPETITION_PASS_A_ENABLED")
+    page_validation_mode_override = env.get("COMPETITION_PAGE_VALIDATION_MODE")
     log_level_override = env.get("COMPETITION_LOG_LEVEL")
     log_directory_override = env.get("COMPETITION_LOG_DIRECTORY")
     debug_documents_override = env.get("COMPETITION_DEBUG_DOCUMENTS")
@@ -320,6 +343,24 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
             }
         )
 
+    if pass_a_enabled_override:
+        config = config.model_copy(
+            update={
+                "page_attribution": config.page_attribution.model_copy(
+                    update={"pass_a_enabled": _parse_bool(pass_a_enabled_override)}
+                )
+            }
+        )
+
+    if page_validation_mode_override:
+        config = config.model_copy(
+            update={
+                "page_attribution": config.page_attribution.model_copy(
+                    update={"validation_mode": _parse_page_validation_mode(page_validation_mode_override)}
+                )
+            }
+        )
+
     if log_level_override:
         config = config.model_copy(
             update={"logging": config.logging.model_copy(update={"level": log_level_override.strip().upper()})}
@@ -368,6 +409,18 @@ def _parse_bool(raw_value: str) -> bool:
         return False
 
     raise ConfigError(f"Expected a boolean-like environment override, got: {raw_value!r}")
+
+
+def _parse_page_validation_mode(raw_value: str) -> str:
+    normalized = re.sub(r"[\s-]+", "_", raw_value.strip().lower())
+    allowed_values = {"degrade_first", "strict_suppress"}
+    if normalized in allowed_values:
+        return normalized
+
+    raise ConfigError(
+        "Invalid COMPETITION_PAGE_VALIDATION_MODE override. "
+        f"Expected one of {sorted(allowed_values)}, got: {raw_value!r}"
+    )
 
 
 def load_config(
