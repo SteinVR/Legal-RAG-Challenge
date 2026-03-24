@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import json
+import os
 from collections.abc import Mapping
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Protocol
 
 import fitz
@@ -12,6 +15,8 @@ import numpy
 from src.common.config import IngestionSettings
 
 BBox = tuple[float, float, float, float]
+DEFAULT_TEXT_DETECTION_MODEL_NAME = "PP-OCRv5_server_det"
+DEFAULT_TEXT_RECOGNITION_MODEL_NAME = "en_PP-OCRv5_mobile_rec"
 
 
 class OcrUnavailableError(RuntimeError):
@@ -78,7 +83,10 @@ class PaddleOcrEngine:
         if channels == 4:
             image = image[:, :, :3]
 
-        results = ocr_client.predict(image)
+        try:
+            results = ocr_client.predict(image)
+        except Exception as exc:
+            raise OcrUnavailableError(f"OCR runtime failed while processing page: {exc}") from exc
         lines = _extract_ocr_lines_v3(results) if results else []
         text_blocks = [line.text for line in lines]
         table_candidates = _extract_tables_from_lines(lines, page.number + 1)
@@ -95,18 +103,56 @@ class PaddleOcrEngine:
         if self._ocr_client is not None:
             return self._ocr_client
 
+        requested_device = self.settings.ocr_device.strip().lower()
+        if requested_device.startswith("gpu") and _cuda_device_count() <= 0:
+            raise OcrUnavailableError("GPU OCR requested but no visible CUDA devices are available.")
+
+        _configure_local_model_source()
         try:
             from paddleocr import PaddleOCR
         except ImportError as exc:
             raise OcrUnavailableError("PaddleOCR is not installed. Install the paddle extra to enable OCR.") from exc
 
+        text_detection_model_dir = _resolve_ocr_model_dir(
+            override_dir=self.settings.ocr_text_detection_model_dir,
+            model_root_dir=self.settings.ocr_model_root_dir,
+            model_name=DEFAULT_TEXT_DETECTION_MODEL_NAME,
+        )
+        text_recognition_model_dir = _resolve_ocr_model_dir(
+            override_dir=self.settings.ocr_text_recognition_model_dir,
+            model_root_dir=self.settings.ocr_model_root_dir,
+            model_name=DEFAULT_TEXT_RECOGNITION_MODEL_NAME,
+        )
+        text_detection_model_name = _resolve_ocr_model_name(
+            model_dir=text_detection_model_dir,
+            fallback_model_name=DEFAULT_TEXT_DETECTION_MODEL_NAME,
+        )
+        text_recognition_model_name = _resolve_ocr_model_name(
+            model_dir=text_recognition_model_dir,
+            fallback_model_name=DEFAULT_TEXT_RECOGNITION_MODEL_NAME,
+        )
+
         try:
-            self._ocr_client = PaddleOCR(use_textline_orientation=False, lang="en")
+            self._ocr_client = PaddleOCR(
+                device=self.settings.ocr_device,
+                enable_hpi=self.settings.ocr_enable_hpi,
+                enable_mkldnn=self.settings.ocr_enable_mkldnn,
+                cpu_threads=self.settings.ocr_cpu_threads,
+                use_doc_orientation_classify=False,
+                use_doc_unwarping=False,
+                use_textline_orientation=False,
+                text_detection_model_name=text_detection_model_name,
+                text_detection_model_dir=str(text_detection_model_dir),
+                text_recognition_model_name=text_recognition_model_name,
+                text_recognition_model_dir=str(text_recognition_model_dir),
+            )
         except (ImportError, ModuleNotFoundError) as exc:
             raise OcrUnavailableError(
                 "PaddleOCR runtime dependency (paddle) is not installed. "
                 "Install paddlepaddle or paddlepaddle-gpu."
             ) from exc
+        except Exception as exc:
+            raise OcrUnavailableError(f"OCR runtime initialization failed: {exc}") from exc
         return self._ocr_client
 
 
@@ -121,6 +167,45 @@ def build_ocr_engine(settings: IngestionSettings) -> OcrEngine | None:
         if settings.ocr_unavailable_policy == "error":
             raise
         return None
+
+
+def _configure_local_model_source() -> None:
+    os.environ.setdefault("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True")
+
+
+def _resolve_ocr_model_dir(
+    *,
+    override_dir: Path | None,
+    model_root_dir: Path,
+    model_name: str,
+) -> Path:
+    candidate = override_dir or (model_root_dir / model_name)
+    resolved = candidate.expanduser()
+    if not resolved.exists():
+        raise OcrUnavailableError(f"Required OCR model directory is missing: {resolved}")
+    return resolved
+
+
+def _resolve_ocr_model_name(*, model_dir: Path, fallback_model_name: str) -> str:
+    config_path = model_dir / "config.json"
+    if config_path.exists():
+        try:
+            payload = json.loads(config_path.read_text())
+        except Exception:
+            return fallback_model_name
+        model_name = payload.get("Global", {}).get("model_name")
+        if isinstance(model_name, str) and model_name.strip():
+            return model_name.strip()
+    return model_dir.name or fallback_model_name
+
+
+def _cuda_device_count() -> int:
+    try:
+        import paddle
+
+        return int(paddle.device.cuda.device_count())
+    except Exception:
+        return 0
 
 
 def _extract_ocr_lines_v3(results: Any) -> list[OcrTextLine]:

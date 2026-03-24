@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import httpx
+from pydantic import BaseModel, ValidationError
 
 from src.common.runtime_logging import get_logger, log_event
 
@@ -24,6 +25,10 @@ _SYSTEM_PROMPT = (
     "Answer strictly from the provided legal evidence. "
     "Return exactly one JSON object with keys: answer (string) and confidence (number from 0 to 1). "
     "Do not include markdown or additional keys."
+)
+_STRUCTURED_SYSTEM_PROMPT = (
+    "Answer strictly from the provided legal evidence and return one JSON object that follows the supplied schema. "
+    "Use null only when the schema permits null and the evidence is insufficient."
 )
 
 
@@ -52,16 +57,11 @@ class CodexFreeTextProvider:
         if self.max_output_tokens <= 0:
             raise ValueError("max_output_tokens must be positive.")
 
-        self._client = httpx.Client(
-            base_url=self.base_url.rstrip("/") + "/",
-            headers={
-                "Authorization": f"Bearer {token}",
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "User-Agent": self.user_agent,
-            },
-            timeout=httpx.Timeout(self.timeout_seconds),
-            follow_redirects=True,
+        self._client = _build_http_client(
+            token=token,
+            base_url=self.base_url,
+            user_agent=self.user_agent,
+            timeout_seconds=self.timeout_seconds,
             transport=self.transport,
         )
 
@@ -132,6 +132,82 @@ class CodexFreeTextProvider:
         )
         return result
 
+    def generate_structured(
+        self,
+        *,
+        question: str,
+        answer_type: str,
+        evidence_pages: list[dict[str, Any]],
+        answer_schema: type[BaseModel],
+        reasoning_effort: str,
+    ) -> dict[str, Any]:
+        started_at = time.perf_counter()
+        normalized_effort = str(reasoning_effort).strip().lower() or "medium"
+        schema_name = f"{answer_type}_answer"
+        schema_payload = answer_schema.model_json_schema()
+
+        response = self._client.post(
+            "responses",
+            json={
+                "model": self.model,
+                "reasoning": {"effort": normalized_effort},
+                "input": [
+                    {
+                        "role": "system",
+                        "content": [{"type": "input_text", "text": _STRUCTURED_SYSTEM_PROMPT}],
+                    },
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "input_text",
+                                "text": _build_structured_user_prompt(
+                                    question=question,
+                                    answer_type=answer_type,
+                                    evidence_pages=evidence_pages,
+                                ),
+                            }
+                        ],
+                    },
+                ],
+                "response_format": {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": schema_name,
+                        "schema": schema_payload,
+                    },
+                },
+                "max_output_tokens": self.max_output_tokens,
+            },
+        )
+        response.raise_for_status()
+        payload = response.json()
+        if not isinstance(payload, dict):
+            raise ValueError("Provider response must be a JSON object.")
+
+        response_text = _extract_response_text(payload)
+        structured = _parse_structured_payload(response_text)
+        try:
+            validated = answer_schema.model_validate(structured)
+        except ValidationError as exc:
+            raise ValueError("Structured provider output failed schema validation.") from exc
+
+        result = dict(validated.model_dump())
+        result["confidence"] = _coerce_confidence(structured.get("confidence", DEFAULT_PROVIDER_CONFIDENCE))
+        log_event(
+            LOGGER,
+            logging.DEBUG,
+            "provider.generate_structured.complete",
+            "Structured provider response received.",
+            stage="answering",
+            model=self.model,
+            answer_type=answer_type,
+            evidence_page_count=len(evidence_pages),
+            reasoning_effort=normalized_effort,
+            duration_ms=round((time.perf_counter() - started_at) * 1000, 3),
+        )
+        return result
+
     def close(self) -> None:
         self._client.close()
 
@@ -140,6 +216,120 @@ class CodexFreeTextProvider:
 
     def __exit__(self, *_: object) -> None:
         self.close()
+
+
+@dataclass(slots=True)
+class CodexStructuredOutputProvider:
+    """HTTP provider that requests schema-bound structured outputs."""
+
+    model: str = DEFAULT_CODEX_MODEL
+    base_url: str = DEFAULT_CODEX_BASE_URL
+    api_key: str | None = None
+    timeout_seconds: float = 60.0
+    user_agent: str = "agentic-rag-challenge/0.1.0"
+    transport: httpx.BaseTransport | None = None
+    _client: httpx.Client = field(init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        token = _resolve_provider_token(self.api_key)
+        if not token:
+            raise ValueError(
+                "Codex provider token is missing. Set CODEX_OAUTH_TOKEN, OPENAI_API_KEY, "
+                "or pass api_key explicitly."
+            )
+        if self.timeout_seconds <= 0:
+            raise ValueError("timeout_seconds must be positive.")
+        self._client = _build_http_client(
+            token=token,
+            base_url=self.base_url,
+            user_agent=self.user_agent,
+            timeout_seconds=self.timeout_seconds,
+            transport=self.transport,
+        )
+
+    def generate_structured(
+        self,
+        *,
+        schema_name: str,
+        schema: dict[str, object],
+        system_prompt: str,
+        user_prompt: str,
+        max_output_tokens: int,
+        reasoning_effort: str = "medium",
+    ) -> dict[str, Any]:
+        if max_output_tokens <= 0:
+            raise ValueError("max_output_tokens must be positive.")
+
+        response = self._client.post(
+            "responses",
+            json={
+                "model": self.model,
+                "input": [
+                    {
+                        "role": "system",
+                        "content": [{"type": "input_text", "text": system_prompt}],
+                    },
+                    {
+                        "role": "user",
+                        "content": [{"type": "input_text", "text": user_prompt}],
+                    },
+                ],
+                "reasoning": {"effort": reasoning_effort},
+                "text": {
+                    "format": {
+                        "type": "json_schema",
+                        "name": schema_name,
+                        "schema": schema,
+                        "strict": True,
+                    }
+                },
+                "max_output_tokens": max_output_tokens,
+            },
+        )
+        response.raise_for_status()
+        payload = response.json()
+        if not isinstance(payload, dict):
+            raise ValueError("Provider response must be a JSON object.")
+
+        response_text = _extract_response_text(payload)
+        try:
+            parsed = json.loads(response_text)
+        except json.JSONDecodeError as exc:
+            raise ValueError("Provider structured payload is not valid JSON.") from exc
+        if not isinstance(parsed, dict):
+            raise ValueError("Provider structured payload must be a JSON object.")
+        return parsed
+
+    def close(self) -> None:
+        self._client.close()
+
+    def __enter__(self) -> "CodexStructuredOutputProvider":
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        self.close()
+
+
+def _build_http_client(
+    *,
+    token: str,
+    base_url: str,
+    user_agent: str,
+    timeout_seconds: float,
+    transport: httpx.BaseTransport | None,
+) -> httpx.Client:
+    return httpx.Client(
+        base_url=base_url.rstrip("/") + "/",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": user_agent,
+        },
+        timeout=httpx.Timeout(timeout_seconds),
+        follow_redirects=True,
+        transport=transport,
+    )
 
 
 def _resolve_provider_token(explicit_token: str | None) -> str:
@@ -156,31 +346,34 @@ def _resolve_provider_token(explicit_token: str | None) -> str:
     return ""
 
 
+def _format_page_reference(page: dict[str, Any]) -> str:
+    page_numbers = page.get("page_numbers")
+    if isinstance(page_numbers, list):
+        normalized_page_numbers: list[str] = []
+        for page_number in page_numbers:
+            try:
+                parsed_page = int(page_number)
+            except (TypeError, ValueError):
+                continue
+            if parsed_page > 0:
+                normalized_page_numbers.append(str(parsed_page))
+        return ",".join(normalized_page_numbers)
+
+    page_number = page.get("page_number")
+    if page_number is None:
+        return ""
+    try:
+        parsed_page = int(page_number)
+    except (TypeError, ValueError):
+        return ""
+    return str(parsed_page) if parsed_page > 0 else ""
+
+
 def _build_user_prompt(*, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> str:
     evidence_lines: list[str] = []
     for index, page in enumerate(evidence_pages, start=1):
         doc_id = str(page.get("doc_id") or "").strip()
-        page_numbers = page.get("page_numbers")
-        if isinstance(page_numbers, list):
-            normalized_page_numbers: list[str] = []
-            for page_number in page_numbers:
-                try:
-                    parsed_page = int(page_number)
-                except (TypeError, ValueError):
-                    continue
-                if parsed_page > 0:
-                    normalized_page_numbers.append(str(parsed_page))
-            page_ref = ",".join(normalized_page_numbers)
-        else:
-            page_number = page.get("page_number")
-            if page_number is None:
-                page_ref = ""
-            else:
-                try:
-                    parsed_page = int(page_number)
-                except (TypeError, ValueError):
-                    parsed_page = 0
-                page_ref = str(parsed_page) if parsed_page > 0 else ""
+        page_ref = _format_page_reference(page)
         text = _normalize_whitespace(str(page.get("text") or ""))
         evidence_lines.append(f"[{index}] doc_id={doc_id}; pages={page_ref}; text={text}")
 
@@ -188,6 +381,23 @@ def _build_user_prompt(*, question: str, evidence_pages: list[dict[str, Any]], m
     return (
         f"Question: {_normalize_whitespace(question)}\n"
         f"Answer max length: {max_chars} characters.\n"
+        "Evidence:\n"
+        f"{evidence_blob}"
+    )
+
+
+def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_pages: list[dict[str, Any]]) -> str:
+    evidence_lines: list[str] = []
+    for index, page in enumerate(evidence_pages, start=1):
+        doc_id = str(page.get("doc_id") or "").strip()
+        page_ref = _format_page_reference(page)
+        text = _normalize_whitespace(str(page.get("text") or ""))
+        evidence_lines.append(f"[{index}] doc_id={doc_id}; pages={page_ref}; text={text}")
+
+    evidence_blob = "\n".join(evidence_lines) if evidence_lines else "(no evidence)"
+    return (
+        f"Answer type: {_normalize_whitespace(answer_type)}\n"
+        f"Question: {_normalize_whitespace(question)}\n"
         "Evidence:\n"
         f"{evidence_blob}"
     )
@@ -259,6 +469,19 @@ def _parse_answer_payload(response_text: str, *, max_chars: int) -> tuple[str, f
         raise ValueError("Provider produced an empty answer after normalization.")
 
     return answer, confidence
+
+
+def _parse_structured_payload(response_text: str) -> dict[str, Any]:
+    normalized = _normalize_whitespace(response_text)
+    if not normalized:
+        raise ValueError("Provider returned an empty structured payload.")
+    try:
+        parsed = json.loads(normalized)
+    except json.JSONDecodeError as exc:
+        raise ValueError("Provider structured payload must be valid JSON.") from exc
+    if not isinstance(parsed, dict):
+        raise ValueError("Provider structured payload must be a JSON object.")
+    return parsed
 
 
 def _coerce_confidence(raw_confidence: Any) -> float:

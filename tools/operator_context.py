@@ -12,6 +12,8 @@ from dotenv import dotenv_values
 from src.common.config import load_app_config
 from src.evaluation.contracts import AnswerType, load_question_records
 
+SCHEMA_FIRST_PROVIDER_TYPES = frozenset(answer_type.value for answer_type in AnswerType)
+
 
 def _resolve_provider_api_key_source(env_file: Path) -> str:
     env_values = dotenv_values(env_file) if env_file.exists() else {}
@@ -32,7 +34,7 @@ def _question_set_requires_provider(questions_path: Path) -> bool:
         questions = load_question_records(questions_path)
     except (OSError, ValueError):
         return False
-    return any(str(question.answer_type) == AnswerType.FREE_TEXT.value for question in questions)
+    return any(str(question.answer_type) in SCHEMA_FIRST_PROVIDER_TYPES for question in questions)
 
 
 def _build_context(*, config_path: Path, env_file: Path, phase_override: str | None) -> dict[str, str]:

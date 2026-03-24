@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 import logging
 from dataclasses import dataclass, field
 from typing import Any, Protocol
@@ -18,7 +19,13 @@ LOGGER = get_logger("retrieval.service")
 class HybridSearch(Protocol):
     """Search interface used by the retrieval service."""
 
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
         """Return the top candidate chunks for a question."""
 
 
@@ -99,6 +106,7 @@ class RetrievalResult:
     reranked_count: int
     evidence_chunks: list[RetrievedChunk] = field(default_factory=list)
     retrieved_chunk_pages: list[PageReference] = field(default_factory=list)
+    diagnostics: dict[str, Any] = field(default_factory=dict)
     is_unanswerable: bool = False
 
 
@@ -113,16 +121,31 @@ class RetrievalService:
     rerank_budget: int = 5
     default_evidence_budget: int = 3
     evidence_budget_by_answer_type: dict[str, int] = field(default_factory=dict)
+    question_class_budgets: dict[str, Any] = field(default_factory=dict)
     min_rerank_score: float = 0.0
     page_lifter: PageLifter = field(default_factory=PageLifter)
+    parent_page_expansion_enabled: bool = False
+    parent_page_expansion_limit: int = 0
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult:
+    def retrieve(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: Any | None = None,
+    ) -> RetrievalResult:
         """Run the retrieval pipeline for a single question."""
 
-        candidate_budget = self._normalized_budget(self.candidate_budget)
-        rerank_budget = self._normalized_budget(self.rerank_budget)
-
-        candidates = self.hybrid_search.search(question, top_k=candidate_budget)
+        question_class = _derive_question_class(query_metadata)
+        candidate_budget, rerank_budget, max_evidence, class_budget_applied = self._resolved_budgets(
+            question=question,
+            question_class=question_class,
+        )
+        candidates = _hybrid_search_with_optional_query_metadata(
+            self.hybrid_search,
+            question,
+            top_k=candidate_budget,
+            query_metadata=query_metadata,
+        )
         candidate_window = _copy_payload_window(candidates, limit=candidate_budget)
         candidate_count = len(candidate_window)
         if candidate_count == 0:
@@ -150,12 +173,8 @@ class RetrievalService:
                 reranked_count=reranked_count,
             )
 
-        max_evidence = self._normalized_budget(
-            self.evidence_budget_by_answer_type.get(
-                question.answer_type,
-                self.default_evidence_budget,
-            )
-        )
+        expanded_reranked, expanded_by_chunk_id = self._expand_parent_pages(surviving_reranked)
+
         if max_evidence == 0:
             return self._empty_result(
                 question=question,
@@ -163,12 +182,16 @@ class RetrievalService:
                 reranked_count=reranked_count,
             )
 
-        selected_payloads = self.evidence_compressor.compress(
+        selected_payloads_raw = self.evidence_compressor.compress(
             question,
-            [dict(item) for item in surviving_reranked],
+            [dict(item) for item in expanded_reranked],
             max_evidence=max_evidence,
         )
-        evidence_chunks = self._materialize_evidence(selected_payloads[:max_evidence])
+        selected_payloads = self._apply_expansion_to_selected_payloads(
+            selected_payloads_raw[:max_evidence],
+            expanded_by_chunk_id,
+        )
+        evidence_chunks = self._materialize_evidence(selected_payloads)
         if not evidence_chunks:
             return self._empty_result(
                 question=question,
@@ -184,6 +207,31 @@ class RetrievalService:
                 reranked_count=reranked_count,
             )
 
+        diagnostics: dict[str, Any] = {
+            "chunk_family_participation": {
+                "candidates": _chunk_family_participation(candidate_window),
+                "evidence": _chunk_family_participation(selected_payloads),
+            },
+            "rerank_effect": {
+                "applied": True,
+                "candidate_count": candidate_count,
+                "reranked_count": reranked_count,
+            },
+            "parent_page_expansion": {
+                "applied": bool(self.parent_page_expansion_enabled and self.parent_page_expansion_limit > 0),
+                "expanded_chunk_count": len(expanded_by_chunk_id),
+            },
+        }
+        if query_metadata is not None:
+            diagnostics["prefilter_usage"] = {
+                "applied": _has_soft_prefilters(query_metadata),
+                "question_class": question_class,
+                "candidate_budget": candidate_budget,
+                "rerank_budget": rerank_budget,
+                "evidence_budget": max_evidence,
+                "budget_source": "question_class" if class_budget_applied else "answer_type_or_default",
+            }
+
         result = RetrievalResult(
             question_id=question.id,
             query=question.question,
@@ -192,6 +240,7 @@ class RetrievalService:
             reranked_count=reranked_count,
             evidence_chunks=evidence_chunks,
             retrieved_chunk_pages=retrieved_chunk_pages,
+            diagnostics=diagnostics,
             is_unanswerable=False,
         )
         if questions_debug_enabled():
@@ -235,6 +284,71 @@ class RetrievalService:
                 continue
         return evidence_chunks
 
+    def _expand_parent_pages(
+        self,
+        payloads: list[dict[str, Any]],
+    ) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
+        """Expand page spans to parent pages for the top reranked window when enabled."""
+
+        expanded_payloads = [dict(item) for item in payloads]
+        if not self.parent_page_expansion_enabled:
+            return expanded_payloads, {}
+
+        expansion_limit = self._normalized_budget(self.parent_page_expansion_limit)
+        if expansion_limit == 0:
+            return expanded_payloads, {}
+
+        expanded_by_chunk_id: dict[str, dict[str, Any]] = {}
+        for index, payload in enumerate(expanded_payloads[:expansion_limit]):
+            parent_pages = _normalized_parent_pages(payload.get("parent_page_numbers"))
+            if not parent_pages:
+                continue
+            current_pages = extract_physical_pages(payload)
+            if current_pages == parent_pages:
+                continue
+            payload["page_span"] = list(parent_pages)
+            metadata = dict(payload.get("metadata", {}))
+            metadata["parent_page_numbers"] = list(parent_pages)
+            payload["metadata"] = metadata
+            expanded_payloads[index] = payload
+            chunk_id = str(payload.get("chunk_id") or "").strip()
+            if chunk_id:
+                expanded_by_chunk_id[chunk_id] = dict(payload)
+
+        return expanded_payloads, expanded_by_chunk_id
+
+    def _apply_expansion_to_selected_payloads(
+        self,
+        selected_payloads: list[dict[str, Any]],
+        expanded_by_chunk_id: dict[str, dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        if not selected_payloads:
+            return []
+        if not expanded_by_chunk_id:
+            return [dict(payload) for payload in selected_payloads]
+
+        merged_payloads: list[dict[str, Any]] = []
+        for selected in selected_payloads:
+            payload = dict(selected)
+            chunk_id = str(payload.get("chunk_id") or "").strip()
+            expanded = expanded_by_chunk_id.get(chunk_id)
+            if expanded is None:
+                merged_payloads.append(payload)
+                continue
+
+            expanded_page_span = extract_physical_pages(expanded)
+            if expanded_page_span:
+                payload["page_span"] = expanded_page_span
+            parent_pages = _normalized_parent_pages(expanded.get("parent_page_numbers"))
+            if parent_pages:
+                payload["parent_page_numbers"] = parent_pages
+                metadata = dict(payload.get("metadata", {}))
+                metadata["parent_page_numbers"] = parent_pages
+                payload["metadata"] = metadata
+            merged_payloads.append(payload)
+
+        return merged_payloads
+
     def _empty_result(
         self,
         *,
@@ -252,6 +366,7 @@ class RetrievalService:
             reranked_count=reranked_count,
             evidence_chunks=[],
             retrieved_chunk_pages=[],
+            diagnostics={},
             is_unanswerable=True,
         )
 
@@ -260,8 +375,143 @@ class RetrievalService:
 
         return max(int(budget), 0)
 
+    def _resolved_budgets(self, *, question: QuestionRecord, question_class: str) -> tuple[int, int, int, bool]:
+        question_class_budget = self.question_class_budgets.get(question_class)
+        if question_class_budget is None:
+            return (
+                self._normalized_budget(self.candidate_budget),
+                self._normalized_budget(self.rerank_budget),
+                self._normalized_budget(
+                    self.evidence_budget_by_answer_type.get(
+                        question.answer_type,
+                        self.default_evidence_budget,
+                    )
+                ),
+                False,
+            )
+
+        return (
+            self._normalized_budget(_metadata_field(question_class_budget, "candidate_budget", self.candidate_budget)),
+            self._normalized_budget(_metadata_field(question_class_budget, "rerank_budget", self.rerank_budget)),
+            self._normalized_budget(
+                _metadata_field(
+                    question_class_budget,
+                    "evidence_budget",
+                    self.evidence_budget_by_answer_type.get(question.answer_type, self.default_evidence_budget),
+                )
+            ),
+            True,
+        )
+
 
 def _copy_payload_window(payloads: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
     """Return a defensive copy of payloads capped at the provided limit."""
 
     return [dict(item) for item in payloads[:limit]]
+
+
+def _normalized_parent_pages(raw_value: Any) -> list[int]:
+    if not isinstance(raw_value, list):
+        return []
+
+    pages: set[int] = set()
+    for page in raw_value:
+        try:
+            normalized = int(page)
+        except (TypeError, ValueError):
+            return []
+        if normalized <= 0:
+            return []
+        pages.add(normalized)
+    return sorted(pages)
+
+
+def _chunk_family_participation(payloads: list[dict[str, Any]]) -> list[str]:
+    families: list[str] = []
+    seen: set[str] = set()
+    for payload in payloads:
+        metadata = payload.get("metadata")
+        family = None
+        if isinstance(metadata, dict):
+            family = metadata.get("chunk_family")
+        if family is None:
+            family = payload.get("chunk_type")
+        normalized = str(family or "").strip()
+        if not normalized or normalized in seen:
+            continue
+        families.append(normalized)
+        seen.add(normalized)
+    return families
+
+
+def _metadata_field(container: Any, field_name: str, default: Any) -> Any:
+    if container is None:
+        return default
+    if isinstance(container, dict):
+        return container.get(field_name, default)
+    return getattr(container, field_name, default)
+
+
+def _has_soft_prefilters(query_metadata: Any | None) -> bool:
+    return bool(
+        _metadata_sequence_length(_metadata_field(query_metadata, "legal_entities", ()))
+        or _metadata_sequence_length(_metadata_field(query_metadata, "document_title_cues", ()))
+    )
+
+
+def _metadata_sequence_length(value: Any) -> int:
+    try:
+        return len(value)
+    except TypeError:
+        return 0
+
+
+def _derive_question_class(query_metadata: Any | None) -> str:
+    if bool(_metadata_field(query_metadata, "likely_multi_document", False)):
+        return "cross_case"
+
+    legal_entities = _metadata_field(query_metadata, "legal_entities", ())
+    case_entity_present = False
+    statute_entity_present = False
+    for entity in legal_entities:
+        entity_type = str(_metadata_field(entity, "entity_type", "")).strip()
+        if not bool(_metadata_field(entity, "is_strong", True)):
+            continue
+        if entity_type == "case_id":
+            case_entity_present = True
+        elif entity_type == "statute_id":
+            statute_entity_present = True
+
+    if case_entity_present:
+        return "case"
+    if statute_entity_present:
+        return "statute"
+    return "free_text"
+
+
+def _hybrid_search_with_optional_query_metadata(
+    hybrid_search: HybridSearch,
+    question: QuestionRecord,
+    *,
+    top_k: int,
+    query_metadata: Any | None,
+) -> list[dict[str, Any]]:
+    if _callable_accepts_keyword(hybrid_search.search, "query_metadata"):
+        return hybrid_search.search(
+            question,
+            top_k=top_k,
+            query_metadata=query_metadata,
+        )
+    return hybrid_search.search(question, top_k=top_k)
+
+
+def _callable_accepts_keyword(func: Any, keyword: str) -> bool:
+    try:
+        signature = inspect.signature(func)
+    except (TypeError, ValueError):
+        return False
+
+    for parameter in signature.parameters.values():
+        if parameter.kind is inspect.Parameter.VAR_KEYWORD:
+            return True
+    return keyword in signature.parameters

@@ -6,9 +6,13 @@ import fitz
 import pytest
 
 from src.common.config import AppConfig
-from src.common.schemas import ParseStatus, SourceMode, TriageLabel
-from src.ingestion.ocr_engine import OcrPageResult, OcrTableExtraction, _should_treat_first_row_as_header
-from src.ingestion.pdf_parser import parse_pdf_document
+from src.common.schemas import ParserRoute, ParseStatus, SourceMode, TriageLabel
+from src.ingestion.ocr_engine import (
+    OcrPageResult,
+    OcrTableExtraction,
+    _should_treat_first_row_as_header,
+)
+from src.ingestion.pdf_parser import _has_struct_tree, parse_pdf_document
 
 
 def _write_pdf(path: Path, *, pages: list[str], title: str | None = None) -> None:
@@ -85,6 +89,74 @@ def test_parse_pdf_document_extracts_title_family_and_pages(tmp_path: Path) -> N
     assert parsed.parse_status is ParseStatus.PARSED
     assert all(page.source_mode is SourceMode.NATIVE for page in parsed.pages)
     assert parsed.pages[0].triage_label is TriageLabel.NATIVE_CLEAN
+
+
+def test_parse_pdf_document_emits_pymupdf_raw_parse_sidecar(tmp_path: Path) -> None:
+    pdf_path = tmp_path / "alpha.pdf"
+    _write_pdf(pdf_path, pages=["DIFC LAW NO. 1\nArticle 1"])
+    config = AppConfig.model_validate({"ingestion": {"enable_ocr": False}})
+
+    parsed = parse_pdf_document(pdf_path, config)
+
+    sidecar = parsed.raw_parse_sidecars["pymupdf"]
+    assert sidecar.parser_route is not None
+    assert sidecar.parser_provenance == "pymupdf:native"
+    assert sidecar.page_geometry[1] == [0.0, 0.0, 595.0, 842.0]
+    assert sidecar.nodes[0].text == "DIFC LAW NO. 1\nArticle 1"
+
+
+def test_parse_pdf_document_uses_resolved_parser_route_in_raw_sidecar(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    pdf_path = tmp_path / "alpha.pdf"
+    _write_pdf(pdf_path, pages=["DIFC LAW NO. 1\nArticle 1"])
+    config = AppConfig.model_validate({"ingestion": {"enable_ocr": False}})
+
+    monkeypatch.setattr(
+        "src.ingestion.pdf_parser.resolve_parser_route",
+        lambda *_args, **_kwargs: ParserRoute.HYBRID,
+    )
+
+    parsed = parse_pdf_document(pdf_path, config)
+
+    sidecar = parsed.raw_parse_sidecars["pymupdf"]
+    assert sidecar.parser_route is ParserRoute.HYBRID
+    assert sidecar.route_decisions == ["hybrid_selected"]
+
+
+def test_parse_pdf_document_emits_structural_sidecar_and_provenance_for_routed_opendataloader_path(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    pdf_path = tmp_path / "alpha.pdf"
+    _write_pdf(pdf_path, pages=["Part 1\nArticle 1\nSchedule of fees"])
+    config = AppConfig.model_validate({"ingestion": {"enable_ocr": False}})
+
+    monkeypatch.setattr(
+        "src.ingestion.pdf_parser.resolve_parser_route",
+        lambda *_args, **_kwargs: ParserRoute.TAGGED,
+    )
+
+    parsed = parse_pdf_document(pdf_path, config)
+
+    assert parsed.parser_provenance == "opendataloader:tagged"
+    assert "opendataloader" in parsed.raw_parse_sidecars
+    structural_sidecar = parsed.raw_parse_sidecars["opendataloader"]
+    assert structural_sidecar.parser_route is ParserRoute.TAGGED
+    assert structural_sidecar.parser_provenance == "opendataloader:tagged"
+    assert structural_sidecar.nodes
+
+
+def test_has_struct_tree_treats_xref_key_as_present() -> None:
+    class StubDocument:
+        def pdf_catalog(self) -> int:
+            return 1
+
+        def xref_get_key(self, xref: int, key: str) -> tuple[str, str]:
+            assert xref == 1
+            assert key == "StructTreeRoot"
+            return ("xref", "5 0 R")
+
+    assert _has_struct_tree(StubDocument()) is True
 
 
 def test_parse_pdf_document_marks_empty_page_as_degraded_when_ocr_is_unavailable(tmp_path: Path) -> None:

@@ -15,14 +15,20 @@ from src.common.schemas import (
     CanonicalPageRecord,
     CorpusParseManifest,
     CorpusParseManifestRecord,
+    NormalizedStructuralBlock,
     PageMapRecord,
+    ParsedDocument,
+    ParserRoute,
     ParseStatus,
     TableBlock,
 )
 from src.ingestion.corpus_builder import CorpusBuilder, build_failed_manifest_record
 from src.ingestion.ocr_engine import build_ocr_engine
 from src.ingestion.pdf_parser import DocumentParser
+from src.ingestion.sidecars import load_raw_parse_sidecar, write_raw_parse_sidecar
+from src.ingestion.structural_normalizer import normalize_structural_sidecar
 from src.ingestion.table_serializer import serialize_document_tables
+from src.providers import CodexStructuredOutputProvider, StructuredOutputProvider
 from src.submission.sync import PhasePaths
 
 LOGGER = get_logger("ingestion.service")
@@ -38,6 +44,7 @@ class CorpusPaths:
     page_map_path: Path
     corpus_manifest_path: Path
     debug_dir: Path
+    raw_parse_dir: Path
 
     @classmethod
     def from_config(cls, config: AppConfig) -> "CorpusPaths":
@@ -50,11 +57,13 @@ class CorpusPaths:
             page_map_path=corpus_dir / config.storage.page_map_filename,
             corpus_manifest_path=corpus_dir / config.storage.corpus_manifest_filename,
             debug_dir=corpus_dir / config.storage.debug_dirname,
+            raw_parse_dir=corpus_dir / "raw_parse",
         )
 
     def ensure_directories(self) -> None:
         self.corpus_dir.mkdir(parents=True, exist_ok=True)
         self.debug_dir.mkdir(parents=True, exist_ok=True)
+        self.raw_parse_dir.mkdir(parents=True, exist_ok=True)
 
 
 @dataclass(slots=True)
@@ -82,6 +91,7 @@ class CorpusParseService:
         self.ocr_engine = build_ocr_engine(config.ingestion)
         self.parser = DocumentParser(config, ocr_engine=self.ocr_engine)
         self.builder = CorpusBuilder(config)
+        self.structured_provider = self._build_structured_provider()
 
     def parse_corpus(
         self,
@@ -150,8 +160,9 @@ class CorpusParseService:
 
         self.paths.ensure_directories()
 
-        successful_documents = []
+        successful_documents: list[ParsedDocument] = []
         serialized_tables_by_doc: dict[str, dict[int, list[TableBlock]]] = {}
+        structural_blocks_by_doc: dict[str, dict[int, list[NormalizedStructuralBlock]]] = {}
         manifest_records: list[CorpusParseManifestRecord] = []
         failed_document_count = 0
 
@@ -169,7 +180,15 @@ class CorpusParseService:
                     )
                 document = self.parser.parse_document(pdf_path)
                 successful_documents.append(document)
-                serialized_tables_by_doc[document.doc_id] = serialize_document_tables(document)
+                serialized_tables_by_doc[document.doc_id] = serialize_document_tables(
+                    document,
+                    enable_semantic_blocks=self.config.ingestion.enable_semantic_table_blocks,
+                    structured_provider=self.structured_provider,
+                )
+                self._write_raw_parse_sidecars(document)
+                structural_blocks = self._structural_blocks_for_document(document)
+                if structural_blocks:
+                    structural_blocks_by_doc[document.doc_id] = structural_blocks
                 if documents_debug_enabled():
                     log_event(
                         LOGGER,
@@ -201,6 +220,7 @@ class CorpusParseService:
             phase=self.config.phase.value,
             documents=successful_documents,
             serialized_tables_by_doc=serialized_tables_by_doc,
+            structural_blocks_by_doc=structural_blocks_by_doc,
         )
         page_records = list(build_result.corpus_records)
         page_map_records = list(build_result.page_map_records)
@@ -244,6 +264,7 @@ class CorpusParseService:
             self.paths.page_map_path,
             self.paths.corpus_manifest_path,
             self.paths.debug_dir,
+            self.paths.raw_parse_dir,
         ]
 
     def _artifact_set_complete(self, current_doc_ids: set[str]) -> bool:
@@ -267,7 +288,7 @@ class CorpusParseService:
             if record.parse_status is not ParseStatus.FAILED
             and record.doc_id in current_doc_ids
         }
-        return all((self.paths.debug_dir / f"{doc_id}.md").exists() for doc_id in required_doc_ids)
+        return all(self._document_artifacts_complete(doc_id) for doc_id in required_doc_ids)
 
     def _write_jsonl(self, path: Path, records: Iterable[CanonicalPageRecord]) -> None:
         with path.open("w", encoding="utf-8") as handle:
@@ -293,6 +314,58 @@ class CorpusParseService:
                 handle.write(markdown)
                 if not markdown.endswith("\n"):
                     handle.write("\n")
+
+    def _write_raw_parse_sidecars(self, document: ParsedDocument) -> None:
+        if not document.raw_parse_sidecars:
+            return
+        for parser_name, sidecar in document.raw_parse_sidecars.items():
+            write_raw_parse_sidecar(self.paths.raw_parse_dir / parser_name, sidecar)
+
+    def _document_artifacts_complete(self, doc_id: str) -> bool:
+        debug_path = self.paths.debug_dir / f"{doc_id}.md"
+        pymupdf_sidecar_path = self.paths.raw_parse_dir / "pymupdf" / f"{doc_id}.json"
+        if not debug_path.exists() or not pymupdf_sidecar_path.exists():
+            return False
+
+        try:
+            pymupdf_sidecar = load_raw_parse_sidecar(pymupdf_sidecar_path)
+        except Exception:
+            return False
+
+        if pymupdf_sidecar.parser_route is ParserRoute.BASELINE_FALLBACK:
+            return True
+
+        return (self.paths.raw_parse_dir / "opendataloader" / f"{doc_id}.json").exists()
+
+    def _build_structured_provider(self) -> StructuredOutputProvider | None:
+        if not self.config.ingestion.enable_semantic_table_blocks:
+            return None
+
+        try:
+            return CodexStructuredOutputProvider()
+        except ValueError as exc:
+            log_event(
+                LOGGER,
+                logging.WARNING,
+                "parse.semantic_provider_unavailable",
+                "Semantic table blocks are enabled but no structured provider is available.",
+                stage="ingestion",
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+            )
+            return None
+
+    def _structural_blocks_for_document(
+        self,
+        document: ParsedDocument,
+    ) -> dict[int, list[NormalizedStructuralBlock]]:
+        sidecar = document.raw_parse_sidecars.get("opendataloader")
+        if sidecar is None:
+            return {}
+        by_page: dict[int, list[NormalizedStructuralBlock]] = {}
+        for block in normalize_structural_sidecar(sidecar):
+            by_page.setdefault(block.page_number, []).append(block)
+        return by_page
 
 
 def format_parse_result(result: ParseCorpusResult) -> str:

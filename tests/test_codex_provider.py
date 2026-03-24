@@ -4,8 +4,9 @@ import json
 
 import httpx
 import pytest
+from pydantic import BaseModel
 
-from src.providers.codex_provider import CodexFreeTextProvider
+from src.providers.codex_provider import CodexFreeTextProvider, CodexStructuredOutputProvider
 
 
 def _json_request(request: httpx.Request) -> dict[str, object]:
@@ -116,3 +117,133 @@ def test_codex_provider_requires_auth_token(monkeypatch: pytest.MonkeyPatch) -> 
 
     with pytest.raises(ValueError, match="token"):
         CodexFreeTextProvider(api_key=None)
+
+
+class _StructuredBooleanAnswer(BaseModel):
+    is_answerable: bool
+    final_answer: bool | None
+    relevant_pages: list[int]
+    reasoning_summary: str
+
+
+def test_codex_provider_supports_schema_bound_structured_outputs_with_reasoning_effort() -> None:
+    captured_payloads: list[dict[str, object]] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured_payloads.append(_json_request(request))
+        return httpx.Response(
+            status_code=200,
+            json={
+                "output": [
+                    {
+                        "content": [
+                            {
+                                "type": "output_text",
+                                "text": (
+                                    '{"is_answerable": true, "final_answer": false, "relevant_pages": [4], '
+                                    '"reasoning_summary": "The clause expressly prohibits assignment.", '
+                                    '"confidence": 0.93}'
+                                ),
+                            }
+                        ]
+                    }
+                ]
+            },
+        )
+
+    provider = CodexFreeTextProvider(
+        api_key="test-token",
+        transport=httpx.MockTransport(handler),
+    )
+    result = provider.generate_structured(
+        question="Is assignment without consent permitted?",
+        answer_type="boolean",
+        evidence_pages=[
+            {
+                "doc_id": "alpha",
+                "page_number": 4,
+                "page_numbers": [4],
+                "text": "Assignment without consent is not permitted.",
+            }
+        ],
+        answer_schema=_StructuredBooleanAnswer,
+        reasoning_effort="high",
+    )
+
+    assert result["final_answer"] is False
+    assert result["relevant_pages"] == [4]
+    assert result["confidence"] == pytest.approx(0.93)
+    assert captured_payloads
+    payload = captured_payloads[0]
+    assert payload["model"] == provider.model
+    assert payload.get("reasoning") == {"effort": "high"}
+    response_format_blob = json.dumps(payload)
+    assert "json_schema" in response_format_blob
+    assert "is_answerable" in response_format_blob
+    assert "final_answer" in response_format_blob
+    assert "relevant_pages" in response_format_blob
+
+
+def test_structured_provider_sends_json_schema_payload_and_parses_response() -> None:
+    captured_payloads: list[dict[str, object]] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured_payloads.append(_json_request(request))
+        return httpx.Response(
+            status_code=200,
+            json={
+                "output": [
+                    {
+                        "content": [
+                            {
+                                "type": "output_text",
+                                "text": (
+                                    '{"blocks":[{"block_id":"b1","text":"Fee amount is 10.",'
+                                    '"source_page_number":1}]}'
+                                ),
+                            }
+                        ]
+                    }
+                ]
+            },
+        )
+
+    provider = CodexStructuredOutputProvider(
+        api_key="test-token",
+        transport=httpx.MockTransport(handler),
+    )
+
+    result = provider.generate_structured(
+        schema_name="serialized_table_blocks",
+        schema={
+            "type": "object",
+            "properties": {
+                "blocks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "block_id": {"type": "string"},
+                            "text": {"type": "string"},
+                            "source_page_number": {"type": "integer"},
+                        },
+                        "required": ["block_id", "text", "source_page_number"],
+                        "additionalProperties": False,
+                    },
+                }
+            },
+            "required": ["blocks"],
+            "additionalProperties": False,
+        },
+        system_prompt="Create context-independent blocks.",
+        user_prompt="HTML table + surrounding context.",
+        max_output_tokens=300,
+        reasoning_effort="medium",
+    )
+
+    assert result["blocks"][0]["block_id"] == "b1"
+    assert captured_payloads
+    assert captured_payloads[0]["reasoning"] == {"effort": "medium"}
+    text_payload = captured_payloads[0]["text"]
+    assert text_payload["format"]["type"] == "json_schema"
+    assert text_payload["format"]["name"] == "serialized_table_blocks"

@@ -408,6 +408,8 @@ def test_build_indices_persists_hybrid_index_and_exact_page_parent_map(
     assert len(records) == result.chunk_count
     chunk_types = {record.payload["chunk_type"] for record in records}
     assert {"page", "section", "clause", "microchunk", "table"} <= chunk_types
+    assert "semantic-table" not in chunk_types
+    assert "semantic_table" not in chunk_types
 
     payload_doc_pages = {
         ("alpha", 1),
@@ -766,6 +768,77 @@ def test_build_index_chunks_preserves_body_from_merged_heading_paragraph() -> No
     assert section_chunk.section == "Section 9 Duties"
     assert section_chunk.text.startswith("The entity must maintain records.")
     assert not section_chunk.text.startswith("Section 9 Duties")
+
+
+def test_split_microchunks_uses_token_budget_and_overlap_when_configured() -> None:
+    module = _load_indexing_module()
+    text = "Alpha beta gamma.\n\nDelta epsilon zeta.\n\nEta theta iota."
+
+    microchunks = module._split_microchunks(
+        text,
+        token_chunk_size=6,
+        token_chunk_overlap=3,
+        token_counter=lambda value: len(value.replace(".", "").split()),
+    )
+
+    assert microchunks == [
+        "Alpha beta gamma. Delta epsilon zeta.",
+        "Delta epsilon zeta. Eta theta iota.",
+    ]
+
+
+def test_count_tokens_uses_qwen_compatible_counter_when_available(monkeypatch: pytest.MonkeyPatch) -> None:
+    module = _load_indexing_module()
+
+    monkeypatch.setattr(
+        module,
+        "_resolve_qwen_token_counter",
+        lambda: (lambda value: len(value.replace(" ", ""))),
+    )
+
+    assert module._count_tokens("Alpha beta") == len("Alphabeta")
+
+
+def test_build_index_chunks_respects_enabled_chunk_families() -> None:
+    module = _load_indexing_module()
+
+    chunks = module.build_index_chunks(
+        _legal_fixture_pages(),
+        enabled_chunk_families={"page", "clause"},
+    )
+
+    assert chunks
+    assert {chunk.chunk_type for chunk in chunks} == {"page", "clause"}
+
+
+def test_build_index_chunks_preserves_w4c_structural_metadata_in_payload() -> None:
+    module = _load_indexing_module()
+    page = CanonicalPageRecord(
+        doc_id="alpha",
+        page_number=1,
+        document_title="Alpha Law",
+        document_family="law_or_regulation",
+        triage_label=TriageLabel.NATIVE_CLEAN,
+        source_mode=SourceMode.NATIVE,
+        parse_status=ParseStatus.PARSED,
+        quality_score=0.95,
+        quality_flags=[],
+        parser_provenance="opendataloader:tagged",
+        heading_path=["Part 1", "Section 4"],
+        block_roles=["clause"],
+        source_block_ids=["h1", "c1"],
+        text="Section 4 Notice. Notice must be given within 30 days.",
+        blocks=[_text_block("alpha", 1, "text-1", "Section 4 Notice. Notice must be given within 30 days.")],
+        table_ids=[],
+    )
+
+    chunks = module.build_index_chunks([page], enabled_chunk_families={"page"})
+
+    assert len(chunks) == 1
+    payload = chunks[0].payload()
+    assert payload["parser_provenance"] == "opendataloader:tagged"
+    assert payload["heading_path"] == ["Part 1", "Section 4"]
+    assert payload["source_block_ids"] == ["h1", "c1"]
 
 
 def test_format_build_index_result_reports_chunk_and_document_counts(tmp_path: Path) -> None:
