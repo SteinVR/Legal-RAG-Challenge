@@ -65,6 +65,22 @@ page_attribution:
   emit_empty_pages_for_no_answer: true
   allow_solver_page_narrowing: true
 
+answering:
+  reasoning_effort_by_type:
+    boolean: high
+    number: medium
+    name: high
+    names: high
+    date: medium
+    free_text: medium
+  confidence_threshold_by_type:
+    boolean: 0.7
+    number: 0.55
+    name: 0.75
+    names: 0.75
+    date: 0.6
+    free_text: 0.5
+
 logging:
   directory: logs/project/runtime
   level: INFO

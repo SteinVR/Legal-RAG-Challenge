@@ -17,10 +17,11 @@ from uuid import uuid4
 import fitz
 
 import src.indexing.service as indexing_service
-from src.answering.page_attribution import PageAttributionConfig
 from src.answering.service import (
+    CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
     AnsweringService,
     AnswerResult,
+    FreeTextGroundingValidationError,
 )
 from src.common.config import AppConfig
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
@@ -314,7 +315,11 @@ class BuildSubmissionService:
         )
 
         provider_model = self.free_text_model
-        provider = _LazyProvider(factory=self._build_provider, model=provider_model)
+        provider = _LazyProvider(
+            factory=self._build_provider,
+            model=provider_model,
+            supports_structured=hasattr(self.provider_class, "generate_structured"),
+        )
 
         retrieval_service = RetrievalService(
             hybrid_search=RRFHybridSearch(backend=backend),
@@ -324,14 +329,8 @@ class BuildSubmissionService:
         answering_service = AnsweringService(
             retriever=retriever,
             provider=provider,
-            page_attribution_config=PageAttributionConfig(
-                pass_a_enabled=config.page_attribution.pass_a_enabled,
-                suppress_title_pages=config.page_attribution.suppress_title_pages,
-                suppress_repeated_boilerplate=config.page_attribution.suppress_repeated_boilerplate,
-                validation_mode=config.page_attribution.validation_mode,
-                emit_empty_pages_for_no_answer=config.page_attribution.emit_empty_pages_for_no_answer,
-                allow_solver_page_narrowing=config.page_attribution.allow_solver_page_narrowing,
-            ),
+            reasoning_effort_by_type=config.answering.reasoning_effort_by_type,
+            confidence_threshold_by_type=config.answering.confidence_threshold_by_type,
         )
 
         answers: list[dict[str, Any]] = []
@@ -353,11 +352,12 @@ class BuildSubmissionService:
                 )
 
                 retrieval_result = retriever.consume_latest(question)
-                model_name = (
+                default_model_name = (
                     provider_model
                     if question.answer_type == AnswerType.FREE_TEXT.value
                     else DETERMINISTIC_MODEL_NAME
                 )
+                model_name = answer_result.model_name or default_model_name
                 input_tokens = _estimate_input_tokens(question=question, retrieval_result=retrieval_result)
                 output_tokens = _estimate_output_tokens(answer_result)
 
@@ -388,16 +388,6 @@ class BuildSubmissionService:
                         "candidate_count": retrieval_result.candidate_count,
                         "reranked_count": retrieval_result.reranked_count,
                         "evidence_chunk_count": len(retrieval_result.evidence_chunks),
-                        "evidence_chunks": [
-                            {
-                                "chunk_id": chunk.chunk_id,
-                                "doc_id": chunk.doc_id,
-                                "page_span": list(chunk.page_span),
-                                "retrieval_score": chunk.retrieval_score,
-                                "rerank_score": chunk.rerank_score,
-                            }
-                            for chunk in retrieval_result.evidence_chunks
-                        ],
                         "retrieved_chunk_pages": [
                             {
                                 "doc_id": str(reference["doc_id"]),
@@ -405,10 +395,6 @@ class BuildSubmissionService:
                             }
                             for reference in telemetry["retrieval"]["retrieved_chunk_pages"]
                         ],
-                        "page_attribution": telemetry["retrieval"].get("page_validation"),
-                        "raw_retrieved_chunk_pages": telemetry["retrieval"].get("raw_retrieved_chunk_pages", []),
-                        "pass_a_pages": telemetry["retrieval"].get("pass_a_pages", []),
-                        "solver_reported_pages": telemetry["retrieval"].get("solver_reported_pages", []),
                     }
                 )
                 if questions_debug_enabled():
@@ -447,7 +433,26 @@ class BuildSubmissionService:
         question: QuestionRecord,
         answering_service: AnsweringService,
     ) -> AnswerResult:
-        return answering_service.answer_question(question)
+        try:
+            return answering_service.answer_question(question)
+        except FreeTextGroundingValidationError:
+            log_event(
+                LOGGER,
+                logging.WARNING,
+                "build_submission.question.grounding_fallback",
+                "Grounding validation failed; falling back to canonical unanswerable answer.",
+                stage="submission",
+                question_id=question.id,
+                answer_type=question.answer_type,
+            )
+            return AnswerResult(
+                question_id=question.id,
+                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+                if question.answer_type == AnswerType.FREE_TEXT.value
+                else None,
+                confidence=0.0,
+                evidence_pages=[],
+            )
 
     def _build_provider(self, model: str) -> Any:
         provider_kwargs: dict[str, Any] = {"model": model}
@@ -479,29 +484,47 @@ class _CachingRetriever:
     _latest_question_id: str | None = field(default=None, init=False)
     _latest_result: RetrievalResult | None = field(default=None, init=False)
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult:
-        result = self.delegate.retrieve(question)
+    def retrieve(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: Any | None = None,
+    ) -> RetrievalResult:
+        result = self.delegate.retrieve(question, query_metadata=query_metadata)
         self._latest_question_id = question.id
         self._latest_result = result
         return result
 
-    def consume_latest(self, question: QuestionRecord) -> RetrievalResult:
+    def consume_latest(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: Any | None = None,
+    ) -> RetrievalResult:
         if self._latest_question_id == question.id and self._latest_result is not None:
             result = self._latest_result
             self._latest_question_id = None
             self._latest_result = None
             return result
-        return self.delegate.retrieve(question)
+        return self.delegate.retrieve(question, query_metadata=query_metadata)
 
 
 @dataclass(slots=True)
 class _LazyProvider:
     factory: Any
     model: str
+    supports_structured: bool = True
     _delegate: Any | None = field(default=None, init=False, repr=False)
 
     def generate(self, **kwargs: Any) -> Any:
         return self._provider().generate(**kwargs)
+
+    def generate_structured(self, **kwargs: Any) -> Any:
+        provider = self._provider()
+        structured_method = getattr(provider, "generate_structured", None)
+        if not callable(structured_method):
+            raise AttributeError("Provider does not implement generate_structured.")
+        return structured_method(**kwargs)
 
     def close(self) -> None:
         if self._delegate is None:

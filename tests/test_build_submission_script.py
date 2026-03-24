@@ -57,7 +57,7 @@ def _clean_env() -> dict[str, str]:
     return env
 
 
-def test_build_submission_script_preflight_allows_deterministic_only_runs_without_provider_creds(
+def test_build_submission_script_preflight_rejects_schema_first_number_runs_without_provider_creds(
     tmp_path: Path,
 ) -> None:
     config_path, env_path = _write_config(tmp_path)
@@ -79,9 +79,9 @@ def test_build_submission_script_preflight_allows_deterministic_only_runs_withou
         check=False,
     )
 
-    assert result.returncode == 0
-    assert "Provider required: 0" in result.stdout
-    assert "=== Preflight OK ===" in result.stdout
+    assert result.returncode == 1
+    assert "Provider required: 1" in result.stdout
+    assert "FAIL: no provider credential found" in result.stdout
 
 
 def test_build_submission_script_preflight_rejects_free_text_runs_without_provider_creds(tmp_path: Path) -> None:

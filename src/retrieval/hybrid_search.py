@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Protocol
@@ -20,7 +21,13 @@ LOGGER = get_logger("retrieval.hybrid_search")
 class SearchBackend(Protocol):
     """Backend interface that yields raw retrieval candidates."""
 
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
         """Return raw candidates for a question."""
 
 
@@ -45,7 +52,13 @@ class QdrantHybridSearchBackend:
     _sparse_encoder: BM25SparseEncoder | None = field(default=None, init=False, repr=False)
     _is_loaded: bool = field(default=False, init=False, repr=False)
 
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
         result_limit = max(int(top_k), 0)
         if result_limit == 0:
             return []
@@ -81,6 +94,7 @@ class QdrantHybridSearchBackend:
             ).points
 
         merged = _merge_scored_hits(dense_hits=dense_hits, sparse_hits=sparse_hits)
+        merged = _apply_query_metadata_boosts(merged, query_metadata=query_metadata)
         merged.sort(
             key=lambda candidate: (
                 -candidate["retrieval_score"],
@@ -151,12 +165,25 @@ class RRFHybridSearch:
     dense_weight: float = 1.0
     sparse_weight: float = 1.0
 
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
         result_limit = max(int(top_k), 0)
         if result_limit == 0:
             return []
 
-        raw_candidates = [dict(candidate) for candidate in self.backend.search(question, top_k=top_k)]
+        raw_candidates = [
+            dict(candidate)
+            for candidate in self.backend.search(
+                question,
+                top_k=top_k,
+                query_metadata=query_metadata,
+            )
+        ]
         if not raw_candidates:
             return []
 
@@ -344,8 +371,109 @@ def _candidate_from_payload(chunk_id: str, payload: dict[str, Any]) -> dict[str,
         "page_span": normalized_page_span,
         "chunk_type": str(payload.get("chunk_type") or "unknown"),
         "text": str(payload.get("text") or ""),
+        "section": str(payload.get("section") or ""),
+        "clause": str(payload.get("clause") or ""),
+        "neighboring_headings": _string_list(payload.get("neighboring_headings")),
+        "entities": _string_list(payload.get("entities")),
+        "document_title": str(payload.get("document_title") or ""),
+        "document_family": str(payload.get("document_family") or ""),
         "metadata": metadata,
         "dense_score": None,
         "sparse_score": None,
         "retrieval_score": 0.0,
+        "metadata_boost": 0.0,
     }
+
+
+def _apply_query_metadata_boosts(
+    candidates: list[dict[str, Any]],
+    *,
+    query_metadata: Any | None,
+) -> list[dict[str, Any]]:
+    legal_entities = _query_metadata_signals(query_metadata, field_name="legal_entities")
+    title_cues = _query_metadata_signals(query_metadata, field_name="document_title_cues")
+    if not legal_entities and not title_cues:
+        return [dict(candidate) for candidate in candidates]
+
+    boosted_candidates: list[dict[str, Any]] = []
+    for raw_candidate in candidates:
+        candidate = dict(raw_candidate)
+        normalized_candidate_signals = _candidate_signals(candidate)
+
+        entity_match_count = sum(
+            1
+            for signal in legal_entities
+            if _signals_overlap(normalized_candidate_signals, signal)
+        )
+        title_match_count = sum(
+            1
+            for signal in title_cues
+            if _signals_overlap(normalized_candidate_signals, signal)
+        )
+
+        metadata_boost = min((0.18 * entity_match_count) + (0.12 * title_match_count), 0.72)
+        candidate["metadata_boost"] = metadata_boost
+        candidate["retrieval_score"] = _score(candidate.get("retrieval_score")) + metadata_boost
+        boosted_candidates.append(candidate)
+    return boosted_candidates
+
+
+def _query_metadata_signals(query_metadata: Any, *, field_name: str) -> tuple[str, ...]:
+    raw_values = _metadata_field(query_metadata, field_name, ())
+    normalized: list[str] = []
+
+    for raw_value in raw_values:
+        if field_name == "legal_entities":
+            raw_value = _metadata_field(raw_value, "normalized_value", "")
+        signal = _normalize_signal(raw_value)
+        if signal:
+            normalized.append(signal)
+    return tuple(dict.fromkeys(normalized))
+
+
+def _candidate_signals(candidate: dict[str, Any]) -> tuple[str, ...]:
+    raw_signals: list[Any] = [
+        candidate.get("doc_id"),
+        candidate.get("document_title"),
+        candidate.get("text"),
+        candidate.get("section"),
+        candidate.get("clause"),
+        *candidate.get("neighboring_headings", []),
+        *candidate.get("entities", []),
+    ]
+    normalized = [_normalize_signal(value) for value in raw_signals]
+    return tuple(signal for signal in dict.fromkeys(normalized) if signal)
+
+
+def _signals_overlap(candidate_signals: tuple[str, ...], target_signal: str) -> bool:
+    return any(
+        target_signal in candidate_signal or candidate_signal in target_signal
+        for candidate_signal in candidate_signals
+        if candidate_signal
+    )
+
+
+def _metadata_field(container: Any, field_name: str, default: Any) -> Any:
+    if container is None:
+        return default
+    if isinstance(container, dict):
+        return container.get(field_name, default)
+    return getattr(container, field_name, default)
+
+
+def _normalize_signal(value: Any) -> str:
+    text = str(value or "").strip().casefold()
+    if not text:
+        return ""
+    return re.sub(r"[^a-z0-9]+", " ", text).strip()
+
+
+def _string_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    normalized: list[str] = []
+    for item in value:
+        text = str(item or "").strip()
+        if text:
+            normalized.append(text)
+    return normalized

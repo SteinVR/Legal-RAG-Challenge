@@ -17,6 +17,23 @@ from .schemas import Phase
 DEFAULT_BASE_URL = "https://platform.agentic-challenge.ai/api/v1"
 DEFAULT_ENV_FILE = Path(".env")
 ENV_VAR_PATTERN = re.compile(r"\$(\w+)|\$\{([^}]+)\}")
+SUPPORTED_ANSWER_TYPES = frozenset({"boolean", "number", "name", "names", "date", "free_text"})
+DEFAULT_REASONING_EFFORT_BY_TYPE: dict[str, str] = {
+    "boolean": "high",
+    "number": "medium",
+    "name": "high",
+    "names": "high",
+    "date": "medium",
+    "free_text": "medium",
+}
+DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE: dict[str, float] = {
+    "boolean": 0.7,
+    "number": 0.55,
+    "name": 0.75,
+    "names": 0.75,
+    "date": 0.6,
+    "free_text": 0.5,
+}
 
 
 class ConfigError(ValueError):
@@ -121,23 +138,44 @@ class IngestionSettings(BaseModel):
         return value
 
 
-class PageAttributionSettings(BaseModel):
-    """Configurable two-pass page attribution behavior."""
+class AnsweringSettings(BaseModel):
+    """Schema-first answering defaults and confidence controls."""
 
     model_config = ConfigDict(extra="forbid")
 
-    pass_a_enabled: bool = True
-    suppress_title_pages: bool = True
-    suppress_repeated_boilerplate: bool = True
-    validation_mode: Literal["degrade_first", "strict_suppress"] = "degrade_first"
-    emit_empty_pages_for_no_answer: bool = True
-    allow_solver_page_narrowing: bool = True
+    reasoning_effort_by_type: dict[str, Literal["low", "medium", "high"]] = Field(
+        default_factory=lambda: dict(DEFAULT_REASONING_EFFORT_BY_TYPE)
+    )
+    confidence_threshold_by_type: dict[str, float] = Field(
+        default_factory=lambda: dict(DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE)
+    )
 
-    @field_validator("validation_mode", mode="before")
+    @field_validator("reasoning_effort_by_type")
     @classmethod
-    def normalize_validation_mode(cls, value: Any) -> Any:
-        if isinstance(value, str):
-            return _parse_page_validation_mode(value)
+    def ensure_reasoning_effort_coverage(
+        cls,
+        value: dict[str, Literal["low", "medium", "high"]],
+    ) -> dict[str, Literal["low", "medium", "high"]]:
+        missing = SUPPORTED_ANSWER_TYPES - set(value)
+        if missing:
+            missing_list = ", ".join(sorted(missing))
+            raise ValueError(f"answering.reasoning_effort_by_type missing keys: {missing_list}")
+        return value
+
+    @field_validator("confidence_threshold_by_type")
+    @classmethod
+    def ensure_threshold_coverage_and_range(cls, value: dict[str, float]) -> dict[str, float]:
+        missing = SUPPORTED_ANSWER_TYPES - set(value)
+        if missing:
+            missing_list = ", ".join(sorted(missing))
+            raise ValueError(f"answering.confidence_threshold_by_type missing keys: {missing_list}")
+        for answer_type, threshold in value.items():
+            if answer_type not in SUPPORTED_ANSWER_TYPES:
+                continue
+            if not 0 <= threshold <= 1:
+                raise ValueError(
+                    f"answering.confidence_threshold_by_type[{answer_type!r}] must be between 0 and 1."
+                )
         return value
 
 
@@ -173,7 +211,7 @@ class AppConfig(BaseModel):
     download: DownloadSettings = Field(default_factory=DownloadSettings)
     evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
     ingestion: IngestionSettings = Field(default_factory=IngestionSettings)
-    page_attribution: PageAttributionSettings = Field(default_factory=PageAttributionSettings)
+    answering: AnsweringSettings = Field(default_factory=AnsweringSettings)
     logging: LoggingSettings = Field(default_factory=LoggingSettings)
 
     def resolve_api_key(self) -> str:
@@ -283,8 +321,6 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     unanswerable_policy_override = env.get("COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY")
     enable_ocr_override = env.get("COMPETITION_ENABLE_OCR")
     ocr_unavailable_policy_override = env.get("COMPETITION_OCR_UNAVAILABLE_POLICY")
-    pass_a_enabled_override = env.get("COMPETITION_PASS_A_ENABLED")
-    page_validation_mode_override = env.get("COMPETITION_PAGE_VALIDATION_MODE")
     log_level_override = env.get("COMPETITION_LOG_LEVEL")
     log_directory_override = env.get("COMPETITION_LOG_DIRECTORY")
     debug_documents_override = env.get("COMPETITION_DEBUG_DOCUMENTS")
@@ -343,24 +379,6 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
             }
         )
 
-    if pass_a_enabled_override:
-        config = config.model_copy(
-            update={
-                "page_attribution": config.page_attribution.model_copy(
-                    update={"pass_a_enabled": _parse_bool(pass_a_enabled_override)}
-                )
-            }
-        )
-
-    if page_validation_mode_override:
-        config = config.model_copy(
-            update={
-                "page_attribution": config.page_attribution.model_copy(
-                    update={"validation_mode": _parse_page_validation_mode(page_validation_mode_override)}
-                )
-            }
-        )
-
     if log_level_override:
         config = config.model_copy(
             update={"logging": config.logging.model_copy(update={"level": log_level_override.strip().upper()})}
@@ -409,18 +427,6 @@ def _parse_bool(raw_value: str) -> bool:
         return False
 
     raise ConfigError(f"Expected a boolean-like environment override, got: {raw_value!r}")
-
-
-def _parse_page_validation_mode(raw_value: str) -> str:
-    normalized = re.sub(r"[\s-]+", "_", raw_value.strip().lower())
-    allowed_values = {"degrade_first", "strict_suppress"}
-    if normalized in allowed_values:
-        return normalized
-
-    raise ConfigError(
-        "Invalid COMPETITION_PAGE_VALIDATION_MODE override. "
-        f"Expected one of {sorted(allowed_values)}, got: {raw_value!r}"
-    )
 
 
 def load_config(

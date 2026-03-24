@@ -147,3 +147,63 @@ def test_default_config_path_falls_back_to_packaged_resource(tmp_path: Path) -> 
     packaged_config.write_text("phase: warmup\n", encoding="utf-8")
 
     assert default_config_path(module_file) == packaged_config
+
+
+def test_load_app_config_reads_w4b_reasoning_effort_and_thresholds(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        yaml.safe_dump(
+            {
+                "version": "v001",
+                "answering": {
+                    "reasoning_effort_by_type": {
+                        "boolean": "high",
+                        "number": "medium",
+                        "name": "high",
+                        "names": "high",
+                        "date": "medium",
+                        "free_text": "medium",
+                    },
+                    "confidence_threshold_by_type": {
+                        "boolean": 0.7,
+                        "number": 0.55,
+                        "name": 0.75,
+                        "names": 0.75,
+                        "date": 0.6,
+                        "free_text": 0.5,
+                    },
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.answering.reasoning_effort_by_type == {
+        "boolean": "high",
+        "number": "medium",
+        "name": "high",
+        "names": "high",
+        "date": "medium",
+        "free_text": "medium",
+    }
+    assert config.answering.confidence_threshold_by_type["name"] == pytest.approx(0.75)
+
+
+def test_default_baseline_config_declares_w4b_answering_defaults() -> None:
+    payload = yaml.safe_load(default_config_path().read_text(encoding="utf-8"))
+    answering = payload.get("answering")
+
+    assert isinstance(answering, dict), "TASK-W4B baseline config missing `answering` section."
+    assert answering.get("reasoning_effort_by_type") == {
+        "boolean": "high",
+        "number": "medium",
+        "name": "high",
+        "names": "high",
+        "date": "medium",
+        "free_text": "medium",
+    }
+    thresholds = answering.get("confidence_threshold_by_type")
+    assert isinstance(thresholds, dict), "TASK-W4B config must expose per-type confidence thresholds."
+    assert {"boolean", "number", "name", "names", "date", "free_text"} <= set(thresholds)

@@ -46,8 +46,17 @@ class StubSearchBackend:
         self.results = [dict(item) for item in results]
         self.calls: list[dict[str, Any]] = []
 
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
-        self.calls.append({"question": question, "top_k": top_k})
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
+        call = {"question": question, "top_k": top_k}
+        if query_metadata is not None:
+            call["query_metadata"] = query_metadata
+        self.calls.append(call)
         return [dict(item) for item in self.results]
 
 
