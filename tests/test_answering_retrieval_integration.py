@@ -239,7 +239,11 @@ def test_w4b_relevant_pages_only_narrow_existing_retrieval_pages() -> None:
 
 
 def test_w4b_multi_document_names_baseline_uses_schema_solver_without_decomposition() -> None:
-    question = QuestionRecord(id="q-names", question="Who are the parties across the related matters?", answer_type="names")
+    question = QuestionRecord(
+        id="q-names",
+        question="Who are the parties across the related matters?",
+        answer_type="names",
+    )
     retrieval = RetrievalResult(
         question_id=question.id,
         query=question.question,

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 import json
 import logging
 import re
@@ -178,7 +179,8 @@ class RRFHybridSearch:
 
         raw_candidates = [
             dict(candidate)
-            for candidate in self.backend.search(
+            for candidate in _backend_search_with_optional_query_metadata(
+                self.backend,
                 question,
                 top_k=top_k,
                 query_metadata=query_metadata,
@@ -477,3 +479,31 @@ def _string_list(value: Any) -> list[str]:
         if text:
             normalized.append(text)
     return normalized
+
+
+def _backend_search_with_optional_query_metadata(
+    backend: SearchBackend,
+    question: QuestionRecord,
+    *,
+    top_k: int,
+    query_metadata: Any | None,
+) -> list[dict[str, Any]]:
+    if _callable_accepts_keyword(backend.search, "query_metadata"):
+        return backend.search(
+            question,
+            top_k=top_k,
+            query_metadata=query_metadata,
+        )
+    return backend.search(question, top_k=top_k)
+
+
+def _callable_accepts_keyword(func: Any, keyword: str) -> bool:
+    try:
+        signature = inspect.signature(func)
+    except (TypeError, ValueError):
+        return False
+
+    for parameter in signature.parameters.values():
+        if parameter.kind is inspect.Parameter.VAR_KEYWORD:
+            return True
+    return keyword in signature.parameters

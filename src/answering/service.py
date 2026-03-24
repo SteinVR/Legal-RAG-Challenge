@@ -14,6 +14,7 @@ from typing import Any, Callable, Literal, Protocol, cast
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
+from src.answering.page_attribution import PageAttributionTrace, build_page_trace
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference
@@ -517,6 +518,7 @@ class AnswerResult:
     answer: Any
     confidence: float
     evidence_pages: list[PageReference]
+    page_trace: PageAttributionTrace | None = None
     model_name: str | None = None
 
 
@@ -575,6 +577,7 @@ class AnsweringService:
         pages, retrieval_refs = _coerce_retrieval_payload(
             self._retriever.retrieve(question, query_metadata=query_metadata)
         )
+        raw_retrieval_refs = list(retrieval_refs) if retrieval_refs else _group_page_references(pages)
 
         try:
             answer_type = AnswerType(str(question.answer_type))
@@ -624,6 +627,20 @@ class AnsweringService:
                 evidence_page_count=len(result.evidence_pages),
                 answered=result.answer is not None,
                 confidence=result.confidence,
+            )
+        if result.page_trace is None:
+            solver_reported_pages = (
+                list(result.evidence_pages)
+                if _supports_structured_provider(self._provider) and answer_type != AnswerType.FREE_TEXT
+                else []
+            )
+            result.page_trace = build_page_trace(
+                raw_retrieved_chunk_pages=raw_retrieval_refs,
+                pass_a_pages=raw_retrieval_refs,
+                solver_reported_pages=solver_reported_pages,
+                final_emitted_pages=list(result.evidence_pages),
+                validation_action="preserved_pages",
+                collapsed_answer=False,
             )
         return result
 

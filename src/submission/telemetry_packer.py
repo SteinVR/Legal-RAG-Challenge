@@ -49,6 +49,7 @@ def build_answer_telemetry(
         },
         "retrieval": _build_retrieval_telemetry(
             retrieved_chunk_pages=retrieved_chunk_pages,
+            retrieval_result=retrieval_result,
             answer_result=answer_result,
         ),
         "usage": {
@@ -156,22 +157,25 @@ def _serialize_page_reference(reference: PageReference) -> dict[str, Any]:
 def _build_retrieval_telemetry(
     *,
     retrieved_chunk_pages: list[dict[str, Any]],
+    retrieval_result: RetrievalResult,
     answer_result: AnswerResult,
 ) -> dict[str, Any]:
     payload: dict[str, Any] = {"retrieved_chunk_pages": retrieved_chunk_pages}
     page_trace = answer_result.page_trace
-    if page_trace is None:
-        return payload
-
-    payload["raw_retrieved_chunk_pages"] = [
-        _serialize_page_reference(reference) for reference in page_trace.raw_retrieved_chunk_pages
-    ]
-    payload["pass_a_pages"] = [_serialize_page_reference(reference) for reference in page_trace.pass_a_pages]
-    payload["solver_reported_pages"] = [
-        _serialize_page_reference(reference) for reference in page_trace.solver_reported_pages
-    ]
-    payload["page_validation"] = {
-        "action": page_trace.validation_action,
-        "collapsed_answer": page_trace.collapsed_answer,
-    }
+    if page_trace is not None:
+        payload["raw_retrieved_chunk_pages"] = [
+            _serialize_page_reference(reference) for reference in page_trace.raw_retrieved_chunk_pages
+        ]
+        payload["pass_a_pages"] = [
+            _serialize_page_reference(reference) for reference in page_trace.pass_a_pages
+        ]
+        payload["solver_reported_pages"] = [
+            _serialize_page_reference(reference) for reference in page_trace.solver_reported_pages
+        ]
+        payload["page_validation"] = {
+            "action": page_trace.validation_action,
+            "collapsed_answer": page_trace.collapsed_answer,
+        }
+    if retrieval_result.diagnostics:
+        payload["diagnostics"] = dict(retrieval_result.diagnostics)
     return payload

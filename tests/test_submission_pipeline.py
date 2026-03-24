@@ -135,7 +135,11 @@ class OfflineCodexProvider:
         return answer_schema.model_validate(
             {
                 "is_answerable": False,
-                "final_answer": None if answer_type != "free_text" else "There is no information on this question in the provided documents.",
+                "final_answer": (
+                    None
+                    if answer_type != "free_text"
+                    else "There is no information on this question in the provided documents."
+                ),
                 "relevant_pages": [],
                 "reasoning_summary": "The offline provider stub only covers test-local numeric and summary flows.",
                 "confidence": 0.0,

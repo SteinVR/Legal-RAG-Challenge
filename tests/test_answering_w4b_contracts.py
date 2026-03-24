@@ -7,7 +7,10 @@ from typing import Any
 import pytest
 from pydantic import BaseModel, ValidationError
 
-from src.answering.service import AnsweringService, CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+from src.answering.service import (
+    CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+    AnsweringService,
+)
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import PageReference
 
@@ -68,7 +71,11 @@ def _page(*, doc_id: str = "alpha", page_number: int, text: str) -> dict[str, An
     }
 
 
-def _build_service(*, pages: list[dict[str, Any]], response: Mapping[str, Any]) -> tuple[AnsweringService, ListRetriever, StructuredProviderStub]:
+def _build_service(
+    *,
+    pages: list[dict[str, Any]],
+    response: Mapping[str, Any],
+) -> tuple[AnsweringService, ListRetriever, StructuredProviderStub]:
     retriever = ListRetriever(pages)
     provider = StructuredProviderStub(response)
     return AnsweringService(retriever=retriever, provider=provider), retriever, provider

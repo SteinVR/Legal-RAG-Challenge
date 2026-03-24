@@ -320,10 +320,19 @@ class BuildSubmissionService:
             model=provider_model,
             supports_structured=hasattr(self.provider_class, "generate_structured"),
         )
+        retrieval_settings = config.retrieval
 
         retrieval_service = RetrievalService(
             hybrid_search=RRFHybridSearch(backend=backend),
             reranker=QwenReranker(fallback_reranker=LexicalFallbackReranker()),
+            candidate_budget=retrieval_settings.candidate_budget,
+            rerank_budget=retrieval_settings.rerank_budget,
+            default_evidence_budget=retrieval_settings.default_evidence_budget,
+            evidence_budget_by_answer_type=dict(retrieval_settings.evidence_budget_by_answer_type),
+            question_class_budgets=dict(retrieval_settings.question_class_budgets),
+            min_rerank_score=retrieval_settings.min_rerank_score,
+            parent_page_expansion_enabled=retrieval_settings.parent_page_expansion_enabled,
+            parent_page_expansion_limit=retrieval_settings.parent_page_expansion_limit,
         )
         retriever = _CachingRetriever(retrieval_service)
         answering_service = AnsweringService(
