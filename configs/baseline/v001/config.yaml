@@ -9,6 +9,8 @@
 # - COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY
 # - COMPETITION_ENABLE_OCR
 # - COMPETITION_OCR_UNAVAILABLE_POLICY
+# - COMPETITION_PASS_A_ENABLED
+# - COMPETITION_PAGE_VALIDATION_MODE
 # - COMPETITION_LOG_LEVEL
 # - COMPETITION_LOG_DIRECTORY
 # - COMPETITION_DEBUG_DOCUMENTS
@@ -54,6 +56,14 @@ ingestion:
   scan_image_area_ratio: 0.70
   text_completeness_target_chars: 1500
   encoding_bad_char_threshold: 0.05
+
+page_attribution:
+  pass_a_enabled: true
+  suppress_title_pages: true
+  suppress_repeated_boilerplate: true
+  validation_mode: degrade_first
+  emit_empty_pages_for_no_answer: true
+  allow_solver_page_narrowing: true
 
 logging:
   directory: logs/project/runtime

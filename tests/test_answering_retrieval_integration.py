@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 from collections.abc import Mapping
 from typing import Any
 
@@ -33,6 +34,10 @@ class RetrievalResultRetriever:
     def retrieve(self, question: QuestionRecord) -> RetrievalResult:
         self.calls.append(question)
         return self._result
+
+
+def _load_page_attribution_module() -> Any:
+    return importlib.import_module("src.answering.page_attribution")
 
 
 def test_answering_service_accepts_retrieval_result_for_deterministic_answers() -> None:
@@ -101,11 +106,20 @@ def test_answering_service_accepts_retrieval_result_for_free_text_answers() -> N
     service = AnsweringService(retriever=retriever, provider=provider)
 
     result = service.answer_question(question)
+    page_attribution = _load_page_attribution_module()
+    page_trace = result.page_trace
 
     assert result.question_id == "q-free"
     assert result.answer == "The tribunal dismissed the claim and ordered payment within 14 days."
     assert result.confidence == 0.83
     assert result.evidence_pages == [PageReference(doc_id="alpha", page_numbers=[2, 3])]
+    assert isinstance(page_trace, page_attribution.PageAttributionTrace)
+    assert page_trace.raw_retrieved_chunk_pages == [PageReference(doc_id="alpha", page_numbers=[2, 3])]
+    assert page_trace.pass_a_pages == [PageReference(doc_id="alpha", page_numbers=[2, 3])]
+    assert page_trace.solver_reported_pages == []
+    assert page_trace.final_emitted_pages == [PageReference(doc_id="alpha", page_numbers=[2, 3])]
+    assert page_trace.validation_action == "preserved_pages"
+    assert page_trace.collapsed_answer is False
     assert provider.calls == [
         {
             "question": "Summarize the order.",

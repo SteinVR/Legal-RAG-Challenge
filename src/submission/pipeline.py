@@ -17,11 +17,10 @@ from uuid import uuid4
 import fitz
 
 import src.indexing.service as indexing_service
+from src.answering.page_attribution import PageAttributionConfig
 from src.answering.service import (
-    CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
     AnsweringService,
     AnswerResult,
-    FreeTextGroundingValidationError,
 )
 from src.common.config import AppConfig
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
@@ -322,7 +321,18 @@ class BuildSubmissionService:
             reranker=QwenReranker(fallback_reranker=LexicalFallbackReranker()),
         )
         retriever = _CachingRetriever(retrieval_service)
-        answering_service = AnsweringService(retriever=retriever, provider=provider)
+        answering_service = AnsweringService(
+            retriever=retriever,
+            provider=provider,
+            page_attribution_config=PageAttributionConfig(
+                pass_a_enabled=config.page_attribution.pass_a_enabled,
+                suppress_title_pages=config.page_attribution.suppress_title_pages,
+                suppress_repeated_boilerplate=config.page_attribution.suppress_repeated_boilerplate,
+                validation_mode=config.page_attribution.validation_mode,
+                emit_empty_pages_for_no_answer=config.page_attribution.emit_empty_pages_for_no_answer,
+                allow_solver_page_narrowing=config.page_attribution.allow_solver_page_narrowing,
+            ),
+        )
 
         answers: list[dict[str, Any]] = []
         traces: list[dict[str, Any]] = []
@@ -378,6 +388,16 @@ class BuildSubmissionService:
                         "candidate_count": retrieval_result.candidate_count,
                         "reranked_count": retrieval_result.reranked_count,
                         "evidence_chunk_count": len(retrieval_result.evidence_chunks),
+                        "evidence_chunks": [
+                            {
+                                "chunk_id": chunk.chunk_id,
+                                "doc_id": chunk.doc_id,
+                                "page_span": list(chunk.page_span),
+                                "retrieval_score": chunk.retrieval_score,
+                                "rerank_score": chunk.rerank_score,
+                            }
+                            for chunk in retrieval_result.evidence_chunks
+                        ],
                         "retrieved_chunk_pages": [
                             {
                                 "doc_id": str(reference["doc_id"]),
@@ -385,6 +405,10 @@ class BuildSubmissionService:
                             }
                             for reference in telemetry["retrieval"]["retrieved_chunk_pages"]
                         ],
+                        "page_attribution": telemetry["retrieval"].get("page_validation"),
+                        "raw_retrieved_chunk_pages": telemetry["retrieval"].get("raw_retrieved_chunk_pages", []),
+                        "pass_a_pages": telemetry["retrieval"].get("pass_a_pages", []),
+                        "solver_reported_pages": telemetry["retrieval"].get("solver_reported_pages", []),
                     }
                 )
                 if questions_debug_enabled():
@@ -423,26 +447,7 @@ class BuildSubmissionService:
         question: QuestionRecord,
         answering_service: AnsweringService,
     ) -> AnswerResult:
-        try:
-            return answering_service.answer_question(question)
-        except FreeTextGroundingValidationError:
-            log_event(
-                LOGGER,
-                logging.WARNING,
-                "build_submission.question.grounding_fallback",
-                "Grounding validation failed; falling back to canonical unanswerable answer.",
-                stage="submission",
-                question_id=question.id,
-                answer_type=question.answer_type,
-            )
-            return AnswerResult(
-                question_id=question.id,
-                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
-                if question.answer_type == AnswerType.FREE_TEXT.value
-                else None,
-                confidence=0.0,
-                evidence_pages=[],
-            )
+        return answering_service.answer_question(question)
 
     def _build_provider(self, model: str) -> Any:
         provider_kwargs: dict[str, Any] = {"model": model}
