@@ -38,6 +38,7 @@ def _chunk(
     *,
     doc_id: str = "alpha",
     page_span: list[int] | None = None,
+    parent_page_numbers: list[int] | None = None,
     chunk_type: str = "clause",
     text: str | None = None,
     retrieval_score: float = 0.5,
@@ -48,6 +49,7 @@ def _chunk(
         "chunk_id": chunk_id,
         "doc_id": doc_id,
         "page_span": list(page_span or [1]),
+        "parent_page_numbers": list(parent_page_numbers or page_span or [1]),
         "chunk_type": chunk_type,
         "text": text or f"Evidence for {chunk_id}",
         "retrieval_score": retrieval_score,
@@ -87,8 +89,17 @@ class SpyHybridSearch:
         self._results = _copy_payloads(results)
         self.calls: list[dict[str, Any]] = []
 
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
-        self.calls.append({"question": question, "top_k": top_k})
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
+        call = {"question": question, "top_k": top_k}
+        if query_metadata is not None:
+            call["query_metadata"] = query_metadata
+        self.calls.append(call)
         return _copy_payloads(self._results[:top_k])
 
 
@@ -143,9 +154,52 @@ class SpyEvidenceCompressor:
 
 
 class OverReturningHybridSearch(SpyHybridSearch):
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
-        self.calls.append({"question": question, "top_k": top_k})
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
+        call = {"question": question, "top_k": top_k}
+        if query_metadata is not None:
+            call["query_metadata"] = query_metadata
+        self.calls.append(call)
         return _copy_payloads(self._results)
+
+
+class MetadataAwareHybridSearch(SpyHybridSearch):
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
+        results = super().search(question, top_k, query_metadata=query_metadata)
+        if query_metadata is None:
+            return results
+
+        normalized_signals = {
+            str(entity.get("normalized_value", "")).casefold().replace("/", "")
+            for entity in query_metadata.get("legal_entities", [])
+            if entity.get("normalized_value")
+        }
+        boosted: list[dict[str, Any]] = []
+        for result in results:
+            candidate = dict(result)
+            haystack = " ".join(
+                [
+                    str(candidate.get("text", "")),
+                    str(candidate.get("doc_id", "")),
+                    str(candidate.get("chunk_id", "")),
+                ]
+            ).casefold().replace("/", "")
+            if any(signal and signal in haystack for signal in normalized_signals):
+                candidate["retrieval_score"] = float(candidate.get("retrieval_score", 0.0)) + 0.25
+            boosted.append(candidate)
+        boosted.sort(key=lambda item: (-float(item["retrieval_score"]), item["chunk_id"]))
+        return boosted
 
 
 class OverReturningReranker(SpyReranker):
@@ -237,6 +291,115 @@ def test_retrieval_service_applies_candidate_rerank_and_evidence_budgets() -> No
     assert result.candidate_count == 3
     assert result.reranked_count == 2
     assert result.is_unanswerable is False
+
+
+def test_retrieval_service_forwards_optional_query_metadata_to_hybrid_search() -> None:
+    _, service_module = _load_retrieval_contract()
+    question = QuestionRecord(id="q-meta", question="What does Case CFI 012/2024 say?", answer_type="number")
+    hybrid_search = SpyHybridSearch([_chunk("c1", page_span=[2], retrieval_score=0.91)])
+    query_metadata = {
+        "legal_entities": [{"entity_type": "case_id", "normalized_value": "CFI012/2024"}],
+        "likely_multi_document": False,
+    }
+
+    service = service_module.RetrievalService(
+        hybrid_search=hybrid_search,
+        reranker=SpyReranker(results=[_chunk("c1", page_span=[2], rerank_score=0.91)]),
+        evidence_compressor=SpyEvidenceCompressor(results=[_chunk("c1", page_span=[2], rerank_score=0.91)]),
+        candidate_budget=5,
+        rerank_budget=3,
+        default_evidence_budget=2,
+        evidence_budget_by_answer_type={},
+    )
+
+    result = service.retrieve(question, query_metadata=query_metadata)
+
+    assert result.question_id == "q-meta"
+    assert hybrid_search.calls == [
+        {
+            "question": question,
+            "top_k": 5,
+            "query_metadata": query_metadata,
+        }
+    ]
+
+
+def test_retrieval_service_uses_query_metadata_to_choose_question_class_budgets() -> None:
+    _, service_module = _load_retrieval_contract()
+    question = QuestionRecord(
+        id="q-cross",
+        question="Across related matters, what remedy applies?",
+        answer_type="free_text",
+    )
+    hybrid_search = SpyHybridSearch([_chunk("c1"), _chunk("c2"), _chunk("c3"), _chunk("c4")])
+    query_metadata = {
+        "legal_entities": [{"entity_type": "case_id", "normalized_value": "12/2024"}],
+        "likely_multi_document": True,
+    }
+
+    service = service_module.RetrievalService(
+        hybrid_search=hybrid_search,
+        reranker=SpyReranker(results=[_chunk("c1", rerank_score=0.9), _chunk("c2", rerank_score=0.8)]),
+        evidence_compressor=SpyEvidenceCompressor(results=[_chunk("c1", rerank_score=0.9)]),
+        candidate_budget=3,
+        rerank_budget=2,
+        default_evidence_budget=1,
+        question_class_budgets={
+            "cross_case": {
+                "candidate_budget": 4,
+                "rerank_budget": 2,
+                "evidence_budget": 1,
+            }
+        },
+    )
+
+    result = service.retrieve(question, query_metadata=query_metadata)
+
+    assert hybrid_search.calls == [
+        {
+            "question": question,
+            "top_k": 4,
+            "query_metadata": query_metadata,
+        }
+    ]
+    assert result.diagnostics["prefilter_usage"]["question_class"] == "cross_case"
+
+
+def test_retrieval_service_metadata_guidance_can_change_selected_evidence_without_hard_filtering() -> None:
+    _, service_module = _load_retrieval_contract()
+    question = QuestionRecord(id="q-meta-order", question="What does Case 012/2024 say?", answer_type="number")
+    query_metadata = {
+        "legal_entities": [{"entity_type": "case_id", "normalized_value": "case 012/2024"}],
+        "likely_multi_document": False,
+    }
+    generic_chunk = _chunk(
+        "beta-1",
+        doc_id="beta",
+        page_span=[2],
+        text="Generic contract payment terms.",
+        retrieval_score=0.95,
+    )
+    targeted_chunk = _chunk(
+        "alpha-1",
+        doc_id="alpha",
+        page_span=[4],
+        text="Case 012/2024 states that the penalty is AED 500.",
+        retrieval_score=0.71,
+    )
+
+    service = service_module.RetrievalService(
+        hybrid_search=MetadataAwareHybridSearch([generic_chunk, targeted_chunk]),
+        reranker=SpyReranker(results=[targeted_chunk, generic_chunk]),
+        evidence_compressor=SpyEvidenceCompressor(results=[targeted_chunk]),
+        candidate_budget=2,
+        rerank_budget=2,
+        default_evidence_budget=1,
+        evidence_budget_by_answer_type={},
+    )
+
+    result = service.retrieve(question, query_metadata=query_metadata)
+
+    assert result.retrieved_chunk_pages == [PageReference(doc_id="alpha", page_numbers=[4])]
 
 
 def test_retrieval_service_builds_deduplicated_page_references_from_selected_evidence() -> None:
@@ -461,3 +624,52 @@ def test_retrieval_service_drops_invalid_page_spans_and_returns_unanswerable() -
     assert result.is_unanswerable is True
     assert result.evidence_chunks == []
     assert result.retrieved_chunk_pages == []
+
+
+def test_retrieval_service_expands_parent_pages_before_compression_and_records_diagnostics() -> None:
+    _, service_module = _load_retrieval_contract()
+    question = QuestionRecord(id="q-expand", question="Summarize the notice regime.", answer_type="free_text")
+    reranked = [
+        _chunk(
+            "c1",
+            page_span=[2],
+            parent_page_numbers=[2, 3],
+            rerank_score=0.97,
+            metadata={"chunk_family": "clause"},
+        ),
+        _chunk(
+            "c2",
+            page_span=[4],
+            parent_page_numbers=[4],
+            chunk_type="table",
+            rerank_score=0.91,
+            metadata={"chunk_family": "table"},
+        ),
+    ]
+    compressor = SpyEvidenceCompressor(results=[dict(reranked[0])])
+
+    service = service_module.RetrievalService(
+        hybrid_search=SpyHybridSearch(reranked),
+        reranker=SpyReranker(results=reranked),
+        evidence_compressor=compressor,
+        candidate_budget=5,
+        rerank_budget=3,
+        default_evidence_budget=1,
+        evidence_budget_by_answer_type={},
+        parent_page_expansion_enabled=True,
+        parent_page_expansion_limit=2,
+    )
+
+    result = service.retrieve(question)
+
+    assert compressor.calls[0]["reranked_chunks"][0]["page_span"] == [2, 3]
+    assert result.retrieved_chunk_pages == [PageReference(doc_id="alpha", page_numbers=[2, 3])]
+    assert result.diagnostics == {
+        "chunk_family_participation": {
+            "candidates": ["clause", "table"],
+            "evidence": ["clause"],
+        },
+        "rerank_effect": {"applied": True, "candidate_count": 2, "reranked_count": 2},
+        "parent_page_expansion": {"applied": True, "expanded_chunk_count": 1},
+    }
+    assert result.evidence_chunks[0].metadata["parent_page_numbers"] == [2, 3]

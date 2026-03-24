@@ -7,7 +7,12 @@ import pytest
 
 from src.common.config import AppConfig
 from src.common.schemas import ParseStatus, SourceMode, TriageLabel
-from src.ingestion.ocr_engine import OcrPageResult, OcrTableExtraction, _should_treat_first_row_as_header
+from src.ingestion.ocr_engine import (
+    OcrPageResult,
+    OcrTableExtraction,
+    OcrUnavailableError,
+    _should_treat_first_row_as_header,
+)
 from src.ingestion.pdf_parser import parse_pdf_document
 
 
@@ -33,6 +38,12 @@ class StubOcrEngine:
         result = self._page_results[self.calls]
         self.calls += 1
         return result
+
+
+class FailingOcrEngine:
+    def extract_page(self, page: fitz.Page) -> OcrPageResult:
+        del page
+        raise OcrUnavailableError("OCR runtime failed while processing page.")
 
 
 def _long_native_text() -> str:
@@ -111,6 +122,15 @@ def test_parse_pdf_document_marks_scan_page_as_degraded_when_ocr_is_disabled(tmp
     assert parsed.parse_status is ParseStatus.DEGRADED
     assert parsed.pages[0].triage_label is TriageLabel.SCAN
     assert parsed.pages[0].parse_status is ParseStatus.DEGRADED
+
+
+def test_parse_pdf_document_raises_when_scan_page_ocr_fails_and_policy_is_error(tmp_path: Path) -> None:
+    pdf_path = tmp_path / "scan_like.pdf"
+    _write_pdf(pdf_path, pages=[""])
+    config = AppConfig.model_validate({"ingestion": {"ocr_unavailable_policy": "error"}})
+
+    with pytest.raises(OcrUnavailableError, match="OCR runtime failed"):
+        parse_pdf_document(pdf_path, config, ocr_engine=FailingOcrEngine())
 
 
 def test_parse_pdf_document_marks_short_scan_text_as_degraded_without_ocr(tmp_path: Path) -> None:

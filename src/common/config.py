@@ -99,6 +99,13 @@ class IngestionSettings(BaseModel):
 
     enable_ocr: bool = True
     ocr_unavailable_policy: Literal["error", "degraded"] = "degraded"
+    ocr_device: str = "gpu:0"
+    ocr_enable_hpi: bool = False
+    ocr_enable_mkldnn: bool = False
+    ocr_cpu_threads: int = 8
+    ocr_model_root_dir: Path = Field(default_factory=lambda: Path.home() / ".paddlex" / "official_models")
+    ocr_text_detection_model_dir: Path | None = None
+    ocr_text_recognition_model_dir: Path | None = None
     extractable_text_min_chars: int = 50
     suspicious_text_max_chars: int = 200
     large_image_area_ratio: float = 0.25
@@ -106,7 +113,12 @@ class IngestionSettings(BaseModel):
     text_completeness_target_chars: int = 1500
     encoding_bad_char_threshold: float = 0.05
 
-    @field_validator("extractable_text_min_chars", "suspicious_text_max_chars", "text_completeness_target_chars")
+    @field_validator(
+        "extractable_text_min_chars",
+        "suspicious_text_max_chars",
+        "text_completeness_target_chars",
+        "ocr_cpu_threads",
+    )
     @classmethod
     def ensure_positive_int(cls, value: int) -> int:
         if value <= 0:
@@ -118,6 +130,141 @@ class IngestionSettings(BaseModel):
     def ensure_ratio(cls, value: float) -> float:
         if not 0 <= value <= 1:
             raise ValueError("ingestion ratio thresholds must be between 0 and 1.")
+        return value
+
+    @field_validator("ocr_device")
+    @classmethod
+    def ensure_non_empty_ocr_device(cls, value: str) -> str:
+        normalized = str(value).strip()
+        if not normalized:
+            raise ValueError("ingestion.ocr_device must be non-empty.")
+        return normalized
+
+    @field_validator(
+        "ocr_model_root_dir",
+        "ocr_text_detection_model_dir",
+        "ocr_text_recognition_model_dir",
+        mode="before",
+    )
+    @classmethod
+    def normalize_optional_paths(cls, value: Any) -> Any:
+        if value is None or value == "":
+            return None
+        return Path(str(value)).expanduser()
+
+
+class IndexingSettings(BaseModel):
+    """Chunking and indexing controls."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    token_chunk_size: int = 300
+    token_chunk_overlap: int = 50
+    enabled_chunk_families: list[str] = Field(
+        default_factory=lambda: ["page", "section", "clause", "microchunk", "table"]
+    )
+
+    @field_validator("token_chunk_size")
+    @classmethod
+    def ensure_positive_chunk_size(cls, value: int) -> int:
+        if value <= 0:
+            raise ValueError("indexing.token_chunk_size must be positive.")
+        return value
+
+    @field_validator("token_chunk_overlap")
+    @classmethod
+    def ensure_non_negative_chunk_overlap(cls, value: int) -> int:
+        if value < 0:
+            raise ValueError("indexing.token_chunk_overlap must be non-negative.")
+        return value
+
+    @field_validator("enabled_chunk_families")
+    @classmethod
+    def ensure_non_empty_chunk_families(cls, value: list[str]) -> list[str]:
+        normalized: list[str] = []
+        seen: set[str] = set()
+        for item in value:
+            name = str(item).strip()
+            if not name or name in seen:
+                continue
+            normalized.append(name)
+            seen.add(name)
+        if not normalized:
+            raise ValueError("indexing.enabled_chunk_families must include at least one family.")
+        return normalized
+
+
+class RetrievalSettings(BaseModel):
+    """Retrieval-stage budgets and optional context expansion controls."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    candidate_budget: int = 10
+    rerank_budget: int = 5
+    default_evidence_budget: int = 3
+    evidence_budget_by_answer_type: dict[str, int] = Field(default_factory=dict)
+    question_class_budgets: dict[str, "QuestionClassBudgetSettings"] = Field(default_factory=dict)
+    min_rerank_score: float = 0.0
+    parent_page_expansion_enabled: bool = False
+    parent_page_expansion_limit: int = 0
+
+    @field_validator("candidate_budget", "rerank_budget", "default_evidence_budget", "parent_page_expansion_limit")
+    @classmethod
+    def ensure_non_negative_int(cls, value: int) -> int:
+        if value < 0:
+            raise ValueError("retrieval integer settings must be non-negative.")
+        return value
+
+    @field_validator("min_rerank_score")
+    @classmethod
+    def ensure_non_negative_score(cls, value: float) -> float:
+        if value < 0:
+            raise ValueError("retrieval.min_rerank_score must be non-negative.")
+        return value
+
+    @field_validator("evidence_budget_by_answer_type")
+    @classmethod
+    def ensure_non_negative_budgets(cls, value: dict[str, int]) -> dict[str, int]:
+        normalized: dict[str, int] = {}
+        for answer_type, budget in value.items():
+            key = str(answer_type).strip()
+            if not key:
+                continue
+            budget_value = int(budget)
+            if budget_value < 0:
+                raise ValueError("retrieval.evidence_budget_by_answer_type budgets must be non-negative.")
+            normalized[key] = budget_value
+        return normalized
+
+    @field_validator("question_class_budgets")
+    @classmethod
+    def ensure_normalized_question_class_budgets(
+        cls,
+        value: dict[str, "QuestionClassBudgetSettings"],
+    ) -> dict[str, "QuestionClassBudgetSettings"]:
+        normalized: dict[str, QuestionClassBudgetSettings] = {}
+        for question_class, budget in value.items():
+            key = str(question_class).strip()
+            if not key:
+                continue
+            normalized[key] = budget
+        return normalized
+
+
+class QuestionClassBudgetSettings(BaseModel):
+    """Question-class-specific retrieval budgets."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    candidate_budget: int
+    rerank_budget: int
+    evidence_budget: int
+
+    @field_validator("candidate_budget", "rerank_budget", "evidence_budget")
+    @classmethod
+    def ensure_non_negative_budget(cls, value: int) -> int:
+        if value < 0:
+            raise ValueError("question-class budgets must be non-negative.")
         return value
 
 
@@ -153,6 +300,8 @@ class AppConfig(BaseModel):
     download: DownloadSettings = Field(default_factory=DownloadSettings)
     evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
     ingestion: IngestionSettings = Field(default_factory=IngestionSettings)
+    indexing: IndexingSettings = Field(default_factory=IndexingSettings)
+    retrieval: RetrievalSettings = Field(default_factory=RetrievalSettings)
     logging: LoggingSettings = Field(default_factory=LoggingSettings)
 
     def resolve_api_key(self) -> str:
@@ -262,6 +411,13 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     unanswerable_policy_override = env.get("COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY")
     enable_ocr_override = env.get("COMPETITION_ENABLE_OCR")
     ocr_unavailable_policy_override = env.get("COMPETITION_OCR_UNAVAILABLE_POLICY")
+    ocr_device_override = env.get("COMPETITION_OCR_DEVICE")
+    ocr_enable_hpi_override = env.get("COMPETITION_OCR_ENABLE_HPI")
+    ocr_enable_mkldnn_override = env.get("COMPETITION_OCR_ENABLE_MKLDNN")
+    ocr_cpu_threads_override = env.get("COMPETITION_OCR_CPU_THREADS")
+    ocr_model_root_dir_override = env.get("COMPETITION_OCR_MODEL_ROOT_DIR")
+    ocr_text_detection_model_dir_override = env.get("COMPETITION_OCR_TEXT_DETECTION_MODEL_DIR")
+    ocr_text_recognition_model_dir_override = env.get("COMPETITION_OCR_TEXT_RECOGNITION_MODEL_DIR")
     log_level_override = env.get("COMPETITION_LOG_LEVEL")
     log_directory_override = env.get("COMPETITION_LOG_DIRECTORY")
     debug_documents_override = env.get("COMPETITION_DEBUG_DOCUMENTS")
@@ -306,19 +462,32 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
             }
         )
 
+    ingestion_updates: dict[str, Any] = {}
     if enable_ocr_override:
-        config = config.model_copy(
-            update={"ingestion": config.ingestion.model_copy(update={"enable_ocr": _parse_bool(enable_ocr_override)})}
-        )
-
+        ingestion_updates["enable_ocr"] = _parse_bool(enable_ocr_override)
     if ocr_unavailable_policy_override:
-        config = config.model_copy(
-            update={
-                "ingestion": config.ingestion.model_copy(
-                    update={"ocr_unavailable_policy": ocr_unavailable_policy_override.strip()}
-                )
-            }
-        )
+        ingestion_updates["ocr_unavailable_policy"] = ocr_unavailable_policy_override.strip()
+    if ocr_device_override:
+        ingestion_updates["ocr_device"] = ocr_device_override.strip()
+    if ocr_enable_hpi_override:
+        ingestion_updates["ocr_enable_hpi"] = _parse_bool(ocr_enable_hpi_override)
+    if ocr_enable_mkldnn_override:
+        ingestion_updates["ocr_enable_mkldnn"] = _parse_bool(ocr_enable_mkldnn_override)
+    if ocr_cpu_threads_override:
+        ingestion_updates["ocr_cpu_threads"] = int(ocr_cpu_threads_override)
+    if ocr_model_root_dir_override:
+        ingestion_updates["ocr_model_root_dir"] = Path(ocr_model_root_dir_override.strip()).expanduser()
+    if ocr_text_detection_model_dir_override:
+        ingestion_updates["ocr_text_detection_model_dir"] = Path(
+            ocr_text_detection_model_dir_override.strip()
+        ).expanduser()
+    if ocr_text_recognition_model_dir_override:
+        ingestion_updates["ocr_text_recognition_model_dir"] = Path(
+            ocr_text_recognition_model_dir_override.strip()
+        ).expanduser()
+
+    if ingestion_updates:
+        config = config.model_copy(update={"ingestion": config.ingestion.model_copy(update=ingestion_updates)})
 
     if log_level_override:
         config = config.model_copy(

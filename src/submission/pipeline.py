@@ -22,6 +22,7 @@ from src.answering.service import (
     AnsweringService,
     AnswerResult,
     FreeTextGroundingValidationError,
+    QueryMetadata,
 )
 from src.common.config import AppConfig
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
@@ -316,10 +317,19 @@ class BuildSubmissionService:
 
         provider_model = self.free_text_model
         provider = _LazyProvider(factory=self._build_provider, model=provider_model)
+        retrieval_settings = config.retrieval
 
         retrieval_service = RetrievalService(
             hybrid_search=RRFHybridSearch(backend=backend),
             reranker=QwenReranker(fallback_reranker=LexicalFallbackReranker()),
+            candidate_budget=retrieval_settings.candidate_budget,
+            rerank_budget=retrieval_settings.rerank_budget,
+            default_evidence_budget=retrieval_settings.default_evidence_budget,
+            evidence_budget_by_answer_type=dict(retrieval_settings.evidence_budget_by_answer_type),
+            question_class_budgets=dict(retrieval_settings.question_class_budgets),
+            min_rerank_score=retrieval_settings.min_rerank_score,
+            parent_page_expansion_enabled=retrieval_settings.parent_page_expansion_enabled,
+            parent_page_expansion_limit=retrieval_settings.parent_page_expansion_limit,
         )
         retriever = _CachingRetriever(retrieval_service)
         answering_service = AnsweringService(retriever=retriever, provider=provider)
@@ -474,8 +484,13 @@ class _CachingRetriever:
     _latest_question_id: str | None = field(default=None, init=False)
     _latest_result: RetrievalResult | None = field(default=None, init=False)
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult:
-        result = self.delegate.retrieve(question)
+    def retrieve(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: QueryMetadata | None = None,
+    ) -> RetrievalResult:
+        result = self.delegate.retrieve(question, query_metadata=query_metadata)
         self._latest_question_id = question.id
         self._latest_result = result
         return result

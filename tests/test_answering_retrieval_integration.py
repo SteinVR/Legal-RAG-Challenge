@@ -29,9 +29,11 @@ class RetrievalResultRetriever:
     def __init__(self, result: RetrievalResult) -> None:
         self._result = result
         self.calls: list[QuestionRecord] = []
+        self.query_metadata: list[Any] = []
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult:
+    def retrieve(self, question: QuestionRecord, *, query_metadata: Any | None = None) -> RetrievalResult:
         self.calls.append(question)
+        self.query_metadata.append(query_metadata)
         return self._result
 
 
@@ -120,3 +122,57 @@ def test_answering_service_accepts_retrieval_result_for_free_text_answers() -> N
             "max_chars": 280,
         }
     ]
+
+
+def test_answering_service_passes_query_metadata_to_retrieval_as_soft_guidance() -> None:
+    question = QuestionRecord(
+        id="q-meta",
+        question="Across Case No. 12/2024 and Case No. 18/2023, which DIFC Employment Law provisions apply?",
+        answer_type="free_text",
+    )
+    retrieval = RetrievalResult(
+        question_id=question.id,
+        query=question.question,
+        answer_type=question.answer_type,
+        candidate_count=1,
+        reranked_count=1,
+        evidence_chunks=[
+            RetrievedChunk(
+                chunk_id="c1",
+                doc_id="alpha",
+                page_span=[4],
+                chunk_type="clause",
+                text="Case 12/2024 and Case 18/2023 both apply DIFC Employment Law.",
+                retrieval_score=0.88,
+            )
+        ],
+        retrieved_chunk_pages=[PageReference(doc_id="alpha", page_numbers=[4])],
+        is_unanswerable=False,
+    )
+    retriever = RetrievalResultRetriever(retrieval)
+    provider = StubProvider(
+        {
+            "answer": "Case 12/2024 and Case 18/2023 both apply DIFC Employment Law.",
+            "confidence": 0.74,
+        }
+    )
+    service = AnsweringService(retriever=retriever, provider=provider)
+
+    result = service.answer_question(question)
+
+    assert result.answer == "Case 12/2024 and Case 18/2023 both apply DIFC Employment Law."
+    assert len(retriever.query_metadata) == 1
+    metadata = retriever.query_metadata[0]
+    assert metadata is not None
+    assert getattr(metadata, "likely_multi_document") is True
+    normalized_entities = {
+        (
+            str(getattr(entity, "entity_type")),
+            str(getattr(entity, "normalized_value")),
+            bool(getattr(entity, "is_strong")),
+        )
+        for entity in getattr(metadata, "legal_entities")
+    }
+    assert ("case_id", "12/2024", True) in normalized_entities
+    assert ("case_id", "18/2023", True) in normalized_entities
+    assert ("statute_id", "difc employment law", True) in normalized_entities

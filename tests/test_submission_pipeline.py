@@ -307,6 +307,7 @@ def test_build_submission_cli_exposes_runtime_path_arguments() -> None:
 
 
 def test_telemetry_packer_prefers_supporting_pages_and_uses_total_time_for_non_streaming_ttft() -> None:
+    page_attribution = _load_module("src.answering.page_attribution", feature="W4A page attribution")
     retrieval_result = RetrievalResult(
         question_id="q-free",
         query="Summarize the order.",
@@ -324,6 +325,12 @@ def test_telemetry_packer_prefers_supporting_pages_and_uses_total_time_for_non_s
             )
         ],
         retrieved_chunk_pages=[PageReference(doc_id="alpha", page_numbers=[2, 3])],
+        diagnostics={
+            "chunk_family_participation": {"candidates": ["clause"], "evidence": ["clause"]},
+            "rerank_effect": {"applied": True, "candidate_count": 3, "reranked_count": 2},
+            "parent_page_expansion": {"applied": True, "expanded_chunk_count": 1},
+            "prefilter_usage": {"applied": True, "question_class": "case"},
+        },
         is_unanswerable=False,
     )
     answer_result = AnswerResult(
@@ -331,6 +338,14 @@ def test_telemetry_packer_prefers_supporting_pages_and_uses_total_time_for_non_s
         answer="The tribunal dismissed the claim.",
         confidence=0.82,
         evidence_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+        page_trace=page_attribution.PageAttributionTrace(
+            raw_retrieved_chunk_pages=[PageReference(doc_id="alpha", page_numbers=[2, 3])],
+            pass_a_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+            solver_reported_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+            final_emitted_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+            validation_action="solver_subset",
+            collapsed_answer=False,
+        ),
     )
 
     telemetry = _build_answer_telemetry(
@@ -350,7 +365,20 @@ def test_telemetry_packer_prefers_supporting_pages_and_uses_total_time_for_non_s
         "total_time_ms": pytest.approx(1_250),
     }
     assert telemetry["retrieval"] == {
-        "retrieved_chunk_pages": [{"doc_id": "alpha", "page_numbers": [3]}]
+        "retrieved_chunk_pages": [{"doc_id": "alpha", "page_numbers": [3]}],
+        "raw_retrieved_chunk_pages": [{"doc_id": "alpha", "page_numbers": [2, 3]}],
+        "pass_a_pages": [{"doc_id": "alpha", "page_numbers": [3]}],
+        "solver_reported_pages": [{"doc_id": "alpha", "page_numbers": [3]}],
+        "page_validation": {
+            "action": "solver_subset",
+            "collapsed_answer": False,
+        },
+        "diagnostics": {
+            "chunk_family_participation": {"candidates": ["clause"], "evidence": ["clause"]},
+            "rerank_effect": {"applied": True, "candidate_count": 3, "reranked_count": 2},
+            "parent_page_expansion": {"applied": True, "expanded_chunk_count": 1},
+            "prefilter_usage": {"applied": True, "question_class": "case"},
+        },
     }
     assert telemetry["usage"] == {"input_tokens": 144, "output_tokens": 17}
     assert telemetry["model_name"] == "gpt-5-mini"

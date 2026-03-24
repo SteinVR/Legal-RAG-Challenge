@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 import logging
 import math
 import re
@@ -10,8 +11,9 @@ from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from datetime import date
-from typing import Any, Callable, Protocol
+from typing import Any, Callable, Literal, Protocol
 
+from src.answering.page_attribution import PageAttributionTrace
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference
@@ -78,6 +80,21 @@ _NAME_PATTERN = re.compile(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b")
 _UPPER_ENTITY_PATTERN = re.compile(r"\b[A-Z][A-Z0-9&'/-]*(?:\.?\s+[A-Z][A-Z0-9&'/-]*)+\.?\b")
 _ENTITY_LIST_ITEM_PATTERN = re.compile(
     r"\b(?:[A-Z]{2,}[A-Z0-9&'/-]*|[A-Z][a-z][A-Za-z0-9&'/-]*)(?:\.?\s+[A-Z][A-Za-z0-9&'/-]*)*\.?\b"
+)
+_CASE_ID_PATTERN = re.compile(
+    r"\bcase\s*(?:no\.?|number)?\s*(?P<case_id>\d{1,4}\s*/\s*\d{2,4})\b",
+    re.IGNORECASE,
+)
+_STATUTE_ID_PATTERN = re.compile(
+    r"\b(?P<statute>(?:[A-Z]{2,}\s+)?[A-Za-z]+(?:\s+[A-Za-z]+){0,3}\s+Law)\b"
+)
+_DOCUMENT_TITLE_CUE_PATTERN = re.compile(
+    r"\b(?P<title>[A-Z][A-Za-z0-9'&/-]*(?:\s+[A-Z][A-Za-z0-9'&/-]*)*\s+"
+    r"(?:Agreement|Contract|Deed|Order|Policy|Protocol|Arrangement|Lease))\b"
+)
+_MULTI_DOCUMENT_SIGNAL_PATTERN = re.compile(
+    r"\b(across|between|both|related\s+matters?|related\s+cases?|multiple|versus|vs\.?)\b",
+    re.IGNORECASE,
 )
 _BOOLEAN_NEGATIVE = (
     "not permitted",
@@ -231,8 +248,94 @@ _SINGLE_TOKEN_ENTITY_EXCLUSIONS = {
 class Retriever(Protocol):
     """Retrieval interface expected by the answering service."""
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult | list[dict[str, Any]]:
+    def retrieve(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: "QueryMetadata | None" = None,
+    ) -> RetrievalResult | list[dict[str, Any]]:
         """Return candidate evidence pages or a typed retrieval result."""
+
+
+@dataclass(frozen=True, slots=True)
+class LegalEntityMetadata:
+    entity_type: Literal["case_id", "statute_id"]
+    raw_value: str
+    normalized_value: str
+    is_strong: bool
+
+
+@dataclass(frozen=True, slots=True)
+class QueryMetadata:
+    legal_entities: tuple[LegalEntityMetadata, ...]
+    document_title_cues: tuple[str, ...]
+    likely_multi_document: bool
+
+
+def extract_query_metadata(question_text: str) -> QueryMetadata:
+    normalized_question = _normalize_whitespace(question_text)
+    lowered_question = normalized_question.casefold()
+
+    legal_entities: list[LegalEntityMetadata] = []
+    seen_entities: set[tuple[str, str]] = set()
+
+    for match in _CASE_ID_PATTERN.finditer(normalized_question):
+        raw_value = _normalize_whitespace(match.group("case_id"))
+        normalized_value = raw_value.replace(" ", "")
+        entity_key = ("case_id", normalized_value.casefold())
+        if entity_key in seen_entities:
+            continue
+        seen_entities.add(entity_key)
+        legal_entities.append(
+            LegalEntityMetadata(
+                entity_type="case_id",
+                raw_value=raw_value,
+                normalized_value=normalized_value,
+                is_strong=True,
+            )
+        )
+
+    for match in _STATUTE_ID_PATTERN.finditer(normalized_question):
+        raw_value = _normalize_whitespace(match.group("statute"))
+        raw_value = re.sub(r"^(?:which|what|under|the)\s+", "", raw_value, flags=re.IGNORECASE)
+        if not raw_value:
+            continue
+        normalized_value = raw_value.casefold()
+        entity_key = ("statute_id", normalized_value)
+        if entity_key in seen_entities:
+            continue
+        seen_entities.add(entity_key)
+        legal_entities.append(
+            LegalEntityMetadata(
+                entity_type="statute_id",
+                raw_value=raw_value,
+                normalized_value=normalized_value,
+                is_strong=True,
+            )
+        )
+
+    document_title_cues: list[str] = []
+    seen_titles: set[str] = set()
+    for match in _DOCUMENT_TITLE_CUE_PATTERN.finditer(normalized_question):
+        title = _normalize_whitespace(match.group("title"))
+        key = title.casefold()
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        document_title_cues.append(title)
+
+    case_entity_count = sum(1 for entity in legal_entities if entity.entity_type == "case_id")
+    likely_multi_document = (
+        case_entity_count >= 2
+        or bool(_MULTI_DOCUMENT_SIGNAL_PATTERN.search(lowered_question))
+        or lowered_question.count(" and ") >= 2
+    )
+
+    return QueryMetadata(
+        legal_entities=tuple(legal_entities),
+        document_title_cues=tuple(document_title_cues),
+        likely_multi_document=likely_multi_document,
+    )
 
 
 @dataclass(slots=True)
@@ -243,6 +346,7 @@ class AnswerResult:
     answer: Any
     confidence: float
     evidence_pages: list[PageReference]
+    page_trace: PageAttributionTrace | None = None
 
 
 @dataclass(slots=True)
@@ -273,7 +377,14 @@ class AnsweringService:
         self._provider = provider
 
     def answer_question(self, question: QuestionRecord) -> AnswerResult:
-        pages, retrieval_refs = _coerce_retrieval_payload(self._retriever.retrieve(question))
+        query_metadata = extract_query_metadata(question.question)
+        pages, retrieval_refs = _coerce_retrieval_payload(
+            _retrieve_with_optional_query_metadata(
+                self._retriever,
+                question,
+                query_metadata=query_metadata,
+            )
+        )
 
         try:
             answer_type = AnswerType(str(question.answer_type))
@@ -821,6 +932,29 @@ def _group_page_references(pages: Iterable[_PageCandidate]) -> list[PageReferenc
         PageReference(doc_id=doc_id, page_numbers=sorted(page_numbers))
         for doc_id, page_numbers in sorted(grouped.items())
     ]
+
+
+def _retrieve_with_optional_query_metadata(
+    retriever: Retriever,
+    question: QuestionRecord,
+    *,
+    query_metadata: QueryMetadata,
+) -> RetrievalResult | list[dict[str, Any]]:
+    if _callable_accepts_keyword(retriever.retrieve, "query_metadata"):
+        return retriever.retrieve(question, query_metadata=query_metadata)
+    return retriever.retrieve(question)
+
+
+def _callable_accepts_keyword(func: Any, keyword: str) -> bool:
+    try:
+        signature = inspect.signature(func)
+    except (TypeError, ValueError):
+        return False
+
+    for parameter in signature.parameters.values():
+        if parameter.kind is inspect.Parameter.VAR_KEYWORD:
+            return True
+    return keyword in signature.parameters
 
 
 def _dedupe_pages(pages: Iterable[_PageCandidate]) -> list[_PageCandidate]:

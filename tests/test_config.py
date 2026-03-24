@@ -90,6 +90,82 @@ def test_load_app_config_accepts_lowercase_logging_level_from_yaml(tmp_path: Pat
     assert config.logging.level == "DEBUG"
 
 
+def test_load_app_config_supports_w4d_indexing_and_retrieval_settings(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        yaml.safe_dump(
+            {
+                "version": "v001",
+                "indexing": {
+                    "token_chunk_size": 280,
+                    "token_chunk_overlap": 40,
+                    "enabled_chunk_families": ["page", "clause", "microchunk"],
+                },
+                "retrieval": {
+                    "candidate_budget": 12,
+                    "rerank_budget": 6,
+                    "default_evidence_budget": 4,
+                    "parent_page_expansion_enabled": True,
+                    "parent_page_expansion_limit": 2,
+                    "question_class_budgets": {
+                        "cross_case": {
+                            "candidate_budget": 16,
+                            "rerank_budget": 8,
+                            "evidence_budget": 5,
+                        }
+                    },
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.indexing.token_chunk_size == 280
+    assert config.indexing.token_chunk_overlap == 40
+    assert config.indexing.enabled_chunk_families == ["page", "clause", "microchunk"]
+    assert config.retrieval.candidate_budget == 12
+    assert config.retrieval.rerank_budget == 6
+    assert config.retrieval.default_evidence_budget == 4
+    assert config.retrieval.parent_page_expansion_enabled is True
+    assert config.retrieval.parent_page_expansion_limit == 2
+    assert config.retrieval.question_class_budgets["cross_case"].candidate_budget == 16
+    assert config.retrieval.question_class_budgets["cross_case"].rerank_budget == 8
+    assert config.retrieval.question_class_budgets["cross_case"].evidence_budget == 5
+
+
+def test_load_app_config_supports_gpu_ocr_runtime_settings(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        yaml.safe_dump(
+            {
+                "version": "v001",
+                "ingestion": {
+                    "ocr_device": "gpu:0",
+                    "ocr_enable_hpi": False,
+                    "ocr_model_root_dir": str(tmp_path / "models"),
+                    "ocr_text_detection_model_dir": str(tmp_path / "models" / "PP-OCRv5_server_det"),
+                    "ocr_text_recognition_model_dir": str(tmp_path / "models" / "en_PP-OCRv5_mobile_rec"),
+                    "ocr_enable_mkldnn": False,
+                    "ocr_cpu_threads": 6,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.ingestion.ocr_device == "gpu:0"
+    assert config.ingestion.ocr_enable_hpi is False
+    assert config.ingestion.ocr_model_root_dir == tmp_path / "models"
+    assert config.ingestion.ocr_text_detection_model_dir == tmp_path / "models" / "PP-OCRv5_server_det"
+    assert config.ingestion.ocr_text_recognition_model_dir == tmp_path / "models" / "en_PP-OCRv5_mobile_rec"
+    assert config.ingestion.ocr_enable_mkldnn is False
+    assert config.ingestion.ocr_cpu_threads == 6
+
+
 def test_default_config_path_falls_back_to_packaged_resource(tmp_path: Path) -> None:
     module_file = tmp_path / "site-packages" / "src" / "common" / "config.py"
     module_file.parent.mkdir(parents=True, exist_ok=True)

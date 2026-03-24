@@ -11,9 +11,10 @@ import time
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
+from functools import lru_cache
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 from uuid import NAMESPACE_URL, uuid5
 
 from qdrant_client import QdrantClient, models
@@ -193,6 +194,9 @@ class IndexChunk:
     bm25_terms: list[str]
     document_title: str | None = None
     document_family: str | None = None
+    parser_provenance: str | None = None
+    heading_path: list[str] = field(default_factory=list)
+    source_block_ids: list[str] = field(default_factory=list)
 
     def payload(self) -> dict[str, Any]:
         return {
@@ -210,6 +214,9 @@ class IndexChunk:
             "bm25_terms": list(self.bm25_terms),
             "document_title": self.document_title,
             "document_family": self.document_family,
+            "parser_provenance": self.parser_provenance,
+            "heading_path": list(self.heading_path),
+            "source_block_ids": list(self.source_block_ids),
         }
 
 
@@ -477,7 +484,13 @@ class HybridIndexService:
                 )
                 return result
 
-        chunks = build_index_chunks(corpus_pages)
+        enabled_chunk_families = set(self.config.indexing.enabled_chunk_families)
+        chunks = build_index_chunks(
+            corpus_pages,
+            enabled_chunk_families=enabled_chunk_families,
+            token_chunk_size=self.config.indexing.token_chunk_size,
+            token_chunk_overlap=self.config.indexing.token_chunk_overlap,
+        )
         dense_embedder = build_dense_embedder(self.config)
         embedding_started_at = time.perf_counter()
         dense_vectors = dense_embedder.encode([chunk.text for chunk in chunks])
@@ -500,9 +513,11 @@ class HybridIndexService:
             "chunk_count": len(chunks),
             "built_at": datetime.now(tz=UTC).isoformat(),
             "chunking": {
-                "levels": ["page", "section", "clause", "microchunk", "table"],
+                "levels": sorted(enabled_chunk_families),
                 "carry_heading_context": True,
                 "unnumbered_clause_strategy": "paragraph-synthesis",
+                "token_chunk_size": self.config.indexing.token_chunk_size,
+                "token_chunk_overlap": self.config.indexing.token_chunk_overlap,
             },
             "dense_encoder": dense_encoder_contract(dense_embedder),
             "sparse_encoder": sparse_encoder.metadata(),
@@ -691,6 +706,9 @@ class HybridIndexService:
                     "section": chunk.section,
                     "clause": chunk.clause,
                     "neighboring_headings": list(chunk.neighboring_headings),
+                    "parser_provenance": chunk.parser_provenance,
+                    "heading_path": list(chunk.heading_path),
+                    "source_block_ids": list(chunk.source_block_ids),
                 }
 
             client.upsert(collection_name=self.collection_name, points=points, wait=True)
@@ -720,8 +738,22 @@ def dense_encoder_contract(embedder: DenseEmbedder | None = None) -> dict[str, A
     }
 
 
-def build_index_chunks(pages: Iterable[CanonicalPageRecord]) -> list[IndexChunk]:
+def build_index_chunks(
+    pages: Iterable[CanonicalPageRecord],
+    *,
+    enabled_chunk_families: set[str] | None = None,
+    token_chunk_size: int = 300,
+    token_chunk_overlap: int = 50,
+) -> list[IndexChunk]:
     """Derive structure-aware hybrid indexing chunks from canonical pages."""
+
+    families = {
+        str(name).strip()
+        for name in (enabled_chunk_families or {"page", "section", "clause", "microchunk", "table"})
+        if str(name).strip()
+    }
+    if not families:
+        return []
 
     chunks: list[IndexChunk] = []
     pages_by_doc: dict[str, list[CanonicalPageRecord]] = defaultdict(list)
@@ -741,42 +773,61 @@ def build_index_chunks(pages: Iterable[CanonicalPageRecord]) -> list[IndexChunk]
             section_title = current_headings.section_label()
             page_prefix = f"{page.doc_id}-p{page.page_number}"
 
-            chunks.append(
-                _make_chunk(
-                    chunk_id=f"{page_prefix}-page",
-                    doc_id=page.doc_id,
-                    page_span=[page.page_number],
-                    chunk_type="page",
-                    text=page.text,
-                    section=section_title,
-                    clause=None,
-                    neighboring_headings=neighboring_headings,
-                    document_title=page.document_title,
-                    document_family=page.document_family,
-                )
-            )
-
-            chunks.extend(_clause_chunks_for_page(page, current_headings))
-
-            for table_block in page.blocks:
-                if table_block.type is not ContentBlockType.TABLE:
-                    continue
+            if "page" in families:
                 chunks.append(
                     _make_chunk(
-                        chunk_id=table_block.block_id,
+                        chunk_id=f"{page_prefix}-page",
                         doc_id=page.doc_id,
                         page_span=[page.page_number],
-                        chunk_type="table",
-                        text=table_block.text,
+                        chunk_type="page",
+                        text=page.text,
                         section=section_title,
-                        clause=table_block.metadata.get("row_anchor"),
+                        clause=None,
                         neighboring_headings=neighboring_headings,
                         document_title=page.document_title,
                         document_family=page.document_family,
+                        parser_provenance=page.parser_provenance,
+                        heading_path=page.heading_path,
+                        source_block_ids=page.source_block_ids,
                     )
                 )
 
-        chunks.extend(_section_chunks_for_doc(page_contexts))
+            if "clause" in families or "microchunk" in families:
+                chunks.extend(
+                    _clause_chunks_for_page(
+                        page,
+                        current_headings,
+                        include_clause_chunks="clause" in families,
+                        include_microchunks="microchunk" in families,
+                        token_chunk_size=token_chunk_size,
+                        token_chunk_overlap=token_chunk_overlap,
+                    )
+                )
+
+            if "table" in families:
+                for table_block in page.blocks:
+                    if table_block.type is not ContentBlockType.TABLE:
+                        continue
+                    chunks.append(
+                        _make_chunk(
+                            chunk_id=table_block.block_id,
+                            doc_id=page.doc_id,
+                            page_span=[page.page_number],
+                            chunk_type="table",
+                            text=table_block.text,
+                            section=section_title,
+                            clause=table_block.metadata.get("row_anchor"),
+                            neighboring_headings=neighboring_headings,
+                            document_title=page.document_title,
+                            document_family=page.document_family,
+                            parser_provenance=page.parser_provenance,
+                            heading_path=_heading_path_for_block(page, table_block),
+                            source_block_ids=_source_block_ids_for_block(page, table_block),
+                        )
+                    )
+
+        if "section" in families:
+            chunks.extend(_section_chunks_for_doc(page_contexts))
 
     return chunks
 
@@ -808,7 +859,15 @@ def format_build_index_result(result: BuildIndexResult) -> str:
     return "\n".join(lines)
 
 
-def _clause_chunks_for_page(page: CanonicalPageRecord, headings: HeadingContext) -> list[IndexChunk]:
+def _clause_chunks_for_page(
+    page: CanonicalPageRecord,
+    headings: HeadingContext,
+    *,
+    include_clause_chunks: bool,
+    include_microchunks: bool,
+    token_chunk_size: int,
+    token_chunk_overlap: int,
+) -> list[IndexChunk]:
     clause_sources = _clause_sources_for_text(page.text)
     chunks: list[IndexChunk] = []
     neighboring_headings = headings.neighboring_headings() or [f"Page {page.page_number}"]
@@ -817,36 +876,51 @@ def _clause_chunks_for_page(page: CanonicalPageRecord, headings: HeadingContext)
     for clause_index, (clause_label, clause_text) in enumerate(clause_sources, start=1):
         clause_name = clause_label
         clause_chunk_id = f"{page.doc_id}-p{page.page_number}-clause-{clause_index}"
-        chunks.append(
-            _make_chunk(
-                chunk_id=clause_chunk_id,
-                doc_id=page.doc_id,
-                page_span=[page.page_number],
-                chunk_type="clause",
-                text=clause_text,
-                section=section_title,
-                clause=clause_name,
-                neighboring_headings=neighboring_headings,
-                document_title=page.document_title,
-                document_family=page.document_family,
-            )
-        )
-
-        for micro_index, micro_text in enumerate(_split_microchunks(clause_text), start=1):
+        if include_clause_chunks:
             chunks.append(
                 _make_chunk(
-                    chunk_id=f"{clause_chunk_id}-micro-{micro_index}",
+                    chunk_id=clause_chunk_id,
                     doc_id=page.doc_id,
                     page_span=[page.page_number],
-                    chunk_type="microchunk",
-                    text=micro_text,
+                    chunk_type="clause",
+                    text=clause_text,
                     section=section_title,
                     clause=clause_name,
                     neighboring_headings=neighboring_headings,
                     document_title=page.document_title,
                     document_family=page.document_family,
+                    parser_provenance=page.parser_provenance,
+                    heading_path=page.heading_path,
+                    source_block_ids=page.source_block_ids,
                 )
             )
+
+        if include_microchunks:
+            for micro_index, micro_text in enumerate(
+                _split_microchunks(
+                    clause_text,
+                    token_chunk_size=token_chunk_size,
+                    token_chunk_overlap=token_chunk_overlap,
+                ),
+                start=1,
+            ):
+                chunks.append(
+                    _make_chunk(
+                        chunk_id=f"{clause_chunk_id}-micro-{micro_index}",
+                        doc_id=page.doc_id,
+                        page_span=[page.page_number],
+                        chunk_type="microchunk",
+                        text=micro_text,
+                        section=section_title,
+                        clause=clause_name,
+                        neighboring_headings=neighboring_headings,
+                        document_title=page.document_title,
+                        document_family=page.document_family,
+                        parser_provenance=page.parser_provenance,
+                        heading_path=page.heading_path,
+                        source_block_ids=page.source_block_ids,
+                    )
+                )
     return chunks
 
 
@@ -900,17 +974,91 @@ def _content_paragraphs(text: str) -> list[str]:
     return content_paragraphs or paragraphs
 
 
-def _split_microchunks(text: str, max_sentences: int = 2) -> list[str]:
+def _split_microchunks(
+    text: str,
+    *,
+    token_chunk_size: int = 300,
+    token_chunk_overlap: int = 50,
+    token_counter: Callable[[str], int] | None = None,
+) -> list[str]:
     sentences = [sentence.strip() for sentence in re.split(r"(?<=[.!?])\s+", text) if sentence.strip()]
     if not sentences:
         return [text.strip()]
 
+    counter = token_counter or _count_tokens
+    chunk_size = max(int(token_chunk_size), 1)
+    overlap_target = max(int(token_chunk_overlap), 0)
+
     microchunks: list[str] = []
-    for index in range(0, len(sentences), max_sentences):
-        chunk = " ".join(sentences[index : index + max_sentences]).strip()
+    start_index = 0
+    while start_index < len(sentences):
+        window: list[str] = []
+        window_tokens = 0
+        index = start_index
+        while index < len(sentences):
+            sentence = sentences[index]
+            sentence_tokens = max(counter(sentence), 1)
+            if window and (window_tokens + sentence_tokens) > chunk_size:
+                break
+            window.append(sentence)
+            window_tokens += sentence_tokens
+            index += 1
+            if window_tokens >= chunk_size:
+                break
+
+        if not window:
+            window = [sentences[start_index]]
+            index = start_index + 1
+
+        chunk = " ".join(window).strip()
         if chunk:
             microchunks.append(chunk)
+        if index >= len(sentences):
+            break
+
+        overlap_tokens = 0
+        overlap_count = 0
+        for sentence in reversed(window):
+            overlap_tokens += max(counter(sentence), 1)
+            overlap_count += 1
+            if overlap_tokens >= overlap_target:
+                break
+
+        next_start = index - overlap_count
+        if next_start <= start_index:
+            next_start = start_index + 1
+        start_index = next_start
+
     return microchunks or [text.strip()]
+
+
+def _count_tokens(text: str) -> int:
+    normalized = text.strip()
+    if not normalized:
+        return 0
+    return _resolve_qwen_token_counter()(normalized)
+
+
+@lru_cache(maxsize=1)
+def _resolve_qwen_token_counter() -> Callable[[str], int]:
+    try:
+        from transformers import AutoTokenizer
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            DEFAULT_QWEN3_EMBEDDING_MODEL,
+            local_files_only=True,
+        )
+    except Exception:
+        return _fallback_token_count
+
+    def _count_with_tokenizer(text: str) -> int:
+        return len(tokenizer.encode(text, add_special_tokens=False))
+
+    return _count_with_tokenizer
+
+
+def _fallback_token_count(text: str) -> int:
+    return len(_tokenize(text))
 
 
 def _extract_part_heading(text: str) -> str | None:
@@ -1055,6 +1203,9 @@ def _build_section_chunk(page_contexts: list[PageChunkContext], section_index: i
         neighboring_headings=headings.neighboring_headings(),
         document_title=first_page.document_title,
         document_family=first_page.document_family,
+        parser_provenance=first_page.parser_provenance,
+        heading_path=_combined_heading_path(page_contexts),
+        source_block_ids=_combined_source_block_ids(page_contexts),
     )
 
 
@@ -1138,6 +1289,9 @@ def _make_chunk(
     neighboring_headings: list[str],
     document_title: str | None,
     document_family: str | None,
+    parser_provenance: str | None = None,
+    heading_path: list[str] | None = None,
+    source_block_ids: list[str] | None = None,
 ) -> IndexChunk:
     normalized_text = text.strip()
     tokens = _tokenize(normalized_text)
@@ -1156,7 +1310,50 @@ def _make_chunk(
         bm25_terms=_ordered_unique(tokens)[:MAX_BM25_TERMS_METADATA],
         document_title=document_title,
         document_family=document_family,
+        parser_provenance=parser_provenance,
+        heading_path=_ordered_unique(heading_path or []),
+        source_block_ids=_ordered_unique(source_block_ids or []),
     )
+
+
+def _combined_heading_path(page_contexts: list[PageChunkContext]) -> list[str]:
+    combined: list[str] = []
+    for page_context in page_contexts:
+        combined.extend(page_context.page.heading_path)
+    return _ordered_unique(combined)
+
+
+def _combined_source_block_ids(page_contexts: list[PageChunkContext]) -> list[str]:
+    combined: list[str] = []
+    for page_context in page_contexts:
+        combined.extend(page_context.page.source_block_ids)
+    return _ordered_unique(combined)
+
+
+def _heading_path_for_block(page: CanonicalPageRecord, block: Any) -> list[str]:
+    metadata = getattr(block, "metadata", None)
+    if isinstance(metadata, dict):
+        heading_path = metadata.get("heading_path")
+        if isinstance(heading_path, list):
+            return _ordered_unique(str(item).strip() for item in heading_path if str(item).strip())
+    return list(page.heading_path)
+
+
+def _source_block_ids_for_block(page: CanonicalPageRecord, block: Any) -> list[str]:
+    metadata = getattr(block, "metadata", None)
+    candidate_ids: list[str] = []
+    if isinstance(metadata, dict):
+        source_block_ids = metadata.get("source_block_ids")
+        if isinstance(source_block_ids, list):
+            candidate_ids.extend(str(item).strip() for item in source_block_ids if str(item).strip())
+        source_block_id = metadata.get("source_block_id")
+        if source_block_id:
+            candidate_ids.append(str(source_block_id).strip())
+    block_id = getattr(block, "block_id", "")
+    if block_id:
+        candidate_ids.append(str(block_id).strip())
+    candidate_ids.extend(page.source_block_ids)
+    return _ordered_unique(candidate_ids)
 
 
 def _extract_entities(text: str, limit: int = 8) -> list[str]:

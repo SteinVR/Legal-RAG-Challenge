@@ -240,6 +240,7 @@ class ParsedDocument(BaseModel):
     document_family: str | None = None
     parse_status: ParseStatus = ParseStatus.PARSED
     failure_reason: str | None = None
+    parser_provenance: str | None = None
     pages: list[ParsedPage] = Field(default_factory=list)
 
 
@@ -270,6 +271,10 @@ class CanonicalPageRecord(BaseModel):
     parse_status: ParseStatus = ParseStatus.PARSED
     quality_score: float = Field(ge=0.0, le=1.0)
     quality_flags: list[str] = Field(default_factory=list)
+    parser_provenance: str | None = None
+    heading_path: list[str] = Field(default_factory=list)
+    block_roles: list[str] = Field(default_factory=list)
+    source_block_ids: list[str] = Field(default_factory=list)
     text: str
     blocks: list[ContentBlock] = Field(default_factory=list)
     table_ids: list[str] = Field(default_factory=list)
