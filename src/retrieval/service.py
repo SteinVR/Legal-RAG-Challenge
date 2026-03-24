@@ -18,7 +18,13 @@ LOGGER = get_logger("retrieval.service")
 class HybridSearch(Protocol):
     """Search interface used by the retrieval service."""
 
-    def search(self, question: QuestionRecord, top_k: int) -> list[dict[str, Any]]:
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: Any | None = None,
+    ) -> list[dict[str, Any]]:
         """Return the top candidate chunks for a question."""
 
 
@@ -116,13 +122,22 @@ class RetrievalService:
     min_rerank_score: float = 0.0
     page_lifter: PageLifter = field(default_factory=PageLifter)
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult:
+    def retrieve(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: Any | None = None,
+    ) -> RetrievalResult:
         """Run the retrieval pipeline for a single question."""
 
         candidate_budget = self._normalized_budget(self.candidate_budget)
         rerank_budget = self._normalized_budget(self.rerank_budget)
 
-        candidates = self.hybrid_search.search(question, top_k=candidate_budget)
+        candidates = self.hybrid_search.search(
+            question,
+            top_k=candidate_budget,
+            query_metadata=query_metadata,
+        )
         candidate_window = _copy_payload_window(candidates, limit=candidate_budget)
         candidate_count = len(candidate_window)
         if candidate_count == 0:

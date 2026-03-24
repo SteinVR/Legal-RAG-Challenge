@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import importlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 from zipfile import ZipFile
@@ -34,6 +35,112 @@ class StubDenseEmbedder:
             token_count = max(len(text.split()), 1)
             vectors.append([float(token_count), float(len(text)), float(index)])
         return vectors
+
+
+class OfflineCodexProvider:
+    seen_models: list[str] = []
+    generate_calls: list[dict[str, Any]] = []
+    structured_calls: list[dict[str, Any]] = []
+
+    def __init__(self, *, model: str = "gpt-5.4-mini", api_key: str | None = None, **_: Any) -> None:
+        del api_key
+        self.model = model
+        type(self).seen_models.append(model)
+
+    @classmethod
+    def reset(cls) -> None:
+        cls.seen_models = []
+        cls.generate_calls = []
+        cls.structured_calls = []
+
+    def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
+        del question
+        type(self).generate_calls.append(
+            {
+                "evidence_pages": list(evidence_pages),
+                "max_chars": max_chars,
+            }
+        )
+        evidence_text = " ".join(str(page.get("text") or "") for page in evidence_pages).strip()
+        summary = evidence_text.split(" and ")[0].strip().rstrip(".")
+        if not summary:
+            summary = "There is no information on this question in the provided documents."
+        return {
+            "answer": summary[:max_chars] + ("" if summary.endswith(".") else "."),
+            "confidence": 0.82,
+        }
+
+    def generate_structured(
+        self,
+        *,
+        question: str,
+        answer_type: str,
+        evidence_pages: list[dict[str, Any]],
+        answer_schema: type[Any],
+        reasoning_effort: str,
+    ) -> dict[str, Any]:
+        type(self).structured_calls.append(
+            {
+                "question": question,
+                "answer_type": answer_type,
+                "evidence_pages": list(evidence_pages),
+                "answer_schema": answer_schema,
+                "reasoning_effort": reasoning_effort,
+            }
+        )
+
+        evidence_text = " ".join(str(page.get("text") or "") for page in evidence_pages)
+        relevant_pages = sorted(
+            {
+                int(page_number)
+                for page in evidence_pages
+                for page_number in page.get("page_numbers", [page.get("page_number")])
+                if page_number is not None
+            }
+        )
+
+        if answer_type == "number":
+            number_match = re.search(r"\b(\d+(?:\.\d+)?)\s+days?\b", evidence_text, flags=re.IGNORECASE)
+            if number_match is None:
+                number_match = re.search(r"AED\s*([\d,]+(?:\.\d+)?)", evidence_text, flags=re.IGNORECASE)
+            if number_match is None:
+                return {
+                    "is_answerable": False,
+                    "final_answer": None,
+                    "relevant_pages": [],
+                    "reasoning_summary": "The retrieved evidence does not contain a grounded numeric answer.",
+                    "confidence": 0.0,
+                }
+            return {
+                "is_answerable": True,
+                "final_answer": float(number_match.group(1).replace(",", "")),
+                "relevant_pages": relevant_pages,
+                "reasoning_summary": "The retrieved evidence states the number directly.",
+                "confidence": 0.88,
+            }
+
+        if answer_type == "free_text":
+            return {
+                "is_answerable": True,
+                "final_answer": self.generate(
+                    question=question,
+                    evidence_pages=evidence_pages,
+                    max_chars=280,
+                )["answer"],
+                "relevant_pages": relevant_pages,
+                "reasoning_summary": "The retrieved evidence supports the summary directly.",
+                "confidence": 0.82,
+            }
+
+        return answer_schema.model_validate(
+            {
+                "is_answerable": False,
+                "final_answer": None if answer_type != "free_text" else "There is no information on this question in the provided documents.",
+                "relevant_pages": [],
+                "reasoning_summary": "The offline provider stub only covers test-local numeric and summary flows.",
+                "confidence": 0.0,
+            }
+        ).model_dump()
 
 
 def _write_config(
@@ -291,7 +398,10 @@ def _patch_pipeline_dependencies(
         monkeypatch.setenv("CODEX_OAUTH_TOKEN", "test-token")
 
     if provider_class is None:
-        return
+        provider_class = OfflineCodexProvider
+
+    if provider_class is OfflineCodexProvider:
+        OfflineCodexProvider.reset()
 
     monkeypatch.setattr("src.providers.codex_provider.CodexFreeTextProvider", provider_class)
     monkeypatch.setattr("src.providers.CodexFreeTextProvider", provider_class, raising=False)
@@ -444,6 +554,84 @@ def test_build_submission_runs_real_w3abc_flow_and_writes_locally_valid_package(
         submission_path=submission_path,
     )
     assert report.valid is True
+
+
+def test_build_submission_uses_provider_model_for_schema_first_typed_answers(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class StructuredNumberProvider:
+        seen_models: list[str] = []
+        structured_calls: list[dict[str, Any]] = []
+
+        def __init__(self, *, model: str = "gpt-5.4-mini", api_key: str | None = None, **_: Any) -> None:
+            del api_key
+            self.model = model
+            type(self).seen_models.append(model)
+
+        def generate(self, **_: Any) -> dict[str, Any]:
+            raise AssertionError(
+                "TASK-W4B typed answering must use schema-bound structured generation, not free-text generation."
+            )
+
+        def generate_structured(
+            self,
+            *,
+            question: str,
+            answer_type: str,
+            evidence_pages: list[dict[str, Any]],
+            answer_schema: type[Any],
+            reasoning_effort: str,
+        ) -> dict[str, Any]:
+            type(self).structured_calls.append(
+                {
+                    "question": question,
+                    "answer_type": answer_type,
+                    "evidence_pages": list(evidence_pages),
+                    "answer_schema": answer_schema,
+                    "reasoning_effort": reasoning_effort,
+                }
+            )
+            return {
+                "is_answerable": True,
+                "final_answer": 10,
+                "relevant_pages": [1],
+                "reasoning_summary": "The payment deadline is stated directly in the retrieved clause.",
+                "confidence": 0.88,
+            }
+
+    _patch_pipeline_dependencies(monkeypatch, provider_class=StructuredNumberProvider)
+    config_path, env_path = _write_config(tmp_path)
+
+    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
+    documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
+    output_dir = tmp_path / "artifacts"
+
+    _write_questions(
+        questions_path,
+        [{"id": "q1", "question": "Within how many days must payment be made?", "answer_type": "number"}],
+    )
+    _write_pdf(
+        documents_dir / "alpha.pdf",
+        page_texts=["Section 4 Notice. Payment must be made within 10 days after invoice."],
+    )
+
+    exit_code = _run_build_submission(
+        config_path=config_path,
+        env_path=env_path,
+        questions_path=questions_path,
+        documents_dir=documents_dir,
+        output_dir=output_dir,
+    )
+    payload = load_submission_payload(output_dir / "submission.json")
+
+    assert exit_code == 0
+    assert payload["answers"][0]["answer"] == pytest.approx(10)
+    assert payload["answers"][0]["telemetry"]["model_name"] == "gpt-5.4-mini"
+    assert StructuredNumberProvider.seen_models == ["gpt-5.4-mini"]
+    assert len(StructuredNumberProvider.structured_calls) == 1
+    assert StructuredNumberProvider.structured_calls[0]["answer_type"] == "number"
+    assert StructuredNumberProvider.structured_calls[0]["reasoning_effort"] == "medium"
 
 
 def test_build_submission_reuses_persisted_w3a_artifacts_on_restart(
@@ -868,17 +1056,12 @@ def test_build_submission_supports_custom_provider_without_api_key_constructor_p
     assert ModelOnlyProvider.seen_models == ["gpt-5.4-mini"]
 
 
-def test_build_submission_does_not_require_provider_credentials_for_deterministic_only_runs(
+def test_build_submission_uses_structured_default_provider_for_typed_runs(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    class ExplodingProvider:
-        def __init__(self, **_: Any) -> None:
-            raise AssertionError("Provider should not be instantiated for deterministic-only runs.")
-
     _patch_pipeline_dependencies(
         monkeypatch,
-        provider_class=ExplodingProvider,
         inject_provider_env=False,
     )
     monkeypatch.delenv("CODEX_OAUTH_TOKEN", raising=False)
@@ -910,6 +1093,10 @@ def test_build_submission_does_not_require_provider_credentials_for_deterministi
 
     assert exit_code == 0
     assert payload["answers"][0]["answer"] == pytest.approx(10.0)
+    assert payload["answers"][0]["telemetry"]["model_name"] == "gpt-5.4-mini"
+    assert OfflineCodexProvider.seen_models == ["gpt-5.4-mini"]
+    assert len(OfflineCodexProvider.structured_calls) == 1
+    assert OfflineCodexProvider.structured_calls[0]["answer_type"] == "number"
 
 
 def test_build_submission_fails_fast_when_local_validation_detects_invalid_page_refs(
@@ -959,7 +1146,10 @@ def test_build_submission_fails_fast_when_local_validation_detects_invalid_page_
         evidence_pages=[PageReference(doc_id="alpha", page_numbers=[0])],
     )
 
-    monkeypatch.setattr("src.retrieval.service.RetrievalService.retrieve", lambda self, question: invalid_retrieval)
+    monkeypatch.setattr(
+        "src.retrieval.service.RetrievalService.retrieve",
+        lambda self, question, query_metadata=None: invalid_retrieval,
+    )
     monkeypatch.setattr("src.answering.service.AnsweringService.answer_question", lambda self, question: invalid_answer)
 
     with pytest.raises(SystemExit) as exc_info:
@@ -1344,7 +1534,7 @@ def test_build_submission_propagates_unanswerable_policy_from_config(
 
     monkeypatch.setattr(
         "src.retrieval.service.RetrievalService.retrieve",
-        lambda self, question: unanswerable_retrieval,
+        lambda self, question, query_metadata=None: unanswerable_retrieval,
     )
     monkeypatch.setattr(
         "src.answering.service.AnsweringService.answer_question",

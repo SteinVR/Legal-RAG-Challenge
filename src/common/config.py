@@ -17,6 +17,23 @@ from .schemas import Phase
 DEFAULT_BASE_URL = "https://platform.agentic-challenge.ai/api/v1"
 DEFAULT_ENV_FILE = Path(".env")
 ENV_VAR_PATTERN = re.compile(r"\$(\w+)|\$\{([^}]+)\}")
+SUPPORTED_ANSWER_TYPES = frozenset({"boolean", "number", "name", "names", "date", "free_text"})
+DEFAULT_REASONING_EFFORT_BY_TYPE: dict[str, str] = {
+    "boolean": "high",
+    "number": "medium",
+    "name": "high",
+    "names": "high",
+    "date": "medium",
+    "free_text": "medium",
+}
+DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE: dict[str, float] = {
+    "boolean": 0.7,
+    "number": 0.55,
+    "name": 0.75,
+    "names": 0.75,
+    "date": 0.6,
+    "free_text": 0.5,
+}
 
 
 class ConfigError(ValueError):
@@ -121,6 +138,47 @@ class IngestionSettings(BaseModel):
         return value
 
 
+class AnsweringSettings(BaseModel):
+    """Schema-first answering defaults and confidence controls."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    reasoning_effort_by_type: dict[str, Literal["low", "medium", "high"]] = Field(
+        default_factory=lambda: dict(DEFAULT_REASONING_EFFORT_BY_TYPE)
+    )
+    confidence_threshold_by_type: dict[str, float] = Field(
+        default_factory=lambda: dict(DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE)
+    )
+
+    @field_validator("reasoning_effort_by_type")
+    @classmethod
+    def ensure_reasoning_effort_coverage(
+        cls,
+        value: dict[str, Literal["low", "medium", "high"]],
+    ) -> dict[str, Literal["low", "medium", "high"]]:
+        missing = SUPPORTED_ANSWER_TYPES - set(value)
+        if missing:
+            missing_list = ", ".join(sorted(missing))
+            raise ValueError(f"answering.reasoning_effort_by_type missing keys: {missing_list}")
+        return value
+
+    @field_validator("confidence_threshold_by_type")
+    @classmethod
+    def ensure_threshold_coverage_and_range(cls, value: dict[str, float]) -> dict[str, float]:
+        missing = SUPPORTED_ANSWER_TYPES - set(value)
+        if missing:
+            missing_list = ", ".join(sorted(missing))
+            raise ValueError(f"answering.confidence_threshold_by_type missing keys: {missing_list}")
+        for answer_type, threshold in value.items():
+            if answer_type not in SUPPORTED_ANSWER_TYPES:
+                continue
+            if not 0 <= threshold <= 1:
+                raise ValueError(
+                    f"answering.confidence_threshold_by_type[{answer_type!r}] must be between 0 and 1."
+                )
+        return value
+
+
 class LoggingSettings(BaseModel):
     """Runtime logging configuration."""
 
@@ -153,6 +211,7 @@ class AppConfig(BaseModel):
     download: DownloadSettings = Field(default_factory=DownloadSettings)
     evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
     ingestion: IngestionSettings = Field(default_factory=IngestionSettings)
+    answering: AnsweringSettings = Field(default_factory=AnsweringSettings)
     logging: LoggingSettings = Field(default_factory=LoggingSettings)
 
     def resolve_api_key(self) -> str:

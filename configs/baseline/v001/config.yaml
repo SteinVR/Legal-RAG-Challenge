@@ -55,6 +55,22 @@ ingestion:
   text_completeness_target_chars: 1500
   encoding_bad_char_threshold: 0.05
 
+answering:
+  reasoning_effort_by_type:
+    boolean: high
+    number: medium
+    name: high
+    names: high
+    date: medium
+    free_text: medium
+  confidence_threshold_by_type:
+    boolean: 0.7
+    number: 0.55
+    name: 0.75
+    names: 0.75
+    date: 0.6
+    free_text: 0.5
+
 logging:
   directory: logs/project/runtime
   level: INFO

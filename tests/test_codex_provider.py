@@ -4,6 +4,7 @@ import json
 
 import httpx
 import pytest
+from pydantic import BaseModel
 
 from src.providers.codex_provider import CodexFreeTextProvider
 
@@ -116,3 +117,68 @@ def test_codex_provider_requires_auth_token(monkeypatch: pytest.MonkeyPatch) -> 
 
     with pytest.raises(ValueError, match="token"):
         CodexFreeTextProvider(api_key=None)
+
+
+class _StructuredBooleanAnswer(BaseModel):
+    is_answerable: bool
+    final_answer: bool | None
+    relevant_pages: list[int]
+    reasoning_summary: str
+
+
+def test_codex_provider_supports_schema_bound_structured_outputs_with_reasoning_effort() -> None:
+    captured_payloads: list[dict[str, object]] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured_payloads.append(_json_request(request))
+        return httpx.Response(
+            status_code=200,
+            json={
+                "output": [
+                    {
+                        "content": [
+                            {
+                                "type": "output_text",
+                                "text": (
+                                    '{"is_answerable": true, "final_answer": false, "relevant_pages": [4], '
+                                    '"reasoning_summary": "The clause expressly prohibits assignment.", '
+                                    '"confidence": 0.93}'
+                                ),
+                            }
+                        ]
+                    }
+                ]
+            },
+        )
+
+    provider = CodexFreeTextProvider(
+        api_key="test-token",
+        transport=httpx.MockTransport(handler),
+    )
+    result = provider.generate_structured(
+        question="Is assignment without consent permitted?",
+        answer_type="boolean",
+        evidence_pages=[
+            {
+                "doc_id": "alpha",
+                "page_number": 4,
+                "page_numbers": [4],
+                "text": "Assignment without consent is not permitted.",
+            }
+        ],
+        answer_schema=_StructuredBooleanAnswer,
+        reasoning_effort="high",
+    )
+
+    assert result["final_answer"] is False
+    assert result["relevant_pages"] == [4]
+    assert result["confidence"] == pytest.approx(0.93)
+    assert captured_payloads
+    payload = captured_payloads[0]
+    assert payload["model"] == provider.model
+    assert payload.get("reasoning") == {"effort": "high"}
+    response_format_blob = json.dumps(payload)
+    assert "json_schema" in response_format_blob
+    assert "is_answerable" in response_format_blob
+    assert "final_answer" in response_format_blob
+    assert "relevant_pages" in response_format_blob

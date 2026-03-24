@@ -4,10 +4,12 @@ import importlib
 import json
 from datetime import UTC, datetime
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
 
+from src.answering.service import extract_query_metadata
 from src.common.config import AppConfig
 from src.common.schemas import (
     CanonicalPageRecord,
@@ -250,3 +252,64 @@ def test_qdrant_hybrid_backend_falls_back_to_dense_only_when_sparse_state_is_mis
 
     assert candidates
     assert all(candidate["sparse_score"] is None for candidate in candidates)
+
+
+def test_qdrant_hybrid_backend_applies_query_metadata_as_soft_boost_without_filtering() -> None:
+    class StubClient:
+        def __init__(self) -> None:
+            self.calls: list[dict[str, Any]] = []
+
+        def query_points(self, **kwargs: Any) -> Any:
+            self.calls.append(dict(kwargs))
+            dense_hits = [
+                SimpleNamespace(
+                    id="beta-1",
+                    score=0.34,
+                    payload={
+                        "chunk_id": "beta-1",
+                        "doc_id": "beta",
+                        "page_span": [2],
+                        "chunk_type": "clause",
+                        "text": "Generic contract payment terms.",
+                        "document_title": "Generic Contract",
+                        "entities": ["Generic Contract"],
+                    },
+                ),
+                SimpleNamespace(
+                    id="alpha-1",
+                    score=0.30,
+                    payload={
+                        "chunk_id": "alpha-1",
+                        "doc_id": "alpha",
+                        "page_span": [1],
+                        "chunk_type": "clause",
+                        "text": "Case 012/2024 under DIFC Employment Law sets the penalty at AED 500.",
+                        "document_title": "DIFC Employment Law",
+                        "entities": ["DIFC Employment Law", "Case 012/2024"],
+                    },
+                ),
+            ]
+            return SimpleNamespace(points=dense_hits)
+
+        def close(self) -> None:
+            return None
+
+    backend = QdrantHybridSearchBackend(index_dir=Path("/tmp/unused"), dense_embedder=StubDenseEmbedder())
+    backend._client = StubClient()
+    backend._resolved_collection_name = "test"
+    backend._is_loaded = True
+
+    question = QuestionRecord(
+        id="q-meta",
+        question="Under DIFC Employment Law, what is the penalty in Case 012/2024?",
+        answer_type="number",
+    )
+
+    try:
+        candidates = backend.search(question, top_k=2, query_metadata=extract_query_metadata(question.question))
+    finally:
+        backend.close()
+
+    assert [candidate["chunk_id"] for candidate in candidates] == ["alpha-1", "beta-1"]
+    assert candidates[0]["metadata_boost"] > 0.0
+    assert candidates[1]["metadata_boost"] == pytest.approx(0.0)

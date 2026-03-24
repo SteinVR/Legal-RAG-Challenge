@@ -315,14 +315,23 @@ class BuildSubmissionService:
         )
 
         provider_model = self.free_text_model
-        provider = _LazyProvider(factory=self._build_provider, model=provider_model)
+        provider = _LazyProvider(
+            factory=self._build_provider,
+            model=provider_model,
+            supports_structured=hasattr(self.provider_class, "generate_structured"),
+        )
 
         retrieval_service = RetrievalService(
             hybrid_search=RRFHybridSearch(backend=backend),
             reranker=QwenReranker(fallback_reranker=LexicalFallbackReranker()),
         )
         retriever = _CachingRetriever(retrieval_service)
-        answering_service = AnsweringService(retriever=retriever, provider=provider)
+        answering_service = AnsweringService(
+            retriever=retriever,
+            provider=provider,
+            reasoning_effort_by_type=config.answering.reasoning_effort_by_type,
+            confidence_threshold_by_type=config.answering.confidence_threshold_by_type,
+        )
 
         answers: list[dict[str, Any]] = []
         traces: list[dict[str, Any]] = []
@@ -343,11 +352,12 @@ class BuildSubmissionService:
                 )
 
                 retrieval_result = retriever.consume_latest(question)
-                model_name = (
+                default_model_name = (
                     provider_model
                     if question.answer_type == AnswerType.FREE_TEXT.value
                     else DETERMINISTIC_MODEL_NAME
                 )
+                model_name = answer_result.model_name or default_model_name
                 input_tokens = _estimate_input_tokens(question=question, retrieval_result=retrieval_result)
                 output_tokens = _estimate_output_tokens(answer_result)
 
@@ -474,29 +484,47 @@ class _CachingRetriever:
     _latest_question_id: str | None = field(default=None, init=False)
     _latest_result: RetrievalResult | None = field(default=None, init=False)
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult:
-        result = self.delegate.retrieve(question)
+    def retrieve(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: Any | None = None,
+    ) -> RetrievalResult:
+        result = self.delegate.retrieve(question, query_metadata=query_metadata)
         self._latest_question_id = question.id
         self._latest_result = result
         return result
 
-    def consume_latest(self, question: QuestionRecord) -> RetrievalResult:
+    def consume_latest(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: Any | None = None,
+    ) -> RetrievalResult:
         if self._latest_question_id == question.id and self._latest_result is not None:
             result = self._latest_result
             self._latest_question_id = None
             self._latest_result = None
             return result
-        return self.delegate.retrieve(question)
+        return self.delegate.retrieve(question, query_metadata=query_metadata)
 
 
 @dataclass(slots=True)
 class _LazyProvider:
     factory: Any
     model: str
+    supports_structured: bool = True
     _delegate: Any | None = field(default=None, init=False, repr=False)
 
     def generate(self, **kwargs: Any) -> Any:
         return self._provider().generate(**kwargs)
+
+    def generate_structured(self, **kwargs: Any) -> Any:
+        provider = self._provider()
+        structured_method = getattr(provider, "generate_structured", None)
+        if not callable(structured_method):
+            raise AttributeError("Provider does not implement generate_structured.")
+        return structured_method(**kwargs)
 
     def close(self) -> None:
         if self._delegate is None:

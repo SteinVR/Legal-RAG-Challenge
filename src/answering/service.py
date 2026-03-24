@@ -10,7 +10,9 @@ from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from datetime import date
-from typing import Any, Callable, Protocol
+from typing import Any, Callable, Literal, Protocol, cast
+
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
@@ -20,6 +22,32 @@ from src.retrieval.service import RetrievalResult
 
 CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER = "There is no information on this question in the provided documents."
 LOGGER = get_logger("answering.service")
+SCHEMA_FIRST_ANSWER_TYPES: frozenset[AnswerType] = frozenset(
+    {
+        AnswerType.BOOLEAN,
+        AnswerType.NUMBER,
+        AnswerType.NAME,
+        AnswerType.NAMES,
+        AnswerType.DATE,
+        AnswerType.FREE_TEXT,
+    }
+)
+DEFAULT_REASONING_EFFORT_BY_TYPE: dict[str, str] = {
+    AnswerType.BOOLEAN.value: "high",
+    AnswerType.NUMBER.value: "medium",
+    AnswerType.NAME.value: "high",
+    AnswerType.NAMES.value: "high",
+    AnswerType.DATE.value: "medium",
+    AnswerType.FREE_TEXT.value: "medium",
+}
+DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE: dict[str, float] = {
+    AnswerType.BOOLEAN.value: 0.7,
+    AnswerType.NUMBER.value: 0.55,
+    AnswerType.NAME.value: 0.75,
+    AnswerType.NAMES.value: 0.75,
+    AnswerType.DATE.value: 0.6,
+    AnswerType.FREE_TEXT.value: 0.5,
+}
 
 
 class FreeTextGroundingValidationError(ValueError):
@@ -226,12 +254,258 @@ _SINGLE_TOKEN_ENTITY_EXCLUSIONS = {
     "Agreement",
     "Contract",
 }
+_CASE_ID_PATTERN = re.compile(
+    r"\bcase\s*(?:no\.?|number)?\s*(?P<case_id>\d{1,4}\s*/\s*\d{2,4})\b",
+    re.IGNORECASE,
+)
+_STATUTE_ID_PATTERN = re.compile(
+    r"\b(?P<statute>(?:[A-Z]{2,}\s+)?[A-Za-z]+(?:\s+[A-Za-z]+){0,3}\s+Law)\b"
+)
+_DOCUMENT_TITLE_CUE_PATTERN = re.compile(
+    r"\b(?P<title>[A-Z][A-Za-z0-9'&/-]*(?:\s+[A-Z][A-Za-z0-9'&/-]*)*\s+"
+    r"(?:Agreement|Contract|Deed|Order|Policy|Protocol|Arrangement|Lease))\b"
+)
+_MULTI_DOCUMENT_SIGNAL_PATTERN = re.compile(
+    r"\b(across|between|both|related\s+matters?|related\s+cases?|multiple|versus|vs\.?)\b",
+    re.IGNORECASE,
+)
+
+
+class _StructuredAnswerBase(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    is_answerable: bool
+    relevant_pages: list[int] = Field(default_factory=list)
+    reasoning_summary: str
+    confidence: float | None = None
+
+    @field_validator("relevant_pages", mode="before")
+    @classmethod
+    def _normalize_relevant_pages(cls, value: Any) -> list[int]:
+        if value is None:
+            return []
+        if not isinstance(value, list):
+            raise ValueError("relevant_pages must be a list of integers.")
+        normalized: list[int] = []
+        for raw_page in value:
+            try:
+                page_number = int(raw_page)
+            except (TypeError, ValueError) as exc:
+                raise ValueError("relevant_pages must contain integers.") from exc
+            if page_number > 0:
+                normalized.append(page_number)
+        return sorted(set(normalized))
+
+    @field_validator("reasoning_summary")
+    @classmethod
+    def _validate_reasoning_summary(cls, value: str) -> str:
+        normalized = _normalize_whitespace(str(value))
+        if not normalized:
+            raise ValueError("reasoning_summary must be non-empty.")
+        return normalized
+
+    @field_validator("confidence")
+    @classmethod
+    def _validate_confidence(cls, value: float | None) -> float | None:
+        if value is None:
+            return value
+        if not math.isfinite(value) or value < 0.0 or value > 1.0:
+            raise ValueError("confidence must be finite and between 0 and 1.")
+        return value
+
+
+class BooleanAnswerSchema(_StructuredAnswerBase):
+    final_answer: bool | None
+
+    @model_validator(mode="after")
+    def _validate_answerable_contract(self) -> "BooleanAnswerSchema":
+        if self.is_answerable != (self.final_answer is not None):
+            raise ValueError("boolean final_answer must be null iff is_answerable=false.")
+        return self
+
+
+class NumberAnswerSchema(_StructuredAnswerBase):
+    final_answer: int | float | None
+
+    @model_validator(mode="after")
+    def _validate_answerable_contract(self) -> "NumberAnswerSchema":
+        if self.is_answerable != (self.final_answer is not None):
+            raise ValueError("number final_answer must be null iff is_answerable=false.")
+        return self
+
+
+class NameAnswerSchema(_StructuredAnswerBase):
+    final_answer: str | None
+
+    @model_validator(mode="after")
+    def _validate_answerable_contract(self) -> "NameAnswerSchema":
+        if self.is_answerable != (self.final_answer is not None):
+            raise ValueError("name final_answer must be null iff is_answerable=false.")
+        if self.final_answer is not None:
+            normalized = _normalize_whitespace(self.final_answer)
+            if not normalized:
+                raise ValueError("name final_answer must be non-empty.")
+            self.final_answer = normalized
+        return self
+
+
+class NamesAnswerSchema(_StructuredAnswerBase):
+    final_answer: list[str] | None
+
+    @model_validator(mode="after")
+    def _validate_answerable_contract(self) -> "NamesAnswerSchema":
+        if self.is_answerable != (self.final_answer is not None):
+            raise ValueError("names final_answer must be null iff is_answerable=false.")
+        if self.final_answer is not None:
+            normalized: list[str] = []
+            seen: set[str] = set()
+            for item in self.final_answer:
+                candidate = _normalize_whitespace(str(item))
+                if not candidate:
+                    continue
+                key = candidate.casefold()
+                if key in seen:
+                    continue
+                seen.add(key)
+                normalized.append(candidate)
+            if not normalized:
+                raise ValueError("names final_answer must contain at least one non-empty name.")
+            self.final_answer = normalized
+        return self
+
+
+class DateAnswerSchema(_StructuredAnswerBase):
+    final_answer: str | None
+
+    @model_validator(mode="after")
+    def _validate_answerable_contract(self) -> "DateAnswerSchema":
+        if self.is_answerable != (self.final_answer is not None):
+            raise ValueError("date final_answer must be null iff is_answerable=false.")
+        if self.final_answer is not None:
+            normalized = _normalize_whitespace(self.final_answer)
+            year, month, day = _parse_iso_date_parts(normalized)
+            if _safe_iso_date(year=year, month=month, day=day) is None:
+                raise ValueError("date final_answer must be ISO-8601 (YYYY-MM-DD).")
+            self.final_answer = normalized
+        return self
+
+
+class FreeTextAnswerSchema(_StructuredAnswerBase):
+    final_answer: str
+
+    @model_validator(mode="after")
+    def _validate_answerable_contract(self) -> "FreeTextAnswerSchema":
+        normalized = _normalize_whitespace(self.final_answer)
+        if not normalized:
+            raise ValueError("free_text final_answer must be non-empty.")
+        if len(normalized) > 280:
+            raise ValueError("free_text final_answer must be at most 280 characters.")
+        if not self.is_answerable and normalized != CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER:
+            raise ValueError("free_text unanswerable output must be the canonical sentence.")
+        self.final_answer = normalized
+        return self
+
+
+ANSWER_SCHEMA_REGISTRY: dict[str, type[BaseModel]] = {
+    AnswerType.BOOLEAN.value: BooleanAnswerSchema,
+    AnswerType.NUMBER.value: NumberAnswerSchema,
+    AnswerType.NAME.value: NameAnswerSchema,
+    AnswerType.NAMES.value: NamesAnswerSchema,
+    AnswerType.DATE.value: DateAnswerSchema,
+    AnswerType.FREE_TEXT.value: FreeTextAnswerSchema,
+}
+
+
+@dataclass(frozen=True, slots=True)
+class LegalEntityMetadata:
+    entity_type: Literal["case_id", "statute_id"]
+    raw_value: str
+    normalized_value: str
+    is_strong: bool
+
+
+@dataclass(frozen=True, slots=True)
+class QueryMetadata:
+    legal_entities: tuple[LegalEntityMetadata, ...]
+    document_title_cues: tuple[str, ...]
+    likely_multi_document: bool
+
+
+def extract_query_metadata(question_text: str) -> QueryMetadata:
+    normalized_question = _normalize_whitespace(question_text)
+    lowered_question = normalized_question.casefold()
+
+    legal_entities: list[LegalEntityMetadata] = []
+    seen_entities: set[tuple[str, str]] = set()
+
+    for match in _CASE_ID_PATTERN.finditer(normalized_question):
+        raw_value = _normalize_whitespace(match.group("case_id"))
+        normalized_value = raw_value.replace(" ", "")
+        entity_key = ("case_id", normalized_value.casefold())
+        if entity_key in seen_entities:
+            continue
+        seen_entities.add(entity_key)
+        legal_entities.append(
+            LegalEntityMetadata(
+                entity_type="case_id",
+                raw_value=raw_value,
+                normalized_value=normalized_value,
+                is_strong=True,
+            )
+        )
+
+    for match in _STATUTE_ID_PATTERN.finditer(normalized_question):
+        raw_value = _normalize_whitespace(match.group("statute"))
+        raw_value = re.sub(r"^(?:which|what|under|the)\s+", "", raw_value, flags=re.IGNORECASE)
+        if not raw_value:
+            continue
+        normalized_value = raw_value.casefold()
+        entity_key = ("statute_id", normalized_value)
+        if entity_key in seen_entities:
+            continue
+        seen_entities.add(entity_key)
+        legal_entities.append(
+            LegalEntityMetadata(
+                entity_type="statute_id",
+                raw_value=raw_value,
+                normalized_value=normalized_value,
+                is_strong=True,
+            )
+        )
+
+    document_title_cues: list[str] = []
+    seen_titles: set[str] = set()
+    for match in _DOCUMENT_TITLE_CUE_PATTERN.finditer(normalized_question):
+        title = _normalize_whitespace(match.group("title"))
+        key = title.casefold()
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        document_title_cues.append(title)
+
+    case_entity_count = sum(1 for entity in legal_entities if entity.entity_type == "case_id")
+    likely_multi_document = (
+        case_entity_count >= 2
+        or bool(_MULTI_DOCUMENT_SIGNAL_PATTERN.search(lowered_question))
+        or lowered_question.count(" and ") >= 2
+    )
+
+    return QueryMetadata(
+        legal_entities=tuple(legal_entities),
+        document_title_cues=tuple(document_title_cues),
+        likely_multi_document=likely_multi_document,
+    )
 
 
 class Retriever(Protocol):
     """Retrieval interface expected by the answering service."""
 
-    def retrieve(self, question: QuestionRecord) -> RetrievalResult | list[dict[str, Any]]:
+    def retrieve(
+        self,
+        question: QuestionRecord,
+        *,
+        query_metadata: QueryMetadata | None = None,
+    ) -> RetrievalResult | list[dict[str, Any]]:
         """Return candidate evidence pages or a typed retrieval result."""
 
 
@@ -243,6 +517,7 @@ class AnswerResult:
     answer: Any
     confidence: float
     evidence_pages: list[PageReference]
+    model_name: str | None = None
 
 
 @dataclass(slots=True)
@@ -250,6 +525,7 @@ class _PageCandidate:
     doc_id: str
     page_numbers: tuple[int, ...]
     text: str
+    include_page_numbers: bool = False
 
     @property
     def page_number(self) -> int:
@@ -265,25 +541,65 @@ class _SolvedAnswer:
 DeterministicExtractor = Callable[..., _SolvedAnswer | None]
 
 
+class StructuredProvider(Protocol):
+    def generate_structured(
+        self,
+        *,
+        question: str,
+        answer_type: str,
+        evidence_pages: list[dict[str, Any]],
+        answer_schema: type[BaseModel],
+        reasoning_effort: str,
+    ) -> Mapping[str, Any]:
+        """Generate a schema-bound structured answer."""
+
+
 class AnsweringService:
     """Extraction-first answer routing with grounded free-text fallback."""
 
-    def __init__(self, *, retriever: Retriever, provider: FreeTextProvider) -> None:
+    def __init__(
+        self,
+        *,
+        retriever: Retriever,
+        provider: FreeTextProvider,
+        reasoning_effort_by_type: Mapping[str, str] | None = None,
+        confidence_threshold_by_type: Mapping[str, float] | None = None,
+    ) -> None:
         self._retriever = retriever
         self._provider = provider
+        self._reasoning_effort_by_type = _normalize_reasoning_effort_map(reasoning_effort_by_type)
+        self._confidence_threshold_by_type = _normalize_confidence_threshold_map(confidence_threshold_by_type)
 
     def answer_question(self, question: QuestionRecord) -> AnswerResult:
-        pages, retrieval_refs = _coerce_retrieval_payload(self._retriever.retrieve(question))
+        query_metadata = extract_query_metadata(question.question)
+        pages, retrieval_refs = _coerce_retrieval_payload(
+            self._retriever.retrieve(question, query_metadata=query_metadata)
+        )
 
         try:
             answer_type = AnswerType(str(question.answer_type))
         except ValueError as exc:
             raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
 
-        if answer_type == AnswerType.FREE_TEXT:
+        if not pages:
+            if answer_type == AnswerType.FREE_TEXT:
+                result = AnswerResult(
+                    question_id=question.id,
+                    answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+                    confidence=0.0,
+                    evidence_pages=[],
+                )
+            else:
+                result = _empty_result(question_id=question.id)
+        elif _supports_structured_provider(self._provider):
+            result = self._answer_with_structured_solver(
+                question=question,
+                answer_type=answer_type,
+                pages=pages,
+                retrieval_refs=retrieval_refs,
+            )
+        elif answer_type == AnswerType.FREE_TEXT:
             result = self._answer_free_text(question=question, pages=pages, retrieval_refs=retrieval_refs)
-        elif not pages:
-            result = _empty_result(question_id=question.id)
         else:
             solved = self._solve_deterministic(question=question, answer_type=answer_type, pages=pages)
             if solved is None:
@@ -310,6 +626,98 @@ class AnsweringService:
                 confidence=result.confidence,
             )
         return result
+
+    def _answer_with_structured_solver(
+        self,
+        *,
+        question: QuestionRecord,
+        answer_type: AnswerType,
+        pages: list[_PageCandidate],
+        retrieval_refs: list[PageReference] | None,
+    ) -> AnswerResult:
+        provider = cast(StructuredProvider, self._provider)
+        answer_schema = ANSWER_SCHEMA_REGISTRY[answer_type.value]
+        reasoning_effort = self._reasoning_effort_by_type[answer_type.value]
+        evidence_pages = [_provider_evidence_page(page) for page in pages]
+        response = provider.generate_structured(
+            question=question.question,
+            answer_type=answer_type.value,
+            evidence_pages=evidence_pages,
+            answer_schema=answer_schema,
+            reasoning_effort=reasoning_effort,
+        )
+        try:
+            validated_response = answer_schema.model_validate(dict(response))
+        except ValidationError as exc:
+            raise ValueError(
+                f"Structured provider response failed schema validation for answer_type={answer_type.value}."
+            ) from exc
+
+        confidence = _coerce_confidence(response.get("confidence", 0.0), default=0.0)
+        provider_model_name = _resolve_provider_model_name(self._provider)
+        base_refs = list(retrieval_refs) if retrieval_refs else _group_page_references(pages)
+        relevant_pages = _normalize_relevant_page_list(getattr(validated_response, "relevant_pages", []))
+        narrowed_pages = _narrow_page_candidates(pages=pages, relevant_pages=relevant_pages)
+        narrowed_refs = _narrow_page_references(base_refs=base_refs, relevant_pages=relevant_pages)
+        supporting_pages = narrowed_pages if narrowed_pages else pages
+        supporting_refs = narrowed_refs if narrowed_refs else base_refs
+
+        is_answerable = bool(getattr(validated_response, "is_answerable", False))
+        final_answer = getattr(validated_response, "final_answer", None)
+        if not is_answerable:
+            if answer_type == AnswerType.FREE_TEXT:
+                return AnswerResult(
+                    question_id=question.id,
+                    answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+                    confidence=confidence,
+                    evidence_pages=[],
+                    model_name=provider_model_name,
+                )
+            return _empty_result(question_id=question.id, model_name=provider_model_name)
+
+        if final_answer is None:
+            return _empty_result(question_id=question.id, model_name=provider_model_name)
+
+        threshold = self._confidence_threshold_by_type[answer_type.value]
+        if confidence < threshold:
+            if answer_type == AnswerType.FREE_TEXT:
+                return AnswerResult(
+                    question_id=question.id,
+                    answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+                    confidence=0.0,
+                    evidence_pages=[],
+                    model_name=provider_model_name,
+                )
+            return _empty_result(question_id=question.id, model_name=provider_model_name)
+
+        if answer_type == AnswerType.FREE_TEXT:
+            answer = _normalize_whitespace(str(final_answer))
+            if len(answer) > 280:
+                raise ValueError("free_text answers must be at most 280 characters.")
+            _validate_free_text_grounding(answer=answer, pages=supporting_pages)
+            return AnswerResult(
+                question_id=question.id,
+                answer=answer,
+                confidence=confidence,
+                evidence_pages=supporting_refs,
+                model_name=provider_model_name,
+            )
+
+        if not _passes_typed_guardrails(
+            answer_type=answer_type,
+            question=question.question,
+            proposed_answer=final_answer,
+            pages=supporting_pages,
+        ):
+            return _empty_result(question_id=question.id, model_name=provider_model_name)
+
+        return AnswerResult(
+            question_id=question.id,
+            answer=final_answer,
+            confidence=confidence,
+            evidence_pages=supporting_refs,
+            model_name=provider_model_name,
+        )
 
     def _solve_deterministic(
         self,
@@ -382,6 +790,7 @@ class AnsweringService:
             answer=answer,
             confidence=confidence,
             evidence_pages=list(retrieval_refs) if retrieval_refs else _group_page_references(pages),
+            model_name=_resolve_provider_model_name(self._provider),
         )
 
 
@@ -391,6 +800,7 @@ def _coerce_page(page: Mapping[str, Any]) -> _PageCandidate:
         doc_id=str(page["doc_id"]),
         page_numbers=(page_number,),
         text=str(page["text"]),
+        include_page_numbers=False,
     )
 
 
@@ -408,6 +818,7 @@ def _coerce_retrieval_payload(
                     doc_id=chunk.doc_id,
                     page_numbers=page_numbers,
                     text=chunk.text,
+                    include_page_numbers=True,
                 )
             )
         return pages, list(retrieval_output.retrieved_chunk_pages)
@@ -418,8 +829,217 @@ def _coerce_retrieval_payload(
     return [_coerce_page(page) for page in retrieval_output], None
 
 
-def _empty_result(*, question_id: str) -> AnswerResult:
-    return AnswerResult(question_id=question_id, answer=None, confidence=0.0, evidence_pages=[])
+def _empty_result(*, question_id: str, model_name: str | None = None) -> AnswerResult:
+    return AnswerResult(
+        question_id=question_id,
+        answer=None,
+        confidence=0.0,
+        evidence_pages=[],
+        model_name=model_name,
+    )
+
+
+def _parse_iso_date_parts(value: str) -> tuple[int, int, int]:
+    match = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", value)
+    if match is None:
+        raise ValueError("date must be ISO-8601 (YYYY-MM-DD).")
+    return int(match.group(1)), int(match.group(2)), int(match.group(3))
+
+
+def _supports_structured_provider(provider: FreeTextProvider) -> bool:
+    supports_flag = getattr(provider, "supports_structured", None)
+    if isinstance(supports_flag, bool):
+        return supports_flag
+    return callable(getattr(provider, "generate_structured", None))
+
+
+def _resolve_provider_model_name(provider: Any) -> str | None:
+    model_name = getattr(provider, "model", None)
+    if isinstance(model_name, str):
+        normalized = model_name.strip()
+        if normalized:
+            return normalized
+    return None
+
+
+def _normalize_reasoning_effort_map(reasoning_effort_by_type: Mapping[str, str] | None) -> dict[str, str]:
+    normalized = dict(DEFAULT_REASONING_EFFORT_BY_TYPE)
+    if reasoning_effort_by_type is None:
+        return normalized
+    for answer_type, raw_effort in reasoning_effort_by_type.items():
+        key = str(answer_type).strip()
+        if key not in normalized:
+            continue
+        effort = str(raw_effort).strip().lower()
+        if effort in {"low", "medium", "high"}:
+            normalized[key] = effort
+    return normalized
+
+
+def _normalize_confidence_threshold_map(
+    confidence_threshold_by_type: Mapping[str, float] | None,
+) -> dict[str, float]:
+    normalized = dict(DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE)
+    if confidence_threshold_by_type is None:
+        return normalized
+    for answer_type, raw_threshold in confidence_threshold_by_type.items():
+        key = str(answer_type).strip()
+        if key not in normalized:
+            continue
+        try:
+            threshold = float(raw_threshold)
+        except (TypeError, ValueError):
+            continue
+        if 0.0 <= threshold <= 1.0 and math.isfinite(threshold):
+            normalized[key] = threshold
+    return normalized
+
+
+def _coerce_confidence(raw_confidence: Any, *, default: float) -> float:
+    try:
+        confidence = float(raw_confidence)
+    except (TypeError, ValueError):
+        return default
+    if not math.isfinite(confidence):
+        return default
+    if confidence < 0.0 or confidence > 1.0:
+        return default
+    return confidence
+
+
+def _normalize_relevant_page_list(raw_relevant_pages: Any) -> list[int]:
+    if not isinstance(raw_relevant_pages, list):
+        return []
+    relevant_pages: list[int] = []
+    for raw_page in raw_relevant_pages:
+        try:
+            page_number = int(raw_page)
+        except (TypeError, ValueError):
+            continue
+        if page_number > 0:
+            relevant_pages.append(page_number)
+    return sorted(set(relevant_pages))
+
+
+def _narrow_page_candidates(*, pages: list[_PageCandidate], relevant_pages: list[int]) -> list[_PageCandidate]:
+    if not relevant_pages:
+        return []
+    relevant_page_set = set(relevant_pages)
+    narrowed: list[_PageCandidate] = []
+    for page in pages:
+        overlap = tuple(page_number for page_number in page.page_numbers if page_number in relevant_page_set)
+        if not overlap:
+            continue
+        narrowed.append(
+            _PageCandidate(
+                doc_id=page.doc_id,
+                page_numbers=overlap,
+                text=page.text,
+                include_page_numbers=page.include_page_numbers,
+            )
+        )
+    return narrowed
+
+
+def _narrow_page_references(*, base_refs: list[PageReference], relevant_pages: list[int]) -> list[PageReference]:
+    if not relevant_pages:
+        return []
+    relevant_page_set = set(relevant_pages)
+    narrowed: list[PageReference] = []
+    for reference in base_refs:
+        page_numbers: set[int] = set()
+        for page in reference.page_numbers:
+            page_int = int(page)
+            if page_int in relevant_page_set:
+                page_numbers.add(page_int)
+        if not page_numbers:
+            continue
+        narrowed.append(PageReference(doc_id=reference.doc_id, page_numbers=sorted(page_numbers)))
+    return narrowed
+
+
+def _passes_typed_guardrails(
+    *,
+    answer_type: AnswerType,
+    question: str,
+    proposed_answer: Any,
+    pages: list[_PageCandidate],
+) -> bool:
+    question_tokens = _keyword_tokens(question)
+    if answer_type == AnswerType.BOOLEAN:
+        return _matches_deterministic_evidence(
+            extractor=_extract_boolean,
+            question_tokens=question_tokens,
+            pages=pages,
+            proposed_answer=proposed_answer,
+        )
+    if answer_type == AnswerType.NUMBER:
+        if _is_spurious_title_year_literal(proposed_answer=proposed_answer, pages=pages):
+            return False
+        return _matches_deterministic_evidence(
+            extractor=_extract_number,
+            question_tokens=question_tokens,
+            pages=pages,
+            proposed_answer=proposed_answer,
+        )
+    return True
+
+
+def _matches_deterministic_evidence(
+    *,
+    extractor: DeterministicExtractor,
+    question_tokens: set[str],
+    pages: list[_PageCandidate],
+    proposed_answer: Any,
+) -> bool:
+    seen_candidate = False
+    for page in pages:
+        solved = extractor(page=page, question_tokens=question_tokens)
+        if solved is None:
+            continue
+        seen_candidate = True
+        if _answers_equivalent(solved.answer, proposed_answer):
+            return True
+    return not seen_candidate
+
+
+def _is_spurious_title_year_literal(*, proposed_answer: Any, pages: list[_PageCandidate]) -> bool:
+    try:
+        numeric_value = float(proposed_answer)
+    except (TypeError, ValueError):
+        return False
+
+    if not numeric_value.is_integer():
+        return False
+    year = int(numeric_value)
+    if not 1900 <= year <= 2100:
+        return False
+
+    for page in pages:
+        for value, start, end in _extract_number_candidates(page.text):
+            if int(value) != year:
+                continue
+            context = _context_window(page.text, start, end, radius=28).casefold()
+            looks_like_case_literal = (
+                "case" in context
+                or "case no" in context
+                or "case number" in context
+            )
+            has_amount_cue = bool(_AMOUNT_CUE_PATTERN.search(context))
+            has_temporal_cue = bool(_TEMPORAL_CUE_PATTERN.search(context))
+            if looks_like_case_literal and not has_amount_cue and not has_temporal_cue:
+                return True
+    return False
+
+
+def _answers_equivalent(left: Any, right: Any) -> bool:
+    if isinstance(left, bool) or isinstance(right, bool):
+        return isinstance(left, bool) and isinstance(right, bool) and left is right
+    try:
+        return math.isclose(float(left), float(right), rel_tol=1e-9, abs_tol=1e-9)
+    except (TypeError, ValueError):
+        pass
+    return _answer_key(left) == _answer_key(right)
 
 
 def _parse_numeric_value(raw_value: str) -> float:
@@ -836,14 +1456,12 @@ def _dedupe_pages(pages: Iterable[_PageCandidate]) -> list[_PageCandidate]:
 
 
 def _provider_evidence_page(page: _PageCandidate) -> dict[str, Any]:
-    payload: dict[str, Any] = {
+    return {
         "doc_id": page.doc_id,
         "page_number": page.page_number,
+        "page_numbers": list(page.page_numbers),
         "text": page.text,
     }
-    if len(page.page_numbers) > 1:
-        payload["page_numbers"] = list(page.page_numbers)
-    return payload
 
 
 def _contains_permission_negation(text: str) -> bool:

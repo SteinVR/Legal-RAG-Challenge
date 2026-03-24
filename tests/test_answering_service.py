@@ -16,9 +16,11 @@ class StubRetriever:
     def __init__(self, pages: list[dict[str, Any]]) -> None:
         self._pages = list(pages)
         self.calls: list[QuestionRecord] = []
+        self.query_metadata: list[Any] = []
 
-    def retrieve(self, question: QuestionRecord) -> list[dict[str, Any]]:
+    def retrieve(self, question: QuestionRecord, *, query_metadata: Any | None = None) -> list[dict[str, Any]]:
         self.calls.append(question)
+        self.query_metadata.append(query_metadata)
         return list(self._pages)
 
 
@@ -385,8 +387,17 @@ def test_answering_service_uses_provider_for_free_text_with_evidence_and_280_cha
         {
             "question": "Summarize the order.",
             "evidence_pages": [
-                _page(page_number=2, text="The tribunal dismissed the claim and ordered the claimant to pay costs."),
-                _page(page_number=3, text="Costs must be paid within 14 days of the order."),
+                {
+                    **_page(
+                        page_number=2,
+                        text="The tribunal dismissed the claim and ordered the claimant to pay costs.",
+                    ),
+                    "page_numbers": [2],
+                },
+                {
+                    **_page(page_number=3, text="Costs must be paid within 14 days of the order."),
+                    "page_numbers": [3],
+                },
             ],
             "max_chars": 280,
         }

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 import yaml
 
 from tools.operator_context import _build_context
@@ -48,13 +49,17 @@ def test_build_context_marks_free_text_question_sets_as_provider_required(tmp_pa
     assert context["QUESTION_SET_REQUIRES_PROVIDER"] == "1"
 
 
-def test_build_context_marks_deterministic_only_question_sets_as_not_provider_required(tmp_path: Path) -> None:
+@pytest.mark.parametrize("answer_type", ["boolean", "number", "name", "names", "date"])
+def test_build_context_marks_schema_first_typed_question_sets_as_provider_required(
+    tmp_path: Path,
+    answer_type: str,
+) -> None:
     config_path, env_path = _write_config(tmp_path)
     _write_questions(
         tmp_path,
-        [{"id": "q-number", "question": "How many days?", "answer_type": "number"}],
+        [{"id": f"q-{answer_type}", "question": "Typed question", "answer_type": answer_type}],
     )
 
     context = _build_context(config_path=config_path, env_file=env_path, phase_override=None)
 
-    assert context["QUESTION_SET_REQUIRES_PROVIDER"] == "0"
+    assert context["QUESTION_SET_REQUIRES_PROVIDER"] == "1"
