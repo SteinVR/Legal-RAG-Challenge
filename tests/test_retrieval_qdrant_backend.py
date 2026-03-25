@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import importlib
-import json
-from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -10,148 +7,61 @@ from typing import Any
 import pytest
 
 from src.answering.service import extract_query_metadata
-from src.common.config import AppConfig
-from src.common.schemas import (
-    CanonicalPageRecord,
-    ContentBlock,
-    ContentBlockType,
-    CorpusParseManifest,
-    CorpusParseManifestRecord,
-    PageMapRecord,
-    ParseStatus,
-    QuestionRecord,
-    SourceMode,
-    TriageLabel,
-)
+from src.common.schemas import QuestionRecord
 from src.retrieval import QdrantHybridSearchBackend
+from tests.support.imports import load_indexing_module
+from tests.support.indexing import (
+    StubDenseEmbedder,
+    indexing_config,
+    page_record,
+    text_block,
+    write_corpus_inputs,
+)
 
-
-class StubDenseEmbedder:
-    def encode(self, texts: list[str]) -> list[list[float]]:
-        vectors: list[list[float]] = []
-        for index, text in enumerate(texts, start=1):
-            token_count = max(len(text.split()), 1)
-            vectors.append([float(token_count), float(len(text)), float(index)])
-        return vectors
-
-
-def _config(tmp_path: Path) -> AppConfig:
-    return AppConfig.model_validate(
-        {
-            "phase": "warmup",
-            "storage": {"root_dir": str(tmp_path / "data")},
-        }
-    )
-
-
-def _text_block(doc_id: str, page_number: int, block_id: str, text: str) -> ContentBlock:
-    return ContentBlock(
-        block_id=f"{doc_id}-page-{page_number}-{block_id}",
-        type=ContentBlockType.TEXT,
-        text=text,
-        page_number=page_number,
-    )
-
-
-def _page(
-    *,
-    doc_id: str,
-    page_number: int,
-    text: str,
-) -> CanonicalPageRecord:
-    return CanonicalPageRecord(
-        doc_id=doc_id,
-        page_number=page_number,
-        document_title=f"{doc_id.title()} Law",
-        document_family="law_or_regulation",
-        triage_label=TriageLabel.NATIVE_CLEAN,
-        source_mode=SourceMode.NATIVE,
-        parse_status=ParseStatus.PARSED,
-        quality_score=0.97,
-        quality_flags=[],
-        text=text,
-        blocks=[_text_block(doc_id, page_number, "text-1", text)],
-        table_ids=[],
-    )
-
-
-def _write_json(path: Path, payload: Any) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-
-def _write_jsonl(path: Path, payload: list[Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as handle:
-        for item in payload:
-            serialized = item.model_dump(mode="json") if hasattr(item, "model_dump") else item
-            handle.write(json.dumps(serialized, ensure_ascii=False))
-            handle.write("\n")
-
-
-def _write_corpus_inputs(config: AppConfig) -> None:
-    corpus_dir = config.storage.root_dir / config.phase.value / config.storage.corpus_dirname
-    pages = [
-        _page(
-            doc_id="alpha",
-            page_number=1,
-            text=(
-                "Section 4 Notice. Payment must be made within 10 days after invoice. "
-                "Late payment is prohibited."
-            ),
-        ),
-        _page(
-            doc_id="alpha",
-            page_number=2,
-            text=(
-                "Section 5 Extensions. Payment may be made no later than 30 days "
-                "when approved by the tribunal."
-            ),
-        ),
-    ]
-
-    page_map = [
-        PageMapRecord(
-            doc_id="alpha",
-            filename="alpha.pdf",
-            document_title="Alpha Law",
-            document_family="law_or_regulation",
-            page_count=2,
-            page_numbers=[1, 2],
-        )
-    ]
-    manifest = CorpusParseManifest(
-        phase=config.phase,
-        parsed_at=datetime.now(tz=UTC),
-        document_count=1,
-        page_count=2,
-        failed_document_count=0,
-        records=[
-            CorpusParseManifestRecord(
-                doc_id="alpha",
-                filename="alpha.pdf",
-                sha256="alpha-sha",
-                page_count=2,
-                parse_status=ParseStatus.PARSED,
-            )
-        ],
-    )
-
-    _write_jsonl(corpus_dir / config.storage.corpus_filename, pages)
-    _write_json(
-        corpus_dir / config.storage.page_map_filename,
-        [item.model_dump(mode="json") for item in page_map],
-    )
-    _write_json(
-        corpus_dir / config.storage.corpus_manifest_filename,
-        manifest.model_dump(mode="json"),
-    )
-
+pytestmark = pytest.mark.integration
 
 def _build_index(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    module = importlib.import_module("src.indexing.service")
-    config = _config(tmp_path)
-    _write_corpus_inputs(config)
+    module = load_indexing_module()
+    config = indexing_config(tmp_path)
+    write_corpus_inputs(
+        config,
+        pages=[
+            page_record(
+                doc_id="alpha",
+                page_number=1,
+                text=(
+                    "Section 4 Notice. Payment must be made within 10 days after invoice. "
+                    "Late payment is prohibited."
+                ),
+                blocks=[
+                    text_block(
+                        "alpha",
+                        1,
+                        "text-1",
+                        "Section 4 Notice. Payment must be made within 10 days after invoice. "
+                        "Late payment is prohibited.",
+                    )
+                ],
+            ),
+            page_record(
+                doc_id="alpha",
+                page_number=2,
+                text=(
+                    "Section 5 Extensions. Payment may be made no later than 30 days "
+                    "when approved by the tribunal."
+                ),
+                blocks=[
+                    text_block(
+                        "alpha",
+                        2,
+                        "text-1",
+                        "Section 5 Extensions. Payment may be made no later than 30 days "
+                        "when approved by the tribunal.",
+                    )
+                ],
+            ),
+        ],
+    )
     monkeypatch.setattr(module, "build_dense_embedder", lambda _settings: StubDenseEmbedder())
     service = module.HybridIndexService(config)
     result = service.build_indices(dry_run=False, overwrite=True)

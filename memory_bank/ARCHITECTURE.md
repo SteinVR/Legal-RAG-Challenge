@@ -57,15 +57,6 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 - **Config management**: versioned YAML configs under `configs/`
 - **Competition API client**: `arlc` SDK or custom thin wrapper
 
-### Wave 4 architectural constraints (locked decisions)
-
-- **opendataloader-pdf hybrid mode**: required default for born-digital and layout-complex pages; local-only is fallback, not peer default (TASK-W4C).
-- **Table extraction**: `table_method="cluster"` is the required default; any deviation requires measured regression evidence.
-- **Two-pass page attribution**: Pass A prunes retrieved candidates before answer emission; Pass B finalizes emitted pages after answering. Validation degrades before suppressing answers (TASK-W4A).
-- **Schema-first typed solving**: per-type Pydantic schema registry (`is_answerable`, typed `final_answer`, `relevant_pages`, short `reasoning_summary`); schema-bound structured outputs are the primary post-retrieval answering path; deterministic logic operates as guardrails (candidate generation, validation, normalization, rejection); reasoning effort configurable per type (high for boolean/name/names; medium for number/date/free_text) (TASK-W4B).
-- **Retrieval backbone unchanged**: Qdrant hybrid (dense+sparse) stays as-is; no separate BM25 system; prefilters are soft (non-blocking) (TASK-W4D).
-- **Out of scope for Wave 4**: annex/schedule chunk family; XY-Cut++ calibration.
-
 ---
 
 ## 5. Component Design

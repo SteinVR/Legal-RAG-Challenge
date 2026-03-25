@@ -61,3 +61,7 @@ select = ["E", "F", "I", "W"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+markers = [
+    "integration: tests that exercise cross-module orchestration or persisted artifacts",
+    "slow: tests that exercise OCR/Paddle or materially slower end-to-end flows",
+]

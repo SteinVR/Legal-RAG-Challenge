@@ -153,9 +153,12 @@ def decompose_question(
     if entry is not None:
         template, sub_type = entry
     else:
-        # Generic fallback: scope original question to one case.
-        template = question.question + " Focus only on case {case_ref}."
-        sub_type = question.answer_type
+        # No valid recomposer for this subject+answer_type — skip decomposition
+        # so the caller falls back to baseline answering.  The generic fallback
+        # ("Focus only on case ...") keeps the original answer_type which the
+        # recomposer cannot handle correctly (e.g. boolean True/False converted
+        # to empty entity sets → always False).
+        return []
 
     result: list[tuple[str, QuestionRecord]] = []
     for ref in case_refs:

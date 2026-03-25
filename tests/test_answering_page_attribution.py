@@ -1,19 +1,12 @@
 from __future__ import annotations
 
-import importlib
 from typing import Any
 
 import pytest
 
 from src.evaluation.contracts import PageReference
 from src.retrieval.service import RetrievedChunk
-
-
-def _load_page_attribution_module() -> Any:
-    try:
-        return importlib.import_module("src.answering.page_attribution")
-    except ModuleNotFoundError as exc:
-        pytest.fail(f"W4A page attribution module missing: expected `src.answering.page_attribution`. {exc}")
+from tests.support.imports import load_page_attribution_module as _load_page_attribution_module
 
 
 def _candidate_page(

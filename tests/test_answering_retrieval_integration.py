@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import importlib
 from collections.abc import Mapping
 from typing import Any
 
@@ -11,6 +10,7 @@ from src.answering.service import AnsweringService
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import PageReference
 from src.retrieval.service import RetrievalResult, RetrievedChunk
+from tests.support.imports import load_page_attribution_module as _load_page_attribution_module
 
 
 class StubProvider:
@@ -70,10 +70,6 @@ class RetrievalResultRetriever:
         self.calls.append(question)
         self.query_metadata.append(query_metadata)
         return self._result
-
-
-def _load_page_attribution_module() -> Any:
-    return importlib.import_module("src.answering.page_attribution")
 
 
 def test_answering_service_accepts_retrieval_result_for_deterministic_answers() -> None:

@@ -3,8 +3,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import fitz
-
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, ReferenceAnswerRecord
 from src.evaluation.dev_benchmark import (
@@ -15,15 +13,7 @@ from src.evaluation.dev_benchmark import (
 )
 from src.evaluation.scorer import ScoreOptions
 from src.main import main
-
-
-def _write_pdf(path: Path, *, page_count: int = 1) -> None:
-    document = fitz.open()
-    for page_index in range(page_count):
-        page = document.new_page()
-        page.insert_text((72, 72), f"alpha page {page_index + 1}")
-    document.save(path)
-    document.close()
+from tests.support.documents import write_pdf
 
 
 def _questions_payload() -> list[dict[str, object]]:
@@ -188,7 +178,7 @@ def test_main_benchmark_commands_round_trip(tmp_path: Path, capsys) -> None:
 
     documents_dir = tmp_path / "pdfs"
     documents_dir.mkdir()
-    _write_pdf(documents_dir / "alpha.pdf")
+    write_pdf(documents_dir / "alpha.pdf", page_count=1, fill_prefix="alpha page ")
 
     baseline_submission_path = tmp_path / "baseline_submission.json"
     baseline_submission_path.write_text(json.dumps(_submission_payload()), encoding="utf-8")

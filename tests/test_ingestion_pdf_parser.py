@@ -16,18 +16,13 @@ from src.ingestion.ocr_engine import (
 from src.ingestion.opendataloader_adapter import OpenDataLoaderExecutionError
 from src.ingestion.parser_routing import DocumentStructuralProfile, resolve_parser_route
 from src.ingestion.pdf_parser import _has_struct_tree, _parser_availability, parse_pdf_document
+from tests.support.documents import write_pdf
+
+pytestmark = pytest.mark.slow
 
 
 def _write_pdf(path: Path, *, pages: list[str], title: str | None = None) -> None:
-    document = fitz.open()
-    for text in pages:
-        page = document.new_page()
-        if text:
-            page.insert_text((72, 72), text)
-    if title:
-        document.set_metadata({"title": title})
-    document.save(path)
-    document.close()
+    write_pdf(path, page_texts=pages, title=title)
 
 
 class StubOcrEngine:

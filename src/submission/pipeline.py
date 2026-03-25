@@ -375,7 +375,11 @@ class BuildSubmissionService:
                     ended_at=self._clock(),
                 )
 
-                retrieval_result = retriever.consume_latest(question)
+                if answer_result.model_name == "decomposition_w4e":
+                    retrieval_result = _synthetic_retrieval_from_decomposition(question, answer_result)
+                    retriever.discard_latest()
+                else:
+                    retrieval_result = retriever.consume_latest(question)
                 default_model_name = (
                     provider_model
                     if question.answer_type == AnswerType.FREE_TEXT.value
@@ -459,16 +463,39 @@ class BuildSubmissionService:
         decomposition_enabled: bool = False,
         max_subquestions: int = 4,
     ) -> AnswerResult:
-        if decomposition_enabled:
-            query_metadata = extract_query_metadata(question.question)
-            if should_decompose(question, query_metadata, enabled=True):
-                return answer_with_decomposition(
-                    question=question,
-                    query_metadata=query_metadata,
-                    answering_service=answering_service,
-                    max_subquestions=max_subquestions,
-                )
-        return answering_service.answer_question(question)
+        try:
+            if decomposition_enabled:
+                query_metadata = extract_query_metadata(question.question)
+                if should_decompose(question, query_metadata, enabled=True):
+                    return answer_with_decomposition(
+                        question=question,
+                        query_metadata=query_metadata,
+                        answering_service=answering_service,
+                        max_subquestions=max_subquestions,
+                    )
+            return answering_service.answer_question(question)
+        except (ValueError, TypeError) as exc:
+            log_event(
+                LOGGER,
+                logging.WARNING,
+                "build_submission.question.provider_error",
+                "Provider error; returning empty answer.",
+                stage="submission",
+                question_id=question.id,
+                error=str(exc),
+            )
+            from src.answering.service import CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+            from src.evaluation.contracts import AnswerType
+
+            fallback_answer = None
+            if question.answer_type == AnswerType.FREE_TEXT.value:
+                fallback_answer = CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+            return AnswerResult(
+                question_id=question.id,
+                answer=fallback_answer,
+                confidence=0.0,
+                evidence_pages=[],
+            )
 
     def _build_provider(self, model: str) -> Any:
         provider_kwargs: dict[str, Any] = {"model": model}
@@ -523,6 +550,11 @@ class _CachingRetriever:
             self._latest_result = None
             return result
         return self.delegate.retrieve(question, query_metadata=query_metadata)
+
+    def discard_latest(self) -> None:
+        """Drop cached retrieval state without triggering a new search."""
+        self._latest_question_id = None
+        self._latest_result = None
 
 
 @dataclass(slots=True)
@@ -880,6 +912,28 @@ def _supports_api_key_argument(provider_class: type[Any]) -> bool:
         if parameter.name == "api_key":
             return True
     return False
+
+
+def _synthetic_retrieval_from_decomposition(
+    question: QuestionRecord,
+    answer_result: AnswerResult,
+) -> RetrievalResult:
+    """Build a lightweight RetrievalResult from a decomposed answer's page trace.
+
+    Avoids triggering a redundant retrieval for the original question after
+    decomposition has already retrieved evidence for each sub-question.
+    """
+    return RetrievalResult(
+        question_id=question.id,
+        query=question.question,
+        answer_type=question.answer_type,
+        candidate_count=0,
+        reranked_count=0,
+        evidence_chunks=[],
+        retrieved_chunk_pages=list(answer_result.evidence_pages),
+        diagnostics={"decomposed": True},
+        is_unanswerable=answer_result.answer is None,
+    )
 
 
 def _close_quietly(resource: Any) -> None:

@@ -1,13 +1,19 @@
 from __future__ import annotations
 
 import importlib
-from collections import defaultdict
 from collections.abc import Mapping
 from typing import Any
 
 import pytest
 
 from src.common.schemas import QuestionRecord
+from tests.support.answering import (
+    grouped_refs as _grouped_refs,
+    load_answering_service as _load_answering_service,
+    page_payload as _page,
+    question_record as _question,
+    result_field as _result_field,
+)
 
 CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER = "There is no information on this question in the provided documents."
 
@@ -38,56 +44,6 @@ class StubProvider:
             }
         )
         return dict(self._response)
-
-
-def _load_answering_service():
-    module = importlib.import_module("src.answering.service")
-    return module.AnsweringService
-
-
-def _question(*, text: str, answer_type: str, question_id: str = "q1") -> QuestionRecord:
-    return QuestionRecord(id=question_id, question=text, answer_type=answer_type)
-
-
-def _page(*, doc_id: str = "alpha", page_number: int, text: str) -> dict[str, Any]:
-    return {
-        "doc_id": doc_id,
-        "page_number": page_number,
-        "text": text,
-    }
-
-
-def _result_field(result: Any, field: str) -> Any:
-    if isinstance(result, Mapping):
-        return result[field]
-    return getattr(result, field)
-
-
-def _collect_ref_pages(normalized: dict[str, set[int]], ref: Any) -> None:
-    if isinstance(ref, Mapping):
-        doc_id = str(ref["doc_id"])
-        if "page_numbers" in ref:
-            normalized[doc_id].update(int(page) for page in ref["page_numbers"])
-            return
-
-        normalized[doc_id].add(int(ref["page_number"]))
-        return
-
-    doc_id = str(ref.doc_id)
-    if hasattr(ref, "page_numbers"):
-        normalized[doc_id].update(int(page) for page in ref.page_numbers)
-        return
-
-    normalized[doc_id].add(int(ref.page_number))
-
-
-def _grouped_refs(result: Any) -> list[tuple[str, list[int]]]:
-    refs = _result_field(result, "evidence_pages")
-    normalized: dict[str, set[int]] = defaultdict(set)
-    for ref in refs:
-        _collect_ref_pages(normalized, ref)
-
-    return sorted((doc_id, sorted(page_numbers)) for doc_id, page_numbers in normalized.items())
 
 
 def _build_service(*, pages: list[dict[str, Any]], provider_response: Mapping[str, Any] | None = None):

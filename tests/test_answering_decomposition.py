@@ -17,8 +17,8 @@ from src.answering.decomposition import (
 )
 from src.answering.page_attribution import build_page_trace
 from src.answering.service import AnswerResult, QueryMetadata
-from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import PageReference
+from tests.support.answering import question_record as _question
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -32,10 +32,6 @@ def _metadata(*case_ids: str, multi: bool = True) -> QueryMetadata:
         LegalEntityMetadata(entity_type="case_id", raw_value=c, normalized_value=c, is_strong=True) for c in case_ids
     )
     return QueryMetadata(legal_entities=entities, document_title_cues=(), likely_multi_document=multi)
-
-
-def _question(text: str, answer_type: str, qid: str = "q1") -> QuestionRecord:
-    return QuestionRecord(id=qid, question=text, answer_type=answer_type)
 
 
 def _answer_result(
@@ -175,16 +171,18 @@ class TestDecomposeQuestion:
         assert len(subs) == 2
         assert subs[0][1].answer_type == "number"
 
-    def test_generic_fallback_preserves_original_type(self) -> None:
+    def test_generic_fallback_skips_decomposition(self) -> None:
+        """Unsupported subject+answer_type combos skip decomposition to avoid
+        incorrect recomposition (e.g. boolean True/False → empty entity sets)."""
         q = _question("Compare case CFI 057/2025 and SCT 295/2025 outcomes.", "name")
         meta = _metadata("CFI 057/2025", "SCT 295/2025")
         subs = decompose_question(q, meta)
-        assert len(subs) == 2
-        assert subs[0][1].answer_type == "name"
+        assert len(subs) == 0
 
     def test_respects_max_subquestions(self) -> None:
         q = _question(
-            "DEC 001/2025 and TCD 001/2024 and ENF 269/2023 and CA 005/2025 and SCT 514/2025 overlap?",
+            "Do the parties in DEC 001/2025 and TCD 001/2024 and ENF 269/2023"
+            " and CA 005/2025 and SCT 514/2025 overlap?",
             "boolean",
         )
         meta = _metadata("DEC 001/2025", "TCD 001/2024", "ENF 269/2023", "CA 005/2025", "SCT 514/2025")

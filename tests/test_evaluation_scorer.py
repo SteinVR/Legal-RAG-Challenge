@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import fitz
-
 from src.evaluation.contracts import (
     AnswerType,
     AssistantScoreRecord,
@@ -18,12 +16,13 @@ from src.evaluation.scorer import (
     score_submission,
     score_ttft,
 )
+from tests.support.documents import write_pdf
 
 
 def test_score_submission_calculates_expected_metrics(tmp_path: Path) -> None:
     documents_dir = tmp_path / "documents" / "pdfs"
     documents_dir.mkdir(parents=True)
-    _write_pdf(documents_dir / "alpha.pdf", page_count=3)
+    write_pdf(documents_dir / "alpha.pdf", page_count=3)
 
     submission = {
         "answers": [
@@ -85,7 +84,7 @@ def test_score_submission_calculates_expected_metrics(tmp_path: Path) -> None:
 def test_score_submission_validates_raw_extra_answers_without_breaking_subset_scoring(tmp_path: Path) -> None:
     documents_dir = tmp_path / "documents" / "pdfs"
     documents_dir.mkdir(parents=True)
-    _write_pdf(documents_dir / "alpha.pdf", page_count=1)
+    write_pdf(documents_dir / "alpha.pdf", page_count=1)
 
     submission = {
         "answers": [
@@ -152,11 +151,3 @@ def test_scoring_helpers_cover_edge_cases() -> None:
     assert score_ttft(2500) == 1.0
     assert score_ttft(3000) == 1.0
     assert round(score_ttft(10_000), 2) == 0.85
-
-
-def _write_pdf(path: Path, *, page_count: int) -> None:
-    document = fitz.open()
-    for _ in range(page_count):
-        document.new_page()
-    document.save(path)
-    document.close()

@@ -46,6 +46,7 @@ NEGATIVE_HINTS = (
     " absent ",
 )
 DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+StratumKey = tuple[str, str]
 
 
 class GoldQuestionShard(BaseModel):
@@ -77,6 +78,17 @@ class GoldShardManifest(BaseModel):
     question_count: int
     shard_count: int
     entries: list[GoldShardManifestEntry] = Field(default_factory=list)
+
+
+class GoldQuestionSetSummary(BaseModel):
+    """Summary stats for one question set or sampled subset."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    question_count: int
+    question_ids: list[str] = Field(default_factory=list)
+    answer_type_counts: dict[str, int] = Field(default_factory=dict)
+    structural_bucket_counts: dict[str, int] = Field(default_factory=dict)
 
 
 class GoldShardBundle(BaseModel):
@@ -137,7 +149,7 @@ def split_questions_stratified(
             f"Question count {len(questions)} is not evenly divisible by shard_count={shard_count}."
         )
 
-    grouped: dict[tuple[str, str], list[QuestionRecord]] = defaultdict(list)
+    grouped: dict[StratumKey, list[QuestionRecord]] = defaultdict(list)
     for question in questions:
         grouped[(question.answer_type, structural_bucket(question))].append(question)
 
@@ -183,6 +195,53 @@ def split_questions_stratified(
     return shards
 
 
+def sample_questions_stratified(
+    questions: list[QuestionRecord],
+    *,
+    sample_count: int,
+) -> list[QuestionRecord]:
+    """Select a deterministic stratified subset from a larger question pool."""
+
+    if sample_count <= 0:
+        raise ValueError("sample_count must be positive.")
+
+    _validate_unique_questions(questions)
+    if sample_count > len(questions):
+        raise ValueError(
+            f"sample_count={sample_count} cannot exceed total question count {len(questions)}."
+        )
+    if sample_count == len(questions):
+        return list(questions)
+
+    grouped: dict[StratumKey, list[QuestionRecord]] = defaultdict(list)
+    for question in questions:
+        grouped[(question.answer_type, structural_bucket(question))].append(question)
+
+    group_keys = sorted(grouped)
+    minimum_per_group = 1 if sample_count >= len(group_keys) else 0
+    selected_counts = _distribute_counts_by_capacity(
+        capacities={group_key: len(grouped[group_key]) for group_key in group_keys},
+        total_count=sample_count,
+        minimum_per_group=minimum_per_group,
+    )
+
+    selected_ids: set[str] = set()
+    for group_key in group_keys:
+        selected_questions = _spread_select_questions(
+            sorted(grouped[group_key], key=lambda item: item.id),
+            selected_counts[group_key],
+        )
+        selected_ids.update(question.id for question in selected_questions)
+
+    sampled_questions = [question for question in questions if question.id in selected_ids]
+    if len(sampled_questions) != sample_count:
+        raise ValueError(
+            f"Expected sampled subset of {sample_count} questions, got {len(sampled_questions)}."
+        )
+    _validate_unique_questions(sampled_questions)
+    return sampled_questions
+
+
 def build_shard_manifest(shards: list[GoldQuestionShard]) -> GoldShardManifest:
     """Build a summary manifest from generated shards."""
 
@@ -204,6 +263,20 @@ def build_shard_manifest(shards: list[GoldQuestionShard]) -> GoldShardManifest:
         question_count=sum(entry.question_count for entry in entries),
         shard_count=len(shards),
         entries=entries,
+    )
+
+
+def build_question_set_summary(questions: list[QuestionRecord]) -> GoldQuestionSetSummary:
+    """Build a summary for one question set."""
+
+    _validate_unique_questions(questions)
+    answer_type_counts = Counter(question.answer_type for question in questions)
+    bucket_counts = Counter(structural_bucket(question) for question in questions)
+    return GoldQuestionSetSummary(
+        question_count=len(questions),
+        question_ids=[question.id for question in questions],
+        answer_type_counts=dict(sorted(answer_type_counts.items())),
+        structural_bucket_counts=dict(sorted(bucket_counts.items())),
     )
 
 
@@ -237,29 +310,12 @@ def merge_reviewed_shards(
 ) -> BenchmarkDataset:
     """Merge reviewed shard bundles into one benchmark dataset."""
 
-    if not reviewed_bundles:
-        raise ValueError("At least one reviewed bundle is required.")
-
     questions_by_id = {question.id: question for question in questions}
     ordered_ids = [question.id for question in questions]
-    combined_references: dict[str, ReferenceAnswerRecord] = {}
-    combined_scores: dict[str, AssistantScoreRecord] = {}
-
-    for bundle in reviewed_bundles:
-        validate_gold_shard_bundle(
-            bundle,
-            questions_by_id=questions_by_id,
-            require_assistant_scores=True,
-            require_reviewed_status=True,
-        )
-        for reference in bundle.references:
-            if reference.question_id in combined_references:
-                raise ValueError(f"Duplicate reviewed reference for question_id={reference.question_id}")
-            combined_references[reference.question_id] = reference
-        for score in bundle.assistant_scores:
-            if score.question_id in combined_scores:
-                raise ValueError(f"Duplicate assistant_score for question_id={score.question_id}")
-            combined_scores[score.question_id] = score
+    combined_references, combined_scores = _collect_reviewed_references_and_scores(
+        reviewed_bundles=reviewed_bundles,
+        questions_by_id=questions_by_id,
+    )
 
     missing_reference_ids = [question_id for question_id in ordered_ids if question_id not in combined_references]
     if missing_reference_ids:
@@ -268,9 +324,7 @@ def merge_reviewed_shards(
             + ", ".join(missing_reference_ids)
         )
 
-    free_text_ids = [
-        question.id for question in questions if question.answer_type == AnswerType.FREE_TEXT.value
-    ]
+    free_text_ids = _free_text_question_ids(questions)
     missing_score_ids = [question_id for question_id in free_text_ids if question_id not in combined_scores]
     if missing_score_ids:
         raise ValueError(
@@ -297,26 +351,12 @@ def collect_reviewed_assistant_scores(
 ) -> list[AssistantScoreRecord]:
     """Collect ordered free-text assistant scores from reviewed bundles."""
 
-    if not reviewed_bundles:
-        raise ValueError("At least one reviewed bundle is required.")
-
     questions_by_id = {question.id: question for question in questions}
-    free_text_ids = [
-        question.id for question in questions if question.answer_type == AnswerType.FREE_TEXT.value
-    ]
-    combined_scores: dict[str, AssistantScoreRecord] = {}
-
-    for bundle in reviewed_bundles:
-        validate_gold_shard_bundle(
-            bundle,
-            questions_by_id=questions_by_id,
-            require_assistant_scores=True,
-            require_reviewed_status=True,
-        )
-        for score in bundle.assistant_scores:
-            if score.question_id in combined_scores:
-                raise ValueError(f"Duplicate assistant_score for question_id={score.question_id}")
-            combined_scores[score.question_id] = score
+    free_text_ids = _free_text_question_ids(questions)
+    _, combined_scores = _collect_reviewed_references_and_scores(
+        reviewed_bundles=reviewed_bundles,
+        questions_by_id=questions_by_id,
+    )
 
     missing_score_ids = [question_id for question_id in free_text_ids if question_id not in combined_scores]
     if missing_score_ids:
@@ -326,6 +366,104 @@ def collect_reviewed_assistant_scores(
         )
 
     return [combined_scores[question_id] for question_id in free_text_ids]
+
+
+def combine_question_sets(question_sets: list[list[QuestionRecord]]) -> list[QuestionRecord]:
+    """Concatenate question sets while preserving input order and uniqueness."""
+
+    combined_questions = [question for question_set in question_sets for question in question_set]
+    _validate_unique_questions(combined_questions)
+    return combined_questions
+
+
+def combine_benchmark_datasets(
+    *,
+    questions: list[QuestionRecord],
+    benchmarks: list[BenchmarkDataset],
+    benchmark_id: str,
+    title: str | None = None,
+    notes: list[str] | None = None,
+) -> BenchmarkDataset:
+    """Combine multiple benchmark datasets into one reference-only benchmark."""
+
+    if not benchmarks:
+        raise ValueError("At least one benchmark dataset is required.")
+
+    questions_by_id = {question.id: question for question in questions}
+    ordered_ids = [question.id for question in questions]
+    combined_references: dict[str, ReferenceAnswerRecord] = {}
+
+    for dataset in benchmarks:
+        for reference in dataset.references:
+            if reference.question_id not in questions_by_id:
+                raise ValueError(
+                    f"Benchmark reference question_id={reference.question_id} is not present in combined questions."
+                )
+            if reference.question_id in combined_references:
+                raise ValueError(f"Duplicate benchmark reference for question_id={reference.question_id}")
+            validate_reference_answer_record(reference, expected_question=questions_by_id[reference.question_id])
+            combined_references[reference.question_id] = reference
+
+    missing_reference_ids = [question_id for question_id in ordered_ids if question_id not in combined_references]
+    if missing_reference_ids:
+        raise ValueError(
+            "Combined benchmark references do not cover every question. Missing question_ids: "
+            + ", ".join(missing_reference_ids)
+        )
+
+    return BenchmarkDataset(
+        benchmark_id=benchmark_id,
+        title=title or benchmark_id,
+        references=[combined_references[question_id] for question_id in ordered_ids],
+        assistant_scores=[],
+        notes=notes or [],
+    )
+
+
+def combine_assistant_score_sets(
+    *,
+    questions: list[QuestionRecord],
+    assistant_score_sets: list[list[AssistantScoreRecord]],
+) -> list[AssistantScoreRecord]:
+    """Combine assistant score collections with full free-text coverage checks."""
+
+    if not assistant_score_sets:
+        raise ValueError("At least one assistant score collection is required.")
+
+    questions_by_id = {question.id: question for question in questions}
+    free_text_ids = _free_text_question_ids(questions)
+    combined_scores: dict[str, AssistantScoreRecord] = {}
+
+    for score_set in assistant_score_sets:
+        for score in score_set:
+            question = questions_by_id.get(score.question_id)
+            if question is None:
+                raise ValueError(
+                    f"assistant_score question_id={score.question_id} is not present in combined questions."
+                )
+            if question.answer_type != AnswerType.FREE_TEXT.value:
+                raise ValueError(
+                    f"assistant_score question_id={score.question_id} is not a free_text question."
+                )
+            if score.question_id in combined_scores:
+                raise ValueError(f"Duplicate assistant_score for question_id={score.question_id}")
+            combined_scores[score.question_id] = score
+
+    missing_score_ids = [question_id for question_id in free_text_ids if question_id not in combined_scores]
+    if missing_score_ids:
+        raise ValueError(
+            "Combined assistant_scores do not cover every free_text question. Missing question_ids: "
+            + ", ".join(missing_score_ids)
+        )
+
+    return [combined_scores[question_id] for question_id in free_text_ids]
+
+
+def collect_referenced_doc_ids(references: list[ReferenceAnswerRecord]) -> list[str]:
+    """Collect the unique doc_ids referenced by a set of gold answers."""
+
+    doc_ids = {page_reference.doc_id for reference in references for page_reference in reference.gold_retrieval}
+    return sorted(doc_ids)
 
 
 def validate_gold_shard_bundle(
@@ -491,3 +629,120 @@ def _validate_unique_questions(questions: list[QuestionRecord]) -> None:
         raise ValueError("Duplicate question ids detected: " + ", ".join(duplicate_ids))
     if duplicate_texts:
         raise ValueError("Duplicate question texts detected: " + "; ".join(duplicate_texts))
+
+
+def _distribute_counts_by_capacity(
+    *,
+    capacities: dict[StratumKey, int],
+    total_count: int,
+    minimum_per_group: int,
+) -> dict[StratumKey, int]:
+    selected_counts = {group_key: 0 for group_key in capacities}
+    if minimum_per_group:
+        groups = [group_key for group_key, capacity in capacities.items() if capacity > 0]
+        if total_count < len(groups) * minimum_per_group:
+            raise ValueError("Not enough sample slots to satisfy minimum_per_group across all strata.")
+        for group_key in groups:
+            selected_counts[group_key] = minimum_per_group
+
+    remaining = total_count - sum(selected_counts.values())
+    while remaining > 0:
+        remaining_before_distribution = remaining
+        residual_capacities = {
+            group_key: capacities[group_key] - selected_counts[group_key]
+            for group_key in capacities
+            if capacities[group_key] > selected_counts[group_key]
+        }
+        if not residual_capacities:
+            raise ValueError("Ran out of residual capacity while distributing stratified counts.")
+
+        total_residual_capacity = sum(residual_capacities.values())
+        base_increments = {
+            group_key: int(remaining_before_distribution * residual_capacity / total_residual_capacity)
+            for group_key, residual_capacity in residual_capacities.items()
+        }
+        distributed = sum(base_increments.values())
+
+        if distributed == 0:
+            top_group_key = max(
+                residual_capacities,
+                key=lambda group_key: (residual_capacities[group_key], group_key),
+            )
+            selected_counts[top_group_key] += 1
+            remaining -= 1
+            continue
+
+        for group_key, increment in base_increments.items():
+            selected_counts[group_key] += increment
+
+        remaining = remaining_before_distribution - distributed
+        if remaining <= 0:
+            break
+
+        fractional_order = sorted(
+            residual_capacities,
+            key=lambda group_key: (
+                remaining_before_distribution * residual_capacities[group_key] / total_residual_capacity
+                - base_increments[group_key],
+                residual_capacities[group_key],
+                group_key,
+            ),
+            reverse=True,
+        )
+        for group_key in fractional_order:
+            if remaining == 0:
+                break
+            if selected_counts[group_key] >= capacities[group_key]:
+                continue
+            selected_counts[group_key] += 1
+            remaining -= 1
+
+    return selected_counts
+
+
+def _spread_select_questions(questions: list[QuestionRecord], sample_count: int) -> list[QuestionRecord]:
+    if sample_count == 0:
+        return []
+    if sample_count > len(questions):
+        raise ValueError("Cannot select more questions than exist in a stratum.")
+    if sample_count == len(questions):
+        return list(questions)
+
+    total_questions = len(questions)
+    selected_indices = [
+        ((2 * index + 1) * total_questions) // (2 * sample_count)
+        for index in range(sample_count)
+    ]
+    return [questions[index] for index in selected_indices]
+
+
+def _collect_reviewed_references_and_scores(
+    *,
+    reviewed_bundles: list[GoldShardBundle],
+    questions_by_id: dict[str, QuestionRecord],
+) -> tuple[dict[str, ReferenceAnswerRecord], dict[str, AssistantScoreRecord]]:
+    if not reviewed_bundles:
+        raise ValueError("At least one reviewed bundle is required.")
+
+    combined_references: dict[str, ReferenceAnswerRecord] = {}
+    combined_scores: dict[str, AssistantScoreRecord] = {}
+    for bundle in reviewed_bundles:
+        validate_gold_shard_bundle(
+            bundle,
+            questions_by_id=questions_by_id,
+            require_assistant_scores=True,
+            require_reviewed_status=True,
+        )
+        for reference in bundle.references:
+            if reference.question_id in combined_references:
+                raise ValueError(f"Duplicate reviewed reference for question_id={reference.question_id}")
+            combined_references[reference.question_id] = reference
+        for score in bundle.assistant_scores:
+            if score.question_id in combined_scores:
+                raise ValueError(f"Duplicate assistant_score for question_id={score.question_id}")
+            combined_scores[score.question_id] = score
+    return combined_references, combined_scores
+
+
+def _free_text_question_ids(questions: list[QuestionRecord]) -> list[str]:
+    return [question.id for question in questions if question.answer_type == AnswerType.FREE_TEXT.value]

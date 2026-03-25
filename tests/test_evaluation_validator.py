@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
-
-import fitz
-
 from src.evaluation.contracts import AnswerType, UnanswerableRetrievalPolicy
 from src.evaluation.validator import SubmissionValidator, ValidationPolicy, build_corpus_registry
+from tests.support.documents import write_pdf
 
 
 def test_validator_allows_empty_retrieval_for_unanswerable_policy(tmp_path: Path) -> None:
@@ -75,7 +72,7 @@ def test_validator_rejects_empty_retrieval_when_policy_requires_non_empty(tmp_pa
 def test_validator_checks_doc_existence_and_page_bounds(tmp_path: Path) -> None:
     documents_dir = tmp_path / "documents" / "pdfs"
     documents_dir.mkdir(parents=True)
-    _write_pdf(documents_dir / "alpha.pdf", page_count=2)
+    write_pdf(documents_dir / "alpha.pdf", page_count=2)
 
     submission = {
         "answers": [
@@ -147,11 +144,3 @@ def test_validator_rejects_question_id_with_surrounding_whitespace() -> None:
     assert "submission.question_id.duplicate" in exact_issue_codes
     assert "submission.question_id.whitespace" in issue_codes
     assert "submission.question_id.unknown" not in issue_codes
-
-
-def _write_pdf(path: Path, *, page_count: int) -> None:
-    document = fitz.open()
-    for _ in range(page_count):
-        document.new_page()
-    document.save(path)
-    document.close()

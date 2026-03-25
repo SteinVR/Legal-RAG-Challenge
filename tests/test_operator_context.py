@@ -4,43 +4,16 @@ import json
 from pathlib import Path
 
 import pytest
-import yaml
 
 from tools.operator_context import _build_context
-
-
-def _write_config(tmp_path: Path) -> tuple[Path, Path]:
-    config_path = tmp_path / "config.yaml"
-    config_path.write_text(
-        yaml.safe_dump(
-            {
-                "version": "v001",
-                "phase": "warmup",
-                "api": {
-                    "base_url": "https://platform.agentic-challenge.ai/api/v1",
-                    "api_key_env": "COMPETITION_API_KEY",
-                },
-                "storage": {"root_dir": str(tmp_path / "data")},
-            }
-        ),
-        encoding="utf-8",
-    )
-    env_path = tmp_path / ".env"
-    env_path.write_text("COMPETITION_API_KEY=test-key\n", encoding="utf-8")
-    return config_path, env_path
-
-
-def _write_questions(tmp_path: Path, questions: list[dict[str, str]]) -> Path:
-    questions_path = tmp_path / "data" / "warmup" / "questions" / "questions.json"
-    questions_path.parent.mkdir(parents=True, exist_ok=True)
-    questions_path.write_text(json.dumps(questions) + "\n", encoding="utf-8")
-    return questions_path
+from tests.support.config import write_app_config
+from tests.support.documents import write_questions
 
 
 def test_build_context_marks_free_text_question_sets_as_provider_required(tmp_path: Path) -> None:
-    config_path, env_path = _write_config(tmp_path)
-    _write_questions(
-        tmp_path,
+    config_path, env_path = write_app_config(tmp_path)
+    write_questions(
+        tmp_path / "data" / "warmup" / "questions" / "questions.json",
         [{"id": "q-free", "question": "Summarize the order.", "answer_type": "free_text"}],
     )
 
@@ -54,9 +27,9 @@ def test_build_context_marks_schema_first_typed_question_sets_as_provider_requir
     tmp_path: Path,
     answer_type: str,
 ) -> None:
-    config_path, env_path = _write_config(tmp_path)
-    _write_questions(
-        tmp_path,
+    config_path, env_path = write_app_config(tmp_path)
+    write_questions(
+        tmp_path / "data" / "warmup" / "questions" / "questions.json",
         [{"id": f"q-{answer_type}", "question": "Typed question", "answer_type": answer_type}],
     )
 

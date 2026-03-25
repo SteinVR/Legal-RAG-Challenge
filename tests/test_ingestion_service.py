@@ -20,6 +20,7 @@ from src.common.schemas import (
 from src.ingestion.ocr_engine import OcrPageResult, OcrTableExtraction
 from src.ingestion.pdf_parser import DocumentParser
 from src.ingestion.service import CorpusParseService
+from tests.support.documents import write_pdf
 
 
 class StubOcrEngine:
@@ -35,13 +36,7 @@ class StubOcrEngine:
 
 
 def _write_pdf(path: Path, *, pages: list[str]) -> None:
-    document = fitz.open()
-    for text in pages:
-        page = document.new_page()
-        if text:
-            page.insert_text((72, 72), text)
-    document.save(path)
-    document.close()
+    write_pdf(path, page_texts=pages)
 
 
 def _config(tmp_path: Path, *, logging_directory: Path | None = None) -> AppConfig:
@@ -58,7 +53,7 @@ def test_parse_corpus_writes_serialized_table_blocks_from_ocr_page(tmp_path: Pat
     config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
-    _write_pdf(documents_dir / "alpha.pdf", pages=[""])
+    write_pdf(documents_dir / "alpha.pdf", page_texts=[""])
 
     service = CorpusParseService(config)
     service.parser = DocumentParser(
@@ -102,8 +97,8 @@ def test_corpus_parse_service_reuses_one_shared_ocr_engine(tmp_path: Path, monke
     config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
-    _write_pdf(documents_dir / "alpha.pdf", pages=[""])
-    _write_pdf(documents_dir / "beta.pdf", pages=[""])
+    write_pdf(documents_dir / "alpha.pdf", page_texts=[""])
+    write_pdf(documents_dir / "beta.pdf", page_texts=[""])
 
     build_calls = 0
 
@@ -146,7 +141,7 @@ def test_corpus_parse_service_rebuilds_when_debug_artifact_is_missing(tmp_path: 
     config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
-    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+    write_pdf(documents_dir / "alpha.pdf", page_texts=["DIFC LAW NO. 1\nArticle 1"])
 
     service = CorpusParseService(config)
     first_result = service.parse_corpus(overwrite=True)
@@ -168,7 +163,7 @@ def test_corpus_parse_service_rebuilds_when_required_structural_sidecar_is_missi
     config = _config(tmp_path)
     documents_dir = tmp_path / "data" / "warmup" / "documents" / "pdfs"
     documents_dir.mkdir(parents=True, exist_ok=True)
-    _write_pdf(documents_dir / "alpha.pdf", pages=["DIFC LAW NO. 1\nArticle 1"])
+    write_pdf(documents_dir / "alpha.pdf", page_texts=["DIFC LAW NO. 1\nArticle 1"])
 
     service = CorpusParseService(config)
     parsed = ParsedDocument(

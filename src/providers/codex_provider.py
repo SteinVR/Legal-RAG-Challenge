@@ -15,9 +15,13 @@ from pydantic import BaseModel, ValidationError
 
 from src.common.runtime_logging import get_logger, log_event
 
+_CANONICAL_UNANSWERABLE_FREE_TEXT = "There is no information on this question in the provided documents."
+
 DEFAULT_CODEX_BASE_URL = "https://api.openai.com/v1"
 DEFAULT_CODEX_MODEL = "gpt-5.4-mini"
 DEFAULT_PROVIDER_CONFIDENCE = 0.5
+_MAX_RETRIES = 3
+_RETRY_BACKOFF_SECONDS = (1.0, 3.0, 8.0)
 DEFAULT_MAX_OUTPUT_TOKENS = 2048
 LOGGER = get_logger("providers.codex")
 
@@ -77,9 +81,10 @@ class CodexFreeTextProvider:
             raise ValueError("max_chars must be positive.")
         started_at = time.perf_counter()
 
-        response = self._client.post(
+        response = _post_with_retry(
+            self._client,
             "responses",
-            json={
+            {
                 "model": self.model,
                 "input": [
                     {
@@ -108,7 +113,6 @@ class CodexFreeTextProvider:
                 "max_output_tokens": self.max_output_tokens,
             },
         )
-        response.raise_for_status()
         payload = response.json()
         if not isinstance(payload, dict):
             raise ValueError("Provider response must be a JSON object.")
@@ -147,52 +151,71 @@ class CodexFreeTextProvider:
         schema_name = f"{answer_type}_answer"
         schema_payload = _strict_openai_schema(answer_schema.model_json_schema())
 
-        response = self._client.post(
-            "responses",
-            json={
-                "model": self.model,
-                "reasoning": {"effort": normalized_effort},
-                "input": [
-                    {
-                        "role": "system",
-                        "content": [{"type": "input_text", "text": _STRUCTURED_SYSTEM_PROMPT}],
-                    },
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "input_text",
-                                "text": _build_structured_user_prompt(
-                                    question=question,
-                                    answer_type=answer_type,
-                                    evidence_pages=evidence_pages,
-                                ),
-                            }
-                        ],
-                    },
-                ],
-                "text": {
-                    "format": {
-                        "type": "json_schema",
-                        "name": schema_name,
-                        "schema": schema_payload,
-                        "strict": True,
-                    }
+        request_body = {
+            "model": self.model,
+            "reasoning": {"effort": normalized_effort},
+            "input": [
+                {
+                    "role": "system",
+                    "content": [{"type": "input_text", "text": _STRUCTURED_SYSTEM_PROMPT}],
                 },
-                "max_output_tokens": self.max_output_tokens,
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": _build_structured_user_prompt(
+                                question=question,
+                                answer_type=answer_type,
+                                evidence_pages=evidence_pages,
+                            ),
+                        }
+                    ],
+                },
+            ],
+            "text": {
+                "format": {
+                    "type": "json_schema",
+                    "name": schema_name,
+                    "schema": schema_payload,
+                    "strict": True,
+                }
             },
-        )
-        response.raise_for_status()
-        payload = response.json()
-        if not isinstance(payload, dict):
-            raise ValueError("Provider response must be a JSON object.")
-
-        response_text = _extract_response_text(payload)
-        structured = _parse_structured_payload(response_text)
-        try:
-            validated = answer_schema.model_validate(structured)
-        except ValidationError as exc:
-            raise ValueError("Structured provider output failed schema validation.") from exc
+            "max_output_tokens": self.max_output_tokens,
+        }
+        last_exc: Exception | None = None
+        for _attempt in range(_MAX_RETRIES + 1):
+            response = _post_with_retry(self._client, "responses", request_body)
+            payload = response.json()
+            if not isinstance(payload, dict):
+                raise ValueError("Provider response must be a JSON object.")
+            try:
+                response_text = _extract_response_text(payload)
+                structured = _parse_structured_payload(response_text)
+            except ValueError as exc:
+                last_exc = exc
+                log_event(LOGGER, logging.WARNING, "provider.structured.parse_retry",
+                          "Retrying due to malformed structured output.", stage="answering")
+                time.sleep(1.0)
+                continue
+            # Normalize unanswerable free_text to canonical phrasing before validation.
+            if (
+                answer_type == "free_text"
+                and isinstance(structured, dict)
+                and not structured.get("is_answerable", True)
+            ):
+                structured["final_answer"] = _CANONICAL_UNANSWERABLE_FREE_TEXT
+            try:
+                validated = answer_schema.model_validate(structured)
+            except ValidationError as exc:
+                last_exc = exc
+                log_event(LOGGER, logging.WARNING, "provider.structured.validation_retry",
+                          "Retrying due to schema validation failure.", stage="answering")
+                time.sleep(1.0)
+                continue
+            break
+        else:
+            raise ValueError("Structured provider output failed after retries.") from last_exc
 
         result = dict(validated.model_dump())
         result["confidence"] = _coerce_confidence(structured.get("confidence", DEFAULT_PROVIDER_CONFIDENCE))
@@ -517,3 +540,41 @@ def _coerce_confidence(raw_confidence: Any) -> float:
 
 def _normalize_whitespace(value: str) -> str:
     return " ".join(value.split())
+
+
+def _post_with_retry(
+    client: httpx.Client,
+    path: str,
+    json_body: dict[str, Any],
+    *,
+    max_retries: int = _MAX_RETRIES,
+) -> httpx.Response:
+    """POST with retry on transient 5xx / connection errors."""
+    last_exc: Exception | None = None
+    for attempt in range(max_retries + 1):
+        try:
+            response = client.post(path, json=json_body)
+            if response.status_code < 500:
+                response.raise_for_status()
+                return response
+            # 5xx — retry
+            last_exc = httpx.HTTPStatusError(
+                f"Server error {response.status_code}",
+                request=response.request,
+                response=response,
+            )
+        except (httpx.ConnectError, httpx.ReadTimeout, httpx.WriteTimeout) as exc:
+            last_exc = exc
+        if attempt < max_retries:
+            backoff = _RETRY_BACKOFF_SECONDS[min(attempt, len(_RETRY_BACKOFF_SECONDS) - 1)]
+            log_event(
+                LOGGER,
+                logging.WARNING,
+                "provider.retry",
+                "Retrying provider request after transient error.",
+                stage="answering",
+                attempt=attempt + 1,
+                backoff_seconds=backoff,
+            )
+            time.sleep(backoff)
+    raise last_exc  # type: ignore[misc]

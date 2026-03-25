@@ -13,6 +13,7 @@ from src.answering.service import (
 )
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import PageReference
+from tests.support.answering import page_payload as _page, question_record as _question
 
 
 class ListRetriever:
@@ -57,18 +58,6 @@ class StructuredProviderStub:
             }
         )
         return dict(self._response)
-
-
-def _question(*, text: str, answer_type: str, question_id: str = "q1") -> QuestionRecord:
-    return QuestionRecord(id=question_id, question=text, answer_type=answer_type)
-
-
-def _page(*, doc_id: str = "alpha", page_number: int, text: str) -> dict[str, Any]:
-    return {
-        "doc_id": doc_id,
-        "page_number": page_number,
-        "text": text,
-    }
 
 
 def _build_service(

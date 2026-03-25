@@ -89,6 +89,48 @@ answering:
     date: 0.6
     free_text: 0.5
 
+indexing:
+  token_chunk_size: 300
+  token_chunk_overlap: 50
+  enabled_chunk_families:
+    - page
+    - section
+    - clause
+    - microchunk
+    - table
+
+retrieval:
+  candidate_budget: 10
+  rerank_budget: 5
+  default_evidence_budget: 3
+  evidence_budget_by_answer_type:
+    boolean: 3
+    number: 2
+    name: 3
+    names: 3
+    date: 2
+    free_text: 3
+  question_class_budgets:
+    cross_case:
+      candidate_budget: 15
+      rerank_budget: 6
+      evidence_budget: 4
+    case:
+      candidate_budget: 8
+      rerank_budget: 4
+      evidence_budget: 2
+    statute:
+      candidate_budget: 8
+      rerank_budget: 4
+      evidence_budget: 2
+  min_rerank_score: 0.0
+  parent_page_expansion_enabled: true
+  parent_page_expansion_limit: 3
+
+decomposition:
+  enabled: true
+  max_subquestions: 4
+
 runtime:
   require_gpu: true
 

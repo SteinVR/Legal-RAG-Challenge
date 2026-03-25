@@ -268,6 +268,10 @@ _CASE_ID_PATTERN = re.compile(
     r"\bcase\s*(?:no\.?|number)?\s*(?P<case_id>\d{1,4}\s*/\s*\d{2,4})\b",
     re.IGNORECASE,
 )
+_DIFC_CASE_REF_PATTERN = re.compile(
+    r"\b(?:CFI|SCT|ARB|DEC|TCD|ENF|CA)\s*(?P<case_id>\d{1,4}\s*/\s*\d{2,4})\b",
+    re.IGNORECASE,
+)
 _STATUTE_ID_PATTERN = re.compile(
     r"\b(?P<statute>(?:[A-Z]{2,}\s+)?[A-Za-z]+(?:\s+[A-Za-z]+){0,3}\s+Law)\b"
 )
@@ -464,6 +468,22 @@ def extract_query_metadata(question_text: str) -> QueryMetadata:
             )
         )
 
+    for match in _DIFC_CASE_REF_PATTERN.finditer(normalized_question):
+        raw_value = _normalize_whitespace(match.group("case_id"))
+        normalized_value = raw_value.replace(" ", "")
+        entity_key = ("case_id", normalized_value.casefold())
+        if entity_key in seen_entities:
+            continue
+        seen_entities.add(entity_key)
+        legal_entities.append(
+            LegalEntityMetadata(
+                entity_type="case_id",
+                raw_value=raw_value,
+                normalized_value=normalized_value,
+                is_strong=True,
+            )
+        )
+
     for match in _STATUTE_ID_PATTERN.finditer(normalized_question):
         raw_value = _normalize_whitespace(match.group("statute"))
         raw_value = re.sub(r"^(?:which|what|under|the)\s+", "", raw_value, flags=re.IGNORECASE)
@@ -643,6 +663,19 @@ class AnsweringService:
                 raw_retrieval_refs=raw_retrieval_refs,
                 pass_a_refs=pass_a_refs,
             )
+            # Structured solver unanswerable free_text is unreliable — fallback to
+            # legacy generation which doesn't have a binary is_answerable gate.
+            if (
+                answer_type == AnswerType.FREE_TEXT
+                and result.answer == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+                and pass_a_pages
+            ):
+                result = self._answer_free_text(
+                    question=question,
+                    pages=pass_a_pages,
+                    raw_retrieval_refs=raw_retrieval_refs,
+                    pass_a_refs=pass_a_refs,
+                )
         elif answer_type == AnswerType.FREE_TEXT:
             result = self._answer_free_text(
                 question=question,
@@ -751,6 +784,8 @@ class AnsweringService:
 
         is_answerable = bool(getattr(validated_response, "is_answerable", False))
         final_answer = getattr(validated_response, "final_answer", None)
+        if final_answer is not None and answer_type == AnswerType.NAME:
+            final_answer = _clean_verbose_name_answer(str(final_answer))
         if not is_answerable:
             finalized = finalize_page_attribution(
                 answer=final_answer,
@@ -1983,6 +2018,38 @@ def _grounding_clauses(text: str) -> list[str]:
     normalized = _normalize_whitespace(text)
     fragments = re.split(r"(?i)\b(?:because|since|due to|as|therefore|thus|but)\b|[;:]", normalized)
     return [fragment.strip(" ,.") for fragment in fragments if fragment.strip(" ,.")]
+
+
+def _clean_verbose_name_answer(raw: str) -> str:
+    """Strip verbose explanatory suffixes from structured solver name answers.
+
+    E.g. "SCT 295/2025 has the earlier issue date: 2025-12-10..." → "SCT 295/2025"
+    """
+    normalized = _normalize_whitespace(raw)
+    # Try extracting a DIFC-style case reference at the start.
+    case_match = re.match(
+        r"^((?:CFI|SCT|ARB|DEC|TCD|ENF|CA)\s*\d{1,4}\s*/\s*\d{2,4})\b",
+        normalized,
+        re.IGNORECASE,
+    )
+    if case_match:
+        return _normalize_whitespace(case_match.group(1))
+    # Try extracting a "Claim No." style reference.
+    claim_match = re.match(
+        r"^(Claim\s+No\.?\s*[A-Z0-9/_-]+(?:\s*/\s*\d+)?)\b",
+        normalized,
+        re.IGNORECASE,
+    )
+    if claim_match:
+        return _normalize_whitespace(claim_match.group(1))
+    # Truncate at common verbose suffixes.
+    for sep in (" has ", " is ", " was ", " (", " — "):
+        idx = normalized.find(sep)
+        if idx > 0:
+            candidate = normalized[:idx].strip()
+            if len(candidate) >= 3:
+                return candidate
+    return normalized
 
 
 def _normalize_whitespace(value: str) -> str:
