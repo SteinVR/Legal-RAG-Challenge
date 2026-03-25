@@ -218,7 +218,8 @@ class RetrievalService:
                 "reranked_count": reranked_count,
             },
             "parent_page_expansion": {
-                "applied": bool(self.parent_page_expansion_enabled and self.parent_page_expansion_limit > 0),
+                "enabled": bool(self.parent_page_expansion_enabled and self.parent_page_expansion_limit > 0),
+                "applied": bool(expanded_by_chunk_id),
                 "expanded_chunk_count": len(expanded_by_chunk_id),
             },
         }

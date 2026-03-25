@@ -17,6 +17,9 @@ from src.common.config import IngestionSettings
 BBox = tuple[float, float, float, float]
 DEFAULT_TEXT_DETECTION_MODEL_NAME = "PP-OCRv5_server_det"
 DEFAULT_TEXT_RECOGNITION_MODEL_NAME = "en_PP-OCRv5_mobile_rec"
+DEFAULT_OCR_RENDER_DPI = 96
+DEFAULT_TEXT_DETECTION_LIMIT_SIDE_LEN = 736
+DEFAULT_TEXT_RECOGNITION_BATCH_SIZE = 1
 
 
 class OcrUnavailableError(RuntimeError):
@@ -77,7 +80,7 @@ class PaddleOcrEngine:
 
     def extract_page(self, page: fitz.Page) -> OcrPageResult:
         ocr_client = self._get_client()
-        pixmap = page.get_pixmap(dpi=200, alpha=False)
+        pixmap = page.get_pixmap(dpi=DEFAULT_OCR_RENDER_DPI, alpha=False)
         channels = pixmap.n
         image = numpy.frombuffer(pixmap.samples, dtype=numpy.uint8).reshape(pixmap.height, pixmap.width, channels)
         if channels == 4:
@@ -141,8 +144,10 @@ class PaddleOcrEngine:
                 use_doc_orientation_classify=False,
                 use_doc_unwarping=False,
                 use_textline_orientation=False,
+                text_det_limit_side_len=DEFAULT_TEXT_DETECTION_LIMIT_SIDE_LEN,
                 text_detection_model_name=text_detection_model_name,
                 text_detection_model_dir=str(text_detection_model_dir),
+                text_recognition_batch_size=DEFAULT_TEXT_RECOGNITION_BATCH_SIZE,
                 text_recognition_model_name=text_recognition_model_name,
                 text_recognition_model_dir=str(text_recognition_model_dir),
             )

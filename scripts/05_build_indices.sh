@@ -3,7 +3,19 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PYTHON="$PROJECT_ROOT/.venv/bin/python"
+GIT_COMMON_DIR="$(git -C "$PROJECT_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+COMMON_ROOT="$PROJECT_ROOT"
+if [ -n "$GIT_COMMON_DIR" ]; then
+    COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
+fi
+if [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+elif [ -x "$COMMON_ROOT/.venv/bin/python" ]; then
+    PYTHON="$COMMON_ROOT/.venv/bin/python"
+else
+    echo "FAIL: python runtime missing; expected .venv/bin/python in $PROJECT_ROOT or $COMMON_ROOT"
+    exit 1
+fi
 cd "$PROJECT_ROOT"
 
 export PYTHONPATH=.
@@ -15,6 +27,12 @@ PHASE_OVERRIDE=""
 FORCE=0
 DRY_RUN=0
 POSITIONAL=()
+
+resolve_default_env_file() {
+    if [ "$ENV_FILE" = ".env" ] && [ ! -f "$PROJECT_ROOT/.env" ] && [ -f "$COMMON_ROOT/.env" ]; then
+        ENV_FILE="$COMMON_ROOT/.env"
+    fi
+}
 
 usage() {
     cat <<'EOF'
@@ -72,6 +90,7 @@ fi
 if [ "${#POSITIONAL[@]}" -ge 2 ]; then
     PHASE_OVERRIDE="${POSITIONAL[1]}"
 fi
+resolve_default_env_file
 
 CONTEXT_ARGS=(--config "$CONFIG" --env-file "$ENV_FILE")
 if [ -n "$PHASE_OVERRIDE" ]; then

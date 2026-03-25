@@ -15,13 +15,13 @@ from typing import Any
 from uuid import uuid4
 
 import fitz
+from qdrant_client import QdrantClient
 
 import src.indexing.service as indexing_service
+from src.answering.page_attribution import PageAttributionConfig
 from src.answering.service import (
-    CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
     AnsweringService,
     AnswerResult,
-    FreeTextGroundingValidationError,
 )
 from src.common.config import AppConfig
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
@@ -131,6 +131,7 @@ class BuildSubmissionService:
             raise ValueError(f"Documents directory does not exist: {resolved_documents_dir}")
 
         runtime_config = _config_aligned_to_documents_dir(self.config, resolved_documents_dir)
+        _assert_required_gpu_runtime(runtime_config)
         phase_paths = PhasePaths.from_config(runtime_config)
         if phase_paths.documents_extract_dir.resolve() != resolved_documents_dir.resolve():
             raise ValueError(
@@ -290,7 +291,13 @@ class BuildSubmissionService:
             return True
 
         service = HybridIndexService(config)
-        service.build_indices(dry_run=False, overwrite=False)
+        # Force overwrite when integrity checks fail to prevent stale sparse-state reuse.
+        service.build_indices(dry_run=False, overwrite=True)
+        if not _index_artifacts_complete(index_paths=index_paths):
+            raise RuntimeError(
+                "Index rebuild completed but required artifacts are still incomplete. "
+                "Refusing to continue with potentially dense-only or partial index state."
+            )
         log_event(
             LOGGER,
             logging.INFO,
@@ -340,6 +347,7 @@ class BuildSubmissionService:
             provider=provider,
             reasoning_effort_by_type=config.answering.reasoning_effort_by_type,
             confidence_threshold_by_type=config.answering.confidence_threshold_by_type,
+            page_attribution_config=PageAttributionConfig(**config.page_attribution.model_dump()),
         )
 
         answers: list[dict[str, Any]] = []
@@ -442,26 +450,7 @@ class BuildSubmissionService:
         question: QuestionRecord,
         answering_service: AnsweringService,
     ) -> AnswerResult:
-        try:
-            return answering_service.answer_question(question)
-        except FreeTextGroundingValidationError:
-            log_event(
-                LOGGER,
-                logging.WARNING,
-                "build_submission.question.grounding_fallback",
-                "Grounding validation failed; falling back to canonical unanswerable answer.",
-                stage="submission",
-                question_id=question.id,
-                answer_type=question.answer_type,
-            )
-            return AnswerResult(
-                question_id=question.id,
-                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
-                if question.answer_type == AnswerType.FREE_TEXT.value
-                else None,
-                confidence=0.0,
-                evidence_pages=[],
-            )
+        return answering_service.answer_question(question)
 
     def _build_provider(self, model: str) -> Any:
         provider_kwargs: dict[str, Any] = {"model": model}
@@ -662,6 +651,7 @@ def _index_artifacts_complete(*, index_paths: IndexPaths) -> bool:
         index_paths.qdrant_dir,
         index_paths.page_parent_map_path,
         index_paths.manifest_path,
+        index_paths.sparse_encoder_state_path,
     ]
     if any(not path.exists() for path in required_paths):
         return False
@@ -683,6 +673,32 @@ def _index_artifacts_complete(*, index_paths: IndexPaths) -> bool:
         chunk_count = manifest_payload.get("chunk_count")
         if not isinstance(chunk_count, int) or chunk_count <= 0:
             return False
+
+        sparse_state_manifest = manifest_payload.get("sparse_encoder_state")
+        if not isinstance(sparse_state_manifest, dict):
+            return False
+        if sparse_state_manifest.get("path") != index_paths.sparse_encoder_state_path.name:
+            return False
+        sparse_state_sha = sparse_state_manifest.get("sha256")
+        if not isinstance(sparse_state_sha, str) or not sparse_state_sha:
+            return False
+        if sparse_state_sha != _sha256_for_file(index_paths.sparse_encoder_state_path):
+            return False
+
+        client = QdrantClient(path=str(index_paths.qdrant_dir))
+        try:
+            collections = client.get_collections().collections
+            if len(collections) != 1:
+                return False
+            collection_info = client.get_collection(collections[0].name)
+            if collection_info.points_count == 0:
+                return False
+            if collection_info.points_count != chunk_count:
+                return False
+        finally:
+            close = getattr(client, "close", None)
+            if callable(close):
+                close()
 
         page_parent_map_payload = json.loads(index_paths.page_parent_map_path.read_text(encoding="utf-8"))
         if not isinstance(page_parent_map_payload, dict):
@@ -720,6 +736,34 @@ def _sha256_for_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1_048_576), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _assert_required_gpu_runtime(config: AppConfig) -> None:
+    if not config.runtime.require_gpu:
+        return
+
+    errors: list[str] = []
+    try:
+        import torch
+    except Exception as exc:
+        errors.append(f"torch unavailable: {exc}")
+    else:
+        if not torch.cuda.is_available():
+            errors.append("torch CUDA runtime is not available for retrieval models")
+
+    if config.ingestion.enable_ocr and config.ingestion.ocr_device.strip().lower().startswith("gpu"):
+        try:
+            import paddle
+        except Exception as exc:
+            errors.append(f"paddle unavailable: {exc}")
+        else:
+            if not paddle.device.is_compiled_with_cuda():
+                errors.append("paddle is not compiled with CUDA for OCR")
+            elif int(paddle.device.cuda.device_count()) <= 0:
+                errors.append("paddle does not see a CUDA device for OCR")
+
+    if errors:
+        raise RuntimeError("GPU runtime contract not satisfied for build-submission: " + "; ".join(errors))
 
 
 def _config_aligned_to_documents_dir(config: AppConfig, documents_dir: Path) -> AppConfig:

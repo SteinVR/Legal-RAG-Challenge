@@ -49,7 +49,7 @@ evaluation:
 
 ingestion:
   enable_ocr: true
-  ocr_unavailable_policy: degraded
+  ocr_unavailable_policy: error
   extractable_text_min_chars: 50
   suspicious_text_max_chars: 200
   large_image_area_ratio: 0.25
@@ -62,7 +62,7 @@ ingestion:
   opendataloader_hybrid_backend: docling-fast
   opendataloader_hybrid_mode: auto
   opendataloader_hybrid_fallback: true
-  opendataloader_hybrid_url: null
+  opendataloader_hybrid_url: http://localhost:5002
   opendataloader_hybrid_timeout_ms: 30000
 
 page_attribution:
@@ -88,6 +88,9 @@ answering:
     names: 0.75
     date: 0.6
     free_text: 0.5
+
+runtime:
+  require_gpu: true
 
 logging:
   directory: logs/project/runtime

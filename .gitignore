@@ -11,6 +11,7 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+.venv
 .venv/
 
 # Data artifacts (large, reproducible)
@@ -26,5 +27,9 @@ qdrant_data/
 # Submission artifacts
 *.zip
 submission*.json
+
+# Agent/runtime logs
+logs/agents/
+logs/project/runtime/**/*.jsonl
 
 .apm/

@@ -170,12 +170,13 @@ class CodexFreeTextProvider:
                         ],
                     },
                 ],
-                "response_format": {
-                    "type": "json_schema",
-                    "json_schema": {
+                "text": {
+                    "format": {
+                        "type": "json_schema",
                         "name": schema_name,
                         "schema": schema_payload,
-                    },
+                        "strict": True,
+                    }
                 },
                 "max_output_tokens": self.max_output_tokens,
             },

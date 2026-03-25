@@ -31,6 +31,12 @@ CUSTOM_OUTPUT_DIR=""
 PREFLIGHT=0
 POSITIONAL=()
 
+resolve_default_env_file() {
+    if [ "$ENV_FILE" = ".env" ] && [ ! -f "$PROJECT_ROOT/.env" ] && [ -f "$COMMON_ROOT/.env" ]; then
+        ENV_FILE="$COMMON_ROOT/.env"
+    fi
+}
+
 usage() {
     cat <<'EOF'
 Usage:
@@ -101,6 +107,7 @@ fi
 if [ "${#POSITIONAL[@]}" -ge 4 ] && [ -z "$CUSTOM_OUTPUT_DIR" ]; then
     CUSTOM_OUTPUT_DIR="${POSITIONAL[3]}"
 fi
+resolve_default_env_file
 
 CONTEXT_ARGS=(--config "$CONFIG" --env-file "$ENV_FILE")
 if [ -n "$PHASE_OVERRIDE" ]; then

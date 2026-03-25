@@ -3,8 +3,26 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-VENV="$PROJECT_ROOT/.venv"
-PYTHON="$VENV/bin/python"
+GIT_COMMON_DIR="$(git -C "$PROJECT_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+COMMON_ROOT="$PROJECT_ROOT"
+if [ -n "$GIT_COMMON_DIR" ]; then
+    COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
+fi
+if [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+elif [ -x "$COMMON_ROOT/.venv/bin/python" ]; then
+    PYTHON="$COMMON_ROOT/.venv/bin/python"
+else
+    echo "FAIL: .venv not found at $PROJECT_ROOT/.venv or $COMMON_ROOT/.venv"
+    exit 1
+fi
+if [ -f "$PROJECT_ROOT/.env" ]; then
+    ENV_FILE="$PROJECT_ROOT/.env"
+elif [ -f "$COMMON_ROOT/.env" ]; then
+    ENV_FILE="$COMMON_ROOT/.env"
+else
+    ENV_FILE=""
+fi
 WARN_COUNT=0
 
 warn() {
@@ -14,35 +32,38 @@ warn() {
 
 echo "=== Environment Check ==="
 echo "Project root: $PROJECT_ROOT"
+echo "Common root: $COMMON_ROOT"
 
 # Python version
 if [ ! -x "$PYTHON" ]; then
-    echo "FAIL: .venv not found at $VENV"
+    echo "FAIL: Python runtime missing"
     exit 1
 fi
 PY_VERSION=$("$PYTHON" --version 2>&1)
 echo "Python: $PY_VERSION"
 
 # .env file
-if [ ! -f "$PROJECT_ROOT/.env" ]; then
+if [ -z "$ENV_FILE" ]; then
     echo "FAIL: .env file not found. Copy .env.example and fill in API keys."
     exit 1
 fi
-echo ".env: present"
+echo ".env: present ($ENV_FILE)"
 
-# Required env keys
-for KEY in OPENAI_API_KEY; do
-    if ! grep -q "^${KEY}=" "$PROJECT_ROOT/.env" 2>/dev/null; then
-        warn "$KEY not found in .env"
-    else
-        VALUE=$(grep "^${KEY}=" "$PROJECT_ROOT/.env" | cut -d= -f2-)
-        if [ -z "$VALUE" ] || [ "$VALUE" = "set_in_real_env" ]; then
-            warn "$KEY is not set to a real value in .env"
-        else
-            echo "$KEY: set (${#VALUE} chars)"
-        fi
+provider_key_count=0
+for KEY in CODEX_OAUTH_TOKEN OPENAI_API_KEY CODEX_API_KEY; do
+    VALUE="${!KEY:-}"
+    if [ -z "$VALUE" ]; then
+        VALUE=$(grep "^${KEY}=" "$ENV_FILE" 2>/dev/null | tail -n 1 | cut -d= -f2- || true)
     fi
+    if [ -z "$VALUE" ] || [ "$VALUE" = "set_in_real_env" ]; then
+        continue
+    fi
+    provider_key_count=$((provider_key_count + 1))
+    echo "$KEY: set (${#VALUE} chars)"
 done
+if [ "$provider_key_count" -eq 0 ]; then
+    warn "No provider credential found (checked CODEX_OAUTH_TOKEN, OPENAI_API_KEY, CODEX_API_KEY)."
+fi
 
 # GPU
 if command -v nvidia-smi &>/dev/null; then
@@ -114,9 +135,14 @@ except Exception as exc:
 hf_cache = Path.home() / ".cache" / "huggingface" / "hub"
 embedder_dir = hf_cache / "models--Qwen--Qwen3-Embedding-0.6B"
 reranker_dir = hf_cache / "models--Qwen--Qwen3-Reranker-0.6B"
+ocr_root = Path.home() / ".paddlex" / "official_models"
+ocr_det_dir = ocr_root / "PP-OCRv5_server_det"
+ocr_rec_dir = ocr_root / "en_PP-OCRv5_mobile_rec"
 print(f"HF cache: {hf_cache}")
 print(f"Embedder cache: {'present' if embedder_dir.exists() else 'missing'}")
 print(f"Reranker cache: {'present' if reranker_dir.exists() else 'missing'}")
+print(f"OCR det cache: {'present' if ocr_det_dir.exists() else 'missing'}")
+print(f"OCR rec cache: {'present' if ocr_rec_dir.exists() else 'missing'}")
 PY
 
 # Data directories

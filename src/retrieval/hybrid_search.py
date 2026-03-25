@@ -366,11 +366,15 @@ def _candidate_from_payload(chunk_id: str, payload: dict[str, Any]) -> dict[str,
         metadata = {}
     else:
         metadata = dict(metadata)
+    parent_page_numbers = payload.get("parent_page_numbers")
+    if parent_page_numbers is None:
+        parent_page_numbers = metadata.get("parent_page_numbers")
 
     return {
         "chunk_id": chunk_id,
         "doc_id": str(payload.get("doc_id") or ""),
         "page_span": normalized_page_span,
+        "parent_page_numbers": _normalized_page_numbers(parent_page_numbers),
         "chunk_type": str(payload.get("chunk_type") or "unknown"),
         "text": str(payload.get("text") or ""),
         "section": str(payload.get("section") or ""),
@@ -385,6 +389,21 @@ def _candidate_from_payload(chunk_id: str, payload: dict[str, Any]) -> dict[str,
         "retrieval_score": 0.0,
         "metadata_boost": 0.0,
     }
+
+
+def _normalized_page_numbers(raw_page_numbers: Any) -> list[int]:
+    if not isinstance(raw_page_numbers, list):
+        return []
+
+    normalized: list[int] = []
+    for page_number in raw_page_numbers:
+        try:
+            parsed = int(page_number)
+        except (TypeError, ValueError):
+            continue
+        if parsed > 0:
+            normalized.append(parsed)
+    return normalized
 
 
 def _apply_query_metadata_boosts(

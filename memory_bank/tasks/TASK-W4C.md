@@ -81,6 +81,38 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 - Starts in parallel with `TASK-W4A` and `TASK-W4B`.
 - Any new chunk families or schema enrichments consumed by `TASK-W4D` must be frozen before `TASK-W4D` is accepted.
 
+## Stabilized Contract
+
+- Parser routing states are:
+  - `tagged`
+  - `hybrid`
+  - `local_only`
+  - `baseline_fallback`
+- `hybrid` is the required default when the structural backend is available.
+- `local_only` is an explicit degradation path, not a peer default.
+- Raw JSON sidecars must preserve:
+  - parser provenance
+  - route decision
+  - diagnostics
+  - typed nodes
+  - geometry/bbox
+  - raw tables
+- The canonical corpus remains the page-level source of truth for downstream retrieval and answering.
+- Structural enrichments are additive only:
+  - `parser_provenance`
+  - `heading_path`
+  - `block_roles`
+  - `source_block_ids`
+- Accepted table/context artifacts must remain traceable back to sidecar blocks and page-level canonical records.
+
+## Definition of Done
+
+- Routed parsing behavior is explicit, testable, and logs degradations when structural parsing is unavailable.
+- Sidecars can reconstruct parser route, provenance, structural nodes, and table artifacts for debugging and A/B checks.
+- Canonical page records carry the additive structural metadata needed by downstream Wave 4 consumers without replacing the canonical page contract.
+- Parser fallback behavior remains explicit and benchmark-gated rather than silent.
+- Contract tests cover routing, sidecar shape, canonical enrichments, and fallback/degradation semantics.
+
 ## 1. Summary
 
 **Title**: Structural parser branch, normalization & table enrichment  

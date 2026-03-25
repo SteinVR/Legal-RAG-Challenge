@@ -381,6 +381,14 @@ class LoggingSettings(BaseModel):
         return value
 
 
+class RuntimeSettings(BaseModel):
+    """Execution-time runtime requirements for production flows."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    require_gpu: bool = False
+
+
 class AppConfig(BaseModel):
     """Complete configuration for the W1A foundation layer."""
 
@@ -397,6 +405,7 @@ class AppConfig(BaseModel):
     page_attribution: PageAttributionSettings = Field(default_factory=PageAttributionSettings)
     indexing: IndexingSettings = Field(default_factory=IndexingSettings)
     retrieval: RetrievalSettings = Field(default_factory=RetrievalSettings)
+    runtime: RuntimeSettings = Field(default_factory=RuntimeSettings)
     logging: LoggingSettings = Field(default_factory=LoggingSettings)
 
     def resolve_api_key(self) -> str:
@@ -515,6 +524,7 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     ocr_text_recognition_model_dir_override = env.get("COMPETITION_OCR_TEXT_RECOGNITION_MODEL_DIR")
     pass_a_enabled_override = env.get("COMPETITION_PASS_A_ENABLED")
     page_validation_mode_override = env.get("COMPETITION_PAGE_VALIDATION_MODE")
+    require_gpu_override = env.get("COMPETITION_REQUIRE_GPU")
     log_level_override = env.get("COMPETITION_LOG_LEVEL")
     log_directory_override = env.get("COMPETITION_LOG_DIRECTORY")
     debug_documents_override = env.get("COMPETITION_DEBUG_DOCUMENTS")
@@ -594,6 +604,11 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     if page_attribution_updates:
         config = config.model_copy(
             update={"page_attribution": config.page_attribution.model_copy(update=page_attribution_updates)}
+        )
+
+    if require_gpu_override:
+        config = config.model_copy(
+            update={"runtime": config.runtime.model_copy(update={"require_gpu": _parse_bool(require_gpu_override)})}
         )
 
     if log_level_override:

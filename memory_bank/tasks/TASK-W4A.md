@@ -85,6 +85,29 @@ This task owns only page attribution and validation policy. It does not change t
 - Starts immediately against the current baseline retrieval/answering flow.
 - Must publish a stable page-attribution contract before `TASK-W4D` and `TASK-W4E` are considered complete.
 
+## Stabilized Contract
+
+- Authoritative page-grounding flow is:
+  - `raw_retrieved_chunk_pages`
+  - `pass_a_pages`
+  - `solver_reported_pages`
+  - `final_emitted_pages`
+- Pass A may prune noisy pages and boilerplate, but it must never decide true no-answer.
+- If retrieval produced valid evidence, Pass A must not collapse support to an empty set as a hidden abstention.
+- Pass B is the only stage allowed to emit empty final pages, and only for a grounded no-answer outcome.
+- Solver-reported pages are a narrowing signal only. They must be validated against retrieval-backed pages before use.
+- Solver-reported pages must never add pages beyond retrieval-backed evidence.
+- `AnswerResult.evidence_pages` and telemetry/page-trace output must encode the same final emitted page set.
+
+## Definition of Done
+
+- The runtime exposes the full page-grounding chain from raw retrieval pages through final emitted pages.
+- Pass A behavior, Pass B behavior, and validation policy are separately configurable and testable.
+- Off-page or title-page leakage is trimmed without suppressing otherwise supportable answers.
+- Grounded no-answer behavior emits empty final pages only through the explicit Pass B/no-answer path.
+- `AnswerResult.evidence_pages`, page trace fields, and submission telemetry remain consistent for the same answer.
+- Regression and contract tests cover hidden-no-answer prevention, page narrowing, and final page emission consistency.
+
 ## 1. Summary
 
 **Title**: Page attribution precision & validation policy  

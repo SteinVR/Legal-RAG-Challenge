@@ -31,7 +31,7 @@ def build_answer_telemetry(
     preferred_pages: list[PageReference] | None
     authoritative_preferred = answer_result.page_trace is not None
     if answer_result.page_trace is not None:
-        preferred_pages = answer_result.evidence_pages
+        preferred_pages = answer_result.page_trace.final_emitted_pages
     else:
         preferred_pages = answer_result.evidence_pages or None
     resolved_pages = _coalesce_page_references(

@@ -3,7 +3,19 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PYTHON="$PROJECT_ROOT/.venv/bin/python"
+GIT_COMMON_DIR="$(git -C "$PROJECT_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+COMMON_ROOT="$PROJECT_ROOT"
+if [ -n "$GIT_COMMON_DIR" ]; then
+    COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
+fi
+if [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+elif [ -x "$COMMON_ROOT/.venv/bin/python" ]; then
+    PYTHON="$COMMON_ROOT/.venv/bin/python"
+else
+    echo "FAIL: python runtime missing; expected .venv/bin/python in $PROJECT_ROOT or $COMMON_ROOT"
+    exit 1
+fi
 NVIDIA_MODPROBE="/usr/bin/nvidia-modprobe"
 
 echo "=== Repairing NVIDIA GPU Runtime ==="

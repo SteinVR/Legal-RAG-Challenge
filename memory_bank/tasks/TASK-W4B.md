@@ -119,6 +119,30 @@ This task owns answer-type-specific structured solving, deterministic guardrails
 - Must publish stable query-prefilter outputs before `TASK-W4D` is finalized.
 - Must publish a baseline multi-document non-decomposition path before `TASK-W4E` begins orchestration work.
 
+## Stabilized Contract
+
+- `extract_query_metadata(question)` returns only:
+  - `legal_entities`
+  - `document_title_cues`
+  - `likely_multi_document`
+- Query metadata is retrieval guidance only. It may boost or steer candidates, but it must not hard-route to one document.
+- `StructuredProvider.generate_structured(...)` returns a unified structured payload with:
+  - `is_answerable`
+  - typed `final_answer`
+  - `relevant_pages`
+  - `reasoning_summary`
+- Deterministic typed no-answer remains `final_answer=null`; free-text no-answer remains the canonical no-information sentence.
+- `relevant_pages` are solver-reported support pages only. They may narrow final page attribution after W4A validation, but they may not add unsupported pages.
+- Provider, schema registry, and answering service must share one wire contract for all answer types.
+
+## Definition of Done
+
+- All answer types run through the schema-bound structured-provider path with a stable output contract.
+- Per-type validation and normalization are applied after structured solving without breaking the unified provider contract.
+- Query metadata is available end-to-end to retrieval and remains soft guidance only.
+- Cross-document baseline questions can use the same contract without full W4E decomposition.
+- Contract tests cover provider output shape, typed no-answer semantics, query metadata forwarding, and page-narrowing boundaries.
+
 ## 1. Summary
 
 **Title**: Structured typed solving, validation & legal prefilters  

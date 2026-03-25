@@ -3,21 +3,37 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PYTHON="$PROJECT_ROOT/.venv/bin/python"
-HF_BIN="$PROJECT_ROOT/.venv/bin/hf"
+GIT_COMMON_DIR="$(git -C "$PROJECT_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+COMMON_ROOT="$PROJECT_ROOT"
+if [ -n "$GIT_COMMON_DIR" ]; then
+    COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
+fi
+if [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+elif [ -x "$COMMON_ROOT/.venv/bin/python" ]; then
+    PYTHON="$COMMON_ROOT/.venv/bin/python"
+else
+    echo "FAIL: python runtime missing; expected .venv/bin/python in $PROJECT_ROOT or $COMMON_ROOT"
+    exit 1
+fi
+VENV_DIR="$(cd "$(dirname "$PYTHON")/.." && pwd)"
+HF_BIN="$VENV_DIR/bin/hf"
 EMBED_REPO="Qwen/Qwen3-Embedding-0.6B"
 RERANK_REPO="Qwen/Qwen3-Reranker-0.6B"
 MAX_WORKERS="${HF_DOWNLOAD_MAX_WORKERS:-8}"
+CONFIG="configs/baseline/v001/config.yaml"
+ENV_FILE=".env"
+MODE="download"
 
 usage() {
     cat <<'EOF'
 Usage:
-  ./scripts/02_download_models.sh
-  ./scripts/02_download_models.sh --verify
+  ./scripts/02_download_models.sh [--config PATH] [--env-file PATH]
+  ./scripts/02_download_models.sh --verify [--config PATH] [--env-file PATH]
 
 Modes:
-  default   Download the embedder and reranker into the active Hugging Face cache with visible progress.
-  --verify  Validate that both models load from cache offline, then require a working CUDA runtime for GPU smoke tests.
+  default   Download the embedder and reranker into the active Hugging Face cache and provision the OCR model cache if missing.
+  --verify  Validate retrieval cache offline, validate OCR cache, then require a working CUDA runtime for GPU smoke tests.
 EOF
 }
 
@@ -32,10 +48,110 @@ ensure_tooling() {
     fi
 }
 
+resolve_default_env_file() {
+    if [ "$ENV_FILE" = ".env" ] && [ ! -f "$PROJECT_ROOT/.env" ] && [ -f "$COMMON_ROOT/.env" ]; then
+        ENV_FILE="$COMMON_ROOT/.env"
+    fi
+}
+
 print_cache_context() {
     "$PYTHON" - <<'PY'
 from huggingface_hub.constants import HF_HUB_CACHE
 print(f"HF cache: {HF_HUB_CACHE}")
+PY
+}
+
+resolve_ocr_cache_context() {
+    "$PYTHON" - <<PY
+from pathlib import Path
+import shlex
+
+from src.common.config import load_app_config
+from src.ingestion.ocr_engine import DEFAULT_TEXT_DETECTION_MODEL_NAME, DEFAULT_TEXT_RECOGNITION_MODEL_NAME
+
+config = load_app_config(Path(${CONFIG@Q}), env_file=Path(${ENV_FILE@Q}))
+root = config.ingestion.ocr_model_root_dir.expanduser()
+det = (config.ingestion.ocr_text_detection_model_dir or (root / DEFAULT_TEXT_DETECTION_MODEL_NAME)).expanduser()
+rec = (config.ingestion.ocr_text_recognition_model_dir or (root / DEFAULT_TEXT_RECOGNITION_MODEL_NAME)).expanduser()
+print(f"OCR_MODEL_ROOT={shlex.quote(str(root))}")
+print(f"OCR_DET_DIR={shlex.quote(str(det))}")
+print(f"OCR_REC_DIR={shlex.quote(str(rec))}")
+print(f"OCR_DET_NAME={shlex.quote(DEFAULT_TEXT_DETECTION_MODEL_NAME)}")
+print(f"OCR_REC_NAME={shlex.quote(DEFAULT_TEXT_RECOGNITION_MODEL_NAME)}")
+PY
+}
+
+ensure_ocr_cache() {
+    eval "$(resolve_ocr_cache_context)"
+
+    if [ -d "$OCR_DET_DIR" ] && [ -d "$OCR_REC_DIR" ]; then
+        echo "=== OCR Cache Already Present ==="
+        echo "OCR det cache: $OCR_DET_DIR"
+        echo "OCR rec cache: $OCR_REC_DIR"
+        return
+    fi
+
+    echo "=== Provisioning OCR Cache ==="
+    echo "OCR model root: $OCR_MODEL_ROOT"
+    "$PYTHON" - <<PY
+from paddleocr import PaddleOCR
+
+PaddleOCR(
+    device="cpu",
+    enable_hpi=False,
+    enable_mkldnn=False,
+    cpu_threads=1,
+    use_doc_orientation_classify=False,
+    use_doc_unwarping=False,
+    use_textline_orientation=False,
+    text_detection_model_name=${OCR_DET_NAME@Q},
+    text_recognition_model_name=${OCR_REC_NAME@Q},
+)
+PY
+
+    if [ ! -d "$OCR_DET_DIR" ] || [ ! -d "$OCR_REC_DIR" ]; then
+        echo "FAIL: OCR cache provision step completed without materializing both model directories."
+        exit 1
+    fi
+    echo "OCR det cache: $OCR_DET_DIR"
+    echo "OCR rec cache: $OCR_REC_DIR"
+}
+
+verify_ocr_cache() {
+    eval "$(resolve_ocr_cache_context)"
+
+    echo "=== Verifying OCR Cache ==="
+    for model_dir in "$OCR_DET_DIR" "$OCR_REC_DIR"; do
+        if [ -d "$model_dir" ]; then
+            echo "OCR model cache: present ($model_dir)"
+        else
+            echo "FAIL: required OCR model cache is missing: $model_dir"
+            exit 1
+        fi
+    done
+
+    "$PYTHON" - <<PY
+import paddle
+from paddleocr import PaddleOCR
+
+print(f"paddle: {paddle.__version__}")
+print(f"paddle.device.is_compiled_with_cuda: {paddle.device.is_compiled_with_cuda()}")
+print(f"paddle.device.cuda.device_count: {paddle.device.cuda.device_count()}")
+
+PaddleOCR(
+    device="gpu:0",
+    enable_hpi=False,
+    enable_mkldnn=False,
+    cpu_threads=1,
+    use_doc_orientation_classify=False,
+    use_doc_unwarping=False,
+    use_textline_orientation=False,
+    text_detection_model_name=${OCR_DET_NAME@Q},
+    text_detection_model_dir=${OCR_DET_DIR@Q},
+    text_recognition_model_name=${OCR_REC_NAME@Q},
+    text_recognition_model_dir=${OCR_REC_DIR@Q},
+)
+print("OCR GPU init OK")
 PY
 }
 
@@ -65,6 +181,8 @@ for repo in cache.repos:
     if repo.repo_id in repos_of_interest:
         print(f"{repo.repo_id}: {repo.size_on_disk / 1e6:.1f} MB")
 PY
+
+    ensure_ocr_cache
 
     echo "=== Download Complete ==="
 }
@@ -139,23 +257,50 @@ gpu_score = reranker_forward("cuda")
 print(f"Reranker GPU smoke OK: score={gpu_score:.4f}")
 print("=== Verification Complete ===")
 PY
+
+    verify_ocr_cache
 }
 
 main() {
     ensure_tooling
 
-    case "${1:-}" in
-        "")
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --config)
+                CONFIG="$2"
+                shift 2
+                ;;
+            --env-file)
+                ENV_FILE="$2"
+                shift 2
+                ;;
+            --verify)
+                MODE="verify"
+                shift
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            *)
+                echo "FAIL: unknown argument '$1'"
+                usage
+                exit 1
+                ;;
+        esac
+    done
+
+    resolve_default_env_file
+
+    case "$MODE" in
+        download)
             download_models
             ;;
-        --verify)
+        verify)
             verify_models
             ;;
-        -h|--help)
-            usage
-            ;;
         *)
-            echo "FAIL: unknown argument '$1'"
+            echo "FAIL: unknown mode '$MODE'"
             usage
             exit 1
             ;;

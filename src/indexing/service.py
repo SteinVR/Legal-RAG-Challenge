@@ -197,12 +197,14 @@ class IndexChunk:
     parser_provenance: str | None = None
     heading_path: list[str] = field(default_factory=list)
     source_block_ids: list[str] = field(default_factory=list)
+    parent_page_numbers: list[int] = field(default_factory=list)
 
     def payload(self) -> dict[str, Any]:
         return {
             "chunk_id": self.chunk_id,
             "doc_id": self.doc_id,
             "page_span": list(self.page_span),
+            "parent_page_numbers": list(self.parent_page_numbers or self.page_span),
             "chunk_type": self.chunk_type,
             "text": self.text,
             "section": self.section,
@@ -701,7 +703,7 @@ class HybridIndexService:
                     "doc_id": chunk.doc_id,
                     "page_span": list(chunk.page_span),
                     "page_numbers": list(chunk.page_span),
-                    "parent_page_numbers": list(chunk.page_span),
+                    "parent_page_numbers": list(chunk.parent_page_numbers or chunk.page_span),
                     "chunk_type": chunk.chunk_type,
                     "section": chunk.section,
                     "clause": chunk.clause,
@@ -766,12 +768,15 @@ def build_index_chunks(
         for page in sorted(pages_by_doc[doc_id], key=lambda item: item.page_number):
             current_headings = last_headings.merged_with(page.text)
             last_headings = current_headings
-            page_context = PageChunkContext(page=page, headings=current_headings)
-            page_contexts.append(page_context)
+            page_contexts.append(PageChunkContext(page=page, headings=current_headings))
 
-            neighboring_headings = current_headings.neighboring_headings()
-            section_title = current_headings.section_label()
+        parent_page_numbers_by_page = _parent_page_numbers_by_page(page_contexts)
+        for page_context in page_contexts:
+            page = page_context.page
+            neighboring_headings = page_context.headings.neighboring_headings()
+            section_title = page_context.headings.section_label()
             page_prefix = f"{page.doc_id}-p{page.page_number}"
+            parent_page_numbers = parent_page_numbers_by_page.get(page.page_number, [page.page_number])
 
             if "page" in families:
                 chunks.append(
@@ -779,6 +784,7 @@ def build_index_chunks(
                         chunk_id=f"{page_prefix}-page",
                         doc_id=page.doc_id,
                         page_span=[page.page_number],
+                        parent_page_numbers=parent_page_numbers,
                         chunk_type="page",
                         text=page.text,
                         section=section_title,
@@ -796,7 +802,8 @@ def build_index_chunks(
                 chunks.extend(
                     _clause_chunks_for_page(
                         page,
-                        current_headings,
+                        page_context.headings,
+                        parent_page_numbers=parent_page_numbers,
                         include_clause_chunks="clause" in families,
                         include_microchunks="microchunk" in families,
                         token_chunk_size=token_chunk_size,
@@ -813,6 +820,7 @@ def build_index_chunks(
                             chunk_id=table_block.block_id,
                             doc_id=page.doc_id,
                             page_span=[page.page_number],
+                            parent_page_numbers=parent_page_numbers,
                             chunk_type="table",
                             text=table_block.text,
                             section=section_title,
@@ -863,6 +871,7 @@ def _clause_chunks_for_page(
     page: CanonicalPageRecord,
     headings: HeadingContext,
     *,
+    parent_page_numbers: list[int],
     include_clause_chunks: bool,
     include_microchunks: bool,
     token_chunk_size: int,
@@ -882,6 +891,7 @@ def _clause_chunks_for_page(
                     chunk_id=clause_chunk_id,
                     doc_id=page.doc_id,
                     page_span=[page.page_number],
+                    parent_page_numbers=parent_page_numbers,
                     chunk_type="clause",
                     text=clause_text,
                     section=section_title,
@@ -909,6 +919,7 @@ def _clause_chunks_for_page(
                         chunk_id=f"{clause_chunk_id}-micro-{micro_index}",
                         doc_id=page.doc_id,
                         page_span=[page.page_number],
+                        parent_page_numbers=parent_page_numbers,
                         chunk_type="microchunk",
                         text=micro_text,
                         section=section_title,
@@ -1187,6 +1198,42 @@ def _section_chunks_for_doc(page_contexts: list[PageChunkContext]) -> list[Index
     return section_chunks
 
 
+def _parent_page_numbers_by_page(page_contexts: list[PageChunkContext]) -> dict[int, list[int]]:
+    parent_pages_by_page: dict[int, list[int]] = {}
+    current_group: list[PageChunkContext] = []
+    current_key: tuple[str, tuple[str, ...]] | None = None
+
+    def flush_group() -> None:
+        if not current_group:
+            return
+        group_pages = [page_context.page.page_number for page_context in current_group]
+        for page_context in current_group:
+            parent_pages_by_page[page_context.page.page_number] = list(group_pages)
+
+    for page_context in page_contexts:
+        section_label = page_context.headings.section_label()
+        neighboring_headings = tuple(page_context.headings.neighboring_headings())
+        if not section_label or not neighboring_headings:
+            flush_group()
+            current_group = []
+            current_key = None
+            parent_pages_by_page[page_context.page.page_number] = [page_context.page.page_number]
+            continue
+
+        group_key = (section_label, neighboring_headings)
+        if current_key is None or group_key == current_key:
+            current_group.append(page_context)
+            current_key = group_key
+            continue
+
+        flush_group()
+        current_group = [page_context]
+        current_key = group_key
+
+    flush_group()
+    return parent_pages_by_page
+
+
 def _build_section_chunk(page_contexts: list[PageChunkContext], section_index: int) -> IndexChunk:
     first_page = page_contexts[0].page
     headings = page_contexts[0].headings
@@ -1196,6 +1243,7 @@ def _build_section_chunk(page_contexts: list[PageChunkContext], section_index: i
         chunk_id=f"{first_page.doc_id}-section-{section_index}",
         doc_id=first_page.doc_id,
         page_span=page_span,
+        parent_page_numbers=page_span,
         chunk_type="section",
         text=section_text or "\n\n".join(page_context.page.text.strip() for page_context in page_contexts).strip(),
         section=headings.section_label(),
@@ -1282,6 +1330,7 @@ def _make_chunk(
     chunk_id: str,
     doc_id: str,
     page_span: list[int],
+    parent_page_numbers: list[int] | None = None,
     chunk_type: str,
     text: str,
     section: str,
@@ -1299,6 +1348,7 @@ def _make_chunk(
         chunk_id=chunk_id,
         doc_id=doc_id,
         page_span=list(page_span),
+        parent_page_numbers=list(parent_page_numbers or page_span),
         chunk_type=chunk_type,
         text=normalized_text,
         section=section,

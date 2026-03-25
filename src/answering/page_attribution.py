@@ -202,7 +202,7 @@ def finalize_page_attribution(
             collapsed_answer=True,
         )
 
-    if accepted_solver_pairs:
+    if answer_supported and accepted_solver_pairs:
         return FinalizedPageAttribution(
             final_pages=accepted_solver_pages,
             accepted_solver_pages=accepted_solver_pages,

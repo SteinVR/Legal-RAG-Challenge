@@ -5,6 +5,7 @@ from __future__ import annotations
 import contextlib
 import importlib.util
 import io
+import logging
 import shutil
 from dataclasses import dataclass, field
 from hashlib import sha256
@@ -28,7 +29,12 @@ from src.common.schemas import (
 )
 
 from .ocr_engine import OcrEngine, OcrPageResult, OcrUnavailableError, build_ocr_engine
-from .opendataloader_adapter import build_opendataloader_sidecar, route_provenance
+from .opendataloader_adapter import (
+    OpenDataLoaderExecutionError,
+    build_opendataloader_sidecar,
+    opendataloader_convert_available,
+    route_provenance,
+)
 from .page_triage import score_page_quality, triage_page
 from .parser_routing import DocumentStructuralProfile, ParserAvailability, resolve_parser_route
 
@@ -56,6 +62,7 @@ LEGAL_MARKERS = (
     "regulation",
 )
 
+# Kept for test/backward compatibility; availability now uses converter loadability.
 _OPEN_DATALOADER_PACKAGE_PATH = (
     Path(__file__).resolve().parents[2]
     / "external"
@@ -65,6 +72,7 @@ _OPEN_DATALOADER_PACKAGE_PATH = (
     / "src"
     / "opendataloader_pdf"
 )
+LOGGER = logging.getLogger(__name__)
 
 
 @dataclass(slots=True)
@@ -176,6 +184,7 @@ def parse_pdf_document(
         else ParseStatus.DEGRADED
     )
     parser_provenance, raw_parse_sidecars = _build_raw_parse_sidecars(
+        pdf_path=path,
         doc_id=path.stem,
         pages=pages,
         page_geometry=page_geometry,
@@ -498,29 +507,75 @@ def _build_pymupdf_sidecar(
 
 def _build_raw_parse_sidecars(
     *,
+    pdf_path: Path,
     doc_id: str,
     pages: list[ParsedPage],
     page_geometry: dict[int, list[float]],
     parser_route: ParserRoute,
     config: AppConfig,
 ) -> tuple[str, dict[str, RawParseSidecar]]:
+    final_route = parser_route
+    structural_sidecar: RawParseSidecar | None = None
+    route_decisions: list[str] = [f"{parser_route.value}_selected"]
+
+    if parser_route is not ParserRoute.BASELINE_FALLBACK:
+        try:
+            structural_sidecar = build_opendataloader_sidecar(
+                pdf_path=pdf_path,
+                page_geometry=page_geometry,
+                parser_route=parser_route,
+                config=config,
+                route_decisions=route_decisions,
+            )
+        except OpenDataLoaderExecutionError as exc:
+            if parser_route is ParserRoute.HYBRID:
+                if not config.ingestion.opendataloader_hybrid_fallback:
+                    raise
+
+                LOGGER.warning(
+                    "Hybrid opendataloader route failed for %s; degrading to local-only fallback: %s",
+                    pdf_path.name,
+                    exc,
+                )
+                route_decisions.append("hybrid_execution_failed")
+                route_decisions.append("local_only_fallback_selected")
+                try:
+                    final_route = ParserRoute.LOCAL_ONLY
+                    structural_sidecar = build_opendataloader_sidecar(
+                        pdf_path=pdf_path,
+                        page_geometry=page_geometry,
+                        parser_route=final_route,
+                        config=config,
+                        route_decisions=route_decisions,
+                    )
+                except OpenDataLoaderExecutionError as local_exc:
+                    LOGGER.warning(
+                        "Local-only fallback also failed for %s; using pymupdf baseline fallback: %s",
+                        pdf_path.name,
+                        local_exc,
+                    )
+                    final_route = ParserRoute.BASELINE_FALLBACK
+                    structural_sidecar = None
+            else:
+                LOGGER.warning(
+                    "Structural opendataloader route %s failed for %s; using pymupdf baseline fallback: %s",
+                    parser_route.value,
+                    pdf_path.name,
+                    exc,
+                )
+                final_route = ParserRoute.BASELINE_FALLBACK
+                structural_sidecar = None
+
     pymupdf_sidecar = _build_pymupdf_sidecar(
         doc_id=doc_id,
         pages=pages,
         page_geometry=page_geometry,
-        parser_route=parser_route,
+        parser_route=final_route,
     )
-    if parser_route is ParserRoute.BASELINE_FALLBACK:
+    if structural_sidecar is None:
         return "pymupdf:native", {"pymupdf": pymupdf_sidecar}
 
-    structural_sidecar = build_opendataloader_sidecar(
-        doc_id=doc_id,
-        pages=pages,
-        page_geometry=page_geometry,
-        parser_route=parser_route,
-        config=config,
-    )
-    return route_provenance(parser_route), {
+    return route_provenance(structural_sidecar.parser_route), {
         "pymupdf": pymupdf_sidecar,
         "opendataloader": structural_sidecar,
     }
@@ -538,10 +593,12 @@ def _resolve_document_route(document: fitz.Document, pages: list[ParsedPage], co
 
 def _parser_availability(config: AppConfig) -> ParserAvailability:
     opendataloader_available = _is_opendataloader_available()
+    normalized_hybrid_url = (config.ingestion.opendataloader_hybrid_url or "").strip()
+    hybrid_url_configured = config.ingestion.opendataloader_hybrid_url is None or bool(normalized_hybrid_url)
     hybrid_backend_healthy = (
         opendataloader_available
         and config.ingestion.opendataloader_hybrid_backend != "off"
-        and bool((config.ingestion.opendataloader_hybrid_url or "").strip())
+        and hybrid_url_configured
     )
     return ParserAvailability(
         opendataloader_available=opendataloader_available,
@@ -550,10 +607,11 @@ def _parser_availability(config: AppConfig) -> ParserAvailability:
 
 
 def _is_opendataloader_available() -> bool:
-    has_python_package = importlib.util.find_spec("opendataloader_pdf") is not None
-    has_vendored_adapter = _OPEN_DATALOADER_PACKAGE_PATH.exists()
-    has_java_runtime = shutil.which("java") is not None
-    return has_python_package or has_vendored_adapter or has_java_runtime
+    # Compatibility probe for existing instrumentation/tests; actual capability is
+    # decided by whether the convert callable is importable and executable.
+    importlib.util.find_spec("opendataloader_pdf")
+    shutil.which("java")
+    return opendataloader_convert_available()
 
 
 def _has_struct_tree(document: fitz.Document) -> bool:

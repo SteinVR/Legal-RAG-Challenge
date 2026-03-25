@@ -10,11 +10,20 @@ from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from datetime import date
+from itertools import combinations
 from typing import Any, Callable, Literal, Protocol, cast
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
-from src.answering.page_attribution import PageAttributionTrace, build_page_trace
+from src.answering.page_attribution import (
+    PageAttributionConfig,
+    PageAttributionTrace,
+    build_page_trace,
+    candidate_pages_from_chunks,
+    finalize_page_attribution,
+    flatten_page_references,
+    prune_candidate_pages,
+)
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference
@@ -521,6 +530,13 @@ class AnswerResult:
     page_trace: PageAttributionTrace | None = None
     model_name: str | None = None
 
+    def __post_init__(self) -> None:
+        # Keep one authoritative source for final pages: page_trace.final_emitted_pages.
+        if self.page_trace is not None:
+            self.evidence_pages = _copy_page_references(self.page_trace.final_emitted_pages)
+        else:
+            self.evidence_pages = _copy_page_references(self.evidence_pages)
+
 
 @dataclass(slots=True)
 class _PageCandidate:
@@ -566,53 +582,114 @@ class AnsweringService:
         provider: FreeTextProvider,
         reasoning_effort_by_type: Mapping[str, str] | None = None,
         confidence_threshold_by_type: Mapping[str, float] | None = None,
+        page_attribution_config: PageAttributionConfig | None = None,
     ) -> None:
         self._retriever = retriever
         self._provider = provider
         self._reasoning_effort_by_type = _normalize_reasoning_effort_map(reasoning_effort_by_type)
         self._confidence_threshold_by_type = _normalize_confidence_threshold_map(confidence_threshold_by_type)
+        self._page_attribution_config = page_attribution_config or PageAttributionConfig()
 
     def answer_question(self, question: QuestionRecord) -> AnswerResult:
         query_metadata = extract_query_metadata(question.question)
-        pages, retrieval_refs = _coerce_retrieval_payload(
-            self._retriever.retrieve(question, query_metadata=query_metadata)
-        )
+        retrieval_output = self._retriever.retrieve(question, query_metadata=query_metadata)
+        pages, retrieval_refs = _coerce_retrieval_payload(retrieval_output)
         raw_retrieval_refs = list(retrieval_refs) if retrieval_refs else _group_page_references(pages)
+        pass_a_pages = _pass_a_pages_from_retrieval_payload(
+            retrieval_output=retrieval_output,
+            pages=pages,
+            config=self._page_attribution_config,
+        )
+        pass_a_refs = _group_page_references(pass_a_pages)
 
         try:
             answer_type = AnswerType(str(question.answer_type))
         except ValueError as exc:
             raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
 
-        if not pages:
+        if not pass_a_pages:
             if answer_type == AnswerType.FREE_TEXT:
                 result = AnswerResult(
                     question_id=question.id,
                     answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
                     confidence=0.0,
                     evidence_pages=[],
+                    page_trace=build_page_trace(
+                        raw_retrieved_chunk_pages=raw_retrieval_refs,
+                        pass_a_pages=pass_a_refs,
+                        solver_reported_pages=[],
+                        final_emitted_pages=[],
+                        validation_action="no_answer_empty",
+                        collapsed_answer=False,
+                    ),
                 )
             else:
-                result = _empty_result(question_id=question.id)
+                result = _empty_result(
+                    question_id=question.id,
+                    page_trace=build_page_trace(
+                        raw_retrieved_chunk_pages=raw_retrieval_refs,
+                        pass_a_pages=pass_a_refs,
+                        solver_reported_pages=[],
+                        final_emitted_pages=[],
+                        validation_action="no_answer_empty",
+                        collapsed_answer=False,
+                    ),
+                )
         elif _supports_structured_provider(self._provider):
             result = self._answer_with_structured_solver(
                 question=question,
                 answer_type=answer_type,
-                pages=pages,
-                retrieval_refs=retrieval_refs,
+                pages=pass_a_pages,
+                raw_retrieval_refs=raw_retrieval_refs,
+                pass_a_refs=pass_a_refs,
             )
         elif answer_type == AnswerType.FREE_TEXT:
-            result = self._answer_free_text(question=question, pages=pages, retrieval_refs=retrieval_refs)
+            result = self._answer_free_text(
+                question=question,
+                pages=pass_a_pages,
+                raw_retrieval_refs=raw_retrieval_refs,
+                pass_a_refs=pass_a_refs,
+            )
         else:
-            solved = self._solve_deterministic(question=question, answer_type=answer_type, pages=pages)
+            solved = self._solve_deterministic(question=question, answer_type=answer_type, pages=pass_a_pages)
             if solved is None:
-                result = _empty_result(question_id=question.id)
+                result = _empty_result(
+                    question_id=question.id,
+                    page_trace=build_page_trace(
+                        raw_retrieved_chunk_pages=raw_retrieval_refs,
+                        pass_a_pages=pass_a_refs,
+                        solver_reported_pages=[],
+                        final_emitted_pages=[],
+                        validation_action="no_answer_empty",
+                        collapsed_answer=False,
+                    ),
+                )
             else:
+                supported_refs = _group_page_references(solved.supporting_pages)
+                finalized = finalize_page_attribution(
+                    answer=solved.answer,
+                    answer_type=answer_type.value,
+                    raw_retrieved_chunk_pages=raw_retrieval_refs,
+                    pass_a_pages=pass_a_refs,
+                    solver_reported_pages=[],
+                    supported_page_pairs=flatten_page_references(supported_refs),
+                    answer_supported=True,
+                    is_no_answer=False,
+                    config=self._page_attribution_config,
+                )
                 result = AnswerResult(
                     question_id=question.id,
                     answer=solved.answer,
                     confidence=1.0,
-                    evidence_pages=_group_page_references(solved.supporting_pages),
+                    evidence_pages=finalized.final_pages,
+                    page_trace=build_page_trace(
+                        raw_retrieved_chunk_pages=raw_retrieval_refs,
+                        pass_a_pages=pass_a_refs,
+                        solver_reported_pages=[],
+                        final_emitted_pages=finalized.final_pages,
+                        validation_action=finalized.validation_action,
+                        collapsed_answer=finalized.collapsed_answer,
+                    ),
                 )
 
         if questions_debug_enabled():
@@ -628,20 +705,6 @@ class AnsweringService:
                 answered=result.answer is not None,
                 confidence=result.confidence,
             )
-        if result.page_trace is None:
-            solver_reported_pages = (
-                list(result.evidence_pages)
-                if _supports_structured_provider(self._provider) and answer_type != AnswerType.FREE_TEXT
-                else []
-            )
-            result.page_trace = build_page_trace(
-                raw_retrieved_chunk_pages=raw_retrieval_refs,
-                pass_a_pages=raw_retrieval_refs,
-                solver_reported_pages=solver_reported_pages,
-                final_emitted_pages=list(result.evidence_pages),
-                validation_action="preserved_pages",
-                collapsed_answer=False,
-            )
         return result
 
     def _answer_with_structured_solver(
@@ -650,7 +713,8 @@ class AnsweringService:
         question: QuestionRecord,
         answer_type: AnswerType,
         pages: list[_PageCandidate],
-        retrieval_refs: list[PageReference] | None,
+        raw_retrieval_refs: list[PageReference],
+        pass_a_refs: list[PageReference],
     ) -> AnswerResult:
         provider = cast(StructuredProvider, self._provider)
         answer_schema = ANSWER_SCHEMA_REGISTRY[answer_type.value]
@@ -672,67 +736,195 @@ class AnsweringService:
 
         confidence = _coerce_confidence(response.get("confidence", 0.0), default=0.0)
         provider_model_name = _resolve_provider_model_name(self._provider)
-        base_refs = list(retrieval_refs) if retrieval_refs else _group_page_references(pages)
+        base_refs = list(pass_a_refs)
         relevant_pages = _normalize_relevant_page_list(getattr(validated_response, "relevant_pages", []))
-        narrowed_pages = _narrow_page_candidates(pages=pages, relevant_pages=relevant_pages)
-        narrowed_refs = _narrow_page_references(base_refs=base_refs, relevant_pages=relevant_pages)
-        supporting_pages = narrowed_pages if narrowed_pages else pages
-        supporting_refs = narrowed_refs if narrowed_refs else base_refs
+        supporting_pages = pages
+        supporting_refs = base_refs
+        narrowed_refs: list[PageReference] = []
+        if relevant_pages:
+            allowed_pairs = _safe_relevant_page_pairs(pages=pages, relevant_pages=relevant_pages)
+            if allowed_pairs:
+                supporting_pages = _filter_pages_by_pairs(pages, allowed_pairs, require_full_span=True)
+                narrowed_refs = _group_page_references(supporting_pages)
+                supporting_refs = narrowed_refs
+        supported_page_pairs = flatten_page_references(supporting_refs)
 
         is_answerable = bool(getattr(validated_response, "is_answerable", False))
         final_answer = getattr(validated_response, "final_answer", None)
         if not is_answerable:
+            finalized = finalize_page_attribution(
+                answer=final_answer,
+                answer_type=answer_type.value,
+                raw_retrieved_chunk_pages=raw_retrieval_refs,
+                pass_a_pages=pass_a_refs,
+                solver_reported_pages=narrowed_refs,
+                supported_page_pairs=set(),
+                answer_supported=False,
+                is_no_answer=True,
+                config=self._page_attribution_config,
+            )
             if answer_type == AnswerType.FREE_TEXT:
                 return AnswerResult(
                     question_id=question.id,
                     answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
                     confidence=confidence,
-                    evidence_pages=[],
+                    evidence_pages=finalized.final_pages,
+                    page_trace=build_page_trace(
+                        raw_retrieved_chunk_pages=raw_retrieval_refs,
+                        pass_a_pages=pass_a_refs,
+                        solver_reported_pages=narrowed_refs,
+                        final_emitted_pages=finalized.final_pages,
+                        validation_action=finalized.validation_action,
+                        collapsed_answer=finalized.collapsed_answer,
+                    ),
                     model_name=provider_model_name,
                 )
-            return _empty_result(question_id=question.id, model_name=provider_model_name)
+            return _empty_result(
+                question_id=question.id,
+                model_name=provider_model_name,
+                page_trace=build_page_trace(
+                    raw_retrieved_chunk_pages=raw_retrieval_refs,
+                    pass_a_pages=pass_a_refs,
+                    solver_reported_pages=narrowed_refs,
+                    final_emitted_pages=finalized.final_pages,
+                    validation_action=finalized.validation_action,
+                    collapsed_answer=finalized.collapsed_answer,
+                ),
+            )
 
         if final_answer is None:
-            return _empty_result(question_id=question.id, model_name=provider_model_name)
+            return _empty_result(
+                question_id=question.id,
+                model_name=provider_model_name,
+                page_trace=build_page_trace(
+                    raw_retrieved_chunk_pages=raw_retrieval_refs,
+                    pass_a_pages=pass_a_refs,
+                    solver_reported_pages=narrowed_refs,
+                    final_emitted_pages=[],
+                    validation_action="collapsed_answer",
+                    collapsed_answer=True,
+                ),
+            )
 
         threshold = self._confidence_threshold_by_type[answer_type.value]
         if confidence < threshold:
+            finalized = finalize_page_attribution(
+                answer=final_answer,
+                answer_type=answer_type.value,
+                raw_retrieved_chunk_pages=raw_retrieval_refs,
+                pass_a_pages=pass_a_refs,
+                solver_reported_pages=narrowed_refs,
+                supported_page_pairs=set(),
+                answer_supported=False,
+                is_no_answer=True,
+                config=self._page_attribution_config,
+            )
             if answer_type == AnswerType.FREE_TEXT:
                 return AnswerResult(
                     question_id=question.id,
                     answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
                     confidence=0.0,
-                    evidence_pages=[],
+                    evidence_pages=finalized.final_pages,
+                    page_trace=build_page_trace(
+                        raw_retrieved_chunk_pages=raw_retrieval_refs,
+                        pass_a_pages=pass_a_refs,
+                        solver_reported_pages=narrowed_refs,
+                        final_emitted_pages=finalized.final_pages,
+                        validation_action=finalized.validation_action,
+                        collapsed_answer=finalized.collapsed_answer,
+                    ),
                     model_name=provider_model_name,
                 )
-            return _empty_result(question_id=question.id, model_name=provider_model_name)
+            return _empty_result(
+                question_id=question.id,
+                model_name=provider_model_name,
+                page_trace=build_page_trace(
+                    raw_retrieved_chunk_pages=raw_retrieval_refs,
+                    pass_a_pages=pass_a_refs,
+                    solver_reported_pages=narrowed_refs,
+                    final_emitted_pages=finalized.final_pages,
+                    validation_action=finalized.validation_action,
+                    collapsed_answer=finalized.collapsed_answer,
+                ),
+            )
 
         if answer_type == AnswerType.FREE_TEXT:
             answer = _normalize_whitespace(str(final_answer))
             if len(answer) > 280:
                 raise ValueError("free_text answers must be at most 280 characters.")
-            _validate_free_text_grounding(answer=answer, pages=supporting_pages)
+            supported_page_pairs = _supported_page_pairs_for_free_text(answer=answer, pages=supporting_pages)
+            answer_supported = bool(supported_page_pairs)
+            finalized = finalize_page_attribution(
+                answer=answer,
+                answer_type=answer_type.value,
+                raw_retrieved_chunk_pages=raw_retrieval_refs,
+                pass_a_pages=pass_a_refs,
+                solver_reported_pages=narrowed_refs,
+                supported_page_pairs=supported_page_pairs,
+                answer_supported=answer_supported,
+                is_no_answer=False,
+                config=self._page_attribution_config,
+            )
             return AnswerResult(
                 question_id=question.id,
-                answer=answer,
+                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER if finalized.collapsed_answer else answer,
                 confidence=confidence,
-                evidence_pages=supporting_refs,
+                evidence_pages=finalized.final_pages,
+                page_trace=build_page_trace(
+                    raw_retrieved_chunk_pages=raw_retrieval_refs,
+                    pass_a_pages=pass_a_refs,
+                    solver_reported_pages=narrowed_refs,
+                    final_emitted_pages=finalized.final_pages,
+                    validation_action=finalized.validation_action,
+                    collapsed_answer=finalized.collapsed_answer,
+                ),
                 model_name=provider_model_name,
             )
 
-        if not _passes_typed_guardrails(
+        answer_supported = bool(supporting_pages) and _passes_typed_guardrails(
             answer_type=answer_type,
             question=question.question,
             proposed_answer=final_answer,
             pages=supporting_pages,
-        ):
-            return _empty_result(question_id=question.id, model_name=provider_model_name)
+        )
+        finalized = finalize_page_attribution(
+            answer=final_answer,
+            answer_type=answer_type.value,
+            raw_retrieved_chunk_pages=raw_retrieval_refs,
+            pass_a_pages=pass_a_refs,
+            solver_reported_pages=narrowed_refs,
+            supported_page_pairs=supported_page_pairs if answer_supported else set(),
+            answer_supported=answer_supported,
+            is_no_answer=False,
+            config=self._page_attribution_config,
+        )
+        if finalized.collapsed_answer:
+            return _empty_result(
+                question_id=question.id,
+                model_name=provider_model_name,
+                page_trace=build_page_trace(
+                    raw_retrieved_chunk_pages=raw_retrieval_refs,
+                    pass_a_pages=pass_a_refs,
+                    solver_reported_pages=narrowed_refs,
+                    final_emitted_pages=finalized.final_pages,
+                    validation_action=finalized.validation_action,
+                    collapsed_answer=finalized.collapsed_answer,
+                ),
+            )
 
         return AnswerResult(
             question_id=question.id,
             answer=final_answer,
             confidence=confidence,
-            evidence_pages=supporting_refs,
+            evidence_pages=finalized.final_pages,
+            page_trace=build_page_trace(
+                raw_retrieved_chunk_pages=raw_retrieval_refs,
+                pass_a_pages=pass_a_refs,
+                solver_reported_pages=narrowed_refs,
+                final_emitted_pages=finalized.final_pages,
+                validation_action=finalized.validation_action,
+                collapsed_answer=finalized.collapsed_answer,
+            ),
             model_name=provider_model_name,
         )
 
@@ -773,7 +965,8 @@ class AnsweringService:
         *,
         question: QuestionRecord,
         pages: list[_PageCandidate],
-        retrieval_refs: list[PageReference] | None = None,
+        raw_retrieval_refs: list[PageReference],
+        pass_a_refs: list[PageReference],
     ) -> AnswerResult:
         if not pages:
             return AnswerResult(
@@ -781,6 +974,14 @@ class AnsweringService:
                 answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
                 confidence=0.0,
                 evidence_pages=[],
+                page_trace=build_page_trace(
+                    raw_retrieved_chunk_pages=raw_retrieval_refs,
+                    pass_a_pages=pass_a_refs,
+                    solver_reported_pages=[],
+                    final_emitted_pages=[],
+                    validation_action="no_answer_empty",
+                    collapsed_answer=False,
+                ),
             )
 
         evidence_pages = [
@@ -799,14 +1000,33 @@ class AnsweringService:
         if len(answer) > 280:
             raise ValueError("free_text answers must be at most 280 characters.")
 
-        _validate_free_text_grounding(answer=answer, pages=pages)
-
         confidence = _validate_provider_confidence(response.get("confidence", 0.0))
+        supported_page_pairs = _supported_page_pairs_for_free_text(answer=answer, pages=pages)
+        answer_supported = bool(supported_page_pairs)
+        finalized = finalize_page_attribution(
+            answer=answer,
+            answer_type=AnswerType.FREE_TEXT.value,
+            raw_retrieved_chunk_pages=raw_retrieval_refs,
+            pass_a_pages=pass_a_refs,
+            solver_reported_pages=[],
+            supported_page_pairs=supported_page_pairs,
+            answer_supported=answer_supported,
+            is_no_answer=False,
+            config=self._page_attribution_config,
+        )
         return AnswerResult(
             question_id=question.id,
-            answer=answer,
+            answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER if finalized.collapsed_answer else answer,
             confidence=confidence,
-            evidence_pages=list(retrieval_refs) if retrieval_refs else _group_page_references(pages),
+            evidence_pages=finalized.final_pages,
+            page_trace=build_page_trace(
+                raw_retrieved_chunk_pages=raw_retrieval_refs,
+                pass_a_pages=pass_a_refs,
+                solver_reported_pages=[],
+                final_emitted_pages=finalized.final_pages,
+                validation_action=finalized.validation_action,
+                collapsed_answer=finalized.collapsed_answer,
+            ),
             model_name=_resolve_provider_model_name(self._provider),
         )
 
@@ -846,14 +1066,211 @@ def _coerce_retrieval_payload(
     return [_coerce_page(page) for page in retrieval_output], None
 
 
-def _empty_result(*, question_id: str, model_name: str | None = None) -> AnswerResult:
+def _pass_a_pages_from_retrieval_payload(
+    *,
+    retrieval_output: RetrievalResult | Iterable[Mapping[str, Any]],
+    pages: list[_PageCandidate],
+    config: PageAttributionConfig,
+) -> list[_PageCandidate]:
+    if isinstance(retrieval_output, RetrievalResult):
+        candidate_pages = candidate_pages_from_chunks(retrieval_output.evidence_chunks)
+    else:
+        candidate_pages = _candidate_pages_from_page_candidates(pages)
+    pass_a_result = prune_candidate_pages(candidate_pages, config=config)
+    selected_pairs = {(page.doc_id, page.page_number) for page in pass_a_result.selected_pages}
+    filtered_pages = _filter_pages_by_pairs(pages, selected_pairs, require_full_span=True)
+    if filtered_pages:
+        return filtered_pages
+    if not selected_pairs:
+        return pages
+    return _filter_pages_by_pairs(pages, selected_pairs)
+
+
+def _candidate_pages_from_page_candidates(pages: Iterable[_PageCandidate]) -> list[Any]:
+    from src.answering.page_attribution import CandidatePage
+
+    candidates_by_key: dict[tuple[str, int], Any] = {}
+    ordered_candidates: list[CandidatePage] = []
+    for page in pages:
+        for page_number in page.page_numbers:
+            key = (page.doc_id, page_number)
+            if key in candidates_by_key:
+                continue
+            candidate = CandidatePage(
+                doc_id=page.doc_id,
+                page_number=page_number,
+                text=page.text,
+                chunk_ids=[f"{page.doc_id}:{page_number}"],
+                best_retrieval_score=0.0,
+                best_rerank_score=None,
+            )
+            candidates_by_key[key] = candidate
+            ordered_candidates.append(candidate)
+    return ordered_candidates
+
+
+def _filter_pages_by_pairs(
+    pages: Iterable[_PageCandidate],
+    allowed_pairs: set[tuple[str, int]],
+    *,
+    require_full_span: bool = False,
+) -> list[_PageCandidate]:
+    if not allowed_pairs:
+        return []
+    filtered: list[_PageCandidate] = []
+    for page in pages:
+        page_pairs = {(page.doc_id, page_number) for page_number in page.page_numbers}
+        if require_full_span and not page_pairs.issubset(allowed_pairs):
+            continue
+        overlap = tuple(page_number for page_number in page.page_numbers if (page.doc_id, page_number) in allowed_pairs)
+        if not overlap:
+            continue
+        clipped_text = _clip_text_for_selected_span(
+            text=page.text,
+            source_span=page.page_numbers,
+            selected_span=overlap,
+        )
+        filtered.append(
+            _PageCandidate(
+                doc_id=page.doc_id,
+                page_numbers=overlap,
+                text=clipped_text,
+                include_page_numbers=page.include_page_numbers,
+            )
+        )
+    return filtered
+
+
+def _clip_text_for_selected_span(
+    *,
+    text: str,
+    source_span: tuple[int, ...],
+    selected_span: tuple[int, ...],
+) -> str:
+    normalized = _normalize_whitespace(text)
+    if not normalized:
+        return normalized
+    if not source_span or source_span == selected_span:
+        return normalized
+    selected_runs = _contiguous_page_runs(selected_span)
+    if len(selected_runs) == 1:
+        return _clip_text_for_contiguous_span(
+            text=normalized,
+            source_span=source_span,
+            selected_span=selected_runs[0],
+            strict=False,
+        )
+
+    clipped_segments: list[str] = []
+    seen_segments: set[str] = set()
+    for selected_run in selected_runs:
+        clipped_segment = _clip_text_for_contiguous_span(
+            text=normalized,
+            source_span=source_span,
+            selected_span=selected_run,
+            strict=True,
+        )
+        if not clipped_segment:
+            continue
+        segment_key = clipped_segment.casefold()
+        if segment_key in seen_segments:
+            continue
+        seen_segments.add(segment_key)
+        clipped_segments.append(clipped_segment)
+
+    if not clipped_segments:
+        return ""
+    return _normalize_whitespace(" ".join(clipped_segments))
+
+
+def _contiguous_page_runs(page_numbers: tuple[int, ...]) -> list[tuple[int, ...]]:
+    if not page_numbers:
+        return []
+
+    runs: list[tuple[int, ...]] = []
+    current_run: list[int] = [int(page_numbers[0])]
+    for page_number in page_numbers[1:]:
+        normalized_page = int(page_number)
+        if normalized_page == current_run[-1] + 1:
+            current_run.append(normalized_page)
+            continue
+        runs.append(tuple(current_run))
+        current_run = [normalized_page]
+    runs.append(tuple(current_run))
+    return runs
+
+
+def _clip_text_for_contiguous_span(
+    *,
+    text: str,
+    source_span: tuple[int, ...],
+    selected_span: tuple[int, ...],
+    strict: bool,
+) -> str:
+    selected_min = min(selected_span)
+    selected_max = max(selected_span)
+    prefix_pages = sum(1 for page_number in source_span if page_number < selected_min)
+    suffix_pages = sum(1 for page_number in source_span if page_number > selected_max)
+    if prefix_pages == 0 and suffix_pages == 0:
+        return text
+
+    sentences = _sentences(text)
+    if len(sentences) <= 1:
+        return "" if strict else text
+
+    clipped = list(sentences)
+    for _ in range(min(prefix_pages, max(len(clipped) - 1, 0))):
+        clipped.pop(0)
+    for _ in range(min(suffix_pages, max(len(clipped) - 1, 0))):
+        clipped.pop()
+    if not clipped:
+        return "" if strict else text
+    return _normalize_whitespace(" ".join(clipped))
+
+
+def _empty_result(
+    *,
+    question_id: str,
+    model_name: str | None = None,
+    final_pages: list[PageReference] | None = None,
+    page_trace: PageAttributionTrace | None = None,
+) -> AnswerResult:
+    resolved_final_pages = _resolve_final_emitted_pages(
+        final_pages=final_pages,
+        page_trace=page_trace,
+    )
     return AnswerResult(
         question_id=question_id,
         answer=None,
         confidence=0.0,
-        evidence_pages=[],
+        evidence_pages=resolved_final_pages,
+        page_trace=page_trace,
         model_name=model_name,
     )
+
+
+def _resolve_final_emitted_pages(
+    *,
+    final_pages: list[PageReference] | None,
+    page_trace: PageAttributionTrace | None,
+) -> list[PageReference]:
+    if final_pages is not None:
+        return _copy_page_references(final_pages)
+    if page_trace is not None:
+        return _copy_page_references(page_trace.final_emitted_pages)
+    return []
+
+
+def _copy_page_references(references: Iterable[PageReference]) -> list[PageReference]:
+    copied: list[PageReference] = []
+    for reference in references:
+        copied.append(
+            PageReference(
+                doc_id=reference.doc_id,
+                page_numbers=[int(page_number) for page_number in reference.page_numbers],
+            )
+        )
+    return copied
 
 
 def _parse_iso_date_parts(value: str) -> tuple[int, int, int]:
@@ -938,41 +1355,53 @@ def _normalize_relevant_page_list(raw_relevant_pages: Any) -> list[int]:
     return sorted(set(relevant_pages))
 
 
-def _narrow_page_candidates(*, pages: list[_PageCandidate], relevant_pages: list[int]) -> list[_PageCandidate]:
+def _safe_relevant_page_pairs(
+    *,
+    pages: list[_PageCandidate],
+    relevant_pages: list[int],
+) -> set[tuple[str, int]]:
     if not relevant_pages:
-        return []
-    relevant_page_set = set(relevant_pages)
-    narrowed: list[_PageCandidate] = []
+        return set()
+    docs_by_page_number: dict[int, set[str]] = defaultdict(set)
     for page in pages:
-        overlap = tuple(page_number for page_number in page.page_numbers if page_number in relevant_page_set)
-        if not overlap:
-            continue
-        narrowed.append(
-            _PageCandidate(
-                doc_id=page.doc_id,
-                page_numbers=overlap,
-                text=page.text,
-                include_page_numbers=page.include_page_numbers,
-            )
-        )
-    return narrowed
+        for page_number in page.page_numbers:
+            docs_by_page_number[int(page_number)].add(page.doc_id)
+    return {
+        (next(iter(docs_by_page_number[page_number])), page_number)
+        for page_number in set(relevant_pages)
+        if len(docs_by_page_number.get(page_number, set())) == 1
+    }
 
 
-def _narrow_page_references(*, base_refs: list[PageReference], relevant_pages: list[int]) -> list[PageReference]:
-    if not relevant_pages:
-        return []
-    relevant_page_set = set(relevant_pages)
-    narrowed: list[PageReference] = []
-    for reference in base_refs:
-        page_numbers: set[int] = set()
-        for page in reference.page_numbers:
-            page_int = int(page)
-            if page_int in relevant_page_set:
-                page_numbers.add(page_int)
-        if not page_numbers:
-            continue
-        narrowed.append(PageReference(doc_id=reference.doc_id, page_numbers=sorted(page_numbers)))
-    return narrowed
+def _supported_page_pairs_for_free_text(
+    *,
+    answer: str,
+    pages: list[_PageCandidate],
+) -> set[tuple[str, int]]:
+    if not pages:
+        return set()
+
+    if _is_free_text_answer_supported(answer=answer, pages=pages):
+        return flatten_page_references(_group_page_references(pages))
+
+    for subset_size in range(1, len(pages)):
+        for subset in combinations(pages, subset_size):
+            if _is_free_text_answer_supported(answer=answer, pages=subset):
+                return flatten_page_references(_group_page_references(subset))
+
+    return set()
+
+
+def _is_free_text_answer_supported(
+    *,
+    answer: str,
+    pages: Iterable[_PageCandidate],
+) -> bool:
+    try:
+        _validate_free_text_grounding(answer=answer, pages=pages)
+    except FreeTextGroundingValidationError:
+        return False
+    return True
 
 
 def _passes_typed_guardrails(

@@ -76,6 +76,33 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
 - Must remain compatible with the page-attribution contract from `TASK-W4A`.
 - Must publish a stable multi-document retrieval path before `TASK-W4E` is accepted.
 
+## Stabilized Contract
+
+- Index chunks and retrieval payloads must always preserve:
+  - stable `page_span`
+  - `parent_page_numbers`
+  - `chunk_type`
+  - provenance metadata required by W4A/W4B/W4C consumers
+- `RetrievalResult` must remain solver-ready and page-stable across:
+  - retrieval
+  - rerank
+  - parent-page expansion
+  - evidence compression
+- Retrieval diagnostics are additive and truthful; they must not overwrite or invent page-attribution state.
+- Query metadata from W4B is soft retrieval guidance only. It must never become hard single-document routing.
+- `_index_artifacts_complete()` and rebuild behavior are symmetric:
+  - integrity failure means force rebuild
+  - silent dense-only fallback is forbidden
+- OCR/GPU runtime for Wave 4 is a preflight requirement for the end-to-end pipeline, not a best-effort optional path.
+
+## Definition of Done
+
+- Retrieval/indexing produce page-stable evidence bundles that remain valid for W4A Pass B and W4B structured solving.
+- Missing or invalid index artifacts trigger a real rebuild that restores dense and sparse state together.
+- Numbered operator flow covers runtime verification, model cache verification, OCR cache verification, and preflight execution consistently.
+- GPU-backed OCR and the shared `.venv` are verified against the full pipeline without full re-resolve or heavy package re-downloads.
+- Contract tests cover rebuild integrity, retrieval diagnostics, page-stable evidence packaging, and runtime/operator flow invariants.
+
 ## 1. Summary
 
 **Title**: Retrieval upgrade, chunk calibration & asymmetric tuning  

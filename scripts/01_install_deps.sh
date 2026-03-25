@@ -3,7 +3,21 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PYTHON="$PROJECT_ROOT/.venv/bin/python"
+GIT_COMMON_DIR="$(git -C "$PROJECT_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+COMMON_ROOT="$PROJECT_ROOT"
+if [ -n "$GIT_COMMON_DIR" ]; then
+    COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
+fi
+if [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+elif [ -x "$COMMON_ROOT/.venv/bin/python" ]; then
+    PYTHON="$COMMON_ROOT/.venv/bin/python"
+else
+    echo "FAIL: python runtime missing; expected .venv/bin/python in $PROJECT_ROOT or $COMMON_ROOT"
+    exit 1
+fi
+VENV_DIR="$(cd "$(dirname "$PYTHON")/.." && pwd)"
+HF_BIN="$VENV_DIR/bin/hf"
 PADDLE_GPU_VERSION="3.3.0"
 
 select_paddle_gpu_wheel_url() {
@@ -31,6 +45,11 @@ export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
 
 echo "=== Installing Dependencies ==="
 
+if ! command -v uv >/dev/null 2>&1; then
+    echo "FAIL: system uv is required to manage the shared .venv"
+    exit 1
+fi
+
 uv pip install --python "$PYTHON" -e ".[paddle,dev]"
 
 # Install the Paddle GPU runtime as a direct wheel with no dependency resolution
@@ -50,11 +69,29 @@ import pydantic; print(f'pydantic {pydantic.__version__}')
 import paddle; print(f'paddle {paddle.__version__} (compiled with CUDA: {paddle.device.is_compiled_with_cuda()})')
 import paddleocr; print(f'paddleocr {paddleocr.__version__}')
 "
-if [ -x "$PROJECT_ROOT/.venv/bin/hf" ]; then
+if [ -x "$HF_BIN" ]; then
     echo "hf CLI: OK"
 else
-    echo "FAIL: hf CLI missing from .venv/bin/hf"
+    echo "FAIL: hf CLI missing from $HF_BIN"
     exit 1
+fi
+
+echo "--- OCR model cache status ---"
+OCR_MODEL_ROOT="${HOME}/.paddlex/official_models"
+MISSING_OCR_MODELS=0
+for MODEL_DIR in \
+    "$OCR_MODEL_ROOT/PP-OCRv5_server_det" \
+    "$OCR_MODEL_ROOT/en_PP-OCRv5_mobile_rec"
+do
+    if [ -d "$MODEL_DIR" ]; then
+        echo "OCR model cache: present ($MODEL_DIR)"
+    else
+        echo "WARN: OCR model cache missing ($MODEL_DIR)"
+        MISSING_OCR_MODELS=1
+    fi
+done
+if [ "$MISSING_OCR_MODELS" -eq 1 ]; then
+    echo "WARN: run ./scripts/02_download_models.sh to provision missing OCR caches."
 fi
 
 echo "=== Dependencies OK ==="
