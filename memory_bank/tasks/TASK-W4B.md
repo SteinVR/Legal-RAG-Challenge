@@ -147,7 +147,7 @@ This task owns answer-type-specific structured solving, deterministic guardrails
 
 **Title**: Structured typed solving, validation & legal prefilters  
 **Description**: Make schema-first typed solving the primary post-retrieval answer path, keep deterministic validation as the guardrail layer, and add soft legal-entity query prefilters for stronger baseline multi-document reasoning.  
-**Status**: Planned  
+**Status**: Done (stabilized 2026-03-25, commits d673a0b + 1c412da)
 **Wave**: Wave 4 -- Baseline Recovery & Structural Upgrade
 
 ## 2. Scope

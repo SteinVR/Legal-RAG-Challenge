@@ -117,7 +117,7 @@ This task owns the `opendataloader-pdf` branch, raw sidecars, structural normali
 
 **Title**: Structural parser branch, normalization & table enrichment  
 **Description**: Add a routed structural parser branch with JSON sidecars, richer normalization, and benchmark-gated semantic table enrichment while preserving the canonical page corpus.  
-**Status**: Planned  
+**Status**: Done (stabilized 2026-03-25, commits d673a0b + 1c412da)
 **Wave**: Wave 4 -- Baseline Recovery & Structural Upgrade
 
 ## 2. Scope

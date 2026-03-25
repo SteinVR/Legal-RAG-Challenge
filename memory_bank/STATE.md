@@ -10,9 +10,9 @@
 |-----------|-------|
 | Blockers | No active product blockers |
 | Methodology | RAPID |
-| Completed scope | TASK-W1A through TASK-W3D complete; TASK-BASELINE postmortem complete; Wave 4 specs finalized (TASK-W4A/B/C/D/E); full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
-| Current focus | Wave 4 execution: W4A/W4B/W4C start in parallel; W4D depends on W4A+W4B+W4C; W4E depends on W4A+W4B+W4D |
-| Validation baseline | Verified on 2026-03-23 from `.venv`: `PYTHONPATH=. pytest -q` → `187 passed`; `PYTHONPATH=. ruff check src tests` → `All checks passed!` |
+| Completed scope | TASK-W1A through TASK-W4D complete and stabilized; TASK-BASELINE postmortem complete; full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
+| Current focus | Wave 4 closeout complete (W4A/B/C/D). Next: TASK-W4E (cross-case decomposition) or Wave 5 planning |
+| Validation baseline | Verified on 2026-03-25 from `.venv`: `pytest` → `309 passed`; `ruff check src tests` → `All checks passed!` |
 | First full baseline result | 100-question warmup submission completed 2026-03-23; `total_score=0.2273`; grounding G=0.570 is primary optimization lever |
 | Canonical architecture | `docs/unified_document_processing_architecture.md` — target architecture combining opendataloader-pdf, external/RAG-Challenge-2, and current project. Review at `docs/Document_Processing_Architecture_Review.md` |
 
@@ -25,10 +25,10 @@
 | 2026-03-17 | retrieved_chunk_pages [] vs non-empty ambiguity in EVALUATION.md | High | Open -- needs organizer clarification |
 | 2026-03-17 | ~~Codex OAuth stability for 900-question batch untested~~ | Medium | **Resolved** -- generation backend uses OpenAI API |
 | 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Medium | Open -- OCR provenance depends on dedicated fixtures/scanned samples |
-| 2026-03-23 | Name extraction zero-correct (0/15 name questions) | High | Addressed by TASK-W4B (planned) |
-| 2026-03-23 | Deterministic extractor over-conservatism: 47/70 null answers | High | Addressed by TASK-W4B (planned) |
-| 2026-03-23 | Free-text grounding validation too strict: 16 fallbacks to null | Medium | Addressed by TASK-W4A validation policy (planned) |
-| 2026-03-23 | Grounding G=0.570 -- retrieved_chunk_pages precision too low | High | Addressed by TASK-W4A two-pass attribution (planned) |
+| 2026-03-23 | Name extraction zero-correct (0/15 name questions) | High | **Resolved** -- TASK-W4B schema-first typed solving implemented |
+| 2026-03-23 | Deterministic extractor over-conservatism: 47/70 null answers | High | **Resolved** -- TASK-W4B demoted deterministic to guardrail layer |
+| 2026-03-23 | Free-text grounding validation too strict: 16 fallbacks to null | Medium | **Resolved** -- TASK-W4A validation degradation policy implemented |
+| 2026-03-23 | Grounding G=0.570 -- retrieved_chunk_pages precision too low | High | **Resolved** -- TASK-W4A two-pass page attribution implemented |
 
 ---
 
@@ -37,8 +37,8 @@
 | Date | Area | Deviation | Reason |
 |------|------|-----------|--------|
 | 2026-03-22 | Current runnable baseline | No active architecture deviation tracked for the W3A/W3B/W3C/W3D submission path | The remaining work is post-baseline optimization, not a design mismatch |
-| 2026-03-23 | Parser | opendataloader-pdf hybrid mode not yet integrated; current baseline runs local-only | TASK-W4C is the planned integration point; local-only is acceptable fallback per spec |
-| 2026-03-23 | Table extraction | `table_method="cluster"` not yet set as default | TASK-W4C will enforce this; current baseline predates this decision |
+| 2026-03-23 | ~~Parser~~ | ~~opendataloader-pdf hybrid mode not yet integrated~~ | **Resolved** -- TASK-W4C implemented hybrid mode as required default with fallback routing |
+| 2026-03-23 | ~~Table extraction~~ | ~~`table_method="cluster"` not yet set as default~~ | **Resolved** -- TASK-W4C enforced `table_method="cluster"` as required default |
 
 ---
 
@@ -79,3 +79,4 @@
 - 2026-03-23: Canonical target architecture written at `docs/unified_document_processing_architecture.md`; review at `docs/Document_Processing_Architecture_Review.md`. Combines opendataloader-pdf, external/RAG-Challenge-2, and current project design.
 - 2026-03-23: Wave 4 task specs finalized -- TASK-W4A (page attribution), TASK-W4B (typed extraction), TASK-W4C (structural parser), TASK-W4D (retrieval upgrade), TASK-W4E (cross-case orchestration). W4A/W4B/W4C start in parallel. TASKS.md updated with Wave 4 section and dependency graph.
 - 2026-03-24: Canonical architecture rewritten from "extraction-first typed answering" to "retrieval-first, schema-first typed solving with deterministic validation." TASK-W4B completely rewritten; schema registry with `is_answerable`, typed `final_answer`, `relevant_pages`, and short `reasoning_summary` is now the primary post-retrieval path. Deterministic extractors are guardrails. TASK-W4A Pass B now explicitly consumes solver-reported `relevant_pages` as narrowing signal. TASK-W4D retrieval owns solver-ready evidence packaging. TASK-W4E reuses W4B schema registry and validator rules. `codex_provider.py` model fixed from `gpt-5-mini` to `gpt-5.4-mini` (reasoning model).
+- 2026-03-24 to 2026-03-25: Wave 4 A/B/C/D implemented and merged to `main` (0b8b7ab). Integration issues surfaced due to missing pre-defined cross-task contracts — provider schema dispatch, OCR GPU runtime, opendataloader hybrid URL, structured output API format. Two stabilization commits (d673a0b, 1c412da) resolved all contract mismatches, hardened runtime, and added 122+ new tests. Final suite: 309 passed, ruff clean. All four W4 tasks have stabilized contracts and definitions of done locked in task files. W4E remains planned.

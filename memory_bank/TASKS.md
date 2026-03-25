@@ -29,20 +29,20 @@
 
 > Wave 4 converts the updated document-processing architecture into execution-ready work packages. `TASK-W4A`, `TASK-W4B`, and `TASK-W4C` start in parallel; `TASK-W4D` depends on stable outputs from `TASK-W4B` and the chunk/schema changes that `TASK-W4C` freezes as accepted; `TASK-W4E` depends on the baseline multi-document path from `TASK-W4B` plus stable retrieval behavior from `TASK-W4D`.
 
-- [ ] [TASK-W4A](tasks/TASK-W4A.md) Page attribution precision & validation policy
-- [ ] [TASK-W4B](tasks/TASK-W4B.md) Typed extraction, confidence calibration & legal prefilters
-- [ ] [TASK-W4C](tasks/TASK-W4C.md) Structural parser branch, normalization & table enrichment
-- [ ] [TASK-W4D](tasks/TASK-W4D.md) Retrieval upgrade, chunk calibration & asymmetric tuning
+- [x] [TASK-W4A](tasks/TASK-W4A.md) Page attribution precision & validation policy
+- [x] [TASK-W4B](tasks/TASK-W4B.md) Structured typed solving, validation & legal prefilters
+- [x] [TASK-W4C](tasks/TASK-W4C.md) Structural parser branch, normalization & table enrichment
+- [x] [TASK-W4D](tasks/TASK-W4D.md) Retrieval upgrade, chunk calibration & asymmetric tuning
 - [ ] [TASK-W4E](tasks/TASK-W4E.md) Cross-case decomposition & multi-document orchestration
 
 > The grouped tracks below remain thematic backlog buckets. The Wave 4 tasks above are the authoritative implementation units for execution and acceptance.
 
 ### High Priority (score-blocking)
 
-- [ ] [TRACK-GROUNDING] Improve retrieved_chunk_pages precision -- G=0.570 is multiplicative; increase precision of page attribution
-- [ ] [TRACK-NAME-EXTRACT] Name extraction -- 0/15 correct; extractors return null for all name-type questions
-- [ ] [TRACK-DET-EXTRACT] Reduce extractor over-conservatism -- 47/70 null answers; det=0.129; loosen thresholds for boolean/number/date
-- [ ] [TRACK-FT-GROUNDING] Free-text grounding validation tuning -- 16 fallbacks to null; `FreeTextGroundingValidationError` too strict
+- [x] [TRACK-GROUNDING] Improve retrieved_chunk_pages precision -- addressed by TASK-W4A two-pass attribution
+- [x] [TRACK-NAME-EXTRACT] Name extraction -- addressed by TASK-W4B schema-first typed solving
+- [x] [TRACK-DET-EXTRACT] Reduce extractor over-conservatism -- addressed by TASK-W4B (deterministic demoted to guardrail)
+- [x] [TRACK-FT-GROUNDING] Free-text grounding validation tuning -- addressed by TASK-W4A validation degradation policy
 
 ### Medium Priority (incremental gain)
 

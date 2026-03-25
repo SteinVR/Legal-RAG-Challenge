@@ -112,7 +112,7 @@ This task owns only page attribution and validation policy. It does not change t
 
 **Title**: Page attribution precision & validation policy  
 **Description**: Two-pass minimal-evidence page attribution plus page-degradation-first validation to recover grounding score without destroying answer content.  
-**Status**: Planned  
+**Status**: Done (stabilized 2026-03-25, commits d673a0b + 1c412da)
 **Wave**: Wave 4 -- Baseline Recovery & Structural Upgrade
 
 ## 2. Scope

@@ -107,7 +107,7 @@ This task owns retrieval/index behavior. It does not own parser routing, typed s
 
 **Title**: Retrieval upgrade, chunk calibration & asymmetric tuning  
 **Description**: Strengthen hybrid retrieval with token-aware chunking, richer chunk families, soft legal prefilters, reranking, parent-page expansion, and question-class-aware tuning.  
-**Status**: Planned  
+**Status**: Done (stabilized 2026-03-25, commits d673a0b + 1c412da)
 **Wave**: Wave 4 -- Baseline Recovery & Structural Upgrade
 
 ## 2. Scope
