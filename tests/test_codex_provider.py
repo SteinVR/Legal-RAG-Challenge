@@ -177,11 +177,12 @@ def test_codex_provider_supports_schema_bound_structured_outputs_with_reasoning_
     payload = captured_payloads[0]
     assert payload["model"] == provider.model
     assert payload.get("reasoning") == {"effort": "high"}
-    response_format_blob = json.dumps(payload)
-    assert "json_schema" in response_format_blob
-    assert "is_answerable" in response_format_blob
-    assert "final_answer" in response_format_blob
-    assert "relevant_pages" in response_format_blob
+    assert payload["text"]["format"]["type"] == "json_schema"
+    assert payload["text"]["format"]["name"] == "boolean_answer"
+    schema_blob = json.dumps(payload["text"]["format"]["schema"])
+    assert "is_answerable" in schema_blob
+    assert "final_answer" in schema_blob
+    assert "relevant_pages" in schema_blob
 
 
 def test_structured_provider_sends_json_schema_payload_and_parses_response() -> None:

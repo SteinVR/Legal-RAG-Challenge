@@ -438,8 +438,11 @@ def test_answering_service_rejects_free_text_that_introduces_date_not_present_in
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad"):
-        service.answer_question(_question(text="Summarize the termination date.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the termination date.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 @pytest.mark.parametrize(
@@ -490,8 +493,11 @@ def test_answering_service_rejects_free_text_that_introduces_number_not_present_
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad|numbers"):
-        service.answer_question(_question(text="Summarize the order.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the order.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 def test_answering_service_treats_names_answers_as_order_insensitive_across_pages() -> None:
@@ -519,8 +525,11 @@ def test_answering_service_rejects_free_text_that_introduces_name_not_present_in
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad|names"):
-        service.answer_question(_question(text="Summarize the appointment.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the appointment.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 def test_answering_service_rejects_free_text_that_introduces_unsupported_single_token_name() -> None:
@@ -532,8 +541,11 @@ def test_answering_service_rejects_free_text_that_introduces_unsupported_single_
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad|names"):
-        service.answer_question(_question(text="Summarize the respondent.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the respondent.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 def test_answering_service_does_not_treat_no_later_than_as_negative_boolean_cue() -> None:
@@ -558,8 +570,11 @@ def test_answering_service_rejects_free_text_that_introduces_outcome_not_present
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad|outcomes"):
-        service.answer_question(_question(text="Summarize the outcome.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the outcome.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 def test_answering_service_rejects_free_text_that_flips_outcome_polarity() -> None:
@@ -571,8 +586,11 @@ def test_answering_service_rejects_free_text_that_flips_outcome_polarity() -> No
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad|polarity|state"):
-        service.answer_question(_question(text="Summarize the outcome.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the outcome.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 def test_answering_service_rejects_free_text_that_flips_contract_validity() -> None:
@@ -584,8 +602,11 @@ def test_answering_service_rejects_free_text_that_flips_contract_validity() -> N
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad|polarity|state"):
-        service.answer_question(_question(text="Summarize the rationale.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the rationale.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 def test_answering_service_rejects_free_text_that_introduces_unsupported_rationale_clause() -> None:
@@ -597,8 +618,11 @@ def test_answering_service_rejects_free_text_that_introduces_unsupported_rationa
         },
     )
 
-    with pytest.raises(ValueError, match="evidence|contrad|rationale|clauses"):
-        service.answer_question(_question(text="Summarize the outcome.", answer_type="free_text"))
+    result = service.answer_question(_question(text="Summarize the outcome.", answer_type="free_text"))
+
+    assert _result_field(result, "answer") == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
+    assert _grouped_refs(result) == []
+    assert getattr(result, "page_trace").collapsed_answer is True
 
 
 def test_answering_service_rejects_invalid_iso_date_evidence_for_deterministic_answer() -> None:

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+import os
 import sys
 from types import SimpleNamespace
 
@@ -82,10 +84,88 @@ def test_paddle_ocr_engine_builds_gpu_client_with_local_cached_models(
     assert captured["use_doc_orientation_classify"] is False
     assert captured["use_doc_unwarping"] is False
     assert captured["use_textline_orientation"] is False
+    assert captured["text_det_limit_side_len"] == 736
     assert captured["text_detection_model_name"] == "PP-OCRv5_server_det"
     assert captured["text_detection_model_dir"] == str(det_dir)
+    assert captured["text_recognition_batch_size"] == 1
     assert captured["text_recognition_model_name"] == "en_PP-OCRv5_mobile_rec"
     assert captured["text_recognition_model_dir"] == str(rec_dir)
+
+
+def test_paddle_ocr_engine_prefers_model_names_declared_in_cached_model_configs(
+    tmp_path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    det_dir = tmp_path / "PP-OCRv5_server_det"
+    rec_dir = tmp_path / "en_PP-OCRv5_mobile_rec"
+    det_dir.mkdir()
+    rec_dir.mkdir()
+    (det_dir / "config.json").write_text(json.dumps({"Global": {"model_name": "det-from-config"}}), encoding="utf-8")
+    (rec_dir / "config.json").write_text(json.dumps({"Global": {"model_name": "rec-from-config"}}), encoding="utf-8")
+
+    settings = AppConfig.model_validate(
+        {
+            "ingestion": {
+                "ocr_device": "gpu:0",
+                "ocr_model_root_dir": str(tmp_path),
+            }
+        }
+    ).ingestion
+    engine = PaddleOcrEngine(settings)
+
+    captured: dict[str, object] = {}
+
+    class RecordingPaddleOCR:
+        def __init__(self, **kwargs):
+            captured.update(kwargs)
+
+        def predict(self, image):
+            del image
+            return []
+
+    monkeypatch.setattr("src.ingestion.ocr_engine._cuda_device_count", lambda: 1)
+    monkeypatch.setitem(sys.modules, "paddleocr", SimpleNamespace(PaddleOCR=RecordingPaddleOCR))
+
+    engine._get_client()
+
+    assert captured["text_detection_model_name"] == "det-from-config"
+    assert captured["text_recognition_model_name"] == "rec-from-config"
+
+
+def test_paddle_ocr_engine_sets_offline_model_source_guard_before_initialization(
+    tmp_path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    det_dir = tmp_path / "PP-OCRv5_server_det"
+    rec_dir = tmp_path / "en_PP-OCRv5_mobile_rec"
+    det_dir.mkdir()
+    rec_dir.mkdir()
+
+    settings = AppConfig.model_validate(
+        {
+            "ingestion": {
+                "ocr_device": "gpu:0",
+                "ocr_model_root_dir": str(tmp_path),
+            }
+        }
+    ).ingestion
+    engine = PaddleOcrEngine(settings)
+
+    class RecordingPaddleOCR:
+        def __init__(self, **kwargs):
+            del kwargs
+
+        def predict(self, image):
+            del image
+            return []
+
+    monkeypatch.setattr("src.ingestion.ocr_engine._cuda_device_count", lambda: 1)
+    monkeypatch.setitem(sys.modules, "paddleocr", SimpleNamespace(PaddleOCR=RecordingPaddleOCR))
+    monkeypatch.delenv("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", raising=False)
+
+    engine._get_client()
+
+    assert os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] == "True"
 
 
 def test_paddle_ocr_engine_raises_when_gpu_requested_but_no_cuda_devices_visible(

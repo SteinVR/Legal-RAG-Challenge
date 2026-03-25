@@ -4,6 +4,7 @@ import argparse
 import importlib
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any
 from zipfile import ZipFile
@@ -14,6 +15,7 @@ import pytest
 import yaml
 
 from src.answering.service import AnswerResult
+from src.common.config import AppConfig
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import (
     PageReference,
@@ -25,6 +27,7 @@ from src.evaluation.contracts import (
 from src.evaluation.validator import SubmissionValidator, ValidationPolicy, build_corpus_registry
 from src.main import build_parser, main
 from src.retrieval.service import RetrievalResult, RetrievedChunk
+from src.submission import pipeline as submission_pipeline
 from src.submission.packager import SubmissionPackager, _is_excluded
 
 
@@ -549,6 +552,63 @@ def test_telemetry_packer_preserves_empty_final_pages_for_grounded_no_answer() -
     }
 
 
+def test_telemetry_packer_uses_final_emitted_pages_as_authoritative_when_answer_payload_drifted() -> None:
+    page_attribution = _load_page_attribution_module()
+    retrieval_result = RetrievalResult(
+        question_id="q-name",
+        query="Who is the appointed liquidator?",
+        answer_type="name",
+        candidate_count=1,
+        reranked_count=1,
+        evidence_chunks=[
+            RetrievedChunk(
+                chunk_id="c1",
+                doc_id="alpha",
+                page_span=[3],
+                chunk_type="clause",
+                text="Page 3 identifies the respondent but not the liquidator.",
+                retrieval_score=0.84,
+            )
+        ],
+        retrieved_chunk_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+        is_unanswerable=False,
+    )
+    answer_result = AnswerResult(
+        question_id="q-name",
+        answer=None,
+        confidence=0.0,
+        evidence_pages=[],
+        page_trace=page_attribution.PageAttributionTrace(
+            raw_retrieved_chunk_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+            pass_a_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+            solver_reported_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+            final_emitted_pages=[PageReference(doc_id="alpha", page_numbers=[3])],
+            validation_action="no_answer_preserved_pages",
+            collapsed_answer=False,
+        ),
+    )
+
+    telemetry = _build_answer_telemetry(
+        retrieval_result=retrieval_result,
+        answer_result=answer_result,
+        model_name="gpt-5-mini",
+        input_tokens=24,
+        output_tokens=0,
+        total_time_ms=350,
+    )
+
+    assert telemetry["retrieval"] == {
+        "retrieved_chunk_pages": [{"doc_id": "alpha", "page_numbers": [3]}],
+        "raw_retrieved_chunk_pages": [{"doc_id": "alpha", "page_numbers": [3]}],
+        "pass_a_pages": [{"doc_id": "alpha", "page_numbers": [3]}],
+        "solver_reported_pages": [{"doc_id": "alpha", "page_numbers": [3]}],
+        "page_validation": {
+            "action": "no_answer_preserved_pages",
+            "collapsed_answer": False,
+        },
+    }
+
+
 def test_submit_gate_rejects_code_archives_larger_than_25_mb(tmp_path: Path) -> None:
     questions_path = tmp_path / "questions.json"
     documents_dir = tmp_path / "documents"
@@ -715,6 +775,182 @@ def test_build_submission_uses_provider_model_for_schema_first_typed_answers(
     assert len(StructuredNumberProvider.structured_calls) == 1
     assert StructuredNumberProvider.structured_calls[0]["answer_type"] == "number"
     assert StructuredNumberProvider.structured_calls[0]["reasoning_effort"] == "medium"
+
+
+def test_index_artifacts_complete_requires_sparse_state_for_reuse(tmp_path: Path) -> None:
+    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path)}})
+    index_paths = submission_pipeline.IndexPaths.from_config(config)
+    index_paths.qdrant_dir.mkdir(parents=True, exist_ok=True)
+    (index_paths.qdrant_dir / "collection.bin").write_text("ok", encoding="utf-8")
+    index_paths.corpus_path.parent.mkdir(parents=True, exist_ok=True)
+    index_paths.corpus_path.write_text("{}", encoding="utf-8")
+    index_paths.page_map_path.write_text("{}", encoding="utf-8")
+    index_paths.corpus_manifest_path.write_text("{}", encoding="utf-8")
+    index_paths.page_parent_map_path.write_text(json.dumps({"c1": [1]}), encoding="utf-8")
+    index_paths.sparse_encoder_state_path.write_text(json.dumps({"term_index": {"fee": 1}}), encoding="utf-8")
+
+    source_artifacts = submission_pipeline._index_source_artifacts(index_paths)
+    assert source_artifacts is not None
+    index_paths.manifest_path.write_text(
+        json.dumps(
+            {
+                "chunk_count": 1,
+                "source_artifacts": source_artifacts,
+                "sparse_encoder_state": {
+                    "path": index_paths.sparse_encoder_state_path.name,
+                    "sha256": submission_pipeline._sha256_for_file(index_paths.sparse_encoder_state_path),
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    class StubQdrantClient:
+        def __init__(self, *, path: str) -> None:
+            self.path = path
+
+        def get_collections(self) -> Any:
+            return type("Collections", (), {"collections": [type("Collection", (), {"name": "demo"})()]})()
+
+        def get_collection(self, _name: str) -> Any:
+            return type("CollectionInfo", (), {"points_count": 1})()
+
+        def close(self) -> None:
+            return None
+
+    original_client = submission_pipeline.QdrantClient
+    submission_pipeline.QdrantClient = StubQdrantClient
+    try:
+        assert submission_pipeline._index_artifacts_complete(index_paths=index_paths) is True
+    finally:
+        submission_pipeline.QdrantClient = original_client
+
+    index_paths.sparse_encoder_state_path.unlink()
+
+    assert submission_pipeline._index_artifacts_complete(index_paths=index_paths) is False
+
+
+def test_build_submission_force_rebuilds_sparse_state_when_index_reuse_is_invalid(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    config = AppConfig.model_validate({"storage": {"root_dir": str(tmp_path)}})
+    index_paths = submission_pipeline.IndexPaths.from_config(config)
+    index_paths.qdrant_dir.mkdir(parents=True, exist_ok=True)
+    (index_paths.qdrant_dir / "collection.bin").write_text("ok", encoding="utf-8")
+    index_paths.corpus_path.parent.mkdir(parents=True, exist_ok=True)
+    index_paths.corpus_path.write_text("{}", encoding="utf-8")
+    index_paths.page_map_path.write_text("{}", encoding="utf-8")
+    index_paths.corpus_manifest_path.write_text("{}", encoding="utf-8")
+    index_paths.page_parent_map_path.write_text(json.dumps({"c1": [1]}), encoding="utf-8")
+    index_paths.sparse_encoder_state_path.write_text(json.dumps({"term_index": {"fee": 1}}), encoding="utf-8")
+
+    source_artifacts = submission_pipeline._index_source_artifacts(index_paths)
+    assert source_artifacts is not None
+    index_paths.manifest_path.write_text(
+        json.dumps(
+            {
+                "chunk_count": 1,
+                "source_artifacts": source_artifacts,
+                "sparse_encoder_state": {
+                    "path": index_paths.sparse_encoder_state_path.name,
+                    "sha256": submission_pipeline._sha256_for_file(index_paths.sparse_encoder_state_path),
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    index_paths.sparse_encoder_state_path.unlink()
+
+    class StubQdrantClient:
+        def __init__(self, *, path: str) -> None:
+            self.path = path
+
+        def get_collections(self) -> Any:
+            return type("Collections", (), {"collections": [type("Collection", (), {"name": "demo"})()]})()
+
+        def get_collection(self, _name: str) -> Any:
+            return type("CollectionInfo", (), {"points_count": 1})()
+
+        def close(self) -> None:
+            return None
+
+    build_calls: list[dict[str, Any]] = []
+
+    class StubHybridIndexService:
+        def __init__(self, config: AppConfig) -> None:
+            self.config = config
+
+        def build_indices(self, *, dry_run: bool, overwrite: bool) -> None:
+            build_calls.append({"dry_run": dry_run, "overwrite": overwrite})
+            rebuilt_paths = submission_pipeline.IndexPaths.from_config(self.config)
+            rebuilt_paths.qdrant_dir.mkdir(parents=True, exist_ok=True)
+            (rebuilt_paths.qdrant_dir / "collection.bin").write_text("ok", encoding="utf-8")
+            rebuilt_paths.page_parent_map_path.write_text(json.dumps({"c1": [1]}), encoding="utf-8")
+            if overwrite:
+                rebuilt_paths.sparse_encoder_state_path.write_text(
+                    json.dumps({"term_index": {"fee": 1}}),
+                    encoding="utf-8",
+                )
+                rebuilt_source_artifacts = submission_pipeline._index_source_artifacts(rebuilt_paths)
+                assert rebuilt_source_artifacts is not None
+                rebuilt_paths.manifest_path.write_text(
+                    json.dumps(
+                        {
+                            "chunk_count": 1,
+                            "source_artifacts": rebuilt_source_artifacts,
+                            "sparse_encoder_state": {
+                                "path": rebuilt_paths.sparse_encoder_state_path.name,
+                                "sha256": submission_pipeline._sha256_for_file(
+                                    rebuilt_paths.sparse_encoder_state_path
+                                ),
+                            },
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+
+    monkeypatch.setattr(submission_pipeline, "QdrantClient", StubQdrantClient)
+    monkeypatch.setattr(submission_pipeline, "HybridIndexService", StubHybridIndexService)
+
+    service = submission_pipeline.BuildSubmissionService(config)
+
+    assert service._ensure_index(config) is False
+    assert build_calls == [{"dry_run": False, "overwrite": True}]
+    assert submission_pipeline._index_artifacts_complete(index_paths=index_paths) is True
+
+
+def test_build_submission_gpu_guard_fails_fast_when_required_runtime_is_missing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    config = AppConfig.model_validate({"runtime": {"require_gpu": True}, "ingestion": {"ocr_device": "gpu:0"}})
+
+    monkeypatch.setitem(
+        sys.modules,
+        "torch",
+        type("TorchStub", (), {"cuda": type("Cuda", (), {"is_available": staticmethod(lambda: False)})})(),
+    )
+    monkeypatch.setitem(
+        sys.modules,
+        "paddle",
+        type(
+            "PaddleStub",
+            (),
+            {
+                "device": type(
+                    "Device",
+                    (),
+                    {
+                        "is_compiled_with_cuda": staticmethod(lambda: False),
+                        "cuda": type("Cuda", (), {"device_count": staticmethod(lambda: 0)}),
+                    },
+                )()
+            },
+        )(),
+    )
+
+    with pytest.raises(RuntimeError, match="GPU runtime contract"):
+        submission_pipeline._assert_required_gpu_runtime(config)
 
 
 def test_build_submission_reuses_persisted_w3a_artifacts_on_restart(

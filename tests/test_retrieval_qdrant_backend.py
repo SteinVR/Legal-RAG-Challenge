@@ -179,6 +179,7 @@ def test_qdrant_hybrid_backend_retrieves_candidates_from_persisted_index(
     assert all(candidate["chunk_id"] for candidate in candidates)
     assert all(candidate["doc_id"] == "alpha" for candidate in candidates)
     assert all(isinstance(candidate["page_span"], list) and candidate["page_span"] for candidate in candidates)
+    assert all(candidate["parent_page_numbers"] == candidate["page_span"] for candidate in candidates)
     assert all(isinstance(candidate["retrieval_score"], float) for candidate in candidates)
     assert any(candidate["dense_score"] is not None for candidate in candidates)
     assert all(candidate["sparse_score"] is None for candidate in candidates)

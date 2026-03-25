@@ -263,6 +263,10 @@ def test_w4b_answering_service_dispatches_schema_bound_typed_solving(
             "page_numbers": [page["page_number"]],
         }
         for page in pages
+        if any(
+            ref.doc_id == page["doc_id"] and page["page_number"] in ref.page_numbers
+            for ref in result.page_trace.pass_a_pages
+        )
     ]
     assert provider.calls[0]["reasoning_effort"] == expected_effort
     assert {"is_answerable", "final_answer", "relevant_pages", "reasoning_summary"} <= set(

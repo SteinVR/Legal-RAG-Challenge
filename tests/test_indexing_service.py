@@ -450,6 +450,56 @@ def test_build_indices_persists_hybrid_index_and_exact_page_parent_map(
     assert all(record.payload["page_span"] == [2] for record in table_records)
 
 
+def test_build_indices_propagates_multi_page_section_parent_pages_into_chunk_payloads(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_indexing_module()
+    config = _config(tmp_path)
+    shared_section_page_1 = (
+        "PART 2 TERMINATION\n\n"
+        "Section 4 Notice\n\n"
+        "4. Notice period. An employer must provide thirty calendar days of written notice before termination."
+    )
+    shared_section_page_2 = (
+        "PART 2 TERMINATION\n\n"
+        "Section 4 Notice\n\n"
+        "5. Payment in lieu. The employer may make a payment in lieu of notice when the contract permits."
+    )
+    _write_corpus_inputs(
+        config,
+        pages=[
+            _page_record(
+                doc_id="alpha",
+                page_number=1,
+                text=shared_section_page_1,
+                blocks=[_text_block("alpha", 1, "text-1", shared_section_page_1)],
+            ),
+            _page_record(
+                doc_id="alpha",
+                page_number=2,
+                text=shared_section_page_2,
+                blocks=[_text_block("alpha", 2, "text-1", shared_section_page_2)],
+            ),
+        ],
+    )
+    monkeypatch.setattr(module, "build_dense_embedder", lambda _settings: StubDenseEmbedder())
+
+    service = module.HybridIndexService(config)
+    service.build_indices(dry_run=False, overwrite=True)
+
+    records = _scroll_all_records(service.paths.qdrant_dir)
+    multi_page_parent_chunks = [
+        record.payload
+        for record in records
+        if record.payload["chunk_type"] in {"page", "clause", "microchunk"}
+        and record.payload["page_span"] in ([1], [2])
+        and record.payload["parent_page_numbers"] == [1, 2]
+    ]
+
+    assert multi_page_parent_chunks, "Expected single-page chunks to inherit the multi-page section parent span."
+
+
 def test_build_indices_skips_when_existing_index_artifacts_are_complete(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

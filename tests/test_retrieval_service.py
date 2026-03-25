@@ -43,8 +43,9 @@ def _chunk(
     retrieval_score: float = 0.5,
     rerank_score: float | None = None,
     metadata: dict[str, Any] | None = None,
+    parent_page_numbers: list[int] | None = None,
 ) -> dict[str, Any]:
-    return {
+    payload = {
         "chunk_id": chunk_id,
         "doc_id": doc_id,
         "page_span": list(page_span or [1]),
@@ -54,6 +55,9 @@ def _chunk(
         "rerank_score": rerank_score,
         "metadata": dict(metadata or {}),
     }
+    if parent_page_numbers is not None:
+        payload["parent_page_numbers"] = list(parent_page_numbers)
+    return payload
 
 
 def _copy_payloads(payloads: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -284,6 +288,70 @@ def test_retrieval_service_applies_candidate_rerank_and_evidence_budgets() -> No
     assert result.candidate_count == 3
     assert result.reranked_count == 2
     assert result.is_unanswerable is False
+
+
+def test_retrieval_service_expands_parent_pages_and_reports_applied_diagnostics() -> None:
+    _, service_module = _load_retrieval_contract()
+    question = QuestionRecord(id="q-parent", question="Summarize the payment clause.", answer_type="free_text")
+
+    candidate = _chunk("c1", page_span=[2], parent_page_numbers=[2, 3], retrieval_score=0.87, rerank_score=0.93)
+    service = service_module.RetrievalService(
+        hybrid_search=SpyHybridSearch([candidate]),
+        reranker=SpyReranker(results=[candidate]),
+        evidence_compressor=SpyEvidenceCompressor(results=[candidate]),
+        candidate_budget=3,
+        rerank_budget=1,
+        default_evidence_budget=1,
+        parent_page_expansion_enabled=True,
+        parent_page_expansion_limit=1,
+    )
+
+    result = service.retrieve(question)
+
+    assert [_chunk_snapshot(chunk) for chunk in result.evidence_chunks] == [
+        {
+            "chunk_id": "c1",
+            "doc_id": "alpha",
+            "page_span": [2, 3],
+            "chunk_type": "clause",
+            "text": "Evidence for c1",
+            "retrieval_score": 0.87,
+            "rerank_score": 0.93,
+            "metadata": {"parent_page_numbers": [2, 3]},
+        }
+    ]
+    assert result.retrieved_chunk_pages == [PageReference(doc_id="alpha", page_numbers=[2, 3])]
+    assert result.diagnostics["parent_page_expansion"] == {
+        "enabled": True,
+        "applied": True,
+        "expanded_chunk_count": 1,
+    }
+
+
+def test_retrieval_service_parent_page_expansion_diagnostics_stay_unapplied_without_changes() -> None:
+    _, service_module = _load_retrieval_contract()
+    question = QuestionRecord(id="q-parent-flat", question="Summarize the payment clause.", answer_type="free_text")
+
+    candidate = _chunk("c1", page_span=[2], parent_page_numbers=[2], retrieval_score=0.87, rerank_score=0.93)
+    service = service_module.RetrievalService(
+        hybrid_search=SpyHybridSearch([candidate]),
+        reranker=SpyReranker(results=[candidate]),
+        evidence_compressor=SpyEvidenceCompressor(results=[candidate]),
+        candidate_budget=3,
+        rerank_budget=1,
+        default_evidence_budget=1,
+        parent_page_expansion_enabled=True,
+        parent_page_expansion_limit=1,
+    )
+
+    result = service.retrieve(question)
+
+    assert result.retrieved_chunk_pages == [PageReference(doc_id="alpha", page_numbers=[2])]
+    assert result.diagnostics["parent_page_expansion"] == {
+        "enabled": True,
+        "applied": False,
+        "expanded_chunk_count": 0,
+    }
 
 
 def test_retrieval_service_forwards_optional_query_metadata_to_hybrid_search() -> None:
