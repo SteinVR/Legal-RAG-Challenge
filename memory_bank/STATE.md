@@ -10,9 +10,9 @@
 |-----------|-------|
 | Blockers | No active product blockers |
 | Methodology | RAPID |
-| Completed scope | TASK-W1A through TASK-W4D complete and stabilized; TASK-BASELINE postmortem complete; full baseline pipeline operational with numbered operator scripts (`scripts/00_*`–`07_*`) |
-| Current focus | Wave 4 complete (all W4A-E done). Ready for Wave 5 or full benchmark re-evaluation |
-| Validation baseline | Verified on 2026-03-25 from `.venv`: `pytest` → `342 passed`; `ruff check src tests` → `All checks passed!`; smoke test 5/5 questions processed (4 answered, decomposition verified) |
+| Completed scope | Waves 1-4 complete (W1A through W4E); TASK-BASELINE postmortem complete; full e2e pipeline verified with GPU on RTX 4060 |
+| Current focus | Wave 4 fully delivered and e2e verified. Ready for Wave 5 planning or 100-question re-evaluation run |
+| Validation baseline | Verified on 2026-03-25: `pytest` → `342 passed`; `ruff` → clean; full e2e re-parse (opendataloader:tagged, 590pp, GPU OCR loaded) → re-index (3804 chunks) → smoke test 5/5 processed (4 answered, decomposition OK) |
 | First full baseline result | 100-question warmup submission completed 2026-03-23; `total_score=0.2273`; grounding G=0.570 is primary optimization lever |
 | Canonical architecture | `docs/unified_document_processing_architecture.md` — target architecture combining opendataloader-pdf, external/RAG-Challenge-2, and current project. Review at `docs/Document_Processing_Architecture_Review.md` |
 
@@ -24,7 +24,7 @@
 |------|-------|----------|--------|
 | 2026-03-17 | retrieved_chunk_pages [] vs non-empty ambiguity in EVALUATION.md | High | Open -- needs organizer clarification |
 | 2026-03-17 | ~~Codex OAuth stability for 900-question batch untested~~ | Medium | **Resolved** -- generation backend uses OpenAI API |
-| 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Medium | Open -- OCR provenance depends on dedicated fixtures/scanned samples |
+| 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Low | Open -- warmup corpus is born-digital (all native); GPU OCR loaded but not triggered. Need scanned PDF fixtures to exercise OCR path |
 | 2026-03-23 | Name extraction zero-correct (0/15 name questions) | High | **Resolved** -- TASK-W4B schema-first typed solving implemented |
 | 2026-03-23 | Deterministic extractor over-conservatism: 47/70 null answers | High | **Resolved** -- TASK-W4B demoted deterministic to guardrail layer |
 | 2026-03-23 | Free-text grounding validation too strict: 16 fallbacks to null | Medium | **Resolved** -- TASK-W4A validation degradation policy implemented |
@@ -67,6 +67,9 @@
 | 2026-03-23 | Qdrant hybrid (dense+sparse) stays as-is | No separate BM25 system; no architecture change to vector store (TASK-W4D) |
 | 2026-03-23 | Annex/schedule chunk family OUT of scope for Wave 4 | Not in TASK-W4C scope |
 | 2026-03-23 | XY-Cut++ calibration OUT of scope for Wave 4 | Not in TASK-W4C scope |
+| 2026-03-25 | Cross-case decomposition is rule-based, not LLM-based | 31 cross-case questions (19 boolean, 12 name) have regular patterns; deterministic recomposition sufficient; no extra API calls for decomposition prompt |
+| 2026-03-25 | Provider max_output_tokens increased 220→2048 | Reasoning models (gpt-5.4-mini) consume most tokens on thinking; 220 caused truncated JSON; 2048 is safe budget |
+| 2026-03-25 | OpenAI strict schema requires all properties in required | Pydantic default-valued fields omitted from `required`; added `_strict_openai_schema()` post-processor in provider |
 
 ---
 
@@ -80,4 +83,5 @@
 - 2026-03-23: Wave 4 task specs finalized -- TASK-W4A (page attribution), TASK-W4B (typed extraction), TASK-W4C (structural parser), TASK-W4D (retrieval upgrade), TASK-W4E (cross-case orchestration). W4A/W4B/W4C start in parallel. TASKS.md updated with Wave 4 section and dependency graph.
 - 2026-03-24: Canonical architecture rewritten from "extraction-first typed answering" to "retrieval-first, schema-first typed solving with deterministic validation." TASK-W4B completely rewritten; schema registry with `is_answerable`, typed `final_answer`, `relevant_pages`, and short `reasoning_summary` is now the primary post-retrieval path. Deterministic extractors are guardrails. TASK-W4A Pass B now explicitly consumes solver-reported `relevant_pages` as narrowing signal. TASK-W4D retrieval owns solver-ready evidence packaging. TASK-W4E reuses W4B schema registry and validator rules. `codex_provider.py` model fixed from `gpt-5-mini` to `gpt-5.4-mini` (reasoning model).
 - 2026-03-24 to 2026-03-25: Wave 4 A/B/C/D implemented and merged to `main` (0b8b7ab). Integration issues surfaced due to missing pre-defined cross-task contracts — provider schema dispatch, OCR GPU runtime, opendataloader hybrid URL, structured output API format. Two stabilization commits (d673a0b, 1c412da) resolved all contract mismatches, hardened runtime, and added 122+ new tests. All four W4 tasks have stabilized contracts and definitions of done locked in task files.
-- 2026-03-25: TASK-W4E (cross-case decomposition) implemented. Rule-based decomposition for 31/100 cross-case warmup questions (19 boolean, 12 name). Disabled by default (`decomposition.enabled=false`). Provider fixes: OpenAI strict schema compliance, reasoning response parsing, max_output_tokens 220→2048, ISO date hint. Smoke test: 5/5 questions processed, decomposition correctly triggered and recomposed. Suite: 342 passed, ruff clean. Wave 4 complete.
+- 2026-03-25: TASK-W4E (cross-case decomposition) implemented. Rule-based decomposition for 31/100 cross-case warmup questions (19 boolean, 12 name). Disabled by default (`decomposition.enabled=false`). Provider fixes: OpenAI strict schema compliance, reasoning response parsing, max_output_tokens 220→2048, ISO date hint. Suite: 342 passed, ruff clean.
+- 2026-03-25: Full e2e pipeline re-run on GPU (RTX 4060 8GB). Corpus re-parsed with W4C structural parser: all 590 pages → `opendataloader:tagged` provenance, 30 JSON sidecars in `raw_parse/opendataloader/`. GPU OCR (PP-OCRv5) loaded but not triggered (born-digital corpus). Index rebuilt: 3804 chunks (dense+sparse). Smoke test 5/5 questions: 4 answered, 1 null (number — model couldn't extract from evidence), decomposition correctly triggered on cross-case name question (`SCT 295/2025`). Wave 4 fully complete and e2e verified.

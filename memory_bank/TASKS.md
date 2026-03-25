@@ -54,4 +54,4 @@
 
 - [ ] [TRACK-LIGHT-GRAPH] Light graph layer (section->clause, definition->usage, main->annex)
 - [ ] [TRACK-AGENTIC-ESCALATION] Selective agentic escalation for hard multi-hop / free_text
-- [ ] [TRACK-COMPARATIVE-DECOMP] Comparative query decomposition (multi-doc, amendment-vs-current)
+- [x] [TRACK-COMPARATIVE-DECOMP] Comparative query decomposition -- addressed by TASK-W4E rule-based decomposition

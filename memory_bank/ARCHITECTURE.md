@@ -72,36 +72,46 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 
 Detailed implementation notes live in `docs/component_design.md`. This section stays intentionally short so the project has one detailed component document instead of two drifting copies.
 
-### A. Ingestion (`src/ingestion/`)
-- **Responsibility**: PDF -> canonical page-level corpus with text, tables, quality metadata, and parse manifests.
+### A. Ingestion (`src/ingestion/`) — 10 modules
+- **Responsibility**: PDF → canonical page-level corpus with structural provenance, tables, quality metadata, JSON sidecars, and parse manifests.
+- **Key modules**: `service.py` (orchestration), `pdf_parser.py` (native + OCR), `parser_routing.py` (W4C route decisions: tagged/hybrid/local_only/baseline_fallback), `opendataloader_adapter.py` (W4C structural parse via Java bridge), `sidecars.py` (JSON sidecar I/O), `structural_normalizer.py` (heading/list/caption normalization), `ocr_engine.py` (PaddleOCR GPU adapter), `page_triage.py`, `table_serializer.py`, `corpus_builder.py`.
+- **Parser provenance**: all pages carry `parser_provenance` field (e.g. `opendataloader:tagged`, `pymupdf:native`).
 
 ### B. Indexing (`src/indexing/`)
 - **Responsibility**: structure-aware chunking plus dense/sparse local index construction in embedded Qdrant.
+- Token-aware chunk sizing, multi-level chunking (page, section, clause, microchunk, table).
 
-### C. Retrieval (`src/retrieval/`)
-- **Responsibility**: hybrid search, reranking, evidence compression, and chunk-to-page grounding.
+### C. Retrieval (`src/retrieval/`) — 5 modules
+- **Responsibility**: hybrid search, reranking, evidence compression, question-class-aware budget routing, and chunk-to-page grounding.
+- **Key modules**: `hybrid_search.py` (Qdrant backend + RRF fusion + soft entity boost from W4B query metadata), `reranker.py` (Qwen3 causal LM scoring), `evidence_compressor.py`, `page_lifter.py`, `service.py`.
 
-### D. Answering (`src/answering/`)
+### D. Answering (`src/answering/`) — 3 modules
 - **Responsibility**: retrieval-first, schema-first typed solving stack:
-  1. Retrieval and evidence packaging (solver-ready, page-stable bundles from TASK-W4D).
-  2. Schema-bound typed solving -- structured outputs per Pydantic answer-type schema via provider abstraction with reasoning effort controls.
-  3. Deterministic validation and normalization guardrails (polarity check, spurious-literal rejection, entity filtering, null policy).
+  1. Retrieval and evidence packaging (solver-ready, page-stable bundles from W4D).
+  2. Schema-bound typed solving — structured outputs per Pydantic answer-type schema via provider with reasoning effort controls (W4B).
+  3. Two-pass page attribution — Pass A candidate pruning, Pass B post-answer finalization (W4A).
+  4. Cross-case decomposition — rule-based trigger, per-case sub-questions, deterministic recomposition (W4E).
+- **Key modules**: `service.py` (schema registry, query metadata extraction, structured solver), `page_attribution.py` (Pass A/B, boilerplate suppression), `decomposition.py` (trigger, decompose, recompose).
 
 ### E. Evaluation (`src/evaluation/`)
 - **Responsibility**: local validation, scoring, dev benchmark slicing, and regression analysis.
 
-### F. Submission (`src/submission/`)
-- **Responsibility**: phase sync, pipeline orchestration, telemetry packing, packaging, and submit-time checks.
+### F. Submission (`src/submission/`) — 6 modules
+- **Responsibility**: phase sync, pipeline orchestration (with decomposition routing), telemetry packing, packaging, and submit-time checks.
+- **Pipeline integration**: `_answer_question()` in `pipeline.py` routes to decomposition when `config.decomposition.enabled=True` and question has 2+ cross-case refs.
 
-### G. Providers (`src/providers/`)
-- **Responsibility**: free-text provider abstraction and concrete model-backed generation path.
+### G. Providers (`src/providers/`) — 2 modules
+- **Responsibility**: free-text and structured-output provider abstraction.
+- **Key**: `codex_provider.py` supports both `generate()` (free-text) and `generate_structured()` (schema-bound with reasoning effort). Uses OpenAI Responses API (`/responses`). Includes `_strict_openai_schema()` post-processor for Pydantic→OpenAI strict mode compatibility.
 
-### H. Common (`src/common/`)
-- **Responsibility**: shared config and schema contracts used across the full pipeline.
+### H. Common (`src/common/`) — 3 modules
+- **Responsibility**: shared config, schema contracts, and runtime logging.
+- **Config additions (W4)**: `DecompositionSettings` (W4E), `PageAttributionSettings` (W4A), `IndexingSettings` with token-aware chunking, `RetrievalSettings` with question-class budgets.
 
 ### I. Operator Scripts (`scripts/`)
 - **Responsibility**: reproducible numbered shell pipeline for full baseline execution on a fresh machine.
 - **Scripts**: `00_check_env` → `00_repair_gpu_runtime` → `01_install_deps` → `02_download_models` → `03_lint_and_test` → `04_parse_corpus` → `05_build_indices` → `06_build_submission` → `07_validate_submission`.
+- **Smoke test**: `scripts/smoke_test_w4e.py` — 5-question e2e verification with decomposition.
 - Each script is idempotent, self-documenting, and exits non-zero on failure.
 
 See `memory_bank/component_design.md` for real module ownership, artifact paths, current limitations, and test anchors.
@@ -110,23 +120,29 @@ See `memory_bank/component_design.md` for real module ownership, artifact paths,
 
 ## 6. Code Organization Pattern
 
-- `src/main.py` -- CLI entrypoint: orchestrates sync, parse, build-indices, build-submission, validation, scoring, and benchmark commands
-- `src/common/config.py` -- config loading and validation
-- `src/common/schemas.py` -- all data models (Pydantic)
-- `configs/baseline/v001/` -- baseline config YAML files
-- `data/{warmup,final}/` -- phase-isolated corpus and index data
-- `data/dev/` -- dev gold/silver question sets
-- `scripts/` -- numbered operator scripts for end-to-end baseline execution
-- `tools/` -- developer utilities (`operator_context.py`)
+- `src/main.py` — CLI entrypoint: sync, parse, build-indices, build-submission, validation, scoring, benchmark
+- `src/common/config.py` — config loading; settings: `AnsweringSettings`, `PageAttributionSettings`, `DecompositionSettings`, `IndexingSettings`, `RetrievalSettings`, etc.
+- `src/common/schemas.py` — all data models (Pydantic): `CanonicalPageRecord`, `QuestionRecord`, `PageMapRecord`, etc.
+- `src/common/runtime_logging.py` — structured JSON logging and event helpers
+- `configs/baseline/v001/` — baseline config YAML
+- `data/{warmup,final}/` — phase-isolated corpus, index, and raw_parse sidecars
+- `data/dev/` — dev gold/silver question sets
+- `scripts/` — numbered operator scripts + `smoke_test_w4e.py`
+- `tools/` — developer utilities (`operator_context.py`)
 
 ---
 
 ## 7. Core Data Models
 
-- **Page**: doc_id, page_number, text, source_mode, quality_score, blocks, table_ids
-- **Chunk**: chunk_id, text, doc_id, page_span, parent_section, chunk_type, metadata
-- **Question**: question_id, text, answer_type
-- **Answer**: question_id, answer (typed), telemetry
+- **Page** (`CanonicalPageRecord`): doc_id, page_number, text, source_mode, parse_status, quality_score, quality_flags, blocks, table_ids, parser_provenance, triage_label
+- **Chunk**: chunk_id, text, doc_id, page_span, parent_section, chunk_type, metadata (token count, provenance)
+- **Question** (`QuestionRecord`): id, question, answer_type
+- **QueryMetadata**: legal_entities (case_id, statute_id), document_title_cues, likely_multi_document
+- **AnswerResult**: question_id, answer (typed), confidence, evidence_pages, page_trace, model_name
+- **PageAttributionTrace**: raw_retrieved_chunk_pages → pass_a_pages → solver_reported_pages → final_emitted_pages, validation_action, collapsed_answer
+- **Structured schemas** (`ANSWER_SCHEMA_REGISTRY`): BooleanAnswerSchema, NumberAnswerSchema, NameAnswerSchema, NamesAnswerSchema, DateAnswerSchema, FreeTextAnswerSchema — each with is_answerable, final_answer, relevant_pages, reasoning_summary, confidence
+- **Decomposition** (`SubQuestionResult`, `DecompositionResult`): entity_id, sub-question, sub-answer, recomposed final
+- **RetrievalResult**: question_id, query, answer_type, evidence_chunks, retrieved_chunk_pages, diagnostics
 - **Telemetry**: timing (ttft_ms, tpot_ms, total_time_ms), retrieval (retrieved_chunk_pages), usage (input/output tokens), model_name
 - **Submission**: architecture_summary, answers[]
 

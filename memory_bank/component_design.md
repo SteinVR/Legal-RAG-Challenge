@@ -29,73 +29,69 @@ Phase-local storage is resolved by `src/submission/sync.py::PhasePaths` and curr
 - `data/{phase}/index/index_manifest.json`
 - `data/{phase}/index/sparse_encoder_state.json`
 
-At the time of writing, the workspace contains warmup PDFs and downloaded question/manifests, but the generated `data/warmup/corpus/` and `data/warmup/index/` directories have not been materialized yet.
+The warmup phase is fully materialized: corpus (590 pages, `opendataloader:tagged`), index (3804 chunks), and raw parse sidecars (pymupdf + opendataloader JSON). Last e2e run: 2026-03-25.
 
-## A. Ingestion (`src/ingestion/`)
+## A. Ingestion (`src/ingestion/`) — 10 modules
 
 ### Responsibility
 
-Ingestion turns raw PDFs into a canonical page-level corpus with normalized text, table blocks, page-level quality signals, and document/page manifests.
+Ingestion turns raw PDFs into a canonical page-level corpus with structural provenance, tables, quality metadata, JSON sidecars, and parse manifests. Wave 4C added routed structural parsing via opendataloader-pdf.
 
 ### Primary Files
 
-- `src/ingestion/service.py` orchestrates `parse-corpus`, path resolution, cache reuse checks, and artifact writing.
-- `src/ingestion/pdf_parser.py` parses one PDF with PyMuPDF, extracts native text and table candidates, and optionally upgrades pages with OCR.
-- `src/ingestion/page_triage.py` classifies pages into `native_clean`, `scan`, or `suspicious` and computes quality scores and flags.
-- `src/ingestion/ocr_engine.py` exposes the OCR adapter used when pages need OCR fallback.
-- `src/ingestion/table_serializer.py` normalizes, merges, and serializes table rows into retrieval-friendly blocks.
-- `src/ingestion/corpus_builder.py` converts parsed documents into canonical corpus records, page maps, manifests, and per-document debug markdown.
+- `service.py` — orchestrates `parse-corpus`, path resolution, cache reuse, artifact writing, and W4C parser routing integration.
+- `pdf_parser.py` — parses one PDF: native text extraction (PyMuPDF), page triage, OCR upgrade for scan/suspicious pages, parser availability checks. Calls `_parser_availability()` and `resolve_parser_route()` to decide the parsing path.
+- `parser_routing.py` — W4C: route decisions (`TAGGED`/`HYBRID`/`LOCAL_ONLY`/`BASELINE_FALLBACK`) based on `DocumentStructuralProfile` (struct tree, born-digital, layout complexity) and `ParserAvailability` (opendataloader importable, hybrid backend healthy).
+- `opendataloader_adapter.py` — W4C: executes opendataloader-pdf convert via Java bridge. Produces JSON sidecars with typed nodes, bbox, tables. LRU-cached availability check.
+- `sidecars.py` — W4C: JSON sidecar read/write helpers for `raw_parse/pymupdf/` and `raw_parse/opendataloader/`.
+- `structural_normalizer.py` — W4C: heading hierarchy, list nesting, caption linkage from opendataloader nodes.
+- `ocr_engine.py` — GPU OCR adapter (PaddleOCR PP-OCRv5). Config: `ocr_device`, `ocr_model_root_dir`. Validates CUDA via `paddle.device.cuda.device_count()`.
+- `page_triage.py` — classifies pages into `native_clean`, `scan`, or `suspicious` via heuristics.
+- `table_serializer.py` — rule-based table detection, cross-page merging, row-level serialization.
+- `corpus_builder.py` — assembles `CanonicalPageRecord` objects, page maps, manifests, debug markdown.
 
 ### Inputs
 
 - PDFs under `data/{phase}/documents/pdfs/*.pdf`.
-- Ingestion thresholds from `configs/baseline/v001/config.yaml`.
-- Optional OCR availability through `src/ingestion/ocr_engine.py`.
+- Ingestion config from `configs/baseline/v001/config.yaml` (OCR settings, opendataloader settings).
+- GPU OCR runtime (PP-OCRv5_server_det + en_PP-OCRv5_mobile_rec).
+- Optional opendataloader-pdf Java bridge.
 
 ### Outputs
 
-`src/ingestion/service.py` writes four artifact groups:
+- `corpus.jsonl` — one `CanonicalPageRecord` per page (with `parser_provenance`, `source_mode`, quality metadata).
+- `page_map.json` — document-level summaries.
+- `corpus_manifest.json` — parse results and failure reporting.
+- `debug/*.md` — per-document markdown debug views.
+- `raw_parse/pymupdf/*.json` — native parse sidecars.
+- `raw_parse/opendataloader/*.json` — structural parse sidecars (typed nodes, bbox, tables).
 
-- `corpus.jsonl`, one `CanonicalPageRecord` per page.
-- `page_map.json`, document-level `PageMapRecord` summaries.
-- `corpus_manifest.json`, document-level parse results and failure reporting.
-- `debug/*.md`, one markdown debug view per successfully parsed document.
+### `CanonicalPageRecord` fields
 
-The main corpus output is page-scoped, not document-scoped. `CanonicalPageRecord` in `src/common/schemas.py` currently includes:
+`doc_id`, `page_number`, `document_title`, `document_family`, `triage_label`, `source_mode`, `parse_status`, `quality_score`, `quality_flags`, `text`, `blocks[]`, `table_ids[]`, `parser_provenance`.
 
-- `doc_id`, `page_number`, `document_title`, `document_family`
-- `triage_label`, `source_mode`, `parse_status`
-- `quality_score`, `quality_flags`
-- `text`
-- `blocks[]` with `text` and `table` content blocks
-- `table_ids[]`
+### Parser routing (W4C)
 
-### Runtime Flow
+```
+if not opendataloader_available → BASELINE_FALLBACK
+else if has_struct_tree → TAGGED (opendataloader with struct tree)
+else if born_digital OR layout_complex →
+    if hybrid_backend_healthy → HYBRID (docling-fast) else LOCAL_ONLY
+else → LOCAL_ONLY
+```
 
-For each PDF, `DocumentParser` in `src/ingestion/pdf_parser.py`:
+Config: `opendataloader_table_method="cluster"`, `opendataloader_reading_order="xycut"`, `opendataloader_hybrid_backend="docling-fast"`, `opendataloader_hybrid_url="http://localhost:5002"`.
 
-- extracts native text and simple text blocks with PyMuPDF
-- gathers raw table candidates
-- computes page signals such as text count, image area, legal markers, and encoding noise
-- routes the page through `triage_page`
-- keeps native text for `native_clean`
-- invokes OCR for `scan` and selected `suspicious` pages when OCR is enabled
+### OCR (W4D)
 
-After parsing, `serialize_document_tables()` merges adjacent cross-page tables and emits row-level `SerializedTableBlock` content. `CorpusBuilder` then assembles canonical page records and debug markdown.
+- GPU device: `config.ingestion.ocr_device` (default `gpu:0`).
+- Triggered only for `SCAN` or `SUSPICIOUS` triage labels (high image area, low native text).
+- Warmup corpus is born-digital → OCR loaded but not triggered.
+- Policy: `ocr_unavailable_policy="error"` fails fast if GPU unavailable.
 
-### Important Notes
+### Tests (9 files)
 
-- `SourceMode` in `src/common/schemas.py` allows `hybrid`, but the current page resolution path in `src/ingestion/pdf_parser.py` effectively resolves pages as native or OCR.
-- Quality is deterministic and heuristic-based. It is not model-scored.
-- OCR availability is policy-driven: config can either fail hard or degrade parsing when the OCR runtime is missing.
-
-### Tests
-
-- `tests/test_ingestion_service.py`
-- `tests/test_ingestion_pdf_parser.py`
-- `tests/test_ingestion_page_triage.py`
-- `tests/test_ingestion_table_serializer.py`
-- `tests/test_ingestion_corpus_builder.py`
+`test_ingestion_service.py`, `test_ingestion_pdf_parser.py`, `test_ingestion_page_triage.py`, `test_ingestion_table_serializer.py`, `test_ingestion_corpus_builder.py`, `test_ingestion_parser_routing.py`, `test_ingestion_opendataloader_adapter.py`, `test_ingestion_sidecars.py`, `test_ingestion_structural_normalizer.py`, `test_ingestion_ocr_engine.py`.
 
 ## B. Indexing (`src/indexing/`)
 
@@ -206,6 +202,7 @@ Retrieval loads the persisted index, runs hybrid search, reranks candidates, com
 - Retrieval is page-grounding aware all the way through. Evidence compression and lifting are not optional post-processing extras.
 - The sparse path is compatibility-aware: retrieval can still run without sparse state if only dense artifacts are available.
 - Rank fusion and reranking are separated concerns: RRF stabilizes search recall, while the reranker sharpens the final candidate order.
+- W4D additions: question-class-aware budget routing (case/statute precision vs cross_case breadth), soft metadata boosts from W4B query metadata (legal entities as optional payload conditions in Qdrant), parent-page expansion.
 
 ### Tests
 
@@ -214,48 +211,49 @@ Retrieval loads the persisted index, runs hybrid search, reranks candidates, com
 - `tests/test_retrieval_service.py`
 - `tests/test_answering_retrieval_integration.py`
 
-## D. Answering (`src/answering/`)
+## D. Answering (`src/answering/`) — 3 modules
 
 ### Responsibility
 
-Answering converts grounded retrieval output into final answer payloads. Deterministic answer types are solved through extraction-first logic; free-text questions are delegated to a provider with grounding checks and answer validation.
+Answering converts grounded retrieval output into final answer payloads. Primary path: schema-first structured solving (W4B). Guardrails: deterministic validation/normalization. Page attribution: two-pass (W4A). Cross-case decomposition: rule-based (W4E).
 
 ### Primary Files
 
-- `src/answering/service.py` contains the answering contract, deterministic extractors, free-text path, validation helpers, and evidence normalization.
+- `service.py` — schema registry (`ANSWER_SCHEMA_REGISTRY`), query metadata extraction (`extract_query_metadata()`), structured solver dispatch (`_answer_with_structured_solver()`), deterministic guardrails, confidence thresholding. Contains `AnsweringService`, `AnswerResult`, `QueryMetadata`, `LegalEntityMetadata`, per-type Pydantic answer schemas.
+- `page_attribution.py` — W4A: `prune_candidate_pages()` (Pass A: boilerplate/title-page suppression), `finalize_page_attribution()` (Pass B: post-answer narrowing/validation). `PageAttributionConfig`, `PageAttributionTrace`, `build_page_trace()`.
+- `decomposition.py` — W4E: `should_decompose()` (trigger: enabled + 2+ case refs + boolean/name type), `decompose_question()` (rule-based per-case sub-question generation), `recompose_answer()` (deterministic: set intersection for boolean, value comparison for name), `answer_with_decomposition()` (orchestrator).
 
-### Inputs
+### Key data flow
 
-- `QuestionRecord`
-- `RetrievalResult` or a retriever that can produce one
-- a `FreeTextProvider` implementation for `free_text`
+```
+question → extract_query_metadata() → retrieval → Pass A pruning
+  → structured solver (schema + reasoning effort) → Pass B finalization
+  → AnswerResult with PageAttributionTrace
 
-### Outputs
+Cross-case questions (when decomposition enabled):
+  question → should_decompose() → decompose_question()
+  → [per sub-question: answering_service.answer_question()]
+  → recompose_answer() → merged AnswerResult
+```
 
-`AnsweringService.answer_question()` produces `AnswerResult` with:
+### Schema registry (W4B)
 
-- `question_id`
-- typed `answer`
-- normalized confidence
-- grouped evidence page references
+`ANSWER_SCHEMA_REGISTRY` maps answer_type → Pydantic model:
+- `BooleanAnswerSchema`, `NumberAnswerSchema`, `NameAnswerSchema`, `NamesAnswerSchema`, `DateAnswerSchema`, `FreeTextAnswerSchema`
+- Common fields: `is_answerable`, `relevant_pages`, `reasoning_summary`, `confidence`, typed `final_answer`
+- Reasoning effort: high (boolean/name/names), medium (number/date/free_text)
 
-### Runtime Flow
+### Decomposition (W4E)
 
-- Deterministic answer types (`number`, `boolean`, `name`, `names`, `date`) use extraction heuristics over the retrieved evidence pages.
-- The service normalizes evidence pages, deduplicates support, and validates polarity and format constraints.
-- Free-text questions are sent to the provider through the `FreeTextProvider.generate()` contract and then checked for grounding and max-length compliance.
-- If retrieval returns no valid evidence, the service emits the canonical unanswerable response path instead of hallucinating unsupported content.
+- Disabled by default (`config.decomposition.enabled=False`).
+- Triggers on boolean/name questions with 2+ DIFC case references (CFI/SCT/ARB/DEC/TCD/ENF/CA).
+- Subject detection: party, judge, date, claim → generates appropriate sub-questions with adjusted answer_type.
+- Recomposition: boolean → set intersection; name → value comparison (prefer earlier/lower or later/higher).
+- 31/100 warmup questions are cross-case (19 boolean, 12 name).
 
-### Important Notes
+### Tests (4 files)
 
-- The older architecture note referred to a `router.py`, `solvers/`, `free_text_gen.py`, and `self_check.py` split. In the current repository those responsibilities are consolidated inside `src/answering/service.py`.
-- The answering layer is extraction-first by design. The LLM provider is not used for deterministic answer types.
-- Free-text answers are capped to challenge-friendly short form and validated against the supplied evidence window.
-
-### Tests
-
-- `tests/test_answering_service.py`
-- `tests/test_answering_retrieval_integration.py`
+`test_answering_service.py`, `test_answering_retrieval_integration.py`, `test_answering_w4b_contracts.py`, `test_answering_page_attribution.py`, `test_answering_decomposition.py`.
 
 ## E. Evaluation (`src/evaluation/`)
 
@@ -308,7 +306,7 @@ Submission packages the full pipeline into a competition-ready bundle: sync help
 ### Primary Files
 
 - `src/submission/sync.py` defines `PhasePaths` and phase-local question/document download orchestration.
-- `src/submission/pipeline.py` assembles the full run from corpus/index reuse checks through answering and packaging.
+- `src/submission/pipeline.py` assembles the full run from corpus/index reuse checks through answering (with decomposition routing) and packaging.
 - `src/submission/telemetry_packer.py` formats answer-level telemetry.
 - `src/submission/packager.py` writes `submission.json` and produces `code_archive.zip`.
 - `src/submission/submit_gate.py` enforces packaging and local validation checks before submission.
@@ -344,6 +342,7 @@ It also validates the bundle locally before the user attempts a remote submit.
 - The submission pipeline is restart-safe in practice because it checks corpus and index completeness before rebuilding.
 - `code_archive.zip` intentionally excludes secrets, data, logs, caches, and unrelated tooling state.
 - The provider fallback path in `pipeline.py` only applies to free-text provider model failures, not to deterministic extraction.
+- `_answer_question()` checks `config.decomposition.enabled` and routes cross-case questions through `answer_with_decomposition()` (W4E).
 
 ### Tests
 
@@ -352,36 +351,26 @@ It also validates the bundle locally before the user attempts a remote submit.
 - `tests/test_api_client.py`
 - `tests/test_main.py`
 
-## G. Providers (`src/providers/`)
+## G. Providers (`src/providers/`) — 2 modules
 
 ### Responsibility
 
-Providers abstract the free-text generation backend used by the answering layer.
+Providers abstract free-text and structured-output generation.
 
 ### Primary Files
 
-- `src/providers/base.py` defines the `FreeTextProvider` protocol.
-- `src/providers/codex_provider.py` implements the Codex-compatible HTTP provider over `/responses`.
+- `base.py` — `FreeTextProvider` protocol and `StructuredProvider` protocol.
+- `codex_provider.py` — `CodexFreeTextProvider` (free-text via `/responses`) and structured output support:
+  - `generate()` — free-text: question + evidence → answer + confidence.
+  - `generate_structured()` — W4B: question + answer_type + evidence + Pydantic schema + reasoning_effort → schema-validated dict.
+  - `_strict_openai_schema()` — post-processor: ensures all Pydantic properties in `required` array (OpenAI strict mode compatibility).
+  - Response parsing handles OpenAI Responses API format: skips `reasoning` items, extracts `output_text` type content.
+  - `max_output_tokens=2048` (reasoning models consume most tokens on thinking).
+  - Structured system prompt includes ISO-8601 date format hint.
 
-### Inputs
+### Credentials
 
-- question text
-- evidence page payloads
-- character budget
-- API credentials through `CODEX_OAUTH_TOKEN`, `OPENAI_API_KEY`, `CODEX_API_KEY`, or explicit constructor arguments
-
-### Outputs
-
-The provider returns a mapping with:
-
-- `answer`
-- `confidence`
-
-### Important Notes
-
-- The high-level architecture note mentioned a `fallback_provider.py`, but the current repository only contains the base protocol and the Codex-backed implementation.
-- The provider is intentionally narrow. It only handles grounded free-text generation, not retrieval or deterministic extraction.
-- `CodexFreeTextProvider` normalizes several possible response payload shapes before extracting the final answer text.
+Resolved via `CODEX_OAUTH_TOKEN`, `OPENAI_API_KEY`, `CODEX_API_KEY`, or explicit constructor argument.
 
 ### Tests
 
@@ -400,9 +389,9 @@ Common contains shared configuration and schema contracts used across ingestion,
 
 ### Important Notes
 
-- `AppConfig` is the root runtime configuration object; most services resolve their filesystem layout from it.
+- `AppConfig` is the root runtime configuration object. Wave 4 added: `DecompositionSettings` (W4E), `PageAttributionSettings` (W4A), expanded `IngestionSettings` (OCR device, opendataloader), `RetrievalSettings` (question-class budgets), `IndexingSettings` (token-aware chunking).
 - `src/common/schemas.py` is the canonical definition site for ingestion and corpus artifacts such as `CanonicalPageRecord`, `PageMapRecord`, and `CorpusParseManifest`.
-- Because these schemas sit at the foundation, drift here propagates into multiple stages quickly. When debugging artifact mismatches, start with this directory.
+- Env overrides: `COMPETITION_DECOMPOSITION_ENABLED`, `COMPETITION_OCR_DEVICE`, `COMPETITION_PASS_A_ENABLED`, `COMPETITION_PAGE_VALIDATION_MODE`, etc.
 
 ### Tests
 
@@ -414,13 +403,24 @@ Common contains shared configuration and schema contracts used across ingestion,
 
 If you are new to the repository, the fastest way to orient yourself is:
 
-1. `src/main.py`
-2. `src/common/config.py`
-3. `src/submission/sync.py`
-4. `src/ingestion/service.py`
-5. `src/indexing/service.py`
-6. `src/retrieval/service.py`
-7. `src/answering/service.py`
-8. `src/submission/pipeline.py`
+1. `src/main.py` — CLI entrypoint, all commands
+2. `src/common/config.py` — full config model with all Wave 4 settings
+3. `src/submission/sync.py` — phase paths and data layout
+4. `src/ingestion/service.py` → `src/ingestion/parser_routing.py` — parse orchestration and W4C routing
+5. `src/indexing/service.py` — chunking and hybrid index
+6. `src/retrieval/service.py` — retrieval with budget routing
+7. `src/answering/service.py` → `src/answering/page_attribution.py` — schema-first solving + two-pass attribution
+8. `src/answering/decomposition.py` — cross-case decomposition (W4E)
+9. `src/providers/codex_provider.py` — structured output provider
+10. `src/submission/pipeline.py` — full e2e orchestration with decomposition routing
 
-That sequence follows the actual lifecycle of the system more closely than the raw directory listing does.
+That sequence follows the actual lifecycle of the system.
+
+## Current Stats (2026-03-25)
+
+- **Test suite**: 342 passed, ruff clean
+- **Corpus**: 30 docs, 590 pages, `opendataloader:tagged`, 30 JSON sidecars
+- **Index**: 3804 chunks (page, section, clause, microchunk, table)
+- **GPU**: RTX 4060 8GB, Paddle CUDA 1 device, Torch CUDA active
+- **Cross-case coverage**: 31/100 warmup questions decomposable (19 boolean, 12 name)
+- **Smoke test**: 5/5 processed, 4 answered, decomposition verified

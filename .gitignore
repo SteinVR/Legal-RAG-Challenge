@@ -17,7 +17,6 @@ build/
 # Data artifacts (large, reproducible)
 data/
 !data/**/
-!data/**/about_directory.md
 *.parquet
 *.faiss
 

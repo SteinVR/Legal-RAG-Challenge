@@ -15,15 +15,6 @@
 - `tests/` — tests.
 - `logs/` — split into `logs/project/` for project logs and `logs/agents/` for agent-session logs.
 
-## Directory navigation
-- Before reading a directory broadly or searching through it chaotically, first look for that directory's `about_directory.md`.
-- Use `about_directory.md` to decide which child files and subdirectories are actually relevant, and only then descend deeper.
-- Treat `about_directory.md` as the default memory-saving navigation layer for this repo; only skip it when the directory truly has no such file or the task explicitly requires raw artifact inspection.
-- If you create a new stable first-party directory that agents or humans are expected to navigate, create its `about_directory.md` in the same task.
-- If you significantly change a stable first-party directory's role, key files, or child directories, update the affected `about_directory.md` before finishing the task.
-- Treat a missing or stale `about_directory.md` in a maintained navigation directory as a documentation defect to fix, not as optional cleanup.
-- This maintenance rule applies to stable first-party navigation directories, not to hidden/tooling directories, caches, raw artifact leaves, or run-specific log leaves.
-
 ## Workflow
 - Core loop: plan -> implement -> verify.
 
