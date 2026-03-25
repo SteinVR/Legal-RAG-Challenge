@@ -381,6 +381,15 @@ class LoggingSettings(BaseModel):
         return value
 
 
+class DecompositionSettings(BaseModel):
+    """Cross-case decomposition controls (W4E)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = False
+    max_subquestions: int = 4
+
+
 class RuntimeSettings(BaseModel):
     """Execution-time runtime requirements for production flows."""
 
@@ -405,6 +414,7 @@ class AppConfig(BaseModel):
     page_attribution: PageAttributionSettings = Field(default_factory=PageAttributionSettings)
     indexing: IndexingSettings = Field(default_factory=IndexingSettings)
     retrieval: RetrievalSettings = Field(default_factory=RetrievalSettings)
+    decomposition: DecompositionSettings = Field(default_factory=DecompositionSettings)
     runtime: RuntimeSettings = Field(default_factory=RuntimeSettings)
     logging: LoggingSettings = Field(default_factory=LoggingSettings)
 
@@ -525,6 +535,7 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     pass_a_enabled_override = env.get("COMPETITION_PASS_A_ENABLED")
     page_validation_mode_override = env.get("COMPETITION_PAGE_VALIDATION_MODE")
     require_gpu_override = env.get("COMPETITION_REQUIRE_GPU")
+    decomposition_enabled_override = env.get("COMPETITION_DECOMPOSITION_ENABLED")
     log_level_override = env.get("COMPETITION_LOG_LEVEL")
     log_directory_override = env.get("COMPETITION_LOG_DIRECTORY")
     debug_documents_override = env.get("COMPETITION_DEBUG_DOCUMENTS")
@@ -609,6 +620,15 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     if require_gpu_override:
         config = config.model_copy(
             update={"runtime": config.runtime.model_copy(update={"require_gpu": _parse_bool(require_gpu_override)})}
+        )
+
+    if decomposition_enabled_override:
+        config = config.model_copy(
+            update={
+                "decomposition": config.decomposition.model_copy(
+                    update={"enabled": _parse_bool(decomposition_enabled_override)}
+                )
+            }
         )
 
     if log_level_override:

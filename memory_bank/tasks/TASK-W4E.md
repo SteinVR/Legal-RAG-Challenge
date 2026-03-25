@@ -71,7 +71,7 @@ This task owns orchestration for decomposed multi-document reasoning only. It do
 
 **Title**: Cross-case decomposition & multi-document orchestration  
 **Description**: Add a selective decomposition path for hard comparative and cross-case questions once the non-decomposition multi-document baseline is stable.  
-**Status**: Planned  
+**Status**: Done (implemented 2026-03-25, smoke-tested on 5 warmup questions)
 **Wave**: Wave 4 -- Baseline Recovery & Structural Upgrade
 
 ## 2. Scope

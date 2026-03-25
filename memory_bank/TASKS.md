@@ -33,7 +33,7 @@
 - [x] [TASK-W4B](tasks/TASK-W4B.md) Structured typed solving, validation & legal prefilters
 - [x] [TASK-W4C](tasks/TASK-W4C.md) Structural parser branch, normalization & table enrichment
 - [x] [TASK-W4D](tasks/TASK-W4D.md) Retrieval upgrade, chunk calibration & asymmetric tuning
-- [ ] [TASK-W4E](tasks/TASK-W4E.md) Cross-case decomposition & multi-document orchestration
+- [x] [TASK-W4E](tasks/TASK-W4E.md) Cross-case decomposition & multi-document orchestration
 
 > The grouped tracks below remain thematic backlog buckets. The Wave 4 tasks above are the authoritative implementation units for execution and acceptance.
 

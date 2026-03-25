@@ -18,7 +18,7 @@ from src.common.runtime_logging import get_logger, log_event
 DEFAULT_CODEX_BASE_URL = "https://api.openai.com/v1"
 DEFAULT_CODEX_MODEL = "gpt-5.4-mini"
 DEFAULT_PROVIDER_CONFIDENCE = 0.5
-DEFAULT_MAX_OUTPUT_TOKENS = 220
+DEFAULT_MAX_OUTPUT_TOKENS = 2048
 LOGGER = get_logger("providers.codex")
 
 _SYSTEM_PROMPT = (
@@ -28,7 +28,8 @@ _SYSTEM_PROMPT = (
 )
 _STRUCTURED_SYSTEM_PROMPT = (
     "Answer strictly from the provided legal evidence and return one JSON object that follows the supplied schema. "
-    "Use null only when the schema permits null and the evidence is insufficient."
+    "Use null only when the schema permits null and the evidence is insufficient. "
+    "For dates, always use ISO-8601 format (YYYY-MM-DD)."
 )
 
 
@@ -144,7 +145,7 @@ class CodexFreeTextProvider:
         started_at = time.perf_counter()
         normalized_effort = str(reasoning_effort).strip().lower() or "medium"
         schema_name = f"{answer_type}_answer"
-        schema_payload = answer_schema.model_json_schema()
+        schema_payload = _strict_openai_schema(answer_schema.model_json_schema())
 
         response = self._client.post(
             "responses",
@@ -387,6 +388,19 @@ def _build_user_prompt(*, question: str, evidence_pages: list[dict[str, Any]], m
     )
 
 
+def _strict_openai_schema(schema: dict[str, Any]) -> dict[str, Any]:
+    """Ensure a Pydantic-generated JSON schema is OpenAI strict-mode compatible.
+
+    OpenAI strict mode requires every key in ``properties`` to appear in
+    ``required``.  Pydantic omits fields with defaults from ``required``,
+    which causes 400 errors.
+    """
+    schema = dict(schema)
+    if "properties" in schema:
+        schema["required"] = sorted(schema["properties"])
+    return schema
+
+
 def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_pages: list[dict[str, Any]]) -> str:
     evidence_lines: list[str] = []
     for index, page in enumerate(evidence_pages, start=1):
@@ -415,12 +429,16 @@ def _extract_response_text(payload: dict[str, Any]) -> str:
         for item in output:
             if not isinstance(item, dict):
                 continue
+            # Skip reasoning items
+            if item.get("type") == "reasoning":
+                continue
             content = item.get("content")
             if not isinstance(content, list):
                 continue
             for content_item in content:
                 if not isinstance(content_item, dict):
                     continue
+                # Responses API uses "output_text" type with "text" key
                 text = content_item.get("text")
                 if isinstance(text, str) and text.strip():
                     chunks.append(text)

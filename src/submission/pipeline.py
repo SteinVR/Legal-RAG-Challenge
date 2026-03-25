@@ -18,10 +18,15 @@ import fitz
 from qdrant_client import QdrantClient
 
 import src.indexing.service as indexing_service
+from src.answering.decomposition import (
+    answer_with_decomposition,
+    should_decompose,
+)
 from src.answering.page_attribution import PageAttributionConfig
 from src.answering.service import (
     AnsweringService,
     AnswerResult,
+    extract_query_metadata,
 )
 from src.common.config import AppConfig
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
@@ -362,6 +367,8 @@ class BuildSubmissionService:
                 answer_result = self._answer_question(
                     question=question,
                     answering_service=answering_service,
+                    decomposition_enabled=config.decomposition.enabled,
+                    max_subquestions=config.decomposition.max_subquestions,
                 )
                 total_time_ms = _elapsed_milliseconds(
                     started_at=question_started_at,
@@ -449,7 +456,18 @@ class BuildSubmissionService:
         *,
         question: QuestionRecord,
         answering_service: AnsweringService,
+        decomposition_enabled: bool = False,
+        max_subquestions: int = 4,
     ) -> AnswerResult:
+        if decomposition_enabled:
+            query_metadata = extract_query_metadata(question.question)
+            if should_decompose(question, query_metadata, enabled=True):
+                return answer_with_decomposition(
+                    question=question,
+                    query_metadata=query_metadata,
+                    answering_service=answering_service,
+                    max_subquestions=max_subquestions,
+                )
         return answering_service.answer_question(question)
 
     def _build_provider(self, model: str) -> Any:
