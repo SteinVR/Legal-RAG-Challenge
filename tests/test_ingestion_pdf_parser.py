@@ -306,22 +306,33 @@ def test_parser_availability_requires_importable_opendataloader_converter(
             }
         }
     )
-    monkeypatch.setattr("src.ingestion.pdf_parser._OPEN_DATALOADER_PACKAGE_PATH", tmp_path / "missing-vendor")
-    monkeypatch.setattr("src.ingestion.pdf_parser.importlib.util.find_spec", lambda name: None)
-    monkeypatch.setattr(
-        "src.ingestion.pdf_parser.shutil.which",
-        lambda binary: "/usr/bin/java" if binary == "java" else None,
-    )
+    from src.ingestion import opendataloader_adapter
 
-    availability = _parser_availability(config)
-    route = resolve_parser_route(
-        DocumentStructuralProfile(has_struct_tree=False, born_digital=True, layout_complex=False),
-        availability,
-    )
+    opendataloader_adapter.opendataloader_convert_available.cache_clear()
+    try:
+        monkeypatch.setattr("src.ingestion.pdf_parser._OPEN_DATALOADER_PACKAGE_PATH", tmp_path / "missing-vendor")
+        monkeypatch.setattr("src.ingestion.pdf_parser.importlib.util.find_spec", lambda name: None)
+        monkeypatch.setattr(
+            "src.ingestion.pdf_parser.shutil.which",
+            lambda binary: "/usr/bin/java" if binary == "java" else None,
+        )
+        monkeypatch.setattr(
+            "src.ingestion.opendataloader_adapter._OPEN_DATALOADER_VENDORED_SRC",
+            tmp_path / "missing-vendor",
+        )
+        monkeypatch.setattr("src.ingestion.opendataloader_adapter.importlib.util.find_spec", lambda name: None)
 
-    assert availability.opendataloader_available is False
-    assert availability.hybrid_backend_healthy is False
-    assert route is ParserRoute.BASELINE_FALLBACK
+        availability = _parser_availability(config)
+        route = resolve_parser_route(
+            DocumentStructuralProfile(has_struct_tree=False, born_digital=True, layout_complex=False),
+            availability,
+        )
+
+        assert availability.opendataloader_available is False
+        assert availability.hybrid_backend_healthy is False
+        assert route is ParserRoute.BASELINE_FALLBACK
+    finally:
+        opendataloader_adapter.opendataloader_convert_available.cache_clear()
 
 
 def test_has_struct_tree_treats_xref_key_as_present() -> None:
