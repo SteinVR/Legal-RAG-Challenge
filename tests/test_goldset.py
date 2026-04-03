@@ -16,6 +16,7 @@ from src.evaluation.goldset import (
     split_questions_stratified,
 )
 from tests.support.answering import question_record as _question
+from tools.goldset_workflow import _copy_referenced_documents
 
 
 def test_split_questions_stratified_balances_and_preserves_uniqueness() -> None:
@@ -247,3 +248,24 @@ def test_combine_gold_question_benchmark_and_score_sets() -> None:
     assert combined_benchmark.assistant_scores == []
     assert [score.question_id for score in combined_scores] == ["q2", "q3"]
     assert collect_referenced_doc_ids(combined_benchmark.references) == ["alpha", "beta"]
+
+
+def test_copy_referenced_documents_removes_stale_pdfs(tmp_path) -> None:
+    source_dir = tmp_path / "source"
+    source_dir.mkdir()
+    (source_dir / "alpha.pdf").write_bytes(b"%PDF-alpha")
+    (source_dir / "beta.pdf").write_bytes(b"%PDF-beta")
+
+    target_dir = tmp_path / "target" / "documents" / "pdfs"
+    target_dir.mkdir(parents=True)
+    (target_dir / "stale.pdf").write_bytes(b"%PDF-stale")
+
+    copied_doc_ids = _copy_referenced_documents(
+        doc_ids=["alpha", "beta"],
+        source_dirs=[source_dir],
+        target_dir=target_dir,
+    )
+
+    assert copied_doc_ids == ["alpha", "beta"]
+    assert not (target_dir / "stale.pdf").exists()
+    assert sorted(path.name for path in target_dir.glob("*.pdf")) == ["alpha.pdf", "beta.pdf"]

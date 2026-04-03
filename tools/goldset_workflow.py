@@ -255,6 +255,9 @@ def _run_assemble(args: argparse.Namespace) -> int:
 
 def _copy_referenced_documents(*, doc_ids: list[str], source_dirs: list[Path], target_dir: Path) -> list[str]:
     target_dir.mkdir(parents=True, exist_ok=True)
+    for stale_pdf_path in target_dir.glob("*.pdf"):
+        stale_pdf_path.unlink()
+
     copied_doc_ids: list[str] = []
     for doc_id in doc_ids:
         filename = f"{doc_id}.pdf"
