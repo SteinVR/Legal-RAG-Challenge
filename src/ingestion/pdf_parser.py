@@ -130,7 +130,7 @@ def parse_pdf_document(
                 try:
                     ocr_result = effective_ocr.extract_page(page)
                 except OcrUnavailableError:
-                    if config.ingestion.ocr_unavailable_policy == "error":
+                    if triage_label is TriageLabel.SCAN and config.ingestion.ocr_unavailable_policy == "error":
                         raise
                     ocr_unavailable = True
             elif ocr_requested:

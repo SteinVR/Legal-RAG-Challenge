@@ -437,6 +437,7 @@ def _run_submission_status(args: argparse.Namespace, config: AppConfig, client_f
 def _run_build_submission(args: argparse.Namespace, config: AppConfig) -> str:
     service = BuildSubmissionService(
         config,
+        env_file=Path(args.env_file),
         provider_class=CodexFreeTextProvider,
         provider_api_key=_resolve_provider_api_key(Path(args.env_file)),
     )

@@ -1655,7 +1655,14 @@ def _extract_number(
 
 
 def _is_law_number_question(question_text: str) -> bool:
-    return bool(_LAW_NUMBER_QUERY_PATTERN.search(question_text))
+    normalized = question_text.strip().lower()
+    if not _LAW_NUMBER_QUERY_PATTERN.search(normalized):
+        return False
+    if re.search(r"\bhow\s+many\b", normalized):
+        return False
+    if _TEMPORAL_CUE_PATTERN.search(normalized):
+        return False
+    return bool(re.search(r"\b(?:what|which)\b", normalized))
 
 
 def _extract_law_number_literal(text: str) -> int | float | None:

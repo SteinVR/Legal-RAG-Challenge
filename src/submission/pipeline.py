@@ -92,12 +92,14 @@ class BuildSubmissionService:
         self,
         config: AppConfig,
         *,
+        env_file: Path | None = None,
         provider_class: type = CodexFreeTextProvider,
         max_code_archive_bytes: int = MAX_CODE_ARCHIVE_BYTES,
         provider_api_key: str | None = None,
         clock: Any | None = None,
     ) -> None:
         self.config = config
+        self.env_file = env_file or Path(".env")
         self.provider_class = provider_class
         self.free_text_model = FREE_TEXT_MODEL
         self.provider_api_key = provider_api_key
@@ -271,7 +273,7 @@ class BuildSubmissionService:
             )
             return True
 
-        service = CorpusParseService(config)
+        service = CorpusParseService(config, env_file=self.env_file)
         # Force overwrite when our integrity check fails to avoid parse-corpus internal "skip" cache reuse.
         service.parse_corpus(dry_run=False, overwrite=True)
         log_event(
@@ -489,6 +491,28 @@ class BuildSubmissionService:
             return AnswerResult(
                 question_id=question.id,
                 answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+                confidence=0.0,
+                evidence_pages=[],
+            )
+        except (TypeError, ValueError) as exc:
+            answer_type = str(question.answer_type).strip().lower()
+            fallback_answer: Any = (
+                CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER if answer_type == AnswerType.FREE_TEXT.value else None
+            )
+            log_event(
+                LOGGER,
+                logging.WARNING,
+                "build_submission.question.answering_failed",
+                "Answering failed for one question; returning fail-safe no-answer.",
+                stage="submission",
+                question_id=question.id,
+                answer_type=question.answer_type,
+                error_type=type(exc).__name__,
+                error=str(exc),
+            )
+            return AnswerResult(
+                question_id=question.id,
+                answer=fallback_answer,
                 confidence=0.0,
                 evidence_pages=[],
             )
