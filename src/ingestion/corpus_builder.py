@@ -41,7 +41,7 @@ def build_canonical_page_records(
             structural_blocks=page_structural_blocks,
         )
         page_tables = table_blocks_by_page.get(page.page_number, [])
-        table_content_blocks = _table_content_blocks_for_page(page.page_number, page_tables)
+        table_content_blocks = _table_content_blocks_for_page(document.doc_id, page.page_number, page_tables)
         table_ids = list(dict.fromkeys(block.table_id for block in table_content_blocks if block.table_id))
         heading_path = _page_heading_path(page_structural_blocks)
         block_roles = _page_block_roles(page_structural_blocks)
@@ -282,7 +282,11 @@ def _text_blocks_for_page(
     return blocks
 
 
-def _table_content_blocks_for_page(page_number: int, table_blocks: list[TableBlock]) -> list[ContentBlock]:
+def _table_content_blocks_for_page(
+    doc_id: str,
+    page_number: int,
+    table_blocks: list[TableBlock],
+) -> list[ContentBlock]:
     blocks: list[ContentBlock] = []
     for table_block in table_blocks:
         for serialized_block in table_block.serialized_blocks:
@@ -303,7 +307,45 @@ def _table_content_blocks_for_page(page_number: int, table_blocks: list[TableBlo
                     },
                 )
             )
+        for semantic_index, semantic_block in enumerate(table_block.semantic_blocks, start=1):
+            if semantic_block.source_page_number != page_number:
+                continue
+            blocks.append(
+                ContentBlock(
+                    block_id=_namespaced_semantic_block_id(
+                        doc_id=doc_id,
+                        table_id=table_block.table_id,
+                        source_page_number=semantic_block.source_page_number,
+                        semantic_index=semantic_index,
+                        semantic_block_id=semantic_block.block_id,
+                    ),
+                    type=ContentBlockType.TABLE,
+                    text=semantic_block.text,
+                    page_number=semantic_block.source_page_number,
+                    table_id=table_block.table_id,
+                    metadata={
+                        "semantic_block": True,
+                        "semantic_source_block_id": semantic_block.block_id,
+                        "source_page_number": semantic_block.source_page_number,
+                    },
+                )
+            )
     return blocks
+
+
+def _namespaced_semantic_block_id(
+    *,
+    doc_id: str,
+    table_id: str,
+    source_page_number: int,
+    semantic_index: int,
+    semantic_block_id: str,
+) -> str:
+    normalized_semantic_id = semantic_block_id.strip() or "semantic"
+    return (
+        f"{doc_id}-table-{table_id}-p{source_page_number}-"
+        f"semantic-{semantic_index}-{normalized_semantic_id}"
+    )
 
 
 def _attach_structural_metadata(

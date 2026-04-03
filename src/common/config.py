@@ -123,6 +123,9 @@ class IngestionSettings(BaseModel):
     ocr_model_root_dir: Path = Field(default_factory=lambda: Path.home() / ".paddlex" / "official_models")
     ocr_text_detection_model_dir: Path | None = None
     ocr_text_recognition_model_dir: Path | None = None
+    ocr_render_dpi: int = 96
+    ocr_text_detection_limit_side_len: int = 736
+    ocr_text_recognition_batch_size: int = 1
     extractable_text_min_chars: int = 50
     suspicious_text_max_chars: int = 200
     large_image_area_ratio: float = 0.25
@@ -137,12 +140,16 @@ class IngestionSettings(BaseModel):
     opendataloader_hybrid_fallback: bool = True
     opendataloader_hybrid_url: str | None = None
     opendataloader_hybrid_timeout_ms: int = 30_000
+    fail_fast_on_document_error: bool = False
 
     @field_validator(
         "extractable_text_min_chars",
         "suspicious_text_max_chars",
         "text_completeness_target_chars",
         "ocr_cpu_threads",
+        "ocr_render_dpi",
+        "ocr_text_detection_limit_side_len",
+        "ocr_text_recognition_batch_size",
     )
     @classmethod
     def ensure_positive_int(cls, value: int) -> int:
@@ -529,6 +536,9 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
     ocr_enable_hpi_override = env.get("COMPETITION_OCR_ENABLE_HPI")
     ocr_enable_mkldnn_override = env.get("COMPETITION_OCR_ENABLE_MKLDNN")
     ocr_cpu_threads_override = env.get("COMPETITION_OCR_CPU_THREADS")
+    ocr_render_dpi_override = env.get("COMPETITION_OCR_RENDER_DPI")
+    ocr_text_detection_limit_side_len_override = env.get("COMPETITION_OCR_TEXT_DETECTION_LIMIT_SIDE_LEN")
+    ocr_text_recognition_batch_size_override = env.get("COMPETITION_OCR_TEXT_RECOGNITION_BATCH_SIZE")
     ocr_model_root_dir_override = env.get("COMPETITION_OCR_MODEL_ROOT_DIR")
     ocr_text_detection_model_dir_override = env.get("COMPETITION_OCR_TEXT_DETECTION_MODEL_DIR")
     ocr_text_recognition_model_dir_override = env.get("COMPETITION_OCR_TEXT_RECOGNITION_MODEL_DIR")
@@ -593,6 +603,12 @@ def _apply_env_overrides(config: AppConfig, env: Mapping[str, str]) -> AppConfig
         ingestion_updates["ocr_enable_mkldnn"] = _parse_bool(ocr_enable_mkldnn_override)
     if ocr_cpu_threads_override:
         ingestion_updates["ocr_cpu_threads"] = int(ocr_cpu_threads_override)
+    if ocr_render_dpi_override:
+        ingestion_updates["ocr_render_dpi"] = int(ocr_render_dpi_override)
+    if ocr_text_detection_limit_side_len_override:
+        ingestion_updates["ocr_text_detection_limit_side_len"] = int(ocr_text_detection_limit_side_len_override)
+    if ocr_text_recognition_batch_size_override:
+        ingestion_updates["ocr_text_recognition_batch_size"] = int(ocr_text_recognition_batch_size_override)
     if ocr_model_root_dir_override:
         ingestion_updates["ocr_model_root_dir"] = Path(ocr_model_root_dir_override.strip()).expanduser()
     if ocr_text_detection_model_dir_override:

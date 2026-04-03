@@ -295,8 +295,10 @@ class Qwen3DenseEmbedder(DenseEmbedder):
             )
         except Exception as exc:
             raise RuntimeError(
-                f"Qwen3 embedding model '{self.model_name}' is not available locally. "
-                "Pre-download it before running build-indices without a test stub."
+                f"Qwen3 embedding model '{self.model_name}' could not be resolved from the current local "
+                "runtime/cache. Query-time retrieval initializes SentenceTransformer with local_files_only=True, "
+                "but the tokenizer/model loader still raised an exception. Inspect the chained exception for the "
+                "real cause instead of assuming the local snapshot is missing."
             ) from exc
         return self._model
 

@@ -130,7 +130,7 @@ def parse_pdf_document(
                 try:
                     ocr_result = effective_ocr.extract_page(page)
                 except OcrUnavailableError:
-                    if config.ingestion.ocr_unavailable_policy == "error" and triage_label is TriageLabel.SCAN:
+                    if config.ingestion.ocr_unavailable_policy == "error":
                         raise
                     ocr_unavailable = True
             elif ocr_requested:
@@ -518,7 +518,13 @@ def _build_raw_parse_sidecars(
     structural_sidecar: RawParseSidecar | None = None
     route_decisions: list[str] = [f"{parser_route.value}_selected"]
 
-    if parser_route is not ParserRoute.BASELINE_FALLBACK:
+    if parser_route is ParserRoute.BASELINE_FALLBACK:
+        if not config.ingestion.opendataloader_hybrid_fallback:
+            raise OpenDataLoaderExecutionError(
+                f"Parser route for {pdf_path.name} resolved to baseline_fallback. "
+                "Failing because baseline fallback is disabled in quality-first mode."
+            )
+    else:
         try:
             structural_sidecar = build_opendataloader_sidecar(
                 pdf_path=pdf_path,
@@ -528,10 +534,15 @@ def _build_raw_parse_sidecars(
                 route_decisions=route_decisions,
             )
         except OpenDataLoaderExecutionError as exc:
-            if parser_route is ParserRoute.HYBRID:
-                if not config.ingestion.opendataloader_hybrid_fallback:
-                    raise
+            if not config.ingestion.opendataloader_hybrid_fallback:
+                LOGGER.error(
+                    "Structural opendataloader route %s failed for %s and quality-first mode forbids fallback.",
+                    parser_route.value,
+                    pdf_path.name,
+                )
+                raise
 
+            if parser_route is ParserRoute.HYBRID:
                 LOGGER.warning(
                     "Hybrid opendataloader route failed for %s; degrading to local-only fallback: %s",
                     pdf_path.name,

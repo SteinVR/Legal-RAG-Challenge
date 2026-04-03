@@ -80,6 +80,8 @@ def serialize_document_tables(
     structured_provider: StructuredOutputProvider | None = None,
 ) -> dict[int, list[TableBlock]]:
     """Serialize already extracted table candidates on a parsed document."""
+    if enable_semantic_blocks and structured_provider is None:
+        raise ValueError("semantic table blocks are enabled, but structured_provider is not configured.")
 
     candidates: list[TableCandidate] = []
     for page in document.pages:
@@ -419,7 +421,7 @@ def _semantic_blocks_for_candidate(
     structured_provider: StructuredOutputProvider,
 ) -> list[SemanticTableBlock]:
     if not candidate.raw_html:
-        return []
+        raise ValueError(f"semantic table serialization requires raw_html for table {candidate.table_id}.")
 
     context_before = "\n".join(candidate.context_before[-3:])
     context_after = "\n".join(candidate.context_after[:3])
@@ -433,18 +435,49 @@ def _semantic_blocks_for_candidate(
         schema=_SEMANTIC_BLOCKS_SCHEMA,
         system_prompt=_SEMANTIC_BLOCKS_SYSTEM_PROMPT,
         user_prompt=user_prompt,
-        max_output_tokens=400,
+        # Keep a generous budget to avoid truncating schema-bound JSON for wide tables.
+        max_output_tokens=1200,
         reasoning_effort="medium",
     )
     blocks = result.get("blocks")
     if not isinstance(blocks, list):
-        return []
+        raise ValueError(
+            "semantic table serializer returned invalid payload: field `blocks` must be a list."
+        )
+    if not blocks:
+        raise ValueError(f"semantic table serializer returned no blocks for table {candidate.table_id}.")
     semantic_blocks: list[SemanticTableBlock] = []
     for block in blocks:
         if not isinstance(block, dict):
-            continue
-        semantic_blocks.append(SemanticTableBlock.model_validate(block))
+            raise ValueError("semantic table serializer returned a non-object block item.")
+        normalized_block = _normalize_semantic_block_payload(block=block, candidate=candidate)
+        semantic_blocks.append(SemanticTableBlock.model_validate(normalized_block))
     return semantic_blocks
+
+
+def _normalize_semantic_block_payload(
+    *,
+    block: dict[str, object],
+    candidate: TableCandidate,
+) -> dict[str, object]:
+    normalized = dict(block)
+    valid_pages = sorted({int(page) for page in candidate.page_span if int(page) > 0})
+    if not valid_pages:
+        valid_pages = sorted({int(page) for page in candidate.row_page_numbers if int(page) > 0})
+    if not valid_pages:
+        valid_pages = [1]
+
+    raw_page = normalized.get("source_page_number")
+    try:
+        parsed_page = int(raw_page)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        parsed_page = valid_pages[0]
+
+    if parsed_page not in valid_pages:
+        parsed_page = min(valid_pages, key=lambda page: (abs(page - parsed_page), page))
+
+    normalized["source_page_number"] = parsed_page
+    return normalized
 
 
 def _rows_to_markdown(rows: list[list[str]]) -> str:

@@ -8,7 +8,7 @@ import re
 import unicodedata
 from collections import defaultdict
 from collections.abc import Iterable, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date
 from itertools import combinations
 from typing import Any, Callable, Literal, Protocol, cast
@@ -190,6 +190,14 @@ _TEMPORAL_CUE_PATTERN = re.compile(
     r"\b(?:days?|weeks?|months?|years?|hours?|deadline|within|after|before)\b",
     re.IGNORECASE,
 )
+_LAW_NUMBER_PATTERN = re.compile(
+    r"\b(?:difc\s+)?law\s+(?:no\.?|number)\s*(?P<number>\d+(?:\.\d+)?)\b",
+    re.IGNORECASE,
+)
+_LAW_NUMBER_QUERY_PATTERN = re.compile(
+    r"\b(?:official\s+)?(?:difc\s+)?law\s+(?:no\.?|number)\b",
+    re.IGNORECASE,
+)
 _LEGAL_OUTCOME_PATTERNS = {
     "dismiss": re.compile(r"\bdismiss(?:ed|es|ing)?\b"),
     "grant": re.compile(r"\bgrant(?:ed|s|ing)?\b"),
@@ -283,6 +291,9 @@ _MULTI_DOCUMENT_SIGNAL_PATTERN = re.compile(
     r"\b(across|between|both|related\s+matters?|related\s+cases?|multiple|versus|vs\.?)\b",
     re.IGNORECASE,
 )
+_TITLE_PAGE_QUERY_PATTERN = re.compile(r"\b(?:title|cover)\s+page\b", re.IGNORECASE)
+_ISSUE_DATE_QUERY_PATTERN = re.compile(r"\b(?:date\s+of\s+issue|issue\s+date)\b", re.IGNORECASE)
+_DATE_OF_ISSUE_CUE_PATTERN = re.compile(r"\bdate\s+of\s+issue\b", re.IGNORECASE)
 
 
 class _StructuredAnswerBase(BaseModel):
@@ -615,10 +626,14 @@ class AnsweringService:
         retrieval_output = self._retriever.retrieve(question, query_metadata=query_metadata)
         pages, retrieval_refs = _coerce_retrieval_payload(retrieval_output)
         raw_retrieval_refs = list(retrieval_refs) if retrieval_refs else _group_page_references(pages)
+        pass_a_config = _effective_page_attribution_config(
+            base_config=self._page_attribution_config,
+            question_text=question.question,
+        )
         pass_a_pages = _pass_a_pages_from_retrieval_payload(
             retrieval_output=retrieval_output,
             pages=pages,
-            config=self._page_attribution_config,
+            config=pass_a_config,
         )
         pass_a_refs = _group_page_references(pass_a_pages)
 
@@ -663,8 +678,8 @@ class AnsweringService:
                 raw_retrieval_refs=raw_retrieval_refs,
                 pass_a_refs=pass_a_refs,
             )
-            # Structured solver unanswerable free_text is unreliable — fallback to
-            # legacy generation which doesn't have a binary is_answerable gate.
+            # Structured no-answer on free_text is intentionally treated as a
+            # soft miss because the legacy generator often recovers it.
             if (
                 answer_type == AnswerType.FREE_TEXT
                 and result.answer == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
@@ -771,6 +786,12 @@ class AnsweringService:
         provider_model_name = _resolve_provider_model_name(self._provider)
         base_refs = list(pass_a_refs)
         relevant_pages = _normalize_relevant_page_list(getattr(validated_response, "relevant_pages", []))
+        relevant_pages = _prefer_issue_date_relevant_pages(
+            question_text=question.question,
+            answer_type=answer_type,
+            pages=pages,
+            relevant_pages=relevant_pages,
+        )
         supporting_pages = pages
         supporting_refs = base_refs
         narrowed_refs: list[PageReference] = []
@@ -973,9 +994,17 @@ class AnsweringService:
         question_tokens = _keyword_tokens(question.question)
         per_answer: dict[str, tuple[Any, list[_PageCandidate]]] = {}
         extractor = _get_deterministic_extractor(answer_type)
+        prefer_law_number = answer_type == AnswerType.NUMBER and _is_law_number_question(question.question)
 
         for page in pages:
-            candidate = extractor(page=page, question_tokens=question_tokens)
+            if answer_type == AnswerType.NUMBER:
+                candidate = extractor(
+                    page=page,
+                    question_tokens=question_tokens,
+                    prefer_law_number=prefer_law_number,
+                )
+            else:
+                candidate = extractor(page=page, question_tokens=question_tokens)
 
             if candidate is None:
                 continue
@@ -1119,6 +1148,45 @@ def _pass_a_pages_from_retrieval_payload(
     if not selected_pairs:
         return pages
     return _filter_pages_by_pairs(pages, selected_pairs)
+
+
+def _effective_page_attribution_config(
+    *,
+    base_config: PageAttributionConfig,
+    question_text: str,
+) -> PageAttributionConfig:
+    if not base_config.suppress_title_pages:
+        return base_config
+    if not _question_requests_title_page(question_text):
+        return base_config
+    return replace(base_config, suppress_title_pages=False)
+
+
+def _question_requests_title_page(question_text: str) -> bool:
+    return bool(_TITLE_PAGE_QUERY_PATTERN.search(question_text))
+
+
+def _prefer_issue_date_relevant_pages(
+    *,
+    question_text: str,
+    answer_type: AnswerType,
+    pages: list[_PageCandidate],
+    relevant_pages: list[int],
+) -> list[int]:
+    if answer_type != AnswerType.DATE:
+        return relevant_pages
+    if not _ISSUE_DATE_QUERY_PATTERN.search(question_text):
+        return relevant_pages
+
+    issue_date_pages: set[int] = set()
+    for page in pages:
+        if not _DATE_OF_ISSUE_CUE_PATTERN.search(page.text):
+            continue
+        issue_date_pages.update(page.page_numbers)
+
+    if issue_date_pages:
+        return sorted(issue_date_pages)
+    return relevant_pages
 
 
 def _candidate_pages_from_page_candidates(pages: Iterable[_PageCandidate]) -> list[Any]:
@@ -1528,7 +1596,17 @@ def _parse_numeric_value(raw_value: str) -> float:
     return float(numeric_text.replace(",", ""))
 
 
-def _extract_number(*, page: _PageCandidate, question_tokens: set[str]) -> _SolvedAnswer | None:
+def _extract_number(
+    *,
+    page: _PageCandidate,
+    question_tokens: set[str],
+    prefer_law_number: bool = False,
+) -> _SolvedAnswer | None:
+    if prefer_law_number:
+        law_number = _extract_law_number_literal(page.text)
+        if law_number is not None:
+            return _SolvedAnswer(answer=law_number, supporting_pages=[page])
+
     scored: list[tuple[float, float]] = []
     duration_intent = _is_duration_question(question_tokens)
     for value, start, end in _extract_number_candidates(page.text):
@@ -1574,6 +1652,21 @@ def _extract_number(*, page: _PageCandidate, question_tokens: set[str]) -> _Solv
     else:
         answer = value
     return _SolvedAnswer(answer=answer, supporting_pages=[page])
+
+
+def _is_law_number_question(question_text: str) -> bool:
+    return bool(_LAW_NUMBER_QUERY_PATTERN.search(question_text))
+
+
+def _extract_law_number_literal(text: str) -> int | float | None:
+    match = _LAW_NUMBER_PATTERN.search(text)
+    if match is None:
+        return None
+    try:
+        value = float(match.group("number"))
+    except (TypeError, ValueError):
+        return None
+    return int(value) if value.is_integer() else value
 
 
 def _extract_boolean(*, page: _PageCandidate, question_tokens: set[str]) -> _SolvedAnswer | None:

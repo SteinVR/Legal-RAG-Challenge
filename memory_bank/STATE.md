@@ -46,42 +46,35 @@
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2026-03-17 | RAPID methodology | Engineering competition with tight deadline, not ML training |
-| 2026-03-17 | PaddleOCR-VL-1.5 as primary parser | 0.9B, page-level, cross-page tables; ingestion is foundational |
-| 2026-03-17 | Qwen3-Embedding-0.6B + Qwen3-Reranker-0.6B | Unified ecosystem, instruction-aware, MRL, 32K context, matched reranker |
-| 2026-03-17 | OpenAI API as primary generation backend | Provider abstraction for fallback |
-| 2026-03-17 | Qdrant embedded as vector store | Dense + sparse hybrid, payload filtering, persistence, no infra overhead |
-| 2026-03-17 | Grounding-first optimization | G is multiplicative in scoring formula; recall > precision (beta=2.5) |
-| 2026-03-21 | W2C canonical corpus contract is now schema-first and quality-gated | Reduces parser/serializer/service drift and locks page/table provenance to one ingestion SSOT |
-| 2026-03-22 | W3D submission orchestration completed the runnable Wave 3 path | `build-submission`, telemetry packing, local validation, trace manifests, and archive gating now bind W3A/W3B/W3C into a runnable submission pipeline |
-| 2026-03-23 | Reranker rewritten to causal LM scoring (yes/no probability) | `AutoModelForCausalLM` with system prompt template; correct approach for Qwen3-Reranker-0.6B |
-| 2026-03-23 | Operator scripts pipeline (`scripts/00_*`–`07_*`) | Reproducible numbered shell scripts for full baseline execution |
-| 2026-03-23 | Logging fully config-driven; OCR absence fails fast | `LoggingSettings.normalize_level()` before-validator; JSONL dir skip when disabled; `log_path` optional |
-| 2026-03-23 | opendataloader-pdf hybrid mode is required path for Wave 4 | Local-only is fallback; hybrid is default for born-digital and layout-complex pages (TASK-W4C) |
-| 2026-03-23 | `table_method="cluster"` required default | Required default for Wave 4 parser; deviation requires measured regression on legal PDFs (TASK-W4C) |
-| 2026-03-23 | JSON is required sidecar format | Raw parse artifacts must be JSON; Markdown is debug only (TASK-W4C) |
-| 2026-03-23 | Two-pass page attribution required | Pass A pre-answer pruning; Pass B post-answer finalization; validation degrades before suppressing answers (TASK-W4A) |
-| 2026-03-24 | Schema-first typed solving replaces extraction-first as primary post-retrieval path | Deterministic logic demoted to guardrail layer (candidate generation, validation, normalization, rejection); schema registry with per-type Pydantic schemas is the primary solver (TASK-W4B rewritten) |
-| 2026-03-24 | gpt-5.4-mini is a reasoning model with configurable reasoning effort | Reasoning effort defaults: high for boolean/name/names; medium for number/date/free_text; provider abstraction must support schema dispatch and effort controls |
-| 2026-03-23 | Typed extraction upgraded per answer type | Boolean polarity, name/names extraction, confidence calibration; LLM table serialization benchmark-gated with kill switch (TASK-W4B) |
-| 2026-03-23 | Qdrant hybrid (dense+sparse) stays as-is | No separate BM25 system; no architecture change to vector store (TASK-W4D) |
-| 2026-03-23 | Annex/schedule chunk family OUT of scope for Wave 4 | Not in TASK-W4C scope |
-| 2026-03-23 | XY-Cut++ calibration OUT of scope for Wave 4 | Not in TASK-W4C scope |
-| 2026-03-25 | Cross-case decomposition is rule-based, not LLM-based | 31 cross-case questions (19 boolean, 12 name) have regular patterns; deterministic recomposition sufficient; no extra API calls for decomposition prompt |
-| 2026-03-25 | Provider max_output_tokens increased 220→2048 | Reasoning models (gpt-5.4-mini) consume most tokens on thinking; 220 caused truncated JSON; 2048 is safe budget |
-| 2026-03-25 | OpenAI strict schema requires all properties in required | Pydantic default-valued fields omitted from `required`; added `_strict_openai_schema()` post-processor in provider |
+| 2026-03-17 | RAPID methodology | Tight engineering deadline, not ML training |
+| 2026-03-17 | Core stack chosen | `PaddleOCR-VL-1.5` for parsing, `Qwen3-Embedding-0.6B` + `Qwen3-Reranker-0.6B` for retrieval, OpenAI API for generation, Qdrant for dense+sparse persistence |
+| 2026-03-17 | Grounding-first optimization | Scoring is multiplicative, so grounding loss dominates end result |
+| 2026-03-21 | Canonical corpus contract is schema-first and quality-gated | Locks page/table provenance to one ingestion SSOT and reduces parser/service drift |
+| 2026-03-22 | Runnable submission pipeline complete | `build-submission`, telemetry packing, local validation, trace manifests, and archive gating bind the Wave 3 path |
+| 2026-03-23 | Wave 4 parser contract is strict | `opendataloader-pdf` hybrid mode is required, `table_method="cluster"` is default, JSON is the only sidecar format, OCR absence fails fast |
+| 2026-03-23 | Wave 4 answering contract is typed | Schema-first typed solving is primary; deterministic logic is guardrail only; two-pass page attribution is required |
+| 2026-03-23 | Wave 4 retrieval contract stays hybrid | Qdrant dense+sparse remains the store; reranker is causal LM scoring |
+| 2026-03-24 | Provider contract hardened | `gpt-5.4-mini` uses reasoning effort by answer type, strict schema requires all properties in `required`, max output raised to `2048` |
+| 2026-03-25 | Cross-case solving is rule-based | 31/100 warmup cross-case questions follow regular patterns, so deterministic recomposition is sufficient |
+| 2026-03-25 | Provider/schema failures must be explicit | Structured output retries are capped; no silent fallback for ingestion or generation contract breaks |
 
 ---
 
 ## 5. Accumulated Context
 
-- 2026-03-18 to 2026-03-21: W1A through W2C delivered config/env loading, evaluation contract, dev gold benchmark, and schema-first canonical corpus.
-- 2026-03-21 to 2026-03-22: W3A/W3B/W3C/W3D delivered chunking, retrieval, answering, and submission pipeline. All merged to `main`.
-- 2026-03-23: Baseline corrections (PaddleOCR v3 migration, Qwen3 prompt split, causal reranker, lint), operator scripts, logging fixes. Test baseline: `187 passed`, `ruff: All checks passed`.
-- 2026-03-23: First full 100-question warmup baseline completed. `total=0.2273`, `det=0.129`, `asst=0.987`, `G=0.570`, `T=1.000`. 37 real answers, 47 null, 16 grounding-fallback. Corpus: 30 docs, 590 pages, 6631 chunks. Full postmortem in `memory_bank/tasks/TASK-BASELINE.md`.
-- 2026-03-23: Canonical target architecture written at `docs/unified_document_processing_architecture.md`; review at `docs/Document_Processing_Architecture_Review.md`. Combines opendataloader-pdf, external/RAG-Challenge-2, and current project design.
-- 2026-03-23: Wave 4 task specs finalized -- TASK-W4A (page attribution), TASK-W4B (typed extraction), TASK-W4C (structural parser), TASK-W4D (retrieval upgrade), TASK-W4E (cross-case orchestration). W4A/W4B/W4C start in parallel. TASKS.md updated with Wave 4 section and dependency graph.
-- 2026-03-24: Canonical architecture rewritten from "extraction-first typed answering" to "retrieval-first, schema-first typed solving with deterministic validation." TASK-W4B completely rewritten; schema registry with `is_answerable`, typed `final_answer`, `relevant_pages`, and short `reasoning_summary` is now the primary post-retrieval path. Deterministic extractors are guardrails. TASK-W4A Pass B now explicitly consumes solver-reported `relevant_pages` as narrowing signal. TASK-W4D retrieval owns solver-ready evidence packaging. TASK-W4E reuses W4B schema registry and validator rules. `codex_provider.py` model fixed from `gpt-5-mini` to `gpt-5.4-mini` (reasoning model).
-- 2026-03-24 to 2026-03-25: Wave 4 A/B/C/D implemented and merged to `main` (0b8b7ab). Integration issues surfaced due to missing pre-defined cross-task contracts — provider schema dispatch, OCR GPU runtime, opendataloader hybrid URL, structured output API format. Two stabilization commits (d673a0b, 1c412da) resolved all contract mismatches, hardened runtime, and added 122+ new tests. All four W4 tasks have stabilized contracts and definitions of done locked in task files.
-- 2026-03-25: TASK-W4E (cross-case decomposition) implemented. Rule-based decomposition for 31/100 cross-case warmup questions (19 boolean, 12 name). Disabled by default (`decomposition.enabled=false`). Provider fixes: OpenAI strict schema compliance, reasoning response parsing, max_output_tokens 220→2048, ISO date hint. Suite: 342 passed, ruff clean.
-- 2026-03-25: Full e2e pipeline re-run on GPU (RTX 4060 8GB). Corpus re-parsed with W4C structural parser: all 590 pages → `opendataloader:tagged` provenance, 30 JSON sidecars in `raw_parse/opendataloader/`. GPU OCR (PP-OCRv5) loaded but not triggered (born-digital corpus). Index rebuilt: 3804 chunks (dense+sparse). Smoke test 5/5 questions: 4 answered, 1 null (number — model couldn't extract from evidence), decomposition correctly triggered on cross-case name question (`SCT 295/2025`). Wave 4 fully complete and e2e verified.
+- 2026-03-18 to 2026-03-22: W1A-W3D delivered config/env loading, evaluation contract, gold benchmark, canonical corpus, chunking, retrieval, answering, and submission orchestration. All merged to `main`.
+- 2026-03-23: Baseline was established and documented: 100-question warmup, `total=0.2273`, `det=0.129`, `G=0.570`, 30 docs, 590 pages, 6631 chunks, with grounding as the main blocker.
+- 2026-03-23 to 2026-03-25: Wave 4 landed across parser, retrieval, typed answering, and cross-case decomposition. Key hardening included strict parser contracts, schema-first solving, reasoning-model provider fixes, and test stabilization (`342 passed`, `ruff clean`).
+- 2026-03-25 to 2026-04-03: Full e2e reruns verified the canonical pipeline on GPU. Corpus re-parse produced `opendataloader:tagged` provenance, GPU OCR stayed idle on born-digital pages, index rebuilt to `3804` chunks, and the warmup submission moved to the current tracking state.
+
+---
+
+## 6. Tracking
+
+### 6.1 Run Results
+
+| Run | Total | Deterministic | Assistant | Grounding | TTFT ms | TTFT Multiplier | Warnings |
+|-----|-------|---------------|-----------|-----------|---------|-----------------|----------|
+| Baseline (`submission_baseline_backup`, mirrors `submission_full`) | 0.2273 | 0.1286 | 0.9867 | 0.5702 | 1321.86 | 1.0329 | 0 |
+| Previous (`submission_w4v2`) | 0.4938 | 0.8286 | 0.9867 | 0.5888 | 5524.91 | 0.9573 | 25 |
+| Current (`submission_fullrun_20260403_190231`) | 0.4866 | 0.8714 | 0.9867 | 0.5590 | 4745.49 | 0.9609 | 32 |

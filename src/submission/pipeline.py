@@ -26,6 +26,8 @@ from src.answering.page_attribution import PageAttributionConfig
 from src.answering.service import (
     AnsweringService,
     AnswerResult,
+    CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+    FreeTextGroundingValidationError,
     extract_query_metadata,
 )
 from src.common.config import AppConfig
@@ -474,25 +476,19 @@ class BuildSubmissionService:
                         max_subquestions=max_subquestions,
                     )
             return answering_service.answer_question(question)
-        except (ValueError, TypeError) as exc:
+        except FreeTextGroundingValidationError as exc:
             log_event(
                 LOGGER,
                 logging.WARNING,
-                "build_submission.question.provider_error",
-                "Provider error; returning empty answer.",
+                "build_submission.question.free_text_grounding_failed",
+                "Free-text grounding validation failed; returning canonical unanswerable.",
                 stage="submission",
                 question_id=question.id,
                 error=str(exc),
             )
-            from src.answering.service import CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
-            from src.evaluation.contracts import AnswerType
-
-            fallback_answer = None
-            if question.answer_type == AnswerType.FREE_TEXT.value:
-                fallback_answer = CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
             return AnswerResult(
                 question_id=question.id,
-                answer=fallback_answer,
+                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
                 confidence=0.0,
                 evidence_pages=[],
             )

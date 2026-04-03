@@ -197,8 +197,10 @@ def main() -> None:
     elif cross_case_decomposed and any(cross_case_decomposed):
         print("OK: Cross-case question correctly triggered decomposition")
 
+    exit_code = 0
     if api_errors > 0:
-        print(f"\nSMOKE TEST PARTIAL: {api_errors} API errors (provider may be unavailable)")
+        print(f"\nSMOKE TEST FAILED: {api_errors} API/runtime errors")
+        exit_code = 1
     elif all_ok:
         print("\nSMOKE TEST PASSED")
     else:
@@ -206,6 +208,7 @@ def main() -> None:
 
     # Cleanup
     backend.close()
+    raise SystemExit(exit_code)
 
 
 if __name__ == "__main__":

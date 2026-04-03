@@ -9,6 +9,9 @@
 # - COMPETITION_UNANSWERABLE_RETRIEVAL_POLICY
 # - COMPETITION_ENABLE_OCR
 # - COMPETITION_OCR_UNAVAILABLE_POLICY
+# - COMPETITION_OCR_RENDER_DPI
+# - COMPETITION_OCR_TEXT_DETECTION_LIMIT_SIDE_LEN
+# - COMPETITION_OCR_TEXT_RECOGNITION_BATCH_SIZE
 # - COMPETITION_PASS_A_ENABLED
 # - COMPETITION_PAGE_VALIDATION_MODE
 # - COMPETITION_LOG_LEVEL
@@ -50,20 +53,24 @@ evaluation:
 ingestion:
   enable_ocr: true
   ocr_unavailable_policy: error
+  ocr_render_dpi: 300
+  ocr_text_detection_limit_side_len: 1536
+  ocr_text_recognition_batch_size: 1
   extractable_text_min_chars: 50
   suspicious_text_max_chars: 200
   large_image_area_ratio: 0.25
   scan_image_area_ratio: 0.70
   text_completeness_target_chars: 1500
   encoding_bad_char_threshold: 0.05
-  enable_semantic_table_blocks: false
+  enable_semantic_table_blocks: true
   opendataloader_table_method: cluster
   opendataloader_reading_order: xycut
   opendataloader_hybrid_backend: docling-fast
-  opendataloader_hybrid_mode: auto
-  opendataloader_hybrid_fallback: true
+  opendataloader_hybrid_mode: full
+  opendataloader_hybrid_fallback: false
   opendataloader_hybrid_url: http://localhost:5002
-  opendataloader_hybrid_timeout_ms: 30000
+  opendataloader_hybrid_timeout_ms: 120000
+  fail_fast_on_document_error: true
 
 page_attribution:
   pass_a_enabled: true

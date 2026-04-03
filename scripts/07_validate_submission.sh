@@ -99,12 +99,28 @@ PHASE_DOCUMENTS_DIR="$DOCUMENTS_DIR"
 SUBMISSION_PATH="${CUSTOM_SUBMISSION_PATH:-$PHASE_SUBMISSION_PATH}"
 QUESTIONS_PATH="${CUSTOM_QUESTIONS_PATH:-$PHASE_QUESTIONS_PATH}"
 DOCUMENTS_DIR="${CUSTOM_DOCUMENTS_DIR:-$PHASE_DOCUMENTS_DIR}"
+AUTO_DISCOVERED_SUBMISSION_PATH=""
+
+if [ -z "$CUSTOM_SUBMISSION_PATH" ] && [ ! -f "$SUBMISSION_PATH" ]; then
+    AUTO_DISCOVERED_SUBMISSION_PATH="$(
+        find "data/$PHASE" -maxdepth 2 -type f -path "*/submission*/submission.json" -printf '%T@ %p\n' \
+            | sort -n \
+            | tail -n 1 \
+            | cut -d' ' -f2-
+    )"
+    if [ -n "$AUTO_DISCOVERED_SUBMISSION_PATH" ]; then
+        SUBMISSION_PATH="$AUTO_DISCOVERED_SUBMISSION_PATH"
+    fi
+fi
 
 echo "=== Validate Submission ==="
 echo "  Config: $CONFIG"
 echo "  Env file: $ENV_FILE"
 echo "  Phase: $PHASE"
 echo "  Submission: $SUBMISSION_PATH"
+if [ -n "$AUTO_DISCOVERED_SUBMISSION_PATH" ]; then
+    echo "  Submission fallback: auto-discovered latest submission artifact"
+fi
 echo "  Questions: $QUESTIONS_PATH"
 echo "  Documents: $DOCUMENTS_DIR"
 if [ -n "$OUTPUT_PATH" ]; then

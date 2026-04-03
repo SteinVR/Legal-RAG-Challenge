@@ -284,46 +284,57 @@ class CodexStructuredOutputProvider:
     ) -> dict[str, Any]:
         if max_output_tokens <= 0:
             raise ValueError("max_output_tokens must be positive.")
-
-        response = self._client.post(
-            "responses",
-            json={
-                "model": self.model,
-                "input": [
-                    {
-                        "role": "system",
-                        "content": [{"type": "input_text", "text": system_prompt}],
-                    },
-                    {
-                        "role": "user",
-                        "content": [{"type": "input_text", "text": user_prompt}],
-                    },
-                ],
-                "reasoning": {"effort": reasoning_effort},
-                "text": {
-                    "format": {
-                        "type": "json_schema",
-                        "name": schema_name,
-                        "schema": schema,
-                        "strict": True,
-                    }
+        request_body = {
+            "model": self.model,
+            "input": [
+                {
+                    "role": "system",
+                    "content": [{"type": "input_text", "text": system_prompt}],
                 },
-                "max_output_tokens": max_output_tokens,
+                {
+                    "role": "user",
+                    "content": [{"type": "input_text", "text": user_prompt}],
+                },
+            ],
+            "reasoning": {"effort": reasoning_effort},
+            "text": {
+                "format": {
+                    "type": "json_schema",
+                    "name": schema_name,
+                    "schema": schema,
+                    "strict": True,
+                }
             },
-        )
-        response.raise_for_status()
-        payload = response.json()
-        if not isinstance(payload, dict):
-            raise ValueError("Provider response must be a JSON object.")
+            "max_output_tokens": max_output_tokens,
+        }
 
-        response_text = _extract_response_text(payload)
-        try:
-            parsed = json.loads(response_text)
-        except json.JSONDecodeError as exc:
-            raise ValueError("Provider structured payload is not valid JSON.") from exc
-        if not isinstance(parsed, dict):
-            raise ValueError("Provider structured payload must be a JSON object.")
-        return parsed
+        last_exc: Exception | None = None
+        for attempt in range(_MAX_RETRIES + 1):
+            response = _post_with_retry(self._client, "responses", request_body)
+            payload = response.json()
+            if not isinstance(payload, dict):
+                raise ValueError("Provider response must be a JSON object.")
+            try:
+                response_text = _extract_response_text(payload)
+                return _parse_structured_payload(response_text)
+            except ValueError as exc:
+                last_exc = exc
+                if attempt >= _MAX_RETRIES:
+                    break
+                backoff = _RETRY_BACKOFF_SECONDS[min(attempt, len(_RETRY_BACKOFF_SECONDS) - 1)]
+                log_event(
+                    LOGGER,
+                    logging.WARNING,
+                    "provider.structured_output.parse_retry",
+                    "Retrying structured output request due to malformed JSON payload.",
+                    stage="provider",
+                    attempt=attempt + 1,
+                    backoff_seconds=backoff,
+                    schema_name=schema_name,
+                )
+                time.sleep(backoff)
+
+        raise ValueError("Provider structured payload is not valid JSON.") from last_exc
 
     def close(self) -> None:
         self._client.close()

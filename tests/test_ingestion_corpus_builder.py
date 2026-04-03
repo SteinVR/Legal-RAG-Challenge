@@ -6,6 +6,7 @@ from src.common.schemas import (
     ParsedDocument,
     ParsedPage,
     ParseStatus,
+    SemanticTableBlock,
     SerializedTableBlock,
     SourceMode,
     TableBlock,
@@ -95,6 +96,112 @@ def test_build_corpus_artifacts_emits_canonical_records_manifest_and_debug_markd
     assert any(block.table_id == "alpha-p1-t1" for block in artifacts.corpus_records[0].blocks)
     assert "## Page 1" in artifacts.debug_markdown["alpha"]
     assert [block.type for block in artifacts.corpus_records[0].blocks] == ["text", "table"]
+
+
+def test_build_corpus_artifacts_emits_semantic_table_blocks_into_canonical_page_blocks() -> None:
+    document = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        pages=[_page(1, "EMPLOYMENT LAW\nArticle 1")],
+    )
+
+    table_block = TableBlock(
+        table_id="alpha-p1-t1",
+        page_span=[1],
+        raw_markdown="| Type | Amount |\n| --- | --- |\n| Fee | 10 |",
+        raw_html="<table></table>",
+        header_signature=["Type", "Amount"],
+        serialized_blocks=[
+            SerializedTableBlock(
+                block_id="alpha-p1-t1-row-1",
+                text="Schedule of fees. Fee. Type: Fee; Amount: 10",
+                source_page_number=1,
+            )
+        ],
+        semantic_blocks=[
+            SemanticTableBlock(
+                block_id="alpha-p1-t1-semantic-1",
+                text="The schedule states that the fee amount is 10.",
+                source_page_number=1,
+            )
+        ],
+    )
+
+    artifacts = build_corpus_artifacts(
+        phase="warmup",
+        documents=[document],
+        serialized_tables_by_doc={"alpha": {1: [table_block]}},
+    )
+
+    table_blocks = [block for block in artifacts.corpus_records[0].blocks if block.type == "table"]
+    assert [block.block_id for block in table_blocks] == [
+        "alpha-p1-t1-row-1",
+        "alpha-table-alpha-p1-t1-p1-semantic-1-alpha-p1-t1-semantic-1",
+    ]
+    assert table_blocks[1].metadata["semantic_block"] is True
+    assert table_blocks[1].metadata["semantic_source_block_id"] == "alpha-p1-t1-semantic-1"
+
+
+def test_build_corpus_artifacts_namespaces_semantic_block_ids_to_avoid_collisions() -> None:
+    document = ParsedDocument(
+        doc_id="alpha",
+        filename="alpha.pdf",
+        sha256="deadbeef",
+        page_count=1,
+        document_title="Employment Law",
+        document_family="law_or_regulation",
+        parse_status=ParseStatus.PARSED,
+        pages=[_page(1, "EMPLOYMENT LAW\nArticle 1")],
+    )
+
+    first_table = TableBlock(
+        table_id="alpha-p1-t1",
+        page_span=[1],
+        raw_markdown="| Type | Amount |\n| --- | --- |\n| Fee | 10 |",
+        raw_html="<table></table>",
+        header_signature=["Type", "Amount"],
+        semantic_blocks=[
+            SemanticTableBlock(
+                block_id="semantic-summary",
+                text="Table one semantic summary.",
+                source_page_number=1,
+            )
+        ],
+    )
+    second_table = TableBlock(
+        table_id="alpha-p1-t2",
+        page_span=[1],
+        raw_markdown="| Type | Amount |\n| --- | --- |\n| Tax | 5 |",
+        raw_html="<table></table>",
+        header_signature=["Type", "Amount"],
+        semantic_blocks=[
+            SemanticTableBlock(
+                block_id="semantic-summary",
+                text="Table two semantic summary.",
+                source_page_number=1,
+            )
+        ],
+    )
+
+    artifacts = build_corpus_artifacts(
+        phase="warmup",
+        documents=[document],
+        serialized_tables_by_doc={"alpha": {1: [first_table, second_table]}},
+    )
+
+    semantic_blocks = [
+        block
+        for block in artifacts.corpus_records[0].blocks
+        if block.type == "table" and block.metadata.get("semantic_block") is True
+    ]
+
+    assert len(semantic_blocks) == 2
+    assert semantic_blocks[0].block_id != semantic_blocks[1].block_id
 
 
 def test_build_corpus_artifacts_preserves_source_page_for_merged_table_rows() -> None:

@@ -157,7 +157,7 @@ def _run_opendataloader_convert(
         if config.ingestion.opendataloader_hybrid_url:
             kwargs["hybrid_url"] = config.ingestion.opendataloader_hybrid_url
         kwargs["hybrid_timeout"] = str(config.ingestion.opendataloader_hybrid_timeout_ms)
-        kwargs["hybrid_fallback"] = config.ingestion.opendataloader_hybrid_fallback
+        kwargs["hybrid_fallback"] = False
     elif parser_route is not ParserRoute.LOCAL_ONLY:
         raise ValueError(f"Unsupported parser route for opendataloader execution: {parser_route!s}")
     convert(**kwargs)

@@ -80,7 +80,7 @@ class PaddleOcrEngine:
 
     def extract_page(self, page: fitz.Page) -> OcrPageResult:
         ocr_client = self._get_client()
-        pixmap = page.get_pixmap(dpi=DEFAULT_OCR_RENDER_DPI, alpha=False)
+        pixmap = page.get_pixmap(dpi=self.settings.ocr_render_dpi, alpha=False)
         channels = pixmap.n
         image = numpy.frombuffer(pixmap.samples, dtype=numpy.uint8).reshape(pixmap.height, pixmap.width, channels)
         if channels == 4:
@@ -144,10 +144,10 @@ class PaddleOcrEngine:
                 use_doc_orientation_classify=False,
                 use_doc_unwarping=False,
                 use_textline_orientation=False,
-                text_det_limit_side_len=DEFAULT_TEXT_DETECTION_LIMIT_SIDE_LEN,
+                text_det_limit_side_len=self.settings.ocr_text_detection_limit_side_len,
                 text_detection_model_name=text_detection_model_name,
                 text_detection_model_dir=str(text_detection_model_dir),
-                text_recognition_batch_size=DEFAULT_TEXT_RECOGNITION_BATCH_SIZE,
+                text_recognition_batch_size=self.settings.ocr_text_recognition_batch_size,
                 text_recognition_model_name=text_recognition_model_name,
                 text_recognition_model_dir=str(text_recognition_model_dir),
             )

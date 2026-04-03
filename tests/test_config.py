@@ -62,6 +62,20 @@ def test_env_overrides_apply_to_ingestion_settings(tmp_path: Path, monkeypatch: 
     assert config.ingestion.ocr_unavailable_policy == "error"
 
 
+def test_env_overrides_apply_to_ocr_quality_settings(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("COMPETITION_OCR_RENDER_DPI", "300")
+    monkeypatch.setenv("COMPETITION_OCR_TEXT_DETECTION_LIMIT_SIDE_LEN", "1536")
+    monkeypatch.setenv("COMPETITION_OCR_TEXT_RECOGNITION_BATCH_SIZE", "2")
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(yaml.safe_dump({"version": "v001"}), encoding="utf-8")
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.ingestion.ocr_render_dpi == 300
+    assert config.ingestion.ocr_text_detection_limit_side_len == 1536
+    assert config.ingestion.ocr_text_recognition_batch_size == 2
+
+
 def test_env_overrides_apply_to_logging_settings(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("COMPETITION_LOG_LEVEL", "debug")
     monkeypatch.setenv("COMPETITION_LOG_DIRECTORY", str(tmp_path / "runtime-logs"))
@@ -209,6 +223,25 @@ def test_load_app_config_supports_gpu_ocr_runtime_settings(tmp_path: Path) -> No
     assert config.ingestion.ocr_text_recognition_model_dir == tmp_path / "models" / "en_PP-OCRv5_mobile_rec"
     assert config.ingestion.ocr_enable_mkldnn is False
     assert config.ingestion.ocr_cpu_threads == 6
+
+
+def test_load_app_config_supports_ingestion_fail_fast_setting(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        yaml.safe_dump(
+            {
+                "version": "v001",
+                "ingestion": {
+                    "fail_fast_on_document_error": True,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    config = load_app_config(config_path, env_file=tmp_path / ".env")
+
+    assert config.ingestion.fail_fast_on_document_error is True
 
 
 def test_load_app_config_supports_project_gpu_runtime_requirement(tmp_path: Path) -> None:

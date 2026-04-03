@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Iterable, Sequence
+
+from dotenv import dotenv_values
 
 from src.common.config import AppConfig
 from src.common.runtime_logging import documents_debug_enabled, get_logger, log_event
@@ -82,16 +85,29 @@ class ParseCorpusResult:
     failed_document_count: int | None = None
 
 
+class DocumentParseFailureError(ValueError):
+    """Fail-fast parse error wrapped into a CLI-handled exception type."""
+
+    def __init__(self, *, doc_id: str, pdf_path: Path, cause: Exception) -> None:
+        super().__init__(
+            f"Document parse failed for '{doc_id}' ({pdf_path.name}): {type(cause).__name__}: {cause}"
+        )
+        self.doc_id = doc_id
+        self.pdf_path = pdf_path
+        self.cause = cause
+
+
 class CorpusParseService:
     """Orchestrates phase-local PDF parsing into canonical corpus artifacts."""
 
-    def __init__(self, config: AppConfig) -> None:
+    def __init__(self, config: AppConfig, *, env_file: Path | None = None) -> None:
         self.config = config
+        self.env_file = env_file or Path(".env")
         self.paths = CorpusPaths.from_config(config)
         self.ocr_engine = build_ocr_engine(config.ingestion)
         self.parser = DocumentParser(config, ocr_engine=self.ocr_engine)
         self.builder = CorpusBuilder(config)
-        self.structured_provider = self._build_structured_provider()
+        self._structured_provider: StructuredOutputProvider | None = None
 
     def parse_corpus(
         self,
@@ -183,7 +199,7 @@ class CorpusParseService:
                 serialized_tables_by_doc[document.doc_id] = serialize_document_tables(
                     document,
                     enable_semantic_blocks=self.config.ingestion.enable_semantic_table_blocks,
-                    structured_provider=self.structured_provider,
+                    structured_provider=self._get_structured_provider(),
                 )
                 self._write_raw_parse_sidecars(document)
                 structural_blocks = self._structural_blocks_for_document(document)
@@ -215,6 +231,12 @@ class CorpusParseService:
                     error_message=str(exc),
                     exc_info=(type(exc), exc, exc.__traceback__),
                 )
+                if self.config.ingestion.fail_fast_on_document_error:
+                    raise DocumentParseFailureError(
+                        doc_id=pdf_path.stem,
+                        pdf_path=pdf_path,
+                        cause=exc,
+                    ) from exc
 
         build_result = self.builder.build(
             phase=self.config.phase.value,
@@ -342,18 +364,28 @@ class CorpusParseService:
             return None
 
         try:
-            return CodexStructuredOutputProvider()
+            return CodexStructuredOutputProvider(api_key=_resolve_provider_api_key(self.env_file))
         except ValueError as exc:
             log_event(
                 LOGGER,
-                logging.WARNING,
+                logging.ERROR,
                 "parse.semantic_provider_unavailable",
-                "Semantic table blocks are enabled but no structured provider is available.",
+                "Semantic table blocks are enabled but no structured provider is available. Failing parse.",
                 stage="ingestion",
                 error_type=type(exc).__name__,
                 error_message=str(exc),
             )
+            raise ValueError(
+                "Semantic table blocks require a configured structured provider. "
+                "Set CODEX_OAUTH_TOKEN or OPENAI_API_KEY before parsing."
+            ) from exc
+
+    def _get_structured_provider(self) -> StructuredOutputProvider | None:
+        if not self.config.ingestion.enable_semantic_table_blocks:
             return None
+        if self._structured_provider is None:
+            self._structured_provider = self._build_structured_provider()
+        return self._structured_provider
 
     def _structural_blocks_for_document(
         self,
@@ -393,3 +425,21 @@ def format_parse_result(result: ParseCorpusResult) -> str:
         lines.append("skipped_paths:")
         lines.extend(f"  - {path}" for path in result.skipped_paths)
     return "\n".join(lines)
+
+
+def _resolve_provider_api_key(env_file: Path) -> str | None:
+    env_values = dotenv_values(env_file) if env_file.exists() else {}
+    for key in ("CODEX_OAUTH_TOKEN", "OPENAI_API_KEY", "CODEX_API_KEY"):
+        # Process env takes precedence per key.
+        from_env = os.getenv(key)
+        if from_env is not None:
+            token = from_env.strip()
+            if token:
+                return token
+            continue
+        value = env_values.get(key)
+        if value:
+            token = str(value).strip()
+            if token:
+                return token
+    return None

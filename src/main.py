@@ -328,7 +328,7 @@ def _run_command(args: argparse.Namespace, config: AppConfig, client_factory: Cl
         result = _run_phase_command(args, service, config, client_factory)
         return _format_result(result)
     if args.command == "parse-corpus":
-        service = CorpusParseService(config)
+        service = CorpusParseService(config, env_file=Path(args.env_file))
         result = service.parse_corpus(
             dry_run=args.dry_run,
             overwrite=args.force,
