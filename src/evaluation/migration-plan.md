@@ -18,6 +18,7 @@
 - `scorer.py` depends on validator semantics.
 - `dev_benchmark/__init__.py` bundles dataset loading, report generation, comparison, and consistency analysis into one package entrypoint.
 - `goldset.py` carries reference-answer-oriented helpers and should stay adjacent to benchmark/report logic, not to validation contracts.
+- Submission and operator flows currently import loader helpers from `src.evaluation.contracts`, including `src/submission/pipeline.py`, `src/submission/submit_gate.py`, `src/evaluation/goldset.py`, `src/evaluation/dev_benchmark/__init__.py`, `tools/operator_context.py`, `tools/goldset_workflow.py`, and `src/main.py`.
 
 ## Target module split
 - `contracts.py`: enums, typed records, reports, and pure data models only.
@@ -36,7 +37,8 @@
 3. Audit `validator.py` and split out any non-validation helpers that belong in loaders or report modules.
 4. Keep `scorer.py` consuming typed records and validation-compatible shapes only; remove hidden coupling to loader internals.
 5. Split `dev_benchmark/__init__.py` into loader/report/compare modules and leave `__init__.py` as a narrow façade.
-6. Update imports across CLI and tests to use the new layered entrypoints.
+6. Update imports across every current loader consumer, not just CLI/tests: submission flows, goldset helpers, benchmark tooling, operator tools, and `src/main.py` must all move to the new layered entrypoints.
+7. Keep a temporary compatibility façade only if needed to land the import migration safely, then remove it before declaring the migration complete.
 
 ## Contracts to preserve and change
 
@@ -64,6 +66,7 @@
 - Contracts, loaders, validator, scorer, and benchmark analytics are separate layers.
 - `contracts.py` is pure types only.
 - Benchmark/report logic no longer depends on hidden loader side effects inside `contracts.py`.
+- Submission, benchmark, operator, and CLI import sites no longer depend on loader helpers re-exported from `contracts.py`.
 
 ## Risks and rollback
 - The main risk is changing local score or validation semantics unintentionally while extracting loaders. Roll back by comparing serialized reports and restoring the previous loader path only until typed coercion matches the original behavior.

@@ -16,6 +16,7 @@
 - `sync.py` already owns phase-local path layout and sync orchestration.
 - `pipeline.py` owns artifact reuse checks, corpus/index rebuild decisions, question loop orchestration, retrieval/provider caching, telemetry packing, trace writing, local validation, archive creation, and architecture summary helpers.
 - `telemetry_packer.py`, `packager.py`, `submit_gate.py`, and `api_client.py` are narrower, but `pipeline.py` still knows too much about their internals and about stage construction.
+- `src/main.py` still owns top-level submission-adjacent wiring for evaluation loaders, provider classes, ingestion/indexing services, and CLI dispatch, so it must be migrated in lockstep with submission-facing package splits.
 
 ## Target module split
 - `contracts.py`: `BuildSubmissionResult` and other submission-local orchestration contracts.
@@ -34,7 +35,7 @@
 5. Extract trace artifact writing into `trace_writer.py`.
 6. Reduce `pipeline.py` to high-level orchestration, validation ordering, and final result assembly.
 7. Keep `sync.py` as the owner of phase layout, and ensure submission code consumes those paths rather than reproducing path logic.
-8. Update `main.py` last so it only dispatches into submission orchestration and does not know concrete provider details.
+8. Own the `main.py` migration explicitly: rewire CLI imports for moved evaluation loaders and stable ingestion/indexing/provider entrypoints, then reduce `main.py` to dispatch-only submission orchestration without concrete provider details.
 
 ## Contracts to preserve and change
 
@@ -61,7 +62,7 @@
 ## Acceptance criteria
 - `pipeline.py` is orchestration-only.
 - Artifact reuse, dependency construction, question execution, and trace writing are separate modules.
-- CLI behavior and submission artifact shapes remain stable while internal wiring becomes injectable and explicit.
+- CLI behavior and submission artifact shapes remain stable while internal wiring becomes injectable and explicit, and `main.py` imports only stable stage entrypoints.
 
 ## Risks and rollback
 - The main risk is breaking end-to-end orchestration while extracting helpers. Roll back by diffing question-run traces and final submission payloads against the pre-migration baseline.

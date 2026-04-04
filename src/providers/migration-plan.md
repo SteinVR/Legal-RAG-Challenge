@@ -15,7 +15,7 @@
 ## Current boundary map
 - `base.py` defines the main protocols and is already the right abstraction seam.
 - `codex_provider.py` currently mixes free-text generation, structured generation, HTTP client construction, prompt building, schema strictness adjustment, retry policy, response parsing, and confidence normalization.
-- `main.py` and submission wiring still know too much about the concrete Codex provider class.
+- `main.py`, submission wiring, and ingestion table-extraction wiring still know too much about the concrete Codex provider classes.
 
 ## Target module split
 - `base.py`: keep protocol definitions only.
@@ -36,7 +36,7 @@
 5. Move response parsing and confidence coercion into `response_parser.py`.
 6. Move retry policy into `retry.py`.
 7. Split concrete free-text and structured implementations into dedicated modules and reduce `codex_provider.py` to a temporary façade if needed during the migration window.
-8. Update downstream wiring so answering and submission depend on provider protocols or provider factory injection instead of directly knowing Codex internals.
+8. Update downstream wiring so ingestion, answering, submission, and CLI-facing composition depend on provider protocols or provider factory injection instead of directly knowing Codex internals.
 
 ## Contracts to preserve and change
 
@@ -58,12 +58,13 @@
 ## Verification
 - Run provider unit coverage for free-text and structured calls.
 - Execute one answering smoke path using structured generation and inspect runtime logs and parsed outputs.
+- Execute one ingestion smoke path that exercises semantic table extraction and confirms it no longer constructs `CodexStructuredOutputProvider` directly outside the provider boundary.
 - Confirm schema strictness and retry behavior match current challenge-facing expectations.
 
 ## Acceptance criteria
 - Provider protocols remain stable and concrete provider implementations are split by responsibility.
 - Transport, prompts, schema adaptation, retry, and parsing are independent modules.
-- Downstream stages depend on provider protocols or factories instead of concrete inlined provider knowledge.
+- Downstream stages, including ingestion, depend on provider protocols or factories instead of concrete inlined provider knowledge.
 
 ## Risks and rollback
 - The main risk is changing request/response semantics while extracting helpers. Roll back by replaying existing provider tests and restoring the previous concrete implementation only until the extracted helpers match current behavior.
