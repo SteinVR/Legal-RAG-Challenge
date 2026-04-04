@@ -1,4 +1,4 @@
-# Task: W1A
+# Task: W1A Working Journal
 
 **Spec:** [specs/SPEC_W1A.md](../specs/SPEC_W1A.md)
 
