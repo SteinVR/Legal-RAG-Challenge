@@ -51,6 +51,14 @@ class CorpusPaths:
 
     @classmethod
     def from_config(cls, config: AppConfig) -> "CorpusPaths":
+        """Execute `from_config`.
+
+        Args:
+            config: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         phase_paths = PhasePaths.from_config(config)
         corpus_dir = phase_paths.phase_dir / config.storage.corpus_dirname
         return cls(
@@ -64,6 +72,11 @@ class CorpusPaths:
         )
 
     def ensure_directories(self) -> None:
+        """Execute `ensure_directories`.
+
+        Returns:
+            None: This function does not return a value.
+        """
         self.corpus_dir.mkdir(parents=True, exist_ok=True)
         self.debug_dir.mkdir(parents=True, exist_ok=True)
         self.raw_parse_dir.mkdir(parents=True, exist_ok=True)
@@ -89,6 +102,16 @@ class DocumentParseFailureError(ValueError):
     """Fail-fast parse error wrapped into a CLI-handled exception type."""
 
     def __init__(self, *, doc_id: str, pdf_path: Path, cause: Exception) -> None:
+        """Execute `__init__`.
+
+        Args:
+            doc_id: Input parameter.
+            pdf_path: Input parameter.
+            cause: Input parameter.
+
+        Returns:
+            None: This initializer does not return a value.
+        """
         super().__init__(
             f"Document parse failed for '{doc_id}' ({pdf_path.name}): {type(cause).__name__}: {cause}"
         )
@@ -101,6 +124,15 @@ class CorpusParseService:
     """Orchestrates phase-local PDF parsing into canonical corpus artifacts."""
 
     def __init__(self, config: AppConfig, *, env_file: Path | None = None) -> None:
+        """Execute `__init__`.
+
+        Args:
+            config: Input parameter.
+            env_file: Input parameter.
+
+        Returns:
+            None: This initializer does not return a value.
+        """
         self.config = config
         self.env_file = env_file or Path(".env")
         self.paths = CorpusPaths.from_config(config)
@@ -116,6 +148,16 @@ class CorpusParseService:
         overwrite: bool | None = None,
         doc_ids: Sequence[str] | None = None,
     ) -> ParseCorpusResult:
+        """Parse corpus.
+
+        Args:
+            dry_run: Input parameter.
+            overwrite: Input parameter.
+            doc_ids: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
         planned_paths = self._artifact_paths()
         log_event(
@@ -231,12 +273,11 @@ class CorpusParseService:
                     error_message=str(exc),
                     exc_info=(type(exc), exc, exc.__traceback__),
                 )
-                if self.config.ingestion.fail_fast_on_document_error:
-                    raise DocumentParseFailureError(
-                        doc_id=pdf_path.stem,
-                        pdf_path=pdf_path,
-                        cause=exc,
-                    ) from exc
+                raise DocumentParseFailureError(
+                    doc_id=pdf_path.stem,
+                    pdf_path=pdf_path,
+                    cause=exc,
+                ) from exc
 
         build_result = self.builder.build(
             phase=self.config.phase.value,
@@ -281,6 +322,11 @@ class CorpusParseService:
         return result
 
     def _artifact_paths(self) -> list[Path]:
+        """Execute `_artifact_paths`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return [
             self.paths.corpus_path,
             self.paths.page_map_path,
@@ -290,6 +336,14 @@ class CorpusParseService:
         ]
 
     def _artifact_set_complete(self, current_doc_ids: set[str]) -> bool:
+        """Execute `_artifact_set_complete`.
+
+        Args:
+            current_doc_ids: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if any(not path.exists() for path in self._artifact_paths()):
             return False
 
@@ -313,12 +367,30 @@ class CorpusParseService:
         return all(self._document_artifacts_complete(doc_id) for doc_id in required_doc_ids)
 
     def _write_jsonl(self, path: Path, records: Iterable[CanonicalPageRecord]) -> None:
+        """Execute `_write_jsonl`.
+
+        Args:
+            path: Input parameter.
+            records: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         with path.open("w", encoding="utf-8") as handle:
             for record in records:
                 handle.write(json.dumps(record.model_dump(mode="json"), ensure_ascii=False))
                 handle.write("\n")
 
     def _write_json(self, path: Path, payload: CorpusParseManifest | list[PageMapRecord]) -> None:
+        """Execute `_write_json`.
+
+        Args:
+            path: Input parameter.
+            payload: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         with path.open("w", encoding="utf-8") as handle:
             if isinstance(payload, CorpusParseManifest):
                 serialized = payload.model_dump(mode="json")
@@ -328,6 +400,14 @@ class CorpusParseService:
             handle.write("\n")
 
     def _write_debug_files(self, debug_markdown: dict[str, str]) -> None:
+        """Execute `_write_debug_files`.
+
+        Args:
+            debug_markdown: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         for existing_file in self.paths.debug_dir.glob("*.md"):
             existing_file.unlink()
         for doc_id, markdown in debug_markdown.items():
@@ -338,12 +418,28 @@ class CorpusParseService:
                     handle.write("\n")
 
     def _write_raw_parse_sidecars(self, document: ParsedDocument) -> None:
+        """Execute `_write_raw_parse_sidecars`.
+
+        Args:
+            document: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         if not document.raw_parse_sidecars:
             return
         for parser_name, sidecar in document.raw_parse_sidecars.items():
             write_raw_parse_sidecar(self.paths.raw_parse_dir / parser_name, sidecar)
 
     def _document_artifacts_complete(self, doc_id: str) -> bool:
+        """Execute `_document_artifacts_complete`.
+
+        Args:
+            doc_id: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         debug_path = self.paths.debug_dir / f"{doc_id}.md"
         pymupdf_sidecar_path = self.paths.raw_parse_dir / "pymupdf" / f"{doc_id}.json"
         if not debug_path.exists() or not pymupdf_sidecar_path.exists():
@@ -360,6 +456,11 @@ class CorpusParseService:
         return (self.paths.raw_parse_dir / "opendataloader" / f"{doc_id}.json").exists()
 
     def _build_structured_provider(self) -> StructuredOutputProvider | None:
+        """Build structured provider.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not self.config.ingestion.enable_semantic_table_blocks:
             return None
 
@@ -381,6 +482,11 @@ class CorpusParseService:
             ) from exc
 
     def _get_structured_provider(self) -> StructuredOutputProvider | None:
+        """Return structured provider.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not self.config.ingestion.enable_semantic_table_blocks:
             return None
         if self._structured_provider is None:
@@ -391,6 +497,14 @@ class CorpusParseService:
         self,
         document: ParsedDocument,
     ) -> dict[int, list[NormalizedStructuralBlock]]:
+        """Execute `_structural_blocks_for_document`.
+
+        Args:
+            document: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         sidecar = document.raw_parse_sidecars.get("opendataloader")
         if sidecar is None:
             return {}
@@ -428,6 +542,14 @@ def format_parse_result(result: ParseCorpusResult) -> str:
 
 
 def _resolve_provider_api_key(env_file: Path) -> str | None:
+    """Resolve provider api key.
+
+    Args:
+        env_file: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     env_values = dotenv_values(env_file) if env_file.exists() else {}
     for key in ("CODEX_OAUTH_TOKEN", "OPENAI_API_KEY", "CODEX_API_KEY"):
         # Process env takes precedence per key.

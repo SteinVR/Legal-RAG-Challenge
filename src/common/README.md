@@ -1,18 +1,22 @@
 # `src/common/`
 
-Shared config, logging, and schema models live here. Package initializers and cache directories are intentionally omitted from the map.
+Shared cross-stage infrastructure.
 
 ## File graph
 
 ```text
 common/
 ├── config.py
+├── config_overrides.py
+├── file_hash.py
 ├── runtime_logging.py
 └── schemas.py
 ```
 
 ## File map
 
-- `config.py`: YAML configuration loading with environment-aware overrides. It defines the app, API, storage, download, evaluation, ingestion, answering, page attribution, indexing, retrieval, decomposition, runtime, and logging settings models, plus path resolution and config materialization helpers.
-- `runtime_logging.py`: Shared runtime logging setup and structured event helpers. It configures console and JSONL output, tracks runtime context, resolves log paths, and exposes one-line event logging helpers for stage boundaries.
-- `schemas.py`: Shared typed models for the foundation and ingestion layers. It defines phase, triage, parser route, block, page, corpus, manifest, and question records used across ingestion, indexing, retrieval, evaluation, and submission.
+- `config.py`: Main settings models and config materialization entrypoints.
+- `config_overrides.py`: Environment override parsing and override application helpers.
+- `file_hash.py`: Shared SHA-256 helper used by ingestion/indexing/submission manifests.
+- `runtime_logging.py`: Structured runtime logging setup and event helpers.
+- `schemas.py`: Shared typed records used across ingestion/indexing/retrieval/evaluation/submission.

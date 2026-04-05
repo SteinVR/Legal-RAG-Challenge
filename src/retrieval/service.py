@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import inspect
 import logging
 from dataclasses import dataclass, field
 from typing import Any, Protocol
@@ -11,6 +10,7 @@ from src.common.runtime_logging import get_logger, log_event, questions_debug_en
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import PageReference
 from src.retrieval.evidence_compressor import SupportPageEvidenceCompressor
+from src.retrieval.introspection import callable_accepts_keyword, metadata_field
 from src.retrieval.page_lifter import PageLifter, extract_physical_pages
 
 LOGGER = get_logger("retrieval.service")
@@ -275,14 +275,16 @@ class RetrievalService:
         return surviving
 
     def _materialize_evidence(self, payloads: list[dict[str, Any]]) -> list[RetrievedChunk]:
-        """Convert payloads into validated evidence chunks, dropping invalid entries."""
+        """Convert payloads into validated evidence chunks and fail on malformed entries."""
 
         evidence_chunks: list[RetrievedChunk] = []
-        for payload in payloads:
+        for index, payload in enumerate(payloads, start=1):
             try:
                 evidence_chunks.append(RetrievedChunk.from_payload(payload))
-            except (KeyError, TypeError, ValueError):
-                continue
+            except (KeyError, TypeError, ValueError) as exc:
+                raise ValueError(
+                    f"Malformed retrieval payload at position={index}; strict mode forbids silent drops."
+                ) from exc
         return evidence_chunks
 
     def _expand_parent_pages(
@@ -323,6 +325,15 @@ class RetrievalService:
         selected_payloads: list[dict[str, Any]],
         expanded_by_chunk_id: dict[str, dict[str, Any]],
     ) -> list[dict[str, Any]]:
+        """Execute `_apply_expansion_to_selected_payloads`.
+
+        Args:
+            selected_payloads: Input parameter.
+            expanded_by_chunk_id: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not selected_payloads:
             return []
         if not expanded_by_chunk_id:
@@ -377,6 +388,15 @@ class RetrievalService:
         return max(int(budget), 0)
 
     def _resolved_budgets(self, *, question: QuestionRecord, question_class: str) -> tuple[int, int, int, bool]:
+        """Execute `_resolved_budgets`.
+
+        Args:
+            question: Input parameter.
+            question_class: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         question_class_budget = self.question_class_budgets.get(question_class)
         if question_class_budget is None:
             return (
@@ -392,10 +412,10 @@ class RetrievalService:
             )
 
         return (
-            self._normalized_budget(_metadata_field(question_class_budget, "candidate_budget", self.candidate_budget)),
-            self._normalized_budget(_metadata_field(question_class_budget, "rerank_budget", self.rerank_budget)),
+            self._normalized_budget(metadata_field(question_class_budget, "candidate_budget", self.candidate_budget)),
+            self._normalized_budget(metadata_field(question_class_budget, "rerank_budget", self.rerank_budget)),
             self._normalized_budget(
-                _metadata_field(
+                metadata_field(
                     question_class_budget,
                     "evidence_budget",
                     self.evidence_budget_by_answer_type.get(question.answer_type, self.default_evidence_budget),
@@ -412,6 +432,14 @@ def _copy_payload_window(payloads: list[dict[str, Any]], *, limit: int) -> list[
 
 
 def _normalized_parent_pages(raw_value: Any) -> list[int]:
+    """Execute `_normalized_parent_pages`.
+
+    Args:
+        raw_value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not isinstance(raw_value, list):
         return []
 
@@ -428,6 +456,14 @@ def _normalized_parent_pages(raw_value: Any) -> list[int]:
 
 
 def _chunk_family_participation(payloads: list[dict[str, Any]]) -> list[str]:
+    """Execute `_chunk_family_participation`.
+
+    Args:
+        payloads: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     families: list[str] = []
     seen: set[str] = set()
     for payload in payloads:
@@ -445,22 +481,30 @@ def _chunk_family_participation(payloads: list[dict[str, Any]]) -> list[str]:
     return families
 
 
-def _metadata_field(container: Any, field_name: str, default: Any) -> Any:
-    if container is None:
-        return default
-    if isinstance(container, dict):
-        return container.get(field_name, default)
-    return getattr(container, field_name, default)
-
-
 def _has_soft_prefilters(query_metadata: Any | None) -> bool:
+    """Return whether soft prefilters is present.
+
+    Args:
+        query_metadata: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return bool(
-        _metadata_sequence_length(_metadata_field(query_metadata, "legal_entities", ()))
-        or _metadata_sequence_length(_metadata_field(query_metadata, "document_title_cues", ()))
+        _metadata_sequence_length(metadata_field(query_metadata, "legal_entities", ()))
+        or _metadata_sequence_length(metadata_field(query_metadata, "document_title_cues", ()))
     )
 
 
 def _metadata_sequence_length(value: Any) -> int:
+    """Execute `_metadata_sequence_length`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     try:
         return len(value)
     except TypeError:
@@ -468,15 +512,23 @@ def _metadata_sequence_length(value: Any) -> int:
 
 
 def _derive_question_class(query_metadata: Any | None) -> str:
-    if bool(_metadata_field(query_metadata, "likely_multi_document", False)):
+    """Execute `_derive_question_class`.
+
+    Args:
+        query_metadata: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
+    if bool(metadata_field(query_metadata, "likely_multi_document", False)):
         return "cross_case"
 
-    legal_entities = _metadata_field(query_metadata, "legal_entities", ())
+    legal_entities = metadata_field(query_metadata, "legal_entities", ())
     case_entity_present = False
     statute_entity_present = False
     for entity in legal_entities:
-        entity_type = str(_metadata_field(entity, "entity_type", "")).strip()
-        if not bool(_metadata_field(entity, "is_strong", True)):
+        entity_type = str(metadata_field(entity, "entity_type", "")).strip()
+        if not bool(metadata_field(entity, "is_strong", True)):
             continue
         if entity_type == "case_id":
             case_entity_present = True
@@ -497,22 +549,21 @@ def _hybrid_search_with_optional_query_metadata(
     top_k: int,
     query_metadata: Any | None,
 ) -> list[dict[str, Any]]:
-    if _callable_accepts_keyword(hybrid_search.search, "query_metadata"):
+    """Execute `_hybrid_search_with_optional_query_metadata`.
+
+    Args:
+        hybrid_search: Input parameter.
+        question: Input parameter.
+        top_k: Input parameter.
+        query_metadata: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
+    if callable_accepts_keyword(hybrid_search.search, "query_metadata"):
         return hybrid_search.search(
             question,
             top_k=top_k,
             query_metadata=query_metadata,
         )
     return hybrid_search.search(question, top_k=top_k)
-
-
-def _callable_accepts_keyword(func: Any, keyword: str) -> bool:
-    try:
-        signature = inspect.signature(func)
-    except (TypeError, ValueError):
-        return False
-
-    for parameter in signature.parameters.values():
-        if parameter.kind is inspect.Parameter.VAR_KEYWORD:
-            return True
-    return keyword in signature.parameters

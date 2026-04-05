@@ -76,7 +76,7 @@ page_attribution:
   pass_a_enabled: true
   suppress_title_pages: true
   suppress_repeated_boilerplate: true
-  validation_mode: degrade_first
+  validation_mode: strict_suppress
   emit_empty_pages_for_no_answer: true
   allow_solver_page_narrowing: true
 

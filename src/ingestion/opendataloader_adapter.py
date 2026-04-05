@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib
 import importlib.util
 import json
+import os
 import re
 import sys
 from dataclasses import dataclass, field
@@ -123,6 +124,7 @@ def route_provenance(parser_route: ParserRoute) -> str:
 
 
 def _route_provenance(parser_route: ParserRoute) -> str:
+    """Execute `_route_provenance`."""
     suffix = {
         ParserRoute.TAGGED: "tagged",
         ParserRoute.HYBRID: "hybrid",
@@ -140,6 +142,7 @@ def _run_opendataloader_convert(
     parser_route: ParserRoute,
     config: AppConfig,
 ) -> None:
+    """Run opendataloader convert."""
     convert = _load_convert_callable()
     kwargs: dict[str, Any] = {
         "input_path": [str(pdf_path)],
@@ -160,10 +163,25 @@ def _run_opendataloader_convert(
         kwargs["hybrid_fallback"] = False
     elif parser_route is not ParserRoute.LOCAL_ONLY:
         raise ValueError(f"Unsupported parser route for opendataloader execution: {parser_route!s}")
-    convert(**kwargs)
+
+    # Force headless Java execution to keep structural parsing deterministic in
+    # CI/sandbox runtimes without an X11 display server.
+    previous_java_options = os.environ.get("JAVA_TOOL_OPTIONS")
+    options = (previous_java_options or "").strip()
+    if "-Djava.awt.headless=true" not in options:
+        options = f"{options} -Djava.awt.headless=true".strip()
+    os.environ["JAVA_TOOL_OPTIONS"] = options
+    try:
+        convert(**kwargs)
+    finally:
+        if previous_java_options is None:
+            os.environ.pop("JAVA_TOOL_OPTIONS", None)
+        else:
+            os.environ["JAVA_TOOL_OPTIONS"] = previous_java_options
 
 
 def _load_convert_callable() -> Callable[..., None]:
+    """Load convert callable."""
     if importlib.util.find_spec("opendataloader_pdf") is None and _OPEN_DATALOADER_VENDORED_SRC.exists():
         vendored_src = str(_OPEN_DATALOADER_VENDORED_SRC)
         if vendored_src not in sys.path:
@@ -181,6 +199,7 @@ def _load_convert_callable() -> Callable[..., None]:
 
 
 def _resolve_output_payload(output_dir: Path, pdf_path: Path) -> Path:
+    """Resolve output payload."""
     json_paths = sorted(output_dir.rglob("*.json"))
     if not json_paths:
         raise FileNotFoundError(f"No JSON output produced under {output_dir}.")
@@ -204,6 +223,7 @@ def _resolve_output_payload(output_dir: Path, pdf_path: Path) -> Path:
 
 
 def _extract_nodes_and_tables(payload: dict[str, Any], doc_id: str) -> tuple[list[RawParseNode], list[RawParseTable]]:
+    """Extract nodes and tables."""
     state = _ExtractionState(doc_id=doc_id)
     for element in _as_element_list(payload.get("kids")):
         _visit_element(element, state)
@@ -212,6 +232,7 @@ def _extract_nodes_and_tables(payload: dict[str, Any], doc_id: str) -> tuple[lis
 
 
 def _visit_element(element: dict[str, Any], state: _ExtractionState) -> None:
+    """Execute `_visit_element`."""
     element_type = str(element.get("type", "")).strip().lower()
     if not element_type:
         for child in _iter_child_elements(element):
@@ -246,6 +267,7 @@ def _visit_element(element: dict[str, Any], state: _ExtractionState) -> None:
 
 
 def _add_table_element(element: dict[str, Any], state: _ExtractionState) -> None:
+    """Execute `_add_table_element`."""
     table_id = _build_table_id(element, state)
     raw_id = _element_id_token(element)
     if raw_id is not None:
@@ -279,6 +301,7 @@ def _add_table_element(element: dict[str, Any], state: _ExtractionState) -> None
 
 
 def _resolve_table_aliases(state: _ExtractionState) -> None:
+    """Resolve table aliases."""
     for node in state.nodes:
         if node.linked_content_id and node.linked_content_id in state.table_aliases:
             node.linked_content_id = state.table_aliases[node.linked_content_id]
@@ -288,6 +311,7 @@ def _resolve_table_aliases(state: _ExtractionState) -> None:
 
 
 def _extract_text(element: dict[str, Any], element_type: str) -> str:
+    """Extract text."""
     content = element.get("content")
     if isinstance(content, str):
         normalized = _normalize_text(content)
@@ -306,6 +330,7 @@ def _extract_text(element: dict[str, Any], element_type: str) -> str:
 
 
 def _extract_table_rows(element: dict[str, Any]) -> list[list[str]]:
+    """Extract table rows."""
     rows: list[list[str]] = []
     for row in _as_element_list(element.get("rows")):
         cells = _as_element_list(row.get("cells"))
@@ -325,6 +350,7 @@ def _extract_table_rows(element: dict[str, Any]) -> list[list[str]]:
 
 
 def _cell_text(cell: dict[str, Any]) -> str:
+    """Execute `_cell_text`."""
     content = cell.get("content")
     if isinstance(content, str):
         normalized = _normalize_text(content)
@@ -337,6 +363,7 @@ def _cell_text(cell: dict[str, Any]) -> str:
 
 
 def _collect_text_fragments(element: dict[str, Any], sink: list[str]) -> None:
+    """Execute `_collect_text_fragments`."""
     content = element.get("content")
     if isinstance(content, str):
         normalized = _normalize_text(content)
@@ -348,6 +375,7 @@ def _collect_text_fragments(element: dict[str, Any], sink: list[str]) -> None:
 
 
 def _iter_child_elements(element: dict[str, Any]) -> list[dict[str, Any]]:
+    """Execute `_iter_child_elements`."""
     children: list[dict[str, Any]] = []
     children.extend(_as_element_list(element.get("kids")))
     children.extend(_as_element_list(element.get("list items")))
@@ -360,6 +388,7 @@ def _iter_child_elements(element: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _heading_level(element: dict[str, Any]) -> int | None:
+    """Execute `_heading_level`."""
     value = element.get("heading level")
     if isinstance(value, int) and value > 0:
         return value
@@ -381,6 +410,7 @@ def _heading_level(element: dict[str, Any]) -> int | None:
 
 
 def _page_number(element: dict[str, Any]) -> int:
+    """Execute `_page_number`."""
     value = element.get("page number")
     if isinstance(value, int) and value > 0:
         return value
@@ -390,6 +420,7 @@ def _page_number(element: dict[str, Any]) -> int:
 
 
 def _bbox(element: dict[str, Any]) -> list[float] | None:
+    """Execute `_bbox`."""
     value = element.get("bounding box")
     if not isinstance(value, list) or len(value) != 4:
         return None
@@ -400,6 +431,7 @@ def _bbox(element: dict[str, Any]) -> list[float] | None:
 
 
 def _raw_html(element: dict[str, Any]) -> str | None:
+    """Execute `_raw_html`."""
     for key in ("raw html", "raw_html", "html"):
         value = element.get(key)
         if isinstance(value, str):
@@ -410,6 +442,7 @@ def _raw_html(element: dict[str, Any]) -> str | None:
 
 
 def _linked_content_id(element: dict[str, Any]) -> str | None:
+    """Execute `_linked_content_id`."""
     value = element.get("linked content id")
     if value is None:
         return None
@@ -418,6 +451,7 @@ def _linked_content_id(element: dict[str, Any]) -> str | None:
 
 
 def _build_node_id(element: dict[str, Any], state: _ExtractionState) -> str:
+    """Build node id."""
     token = _element_id_token(element)
     if token is not None:
         candidate = _ensure_prefixed_id(state.doc_id, "n", token)
@@ -428,6 +462,7 @@ def _build_node_id(element: dict[str, Any], state: _ExtractionState) -> str:
 
 
 def _build_table_id(element: dict[str, Any], state: _ExtractionState) -> str:
+    """Build table id."""
     token = _element_id_token(element)
     if token is not None:
         candidate = _ensure_prefixed_id(state.doc_id, "t", token)
@@ -438,6 +473,7 @@ def _build_table_id(element: dict[str, Any], state: _ExtractionState) -> str:
 
 
 def _element_id_token(element: dict[str, Any]) -> str | None:
+    """Execute `_element_id_token`."""
     value = element.get("id")
     if value is None:
         return None
@@ -446,10 +482,12 @@ def _element_id_token(element: dict[str, Any]) -> str | None:
 
 
 def _ensure_prefixed_id(doc_id: str, marker: str, token: str) -> str:
+    """Execute `_ensure_prefixed_id`."""
     return f"{doc_id}-{marker}{token}"
 
 
 def _claim_auto_id(doc_id: str, prefix: str, used: set[str], counter: Iterable[int]) -> str:
+    """Execute `_claim_auto_id`."""
     while True:
         candidate = f"{doc_id}-{prefix}{next(counter)}"
         if candidate not in used:
@@ -458,16 +496,19 @@ def _claim_auto_id(doc_id: str, prefix: str, used: set[str], counter: Iterable[i
 
 
 def _as_element_list(value: Any) -> list[dict[str, Any]]:
+    """Execute `_as_element_list`."""
     if not isinstance(value, list):
         return []
     return [item for item in value if isinstance(item, dict)]
 
 
 def _normalize_text(value: str) -> str:
+    """Normalize text."""
     return " ".join(value.split())
 
 
 def _rows_to_markdown(rows: list[list[str]]) -> str:
+    """Execute `_rows_to_markdown`."""
     if not rows:
         return ""
     width = max((len(row) for row in rows), default=0)

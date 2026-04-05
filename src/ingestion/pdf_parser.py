@@ -3,40 +3,31 @@
 from __future__ import annotations
 
 import contextlib
-import importlib.util
 import io
 import logging
-import shutil
 from dataclasses import dataclass, field
-from hashlib import sha256
 from pathlib import Path
 
 import fitz
 
 from src.common.config import AppConfig
+from src.common.file_hash import sha256_for_file
 from src.common.schemas import (
     PageSignal,
     ParsedDocument,
     ParsedPage,
-    ParserRoute,
     ParseStatus,
-    RawParseNode,
-    RawParseSidecar,
-    RawParseTable,
     RawTableRecord,
     SourceMode,
     TriageLabel,
 )
 
 from .ocr_engine import OcrEngine, OcrPageResult, OcrUnavailableError, build_ocr_engine
-from .opendataloader_adapter import (
-    OpenDataLoaderExecutionError,
-    build_opendataloader_sidecar,
-    opendataloader_convert_available,
-    route_provenance,
-)
 from .page_triage import score_page_quality, triage_page
-from .parser_routing import DocumentStructuralProfile, ParserAvailability, resolve_parser_route
+from .pdf_structural import (
+    _build_raw_parse_sidecars,
+    _resolve_document_route,
+)
 
 COURT_MARKERS = (
     "COURT OF",
@@ -62,16 +53,6 @@ LEGAL_MARKERS = (
     "regulation",
 )
 
-# Kept for test/backward compatibility; availability now uses converter loadability.
-_OPEN_DATALOADER_PACKAGE_PATH = (
-    Path(__file__).resolve().parents[2]
-    / "external"
-    / "opendataloader-pdf"
-    / "python"
-    / "opendataloader-pdf"
-    / "src"
-    / "opendataloader_pdf"
-)
 LOGGER = logging.getLogger(__name__)
 
 
@@ -195,7 +176,7 @@ def parse_pdf_document(
     return ParsedDocument(
         doc_id=path.stem,
         filename=path.name,
-        sha256=_sha256_for_file(path),
+        sha256=sha256_for_file(path),
         page_count=len(pages),
         document_title=document_title,
         document_family=document_family,
@@ -207,17 +188,20 @@ def parse_pdf_document(
 
 
 def _extract_metadata_title(document: fitz.Document) -> str | None:
+    """Extract metadata title."""
     metadata = document.metadata or {}
     title = (metadata.get("title") or "").strip()
     return title or None
 
 
 def _extract_title_from_text(text: str) -> str | None:
+    """Extract title from text."""
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     return lines[0] if lines else None
 
 
 def _classify_document_family(first_page_text: str) -> str:
+    """Execute `_classify_document_family`."""
     heading = " ".join(line.strip() for line in first_page_text.splitlines()[:4]).upper()
     if "LAW NO." in heading or "DIFC LAW" in heading or heading.endswith(" LAW"):
         return "law_or_regulation"
@@ -227,6 +211,7 @@ def _classify_document_family(first_page_text: str) -> str:
 
 
 def _extract_text_blocks(page: fitz.Page) -> list[str]:
+    """Extract text blocks."""
     results: list[str] = []
     for block in page.get_text("blocks"):
         if len(block) < 5:
@@ -243,12 +228,15 @@ def _extract_table_candidates(
     page: fitz.Page,
     text_blocks: list[str],
 ) -> list[RawTableRecord]:
+    """Extract table candidates."""
     candidates: list[RawTableRecord] = []
     try:
         with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             tables = list(page.find_tables().tables)
-    except Exception:
-        tables = []
+    except Exception as exc:
+        raise RuntimeError(
+            f"PyMuPDF table extraction failed for doc_id={doc_id}, page_number={page_number}."
+        ) from exc
 
     for table_index, table in enumerate(tables, start=1):
         rows = _normalize_rows(_extract_rows(table))
@@ -285,6 +273,7 @@ def _resolve_page_state(
     ocr_requested: bool,
     ocr_unavailable: bool,
 ) -> _ResolvedPageState:
+    """Resolve page state."""
     native_clean = native_text.strip()
     ocr_clean = ocr_result.text.strip()
     notes: list[str] = []
@@ -359,6 +348,7 @@ def _resolve_page_state(
 
 
 def _ocr_tables_to_records(doc_id: str, page_number: int, ocr_result: OcrPageResult) -> list[RawTableRecord]:
+    """Execute `_ocr_tables_to_records`."""
     records: list[RawTableRecord] = []
     for table_index, table in enumerate(ocr_result.table_candidates, start=1):
         rows = _normalize_rows(table.cells)
@@ -381,16 +371,19 @@ def _ocr_tables_to_records(doc_id: str, page_number: int, ocr_result: OcrPageRes
 
 
 def _split_text_lines(text: str) -> list[str]:
+    """Execute `_split_text_lines`."""
     return [line.strip() for line in text.splitlines() if line.strip()]
 
 
 def _extract_rows(table: object) -> list[list[object]]:
+    """Extract rows."""
     if hasattr(table, "extract"):
         return table.extract()
     return []
 
 
 def _normalize_rows(rows: list[list[object]]) -> list[list[str]]:
+    """Normalize rows."""
     normalized: list[list[str]] = []
     for row in rows:
         normalized.append([str(cell).strip() if cell is not None else "" for cell in row])
@@ -398,6 +391,7 @@ def _normalize_rows(rows: list[list[object]]) -> list[list[str]]:
 
 
 def _rows_to_markdown(rows: list[list[str]]) -> str:
+    """Execute `_rows_to_markdown`."""
     if not rows:
         return ""
     width = max(len(row) for row in rows)
@@ -409,6 +403,7 @@ def _rows_to_markdown(rows: list[list[str]]) -> str:
 
 
 def _rows_to_html(rows: list[list[str]]) -> str:
+    """Execute `_rows_to_html`."""
     html_rows: list[str] = []
     for row_index, row in enumerate(rows):
         tag = "th" if row_index == 0 else "td"
@@ -417,6 +412,7 @@ def _rows_to_html(rows: list[list[str]]) -> str:
 
 
 def _build_signals(page: fitz.Page, text: str, table_count: int) -> PageSignal:
+    """Build signals."""
     raw_page = page.get_text("rawdict")
     blocks = raw_page.get("blocks", [])
     image_blocks = [block for block in blocks if block.get("type") == 1]
@@ -440,6 +436,7 @@ def _build_signals(page: fitz.Page, text: str, table_count: int) -> PageSignal:
 
 
 def _bad_char_ratio(text: str) -> float:
+    """Execute `_bad_char_ratio`."""
     if not text:
         return 1.0
     bad_chars = sum(1 for char in text if char == "\ufffd" or (ord(char) < 32 and char not in "\n\r\t"))
@@ -447,204 +444,9 @@ def _bad_char_ratio(text: str) -> float:
 
 
 def _legal_marker_hits(text: str) -> list[str]:
+    """Execute `_legal_marker_hits`."""
     lowered = text.lower()
     return [marker for marker in LEGAL_MARKERS if marker in lowered]
-
-
-def _sha256_for_file(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1_048_576), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def _build_pymupdf_sidecar(
-    *,
-    doc_id: str,
-    pages: list[ParsedPage],
-    page_geometry: dict[int, list[float]],
-    parser_route: ParserRoute,
-) -> RawParseSidecar:
-    nodes: list[RawParseNode] = []
-    tables: list[RawParseTable] = []
-    for page in pages:
-        for block_index, text_block in enumerate(page.text_blocks, start=1):
-            nodes.append(
-                RawParseNode(
-                    node_id=f"{doc_id}-p{page.page_number}-b{block_index}",
-                    kind="paragraph",
-                    page_number=page.page_number,
-                    text=text_block,
-                    bbox=None,
-                )
-            )
-        for table in page.tables:
-            tables.append(
-                RawParseTable(
-                    table_id=table.table_id,
-                    page_number=table.page_number,
-                    bbox=None,
-                    raw_json={"rows": table.rows} if table.rows else None,
-                    raw_html=table.raw_html,
-                    linked_context_block_id=None,
-                )
-            )
-
-    return RawParseSidecar(
-        doc_id=doc_id,
-        parser_name="pymupdf",
-        parser_route=parser_route,
-        parser_provenance="pymupdf:native",
-        page_count=len(pages),
-        page_geometry=page_geometry,
-        diagnostics={},
-        route_decisions=[f"{parser_route.value}_selected"],
-        nodes=nodes,
-        tables=tables,
-    )
-
-
-def _build_raw_parse_sidecars(
-    *,
-    pdf_path: Path,
-    doc_id: str,
-    pages: list[ParsedPage],
-    page_geometry: dict[int, list[float]],
-    parser_route: ParserRoute,
-    config: AppConfig,
-) -> tuple[str, dict[str, RawParseSidecar]]:
-    final_route = parser_route
-    structural_sidecar: RawParseSidecar | None = None
-    route_decisions: list[str] = [f"{parser_route.value}_selected"]
-
-    if parser_route is ParserRoute.BASELINE_FALLBACK:
-        if not config.ingestion.opendataloader_hybrid_fallback:
-            raise OpenDataLoaderExecutionError(
-                f"Parser route for {pdf_path.name} resolved to baseline_fallback. "
-                "Failing because baseline fallback is disabled in quality-first mode."
-            )
-    else:
-        try:
-            structural_sidecar = build_opendataloader_sidecar(
-                pdf_path=pdf_path,
-                page_geometry=page_geometry,
-                parser_route=parser_route,
-                config=config,
-                route_decisions=route_decisions,
-            )
-        except OpenDataLoaderExecutionError as exc:
-            if not config.ingestion.opendataloader_hybrid_fallback:
-                LOGGER.error(
-                    "Structural opendataloader route %s failed for %s and quality-first mode forbids fallback.",
-                    parser_route.value,
-                    pdf_path.name,
-                )
-                raise
-
-            if parser_route is ParserRoute.HYBRID:
-                LOGGER.warning(
-                    "Hybrid opendataloader route failed for %s; degrading to local-only fallback: %s",
-                    pdf_path.name,
-                    exc,
-                )
-                route_decisions.append("hybrid_execution_failed")
-                route_decisions.append("local_only_fallback_selected")
-                try:
-                    final_route = ParserRoute.LOCAL_ONLY
-                    structural_sidecar = build_opendataloader_sidecar(
-                        pdf_path=pdf_path,
-                        page_geometry=page_geometry,
-                        parser_route=final_route,
-                        config=config,
-                        route_decisions=route_decisions,
-                    )
-                except OpenDataLoaderExecutionError as local_exc:
-                    LOGGER.warning(
-                        "Local-only fallback also failed for %s; using pymupdf baseline fallback: %s",
-                        pdf_path.name,
-                        local_exc,
-                    )
-                    final_route = ParserRoute.BASELINE_FALLBACK
-                    structural_sidecar = None
-            else:
-                LOGGER.warning(
-                    "Structural opendataloader route %s failed for %s; using pymupdf baseline fallback: %s",
-                    parser_route.value,
-                    pdf_path.name,
-                    exc,
-                )
-                final_route = ParserRoute.BASELINE_FALLBACK
-                structural_sidecar = None
-
-    pymupdf_sidecar = _build_pymupdf_sidecar(
-        doc_id=doc_id,
-        pages=pages,
-        page_geometry=page_geometry,
-        parser_route=final_route,
-    )
-    if structural_sidecar is None:
-        return "pymupdf:native", {"pymupdf": pymupdf_sidecar}
-
-    return route_provenance(structural_sidecar.parser_route), {
-        "pymupdf": pymupdf_sidecar,
-        "opendataloader": structural_sidecar,
-    }
-
-
-def _resolve_document_route(document: fitz.Document, pages: list[ParsedPage], config: AppConfig) -> ParserRoute:
-    profile = DocumentStructuralProfile(
-        has_struct_tree=_has_struct_tree(document),
-        born_digital=_is_born_digital(pages, config),
-        layout_complex=_is_layout_complex(pages),
-    )
-    availability = _parser_availability(config)
-    return resolve_parser_route(profile, availability)
-
-
-def _parser_availability(config: AppConfig) -> ParserAvailability:
-    opendataloader_available = _is_opendataloader_available()
-    normalized_hybrid_url = (config.ingestion.opendataloader_hybrid_url or "").strip()
-    hybrid_url_configured = config.ingestion.opendataloader_hybrid_url is None or bool(normalized_hybrid_url)
-    hybrid_backend_healthy = (
-        opendataloader_available
-        and config.ingestion.opendataloader_hybrid_backend != "off"
-        and hybrid_url_configured
-    )
-    return ParserAvailability(
-        opendataloader_available=opendataloader_available,
-        hybrid_backend_healthy=hybrid_backend_healthy,
-    )
-
-
-def _is_opendataloader_available() -> bool:
-    # Compatibility probe for existing instrumentation/tests; actual capability is
-    # decided by whether the convert callable is importable and executable.
-    importlib.util.find_spec("opendataloader_pdf")
-    shutil.which("java")
-    return opendataloader_convert_available()
-
-
-def _has_struct_tree(document: fitz.Document) -> bool:
-    try:
-        catalog_xref = document.pdf_catalog()
-        key_type, value = document.xref_get_key(catalog_xref, "StructTreeRoot")
-    except Exception:
-        return False
-    return key_type != "null" and bool(str(value).strip())
-
-
-def _is_born_digital(pages: list[ParsedPage], config: AppConfig) -> bool:
-    native_chars = sum(len((page.native_text or "").strip()) for page in pages)
-    return native_chars >= config.ingestion.extractable_text_min_chars
-
-
-def _is_layout_complex(pages: list[ParsedPage]) -> bool:
-    return any(
-        page.signals.table_count > 0 or page.signals.drawing_count > 0 or page.signals.image_block_count > 0
-        for page in pages
-    )
-
 
 DocumentParseResult = ParsedDocument
 PageParseResult = ParsedPage
@@ -657,8 +459,10 @@ class DocumentParser:
     """Compatibility wrapper around parse_pdf_document."""
 
     def __init__(self, config: AppConfig, ocr_engine: OcrEngine | None = None) -> None:
+        """Execute `__init__`."""
         self.config = config
         self.ocr_engine = ocr_engine
 
     def parse_document(self, pdf_path: str | Path) -> ParsedDocument:
+        """Parse document."""
         return parse_pdf_document(pdf_path, self.config, ocr_engine=self.ocr_engine)

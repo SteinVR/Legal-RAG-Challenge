@@ -246,6 +246,14 @@ def sha256_for_file(path: str | Path) -> str:
 
 
 def _unique_table_blocks(page_table_map: dict[int, list[TableBlock]]) -> list[TableBlock]:
+    """Execute `_unique_table_blocks`.
+
+    Args:
+        page_table_map: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     seen: set[str] = set()
     table_blocks: list[TableBlock] = []
     for page_number in sorted(page_table_map):
@@ -264,6 +272,17 @@ def _text_blocks_for_page(
     *,
     structural_blocks: list[NormalizedStructuralBlock] | None = None,
 ) -> list[ContentBlock]:
+    """Execute `_text_blocks_for_page`.
+
+    Args:
+        doc_id: Input parameter.
+        page_number: Input parameter.
+        text: Input parameter.
+        structural_blocks: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     paragraphs = [paragraph.strip() for paragraph in text.split("\n\n") if paragraph.strip()]
     if not paragraphs and text.strip():
         paragraphs = [text.strip()]
@@ -287,6 +306,16 @@ def _table_content_blocks_for_page(
     page_number: int,
     table_blocks: list[TableBlock],
 ) -> list[ContentBlock]:
+    """Execute `_table_content_blocks_for_page`.
+
+    Args:
+        doc_id: Input parameter.
+        page_number: Input parameter.
+        table_blocks: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     blocks: list[ContentBlock] = []
     for table_block in table_blocks:
         for serialized_block in table_block.serialized_blocks:
@@ -341,6 +370,18 @@ def _namespaced_semantic_block_id(
     semantic_index: int,
     semantic_block_id: str,
 ) -> str:
+    """Execute `_namespaced_semantic_block_id`.
+
+    Args:
+        doc_id: Input parameter.
+        table_id: Input parameter.
+        source_page_number: Input parameter.
+        semantic_index: Input parameter.
+        semantic_block_id: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     normalized_semantic_id = semantic_block_id.strip() or "semantic"
     return (
         f"{doc_id}-table-{table_id}-p{source_page_number}-"
@@ -352,6 +393,15 @@ def _attach_structural_metadata(
     text_blocks: list[ContentBlock],
     structural_blocks: list[NormalizedStructuralBlock],
 ) -> None:
+    """Execute `_attach_structural_metadata`.
+
+    Args:
+        text_blocks: Input parameter.
+        structural_blocks: Input parameter.
+
+    Returns:
+        None: This function does not return a value.
+    """
     if not text_blocks or not structural_blocks:
         return
 
@@ -366,6 +416,14 @@ def _attach_structural_metadata(
 def _primary_structural_block(
     structural_blocks: list[NormalizedStructuralBlock],
 ) -> NormalizedStructuralBlock | None:
+    """Execute `_primary_structural_block`.
+
+    Args:
+        structural_blocks: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     for structural_block in structural_blocks:
         if "clause" in structural_block.block_roles:
             return structural_block
@@ -376,6 +434,14 @@ def _primary_structural_block(
 
 
 def _page_heading_path(structural_blocks: list[NormalizedStructuralBlock]) -> list[str]:
+    """Execute `_page_heading_path`.
+
+    Args:
+        structural_blocks: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     for structural_block in structural_blocks:
         if structural_block.heading_path:
             return list(structural_block.heading_path)
@@ -383,6 +449,14 @@ def _page_heading_path(structural_blocks: list[NormalizedStructuralBlock]) -> li
 
 
 def _page_block_roles(structural_blocks: list[NormalizedStructuralBlock]) -> list[str]:
+    """Execute `_page_block_roles`.
+
+    Args:
+        structural_blocks: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     roles: list[str] = []
     seen: set[str] = set()
     for structural_block in structural_blocks:
@@ -401,6 +475,14 @@ class CorpusBuilder:
     """Backward-compatible OO wrapper around ``build_corpus_artifacts``."""
 
     def __init__(self, config: AppConfig | None = None) -> None:
+        """Execute `__init__`.
+
+        Args:
+            config: Input parameter.
+
+        Returns:
+            None: This initializer does not return a value.
+        """
         self.config = config
 
     def build(
@@ -411,6 +493,17 @@ class CorpusBuilder:
         serialized_tables_by_doc: dict[str, dict[int, list[TableBlock]]] | None = None,
         structural_blocks_by_doc: dict[str, dict[int, list[NormalizedStructuralBlock]]] | None = None,
     ) -> CorpusArtifacts:
+        """Execute `build`.
+
+        Args:
+            phase: Input parameter.
+            documents: Input parameter.
+            serialized_tables_by_doc: Input parameter.
+            structural_blocks_by_doc: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return build_corpus_artifacts(
             phase=phase,
             documents=documents,

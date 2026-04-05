@@ -22,6 +22,16 @@ class SupportPageEvidenceCompressor:
         reranked_chunks: list[dict[str, Any]],
         max_evidence: int,
     ) -> list[dict[str, Any]]:
+        """Execute `compress`.
+
+        Args:
+            question: Input parameter.
+            reranked_chunks: Input parameter.
+            max_evidence: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         del question
 
         evidence_budget = max(int(max_evidence), 0)
@@ -77,6 +87,14 @@ class SupportPageEvidenceCompressor:
         return selected[:evidence_budget]
 
     def _sort_chunks(self, chunks: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Execute `_sort_chunks`.
+
+        Args:
+            chunks: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return sorted(
             (dict(chunk) for chunk in chunks),
             key=lambda chunk: (
@@ -88,6 +106,14 @@ class SupportPageEvidenceCompressor:
 
 
 def _score(value: Any) -> float:
+    """Execute `_score`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     try:
         return float(value)
     except (TypeError, ValueError):
@@ -95,6 +121,14 @@ def _score(value: Any) -> float:
 
 
 def _optional_score(value: Any) -> float:
+    """Execute `_optional_score`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if value is None:
         return float("-inf")
     return _score(value)

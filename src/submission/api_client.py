@@ -39,6 +39,18 @@ class CompetitionApiClient:
         user_agent: str = "agentic-rag-challenge/0.1.0",
         transport: httpx.BaseTransport | None = None,
     ) -> None:
+        """Execute `__init__`.
+
+        Args:
+            api_key: Input parameter.
+            base_url: Input parameter.
+            timeout_seconds: Input parameter.
+            user_agent: Input parameter.
+            transport: Input parameter.
+
+        Returns:
+            None: This initializer does not return a value.
+        """
         self._client = httpx.Client(
             base_url=base_url.rstrip("/") + "/",
             headers={
@@ -58,6 +70,15 @@ class CompetitionApiClient:
         *,
         transport: httpx.BaseTransport | None = None,
     ) -> "CompetitionApiClient":
+        """Execute `from_config`.
+
+        Args:
+            config: Input parameter.
+            transport: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return cls(
             api_key=config.resolve_api_key(),
             base_url=config.api.base_url,
@@ -67,15 +88,41 @@ class CompetitionApiClient:
         )
 
     def close(self) -> None:
+        """Execute `close`.
+
+        Returns:
+            None: This function does not return a value.
+        """
         self._client.close()
 
     def __enter__(self) -> "CompetitionApiClient":
+        """Execute `__enter__`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return self
 
     def __exit__(self, *_: object) -> None:
+        """Execute `__exit__`.
+
+        Args:
+            *_: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         self.close()
 
     def download_questions(self, target_path: str | Path | None = None) -> list[QuestionRecord]:
+        """Execute `download_questions`.
+
+        Args:
+            target_path: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         log_event(
             LOGGER,
             logging.INFO,
@@ -104,6 +151,15 @@ class CompetitionApiClient:
         return questions
 
     def stream_documents(self, destination: BinaryIO, *, chunk_size: int = 1_048_576) -> None:
+        """Execute `stream_documents`.
+
+        Args:
+            destination: Input parameter.
+            chunk_size: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         total_bytes = 0
         log_event(
             LOGGER,
@@ -129,6 +185,15 @@ class CompetitionApiClient:
         )
 
     def download_documents(self, zip_path: str | Path, extract_dir: str | Path) -> DocumentsDownloadResult:
+        """Execute `download_documents`.
+
+        Args:
+            zip_path: Input parameter.
+            extract_dir: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         archive_path = Path(zip_path)
         archive_path.parent.mkdir(parents=True, exist_ok=True)
         with archive_path.open("wb") as archive_handle:
@@ -155,6 +220,15 @@ class CompetitionApiClient:
         return result
 
     def submit_submission(self, submission_path: str | Path, code_archive_path: str | Path) -> dict[str, Any]:
+        """Execute `submit_submission`.
+
+        Args:
+            submission_path: Input parameter.
+            code_archive_path: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         submission = Path(submission_path)
         code_archive = Path(code_archive_path)
         started_at = time.perf_counter()
@@ -193,6 +267,14 @@ class CompetitionApiClient:
         return payload
 
     def get_submission_status(self, submission_uuid: str) -> dict[str, Any]:
+        """Return submission status.
+
+        Args:
+            submission_uuid: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         log_event(
             LOGGER,
             logging.INFO,
@@ -218,11 +300,29 @@ class CompetitionApiClient:
 
     @staticmethod
     def _write_json(path: Path, payload: object) -> None:
+        """Execute `_write_json`.
+
+        Args:
+            path: Input parameter.
+            payload: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     @staticmethod
     def _extract_archive(archive_path: Path, extract_dir: Path) -> None:
+        """Extract archive.
+
+        Args:
+            archive_path: Input parameter.
+            extract_dir: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         if extract_dir.exists():
             shutil.rmtree(extract_dir)
         extract_dir.mkdir(parents=True, exist_ok=True)

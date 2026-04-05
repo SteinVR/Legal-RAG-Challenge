@@ -10,6 +10,11 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 def _empty_page_signal() -> "PageSignal":
+    """Execute `_empty_page_signal`.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return PageSignal(
         text_char_count=0,
         word_count=0,
@@ -169,6 +174,14 @@ class RawTableRecord(BaseModel):
     @model_validator(mode="before")
     @classmethod
     def _compat_aliases(cls, value: Any) -> Any:
+        """Execute `_compat_aliases`.
+
+        Args:
+            value: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not isinstance(value, dict):
             return value
 
@@ -183,14 +196,29 @@ class RawTableRecord(BaseModel):
 
     @property
     def cells(self) -> list[list[str]]:
+        """Execute `cells`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return self.rows
 
     @property
     def context_before(self) -> list[str]:
+        """Execute `context_before`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return self.preceding_context
 
     @property
     def context_after(self) -> list[str]:
+        """Execute `context_after`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return self.following_context
 
 
@@ -291,6 +319,14 @@ class ParsedPage(BaseModel):
     @model_validator(mode="before")
     @classmethod
     def _compat_aliases(cls, value: Any) -> Any:
+        """Execute `_compat_aliases`.
+
+        Args:
+            value: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not isinstance(value, dict):
             return value
 
@@ -301,6 +337,11 @@ class ParsedPage(BaseModel):
 
     @property
     def table_candidates(self) -> list[RawTableRecord]:
+        """Execute `table_candidates`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return self.tables
 
 

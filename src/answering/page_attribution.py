@@ -64,6 +64,14 @@ class PageAttributionTrace:
 
 
 def candidate_pages_from_chunks(chunks: Iterable[RetrievedChunk]) -> list[CandidatePage]:
+    """Execute `candidate_pages_from_chunks`.
+
+    Args:
+        chunks: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     pages_by_key: OrderedDict[tuple[str, int], CandidatePage] = OrderedDict()
     best_text_rank_by_key: dict[tuple[str, int], tuple[int, int, float, float, int, str]] = {}
     for chunk in chunks:
@@ -111,6 +119,15 @@ def candidate_pages_from_chunks(chunks: Iterable[RetrievedChunk]) -> list[Candid
 
 
 def prune_candidate_pages(raw_pages: list[CandidatePage], *, config: PageAttributionConfig) -> PassAResult:
+    """Execute `prune_candidate_pages`.
+
+    Args:
+        raw_pages: Input parameter.
+        config: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not raw_pages:
         return PassAResult()
     if not config.pass_a_enabled:
@@ -176,6 +193,22 @@ def finalize_page_attribution(
     is_no_answer: bool,
     config: PageAttributionConfig,
 ) -> FinalizedPageAttribution:
+    """Execute `finalize_page_attribution`.
+
+    Args:
+        answer: Input parameter.
+        answer_type: Input parameter.
+        raw_retrieved_chunk_pages: Input parameter.
+        pass_a_pages: Input parameter.
+        solver_reported_pages: Input parameter.
+        supported_page_pairs: Input parameter.
+        answer_supported: Input parameter.
+        is_no_answer: Input parameter.
+        config: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     del answer, answer_type
 
     candidate_pairs = flatten_page_references(pass_a_pages or raw_retrieved_chunk_pages)
@@ -236,6 +269,14 @@ def finalize_page_attribution(
 
 
 def group_page_reference_pairs(page_pairs: Iterable[tuple[str, int]]) -> list[PageReference]:
+    """Execute `group_page_reference_pairs`.
+
+    Args:
+        page_pairs: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     pages_by_doc: OrderedDict[str, list[int]] = OrderedDict()
     seen: dict[str, set[int]] = {}
     for doc_id, page_number in sorted(page_pairs, key=lambda item: (item[0], item[1])):
@@ -250,6 +291,14 @@ def group_page_reference_pairs(page_pairs: Iterable[tuple[str, int]]) -> list[Pa
 
 
 def flatten_page_references(references: Iterable[PageReference]) -> set[tuple[str, int]]:
+    """Execute `flatten_page_references`.
+
+    Args:
+        references: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     flattened: set[tuple[str, int]] = set()
     for reference in references:
         for page_number in reference.page_numbers:
@@ -266,6 +315,19 @@ def build_page_trace(
     validation_action: str,
     collapsed_answer: bool,
 ) -> PageAttributionTrace:
+    """Build page trace.
+
+    Args:
+        raw_retrieved_chunk_pages: Input parameter.
+        pass_a_pages: Input parameter.
+        solver_reported_pages: Input parameter.
+        final_emitted_pages: Input parameter.
+        validation_action: Input parameter.
+        collapsed_answer: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return PageAttributionTrace(
         raw_retrieved_chunk_pages=list(raw_retrieved_chunk_pages),
         pass_a_pages=list(pass_a_pages),
@@ -277,6 +339,14 @@ def build_page_trace(
 
 
 def _page_rank(page: CandidatePage) -> tuple[float, float]:
+    """Execute `_page_rank`.
+
+    Args:
+        page: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return (
         page.best_rerank_score if page.best_rerank_score is not None else float("-inf"),
         page.best_retrieval_score,
@@ -284,6 +354,15 @@ def _page_rank(page: CandidatePage) -> tuple[float, float]:
 
 
 def _is_title_candidate(page: CandidatePage, *, config: PageAttributionConfig) -> bool:
+    """Return whether title candidate is true.
+
+    Args:
+        page: Input parameter.
+        config: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return config.suppress_title_pages and _looks_like_title_page(page)
 
 
@@ -293,6 +372,16 @@ def _is_repeated_boilerplate_candidate(
     repeated_texts: Counter[tuple[str, str]],
     config: PageAttributionConfig,
 ) -> bool:
+    """Return whether repeated boilerplate candidate is true.
+
+    Args:
+        page: Input parameter.
+        repeated_texts: Input parameter.
+        config: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return (
         config.suppress_repeated_boilerplate
         and repeated_texts[(page.doc_id, _normalized_text(page.text))] > 1
@@ -305,6 +394,16 @@ def _is_boilerplate_candidate(
     repeated_texts: Counter[tuple[str, str]],
     config: PageAttributionConfig,
 ) -> bool:
+    """Return whether boilerplate candidate is true.
+
+    Args:
+        page: Input parameter.
+        repeated_texts: Input parameter.
+        config: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return _is_title_candidate(page, config=config) or _is_repeated_boilerplate_candidate(
         page,
         repeated_texts=repeated_texts,
@@ -313,10 +412,27 @@ def _is_boilerplate_candidate(
 
 
 def _shares_chunk(left: CandidatePage, right: CandidatePage) -> bool:
+    """Execute `_shares_chunk`.
+
+    Args:
+        left: Input parameter.
+        right: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return bool(set(left.chunk_ids) & set(right.chunk_ids))
 
 
 def _looks_like_title_page(page: CandidatePage) -> bool:
+    """Execute `_looks_like_title_page`.
+
+    Args:
+        page: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if page.page_number != 1:
         return False
     normalized = _normalized_text(page.text)
@@ -347,4 +463,12 @@ def _suppression_text_rank(
 
 
 def _normalized_text(value: str) -> str:
+    """Execute `_normalized_text`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return " ".join(unicodedata.normalize("NFKC", value).split()).casefold()

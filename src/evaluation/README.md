@@ -1,6 +1,6 @@
 # `src/evaluation/`
 
-Local evaluation, validation, and benchmark assembly helpers live here. Package initializers and cache directories are intentionally omitted from the map.
+Local validation, scoring, goldset tooling, and benchmark analysis.
 
 ## File graph
 
@@ -8,13 +8,21 @@ Local evaluation, validation, and benchmark assembly helpers live here. Package 
 evaluation/
 ├── contracts.py
 ├── goldset.py
+├── goldset_core.py
+├── goldset_validation.py
 ├── scorer.py
-└── validator.py
+├── validator.py
+├── validator_checks.py
+└── dev_benchmark/
 ```
 
 ## File map
 
-- `contracts.py`: Evaluation and submission contract models. It defines answer types, benchmark metadata, page references, validation reports, score reports, and helpers for loading and normalizing submission, question, reference, and assistant-score records.
-- `goldset.py`: Gold-set sharding, review validation, and benchmark assembly utilities. It builds shard manifests, summaries, bundles, validation checks, and combined benchmark datasets from reviewed question sets and reference records.
-- `scorer.py`: Deterministic local scoring logic for challenge-style submissions. It computes deterministic, assistant, grounding, and TTFT metrics, then aggregates them into a score report.
-- `validator.py`: Local submission validator that mirrors the public challenge contract. It builds corpus registries, validates answer structure and page references, extracts retrieved pairs and TTFT, and returns validation issues and reports.
+- `contracts.py`: Evaluation contracts and typed loaders for submissions/questions/references/assistant scores.
+- `goldset.py`: Public export wrapper for goldset helpers.
+- `goldset_core.py`: Goldset sharding/build pipeline.
+- `goldset_validation.py`: Goldset input and review validation helpers.
+- `scorer.py`: Local scoring engine and metric aggregation.
+- `validator.py`: Submission validator orchestration and report construction.
+- `validator_checks.py`: Focused answer/retrieval validation checks extracted from validator core.
+- `dev_benchmark/`: Benchmark dataset models, runtime report builders, and consistency/comparison tooling.

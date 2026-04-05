@@ -36,7 +36,6 @@ _STRUCTURED_SYSTEM_PROMPT = (
     "For dates, always use ISO-8601 format (YYYY-MM-DD)."
 )
 
-
 @dataclass(slots=True)
 class CodexFreeTextProvider:
     """HTTP provider that calls a Codex-compatible `/responses` endpoint."""
@@ -51,6 +50,7 @@ class CodexFreeTextProvider:
     _client: httpx.Client = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
+        """Execute `__post_init__`."""
         token = _resolve_provider_token(self.api_key)
         if not token:
             raise ValueError(
@@ -77,6 +77,7 @@ class CodexFreeTextProvider:
         evidence_pages: list[dict[str, Any]],
         max_chars: int,
     ) -> dict[str, Any]:
+        """Execute `generate`."""
         if max_chars <= 0:
             raise ValueError("max_chars must be positive.")
         started_at = time.perf_counter()
@@ -146,6 +147,7 @@ class CodexFreeTextProvider:
         answer_schema: type[BaseModel],
         reasoning_effort: str,
     ) -> dict[str, Any]:
+        """Execute `generate_structured`."""
         started_at = time.perf_counter()
         normalized_effort = str(reasoning_effort).strip().lower() or "medium"
         schema_name = f"{answer_type}_answer"
@@ -234,14 +236,16 @@ class CodexFreeTextProvider:
         return result
 
     def close(self) -> None:
+        """Execute `close`."""
         self._client.close()
 
     def __enter__(self) -> "CodexFreeTextProvider":
+        """Execute `__enter__`."""
         return self
 
     def __exit__(self, *_: object) -> None:
+        """Execute `__exit__`."""
         self.close()
-
 
 @dataclass(slots=True)
 class CodexStructuredOutputProvider:
@@ -256,6 +260,7 @@ class CodexStructuredOutputProvider:
     _client: httpx.Client = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
+        """Execute `__post_init__`."""
         token = _resolve_provider_token(self.api_key)
         if not token:
             raise ValueError(
@@ -282,6 +287,7 @@ class CodexStructuredOutputProvider:
         max_output_tokens: int,
         reasoning_effort: str = "medium",
     ) -> dict[str, Any]:
+        """Execute `generate_structured`."""
         if max_output_tokens <= 0:
             raise ValueError("max_output_tokens must be positive.")
         request_body = {
@@ -337,14 +343,16 @@ class CodexStructuredOutputProvider:
         raise ValueError("Provider structured payload is not valid JSON.") from last_exc
 
     def close(self) -> None:
+        """Execute `close`."""
         self._client.close()
 
     def __enter__(self) -> "CodexStructuredOutputProvider":
+        """Execute `__enter__`."""
         return self
 
     def __exit__(self, *_: object) -> None:
+        """Execute `__exit__`."""
         self.close()
-
 
 def _build_http_client(
     *,
@@ -354,6 +362,7 @@ def _build_http_client(
     timeout_seconds: float,
     transport: httpx.BaseTransport | None,
 ) -> httpx.Client:
+    """Build http client."""
     return httpx.Client(
         base_url=base_url.rstrip("/") + "/",
         headers={
@@ -367,8 +376,8 @@ def _build_http_client(
         transport=transport,
     )
 
-
 def _resolve_provider_token(explicit_token: str | None) -> str:
+    """Resolve provider token."""
     candidates = [
         explicit_token,
         os.getenv("CODEX_OAUTH_TOKEN"),
@@ -381,8 +390,8 @@ def _resolve_provider_token(explicit_token: str | None) -> str:
             return token
     return ""
 
-
 def _format_page_reference(page: dict[str, Any]) -> str:
+    """Format page reference."""
     page_numbers = page.get("page_numbers")
     if isinstance(page_numbers, list):
         normalized_page_numbers: list[str] = []
@@ -404,8 +413,8 @@ def _format_page_reference(page: dict[str, Any]) -> str:
         return ""
     return str(parsed_page) if parsed_page > 0 else ""
 
-
 def _build_user_prompt(*, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> str:
+    """Build user prompt."""
     evidence_lines: list[str] = []
     for index, page in enumerate(evidence_pages, start=1):
         doc_id = str(page.get("doc_id") or "").strip()
@@ -421,21 +430,15 @@ def _build_user_prompt(*, question: str, evidence_pages: list[dict[str, Any]], m
         f"{evidence_blob}"
     )
 
-
 def _strict_openai_schema(schema: dict[str, Any]) -> dict[str, Any]:
-    """Ensure a Pydantic-generated JSON schema is OpenAI strict-mode compatible.
-
-    OpenAI strict mode requires every key in ``properties`` to appear in
-    ``required``.  Pydantic omits fields with defaults from ``required``,
-    which causes 400 errors.
-    """
+    """Ensure a Pydantic-generated JSON schema is OpenAI strict-mode compatible."""
     schema = dict(schema)
     if "properties" in schema:
         schema["required"] = sorted(schema["properties"])
     return schema
 
-
 def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_pages: list[dict[str, Any]]) -> str:
+    """Build structured user prompt."""
     evidence_lines: list[str] = []
     for index, page in enumerate(evidence_pages, start=1):
         doc_id = str(page.get("doc_id") or "").strip()
@@ -451,8 +454,8 @@ def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_p
         f"{evidence_blob}"
     )
 
-
 def _extract_response_text(payload: dict[str, Any]) -> str:
+    """Extract response text."""
     output_text = payload.get("output_text")
     if isinstance(output_text, str) and output_text.strip():
         return output_text
@@ -496,8 +499,8 @@ def _extract_response_text(payload: dict[str, Any]) -> str:
 
     raise ValueError("Provider response does not contain readable text output.")
 
-
 def _parse_answer_payload(response_text: str, *, max_chars: int) -> tuple[str, float]:
+    """Parse answer payload."""
     normalized = _normalize_whitespace(response_text)
     if not normalized:
         raise ValueError("Provider returned an empty answer payload.")
@@ -523,8 +526,8 @@ def _parse_answer_payload(response_text: str, *, max_chars: int) -> tuple[str, f
 
     return answer, confidence
 
-
 def _parse_structured_payload(response_text: str) -> dict[str, Any]:
+    """Parse structured payload."""
     normalized = _normalize_whitespace(response_text)
     if not normalized:
         raise ValueError("Provider returned an empty structured payload.")
@@ -536,8 +539,8 @@ def _parse_structured_payload(response_text: str) -> dict[str, Any]:
         raise ValueError("Provider structured payload must be a JSON object.")
     return parsed
 
-
 def _coerce_confidence(raw_confidence: Any) -> float:
+    """Execute `_coerce_confidence`."""
     try:
         confidence = float(raw_confidence)
     except (TypeError, ValueError):
@@ -548,10 +551,9 @@ def _coerce_confidence(raw_confidence: Any) -> float:
         return DEFAULT_PROVIDER_CONFIDENCE
     return confidence
 
-
 def _normalize_whitespace(value: str) -> str:
+    """Normalize whitespace."""
     return " ".join(value.split())
-
 
 def _post_with_retry(
     client: httpx.Client,

@@ -127,6 +127,14 @@ def quality_score_and_flags(signals: PageSignal, settings: IngestionSettings) ->
 
 
 def _legal_marker_hits(text: str) -> list[str]:
+    """Execute `_legal_marker_hits`.
+
+    Args:
+        text: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     lowered = text.lower()
     return [marker for marker in LEGAL_MARKERS if marker in lowered]
 

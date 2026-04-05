@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import inspect
 import json
 import logging
 import re
@@ -15,6 +14,7 @@ from qdrant_client import QdrantClient, models
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 from src.common.schemas import QuestionRecord
 from src.indexing.service import BM25SparseEncoder
+from src.retrieval.introspection import callable_accepts_keyword, metadata_field
 
 LOGGER = get_logger("retrieval.hybrid_search")
 
@@ -60,6 +60,7 @@ class QdrantHybridSearchBackend:
         *,
         query_metadata: Any | None = None,
     ) -> list[dict[str, Any]]:
+        """Execute `search`."""
         result_limit = max(int(top_k), 0)
         if result_limit == 0:
             return []
@@ -118,6 +119,7 @@ class QdrantHybridSearchBackend:
         return window
 
     def close(self) -> None:
+        """Execute `close`."""
         if self._client is None:
             return
         close = getattr(self._client, "close", None)
@@ -129,6 +131,7 @@ class QdrantHybridSearchBackend:
         self._is_loaded = False
 
     def _ensure_loaded(self) -> None:
+        """Execute `_ensure_loaded`."""
         if self._is_loaded:
             return
 
@@ -173,6 +176,7 @@ class RRFHybridSearch:
         *,
         query_metadata: Any | None = None,
     ) -> list[dict[str, Any]]:
+        """Execute `search`."""
         result_limit = max(int(top_k), 0)
         if result_limit == 0:
             return []
@@ -211,6 +215,7 @@ class RRFHybridSearch:
         dense_ranks: dict[str, int],
         sparse_ranks: dict[str, int],
     ) -> dict[str, Any]:
+        """Normalize candidate."""
         normalized = dict(candidate)
         chunk_id = str(candidate.get("chunk_id") or "")
         dense_rank = dense_ranks.get(chunk_id)
@@ -236,6 +241,7 @@ class RRFHybridSearch:
         primary_key: str,
         fallback_key: str | None = None,
     ) -> dict[str, int]:
+        """Execute `_rank_candidates`."""
         scored_candidates = []
         for candidate in candidates:
             chunk_id = str(candidate.get("chunk_id") or "")
@@ -253,12 +259,14 @@ class RRFHybridSearch:
         }
 
     def _rrf_score(self, rank: int | None, weight: float) -> float:
+        """Execute `_rrf_score`."""
         if rank is None:
             return 0.0
         return float(weight) / (self.rrf_k + rank)
 
 
 def _score(value: Any, *, fallback: Any = None) -> float:
+    """Execute `_score`."""
     if value is None:
         value = fallback
     try:
@@ -268,12 +276,14 @@ def _score(value: Any, *, fallback: Any = None) -> float:
 
 
 def _optional_score(value: Any) -> float | None:
+    """Execute `_optional_score`."""
     if value is None:
         return None
     return _score(value)
 
 
 def _read_index_manifest(index_dir: Path) -> dict[str, Any]:
+    """Execute `_read_index_manifest`."""
     manifest_path = index_dir / "index_manifest.json"
     if not manifest_path.exists():
         raise ValueError(f"Index manifest is missing: {manifest_path}")
@@ -287,6 +297,7 @@ def _read_index_manifest(index_dir: Path) -> dict[str, Any]:
 
 
 def _resolve_sparse_state_path(index_dir: Path, manifest: dict[str, Any]) -> Path:
+    """Resolve sparse state path."""
     sparse_state = manifest.get("sparse_encoder_state")
     if isinstance(sparse_state, dict):
         state_path_raw = sparse_state.get("path")
@@ -307,6 +318,7 @@ def _merge_scored_hits(
     dense_hits: list[models.ScoredPoint],
     sparse_hits: list[models.ScoredPoint],
 ) -> list[dict[str, Any]]:
+    """Execute `_merge_scored_hits`."""
     merged: dict[str, dict[str, Any]] = {}
 
     for hit in dense_hits:
@@ -339,6 +351,7 @@ def _merge_scored_hits(
 
 
 def _extract_chunk_id(payload: dict[str, Any], point_id: Any) -> str:
+    """Extract chunk id."""
     chunk_id = str(payload.get("chunk_id") or "").strip()
     if chunk_id:
         return chunk_id
@@ -346,6 +359,7 @@ def _extract_chunk_id(payload: dict[str, Any], point_id: Any) -> str:
 
 
 def _candidate_from_payload(chunk_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+    """Execute `_candidate_from_payload`."""
     page_span = payload.get("page_span")
     if not isinstance(page_span, list) or not page_span:
         page_span = payload.get("page_numbers")
@@ -392,6 +406,7 @@ def _candidate_from_payload(chunk_id: str, payload: dict[str, Any]) -> dict[str,
 
 
 def _normalized_page_numbers(raw_page_numbers: Any) -> list[int]:
+    """Execute `_normalized_page_numbers`."""
     if not isinstance(raw_page_numbers, list):
         return []
 
@@ -411,6 +426,7 @@ def _apply_query_metadata_boosts(
     *,
     query_metadata: Any | None,
 ) -> list[dict[str, Any]]:
+    """Execute `_apply_query_metadata_boosts`."""
     legal_entities = _query_metadata_signals(query_metadata, field_name="legal_entities")
     title_cues = _query_metadata_signals(query_metadata, field_name="document_title_cues")
     if not legal_entities and not title_cues:
@@ -440,12 +456,13 @@ def _apply_query_metadata_boosts(
 
 
 def _query_metadata_signals(query_metadata: Any, *, field_name: str) -> tuple[str, ...]:
-    raw_values = _metadata_field(query_metadata, field_name, ())
+    """Execute `_query_metadata_signals`."""
+    raw_values = metadata_field(query_metadata, field_name, ())
     normalized: list[str] = []
 
     for raw_value in raw_values:
         if field_name == "legal_entities":
-            raw_value = _metadata_field(raw_value, "normalized_value", "")
+            raw_value = metadata_field(raw_value, "normalized_value", "")
         signal = _normalize_signal(raw_value)
         if signal:
             normalized.append(signal)
@@ -453,6 +470,7 @@ def _query_metadata_signals(query_metadata: Any, *, field_name: str) -> tuple[st
 
 
 def _candidate_signals(candidate: dict[str, Any]) -> tuple[str, ...]:
+    """Execute `_candidate_signals`."""
     raw_signals: list[Any] = [
         candidate.get("doc_id"),
         candidate.get("document_title"),
@@ -467,6 +485,7 @@ def _candidate_signals(candidate: dict[str, Any]) -> tuple[str, ...]:
 
 
 def _signals_overlap(candidate_signals: tuple[str, ...], target_signal: str) -> bool:
+    """Execute `_signals_overlap`."""
     return any(
         target_signal in candidate_signal or candidate_signal in target_signal
         for candidate_signal in candidate_signals
@@ -474,15 +493,8 @@ def _signals_overlap(candidate_signals: tuple[str, ...], target_signal: str) -> 
     )
 
 
-def _metadata_field(container: Any, field_name: str, default: Any) -> Any:
-    if container is None:
-        return default
-    if isinstance(container, dict):
-        return container.get(field_name, default)
-    return getattr(container, field_name, default)
-
-
 def _normalize_signal(value: Any) -> str:
+    """Normalize signal."""
     text = str(value or "").strip().casefold()
     if not text:
         return ""
@@ -490,6 +502,7 @@ def _normalize_signal(value: Any) -> str:
 
 
 def _string_list(value: Any) -> list[str]:
+    """Execute `_string_list`."""
     if not isinstance(value, list):
         return []
     normalized: list[str] = []
@@ -507,22 +520,11 @@ def _backend_search_with_optional_query_metadata(
     top_k: int,
     query_metadata: Any | None,
 ) -> list[dict[str, Any]]:
-    if _callable_accepts_keyword(backend.search, "query_metadata"):
+    """Execute `_backend_search_with_optional_query_metadata`."""
+    if callable_accepts_keyword(backend.search, "query_metadata"):
         return backend.search(
             question,
             top_k=top_k,
             query_metadata=query_metadata,
         )
     return backend.search(question, top_k=top_k)
-
-
-def _callable_accepts_keyword(func: Any, keyword: str) -> bool:
-    try:
-        signature = inspect.signature(func)
-    except (TypeError, ValueError):
-        return False
-
-    for parameter in signature.parameters.values():
-        if parameter.kind is inspect.Parameter.VAR_KEYWORD:
-            return True
-    return keyword in signature.parameters

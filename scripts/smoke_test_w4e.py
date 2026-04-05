@@ -31,7 +31,7 @@ from src.common.schemas import QuestionRecord
 from src.indexing.service import IndexPaths, build_query_embedder
 from src.providers.codex_provider import CodexFreeTextProvider
 from src.retrieval.hybrid_search import QdrantHybridSearchBackend, RRFHybridSearch
-from src.retrieval.reranker import LexicalFallbackReranker, QwenReranker
+from src.retrieval.reranker import QwenReranker
 from src.retrieval.service import RetrievalService
 
 SMOKE_QUESTIONS_PATH = PROJECT_ROOT / "data" / "warmup" / "questions" / "questions_smoke.json"
@@ -58,12 +58,22 @@ def _resolve_provider_api_key() -> str | None:
 
 
 def load_smoke_questions() -> list[QuestionRecord]:
+    """Load smoke questions.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     with SMOKE_QUESTIONS_PATH.open() as f:
         raw = json.load(f)
     return [QuestionRecord(**q) for q in raw]
 
 
 def main() -> None:
+    """Execute `main`.
+
+    Returns:
+        None: This function does not return a value.
+    """
     print("=" * 60)
     print("W4E SMOKE TEST — 5 warmup questions")
     print("=" * 60)
@@ -103,7 +113,7 @@ def main() -> None:
     retrieval_settings = config.retrieval
     retrieval_service = RetrievalService(
         hybrid_search=RRFHybridSearch(backend=backend),
-        reranker=QwenReranker(fallback_reranker=LexicalFallbackReranker()),
+        reranker=QwenReranker(),
         candidate_budget=retrieval_settings.candidate_budget,
         rerank_budget=retrieval_settings.rerank_budget,
         default_evidence_budget=retrieval_settings.default_evidence_budget,

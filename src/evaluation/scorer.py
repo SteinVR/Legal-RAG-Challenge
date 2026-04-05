@@ -297,22 +297,54 @@ def telemetry_factor_for_answer(validation_report: SubmissionValidationReport, *
 
 
 def _is_json_number(value: Any) -> bool:
+    """Return whether json number is true.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return isinstance(value, (int, float)) and not isinstance(value, bool)
 
 
 def _mean_or_zero(values: list[float]) -> float:
+    """Execute `_mean_or_zero`.
+
+    Args:
+        values: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not values:
         return 0.0
     return sum(values) / len(values)
 
 
 def _mean_or_none(values: list[float]) -> float | None:
+    """Execute `_mean_or_none`.
+
+    Args:
+        values: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not values:
         return None
     return sum(values) / len(values)
 
 
 def _parse_iso_date(value: Any) -> date | None:
+    """Parse iso date.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not isinstance(value, str):
         return None
     try:

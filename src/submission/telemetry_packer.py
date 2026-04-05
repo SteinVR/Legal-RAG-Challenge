@@ -100,6 +100,21 @@ class TelemetryPacker:
         ttft_ms: float | None = None,
         tpot_ms: float = 0.0,
     ) -> dict[str, Any]:
+        """Build answer telemetry.
+
+        Args:
+            retrieval_result: Input parameter.
+            answer_result: Input parameter.
+            model_name: Input parameter.
+            input_tokens: Input parameter.
+            output_tokens: Input parameter.
+            total_time_ms: Input parameter.
+            ttft_ms: Input parameter.
+            tpot_ms: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return build_answer_telemetry(
             retrieval_result=retrieval_result,
             answer_result=answer_result,
@@ -121,6 +136,16 @@ def _coalesce_page_references(
     fallback: list[PageReference] | None,
     authoritative_preferred: bool = False,
 ) -> list[PageReference]:
+    """Execute `_coalesce_page_references`.
+
+    Args:
+        preferred: Input parameter.
+        fallback: Input parameter.
+        authoritative_preferred: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if authoritative_preferred and preferred is not None:
         candidates = preferred
     else:
@@ -148,6 +173,14 @@ def _coalesce_page_references(
 
 
 def _serialize_page_reference(reference: PageReference) -> dict[str, Any]:
+    """Execute `_serialize_page_reference`.
+
+    Args:
+        reference: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return {
         "doc_id": reference.doc_id,
         "page_numbers": list(reference.page_numbers),
@@ -160,6 +193,16 @@ def _build_retrieval_telemetry(
     retrieval_result: RetrievalResult,
     answer_result: AnswerResult,
 ) -> dict[str, Any]:
+    """Build retrieval telemetry.
+
+    Args:
+        retrieved_chunk_pages: Input parameter.
+        retrieval_result: Input parameter.
+        answer_result: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     payload: dict[str, Any] = {"retrieved_chunk_pages": retrieved_chunk_pages}
     page_trace = answer_result.page_trace
     if page_trace is not None:

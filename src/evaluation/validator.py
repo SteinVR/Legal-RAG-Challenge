@@ -17,7 +17,7 @@ from .contracts import (
     UnanswerableRetrievalPolicy,
     ValidationIssue,
 )
-
+from .validator_checks import validate_answer_value, validate_retrieval
 
 @dataclass(slots=True)
 class ValidationPolicy:
@@ -27,7 +27,6 @@ class ValidationPolicy:
     require_full_question_coverage: bool = True
     emit_ambiguity_warning: bool = True
 
-
 @dataclass(slots=True)
 class CorpusRegistry:
     """Known corpus documents and their physical page counts."""
@@ -36,6 +35,7 @@ class CorpusRegistry:
 
     @classmethod
     def from_pdf_directory(cls, pdf_dir: str | Path) -> "CorpusRegistry":
+        """Execute `from_pdf_directory`."""
         root = Path(pdf_dir)
         if not root.exists():
             raise ValueError(f"Documents directory does not exist: {root}")
@@ -49,11 +49,12 @@ class CorpusRegistry:
         return cls(page_counts=page_counts)
 
     def contains(self, doc_id: str) -> bool:
+        """Execute `contains`."""
         return doc_id in self.page_counts
 
     def page_count_for(self, doc_id: str) -> int | None:
+        """Execute `page_count_for`."""
         return self.page_counts.get(doc_id)
-
 
 class SubmissionValidator:
     """Validate raw submission payloads against question types and local corpus metadata."""
@@ -66,12 +67,14 @@ class SubmissionValidator:
         corpus_registry: CorpusRegistry | None = None,
         policy: ValidationPolicy | None = None,
     ) -> None:
+        """Execute `__init__`."""
         self.question_types = question_types
         self.required_question_ids = required_question_ids or set(question_types)
         self.corpus_registry = corpus_registry
         self.policy = policy or ValidationPolicy()
 
     def validate(self, submission_payload: Any) -> SubmissionValidationReport:
+        """Execute `validate`."""
         issues: list[ValidationIssue] = []
         answer_reports: list[AnswerValidationReport] = []
         malformed_answers = 0
@@ -162,6 +165,7 @@ class SubmissionValidator:
         answer_index: int,
         duplicate_ids: set[str],
     ) -> tuple[list[ValidationIssue], str | None, AnswerType | None]:
+        """Validate answer."""
         issues: list[ValidationIssue] = []
         if not isinstance(raw_answer, dict):
             issues.append(
@@ -254,147 +258,17 @@ class SubmissionValidator:
         answer_index: int,
         question_id: str | None,
     ) -> list[ValidationIssue]:
-        issues: list[ValidationIssue] = []
-        deterministic_types = {
-            AnswerType.NUMBER,
-            AnswerType.BOOLEAN,
-            AnswerType.NAME,
-            AnswerType.NAMES,
-            AnswerType.DATE,
-        }
+        """Validate a typed answer value using shared strict checks."""
 
-        if answer_value is None:
-            if answer_type == AnswerType.FREE_TEXT:
-                issues.append(
-                    ValidationIssue(
-                        severity="error",
-                        code="answer.null_not_allowed",
-                        message="free_text answers must be non-null strings.",
-                        field="answer",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        if answer_type == AnswerType.NUMBER:
-            if not _is_number(answer_value):
-                issues.append(
-                    _answer_issue(
-                        code="answer.type_mismatch",
-                        message="number answers must be JSON numbers.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        if answer_type == AnswerType.BOOLEAN:
-            if not isinstance(answer_value, bool):
-                issues.append(
-                    _answer_issue(
-                        code="answer.type_mismatch",
-                        message="boolean answers must be JSON true/false.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        if answer_type == AnswerType.NAME:
-            if not isinstance(answer_value, str) or not answer_value.strip():
-                issues.append(
-                    _answer_issue(
-                        code="answer.type_mismatch",
-                        message="name answers must be non-empty strings.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        if answer_type == AnswerType.NAMES:
-            if not isinstance(answer_value, list) or not answer_value:
-                issues.append(
-                    _answer_issue(
-                        code="answer.type_mismatch",
-                        message="names answers must be non-empty arrays of strings.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-                return issues
-            if not all(isinstance(item, str) and item.strip() for item in answer_value):
-                issues.append(
-                    _answer_issue(
-                        code="answer.type_mismatch",
-                        message="names answers must contain only non-empty strings.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        if answer_type == AnswerType.DATE:
-            if not isinstance(answer_value, str):
-                issues.append(
-                    _answer_issue(
-                        code="answer.type_mismatch",
-                        message="date answers must be ISO 8601 strings (YYYY-MM-DD).",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-                return issues
-            try:
-                parsed = date.fromisoformat(answer_value)
-            except ValueError:
-                parsed = None
-            if parsed is None or parsed.isoformat() != answer_value:
-                issues.append(
-                    _answer_issue(
-                        code="answer.date_invalid",
-                        message="date answers must use exact YYYY-MM-DD format.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        if answer_type == AnswerType.FREE_TEXT:
-            if not isinstance(answer_value, str) or not answer_value.strip():
-                issues.append(
-                    _answer_issue(
-                        code="answer.type_mismatch",
-                        message="free_text answers must be non-empty strings.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-                return issues
-            if len(answer_value) > 280:
-                issues.append(
-                    _answer_issue(
-                        code="answer.free_text_too_long",
-                        message="free_text answers must be at most 280 characters.",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        if answer_type in deterministic_types:
-            return issues
-
-        issues.append(
-            _answer_issue(
-                code="answer.type_unknown",
-                message=f"Unsupported answer_type '{answer_type}'.",
-                question_id=question_id,
-                answer_index=answer_index,
-            )
+        return validate_answer_value(
+            self,
+            answer_value,
+            answer_type=answer_type,
+            answer_index=answer_index,
+            question_id=question_id,
+            answer_issue=_answer_issue,
+            is_number=_is_number,
         )
-        return issues
 
     def _validate_telemetry(
         self,
@@ -403,6 +277,7 @@ class SubmissionValidator:
         answer_index: int,
         question_id: str | None,
     ) -> list[ValidationIssue]:
+        """Validate telemetry."""
         issues: list[ValidationIssue] = []
         if not isinstance(telemetry, dict):
             issues.append(
@@ -448,6 +323,7 @@ class SubmissionValidator:
         answer_index: int,
         question_id: str | None,
     ) -> list[ValidationIssue]:
+        """Validate timing."""
         issues: list[ValidationIssue] = []
         if not isinstance(timing, dict):
             issues.append(
@@ -513,163 +389,14 @@ class SubmissionValidator:
         answer_index: int,
         question_id: str | None,
     ) -> list[ValidationIssue]:
-        issues: list[ValidationIssue] = []
-        if not isinstance(retrieval, dict):
-            issues.append(
-                ValidationIssue(
-                    severity="error",
-                    code="telemetry.retrieval.invalid_type",
-                    message="telemetry.retrieval must be a JSON object.",
-                    field="telemetry.retrieval",
-                    question_id=question_id,
-                    answer_index=answer_index,
-                )
-            )
-            return issues
+        """Validate retrieval telemetry payloads using shared strict checks."""
 
-        retrieved_chunk_pages = retrieval.get("retrieved_chunk_pages")
-        if not isinstance(retrieved_chunk_pages, list):
-            issues.append(
-                ValidationIssue(
-                    severity="error",
-                    code="telemetry.retrieval.invalid_pages",
-                    message="telemetry.retrieval.retrieved_chunk_pages must be a JSON array.",
-                    field="telemetry.retrieval.retrieved_chunk_pages",
-                    question_id=question_id,
-                    answer_index=answer_index,
-                )
-            )
-            return issues
-
-        if not retrieved_chunk_pages:
-            if self.policy.unanswerable_retrieval_policy == UnanswerableRetrievalPolicy.REQUIRE_NON_EMPTY:
-                issues.append(
-                    ValidationIssue(
-                        severity="error",
-                        code="telemetry.retrieval.empty_disallowed",
-                        message="retrieved_chunk_pages must be non-empty under the active validation policy.",
-                        field="telemetry.retrieval.retrieved_chunk_pages",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            elif self.policy.emit_ambiguity_warning:
-                issues.append(
-                    ValidationIssue(
-                        severity="warning",
-                        code="telemetry.retrieval.empty_allowed",
-                        message=(
-                            "retrieved_chunk_pages is empty. Allowed by local policy for unanswerable cases, "
-                            "but the public docs are internally inconsistent."
-                        ),
-                        field="telemetry.retrieval.retrieved_chunk_pages",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-            return issues
-
-        for item_index, item in enumerate(retrieved_chunk_pages):
-            field_prefix = f"telemetry.retrieval.retrieved_chunk_pages[{item_index}]"
-            if not isinstance(item, dict):
-                issues.append(
-                    ValidationIssue(
-                        severity="error",
-                        code="telemetry.retrieval.entry_invalid_type",
-                        message="Each retrieved_chunk_pages entry must be a JSON object.",
-                        field=field_prefix,
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-                continue
-
-            doc_id = item.get("doc_id")
-            if not isinstance(doc_id, str) or not doc_id.strip():
-                issues.append(
-                    ValidationIssue(
-                        severity="error",
-                        code="telemetry.retrieval.doc_id_invalid",
-                        message="doc_id must be a non-empty string.",
-                        field=f"{field_prefix}.doc_id",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-                doc_id = None
-            else:
-                doc_id = doc_id.strip()
-                if self.corpus_registry is not None and not self.corpus_registry.contains(doc_id):
-                    issues.append(
-                        ValidationIssue(
-                            severity="error",
-                            code="telemetry.retrieval.doc_id_unknown",
-                            message=f"doc_id '{doc_id}' is not present in the supplied corpus directory.",
-                            field=f"{field_prefix}.doc_id",
-                            question_id=question_id,
-                            answer_index=answer_index,
-                        )
-                    )
-
-            page_numbers = item.get("page_numbers")
-            if not isinstance(page_numbers, list) or not page_numbers:
-                issues.append(
-                    ValidationIssue(
-                        severity="error",
-                        code="telemetry.retrieval.page_numbers_invalid",
-                        message="page_numbers must be a non-empty array of physical 1-based page numbers.",
-                        field=f"{field_prefix}.page_numbers",
-                        question_id=question_id,
-                        answer_index=answer_index,
-                    )
-                )
-                continue
-
-            for page_index, page_number in enumerate(page_numbers):
-                page_field = f"{field_prefix}.page_numbers[{page_index}]"
-                if not isinstance(page_number, int) or isinstance(page_number, bool):
-                    issues.append(
-                        ValidationIssue(
-                            severity="error",
-                            code="telemetry.retrieval.page_number_invalid",
-                            message="page_numbers must contain only integer physical page numbers.",
-                            field=page_field,
-                            question_id=question_id,
-                            answer_index=answer_index,
-                        )
-                    )
-                    continue
-                if page_number < 1:
-                    issues.append(
-                        ValidationIssue(
-                            severity="error",
-                            code="telemetry.retrieval.page_number_non_positive",
-                            message="page_numbers must be 1-based physical PDF page numbers.",
-                            field=page_field,
-                            question_id=question_id,
-                            answer_index=answer_index,
-                        )
-                    )
-                    continue
-                if doc_id is None or self.corpus_registry is None:
-                    continue
-                max_page = self.corpus_registry.page_count_for(doc_id)
-                if max_page is not None and page_number > max_page:
-                    issues.append(
-                        ValidationIssue(
-                            severity="error",
-                            code="telemetry.retrieval.page_number_out_of_range",
-                            message=(
-                                f"page {page_number} is out of range for doc_id '{doc_id}' "
-                                f"(max page {max_page})."
-                            ),
-                            field=page_field,
-                            question_id=question_id,
-                            answer_index=answer_index,
-                        )
-                    )
-
-        return issues
+        return validate_retrieval(
+            self,
+            retrieval,
+            answer_index=answer_index,
+            question_id=question_id,
+        )
 
     def _validate_usage(
         self,
@@ -678,6 +405,7 @@ class SubmissionValidator:
         answer_index: int,
         question_id: str | None,
     ) -> list[ValidationIssue]:
+        """Validate usage."""
         issues: list[ValidationIssue] = []
         if not isinstance(usage, dict):
             issues.append(
@@ -727,6 +455,7 @@ class SubmissionValidator:
         answer_reports: list[AnswerValidationReport],
         malformed_answers: int,
     ) -> SubmissionValidationReport:
+        """Build report."""
         error_count = sum(issue.severity == "error" for issue in issues)
         warning_count = sum(issue.severity == "warning" for issue in issues)
         for answer_report in answer_reports:
@@ -745,14 +474,12 @@ class SubmissionValidator:
             answers=answer_reports,
         )
 
-
 def build_corpus_registry(pdf_dir: str | Path | None) -> CorpusRegistry | None:
     """Construct a corpus registry when local PDFs are available."""
 
     if pdf_dir is None:
         return None
     return CorpusRegistry.from_pdf_directory(pdf_dir)
-
 
 def collect_answer_dicts(submission_payload: Any) -> list[dict[str, Any]]:
     """Return the raw answers[] objects from a submission payload."""
@@ -764,7 +491,6 @@ def collect_answer_dicts(submission_payload: Any) -> list[dict[str, Any]]:
         return []
     return [answer for answer in raw_answers if isinstance(answer, dict)]
 
-
 def find_answer_by_question_id(answer_dicts: Iterable[dict[str, Any]], question_id: str) -> dict[str, Any] | None:
     """Return the first answer object matching a question_id."""
 
@@ -773,7 +499,6 @@ def find_answer_by_question_id(answer_dicts: Iterable[dict[str, Any]], question_
         if raw_question_id == question_id:
             return answer
     return None
-
 
 def extract_retrieved_pairs(raw_answer: dict[str, Any] | None) -> set[tuple[str, int]]:
     """Extract valid-looking (doc_id, page_number) pairs from a raw answer payload."""
@@ -805,7 +530,6 @@ def extract_retrieved_pairs(raw_answer: dict[str, Any] | None) -> set[tuple[str,
                 pairs.add((doc_id.strip(), page_number))
     return pairs
 
-
 def extract_ttft_ms(raw_answer: dict[str, Any] | None) -> float | None:
     """Extract ttft_ms from a raw answer payload when it is numeric."""
 
@@ -822,12 +546,12 @@ def extract_ttft_ms(raw_answer: dict[str, Any] | None) -> float | None:
         return None
     return float(ttft_ms)
 
-
 def _is_number(value: Any) -> bool:
+    """Return whether number is true."""
     return isinstance(value, (int, float)) and not isinstance(value, bool)
 
-
 def _collect_question_id_sets(raw_answers: list[Any]) -> tuple[set[str], set[str]]:
+    """Execute `_collect_question_id_sets`."""
     question_ids = [answer.get("question_id") for answer in raw_answers if isinstance(answer, dict)]
     normalized_question_ids = [
         question_id.strip() for question_id in question_ids if isinstance(question_id, str) and question_id.strip()
@@ -840,14 +564,13 @@ def _collect_question_id_sets(raw_answers: list[Any]) -> tuple[set[str], set[str
     }
     return duplicate_ids, submitted_question_ids
 
-
 def _has_error(issues: Iterable[ValidationIssue]) -> bool:
+    """Return whether error is present."""
     return any(issue.severity == "error" for issue in issues)
 
-
 def _has_error_with_prefix(issues: Iterable[ValidationIssue], prefix: str) -> bool:
+    """Return whether error with prefix is present."""
     return any(issue.severity == "error" and issue.code.startswith(prefix) for issue in issues)
-
 
 def _answer_issue(
     *,
@@ -856,6 +579,7 @@ def _answer_issue(
     question_id: str | None,
     answer_index: int,
 ) -> ValidationIssue:
+    """Execute `_answer_issue`."""
     return ValidationIssue(
         severity="error",
         code=code,

@@ -1,6 +1,6 @@
 # `src/submission/`
 
-Submission packaging, sync, validation gates, telemetry packing, and API client helpers live here. Package initializers and cache directories are intentionally omitted from the map.
+Submission sync, build pipeline, packaging, and telemetry helpers.
 
 ## File graph
 
@@ -9,6 +9,7 @@ submission/
 ├── api_client.py
 ├── packager.py
 ├── pipeline.py
+├── pipeline_utils.py
 ├── submit_gate.py
 ├── sync.py
 └── telemetry_packer.py
@@ -16,9 +17,10 @@ submission/
 
 ## File map
 
-- `api_client.py`: Thin HTTPX-based client for the competition API. It handles document download and submission-status interactions.
-- `packager.py`: Submission payload and code-archive packaging utilities. It builds the JSON payload, filters archive contents, and enforces bundle size limits.
-- `pipeline.py`: End-to-end submission pipeline orchestration. It validates local artifacts, coordinates providers and retrieval, writes trace artifacts, and formats build results.
-- `submit_gate.py`: Pre-submit validation gates for packaged submission bundles. It checks archive size, corpus completeness, and validation-policy compliance before upload.
-- `sync.py`: Phase-aware local storage and sync orchestration. It manages metadata, deduplication, file copying, and directory snapshots for competition assets.
-- `telemetry_packer.py`: Answer telemetry packing helpers. It serializes retrieval and answer metadata into the payload shape expected by downstream submission artifacts.
+- `sync.py`: Phase-aware download/sync orchestration and local manifest helpers.
+- `api_client.py`: Competition API wrapper for question/document sync and submission status.
+- `pipeline.py`: End-to-end build-submission orchestration.
+- `pipeline_utils.py`: Shared pipeline helper utilities (artifact checks, token/time estimation, tracing, runtime guards).
+- `submit_gate.py`: Gate checks for archive size and pre-submit validation.
+- `packager.py`: Submission payload and code archive building.
+- `telemetry_packer.py`: Answer-level telemetry serialization into submission payload shape.

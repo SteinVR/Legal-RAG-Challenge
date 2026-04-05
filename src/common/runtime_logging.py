@@ -33,6 +33,14 @@ class RuntimeLogContext:
 
 class _JsonlFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
+        """Execute `format`.
+
+        Args:
+            record: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         payload = {
             "timestamp": datetime.fromtimestamp(record.created, tz=UTC).isoformat(),
             "level": record.levelname,
@@ -64,6 +72,14 @@ class _JsonlFormatter(logging.Formatter):
 
 class _ConsoleFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
+        """Execute `format`.
+
+        Args:
+            record: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S")
         component = _component_name(record.name)
         event = getattr(record, "event", "log")
@@ -155,20 +171,40 @@ def get_logger(component: str) -> logging.Logger:
 
 
 def get_runtime_context() -> RuntimeLogContext | None:
+    """Return runtime context.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return _RUNTIME_CONTEXT.get()
 
 
 def runtime_log_path() -> Path | None:
+    """Execute `runtime_log_path`.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     context = get_runtime_context()
     return None if context is None else context.log_path
 
 
 def questions_debug_enabled() -> bool:
+    """Execute `questions_debug_enabled`.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     context = get_runtime_context()
     return bool(context and context.debug_questions)
 
 
 def documents_debug_enabled() -> bool:
+    """Execute `documents_debug_enabled`.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     context = get_runtime_context()
     return bool(context and context.debug_documents)
 
@@ -198,6 +234,14 @@ def log_event(
 
 
 def _component_name(logger_name: str) -> str:
+    """Execute `_component_name`.
+
+    Args:
+        logger_name: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if logger_name == LOGGER_NAMESPACE:
         return "main"
     prefix = f"{LOGGER_NAMESPACE}."
@@ -207,6 +251,14 @@ def _component_name(logger_name: str) -> str:
 
 
 def _normalize_value(value: Any) -> Any:
+    """Normalize value.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if isinstance(value, Path):
         return str(value)
     if isinstance(value, datetime):
@@ -225,10 +277,26 @@ def _normalize_value(value: Any) -> Any:
 
 
 def _reset_logger(logger: logging.Logger) -> None:
+    """Execute `_reset_logger`.
+
+    Args:
+        logger: Input parameter.
+
+    Returns:
+        None: This function does not return a value.
+    """
     for handler in list(logger.handlers):
         logger.removeHandler(handler)
         handler.close()
 
 
 def _safe_filename(value: str) -> str:
+    """Execute `_safe_filename`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return "".join(character if character.isalnum() or character in {"-", "_"} else "-" for character in value)

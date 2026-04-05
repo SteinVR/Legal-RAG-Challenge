@@ -31,6 +31,15 @@ class SubmissionPackager:
     max_code_archive_bytes: int = MAX_CODE_ARCHIVE_BYTES
 
     def write_submission_payload(self, *, submission_payload: dict[str, Any], output_dir: str | Path) -> Path:
+        """Execute `write_submission_payload`.
+
+        Args:
+            submission_payload: Input parameter.
+            output_dir: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         target_dir = Path(output_dir)
         target_dir.mkdir(parents=True, exist_ok=True)
 
@@ -48,6 +57,17 @@ class SubmissionPackager:
         excluded_paths: set[Path] | None = None,
         include_paths: Iterable[str | Path] | None = None,
     ) -> Path:
+        """Execute `create_code_archive`.
+
+        Args:
+            output_path: Input parameter.
+            project_root: Input parameter.
+            excluded_paths: Input parameter.
+            include_paths: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         archive_path = Path(output_path)
         archive_path.parent.mkdir(parents=True, exist_ok=True)
         root = Path(project_root).resolve()
@@ -82,6 +102,16 @@ def build_submission_payload(*, architecture_summary: str, answers: list[dict[st
 
 
 def _is_excluded(path: Path, *, root: Path, excluded_paths: set[Path]) -> bool:
+    """Return whether excluded is true.
+
+    Args:
+        path: Input parameter.
+        root: Input parameter.
+        excluded_paths: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if any(path == excluded or _is_relative_to(path, excluded) for excluded in excluded_paths):
         return True
 
@@ -100,6 +130,15 @@ def _is_excluded(path: Path, *, root: Path, excluded_paths: set[Path]) -> bool:
 
 
 def _is_relative_to(path: Path, parent: Path) -> bool:
+    """Return whether relative to is true.
+
+    Args:
+        path: Input parameter.
+        parent: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     try:
         path.relative_to(parent)
         return True
@@ -113,6 +152,16 @@ def _iter_archive_files(
     excluded_paths: set[Path],
     include_paths: list[Path] | None,
 ):
+    """Execute `_iter_archive_files`.
+
+    Args:
+        root: Input parameter.
+        excluded_paths: Input parameter.
+        include_paths: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     seen_files: set[Path] = set()
 
     if include_paths is None:
@@ -139,12 +188,29 @@ def _iter_archive_files(
 
 
 def _is_secret_file(name: str) -> bool:
+    """Return whether secret file is true.
+
+    Args:
+        name: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if name in _SECRET_FILE_NAMES:
         return True
     return any(name.startswith(prefix) for prefix in _SECRET_FILE_PREFIXES)
 
 
 def _normalize_include_paths(*, root: Path, include_paths: Iterable[str | Path] | None) -> list[Path] | None:
+    """Normalize include paths.
+
+    Args:
+        root: Input parameter.
+        include_paths: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if include_paths is None:
         return None
 
@@ -163,6 +229,15 @@ def _normalize_include_paths(*, root: Path, include_paths: Iterable[str | Path] 
 
 
 def _validate_archive_size(*, archive_path: Path, max_code_archive_bytes: int) -> None:
+    """Validate archive size.
+
+    Args:
+        archive_path: Input parameter.
+        max_code_archive_bytes: Input parameter.
+
+    Returns:
+        None: This function does not return a value.
+    """
     if archive_path.stat().st_size > max_code_archive_bytes:
         max_mb = max_code_archive_bytes // (1024 * 1024)
         raise ValueError(f"Code archive size exceeds {max_mb} MB limit: {archive_path}")

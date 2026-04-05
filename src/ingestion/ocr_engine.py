@@ -75,10 +75,26 @@ class PaddleOcrEngine:
     """Thin adapter around PaddleOCR with explicit unavailable policies."""
 
     def __init__(self, settings: IngestionSettings) -> None:
+        """Execute `__init__`.
+
+        Args:
+            settings: Input parameter.
+
+        Returns:
+            None: This initializer does not return a value.
+        """
         self.settings = settings
         self._ocr_client: Any | None = None
 
     def extract_page(self, page: fitz.Page) -> OcrPageResult:
+        """Extract page.
+
+        Args:
+            page: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         ocr_client = self._get_client()
         pixmap = page.get_pixmap(dpi=self.settings.ocr_render_dpi, alpha=False)
         channels = pixmap.n
@@ -100,9 +116,22 @@ class PaddleOcrEngine:
         )
 
     def extract_page_text(self, page: fitz.Page) -> str:
+        """Extract page text.
+
+        Args:
+            page: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return self.extract_page(page).text
 
     def _get_client(self) -> Any:
+        """Return client.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if self._ocr_client is not None:
             return self._ocr_client
 
@@ -168,13 +197,18 @@ def build_ocr_engine(settings: IngestionSettings) -> OcrEngine | None:
         return None
     try:
         return PaddleOcrEngine(settings)
-    except OcrUnavailableError:
-        if settings.ocr_unavailable_policy == "error":
-            raise
-        return None
+    except OcrUnavailableError as exc:
+        raise OcrUnavailableError(
+            "OCR runtime is unavailable in strict mode. Configure runtime/models before parsing."
+        ) from exc
 
 
 def _configure_local_model_source() -> None:
+    """Execute `_configure_local_model_source`.
+
+    Returns:
+        None: This function does not return a value.
+    """
     os.environ.setdefault("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True")
 
 
@@ -184,6 +218,16 @@ def _resolve_ocr_model_dir(
     model_root_dir: Path,
     model_name: str,
 ) -> Path:
+    """Resolve ocr model dir.
+
+    Args:
+        override_dir: Input parameter.
+        model_root_dir: Input parameter.
+        model_name: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     candidate = override_dir or (model_root_dir / model_name)
     resolved = candidate.expanduser()
     if not resolved.exists():
@@ -192,12 +236,23 @@ def _resolve_ocr_model_dir(
 
 
 def _resolve_ocr_model_name(*, model_dir: Path, fallback_model_name: str) -> str:
+    """Resolve ocr model name.
+
+    Args:
+        model_dir: Input parameter.
+        fallback_model_name: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     config_path = model_dir / "config.json"
     if config_path.exists():
         try:
             payload = json.loads(config_path.read_text())
-        except Exception:
-            return fallback_model_name
+        except Exception as exc:
+            raise OcrUnavailableError(
+                f"OCR model config could not be parsed: {config_path}"
+            ) from exc
         model_name = payload.get("Global", {}).get("model_name")
         if isinstance(model_name, str) and model_name.strip():
             return model_name.strip()
@@ -205,12 +260,17 @@ def _resolve_ocr_model_name(*, model_dir: Path, fallback_model_name: str) -> str
 
 
 def _cuda_device_count() -> int:
+    """Execute `_cuda_device_count`.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     try:
         import paddle
 
         return int(paddle.device.cuda.device_count())
-    except Exception:
-        return 0
+    except Exception as exc:
+        raise OcrUnavailableError("Failed to query CUDA device count from paddle runtime.") from exc
 
 
 def _extract_ocr_lines_v3(results: Any) -> list[OcrTextLine]:
@@ -235,6 +295,16 @@ def _extract_ocr_lines_v3(results: Any) -> list[OcrTextLine]:
 
 
 def _ocr_result_field(ocr_result: Any, field_name: str, default: Any) -> Any:
+    """Execute `_ocr_result_field`.
+
+    Args:
+        ocr_result: Input parameter.
+        field_name: Input parameter.
+        default: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     value = getattr(ocr_result, field_name, None)
     if value is not None:
         return value
@@ -244,6 +314,14 @@ def _ocr_result_field(ocr_result: Any, field_name: str, default: Any) -> Any:
 
 
 def _extract_ocr_lines(results: Any) -> list[OcrTextLine]:
+    """Extract ocr lines.
+
+    Args:
+        results: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     lines: list[OcrTextLine] = []
     if not results:
         return lines
@@ -267,6 +345,14 @@ def _extract_ocr_lines(results: Any) -> list[OcrTextLine]:
 
 
 def _normalize_bbox(raw_bbox: Any) -> BBox:
+    """Normalize bbox.
+
+    Args:
+        raw_bbox: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if isinstance(raw_bbox, numpy.ndarray):
         raw_bbox = raw_bbox.tolist()
     if isinstance(raw_bbox, (list, tuple)) and raw_bbox:
@@ -282,6 +368,15 @@ def _normalize_bbox(raw_bbox: Any) -> BBox:
 
 
 def _extract_tables_from_lines(lines: list[OcrTextLine], page_number: int) -> list[OcrTableExtraction]:
+    """Extract tables from lines.
+
+    Args:
+        lines: Input parameter.
+        page_number: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     clustered_rows = _cluster_lines_into_rows(lines)
     candidate_rows = [row for row in clustered_rows if len(row) >= 2]
     if len(candidate_rows) < 2:
@@ -314,6 +409,15 @@ def _extract_tables_from_lines(lines: list[OcrTextLine], page_number: int) -> li
 
 
 def _cluster_lines_into_rows(lines: list[OcrTextLine], y_tolerance: float = 12.0) -> list[list[OcrTextLine]]:
+    """Execute `_cluster_lines_into_rows`.
+
+    Args:
+        lines: Input parameter.
+        y_tolerance: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     rows: list[list[OcrTextLine]] = []
     for line in lines:
         line_center_y = _bbox_center_y(line.bbox)
@@ -334,6 +438,15 @@ def _cluster_lines_into_rows(lines: list[OcrTextLine], y_tolerance: float = 12.0
 
 
 def _normalize_ocr_row(row: list[OcrTextLine], width: int) -> list[str]:
+    """Normalize ocr row.
+
+    Args:
+        row: Input parameter.
+        width: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     cells = [cell.text for cell in row]
     if len(cells) < width:
         return cells + [""] * (width - len(cells))
@@ -344,6 +457,14 @@ def _normalize_ocr_row(row: list[OcrTextLine], width: int) -> list[str]:
 
 
 def _should_treat_first_row_as_header(rows: list[list[str]]) -> bool:
+    """Execute `_should_treat_first_row_as_header`.
+
+    Args:
+        rows: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if len(rows) < 2:
         return False
 
@@ -362,6 +483,14 @@ def _should_treat_first_row_as_header(rows: list[list[str]]) -> bool:
 
 
 def _looks_value_like(cell: str) -> bool:
+    """Execute `_looks_value_like`.
+
+    Args:
+        cell: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     normalized = cell.strip().replace(",", "").replace("%", "").replace("$", "").replace("€", "")
     if not normalized:
         return False
@@ -371,6 +500,15 @@ def _looks_value_like(cell: str) -> bool:
 
 
 def _table_context_from_lines(lines: list[OcrTextLine], table_bbox: BBox) -> tuple[str | None, list[str], list[str]]:
+    """Execute `_table_context_from_lines`.
+
+    Args:
+        lines: Input parameter.
+        table_bbox: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     _, y0, _, y1 = table_bbox
     before = [line.text for line in lines if line.bbox[3] <= y0]
     after = [line.text for line in lines if line.bbox[1] >= y1]
@@ -379,6 +517,14 @@ def _table_context_from_lines(lines: list[OcrTextLine], table_bbox: BBox) -> tup
 
 
 def _rows_bbox(rows: list[list[OcrTextLine]]) -> BBox:
+    """Execute `_rows_bbox`.
+
+    Args:
+        rows: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     xs0 = [cell.bbox[0] for row in rows for cell in row]
     ys0 = [cell.bbox[1] for row in rows for cell in row]
     xs1 = [cell.bbox[2] for row in rows for cell in row]
@@ -387,10 +533,26 @@ def _rows_bbox(rows: list[list[OcrTextLine]]) -> BBox:
 
 
 def _bbox_center_y(bbox: BBox) -> float:
+    """Execute `_bbox_center_y`.
+
+    Args:
+        bbox: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return (bbox[1] + bbox[3]) / 2.0
 
 
 def _rows_to_markdown(rows: list[list[str]]) -> str:
+    """Execute `_rows_to_markdown`.
+
+    Args:
+        rows: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not rows:
         return ""
     width = max(len(row) for row in rows)
@@ -402,6 +564,14 @@ def _rows_to_markdown(rows: list[list[str]]) -> str:
 
 
 def _rows_to_html(rows: list[list[str]]) -> str:
+    """Execute `_rows_to_html`.
+
+    Args:
+        rows: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     html_rows: list[str] = []
     for row_index, row in enumerate(rows):
         tag = "th" if row_index == 0 else "td"

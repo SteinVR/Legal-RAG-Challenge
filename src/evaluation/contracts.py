@@ -58,6 +58,14 @@ class PageReference(BaseModel):
     @field_validator("doc_id")
     @classmethod
     def ensure_doc_id(cls, value: str) -> str:
+        """Execute `ensure_doc_id`.
+
+        Args:
+            value: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         normalized = value.strip()
         if not normalized:
             raise ValueError("doc_id must be a non-empty string.")
@@ -82,6 +90,14 @@ class ReferenceAnswerRecord(BaseModel):
     @field_validator("question_id")
     @classmethod
     def ensure_question_id(cls, value: str) -> str:
+        """Execute `ensure_question_id`.
+
+        Args:
+            value: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         normalized = value.strip()
         if not normalized:
             raise ValueError("question_id must be a non-empty string.")
@@ -100,6 +116,14 @@ class AssistantScoreRecord(BaseModel):
     @field_validator("question_id")
     @classmethod
     def ensure_question_id(cls, value: str) -> str:
+        """Execute `ensure_question_id`.
+
+        Args:
+            value: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         normalized = value.strip()
         if not normalized:
             raise ValueError("question_id must be a non-empty string.")
@@ -108,6 +132,14 @@ class AssistantScoreRecord(BaseModel):
     @field_validator("assistant_score")
     @classmethod
     def ensure_score_range(cls, value: float) -> float:
+        """Execute `ensure_score_range`.
+
+        Args:
+            value: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if value < 0 or value > 1:
             raise ValueError("assistant_score must be between 0 and 1.")
         return value
@@ -276,6 +308,15 @@ def question_types_from_references(references: list[ReferenceAnswerRecord]) -> d
 
 
 def _load_records_payload(path: str | Path, *, primary_key: str) -> list[dict[str, Any]]:
+    """Load records payload.
+
+    Args:
+        path: Input parameter.
+        primary_key: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     source_path = Path(path)
     if source_path.suffix.lower() == ".jsonl":
         with source_path.open("r", encoding="utf-8") as handle:

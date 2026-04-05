@@ -10,6 +10,15 @@ from src.evaluation.contracts import PageReference
 
 
 def _source_value(source: Any, field_name: str) -> Any:
+    """Execute `_source_value`.
+
+    Args:
+        source: Input parameter.
+        field_name: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if isinstance(source, Mapping):
         return source.get(field_name)
     return getattr(source, field_name, None)
@@ -51,6 +60,14 @@ class PageLifter:
     """Aggregate retrieved chunks into page-level grounding references."""
 
     def lift(self, chunks: list[Any]) -> list[LiftedPage]:
+        """Execute `lift`.
+
+        Args:
+            chunks: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         pages_by_key: OrderedDict[tuple[str, int], LiftedPage] = OrderedDict()
 
         for chunk in chunks:
@@ -110,6 +127,14 @@ class PageLifter:
 
 
 def _coerce_score(value: Any) -> float:
+    """Execute `_coerce_score`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     try:
         return float(value)
     except (TypeError, ValueError):
@@ -117,6 +142,14 @@ def _coerce_score(value: Any) -> float:
 
 
 def _optional_score(value: Any) -> float | None:
+    """Execute `_optional_score`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if value is None:
         return None
     return _coerce_score(value)

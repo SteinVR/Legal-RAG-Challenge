@@ -22,6 +22,11 @@ SCAN_IMAGE_AREA_RATIO = 0.70
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse args.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--documents-dir", type=Path, required=True, help="Directory with extracted PDFs.")
     parser.add_argument("--output", type=Path, required=True, help="Path to write the audit JSON.")
@@ -34,6 +39,15 @@ def parse_args() -> argparse.Namespace:
 
 
 def percentile(values: list[float], ratio: float) -> float | None:
+    """Execute `percentile`.
+
+    Args:
+        values: Input parameter.
+        ratio: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not values:
         return None
     ordered = sorted(values)
@@ -49,10 +63,27 @@ def percentile(values: list[float], ratio: float) -> float | None:
 
 
 def round_or_none(value: float | None, digits: int = 3) -> float | None:
+    """Execute `round_or_none`.
+
+    Args:
+        value: Input parameter.
+        digits: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     return None if value is None else round(value, digits)
 
 
 def summarize_numbers(values: list[int | float]) -> dict[str, int | float | None]:
+    """Execute `summarize_numbers`.
+
+    Args:
+        values: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if not values:
         return {
             "count": 0,
@@ -77,6 +108,14 @@ def summarize_numbers(values: list[int | float]) -> dict[str, int | float | None
 
 
 def classify_document_family(first_page_heading: str) -> str:
+    """Execute `classify_document_family`.
+
+    Args:
+        first_page_heading: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     heading = first_page_heading.upper()
 
     if "LAW NO." in heading or "DIFC LAW" in heading or heading.endswith(" LAW"):
@@ -99,6 +138,14 @@ def classify_document_family(first_page_heading: str) -> str:
 
 
 def relative_to_repo(path: Path) -> str:
+    """Execute `relative_to_repo`.
+
+    Args:
+        path: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     try:
         return str(path.relative_to(Path.cwd()))
     except ValueError:
@@ -106,12 +153,28 @@ def relative_to_repo(path: Path) -> str:
 
 
 def load_json(path: Path | None) -> dict | list | None:
+    """Load json.
+
+    Args:
+        path: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if path is None or not path.exists():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def audit_archive(archive_path: Path | None) -> dict | None:
+    """Execute `audit_archive`.
+
+    Args:
+        archive_path: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if archive_path is None or not archive_path.exists():
         return None
 
@@ -129,6 +192,14 @@ def audit_archive(archive_path: Path | None) -> dict | None:
 
 
 def audit_questions(questions_path: Path | None) -> dict | None:
+    """Execute `audit_questions`.
+
+    Args:
+        questions_path: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     payload = load_json(questions_path)
     if payload is None:
         return None
@@ -145,6 +216,14 @@ def audit_questions(questions_path: Path | None) -> dict | None:
 
 
 def audit_phase_coverage(data_root: Path | None) -> dict | None:
+    """Execute `audit_phase_coverage`.
+
+    Args:
+        data_root: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     if data_root is None or not data_root.exists():
         return None
 
@@ -167,6 +246,14 @@ def audit_phase_coverage(data_root: Path | None) -> dict | None:
 
 
 def audit_documents(documents_dir: Path) -> dict:
+    """Execute `audit_documents`.
+
+    Args:
+        documents_dir: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     fitz.TOOLS.mupdf_display_warnings(False)
     fitz.TOOLS.mupdf_display_errors(False)
 
@@ -404,6 +491,11 @@ def audit_documents(documents_dir: Path) -> dict:
 
 
 def main() -> int:
+    """Execute `main`.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     args = parse_args()
 
     audit = {

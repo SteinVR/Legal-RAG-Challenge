@@ -7,11 +7,11 @@ import logging
 import shutil
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from hashlib import sha256
 from pathlib import Path
 from zipfile import ZipFile
 
 from src.common.config import AppConfig
+from src.common.file_hash import sha256_for_file
 from src.common.runtime_logging import get_logger, log_event
 from src.common.schemas import ArtifactMetadata, PhaseSyncManifest, QuestionRecord
 from src.submission.api_client import CompetitionApiClient
@@ -39,6 +39,14 @@ class PhasePaths:
 
     @classmethod
     def from_config(cls, config: AppConfig) -> "PhasePaths":
+        """Execute `from_config`.
+
+        Args:
+            config: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         phase_dir = config.storage.root_dir / config.phase.value
         questions_dir = phase_dir / config.storage.questions_dirname
         documents_dir = phase_dir / config.storage.documents_dirname
@@ -62,11 +70,21 @@ class PhasePaths:
         )
 
     def ensure_directories(self) -> None:
+        """Execute `ensure_directories`.
+
+        Returns:
+            None: This function does not return a value.
+        """
         self.questions_dir.mkdir(parents=True, exist_ok=True)
         self.documents_dir.mkdir(parents=True, exist_ok=True)
         self.manifests_dir.mkdir(parents=True, exist_ok=True)
 
     def ensure_corpus_directories(self) -> None:
+        """Execute `ensure_corpus_directories`.
+
+        Returns:
+            None: This function does not return a value.
+        """
         self.corpus_dir.mkdir(parents=True, exist_ok=True)
         self.debug_dir.mkdir(parents=True, exist_ok=True)
 
@@ -93,6 +111,14 @@ class PhaseSyncService:
     """Orchestrates local phase-isolated download flows."""
 
     def __init__(self, config: AppConfig) -> None:
+        """Execute `__init__`.
+
+        Args:
+            config: Input parameter.
+
+        Returns:
+            None: This initializer does not return a value.
+        """
         self.config = config
         self.paths = PhasePaths.from_config(config)
 
@@ -103,6 +129,16 @@ class PhaseSyncService:
         dry_run: bool = False,
         overwrite: bool | None = None,
     ) -> CommandResult:
+        """Execute `download_questions`.
+
+        Args:
+            client: Input parameter.
+            dry_run: Input parameter.
+            overwrite: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
         log_event(
             LOGGER,
@@ -180,6 +216,17 @@ class PhaseSyncService:
         overwrite: bool | None = None,
         extract_documents: bool | None = None,
     ) -> CommandResult:
+        """Execute `download_documents`.
+
+        Args:
+            client: Input parameter.
+            dry_run: Input parameter.
+            overwrite: Input parameter.
+            extract_documents: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         overwrite = self.config.download.overwrite if overwrite is None else overwrite
         extract_documents = (
             self.config.download.extract_documents if extract_documents is None else extract_documents
@@ -276,6 +323,17 @@ class PhaseSyncService:
         overwrite: bool | None = None,
         extract_documents: bool | None = None,
     ) -> CommandResult:
+        """Execute `sync_phase`.
+
+        Args:
+            client: Input parameter.
+            dry_run: Input parameter.
+            overwrite: Input parameter.
+            extract_documents: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         log_event(
             LOGGER,
             logging.INFO,
@@ -331,12 +389,28 @@ class PhaseSyncService:
         return result
 
     def _write_questions_file(self, questions: list[QuestionRecord]) -> None:
+        """Execute `_write_questions_file`.
+
+        Args:
+            questions: Input parameter.
+
+        Returns:
+            None: This function does not return a value.
+        """
         payload = [question.model_dump(mode="json") for question in questions]
         with self.paths.questions_path.open("w", encoding="utf-8") as handle:
             json.dump(payload, handle, ensure_ascii=False, indent=2)
             handle.write("\n")
 
     def _extract_documents(self, *, overwrite: bool) -> int:
+        """Extract documents.
+
+        Args:
+            overwrite: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if overwrite and self.paths.documents_extract_dir.exists():
             shutil.rmtree(self.paths.documents_extract_dir)
 
@@ -358,6 +432,14 @@ class PhaseSyncService:
         return pdf_count
 
     def _write_manifest(self, operations: list[str]) -> PhaseSyncManifest:
+        """Execute `_write_manifest`.
+
+        Args:
+            operations: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         manifest = self._build_manifest(operations=operations)
         with self.paths.manifest_path.open("w", encoding="utf-8") as handle:
             json.dump(manifest.model_dump(mode="json"), handle, ensure_ascii=False, indent=2)
@@ -365,6 +447,14 @@ class PhaseSyncService:
         return manifest
 
     def _build_manifest(self, *, operations: list[str]) -> PhaseSyncManifest:
+        """Build manifest.
+
+        Args:
+            operations: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         questions_count = self._count_questions()
         extracted_pdf_count = self._count_pdfs()
         artifacts: dict[str, ArtifactMetadata] = {}
@@ -398,6 +488,11 @@ class PhaseSyncService:
         )
 
     def _count_questions(self) -> int | None:
+        """Execute `_count_questions`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not self.paths.questions_path.exists():
             return None
 
@@ -410,23 +505,45 @@ class PhaseSyncService:
         return len(payload)
 
     def _count_pdfs(self) -> int | None:
+        """Execute `_count_pdfs`.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not self.paths.documents_extract_dir.exists():
             return None
         return sum(1 for path in self.paths.documents_extract_dir.rglob("*.pdf") if path.is_file())
 
 
 def _build_file_metadata(path: Path) -> ArtifactMetadata:
+    """Build file metadata.
+
+    Args:
+        path: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     stat = path.stat()
     return ArtifactMetadata(
         kind="file",
         relative_path=str(path),
-        sha256=_sha256_for_file(path),
+        sha256=sha256_for_file(path),
         size_bytes=stat.st_size,
         updated_at=datetime.fromtimestamp(stat.st_mtime, tz=UTC),
     )
 
 
 def _build_directory_metadata(path: Path, pattern: str) -> ArtifactMetadata:
+    """Build directory metadata.
+
+    Args:
+        path: Input parameter.
+        pattern: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     files = [candidate for candidate in path.rglob(pattern) if candidate.is_file()]
     updated_at = None
     if files:
@@ -441,15 +558,15 @@ def _build_directory_metadata(path: Path, pattern: str) -> ArtifactMetadata:
     )
 
 
-def _sha256_for_file(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1_048_576), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def _dedupe_paths(paths: list[Path]) -> list[Path]:
+    """Execute `_dedupe_paths`.
+
+    Args:
+        paths: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     seen: set[Path] = set()
     deduped: list[Path] = []
     for path in paths:

@@ -1,12 +1,14 @@
 # `src/`
 
-This directory is the composition root for the CLI and all pipeline stages. The code is split by stage so each subdirectory can be read independently.
+Composition root for the CLI and all pipeline stages.
 
 ## File graph
 
 ```text
 src/
 ├── main.py
+├── main_handlers.py
+├── main_parser_helpers.py
 ├── answering/
 ├── common/
 ├── evaluation/
@@ -20,13 +22,15 @@ src/
 
 ## File map
 
-- `main.py`: CLI entrypoint. Builds the argparse surface, loads config and environment values, and wires the ingestion, indexing, answering, evaluation, and submission commands.
-- `answering/`: Answer routing, typed extraction, page attribution, and cross-case decomposition. See `answering/README.md`.
-- `common/`: Shared config, logging, and schema models. See `common/README.md`.
-- `evaluation/`: Local validation, scoring, benchmark assembly, and contract models. See `evaluation/README.md`.
-- `indexing/`: Hybrid index construction and chunk generation. See `indexing/README.md`.
-- `ingestion/`: PDF parsing, OCR, sidecar handling, routing, normalization, and corpus assembly. See `ingestion/README.md`.
-- `providers/`: Provider protocols and Codex-backed implementations. See `providers/README.md`.
-- `resources/`: Runtime config assets and design notes. See `resources/README.md`.
-- `retrieval/`: Hybrid search, reranking, evidence compression, and page grounding. See `retrieval/README.md`.
-- `submission/`: Submission packaging, sync, validation gates, telemetry packing, and API client helpers. See `submission/README.md`.
+- `main.py`: CLI entrypoint that builds parser, loads config/env, configures runtime logging, and dispatches commands.
+- `main_handlers.py`: Command execution handlers for sync, parsing, indexing, submission, validation, scoring, and benchmark utilities.
+- `main_parser_helpers.py`: Modular argparse subcommand registration helpers.
+- `answering/`: Typed answering, grounding, page attribution, and decomposition logic.
+- `common/`: Shared config, schemas, hashing, and runtime logging utilities.
+- `evaluation/`: Validation, scoring, goldset preparation, and dev benchmark tooling.
+- `indexing/`: Hybrid index construction, chunking, dense/sparse encoders, and index state validation.
+- `ingestion/`: PDF parsing, OCR, routing, structural normalization, and corpus assembly.
+- `providers/`: Provider interfaces and Codex provider implementation.
+- `resources/`: Non-code runtime assets (configuration bundles).
+- `retrieval/`: Hybrid search, reranking, lifting, and retrieval orchestration.
+- `submission/`: Sync, package/build pipeline, telemetry packing, and submission gates.

@@ -85,6 +85,15 @@ class TransformersQwenRerankerBackend:
     _suffix_token_ids: list[int] | None = field(default=None, init=False, repr=False)
 
     def score(self, query: str, documents: list[str]) -> list[float]:
+        """Execute `score`.
+
+        Args:
+            query: Input parameter.
+            documents: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not documents:
             return []
 
@@ -112,6 +121,11 @@ class TransformersQwenRerankerBackend:
         return scores
 
     def _ensure_loaded(self) -> None:
+        """Execute `_ensure_loaded`.
+
+        Returns:
+            None: This function does not return a value.
+        """
         if (
             self._model is not None
             and self._tokenizer is not None
@@ -168,10 +182,27 @@ class TransformersQwenRerankerBackend:
         self._suffix_token_ids = list(suffix_token_ids)
 
     def _format_pair(self, query: str, document: str) -> str:
+        """Format pair.
+
+        Args:
+            query: Input parameter.
+            document: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         instruction = self.instruction or DEFAULT_QWEN3_RERANK_INSTRUCTION
         return f"<Instruct>: {instruction}\n<Query>: {query}\n<Document>: {document}"
 
     def _tokenize_pairs(self, pairs: list[str]) -> dict[str, Any]:
+        """Execute `_tokenize_pairs`.
+
+        Args:
+            pairs: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         assert self._tokenizer is not None
         assert self._runtime_device is not None
         assert self._prefix_token_ids is not None
@@ -198,7 +229,7 @@ class TransformersQwenRerankerBackend:
 
 @dataclass(slots=True)
 class QwenReranker:
-    """Baseline reranker that routes scoring through a Qwen3 model backend."""
+    """Primary reranker that routes scoring through a Qwen3 model backend."""
 
     backend: QwenRerankerBackend = field(default_factory=TransformersQwenRerankerBackend)
     fallback_reranker: CandidateReranker | None = None
@@ -209,6 +240,16 @@ class QwenReranker:
         candidates: list[dict[str, Any]],
         top_k: int,
     ) -> list[dict[str, Any]]:
+        """Execute `rerank`.
+
+        Args:
+            question: Input parameter.
+            candidates: Input parameter.
+            top_k: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         result_limit = max(int(top_k), 0)
         if result_limit == 0 or not candidates:
             return []
@@ -227,18 +268,20 @@ class QwenReranker:
                 }
                 for candidate, score in zip(candidates, scores, strict=True)
             ]
-        except Exception:
-            if self.fallback_reranker is None:
-                raise
+        except Exception as exc:
             log_event(
                 LOGGER,
-                logging.WARNING,
-                "retrieval.rerank.fallback",
-                "Primary reranker failed; using lexical fallback.",
+                logging.ERROR,
+                "retrieval.rerank.failed",
+                "Qwen reranker failed; strict mode forbids lexical fallback.",
                 stage="retrieval",
                 question_id=question.id,
+                error_type=type(exc).__name__,
+                error_message=str(exc),
             )
-            return self.fallback_reranker.rerank(question, candidates, result_limit)
+            raise RuntimeError(
+                "Reranker backend failed in strict mode. Resolve model/runtime issue instead of using fallback."
+            ) from exc
 
         reranked.sort(
             key=lambda candidate: (
@@ -276,6 +319,16 @@ class LexicalFallbackReranker:
         candidates: list[dict[str, Any]],
         top_k: int,
     ) -> list[dict[str, Any]]:
+        """Execute `rerank`.
+
+        Args:
+            question: Input parameter.
+            candidates: Input parameter.
+            top_k: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         result_limit = max(int(top_k), 0)
         query_tokens = self._tokenize(question.question)
         reranked: list[dict[str, Any]] = []
@@ -299,6 +352,14 @@ class LexicalFallbackReranker:
         return reranked[:result_limit]
 
     def _tokenize(self, text: str) -> set[str]:
+        """Execute `_tokenize`.
+
+        Args:
+            text: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         return {
             token
             for token in TOKEN_PATTERN.findall(text.lower())
@@ -306,6 +367,15 @@ class LexicalFallbackReranker:
         }
 
     def _overlap_score(self, query_tokens: set[str], candidate_tokens: set[str]) -> float:
+        """Execute `_overlap_score`.
+
+        Args:
+            query_tokens: Input parameter.
+            candidate_tokens: Input parameter.
+
+        Returns:
+            Any: The computed result of the function.
+        """
         if not query_tokens or not candidate_tokens:
             return 0.0
         overlap = len(query_tokens & candidate_tokens)
@@ -313,6 +383,15 @@ class LexicalFallbackReranker:
 
 
 def _single_token_id(tokenizer: Any, text: str) -> int:
+    """Execute `_single_token_id`.
+
+    Args:
+        tokenizer: Input parameter.
+        text: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     input_ids = getattr(tokenizer(text, add_special_tokens=False), "input_ids", None)
     if not input_ids or len(input_ids) != 1:
         raise RuntimeError(f"Expected '{text}' to map to a single token for Qwen reranker scoring.")
@@ -320,6 +399,14 @@ def _single_token_id(tokenizer: Any, text: str) -> int:
 
 
 def _score(value: Any) -> float:
+    """Execute `_score`.
+
+    Args:
+        value: Input parameter.
+
+    Returns:
+        Any: The computed result of the function.
+    """
     try:
         return float(value)
     except (TypeError, ValueError):

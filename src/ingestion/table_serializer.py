@@ -129,8 +129,10 @@ def detect_tables(pdf_path: str | Path) -> list[TableCandidate]:
             with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
                 try:
                     tables = list(page.find_tables().tables)
-                except Exception:
-                    tables = []
+                except Exception as exc:
+                    raise RuntimeError(
+                        f"PyMuPDF table extraction failed for doc_id={doc_id}, page_number={page_number}."
+                    ) from exc
 
             for table_index, table in enumerate(tables, start=1):
                 rows = _normalize_rows(_extract_rows(table))
@@ -282,6 +284,7 @@ def serialize_table(
 
 
 def _resolve_header(candidate: RawTableRecord, rows: list[list[str]]) -> tuple[bool, list[str]]:
+    """Resolve header."""
     width = _width(rows)
     explicit_signature = _pad_row(candidate.header_signature, width) if candidate.header_signature else []
     inferred_signature = _pad_row(rows[0], width) if rows else []
@@ -293,12 +296,14 @@ def _resolve_header(candidate: RawTableRecord, rows: list[list[str]]) -> tuple[b
 
 
 def _candidate_row_page_numbers(candidate: RawTableRecord, rows: list[list[str]]) -> list[int]:
+    """Execute `_candidate_row_page_numbers`."""
     if candidate.row_page_numbers:
         return list(candidate.row_page_numbers)
     return [candidate.page_number] * len(rows)
 
 
 def _extract_rows(table: object) -> list[list[object]]:
+    """Extract rows."""
     if hasattr(table, "extract"):
         return table.extract()
     if hasattr(table, "to_pandas"):
@@ -308,18 +313,22 @@ def _extract_rows(table: object) -> list[list[object]]:
 
 
 def _normalize_rows(rows: list[list[object]]) -> list[list[str]]:
+    """Normalize rows."""
     return [[str(cell).strip() if cell is not None else "" for cell in row] for row in rows]
 
 
 def _width(rows: list[list[str]]) -> int:
+    """Execute `_width`."""
     return max((len(row) for row in rows), default=0)
 
 
 def _pad_row(row: list[str], width: int) -> list[str]:
+    """Execute `_pad_row`."""
     return list(row) + [""] * max(width - len(row), 0)
 
 
 def _should_infer_header(rows: list[list[str]]) -> bool:
+    """Execute `_should_infer_header`."""
     if len(rows) < 2:
         return False
 
@@ -343,11 +352,13 @@ def _should_infer_header(rows: list[list[str]]) -> bool:
 
 
 def _looks_numeric(cell: str) -> bool:
+    """Execute `_looks_numeric`."""
     normalized = cell.replace(",", "").replace("%", "").replace(".", "").strip()
     return bool(normalized) and normalized.isdigit()
 
 
 def _merge_rows(first: TableCandidate, second: TableCandidate) -> list[list[str]]:
+    """Execute `_merge_rows`."""
     if not first.rows:
         return second.rows
     if not second.rows:
@@ -358,12 +369,14 @@ def _merge_rows(first: TableCandidate, second: TableCandidate) -> list[list[str]
 
 
 def _merge_row_page_numbers(first: TableCandidate, second: TableCandidate) -> list[int]:
+    """Execute `_merge_row_page_numbers`."""
     if first.has_header and second.has_header and first.header_signature == second.header_signature:
         return first.row_page_numbers + second.row_page_numbers[1:]
     return first.row_page_numbers + second.row_page_numbers
 
 
 def _should_merge(previous: TableCandidate, current: TableCandidate) -> bool:
+    """Execute `_should_merge`."""
     if not previous.page_span or not current.page_span:
         return False
     if current.page_span[0] != previous.page_span[-1] + 1:
@@ -389,6 +402,7 @@ def _should_merge(previous: TableCandidate, current: TableCandidate) -> bool:
 
 
 def _extract_page_text_blocks(page: fitz.Page) -> list[tuple[tuple[float, float, float, float], str]]:
+    """Extract page text blocks."""
     blocks = page.get_text("blocks")
     results: list[tuple[tuple[float, float, float, float], str]] = []
     for block in blocks:
@@ -403,6 +417,7 @@ def _table_context(
     text_blocks: list[tuple[tuple[float, float, float, float], str]],
     table_bbox: tuple[float, float, float, float] | None,
 ) -> tuple[str | None, list[str], list[str]]:
+    """Execute `_table_context`."""
     if table_bbox is None:
         lines = [text for _, text in text_blocks]
         caption = lines[-1] if lines else None
@@ -420,6 +435,7 @@ def _semantic_blocks_for_candidate(
     *,
     structured_provider: StructuredOutputProvider,
 ) -> list[SemanticTableBlock]:
+    """Execute `_semantic_blocks_for_candidate`."""
     if not candidate.raw_html:
         raise ValueError(f"semantic table serialization requires raw_html for table {candidate.table_id}.")
 
@@ -460,6 +476,7 @@ def _normalize_semantic_block_payload(
     block: dict[str, object],
     candidate: TableCandidate,
 ) -> dict[str, object]:
+    """Normalize semantic block payload."""
     normalized = dict(block)
     valid_pages = sorted({int(page) for page in candidate.page_span if int(page) > 0})
     if not valid_pages:
@@ -481,6 +498,7 @@ def _normalize_semantic_block_payload(
 
 
 def _rows_to_markdown(rows: list[list[str]]) -> str:
+    """Execute `_rows_to_markdown`."""
     if not rows:
         return ""
     widths = _width(rows)
@@ -492,6 +510,7 @@ def _rows_to_markdown(rows: list[list[str]]) -> str:
 
 
 def _rows_to_html(rows: list[list[str]]) -> str:
+    """Execute `_rows_to_html`."""
     table_rows = []
     for row_index, row in enumerate(rows):
         tag = "th" if row_index == 0 else "td"
@@ -504,8 +523,10 @@ class TableSerializer:
     """Compatibility wrapper around the functional serializer helpers."""
 
     def __init__(self, config: AppConfig) -> None:
+        """Execute `__init__`."""
         self.config = config
 
     def serialize_document(self, document: ParsedDocument) -> PageTableAssignments:
+        """Execute `serialize_document`."""
         page_map = serialize_document_tables(document)
         return PageTableAssignments(by_page=page_map)

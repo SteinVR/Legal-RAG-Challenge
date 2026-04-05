@@ -1,6 +1,6 @@
 # `src/answering/`
 
-This package owns answer routing, grounding, and cross-case decomposition. Package initializers and cache directories are intentionally omitted from the map.
+Answer routing, deterministic extraction, grounding validation, and decomposition.
 
 ## File graph
 
@@ -8,11 +8,19 @@ This package owns answer routing, grounding, and cross-case decomposition. Packa
 answering/
 ├── decomposition.py
 ├── page_attribution.py
-└── service.py
+├── service.py
+├── service_helpers.py
+├── service_helpers_extractors.py
+├── service_helpers_text.py
+└── service_types.py
 ```
 
 ## File map
 
-- `decomposition.py`: Cross-case decomposition and recomposition for comparative multi-document questions. It detects case references, decides when to decompose, builds subquestions, merges evidence pages, and turns subanswers back into a final answer with a decomposition trace.
-- `page_attribution.py`: Two-pass page attribution helpers for grounding precision. It builds candidate pages from retrieval hits, prunes boilerplate and title pages, finalizes page references, and emits page attribution traces.
-- `service.py`: Main answering service and routing layer. It defines the answer schemas and metadata models, extracts query metadata, performs deterministic extraction, calls the provider layer, validates grounding, and applies typed guardrails for booleans, numbers, names, dates, and free-text answers.
+- `decomposition.py`: Multi-case decomposition/recomposition helpers for comparative legal questions.
+- `page_attribution.py`: Two-pass page attribution pipeline and trace model.
+- `service.py`: `AnsweringService` orchestration (retrieval payload normalization, typed/free-text routing, final page emission).
+- `service_types.py`: Shared answering contracts, schemas, constants, metadata extraction, and protocol/dataclass types.
+- `service_helpers.py`: Core orchestration helpers (payload coercion, pass-A filtering, confidence/guardrail helpers).
+- `service_helpers_extractors.py`: Deterministic extractors (`number`, `boolean`, `name`, `names`, `date`) and grounding checks.
+- `service_helpers_text.py`: Text normalization/scoring/entity matching helpers reused by extractors.
