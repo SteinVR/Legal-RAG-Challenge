@@ -2,7 +2,7 @@
 
 > Single source of truth for the project's logic, design, and behavior.
 >
-> **Wave 4 canonical target architecture**: `docs/unified_document_processing_architecture.md`. This document combines opendataloader-pdf, external/RAG-Challenge-2, and the current project into a unified document processing design. A review is at `docs/Document_Processing_Architecture_Review.md`. The Wave 4 task specs in `memory_bank/tasks/TASK-W4*.md` are the authoritative execution plans derived from that architecture.
+> **Memory Bank chain**: `memory_bank/ARCHITECTURE.md` is the top-level design overview, `memory_bank/component_design.md` is the authoritative implementation design layer, and `memory_bank/specs/` plus `memory_bank/tasks/` hold frozen task specs and working journals. There is no separate `memory_bank/design/` directory in this repository.
 
 ---
 
@@ -52,37 +52,41 @@ Competition-grade legal RAG pipeline for Agentic RAG Legal Challenge 2026.
 - **Reranker**: Qwen3-Reranker-0.6B loaded as `AutoModelForCausalLM`. Scoring: yes/no next-token probability via `log_softmax(logits[:, -1, [no_id, yes_id]])[:, 1].exp()`. Not a sequence classifier.
 - **Lexical search**: BM25 (rank-bm25 or tantivy-py)
 - **Vector store**: Qdrant embedded mode (dense + sparse vectors, payload filtering, persistence)
-- **Generation backend**: OpenAI API (primary); provider abstraction for fallback. Default model: `gpt-5.4-mini` (reasoning model; `DEFAULT_CODEX_MODEL` in `src/providers/codex_provider.py`). Reasoning effort is configurable per answer type.
+- **Generation backend**: OpenAI API (primary); provider abstraction for fallback. Default model: `gpt-5.4-mini` (reasoning model; `DEFAULT_CODEX_MODEL` in `src/providers/defaults.py`). Reasoning effort is configurable per answer type, and provider construction is routed through explicit factories.
 - **Canonical data format**: JSONL (structured) + Markdown (debug); raw parse artifacts use JSON sidecars
-- **Config management**: versioned YAML configs under `configs/`
+- **Config management**: versioned YAML configs under `configs/`, loaded by `src/common/config_loader.py` into typed models from `src/common/config_models.py`
 - **Competition API client**: `arlc` SDK or custom thin wrapper
 
 ---
 
 ## 5. Component Design
 
-Detailed implementation notes live in `docs/component_design.md`. This section stays intentionally short so the project has one detailed component document instead of two drifting copies.
+Detailed implementation notes live in `memory_bank/component_design.md`. This section stays intentionally short so the project has one detailed component document instead of two drifting copies.
 
-### A. Ingestion (`src/ingestion/`) — 10 modules
+### A. Ingestion (`src/ingestion/`) — 13 modules
 - **Responsibility**: PDF → canonical page-level corpus with structural provenance, tables, quality metadata, JSON sidecars, and parse manifests.
-- **Key modules**: `service.py` (orchestration), `pdf_parser.py` (native + OCR), `parser_routing.py` (W4C route decisions: tagged/hybrid/local_only/baseline_fallback), `opendataloader_adapter.py` (W4C structural parse via Java bridge), `sidecars.py` (JSON sidecar I/O), `structural_normalizer.py` (heading/list/caption normalization), `ocr_engine.py` (PaddleOCR GPU adapter), `page_triage.py`, `table_serializer.py`, `corpus_builder.py`.
+- **Key modules**: `service.py` (orchestration), `contracts.py` (ingestion-local result/path contracts), `artifact_writer.py` (corpus/page-map/manifest/debug/raw-sidecar persistence), `pdf_parser.py` (thin compatibility wrapper over parser support), `pdf_parser_support.py`, `pdf_parser_metadata.py`, `pdf_parser_sidecars.py`, `parser_routing.py` (W4C route decisions: tagged/hybrid/local_only/baseline_fallback), `opendataloader_adapter.py` (W4C structural parse via Java bridge), `structural_normalizer.py` (heading/list/caption normalization), `ocr_engine.py` (PaddleOCR GPU adapter), `page_triage.py`, `table_serializer.py`, `corpus_builder.py`.
 - **Parser provenance**: all pages carry `parser_provenance` field (e.g. `opendataloader:tagged`, `pymupdf:native`).
 
 ### B. Indexing (`src/indexing/`)
 - **Responsibility**: structure-aware chunking plus dense/sparse local index construction in embedded Qdrant.
 - Token-aware chunk sizing, multi-level chunking (page, section, clause, microchunk, table).
 
-### C. Retrieval (`src/retrieval/`) — 5 modules
-- **Responsibility**: hybrid search, reranking, evidence compression, question-class-aware budget routing, and chunk-to-page grounding.
-- **Key modules**: `hybrid_search.py` (Qdrant backend + RRF fusion + soft entity boost from W4B query metadata), `reranker.py` (Qwen3 causal LM scoring), `evidence_compressor.py`, `page_lifter.py`, `service.py`.
+### C. Retrieval (`src/retrieval/`) — split modules + compatibility wrappers
+- **Responsibility**: hybrid search backend access, rank fusion, reranking, evidence compression, question-class-aware budget routing, and chunk-to-page grounding.
+- **Key modules**: `contracts.py`, `backend.py`, `fusion.py`, `budget_policy.py`, `reranker_backend.py`, `reranker.py`, `evidence_compressor.py`, `page_grounding.py`, `service.py`.
+- **Compatibility wrappers**: `hybrid_search.py` and `page_lifter.py` remain thin migration facades.
+- **Authoritative detail**: `memory_bank/component_design.md` carries the implementation-level ownership and migration notes for the split retrieval topology.
 
-### D. Answering (`src/answering/`) — 3 modules
-- **Responsibility**: retrieval-first, schema-first typed solving stack:
-  1. Retrieval and evidence packaging (solver-ready, page-stable bundles from W4D).
-  2. Schema-bound typed solving — structured outputs per Pydantic answer-type schema via provider with reasoning effort controls (W4B).
-  3. Two-pass page attribution — Pass A candidate pruning, Pass B post-answer finalization (W4A).
-  4. Cross-case decomposition — rule-based trigger, per-case sub-questions, deterministic recomposition (W4E).
-- **Key modules**: `service.py` (schema registry, query metadata extraction, structured solver), `page_attribution.py` (Pass A/B, boilerplate suppression), `decomposition.py` (trigger, decompose, recompose).
+### D. Answering (`src/answering/`) — split topology
+- **Responsibility**: retrieval-first, schema-first typed solving stack with explicit seams:
+  1. `service.py` remains the stage entrypoint and orchestration shell.
+  2. `answer_schemas.py` owns the Pydantic answer schemas and registry.
+  3. `query_metadata.py` owns question metadata extraction.
+  4. `deterministic.py` owns deterministic guardrails, extraction helpers, and answer-equivalence utilities.
+  5. `page_attribution.py` owns page grouping/deduping helpers and the two-pass attribution logic.
+  6. `solver.py` owns provider-facing structured solving and free-text fallback, while `decomposition.py` stays an explicit subsystem.
+- **Key modules**: `service.py` (orchestration only), `answer_schemas.py` (schema registry), `query_metadata.py` (query metadata), `deterministic.py` (guardrails/extractors), `page_attribution.py` (page grouping + Pass A/B), `solver.py` (provider solve flow), `decomposition.py` (trigger, decompose, recompose).
 
 ### E. Evaluation (`src/evaluation/`)
 - **Responsibility**: local validation, scoring, dev benchmark slicing, and regression analysis.
@@ -91,12 +95,14 @@ Detailed implementation notes live in `docs/component_design.md`. This section s
 - **Responsibility**: phase sync, pipeline orchestration (with decomposition routing), telemetry packing, packaging, and submit-time checks.
 - **Pipeline integration**: `_answer_question()` in `pipeline.py` routes to decomposition when `config.decomposition.enabled=True` and question has 2+ cross-case refs.
 
-### G. Providers (`src/providers/`) — 2 modules
-- **Responsibility**: free-text and structured-output provider abstraction.
-- **Key**: `codex_provider.py` supports both `generate()` (free-text) and `generate_structured()` (schema-bound with reasoning effort). Uses OpenAI Responses API (`/responses`). Includes `_strict_openai_schema()` post-processor for Pydantic→OpenAI strict mode compatibility.
+### G. Providers (`src/providers/`) — split modules + compatibility facade
+- **Responsibility**: protocol-first provider abstraction with separated transport, prompt assembly, schema adaptation, retry, parsing, and stable concrete Codex entrypoints.
+- **Key modules**: `base.py`, `defaults.py`, `transport.py`, `prompts.py`, `schema_adapter.py`, `response_parser.py`, `retry.py`, `factory.py`, `codex_free_text.py`, `codex_structured.py`.
+- **Compatibility note**: `codex_provider.py` now exists only as a thin re-export facade during migration. The authoritative implementation is the split module set above.
+- **Behavior**: `create_free_text_provider()` and `create_structured_output_provider()` resolve credentials and return the appropriate concrete provider; the providers use OpenAI Responses API (`/responses`) and preserve strict-schema / retry semantics.
 
 ### H. Common (`src/common/`) — 3 modules
-- **Responsibility**: shared config, schema contracts, and runtime logging.
+- **Responsibility**: shared config loaders/models, schema contracts, path primitives, and runtime logging.
 - **Config additions (W4)**: `DecompositionSettings` (W4E), `PageAttributionSettings` (W4A), `IndexingSettings` with token-aware chunking, `RetrievalSettings` with question-class budgets.
 
 ### I. Operator Scripts (`scripts/`)
@@ -112,7 +118,7 @@ See `memory_bank/component_design.md` for real module ownership, artifact paths,
 ## 6. Code Organization Pattern
 
 - `src/main.py` — CLI entrypoint: sync, parse, build-indices, build-submission, validation, scoring, benchmark
-- `src/common/config.py` — config loading; settings: `AnsweringSettings`, `PageAttributionSettings`, `DecompositionSettings`, `IndexingSettings`, `RetrievalSettings`, etc.
+- `src/common/config_loader.py` / `src/common/config_models.py` / `src/common/paths.py` — config loading plus typed settings and default-path resolution; settings: `AnsweringSettings`, `PageAttributionSettings`, `DecompositionSettings`, `IndexingSettings`, `RetrievalSettings`, etc.
 - `src/common/schemas.py` — all data models (Pydantic): `CanonicalPageRecord`, `QuestionRecord`, `PageMapRecord`, etc.
 - `src/common/runtime_logging.py` — structured JSON logging and event helpers
 - `configs/baseline/v001/` — baseline config YAML

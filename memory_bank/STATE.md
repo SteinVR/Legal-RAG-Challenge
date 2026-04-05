@@ -14,7 +14,7 @@
 | Current focus | Wave 4 fully delivered and e2e verified. Ready for Wave 5 planning or 100-question re-evaluation run |
 | Validation baseline | Verified on 2026-03-25: `pytest` → `342 passed`; `ruff` → clean; full e2e re-parse (opendataloader:tagged, 590pp, GPU OCR loaded) → re-index (3804 chunks) → smoke test 5/5 processed (4 answered, decomposition OK) |
 | First full baseline result | 100-question warmup submission completed 2026-03-23; `total_score=0.2273`; grounding G=0.570 is primary optimization lever |
-| Canonical architecture | `docs/unified_document_processing_architecture.md` — target architecture combining opendataloader-pdf, external/RAG-Challenge-2, and current project. Review at `docs/Document_Processing_Architecture_Review.md` |
+| Canonical architecture | `docs/unified_document_processing_architecture.md` — target architecture combining opendataloader-pdf, external/RAG-Challenge-2, and current project. Review at `docs/Document_Processing_Architecture_Review.md`. Memory Bank governance chain: `memory_bank/ARCHITECTURE.md` -> `memory_bank/component_design.md` -> `memory_bank/specs/` and `memory_bank/tasks/` |
 
 ---
 

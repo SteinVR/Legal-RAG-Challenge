@@ -2,6 +2,8 @@
 
 This document expands the high-level component map from `memory_bank/ARCHITECTURE.md` into the current implementation reality of the repository. It is intentionally implementation-aware: file names, artifact paths, and runtime behavior below were verified against the codebase rather than copied from older architecture notes.
 
+Authoritative Memory Bank chain for audits: `memory_bank/ARCHITECTURE.md` -> `memory_bank/component_design.md` -> `memory_bank/specs/` and `memory_bank/tasks/`. The repository does not contain a separate `memory_bank/design/` directory; this file is the design-layer replacement.
+
 ## System Entry Points And Artifact Flow
 
 The main operational entrypoint is `src/main.py`. It wires the CLI commands that drive the project lifecycle:
@@ -12,7 +14,7 @@ The main operational entrypoint is `src/main.py`. It wires the CLI commands that
 - `build-submission` for the end-to-end question answering pipeline.
 - `validate-submission`, `score-submission`, `benchmark-summary`, `compare-benchmark-runs`, and `analyze-benchmark-consistency` for local evaluation and diagnostics.
 
-Configuration is loaded through `src/common/config.py`. The repository-level default config is `configs/baseline/v001/config.yaml`, with a package fallback copy under `src/resources/configs/baseline/v001/config.yaml`.
+Configuration is loaded through `src/common/config_loader.py` into typed settings models from `src/common/config_models.py`. The repository-level default config is `configs/baseline/v001/config.yaml`; packaged fallback copies under `src/resources/configs/...` are no longer part of the active design.
 
 Phase-local storage is resolved by `src/submission/sync.py::PhasePaths` and currently follows this layout:
 
@@ -31,7 +33,7 @@ Phase-local storage is resolved by `src/submission/sync.py::PhasePaths` and curr
 
 The warmup phase is fully materialized: corpus (590 pages, `opendataloader:tagged`), index (3804 chunks), and raw parse sidecars (pymupdf + opendataloader JSON). Last e2e run: 2026-03-25.
 
-## A. Ingestion (`src/ingestion/`) — 10 modules
+## A. Ingestion (`src/ingestion/`) — current W2A split
 
 ### Responsibility
 
@@ -39,8 +41,13 @@ Ingestion turns raw PDFs into a canonical page-level corpus with structural prov
 
 ### Primary Files
 
-- `service.py` — orchestrates `parse-corpus`, path resolution, cache reuse, artifact writing, and W4C parser routing integration.
-- `pdf_parser.py` — parses one PDF: native text extraction (PyMuPDF), page triage, OCR upgrade for scan/suspicious pages, parser availability checks. Calls `_parser_availability()` and `resolve_parser_route()` to decide the parsing path.
+- `contracts.py` — ingestion-local result and path contracts.
+- `artifact_writer.py` — canonical corpus/page-map/manifest/debug/raw-sidecar persistence.
+- `service.py` — orchestrates `parse-corpus`, path resolution, cache reuse, and post-parse artifact assembly.
+- `pdf_parser.py` — thin compatibility wrapper around the parser support helpers for one PDF.
+- `pdf_parser_support.py` — document-level parse orchestration shared by the wrapper and tests.
+- `pdf_parser_metadata.py` — page metadata and parse-result helpers.
+- `pdf_parser_sidecars.py` — raw parse sidecar serialization helpers.
 - `parser_routing.py` — W4C: route decisions (`TAGGED`/`HYBRID`/`LOCAL_ONLY`/`BASELINE_FALLBACK`) based on `DocumentStructuralProfile` (struct tree, born-digital, layout complexity) and `ParserAvailability` (opendataloader importable, hybrid backend healthy).
 - `opendataloader_adapter.py` — W4C: executes opendataloader-pdf convert via Java bridge. Produces JSON sidecars with typed nodes, bbox, tables. LRU-cached availability check.
 - `sidecars.py` — W4C: JSON sidecar read/write helpers for `raw_parse/pymupdf/` and `raw_parse/opendataloader/`.
@@ -101,7 +108,13 @@ Indexing turns the canonical corpus into retrieval chunks, computes dense and sp
 
 ### Primary Files
 
-- `src/indexing/service.py` owns almost the entire indexing layer: chunk building, dense embedder contract, sparse BM25 encoder, Qdrant persistence, and manifest generation.
+- `src/indexing/contracts.py` defines indexing-local typed contracts such as `BuildIndexResult`, `IndexChunk`, `HeadingContext`, `PageChunkContext`, and `SplitHeadingParagraph`.
+- `src/indexing/paths.py` owns the phase-local index artifact layout and materialization boundaries.
+- `src/indexing/chunking_text.py` contains heading parsing, clause splitting, microchunk windowing, and metadata tokenization helpers.
+- `src/indexing/chunking_sections.py` assembles page, clause, table, and section chunk families.
+- `src/indexing/chunking.py` keeps `build_index_chunks()` as the public chunking facade.
+- `src/indexing/dense_embedder.py`, `src/indexing/sparse_encoder.py`, `src/indexing/qdrant_writer.py`, and `src/indexing/manifest.py` own dense embedding, BM25 sparse state, Qdrant persistence, and manifest generation respectively.
+- `src/indexing/service.py` is orchestration-only: it wires the modules together, checks cache reuse, and emits the stage logs.
 
 ### Inputs
 
@@ -120,7 +133,7 @@ Indexing turns the canonical corpus into retrieval chunks, computes dense and sp
 
 ### Chunking Strategy
 
-Chunking is structure-aware and multi-level rather than fixed-token windowing. `build_index_chunks()` in `src/indexing/service.py` emits:
+Chunking is structure-aware and multi-level rather than fixed-token windowing. `build_index_chunks()` in `src/indexing/chunking.py` emits:
 
 - page chunks with full page text
 - clause chunks for numbered legal provisions
@@ -138,19 +151,19 @@ The implementation also preserves several legal-document heuristics:
 
 ### Dense And Sparse Encoding
 
-Dense encoding currently uses `Qwen3DenseEmbedder` in `src/indexing/service.py` with these defaults:
+Dense encoding currently uses `Qwen3DenseEmbedder` in `src/indexing/dense_embedder.py` with these defaults:
 
 - model: `Qwen/Qwen3-Embedding-0.6B`
-- `prompt_name="passage"`
+- `prompt_name="document"` for indexing
 - normalized embeddings
 - batch size `16`
 - `local_files_only=True`
 
-The model is lazy-loaded through `SentenceTransformer(..., trust_remote_code=True, local_files_only=True)`. If the model is not present locally, indexing fails with a clear runtime error. Sparse encoding is an in-repo BM25 Okapi implementation persisted as `sparse_encoder_state.json`.
+`build_query_embedder()` in the same module provides the query-time prompt variant used by retrieval. The model is lazy-loaded through `SentenceTransformer(..., trust_remote_code=True, local_files_only=True)` after resolving the local Hugging Face snapshot path. If the model is not present locally, indexing fails with a clear runtime error. Sparse encoding is an in-repo BM25 Okapi implementation persisted as `sparse_encoder_state.json`.
 
 ### Important Notes
 
-- Dense query encoding and dense passage encoding share the same `encode()` contract. There is no separate query encoder API in the current code.
+- Dense query encoding and dense passage encoding share the same `encode()` protocol, but they are built through separate helpers so prompt handling stays explicit.
 - Token counts are recorded as metadata and used for sparse encoding context, but token budget is not the primary chunk boundary mechanism.
 
 ### Tests
@@ -166,11 +179,14 @@ Retrieval loads the persisted index, runs hybrid search, reranks candidates, com
 
 ### Primary Files
 
-- `src/retrieval/hybrid_search.py` contains the Qdrant backend and RRF rank fusion.
-- `src/retrieval/reranker.py` provides the Qwen reranker and lexical fallback.
+- `src/retrieval/contracts.py` defines retrieval-local protocols and typed result models.
+- `src/retrieval/backend.py` contains the Qdrant backend and artifact loading.
+- `src/retrieval/fusion.py` performs rank fusion over backend candidates.
+- `src/retrieval/budget_policy.py` resolves question-class budgets and parent-page expansion.
+- `src/retrieval/reranker_backend.py` loads the Qwen reranker checkpoint; `src/retrieval/reranker.py` keeps rerank orchestration and lexical fallback.
 - `src/retrieval/evidence_compressor.py` selects a compact page-grounded evidence set.
-- `src/retrieval/page_lifter.py` aggregates chunk spans into deduplicated `PageReference` objects.
-- `src/retrieval/service.py` composes search, rerank, compression, and page lifting into `RetrievalService`.
+- `src/retrieval/page_grounding.py` aggregates chunk spans into deduplicated `PageReference` objects, with `page_lifter.py` retained as a compatibility wrapper.
+- `src/retrieval/service.py` composes search, rerank, compression, and page grounding into `RetrievalService`.
 
 ### Inputs
 
@@ -190,45 +206,53 @@ Retrieval loads the persisted index, runs hybrid search, reranks candidates, com
 
 ### Runtime Flow
 
-- `QdrantHybridSearchBackend` encodes the question with the dense embedder and queries the local Qdrant collection.
+- `QdrantHybridSearchBackend` in `backend.py` encodes the question with the dense embedder and queries the local Qdrant collection.
 - If sparse compatibility is enabled, it also loads the persisted BM25 encoder and issues a sparse query.
-- `RRFHybridSearch` fuses dense and sparse rankings with reciprocal rank fusion.
-- `QwenReranker` rescoring is attempted first. If the reranker backend fails, `LexicalFallbackReranker` takes over.
+- `RRFHybridSearch` in `fusion.py` fuses dense and sparse rankings with reciprocal rank fusion.
+- `RetrievalBudgetPolicy` in `budget_policy.py` resolves question-class budgets, rerank thresholds, and parent-page expansion.
+- `QwenReranker` keeps rerank orchestration and fallback selection separate from `TransformersQwenRerankerBackend`.
 - `SupportPageEvidenceCompressor` constrains evidence to a compact subset while preserving page-level support.
-- `PageLifter` converts chunk page spans into grouped grounding references for telemetry and downstream answering.
+- `PageLifter` in `page_grounding.py` converts chunk page spans into grouped grounding references for telemetry and downstream answering.
+- `RetrievalService` is orchestration-only and emits the mandatory normal-run retrieval boundary logs around each stage.
 
 ### Important Notes
 
 - Retrieval is page-grounding aware all the way through. Evidence compression and lifting are not optional post-processing extras.
 - The sparse path is compatibility-aware: retrieval can still run without sparse state if only dense artifacts are available.
 - Rank fusion and reranking are separated concerns: RRF stabilizes search recall, while the reranker sharpens the final candidate order.
+- Backend access, fusion, reranking, budget routing, and page grounding are now separate seams, so each stage can be smoke-tested without reintroducing the old monolith.
 - W4D additions: question-class-aware budget routing (case/statute precision vs cross_case breadth), soft metadata boosts from W4B query metadata (legal entities as optional payload conditions in Qdrant), parent-page expansion.
 
 ### Tests
 
 - `tests/test_retrieval_components.py`
+- `tests/test_retrieval_service_regressions.py`
 - `tests/test_retrieval_qdrant_backend.py`
 - `tests/test_retrieval_service.py`
 - `tests/test_answering_retrieval_integration.py`
 
-## D. Answering (`src/answering/`) — 3 modules
+## D. Answering (`src/answering/`) — split modules
 
 ### Responsibility
 
-Answering converts grounded retrieval output into final answer payloads. Primary path: schema-first structured solving (W4B). Guardrails: deterministic validation/normalization. Page attribution: two-pass (W4A). Cross-case decomposition: rule-based (W4E).
+Answering converts grounded retrieval output into final answer payloads. Primary path: schema-first structured solving (W4B). Guardrails: deterministic validation/normalization. Page attribution: two-pass (W4A). Cross-case decomposition: rule-based (W4E). The split is now explicit: `service.py` orchestrates, `answer_schemas.py` owns schemas, `query_metadata.py` owns metadata extraction, `deterministic.py` owns helper/extractor guardrails, and `solver.py` owns provider-facing answer execution.
 
 ### Primary Files
 
-- `service.py` — schema registry (`ANSWER_SCHEMA_REGISTRY`), query metadata extraction (`extract_query_metadata()`), structured solver dispatch (`_answer_with_structured_solver()`), deterministic guardrails, confidence thresholding. Contains `AnsweringService`, `AnswerResult`, `QueryMetadata`, `LegalEntityMetadata`, per-type Pydantic answer schemas.
-- `page_attribution.py` — W4A: `prune_candidate_pages()` (Pass A: boilerplate/title-page suppression), `finalize_page_attribution()` (Pass B: post-answer narrowing/validation). `PageAttributionConfig`, `PageAttributionTrace`, `build_page_trace()`.
+- `service.py` — orchestration-only entrypoint. Chooses decomposition vs baseline solve, emits answering boundary logs, and delegates to the solver.
+- `answer_schemas.py` — Pydantic answer schemas and `ANSWER_SCHEMA_REGISTRY`.
+- `query_metadata.py` — `QueryMetadata`, `LegalEntityMetadata`, and `extract_query_metadata()`.
+- `deterministic.py` — deterministic extractors, helper dataclasses, number/name/date heuristics, and free-text grounding guardrails.
+- `page_attribution.py` — W4A: `group_page_references()`, `dedupe_pages()`, `provider_evidence_page()`, `prune_candidate_pages()` (Pass A: boilerplate/title-page suppression), `finalize_page_attribution()` (Pass B: post-answer narrowing/validation). `PageAttributionConfig`, `PageAttributionTrace`, `build_page_trace()`.
+- `solver.py` — provider-facing structured solver dispatch (`_answer_with_structured_solver()`), free-text fallback, confidence thresholding, and page-attribution integration.
 - `decomposition.py` — W4E: `should_decompose()` (trigger: enabled + 2+ case refs + boolean/name type), `decompose_question()` (rule-based per-case sub-question generation), `recompose_answer()` (deterministic: set intersection for boolean, value comparison for name), `answer_with_decomposition()` (orchestrator).
 
 ### Key data flow
 
 ```
 question → extract_query_metadata() → retrieval → Pass A pruning
-  → structured solver (schema + reasoning effort) → Pass B finalization
-  → AnswerResult with PageAttributionTrace
+  → solver / deterministic guardrails (schema + reasoning effort)
+  → Pass B finalization → AnswerResult with PageAttributionTrace
 
 Cross-case questions (when decomposition enabled):
   question → should_decompose() → decompose_question()
@@ -249,6 +273,7 @@ Cross-case questions (when decomposition enabled):
 - Triggers on boolean/name questions with 2+ DIFC case references (CFI/SCT/ARB/DEC/TCD/ENF/CA).
 - Subject detection: party, judge, date, claim → generates appropriate sub-questions with adjusted answer_type.
 - Recomposition: boolean → set intersection; name → value comparison (prefer earlier/lower or later/higher).
+- Unsupported decomposition templates fall back to the baseline answering seam via `AnsweringService.answer_without_decomposition()`; the flow is guarded against recursion.
 - 31/100 warmup questions are cross-case (19 boolean, 12 name).
 
 ### Tests (4 files)
@@ -351,22 +376,25 @@ It also validates the bundle locally before the user attempts a remote submit.
 - `tests/test_api_client.py`
 - `tests/test_main.py`
 
-## G. Providers (`src/providers/`) — 2 modules
+## G. Providers (`src/providers/`) — split modules + compatibility facade
 
 ### Responsibility
 
-Providers abstract free-text and structured-output generation.
+Providers abstract free-text and structured-output generation through a protocol-first split that separates transport, prompts, schema adaptation, retry, and parsing from the concrete provider entrypoints.
 
 ### Primary Files
 
-- `base.py` — `FreeTextProvider` protocol and `StructuredProvider` protocol.
-- `codex_provider.py` — `CodexFreeTextProvider` (free-text via `/responses`) and structured output support:
-  - `generate()` — free-text: question + evidence → answer + confidence.
-  - `generate_structured()` — W4B: question + answer_type + evidence + Pydantic schema + reasoning_effort → schema-validated dict.
-  - `_strict_openai_schema()` — post-processor: ensures all Pydantic properties in `required` array (OpenAI strict mode compatibility).
-  - Response parsing handles OpenAI Responses API format: skips `reasoning` items, extracts `output_text` type content.
-  - `max_output_tokens=2048` (reasoning models consume most tokens on thinking).
-  - Structured system prompt includes ISO-8601 date format hint.
+- `base.py` — `FreeTextProvider` protocol and `StructuredOutputProvider` protocol.
+- `defaults.py` — provider defaults such as model name, retry policy, and token budget.
+- `transport.py` — auth/token resolution plus HTTP client construction.
+- `prompts.py` — grounded free-text and structured prompt assembly.
+- `schema_adapter.py` — strict OpenAI schema normalization.
+- `response_parser.py` — response extraction, payload parsing, and confidence normalization.
+- `retry.py` — bounded retry behavior plus provider request logging.
+- `factory.py` — explicit provider construction entrypoints.
+- `codex_free_text.py` — free-text provider implementation using the shared helper modules.
+- `codex_structured.py` — schema-bound structured provider implementation using the shared helper modules.
+- `codex_provider.py` — compatibility facade only; no unique behavior.
 
 ### Credentials
 
@@ -374,17 +402,19 @@ Resolved via `CODEX_OAUTH_TOKEN`, `OPENAI_API_KEY`, `CODEX_API_KEY`, or explicit
 
 ### Tests
 
-- `tests/test_codex_provider.py`
+- `tests/test_providers.py`
 
 ## H. Common (`src/common/`)
 
 ### Responsibility
 
-Common contains shared configuration and schema contracts used across ingestion, indexing, retrieval, evaluation, and submission.
+Common contains shared configuration loaders/models, schema contracts, path primitives, and runtime logging used across ingestion, indexing, retrieval, evaluation, and submission.
 
 ### Primary Files
 
-- `src/common/config.py` loads YAML config, applies env overrides, and exposes typed settings.
+- `src/common/config_loader.py` loads YAML config, applies env overrides, and exposes the runtime config entrypoint.
+- `src/common/config_models.py` defines the typed settings models.
+- `src/common/paths.py` owns the default config path and shared path primitives.
 - `src/common/schemas.py` defines the phase, parse, table, corpus, and question models shared across the pipeline.
 
 ### Important Notes
@@ -404,14 +434,14 @@ Common contains shared configuration and schema contracts used across ingestion,
 If you are new to the repository, the fastest way to orient yourself is:
 
 1. `src/main.py` — CLI entrypoint, all commands
-2. `src/common/config.py` — full config model with all Wave 4 settings
+2. `src/common/config_loader.py` / `src/common/config_models.py` — full config model and loading path with all Wave 4 settings
 3. `src/submission/sync.py` — phase paths and data layout
 4. `src/ingestion/service.py` → `src/ingestion/parser_routing.py` — parse orchestration and W4C routing
-5. `src/indexing/service.py` — chunking and hybrid index
+5. `src/indexing/{contracts.py,paths.py,chunking.py,chunking_text.py,chunking_sections.py,dense_embedder.py,sparse_encoder.py,qdrant_writer.py,manifest.py,service.py}` — hybrid indexing split
 6. `src/retrieval/service.py` — retrieval with budget routing
 7. `src/answering/service.py` → `src/answering/page_attribution.py` — schema-first solving + two-pass attribution
 8. `src/answering/decomposition.py` — cross-case decomposition (W4E)
-9. `src/providers/codex_provider.py` — structured output provider
+9. `src/providers/factory.py` → `src/providers/codex_free_text.py` / `src/providers/codex_structured.py` — split provider entrypoints
 10. `src/submission/pipeline.py` — full e2e orchestration with decomposition routing
 
 That sequence follows the actual lifecycle of the system.
