@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 from uuid import NAMESPACE_URL, uuid5
 
+from huggingface_hub import snapshot_download
 from qdrant_client import QdrantClient, models
 
 from src.common.config import AppConfig
@@ -244,12 +245,14 @@ class Qwen3DenseEmbedder(DenseEmbedder):
         normalize_embeddings: bool = True,
         batch_size: int = DEFAULT_EMBED_BATCH_SIZE,
         local_files_only: bool = True,
+        device: str | None = None,
     ) -> None:
         self.model_name = model_name
         self.prompt_name = prompt_name
         self.normalize_embeddings = normalize_embeddings
         self.batch_size = batch_size
         self.local_files_only = local_files_only
+        self.device = device
         self._model: Any | None = None
 
     def encode(self, texts: list[str]) -> list[list[float]]:
@@ -287,11 +290,26 @@ class Qwen3DenseEmbedder(DenseEmbedder):
                 "sentence-transformers is required to build dense indices with Qwen3-Embedding-0.6B."
             ) from exc
 
+        runtime_device = self._resolve_runtime_device()
+        model_source = self.model_name
+        if self.local_files_only:
+            try:
+                model_source = snapshot_download(
+                    repo_id=self.model_name,
+                    local_files_only=True,
+                )
+            except Exception as exc:
+                raise RuntimeError(
+                    f"Qwen3 embedding model '{self.model_name}' is not available in local Hugging Face cache. "
+                    "Populate the local snapshot first (offline mode is enabled)."
+                ) from exc
+
         try:
             self._model = SentenceTransformer(
-                self.model_name,
+                model_source,
                 trust_remote_code=True,
                 local_files_only=self.local_files_only,
+                device=runtime_device,
             )
         except Exception as exc:
             raise RuntimeError(
@@ -301,6 +319,28 @@ class Qwen3DenseEmbedder(DenseEmbedder):
                 "real cause instead of assuming the local snapshot is missing."
             ) from exc
         return self._model
+
+    def _resolve_runtime_device(self) -> str:
+        """Resolve the preferred runtime device for sentence-transformers."""
+
+        if self.device:
+            normalized = str(self.device).strip()
+            if not normalized.lower().startswith("cuda"):
+                raise RuntimeError(
+                    f"Qwen3 embedding model requires a CUDA device, got device={normalized!r}."
+                )
+            return normalized
+        try:
+            import torch
+        except Exception as exc:
+            raise RuntimeError(
+                "Qwen3 embedding model requires CUDA, but torch runtime is unavailable."
+            ) from exc
+        if not torch.cuda.is_available():
+            raise RuntimeError(
+                "Qwen3 embedding model requires CUDA, but torch.cuda.is_available() is False."
+            )
+        return "cuda"
 
 
 def build_dense_embedder(_settings: AppConfig) -> DenseEmbedder:

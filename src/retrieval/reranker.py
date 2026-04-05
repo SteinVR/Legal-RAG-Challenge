@@ -126,7 +126,15 @@ class TransformersQwenRerankerBackend:
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
-        runtime_device = self.device or ("cuda" if torch.cuda.is_available() else "cpu")
+        runtime_device = self.device or "cuda"
+        if not str(runtime_device).lower().startswith("cuda"):
+            raise RuntimeError(
+                f"Qwen reranker requires a CUDA device, got device={runtime_device!r}."
+            )
+        if not torch.cuda.is_available():
+            raise RuntimeError(
+                "Qwen reranker requires CUDA, but torch.cuda.is_available() is False."
+            )
         model_path = snapshot_download(repo_id=self.model_name, local_files_only=True)
         tokenizer = AutoTokenizer.from_pretrained(
             model_path,
