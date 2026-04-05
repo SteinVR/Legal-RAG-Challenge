@@ -1,7 +1,7 @@
 ## Terminology
 - **RAPID:** fast product delivery with tight feedback loops.
 
-## Memory Bank (SSOT)
+## Memory Bank
 - Directory name is `memory_bank/`.
 - `TASKS.md`: grouped high-level tasks in priority order (lives directly in `memory_bank/`, not inside `tasks/`).
 - `specs/SPEC_{TASK_ID}.md`: frozen task specification — goal, pipeline, contracts, DoD. **Read-only during execution. Do not modify.**
@@ -49,11 +49,13 @@
 - **Runtime logging** at key pipeline boundaries is mandatory: module entry/exit, data shape transitions, metric computations, error conditions. Without runtime logs, failures are opaque and the feedback loop breaks. Keep logs concise — structured one-liners (`key=value`), not verbose prose. Follow skill `apm-logs` for format and placement.
 
 ## Test policy
-- This project-specific test policy overrides the generic layered-testing defaults from `apm-test` when they conflict.
-- Unit tests are intentionally minimal. Keep only small, stable, high-signal checks around pure logic and config parsing that are cheap to maintain.
-- Do not expand `tests/` with broad module-by-module unit coverage or orchestration-heavy pytest flows by default.
-- Prefer smoke and e2e validation for end-to-end behavior, CLI flows, retrieval/answering integration, and submission orchestration.
-- After every smoke or e2e run, inspect the produced runtime logs and validate the observed result, not just the process exit code.
+- Canonical pytest suite is a compact smoke suite: keep total test count `<10` unless explicitly approved otherwise.
+- Primary layout is one smoke test per core stage (`ingestion`, `indexing`, `retrieval`, `answering`) plus optional focused integration smoke.
+- Tests must assert factual outcomes (written artifacts, grounded pages, typed answers), not private helper internals.
+- Do not reintroduce broad granular unit/regression suites by default; add fine-grained tests only for high-risk regressions that cannot be covered by stage smoke.
+- OpenAI/API-backed generation is forbidden in tests; use local deterministic stubs for provider paths.
+- Model-backed smoke checks are GPU-only: no CPU fallback. If CUDA is unavailable or a model does not load on CUDA, fail fast with a clear error.
+- After every smoke/e2e run, inspect runtime logs and validate observed outputs, not only process exit codes.
 
 ## Self-review gate
 Before reporting work as done, perform structured self-review. Fix anything found before handoff.
