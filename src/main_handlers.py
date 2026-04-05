@@ -313,6 +313,10 @@ def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
     """Run benchmark summary."""
     questions_path = _resolve_questions_path(args.questions_path, config)
     documents_dir = _resolve_documents_dir(args.documents_dir, config, required=True)
+    resolved_assistant_scores_path = _resolve_assistant_scores_path(
+        raw_assistant_scores_path=args.assistant_scores_path,
+        benchmark_path=args.benchmark_path,
+    )
     log_event(
         LOGGER,
         logging.INFO,
@@ -323,6 +327,7 @@ def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
         benchmark_path=args.benchmark_path,
         reference_path=args.reference_path,
         metadata_path=args.metadata_path,
+        assistant_scores_path=str(resolved_assistant_scores_path) if resolved_assistant_scores_path else None,
         questions_path=questions_path,
         documents_dir=documents_dir,
         output_path=args.output_path,
@@ -333,7 +338,7 @@ def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
             benchmark_path=args.benchmark_path,
             questions_path=questions_path,
             documents_dir=documents_dir,
-            assistant_scores_path=args.assistant_scores_path,
+            assistant_scores_path=str(resolved_assistant_scores_path) if resolved_assistant_scores_path else None,
             run_label=args.label,
             config_version=args.config_version,
             submission_uuid=args.submission_uuid,
@@ -356,7 +361,9 @@ def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
             raise ValueError(f"Expected benchmark metadata array in {args.metadata_path}.")
         metadata = [BenchmarkMetadataRecord.model_validate(row) for row in metadata_rows]
         assistant_scores = (
-            load_assistant_score_records(args.assistant_scores_path) if args.assistant_scores_path else None
+            load_assistant_score_records(str(resolved_assistant_scores_path))
+            if resolved_assistant_scores_path is not None
+            else None
         )
         report = build_benchmark_report(
             submission_payload,
@@ -524,6 +531,37 @@ def _resolve_documents_dir(raw_documents_dir: str | None, config: AppConfig, *, 
             "Documents directory does not exist. Run sync-phase first or pass --documents-dir "
             "to enable corpus-backed telemetry validation."
         )
+    return None
+
+
+def _resolve_assistant_scores_path(
+    *,
+    raw_assistant_scores_path: str | None,
+    benchmark_path: str | None,
+) -> Path | None:
+    """Resolve assistant scores path with benchmark-adjacent fallback.
+
+    Args:
+        raw_assistant_scores_path: Explicit CLI value from `--assistant-scores-path`.
+        benchmark_path: Optional benchmark bundle path from `--benchmark-path`.
+
+    Returns:
+        Path | None: Explicit path when provided, inferred adjacent path when found,
+        otherwise `None`.
+    """
+    if raw_assistant_scores_path:
+        return Path(raw_assistant_scores_path)
+
+    if not benchmark_path:
+        return None
+
+    benchmark_bundle_path = Path(benchmark_path)
+    benchmark_name = benchmark_bundle_path.name
+    if benchmark_name.endswith(".benchmark.json"):
+        inferred_name = benchmark_name.replace(".benchmark.json", ".assistant_scores.json")
+        inferred_path = benchmark_bundle_path.with_name(inferred_name)
+        if inferred_path.exists():
+            return inferred_path
     return None
 
 

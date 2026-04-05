@@ -102,21 +102,38 @@ class TransformersQwenRerankerBackend:
         import torch
 
         scores: list[float] = []
-        for start in range(0, len(documents), self.batch_size):
-            batch_documents = documents[start : start + self.batch_size]
-            model_inputs = self._tokenize_pairs(
-                [self._format_pair(query, document) for document in batch_documents]
-            )
+        base_batch_size = max(int(self.batch_size), 1)
+        current_batch_size = base_batch_size
+        position = 0
+        while position < len(documents):
+            batch_documents = documents[position : position + current_batch_size]
+            if not batch_documents:
+                break
+            try:
+                model_inputs = self._tokenize_pairs(
+                    [self._format_pair(query, document) for document in batch_documents]
+                )
+                with torch.no_grad():
+                    outputs = self._model(**model_inputs)
+                    batch_logits = outputs.logits[:, -1, :]
+                    true_vector = batch_logits[:, self._token_true_id]
+                    false_vector = batch_logits[:, self._token_false_id]
+                    rerank_logits = torch.stack([false_vector, true_vector], dim=1)
+                    batch_scores = torch.nn.functional.log_softmax(rerank_logits, dim=1)[:, 1].exp()
 
-            with torch.no_grad():
-                outputs = self._model(**model_inputs)
-                batch_logits = outputs.logits[:, -1, :]
-                true_vector = batch_logits[:, self._token_true_id]
-                false_vector = batch_logits[:, self._token_false_id]
-                rerank_logits = torch.stack([false_vector, true_vector], dim=1)
-                batch_scores = torch.nn.functional.log_softmax(rerank_logits, dim=1)[:, 1].exp()
-
-            scores.extend(float(score) for score in batch_scores.detach().float().cpu().tolist())
+                scores.extend(float(score) for score in batch_scores.detach().float().cpu().tolist())
+                position += len(batch_documents)
+                if current_batch_size < base_batch_size:
+                    current_batch_size = min(base_batch_size, current_batch_size * 2)
+            except Exception as exc:
+                if not _is_cuda_oom_error(exc):
+                    raise
+                if current_batch_size == 1:
+                    raise RuntimeError(
+                        "Qwen reranker failed with CUDA OOM even at batch_size=1."
+                    ) from exc
+                torch.cuda.empty_cache()
+                current_batch_size = max(1, current_batch_size // 2)
 
         return scores
 
@@ -396,6 +413,14 @@ def _single_token_id(tokenizer: Any, text: str) -> int:
     if not input_ids or len(input_ids) != 1:
         raise RuntimeError(f"Expected '{text}' to map to a single token for Qwen reranker scoring.")
     return int(input_ids[0])
+
+
+def _is_cuda_oom_error(error: Exception) -> bool:
+    """Return whether the error is a CUDA out-of-memory failure."""
+
+    if type(error).__name__ == "OutOfMemoryError":
+        return True
+    return "out of memory" in str(error).casefold()
 
 
 def _score(value: Any) -> float:

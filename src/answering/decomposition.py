@@ -181,7 +181,10 @@ def _merge_evidence_pages(sub_results: list[SubQuestionResult]) -> list[PageRefe
     seen: set[tuple[str, tuple[int, ...]]] = set()
     merged: list[PageReference] = []
     for sr in sub_results:
-        for ref in sr.answer_result.evidence_pages:
+        references = list(sr.answer_result.evidence_pages)
+        if not references and sr.answer_result.page_trace is not None:
+            references = list(sr.answer_result.page_trace.pass_a_pages)
+        for ref in references:
             key = (ref.doc_id, tuple(sorted(ref.page_numbers)))
             if key not in seen:
                 seen.add(key)
@@ -352,11 +355,11 @@ def answer_with_decomposition(
 
     if not sub_pairs:
         # Decomposition failed to produce sub-questions; fall back to baseline.
-        return answering_service.answer_question(question)
+        return answering_service.answer_question(question, allow_decomposition=False)
 
     sub_results: list[SubQuestionResult] = []
     for case_ref, sub_q in sub_pairs:
-        answer_result = answering_service.answer_question(sub_q)
+        answer_result = answering_service.answer_question(sub_q, allow_decomposition=False)
         sub_results.append(
             SubQuestionResult(
                 entity_id=case_ref,

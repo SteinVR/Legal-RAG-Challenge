@@ -32,15 +32,13 @@ class SupportPageEvidenceCompressor:
         Returns:
             Any: The computed result of the function.
         """
-        del question
-
         evidence_budget = max(int(max_evidence), 0)
         if evidence_budget == 0:
             return []
 
         valid_chunks: list[dict[str, Any]] = []
         valid_chunk_pages: list[set[int]] = []
-        for chunk in self._sort_chunks(reranked_chunks):
+        for chunk in self._sort_chunks(question=question, chunks=reranked_chunks):
             page_numbers = extract_physical_pages(chunk)
             if not page_numbers:
                 continue
@@ -86,23 +84,55 @@ class SupportPageEvidenceCompressor:
 
         return selected[:evidence_budget]
 
-    def _sort_chunks(self, chunks: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def _sort_chunks(self, *, question: QuestionRecord, chunks: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Execute `_sort_chunks`.
 
         Args:
+            question: Input parameter.
             chunks: Input parameter.
 
         Returns:
             Any: The computed result of the function.
         """
+        page_priority_enabled = _is_issue_date_question(question)
         return sorted(
             (dict(chunk) for chunk in chunks),
             key=lambda chunk: (
                 -_optional_score(chunk.get("rerank_score")),
+                -(_chunk_type_priority(chunk) if page_priority_enabled else 0),
                 -_score(chunk.get("retrieval_score")),
                 str(chunk.get("chunk_id") or ""),
             ),
         )
+
+
+def _is_issue_date_question(question: QuestionRecord) -> bool:
+    """Return whether the question is an issue-date lookup."""
+
+    if str(question.answer_type).strip().casefold() != "date":
+        return False
+    question_text = question.question.casefold()
+    return "date of issue" in question_text or "issue date" in question_text
+
+
+def _chunk_type_priority(chunk: dict[str, Any]) -> int:
+    """Return chunk-family priority for issue-date extraction."""
+
+    metadata = chunk.get("metadata")
+    if isinstance(metadata, dict):
+        chunk_family = str(metadata.get("chunk_family") or "").strip().casefold()
+    else:
+        chunk_family = ""
+    if not chunk_family:
+        chunk_family = str(chunk.get("chunk_type") or "").strip().casefold()
+    priority_by_family = {
+        "page": 4,
+        "section": 3,
+        "clause": 2,
+        "table": 1,
+        "microchunk": 0,
+    }
+    return priority_by_family.get(chunk_family, 0)
 
 
 def _score(value: Any) -> float:

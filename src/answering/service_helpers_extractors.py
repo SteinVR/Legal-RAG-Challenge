@@ -41,32 +41,51 @@ def _extract_number(
         law_number = _extract_law_number_literal(page.text)
         if law_number is not None:
             return _SolvedAnswer(answer=law_number, supporting_pages=[page])
+        return None
 
     scored: list[tuple[float, float]] = []
     duration_intent = _is_duration_question(question_tokens)
+    question_numeric_literals = {
+        float(int(token))
+        for token in question_tokens
+        if token.isdigit()
+    }
     for value, start, end in _extract_number_candidates(page.text):
         sentence = _sentence_for_span(page.text, start, end)
         local_context = _context_window(page.text, start, end, radius=24)
         prefix = page.text[max(0, start - 20) : start]
         suffix = page.text[end : min(len(page.text), end + 16)]
+        previous_char = page.text[start - 1] if start > 0 else ""
+        next_char = page.text[end] if end < len(page.text) else ""
         score = (2.0 * _score_context(context=local_context, question_tokens=question_tokens)) + _score_context(
             context=sentence,
             question_tokens=question_tokens,
         )
         has_amount_cue = bool(_AMOUNT_CUE_PATTERN.search(local_context))
         has_temporal_cue = bool(_TEMPORAL_CUE_PATTERN.search(local_context))
+        has_duration_unit_suffix = bool(
+            re.match(
+                r"^\s*(?:business\s+)?(?:day|days|week|weeks|month|months|year|years|hour|hours)\b",
+                suffix,
+                re.IGNORECASE,
+            )
+        )
+        looks_like_legal_reference_number = bool(
+            re.search(r"\b(?:article|section|clause)\s+\d+(?:\s*\(\d+\))?\b", local_context, re.IGNORECASE)
+        )
+        is_parenthetical_marker = previous_char == "(" and next_char == ")"
         if has_amount_cue:
             score += 1.5
         if has_temporal_cue:
             score += 1.5
         if duration_intent and has_temporal_cue:
             score += 2.0
-        if duration_intent and re.match(
-            r"^\s*(?:business\s+)?(?:day|days|week|weeks|month|months|year|years|hour|hours)\b",
-            suffix,
-            re.IGNORECASE,
-        ):
+        if duration_intent and has_duration_unit_suffix:
             score += 3.0
+        if duration_intent and looks_like_legal_reference_number and not has_temporal_cue and not has_duration_unit_suffix:
+            continue
+        if duration_intent and is_parenthetical_marker and not has_temporal_cue and not has_duration_unit_suffix:
+            continue
         if duration_intent and has_amount_cue and not has_temporal_cue:
             score -= 2.0
         if duration_intent and _AMOUNT_CUE_PATTERN.search(prefix):
@@ -77,7 +96,12 @@ def _extract_number(
             continue
         scored.append((score, value))
 
-    value = _unique_best_value(scored)
+    non_question_scored = [
+        (score, candidate_value)
+        for score, candidate_value in scored
+        if candidate_value not in question_numeric_literals
+    ]
+    value = _unique_best_value(non_question_scored if non_question_scored else scored)
     if value is None:
         return None
 
@@ -155,6 +179,19 @@ def _extract_name(*, page: _PageCandidate, question_tokens: set[str]) -> _Solved
 
 def _extract_names(*, page: _PageCandidate, question_tokens: set[str]) -> _SolvedAnswer | None:
     """Extract names."""
+    role = _target_role_from_question_tokens(question_tokens)
+    listed_role_query = _is_listed_role_query(question_tokens)
+    if role is not None:
+        role_labeled_names = _extract_role_labeled_entities(
+            text=page.text,
+            role=role,
+            listed_only=listed_role_query,
+        )
+        if role_labeled_names:
+            return _SolvedAnswer(answer=role_labeled_names, supporting_pages=[page])
+        if listed_role_query:
+            return None
+
     candidates = _name_candidates(page=page, question_tokens=question_tokens)
     if not candidates:
         return None
@@ -176,6 +213,24 @@ def _extract_names(*, page: _PageCandidate, question_tokens: set[str]) -> _Solve
 
 def _extract_date(*, page: _PageCandidate, question_tokens: set[str]) -> _SolvedAnswer | None:
     """Extract date."""
+    issue_date_intent = "date" in question_tokens and "issue" in question_tokens
+    if issue_date_intent:
+        scored_issue: list[tuple[float, str]] = []
+        for iso_value, start, end in _extract_date_candidates(page.text):
+            context = _context_window(page.text, start, end, radius=64)
+            score = _score_context(context=context, question_tokens=question_tokens)
+            if _DATE_OF_ISSUE_CUE_PATTERN.search(context):
+                score += 6.0
+            if start <= 240:
+                score += 2.0
+            text_length = max(len(page.text), 1)
+            score += max(0.0, 1.0 - (float(start) / float(text_length)))
+            scored_issue.append((score, iso_value))
+
+        issue_answer = _unique_best_value(scored_issue)
+        if issue_answer is not None:
+            return _SolvedAnswer(answer=issue_answer, supporting_pages=[page])
+
     scored: list[tuple[float, str]] = []
     for iso_value, start, end in _extract_date_candidates(page.text):
         context = _context_window(page.text, start, end)
@@ -198,6 +253,131 @@ def _name_candidates(*, page: _PageCandidate, question_tokens: set[str]) -> list
             continue
         candidates.append((score, candidate))
     return candidates
+
+
+def _target_role_from_question_tokens(question_tokens: set[str]) -> str | None:
+    """Return target legal role for role-specific names queries."""
+
+    if "claimant" in question_tokens or "claimants" in question_tokens:
+        return "claimant"
+    if "defendant" in question_tokens or "defendants" in question_tokens:
+        return "defendant"
+    if "respondent" in question_tokens or "respondents" in question_tokens:
+        return "respondent"
+    if "appellant" in question_tokens or "appellants" in question_tokens:
+        return "appellant"
+    if "judge" in question_tokens or "judges" in question_tokens:
+        return "judge"
+    return None
+
+
+def _is_listed_role_query(question_tokens: set[str]) -> bool:
+    """Return whether query asks for explicitly listed role entities."""
+
+    listing_tokens = {"listed", "caption", "header", "title", "cover"}
+    return bool(question_tokens.intersection(listing_tokens))
+
+
+def _extract_role_labeled_entities(
+    *,
+    text: str,
+    role: str,
+    listed_only: bool,
+) -> list[str]:
+    """Extract role-labeled entities with caption-first precision."""
+
+    role_pattern = _role_pattern(role)
+    if role_pattern is None:
+        return []
+
+    candidates: list[str] = []
+    seen: set[str] = set()
+    caption_pattern = _caption_role_pattern(role_pattern)
+    for match in caption_pattern.finditer(text):
+        candidate = _normalize_role_entity_candidate(match.group("entity"))
+        if not _is_valid_role_entity(candidate):
+            continue
+        key = candidate.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append(candidate)
+
+    if candidates or listed_only:
+        return candidates
+
+    sentence_pattern = _sentence_role_pattern(role_pattern)
+    for match in sentence_pattern.finditer(text):
+        candidate = _normalize_role_entity_candidate(match.group("entity"))
+        if not _is_valid_role_entity(candidate):
+            continue
+        key = candidate.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append(candidate)
+
+    return candidates
+
+
+def _role_pattern(role: str) -> str | None:
+    """Return a regex fragment matching role labels on legal caption lines."""
+
+    if role == "claimant":
+        return r"claimant(?!['’]s)(?:/[a-z]+)?"
+    if role == "defendant":
+        return r"defendant(?!['’]s)(?:/[a-z]+)?"
+    if role == "respondent":
+        return r"respondent(?!['’]s)(?:/[a-z]+)?"
+    if role == "appellant":
+        return r"appellant(?!['’]s)(?:/[a-z]+)?"
+    if role == "judge":
+        return r"judge(?:\s+at\s+first\s+instance)?"
+    return None
+
+
+def _caption_role_pattern(role_pattern: str) -> re.Pattern[str]:
+    """Build caption-style entity-before-role pattern."""
+
+    return re.compile(
+        rf"\b(?P<entity>[A-Z][A-Za-z0-9&'/-]{{2,}}(?:\s+[A-Z][A-Za-z0-9&'/-]{{2,}}){{0,4}})\s+"
+        rf"(?i:{role_pattern})\b",
+    )
+
+
+def _sentence_role_pattern(role_pattern: str) -> re.Pattern[str]:
+    """Build sentence-style role-is-entity pattern."""
+
+    return re.compile(
+        rf"\b(?i:(?:the\s+)?{role_pattern})\b\s*(?::|is|was|are|were)\s+"
+        rf"(?P<entity>[A-Z][A-Za-z0-9&'/-]{{1,}}(?:\s+[A-Z][A-Za-z0-9&'/-]{{1,}}){{0,4}})\b",
+    )
+
+
+def _is_valid_role_entity(candidate: str) -> bool:
+    """Return whether extracted role entity candidate is usable."""
+
+    normalized = candidate.strip().rstrip(".")
+    if not normalized:
+        return False
+    parts = normalized.split()
+    if len(parts) == 1 and normalized in _SINGLE_TOKEN_ENTITY_EXCLUSIONS:
+        return False
+    if len(parts) > 6:
+        return False
+    return True
+
+
+def _normalize_role_entity_candidate(raw_candidate: str) -> str:
+    """Normalize role entity and trim caption boilerplate prefixes."""
+
+    normalized = _normalize_entity_candidate(raw_candidate)
+    lowered = normalized.casefold()
+    between_marker = " between "
+    if between_marker in lowered:
+        index = lowered.rfind(between_marker)
+        normalized = normalized[index + len(between_marker) :].strip()
+    return _normalize_entity_candidate(normalized)
 
 
 def _validate_free_text_grounding(*, answer: str, pages: Iterable[_PageCandidate]) -> None:

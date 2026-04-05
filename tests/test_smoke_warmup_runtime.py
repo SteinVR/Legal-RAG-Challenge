@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import re
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +20,16 @@ from src.retrieval.service import RetrievalService
 from src.submission.sync import PhasePaths
 from tests.support.smoke_harness import NoApiProvider, normalize_compact_text
 
+SMOKE_SLICE_EXPECTED_COUNT = 18
+SMOKE_REQUIRED_ANSWER_TYPES = {"boolean", "date", "number", "name", "names", "free_text"}
+CASE_ID_PATTERN = re.compile(r"\b[A-Z]{2,4}\s?\d{1,3}/\d{4}\b")
+COMPARATIVE_PATTERN = re.compile(r"\bbetween\b", re.IGNORECASE)
+TITLE_PAGE_PATTERN = re.compile(r"title page|title pages|title/cover page", re.IGNORECASE)
+NEGATIVE_PATTERN = re.compile(
+    r"\bis there any\b|\bare there any\b|\bno information\b|\bnot present\b|\babsent\b",
+    re.IGNORECASE,
+)
+
 
 def _assert_required_path(path: Path, description: str) -> None:
     """Fail loudly when mandatory warmup runtime artifacts are missing."""
@@ -26,7 +38,7 @@ def _assert_required_path(path: Path, description: str) -> None:
 
 
 def _load_smoke_questions(path: Path) -> list[QuestionRecord]:
-    """Load the agreed 5-question warmup smoke slice."""
+    """Load the curated warmup smoke slice."""
 
     payload = json.loads(path.read_text(encoding="utf-8"))
     return [QuestionRecord.model_validate(item) for item in payload]
@@ -61,7 +73,48 @@ def _assert_typed_answer_matches_gold(
     if answer_type == "name":
         assert normalize_compact_text(str(actual)).casefold() == normalize_compact_text(str(expected)).casefold()
         return
+    if answer_type == "names":
+        assert isinstance(actual, list)
+        assert isinstance(expected, list)
+        normalized_actual = {normalize_compact_text(str(item)).casefold() for item in actual}
+        normalized_expected = {normalize_compact_text(str(item)).casefold() for item in expected}
+        assert normalized_actual == normalized_expected
+        return
     raise AssertionError(f"Unexpected typed answer_type in warmup smoke: {answer_type}")
+
+
+def _assert_smoke_slice_coverage(questions: list[QuestionRecord]) -> None:
+    """Assert that the smoke slice covers answer types and difficult question patterns."""
+
+    assert len(questions) == SMOKE_SLICE_EXPECTED_COUNT, (
+        f"Warmup smoke slice must stay pinned to {SMOKE_SLICE_EXPECTED_COUNT} questions."
+    )
+    answer_type_counts = Counter(question.answer_type for question in questions)
+    assert SMOKE_REQUIRED_ANSWER_TYPES.issubset(answer_type_counts), (
+        "Warmup smoke slice must include all supported answer types; "
+        f"actual_types={sorted(answer_type_counts)}"
+    )
+
+    question_texts = [question.question for question in questions]
+    assert any(COMPARATIVE_PATTERN.search(text) for text in question_texts), (
+        "Warmup smoke slice must include comparative questions (e.g., 'Between ...')."
+    )
+    assert any(TITLE_PAGE_PATTERN.search(text) for text in question_texts), (
+        "Warmup smoke slice must include title-page grounding questions."
+    )
+    assert any(NEGATIVE_PATTERN.search(text) for text in question_texts), (
+        "Warmup smoke slice must include negative/no-information questions."
+    )
+    assert any(len(CASE_ID_PATTERN.findall(text)) >= 2 for text in question_texts), (
+        "Warmup smoke slice must include multi-case questions."
+    )
+
+
+def test_warmup_smoke_slice_has_diverse_coverage() -> None:
+    """Validate that the curated smoke question slice remains diverse and high-signal."""
+
+    questions = _load_smoke_questions(Path("data/warmup/questions/questions_smoke.json"))
+    _assert_smoke_slice_coverage(questions)
 
 
 def _preflight_local_model_runtime(config: AppConfig) -> tuple[Any, QwenReranker]:
@@ -103,8 +156,8 @@ def _preflight_local_model_runtime(config: AppConfig) -> tuple[Any, QwenReranker
 
 @pytest.mark.integration
 @pytest.mark.slow
-def test_warmup_smoke_5_questions_no_openai() -> None:
-    """Run the 5-question warmup smoke with local retrieval models and no OpenAI provider calls."""
+def test_warmup_smoke_questions_no_openai() -> None:
+    """Run the curated warmup smoke slice with local retrieval models and no OpenAI provider calls."""
 
     questions_path = Path("data/warmup/questions/questions_smoke.json")
     benchmark_path = Path("data/other/dev/gold/warmup100/dev-gold-warmup100-v1.benchmark.json")
@@ -119,7 +172,7 @@ def test_warmup_smoke_5_questions_no_openai() -> None:
     _assert_required_path(index_paths.qdrant_dir, "Warmup Qdrant directory")
 
     questions = _load_smoke_questions(questions_path)
-    assert len(questions) == 5, "Warmup smoke must stay pinned to 5 questions."
+    _assert_smoke_slice_coverage(questions)
     gold_answers = _load_gold_answers(benchmark_path)
     assert all(question.id in gold_answers for question in questions)
     query_embedder, reranker = _preflight_local_model_runtime(config)

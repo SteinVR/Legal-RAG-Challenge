@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Smoke test: run 5 warmup questions through the full QA pipeline.
+"""Smoke test: run the curated warmup smoke slice through the full QA pipeline.
 
 Verifies:
 - Corpus and index are usable
@@ -75,7 +75,7 @@ def main() -> None:
         None: This function does not return a value.
     """
     print("=" * 60)
-    print("W4E SMOKE TEST — 5 warmup questions")
+    print("W4E SMOKE TEST — curated warmup smoke slice")
     print("=" * 60)
 
     # --- Load config ---

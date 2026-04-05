@@ -122,3 +122,7 @@ def main(argv: Sequence[str] | None = None, client_factory: ClientFactory | None
         return 0
     finally:
         shutdown_runtime_logging()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

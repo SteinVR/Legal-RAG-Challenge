@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
 from dataclasses import replace
+from itertools import combinations
 from typing import Any
 
 from .service_types import *  # noqa: F401,F403

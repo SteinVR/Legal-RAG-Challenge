@@ -127,6 +127,67 @@ def load_questions(path: str | Path) -> list[QuestionRecord]:
     return load_question_records(path)
 
 
+def _validate_unique_questions(questions: list[QuestionRecord]) -> None:
+    """Validate unique question ids/text via the validation module."""
+
+    from .goldset_validation import _validate_unique_questions as validator
+
+    validator(questions)
+
+
+def _distribute_counts_by_capacity(
+    *,
+    capacities: dict[StratumKey, int],
+    total_count: int,
+    minimum_per_group: int,
+) -> dict[StratumKey, int]:
+    """Distribute per-stratum sample counts via the validation module."""
+
+    from .goldset_validation import _distribute_counts_by_capacity as distributor
+
+    return distributor(
+        capacities=capacities,
+        total_count=total_count,
+        minimum_per_group=minimum_per_group,
+    )
+
+
+def _spread_select_questions(questions: list[QuestionRecord], sample_count: int) -> list[QuestionRecord]:
+    """Select evenly spread questions from a stratum via the validation module."""
+
+    from .goldset_validation import _spread_select_questions as spread_selector
+
+    return spread_selector(questions, sample_count)
+
+
+def _collect_reviewed_references_and_scores(
+    *,
+    reviewed_bundles: list[GoldShardBundle],
+    questions_by_id: dict[str, QuestionRecord],
+) -> tuple[dict[str, ReferenceAnswerRecord], dict[str, AssistantScoreRecord]]:
+    """Collect reviewed references/scores via the validation module."""
+
+    from .goldset_validation import _collect_reviewed_references_and_scores as collector
+
+    return collector(reviewed_bundles=reviewed_bundles, questions_by_id=questions_by_id)
+
+
+def _free_text_question_ids(questions: list[QuestionRecord]) -> list[str]:
+    """Return free-text question ids via the validation module."""
+
+    from .goldset_validation import _free_text_question_ids as resolver
+
+    return resolver(questions)
+
+
+def validate_reference_answer_record(reference: ReferenceAnswerRecord, *, expected_question: QuestionRecord) -> None:
+    """Validate one reference answer via the validation module."""
+
+    from .goldset_validation import validate_reference_answer_record as validator
+
+    validator(reference, expected_question=expected_question)
+
+
 def structural_bucket(question: QuestionRecord) -> str:
     """Infer a coarse structural bucket for shard balancing."""
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from typing import cast
 
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
 
@@ -41,16 +42,37 @@ class AnsweringService:
         self._confidence_threshold_by_type = _normalize_confidence_threshold_map(confidence_threshold_by_type)
         self._page_attribution_config = page_attribution_config or PageAttributionConfig()
 
-    def answer_question(self, question: QuestionRecord) -> AnswerResult:
+    def answer_question(
+        self,
+        question: QuestionRecord,
+        *,
+        allow_decomposition: bool = True,
+    ) -> AnswerResult:
         """Execute `answer_question`.
 
         Args:
             question: Input parameter.
+            allow_decomposition: Whether multi-case decomposition may be applied.
 
         Returns:
             Any: The computed result of the function.
         """
         query_metadata = extract_query_metadata(question.question)
+        try:
+            answer_type = AnswerType(str(question.answer_type))
+        except ValueError as exc:
+            raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
+
+        from src.answering.decomposition import answer_with_decomposition, should_decompose
+
+        if allow_decomposition and should_decompose(question, query_metadata, enabled=True):
+            return answer_with_decomposition(
+                question=question,
+                query_metadata=query_metadata,
+                answering_service=self,
+                max_subquestions=4,
+            )
+
         retrieval_output = self._retriever.retrieve(question, query_metadata=query_metadata)
         pages, retrieval_refs = _coerce_retrieval_payload(retrieval_output)
         raw_retrieval_refs = list(retrieval_refs) if retrieval_refs else _group_page_references(pages)
@@ -64,11 +86,6 @@ class AnsweringService:
             config=pass_a_config,
         )
         pass_a_refs = _group_page_references(pass_a_pages)
-
-        try:
-            answer_type = AnswerType(str(question.answer_type))
-        except ValueError as exc:
-            raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
 
         if not pass_a_pages:
             if answer_type == AnswerType.FREE_TEXT:
@@ -445,6 +462,26 @@ class AnsweringService:
         per_answer: dict[str, tuple[Any, list[_PageCandidate]]] = {}
         extractor = _get_deterministic_extractor(answer_type)
         prefer_law_number = answer_type == AnswerType.NUMBER and _is_law_number_question(question.question)
+        issue_date_question = answer_type == AnswerType.DATE and bool(_ISSUE_DATE_QUERY_PATTERN.search(question.question))
+
+        if issue_date_question:
+            strongest_pages_by_key: dict[tuple[str, tuple[int, ...]], _PageCandidate] = {}
+            ordered_page_keys: list[tuple[str, tuple[int, ...]]] = []
+            for page in pages:
+                page_key = (page.doc_id, page.page_numbers)
+                existing_page = strongest_pages_by_key.get(page_key)
+                if existing_page is None:
+                    ordered_page_keys.append(page_key)
+                    strongest_pages_by_key[page_key] = page
+                elif len(page.text) > len(existing_page.text):
+                    strongest_pages_by_key[page_key] = page
+            for page_key in ordered_page_keys:
+                page = strongest_pages_by_key[page_key]
+                candidate = extractor(page=page, question_tokens=question_tokens)
+                if candidate is None:
+                    continue
+                return _SolvedAnswer(answer=candidate.answer, supporting_pages=_dedupe_pages(candidate.supporting_pages))
+            return None
 
         for page in pages:
             if answer_type == AnswerType.NUMBER:

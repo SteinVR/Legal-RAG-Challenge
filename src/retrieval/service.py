@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
@@ -14,6 +15,8 @@ from src.retrieval.introspection import callable_accepts_keyword, metadata_field
 from src.retrieval.page_lifter import PageLifter, extract_physical_pages
 
 LOGGER = get_logger("retrieval.service")
+_TITLE_PAGE_QUERY_PATTERN = re.compile(r"\b(?:title|cover)\s+page\b", re.IGNORECASE)
+_LAW_NUMBER_QUERY_PATTERN = re.compile(r"\b(?:official\s+)?(?:difc\s+)?law\s+(?:no\.?|number)\b", re.IGNORECASE)
 
 
 class HybridSearch(Protocol):
@@ -399,30 +402,48 @@ class RetrievalService:
         """
         question_class_budget = self.question_class_budgets.get(question_class)
         if question_class_budget is None:
-            return (
-                self._normalized_budget(self.candidate_budget),
-                self._normalized_budget(self.rerank_budget),
-                self._normalized_budget(
-                    self.evidence_budget_by_answer_type.get(
-                        question.answer_type,
-                        self.default_evidence_budget,
-                    )
-                ),
-                False,
+            candidate_budget = self._normalized_budget(self.candidate_budget)
+            rerank_budget = self._normalized_budget(self.rerank_budget)
+            evidence_budget = self._normalized_budget(
+                self.evidence_budget_by_answer_type.get(
+                    question.answer_type,
+                    self.default_evidence_budget,
+                )
             )
-
-        return (
-            self._normalized_budget(metadata_field(question_class_budget, "candidate_budget", self.candidate_budget)),
-            self._normalized_budget(metadata_field(question_class_budget, "rerank_budget", self.rerank_budget)),
-            self._normalized_budget(
+            class_budget_applied = False
+        else:
+            candidate_budget = self._normalized_budget(
+                metadata_field(question_class_budget, "candidate_budget", self.candidate_budget)
+            )
+            rerank_budget = self._normalized_budget(
+                metadata_field(question_class_budget, "rerank_budget", self.rerank_budget)
+            )
+            evidence_budget = self._normalized_budget(
                 metadata_field(
                     question_class_budget,
                     "evidence_budget",
                     self.evidence_budget_by_answer_type.get(question.answer_type, self.default_evidence_budget),
                 )
-            ),
-            True,
-        )
+            )
+            class_budget_applied = True
+
+        if _is_title_page_law_number_question(question):
+            candidate_budget = max(candidate_budget, 12)
+            rerank_budget = max(rerank_budget, 4)
+            evidence_budget = max(evidence_budget, 2)
+
+        return candidate_budget, rerank_budget, evidence_budget, class_budget_applied
+
+
+def _is_title_page_law_number_question(question: QuestionRecord) -> bool:
+    """Return whether question asks for an official law number from a title page."""
+
+    if str(question.answer_type).strip().casefold() != "number":
+        return False
+    normalized_question = question.question.strip()
+    if not _TITLE_PAGE_QUERY_PATTERN.search(normalized_question):
+        return False
+    return bool(_LAW_NUMBER_QUERY_PATTERN.search(normalized_question))
 
 
 def _copy_payload_window(payloads: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
