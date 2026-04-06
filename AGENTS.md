@@ -43,7 +43,6 @@
 
 ## Code conventions
 - All code must be **modular, typed and simple**. Each logical step (loading, preprocessing, inference, scoring, etc.) is a self-contained module with explicit input/output types. `main.py` composes modules into a pipeline — no business logic lives there.
-- Prioritize readability and hot-swappability: any module can be replaced or updated without touching the rest of the pipeline.
 - **File size support:** Scripts must not exceed 500 lines of code. Extension up to 600 lines is allowed only to preserve logical boundaries, but exceeding 500 lines triggers a strong recommendation for decomposition and refactoring. If a file grows over 500 lines: refactor and split.
 - **Mandatory function documentation:** Every function must have a docstring accurately describing its purpose, arguments, and return values. Docstrings are required for all functions, without exception.
 - **Runtime logging** at key pipeline boundaries is mandatory: module entry/exit, data shape transitions, metric computations, error conditions. Without runtime logs, failures are opaque and the feedback loop breaks. Keep logs concise — structured one-liners (`key=value`), not verbose prose. Follow skill `apm-logs` for format and placement.

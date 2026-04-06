@@ -1,6 +1,5 @@
 ## Skill
 - Follow `apm-logs` for logging taxonomy and conventions.
-- Use `apm-report` when the current session needs to write an agent log.
 
 ## Expected structure
 - `logs/project/runtime/` -- core runtime logs (start/stop, user actions, errors).
