@@ -14,7 +14,7 @@
   - OpenAI/API answering path disabled (retrieval-only benchmark)
   - Time budget per experiment measured against full runner runtime baseline
 - Baseline:
-  - `keep_ref`: `2f73ad2`
+  - `keep_ref`: `1563cb7`
   - `grounding_mean`: `0.606080162368`
   - `grounding_zero_count`: `30`
   - `runtime_sec`: `80.460`
