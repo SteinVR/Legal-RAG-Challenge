@@ -182,12 +182,29 @@ def _filter_pairs_by_explicit_page_hints(
     if not selected_pairs:
         return selected_pairs
 
-    explicit_pages = _extract_explicit_page_hints(question_text)
-    if not explicit_pages:
-        return selected_pairs
+    filtered_pairs = set(selected_pairs)
 
-    filtered_pairs = {(doc_id, page_number) for doc_id, page_number in selected_pairs if page_number in explicit_pages}
-    return filtered_pairs or selected_pairs
+    explicit_pages = _extract_explicit_page_hints(question_text)
+    if explicit_pages:
+        explicit_filtered = {(doc_id, page_number) for doc_id, page_number in filtered_pairs if page_number in explicit_pages}
+        if explicit_filtered:
+            filtered_pairs = explicit_filtered
+
+    if _question_requests_last_page(question_text):
+        max_page_by_doc: dict[str, int] = {}
+        for doc_id, page_number in filtered_pairs:
+            previous_max = max_page_by_doc.get(doc_id)
+            if previous_max is None or page_number > previous_max:
+                max_page_by_doc[doc_id] = page_number
+        last_page_pairs = {
+            (doc_id, page_number)
+            for doc_id, page_number in filtered_pairs
+            if max_page_by_doc.get(doc_id) == page_number
+        }
+        if last_page_pairs:
+            filtered_pairs = last_page_pairs
+
+    return filtered_pairs
 
 
 def _extract_explicit_page_hints(question_text: str) -> set[int]:
@@ -199,6 +216,12 @@ def _extract_explicit_page_hints(question_text: str) -> set[int]:
         if phrase in lowered_question:
             explicit_pages.add(page_number)
     return {page_number for page_number in explicit_pages if page_number > 0}
+
+
+def _question_requests_last_page(question_text: str) -> bool:
+    """Return whether question text explicitly requests the last page."""
+
+    return "last page" in question_text.casefold()
 
 
 def _assert_gpu_runtime_contract(config: AppConfig) -> tuple[object, QwenReranker]:
