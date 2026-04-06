@@ -4,9 +4,7 @@
 >
 > Memory Bank chain:
 > - `memory_bank/ARCHITECTURE.md` - top-level architecture overview
-> - `memory_bank/component_design.md` - implementation-level design details
 > - `memory_bank/specs/` and `memory_bank/tasks/` - frozen specs and working journals
-> - There is no separate `memory_bank/design/` directory in this repository
 
 ---
 
@@ -130,57 +128,57 @@ This section reflects the currently implemented module layout.
 - `page_lifter.py` - chunk-to-page lifting utilities
 - `service.py` - retrieval orchestration, budgets, rerank thresholding, diagnostics
 - Runtime controls include:
-- answer-type evidence budgets
-- question-class budgets
-- rerank score threshold
-- optional parent-page expansion
+    - answer-type evidence budgets
+    - question-class budgets
+    - rerank score threshold
+    - optional parent-page expansion
 
 ### D. Answering (`src/answering/`)
 - Responsibility: retrieval-first answering with schema validation, deterministic extraction, page attribution, decomposition
 - Current topology:
-- `service.py` contains:
-- answer schemas and `ANSWER_SCHEMA_REGISTRY`
-- query metadata extraction
-- deterministic typed extraction logic
-- structured-provider and free-text solve flows
-- confidence threshold handling
-- `page_attribution.py` contains two-pass page attribution and trace assembly
-- `decomposition.py` contains cross-case decomposition and deterministic recomposition
+    - `service.py` contains:
+    - answer schemas and `ANSWER_SCHEMA_REGISTRY`
+    - query metadata extraction
+    - deterministic typed extraction logic
+    - structured-provider and free-text solve flows
+    - confidence threshold handling
+    - `page_attribution.py` contains two-pass page attribution and trace assembly
+    - `decomposition.py` contains cross-case decomposition and deterministic recomposition
 - Decomposition trigger:
-- enabled in config
-- answer type in `{boolean, name}`
-- at least 2 DIFC-style case references in question
+    - enabled in config
+    - answer type in `{boolean, name}`
+    - at least 2 DIFC-style case references in question
 
 ### E. Evaluation (`src/evaluation/`)
 - Responsibility: local contract validation, scoring, benchmark slicing, run-comparison/consistency tools
 - Main modules:
-- `contracts.py`
-- `validator.py`
-- `scorer.py`
-- `goldset.py`
-- `dev_benchmark/`
+    - `contracts.py`
+    - `validator.py`
+    - `scorer.py`
+    - `goldset.py`
+    - `dev_benchmark/`
 
 ### F. Submission (`src/submission/`)
 - Responsibility: phase sync, QA pipeline orchestration, telemetry packing, packaging, submit gate, API submission
 - Main modules:
-- `sync.py` - phase-local question/document sync and sync manifest
-- `pipeline.py` - build-submission orchestration
-- `telemetry_packer.py` - answer telemetry payload construction
-- `packager.py` - `submission.json` and `code_archive.zip`
-- `submit_gate.py` - local pre-submit gate (schema+archive constraints)
-- `api_client.py` - remote submission/status client
-- Build outputs:
-- `submission.json`
-- `code_archive.zip`
-- `trace_manifest.json`
-- `traces/*.json`
+    - `sync.py` - phase-local question/document sync and sync manifest
+    - `pipeline.py` - build-submission orchestration
+    - `telemetry_packer.py` - answer telemetry payload construction
+    - `packager.py` - `submission.json` and `code_archive.zip`
+    - `submit_gate.py` - local pre-submit gate (schema+archive constraints)
+    - `api_client.py` - remote submission/status client
+    - Build outputs:
+    - `submission.json`
+    - `code_archive.zip`
+    - `trace_manifest.json`
+    - `traces/*.json`
 
 ### G. Providers (`src/providers/`)
 - Responsibility: provider protocols and concrete Codex/OpenAI implementations
 - Current modules:
-- `base.py` - `FreeTextProvider` and `StructuredOutputProvider` protocols
-- `codex_provider.py` - concrete free-text + structured providers, retry/parsing/schema enforcement
-- `__init__.py` - package exports
+    - `base.py` - `FreeTextProvider` and `StructuredOutputProvider` protocols
+    - `codex_provider.py` - concrete free-text + structured providers, retry/parsing/schema enforcement
+    - `__init__.py` - package exports
 
 ### H. Common (`src/common/`)
 - `config.py` - typed config models, env expansion/overrides, defaults
@@ -189,20 +187,20 @@ This section reflects the currently implemented module layout.
 
 ### I. Operator Scripts (`scripts/`)
 - Numbered pipeline scripts:
-- `00_check_env.sh` - preflight environment check (`.venv/.env`, provider keys, GPU/CUDA, model caches, warmup data)
-- `00_repair_gpu_runtime.sh` - NVIDIA runtime recovery helper (`nvidia-modprobe`, device nodes, CUDA checks in `torch` and `paddle`)
-- `01_install_deps.sh` - Python dependency installer (`uv`), editable package install, `paddlepaddle-gpu` setup, import verification
-- `01b_install_opendataloader_runtime.sh` - manual OpenDataLoader runtime bootstrap (system deps, Maven build, Python wrapper install, smoke parse)
-- `02_download_models.sh` - retrieval model downloader (`Qwen3-Embedding-0.6B`, `Qwen3-Reranker-0.6B`) with optional `--verify` smoke path
-- `03_lint_and_test.sh` - local quality gate (`bash -n`, `ruff`, `compileall`, `pytest`)
-- `04_parse_corpus.sh` - wrapper for `parse-corpus` with phase-aware paths and output artifact validation
-- `05_build_indices.sh` - wrapper for `build-indices` with index artifact validation (`index_manifest.json`, sparse state, `qdrant/`)
-- `06_build_submission.sh` - wrapper for `build-submission` with preflight checks and submission bundle validation
-- `07_validate_submission.sh` - wrapper for `validate-submission`, including fallback discovery of latest local `submission.json`
-- Additional utilities:
-- `smoke_test_w4e.py` - fast end-to-end smoke run on a small question slice to catch retrieval/answering regressions
-- `audit_challenge_corpus.py` - corpus auditing utility (documents/questions/archive coverage and summary report)
-- `download_cuda_wheels.sh` - helper to pre-download CUDA wheel files for faster/offline dependency installation
+    - `00_check_env.sh` - preflight environment check (`.venv/.env`, provider keys, GPU/CUDA, model caches, warmup data)
+    - `00_repair_gpu_runtime.sh` - NVIDIA runtime recovery helper (`nvidia-modprobe`, device nodes, CUDA checks in `torch` and `paddle`)
+    - `01_install_deps.sh` - Python dependency installer (`uv`), editable package install, `paddlepaddle-gpu` setup, import verification
+    - `01b_install_opendataloader_runtime.sh` - manual OpenDataLoader runtime bootstrap (system deps, Maven build, Python wrapper install, smoke parse)
+    - `02_download_models.sh` - retrieval model downloader (`Qwen3-Embedding-0.6B`, `Qwen3-Reranker-0.6B`) with optional `--verify` smoke path
+    - `03_lint_and_test.sh` - local quality gate (`bash -n`, `ruff`, `compileall`, `pytest`)
+    - `04_parse_corpus.sh` - wrapper for `parse-corpus` with phase-aware paths and output artifact validation
+    - `05_build_indices.sh` - wrapper for `build-indices` with index artifact validation (`index_manifest.json`, sparse state, `qdrant/`)
+    - `06_build_submission.sh` - wrapper for `build-submission` with preflight checks and submission bundle validation
+    - `07_validate_submission.sh` - wrapper for `validate-submission`, including fallback discovery of latest local `submission.json`
+    - Additional utilities:
+    - `smoke_test_w4e.py` - fast end-to-end smoke run on a small question slice to catch retrieval/answering regressions
+    - `audit_challenge_corpus.py` - corpus auditing utility (documents/questions/archive coverage and summary report)
+    - `download_cuda_wheels.sh` - helper to pre-download CUDA wheel files for faster/offline dependency installation
 
 ---
 
@@ -219,13 +217,13 @@ This section reflects the currently implemented module layout.
 - primary: `configs/baseline/v001/config.yaml`
 - fallback packaged copy: `src/resources/configs/baseline/v001/config.yaml`
 - Phase-local data layout:
-- `data/{phase}/questions/`
-- `data/{phase}/documents/`
-- `data/{phase}/corpus/`
-- `data/{phase}/index/`
-- `data/{phase}/manifests/`
-- `data/dev/` for local benchmark/dev reference datasets
-- `tools/operator_context.py` for operator helper context
+    - `data/{phase}/questions/`
+    - `data/{phase}/documents/`
+    - `data/{phase}/corpus/`
+    - `data/{phase}/index/`
+    - `data/{phase}/manifests/`
+    - `data/dev/` for local benchmark/dev reference datasets
+    - `tools/operator_context.py` for operator helper context
 
 ---
 
@@ -243,8 +241,8 @@ This section reflects the currently implemented module layout.
 - usage: input/output tokens
 - model name
 - Submission payload:
-- `architecture_summary`
-- `answers[]` with `question_id`, `answer`, `telemetry`
+    - `architecture_summary`
+    - `answers[]` with `question_id`, `answer`, `telemetry`
 
 ---
 
