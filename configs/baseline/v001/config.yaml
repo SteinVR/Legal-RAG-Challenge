@@ -119,7 +119,7 @@ retrieval:
     free_text: 3
   question_class_budgets:
     cross_case:
-      candidate_budget: 20
+      candidate_budget: 22
       rerank_budget: 9
       evidence_budget: 4
     case:
