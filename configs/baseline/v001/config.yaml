@@ -119,8 +119,8 @@ retrieval:
     free_text: 3
   question_class_budgets:
     cross_case:
-      candidate_budget: 15
-      rerank_budget: 6
+      candidate_budget: 20
+      rerank_budget: 8
       evidence_budget: 4
     case:
       candidate_budget: 8
