@@ -30,5 +30,7 @@ submission*.json
 # Agent/runtime logs
 logs/agents/
 logs/project/runtime/**/*.jsonl
+results.tsv
+run.log
 
 .apm/
