@@ -37,6 +37,16 @@ from src.retrieval.reranker import QwenReranker
 from src.retrieval.service import RetrievalResult, RetrievalService
 
 _TITLE_PAGE_QUERY_PATTERN = re.compile(r"\b(?:title|cover)\s+page\b", re.IGNORECASE)
+_EXPLICIT_PAGE_NUMBER_PATTERN = re.compile(r"\bpage\s+(?P<page>\d{1,3})\b", re.IGNORECASE)
+_EXPLICIT_PAGE_PHRASES: dict[str, int] = {
+    "first page": 1,
+    "second page": 2,
+    "third page": 3,
+    "fourth page": 4,
+    "fifth page": 5,
+    "title page": 1,
+    "cover page": 1,
+}
 
 
 @dataclass(slots=True, frozen=True)
@@ -142,11 +152,53 @@ def _predict_page_references(
         for page in pass_a_result.selected_pages
         if int(page.page_number) > 0
     }
+    selected_pairs = _filter_pairs_by_explicit_page_hints(
+        selected_pairs=selected_pairs,
+        question_text=question.question,
+    )
     if selected_pairs:
         return group_page_reference_pairs(selected_pairs)
 
     fallback_pairs = flatten_page_references(retrieval_result.retrieved_chunk_pages)
+    fallback_pairs = _filter_pairs_by_explicit_page_hints(
+        selected_pairs=fallback_pairs,
+        question_text=question.question,
+    )
     return group_page_reference_pairs(fallback_pairs)
+
+
+def _filter_pairs_by_explicit_page_hints(
+    *,
+    selected_pairs: set[tuple[str, int]],
+    question_text: str,
+) -> set[tuple[str, int]]:
+    """Narrow predicted pages when the question explicitly names target page numbers.
+
+    The filter is conservative: when explicit hints exist but none of the predicted
+    pairs match, it preserves the original predictions to avoid introducing empty
+    retrieval outputs.
+    """
+
+    if not selected_pairs:
+        return selected_pairs
+
+    explicit_pages = _extract_explicit_page_hints(question_text)
+    if not explicit_pages:
+        return selected_pairs
+
+    filtered_pairs = {(doc_id, page_number) for doc_id, page_number in selected_pairs if page_number in explicit_pages}
+    return filtered_pairs or selected_pairs
+
+
+def _extract_explicit_page_hints(question_text: str) -> set[int]:
+    """Extract explicit target page hints from question text."""
+
+    explicit_pages = {int(match.group("page")) for match in _EXPLICIT_PAGE_NUMBER_PATTERN.finditer(question_text)}
+    lowered_question = question_text.casefold()
+    for phrase, page_number in _EXPLICIT_PAGE_PHRASES.items():
+        if phrase in lowered_question:
+            explicit_pages.add(page_number)
+    return {page_number for page_number in explicit_pages if page_number > 0}
 
 
 def _assert_gpu_runtime_contract(config: AppConfig) -> tuple[object, QwenReranker]:
