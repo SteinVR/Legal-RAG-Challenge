@@ -1,0 +1,2 @@
+run_id	commit	grounding_mean	raw_recall_mean	raw_precision_mean	pass_a_recall_mean	pass_a_precision_mean	grounding_zero_count	runtime_sec	status	description
+baseline-h9	7792f61	0.638168741990	0.739166666667	0.464166666667	0.739166666667	0.485833333333	25	126.449	keep	baseline locked after cleanup (GPU run outside sandbox)
