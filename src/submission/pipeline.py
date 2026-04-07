@@ -416,6 +416,9 @@ class BuildSubmissionService:
             min_rerank_score=retrieval_settings.min_rerank_score,
             parent_page_expansion_enabled=retrieval_settings.parent_page_expansion_enabled,
             parent_page_expansion_limit=retrieval_settings.parent_page_expansion_limit,
+            query_expansion_enabled=retrieval_settings.query_expansion_enabled,
+            query_expansion_max_queries=retrieval_settings.query_expansion_max_queries,
+            query_expansion_case_only=retrieval_settings.query_expansion_case_only,
         )
         retriever = _CachingRetriever(retrieval_service)
         answering_service = AnsweringService(
@@ -569,4 +572,3 @@ class BuildSubmissionService:
         if self.provider_api_key and _supports_api_key_argument(self.provider_class):
             provider_kwargs["api_key"] = self.provider_api_key
         return self.provider_class(**provider_kwargs)
-

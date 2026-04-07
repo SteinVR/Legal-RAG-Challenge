@@ -193,6 +193,9 @@ def test_warmup_smoke_questions_no_openai() -> None:
         min_rerank_score=config.retrieval.min_rerank_score,
         parent_page_expansion_enabled=config.retrieval.parent_page_expansion_enabled,
         parent_page_expansion_limit=config.retrieval.parent_page_expansion_limit,
+        query_expansion_enabled=config.retrieval.query_expansion_enabled,
+        query_expansion_max_queries=config.retrieval.query_expansion_max_queries,
+        query_expansion_case_only=config.retrieval.query_expansion_case_only,
     )
     answering = AnsweringService(
         retriever=retrieval,
