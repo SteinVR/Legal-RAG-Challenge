@@ -250,6 +250,8 @@ def _copy_config_snapshot(
 def _promote_config(*, source_config: Path, promote_config_path: Path) -> None:
     """Overwrite canonical config path with source config content."""
 
+    if source_config.resolve() == promote_config_path.resolve():
+        return
     promote_config_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source_config, promote_config_path)
 
