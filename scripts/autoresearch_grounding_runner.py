@@ -56,7 +56,22 @@ class GroundingRunMetrics:
     question_count: int
     grounding_mean: float
     grounding_zero_count: int
+    raw_grounding_mean: float
+    raw_precision_mean: float
+    raw_recall_mean: float
+    raw_zero_recall_count: int
+    pass_a_precision_mean: float
+    pass_a_recall_mean: float
     runtime_sec: float
+
+
+@dataclass(slots=True, frozen=True)
+class PairScoring:
+    """Grounding components for one predicted/gold page-pair set."""
+
+    grounding: float
+    precision: float
+    recall: float
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -186,7 +201,11 @@ def _filter_pairs_by_explicit_page_hints(
 
     explicit_pages = _extract_explicit_page_hints(question_text)
     if explicit_pages:
-        explicit_filtered = {(doc_id, page_number) for doc_id, page_number in filtered_pairs if page_number in explicit_pages}
+        explicit_filtered = {
+            (doc_id, page_number)
+            for doc_id, page_number in filtered_pairs
+            if page_number in explicit_pages
+        }
         if explicit_filtered:
             filtered_pairs = explicit_filtered
 
@@ -289,8 +308,38 @@ def _build_retrieval_service(
         min_rerank_score=retrieval_settings.min_rerank_score,
         parent_page_expansion_enabled=retrieval_settings.parent_page_expansion_enabled,
         parent_page_expansion_limit=retrieval_settings.parent_page_expansion_limit,
+        query_expansion_enabled=retrieval_settings.query_expansion_enabled,
+        query_expansion_max_queries=retrieval_settings.query_expansion_max_queries,
+        query_expansion_case_only=retrieval_settings.query_expansion_case_only,
     )
     return backend, retrieval_service
+
+
+def _score_pairs(
+    *,
+    predicted_pairs: set[tuple[str, int]],
+    gold_pairs: set[tuple[str, int]],
+) -> PairScoring:
+    """Compute grounding, precision, and recall for one page-pair comparison."""
+
+    grounding = score_grounding(predicted_pairs=predicted_pairs, gold_pairs=gold_pairs)
+    if not predicted_pairs and not gold_pairs:
+        return PairScoring(grounding=grounding, precision=1.0, recall=1.0)
+    if not predicted_pairs:
+        return PairScoring(grounding=grounding, precision=0.0, recall=0.0)
+
+    overlap = len(predicted_pairs & gold_pairs)
+    precision = overlap / len(predicted_pairs)
+    recall = overlap / len(gold_pairs) if gold_pairs else 1.0
+    return PairScoring(grounding=grounding, precision=precision, recall=recall)
+
+
+def _mean(values: list[float]) -> float:
+    """Return arithmetic mean for non-empty float lists."""
+
+    if not values:
+        raise ValueError("Cannot compute mean of an empty list.")
+    return sum(values) / len(values)
 
 
 def _run_grounding_benchmark(
@@ -311,30 +360,54 @@ def _run_grounding_benchmark(
             + (" ..." if len(missing_reference_ids) > 5 else "")
         )
 
-    grounding_scores: list[float] = []
+    pass_a_scores: list[PairScoring] = []
+    raw_scores: list[PairScoring] = []
     for question in questions:
         reference = reference_by_question_id[question.id]
+        gold_pairs = flatten_page_references(reference.gold_retrieval)
         query_metadata = extract_query_metadata(question.question)
         retrieval_result = retrieval_service.retrieve(question, query_metadata=query_metadata)
+
+        raw_scores.append(
+            _score_pairs(
+                predicted_pairs=flatten_page_references(retrieval_result.retrieved_chunk_pages),
+                gold_pairs=gold_pairs,
+            )
+        )
+
         predicted_references = _predict_page_references(
             question=question,
             retrieval_result=retrieval_result,
             base_config=page_attribution_config,
         )
-        grounding = score_grounding(
-            predicted_pairs=flatten_page_references(predicted_references),
-            gold_pairs=flatten_page_references(reference.gold_retrieval),
+        pass_a_scores.append(
+            _score_pairs(
+                predicted_pairs=flatten_page_references(predicted_references),
+                gold_pairs=gold_pairs,
+            )
         )
-        grounding_scores.append(grounding)
 
-    if not grounding_scores:
+    if not pass_a_scores or not raw_scores:
         raise RuntimeError("Grounding benchmark produced no scores.")
 
-    zero_count = sum(1 for score in grounding_scores if score == 0.0)
+    pass_a_grounding_values = [score.grounding for score in pass_a_scores]
+    pass_a_precision_values = [score.precision for score in pass_a_scores]
+    pass_a_recall_values = [score.recall for score in pass_a_scores]
+
+    raw_grounding_values = [score.grounding for score in raw_scores]
+    raw_precision_values = [score.precision for score in raw_scores]
+    raw_recall_values = [score.recall for score in raw_scores]
+
     return GroundingRunMetrics(
-        question_count=len(grounding_scores),
-        grounding_mean=sum(grounding_scores) / len(grounding_scores),
-        grounding_zero_count=zero_count,
+        question_count=len(pass_a_scores),
+        grounding_mean=_mean(pass_a_grounding_values),
+        grounding_zero_count=sum(1 for score in pass_a_grounding_values if score == 0.0),
+        raw_grounding_mean=_mean(raw_grounding_values),
+        raw_precision_mean=_mean(raw_precision_values),
+        raw_recall_mean=_mean(raw_recall_values),
+        raw_zero_recall_count=sum(1 for score in raw_recall_values if score == 0.0),
+        pass_a_precision_mean=_mean(pass_a_precision_values),
+        pass_a_recall_mean=_mean(pass_a_recall_values),
         runtime_sec=0.0,
     )
 
@@ -345,11 +418,23 @@ def _print_summary(metrics: GroundingRunMetrics) -> None:
     print(f"questions={metrics.question_count}")
     print(f"grounding_mean={metrics.grounding_mean:.12f}")
     print(f"grounding_zero_count={metrics.grounding_zero_count}")
+    print(f"raw_grounding_mean={metrics.raw_grounding_mean:.12f}")
+    print(f"raw_recall_mean={metrics.raw_recall_mean:.12f}")
+    print(f"raw_precision_mean={metrics.raw_precision_mean:.12f}")
+    print(f"raw_zero_recall_count={metrics.raw_zero_recall_count}")
+    print(f"pass_a_recall_mean={metrics.pass_a_recall_mean:.12f}")
+    print(f"pass_a_precision_mean={metrics.pass_a_precision_mean:.12f}")
     print(f"runtime_sec={metrics.runtime_sec:.3f}")
     print(
         "AUTORESEARCH_METRIC "
         f"grounding_mean={metrics.grounding_mean:.12f} "
         f"grounding_zero_count={metrics.grounding_zero_count} "
+        f"raw_grounding_mean={metrics.raw_grounding_mean:.12f} "
+        f"raw_recall_mean={metrics.raw_recall_mean:.12f} "
+        f"raw_precision_mean={metrics.raw_precision_mean:.12f} "
+        f"raw_zero_recall_count={metrics.raw_zero_recall_count} "
+        f"pass_a_recall_mean={metrics.pass_a_recall_mean:.12f} "
+        f"pass_a_precision_mean={metrics.pass_a_precision_mean:.12f} "
         f"runtime_sec={metrics.runtime_sec:.3f} "
         f"question_count={metrics.question_count}"
     )
@@ -398,6 +483,12 @@ def main() -> int:
         question_count=raw_metrics.question_count,
         grounding_mean=raw_metrics.grounding_mean,
         grounding_zero_count=raw_metrics.grounding_zero_count,
+        raw_grounding_mean=raw_metrics.raw_grounding_mean,
+        raw_precision_mean=raw_metrics.raw_precision_mean,
+        raw_recall_mean=raw_metrics.raw_recall_mean,
+        raw_zero_recall_count=raw_metrics.raw_zero_recall_count,
+        pass_a_precision_mean=raw_metrics.pass_a_precision_mean,
+        pass_a_recall_mean=raw_metrics.pass_a_recall_mean,
         runtime_sec=time.perf_counter() - started_at,
     )
     _print_summary(metrics)

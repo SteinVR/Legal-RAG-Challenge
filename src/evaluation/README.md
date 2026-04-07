@@ -7,6 +7,7 @@ Local validation, scoring, goldset tooling, and benchmark analysis.
 ```text
 evaluation/
 ├── contracts.py
+├── grounding_ledger.py
 ├── goldset.py
 ├── goldset_core.py
 ├── goldset_validation.py
@@ -19,6 +20,7 @@ evaluation/
 ## File map
 
 - `contracts.py`: Evaluation contracts and typed loaders for submissions/questions/references/assistant scores.
+- `grounding_ledger.py`: Recall-first per-question grounding ledger builders and run-level bucket summaries.
 - `goldset.py`: Public export wrapper for goldset helpers.
 - `goldset_core.py`: Goldset sharding/build pipeline.
 - `goldset_validation.py`: Goldset input and review validation helpers.

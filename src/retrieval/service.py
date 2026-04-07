@@ -129,6 +129,9 @@ class RetrievalService:
     page_lifter: PageLifter = field(default_factory=PageLifter)
     parent_page_expansion_enabled: bool = False
     parent_page_expansion_limit: int = 0
+    query_expansion_enabled: bool = False
+    query_expansion_max_queries: int = 0
+    query_expansion_case_only: bool = True
 
     def retrieve(
         self,
@@ -143,9 +146,13 @@ class RetrievalService:
             question=question,
             question_class=question_class,
         )
-        candidates = _hybrid_search_with_optional_query_metadata(
-            self.hybrid_search,
-            question,
+        search_questions = self._build_search_questions(
+            question=question,
+            query_metadata=query_metadata,
+            question_class=question_class,
+        )
+        candidates = self._search_candidates(
+            search_questions=search_questions,
             top_k=candidate_budget,
             query_metadata=query_metadata,
         )
@@ -225,6 +232,11 @@ class RetrievalService:
                 "applied": bool(expanded_by_chunk_id),
                 "expanded_chunk_count": len(expanded_by_chunk_id),
             },
+            "query_expansion": {
+                "enabled": bool(self.query_expansion_enabled and self.query_expansion_max_queries > 0),
+                "applied": len(search_questions) > 1,
+                "query_count": len(search_questions),
+            },
         }
         if query_metadata is not None:
             diagnostics["prefilter_usage"] = {
@@ -276,6 +288,73 @@ class RetrievalService:
             if float(rerank_score) >= self.min_rerank_score:
                 surviving.append(dict(item))
         return surviving
+
+    def _build_search_questions(
+        self,
+        *,
+        question: QuestionRecord,
+        query_metadata: Any | None,
+        question_class: str,
+    ) -> list[QuestionRecord]:
+        """Build primary + expansion search questions for the hybrid search stage."""
+
+        search_questions = [question]
+        if not self.query_expansion_enabled:
+            return search_questions
+        expansion_limit = self._normalized_budget(self.query_expansion_max_queries)
+        if expansion_limit == 0:
+            return search_questions
+        if self.query_expansion_case_only and question_class != "case":
+            return search_questions
+
+        expansion_texts = _build_query_expansion_texts(
+            question_text=question.question,
+            query_metadata=query_metadata,
+            limit=expansion_limit,
+        )
+        for expansion_text in expansion_texts:
+            search_questions.append(
+                question.model_copy(update={"question": expansion_text})
+            )
+        return search_questions
+
+    def _search_candidates(
+        self,
+        *,
+        search_questions: list[QuestionRecord],
+        top_k: int,
+        query_metadata: Any | None,
+    ) -> list[dict[str, Any]]:
+        """Run hybrid search for one or more query variants and merge unique candidates."""
+
+        merged_by_key: dict[str, dict[str, Any]] = {}
+        encounter_order: list[str] = []
+        for query_index, search_question in enumerate(search_questions):
+            metadata_for_search = query_metadata if query_index == 0 else None
+            candidates = _hybrid_search_with_optional_query_metadata(
+                self.hybrid_search,
+                search_question,
+                top_k=top_k,
+                query_metadata=metadata_for_search,
+            )
+            for candidate in candidates:
+                candidate_key = _candidate_identity(candidate)
+                existing = merged_by_key.get(candidate_key)
+                if existing is None:
+                    merged_by_key[candidate_key] = dict(candidate)
+                    encounter_order.append(candidate_key)
+                    continue
+                if _candidate_retrieval_score(candidate) > _candidate_retrieval_score(existing):
+                    merged_by_key[candidate_key] = dict(candidate)
+
+        merged_candidates = [merged_by_key[key] for key in encounter_order]
+        merged_candidates.sort(
+            key=lambda payload: (
+                -_candidate_retrieval_score(payload),
+                str(payload.get("chunk_id") or ""),
+            )
+        )
+        return merged_candidates
 
     def _materialize_evidence(self, payloads: list[dict[str, Any]]) -> list[RetrievedChunk]:
         """Convert payloads into validated evidence chunks and fail on malformed entries."""
@@ -561,6 +640,82 @@ def _derive_question_class(query_metadata: Any | None) -> str:
     if statute_entity_present:
         return "statute"
     return "free_text"
+
+
+def _build_query_expansion_texts(
+    *,
+    question_text: str,
+    query_metadata: Any | None,
+    limit: int,
+) -> list[str]:
+    """Build deterministic query-expansion strings from query metadata signals."""
+
+    if limit <= 0:
+        return []
+
+    normalized_question = str(question_text or "").strip()
+    normalized_question_key = normalized_question.casefold()
+
+    expansion_candidates: list[str] = []
+    legal_entities = metadata_field(query_metadata, "legal_entities", ())
+    for entity in legal_entities:
+        if not bool(metadata_field(entity, "is_strong", True)):
+            continue
+        entity_type = str(metadata_field(entity, "entity_type", "")).strip()
+        raw_value = str(metadata_field(entity, "raw_value", "")).strip()
+        normalized_value = str(metadata_field(entity, "normalized_value", "")).strip()
+
+        if raw_value:
+            expansion_candidates.append(raw_value)
+            if entity_type == "case_id":
+                expansion_candidates.append(f"case {raw_value}")
+            elif entity_type == "statute_id":
+                expansion_candidates.append(f"law {raw_value}")
+        if normalized_value and normalized_value.casefold() != raw_value.casefold():
+            expansion_candidates.append(normalized_value)
+
+    for title_cue in metadata_field(query_metadata, "document_title_cues", ()):
+        cue_text = str(title_cue or "").strip()
+        if cue_text:
+            expansion_candidates.append(cue_text)
+
+    expansions: list[str] = []
+    seen: set[str] = {normalized_question_key}
+    for raw_expansion in expansion_candidates:
+        expansion = str(raw_expansion or "").strip()
+        if not expansion:
+            continue
+        expansion_key = expansion.casefold()
+        if expansion_key in seen:
+            continue
+        seen.add(expansion_key)
+        expansions.append(expansion)
+        if len(expansions) >= limit:
+            break
+    return expansions
+
+
+def _candidate_identity(payload: dict[str, Any]) -> str:
+    """Build a stable identity key for merged candidate payloads."""
+
+    chunk_id = str(payload.get("chunk_id") or "").strip()
+    if chunk_id:
+        return chunk_id
+    doc_id = str(payload.get("doc_id") or "").strip()
+    page_span = ",".join(str(page) for page in extract_physical_pages(payload))
+    chunk_type = str(payload.get("chunk_type") or "").strip()
+    text = str(payload.get("text") or "").strip()
+    return f"{doc_id}|{page_span}|{chunk_type}|{text[:120]}"
+
+
+def _candidate_retrieval_score(payload: dict[str, Any]) -> float:
+    """Return candidate retrieval score as float with safe fallback."""
+
+    raw_score = payload.get("retrieval_score")
+    try:
+        return float(raw_score)
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def _hybrid_search_with_optional_query_metadata(

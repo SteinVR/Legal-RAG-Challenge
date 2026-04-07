@@ -322,8 +322,17 @@ class RetrievalSettings(BaseModel):
     min_rerank_score: float = 0.0
     parent_page_expansion_enabled: bool = False
     parent_page_expansion_limit: int = 0
+    query_expansion_enabled: bool = False
+    query_expansion_max_queries: int = 0
+    query_expansion_case_only: bool = True
 
-    @field_validator("candidate_budget", "rerank_budget", "default_evidence_budget", "parent_page_expansion_limit")
+    @field_validator(
+        "candidate_budget",
+        "rerank_budget",
+        "default_evidence_budget",
+        "parent_page_expansion_limit",
+        "query_expansion_max_queries",
+    )
     @classmethod
     def ensure_non_negative_int(cls, value: int) -> int:
         """Execute `ensure_non_negative_int`."""

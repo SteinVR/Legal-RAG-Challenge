@@ -30,7 +30,10 @@ submission*.json
 # Agent/runtime logs
 logs/agents/
 logs/project/runtime/**/*.jsonl
-results.tsv
 run.log
 
 .apm/
+
+# Autoresearch heavy artifacts
+artifacts/autoresearch/ledger/
+analysis/grounding/*.summary.json

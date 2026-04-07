@@ -123,9 +123,9 @@ retrieval:
       rerank_budget: 8
       evidence_budget: 4
     case:
-      candidate_budget: 8
-      rerank_budget: 4
-      evidence_budget: 2
+      candidate_budget: 12
+      rerank_budget: 6
+      evidence_budget: 4
     statute:
       candidate_budget: 8
       rerank_budget: 4
@@ -133,6 +133,9 @@ retrieval:
   min_rerank_score: 0.0
   parent_page_expansion_enabled: false
   parent_page_expansion_limit: 3
+  query_expansion_enabled: true
+  query_expansion_max_queries: 2
+  query_expansion_case_only: true
 
 decomposition:
   enabled: true

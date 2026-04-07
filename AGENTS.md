@@ -17,6 +17,8 @@
 ## Workflow
 - Core loop: investigate -> plan -> implement -> verify.
 - Use the harness internal todo list proactively.
+- For `$apm-autoresearch` cycles, persist every run decision via `scripts/autoresearch_keep.py` immediately after runner completion. Do not rely on memory or `/tmp` configs for winners.
+- If an experiment run uses a temporary config path, a `keep` decision must snapshot that config under `analysis/grounding/kept_configs/` and (when applicable) promote it to canonical baseline config in the same step.
 
 ## Subagent paradigm
 - For complex tasks, decompose work into independent subtasks and delegate to subagents.
@@ -54,6 +56,7 @@
 - Do not reintroduce broad granular unit/regression suites by default; add fine-grained tests only for high-risk regressions that cannot be covered by stage smoke.
 - OpenAI/API-backed generation is forbidden in tests; use local deterministic stubs for provider paths.
 - Model-backed smoke checks are GPU-only: no CPU fallback. If CUDA is unavailable or a model does not load on CUDA, fail fast with a clear error.
+- For GPU-contract benchmark/smoke runs, if sandboxed execution reports `torch.cuda.is_available() is False`, rerun the same command with `require_escalated` (outside sandbox) before reporting failure.
 - After every smoke/e2e run, inspect runtime logs and validate observed outputs, not only process exit codes.
 
 ## Self-review gate
