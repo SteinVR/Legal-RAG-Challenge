@@ -1,0 +1,44 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "fdeb03aecacff6f7d78a86ff22a13e95abe014855c18282b142d6ad1f46daa0a",
+  "question": "Review the full case files for DEC 001/2025 and TCD 001/2024 \u2014 did any judge preside over proceedings in both cases?",
+  "answer_type": "boolean",
+  "failure_bucket": "hit",
+  "source_type": "cross_case",
+  "difficulty": "hard",
+  "tags": [
+    "deterministic",
+    "multi_page",
+    "multi_document",
+    "comparative",
+    "negative",
+    "entity_overlap"
+  ],
+  "gold_pages": [
+    {
+      "doc_id": "0471e83c1ea18086cfb6b3ff51da6f22b0efee337f10315b2593f782297ccb84",
+      "page_number": 1
+    },
+    {
+      "doc_id": "1a255edc261961ec64870466a27ac4e25b5ebc2abe298e1b69f8dd2fc27288f6",
+      "page_number": 2
+    },
+    {
+      "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+      "page_number": 1
+    },
+    {
+      "doc_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30",
+      "page_number": 1
+    },
+    {
+      "doc_id": "839de9798f377492eee68f82b202d7cd3544be83d799f6226a02f3678c9bb914",
+      "page_number": 1
+    },
+    {
+      "doc_id": "c98c1475692bc22f4abab6a7a7d7969467c94e46a7e68919aaf127179ebf3f54",
+      "page_number": 1
+    }
+  ]
+}

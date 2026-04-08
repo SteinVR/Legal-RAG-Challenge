@@ -1,0 +1,110 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "2fc105ec9d11e361b057e8ce21245fbc01f14cefe5ccddada9d7541c952106d2",
+  "failure_bucket": "hit",
+  "metrics": {
+    "raw_recall": 1.0,
+    "raw_precision": 0.5,
+    "raw_grounding": 0.8787878787878788,
+    "pass_a_recall": 1.0,
+    "pass_a_precision": 0.5,
+    "pass_a_grounding": 0.8787878787878788,
+    "final_recall": 1.0,
+    "final_precision": 0.5,
+    "final_grounding": 0.8787878787878788
+  },
+  "pages": {
+    "gold": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 14
+      }
+    ],
+    "raw": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 14
+      },
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 36
+      }
+    ],
+    "pass_a": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 14
+      },
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 36
+      }
+    ],
+    "final": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 14
+      },
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 36
+      }
+    ],
+    "raw_hit": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 14
+      }
+    ],
+    "pass_a_hit": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 14
+      }
+    ],
+    "final_hit": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_number": 14
+      }
+    ],
+    "raw_miss": [],
+    "pass_a_miss": [],
+    "final_miss": []
+  },
+  "retrieval_telemetry": {
+    "retrieved_chunk_pages": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_numbers": [
+          14,
+          36
+        ]
+      }
+    ],
+    "raw_retrieved_chunk_pages": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_numbers": [
+          14,
+          36
+        ]
+      }
+    ],
+    "pass_a_pages": [
+      {
+        "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+        "page_numbers": [
+          14,
+          36
+        ]
+      }
+    ],
+    "solver_reported_pages": [],
+    "page_validation": {
+      "action": "grounding_only",
+      "collapsed_answer": false
+    }
+  }
+}

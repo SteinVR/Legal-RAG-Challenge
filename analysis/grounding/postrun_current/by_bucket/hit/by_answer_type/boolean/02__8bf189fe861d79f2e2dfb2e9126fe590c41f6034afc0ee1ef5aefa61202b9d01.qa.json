@@ -1,0 +1,35 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "8bf189fe861d79f2e2dfb2e9126fe590c41f6034afc0ee1ef5aefa61202b9d01",
+  "question": "Based on all documents in case CFI 010/2024 and case DEC 001/2025, did any judge appear in both cases?",
+  "answer_type": "boolean",
+  "failure_bucket": "hit",
+  "source_type": "cross_case",
+  "difficulty": "hard",
+  "tags": [
+    "deterministic",
+    "comparative",
+    "multi_document",
+    "multi_page",
+    "negative"
+  ],
+  "gold_pages": [
+    {
+      "doc_id": "1a255edc261961ec64870466a27ac4e25b5ebc2abe298e1b69f8dd2fc27288f6",
+      "page_number": 2
+    },
+    {
+      "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+      "page_number": 1
+    },
+    {
+      "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+      "page_number": 1
+    },
+    {
+      "doc_id": "839de9798f377492eee68f82b202d7cd3544be83d799f6226a02f3678c9bb914",
+      "page_number": 1
+    }
+  ]
+}

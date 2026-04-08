@@ -1,0 +1,33 @@
+{
+  "run_trace_id": "4fcea830603c4b10b9d4c6eccdd3a116",
+  "phase": "warmup",
+  "generated_at": "2026-04-03T14:25:10.385952+00:00",
+  "trace_count": 5,
+  "traces": [
+    {
+      "question_id": "30ab0e56ee0c43b5bf94fd9657c7f7ac24f0e7be29ced2933437f7a234713cd7",
+      "trace_id": "1a044424496a44fd8b2ad4981b9359c4",
+      "path": "traces/30ab0e56ee0c43b5bf94fd9657c7f7ac24f0e7be29ced293__ba3ddd5a2c6c.json"
+    },
+    {
+      "question_id": "331b267822eaa013b4a79d92f2ac5118052a57150df9a29d7d11c531f02d23cf",
+      "trace_id": "691f9fb9494f484dadd0697985b08c13",
+      "path": "traces/331b267822eaa013b4a79d92f2ac5118052a57150df9a29d__ade0d6b8f9b5.json"
+    },
+    {
+      "question_id": "5d271fced60d88e008a69adc2da21de427906206bfb49f5554a3bf1dd6f72772",
+      "trace_id": "b30a263bdc56485fb30c9bbd7bd6e746",
+      "path": "traces/5d271fced60d88e008a69adc2da21de427906206bfb49f55__2c1844bf7e5a.json"
+    },
+    {
+      "question_id": "bce4c288236518dfd08f6bac5a75c75ea79b1250347c4b998252fa9d7265a7c3",
+      "trace_id": "19c6492d74f0469f8cb2c4da425f336a",
+      "path": "traces/bce4c288236518dfd08f6bac5a75c75ea79b1250347c4b99__1bc1c3fdb66b.json"
+    },
+    {
+      "question_id": "acd0ddc6715f2bccf5076dc47e6874a8ecb782dd10c0b162071f890ad96bef47",
+      "trace_id": "5fbd411082b9472c84624340a40f0473",
+      "path": "traces/acd0ddc6715f2bccf5076dc47e6874a8ecb782dd10c0b162__a16f5dbf5f96.json"
+    }
+  ]
+}

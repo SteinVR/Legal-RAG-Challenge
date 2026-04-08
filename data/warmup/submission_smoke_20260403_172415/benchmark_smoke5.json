@@ -1,0 +1,127 @@
+{
+  "benchmark_id": "dev-gold-warmup100-v1",
+  "title": "Warmup 100 Gold Set v1",
+  "description": null,
+  "references": [
+    {
+      "question_id": "30ab0e56ee0c43b5bf94fd9657c7f7ac24f0e7be29ced2933437f7a234713cd7",
+      "answer_type": "boolean",
+      "answer": false,
+      "question": "Under Article 8(1) of the Operating Law 2018, is a person permitted to operate or conduct business in or from the DIFC without being incorporated, registered, or continued under a Prescribed Law or other Legislation administered by the Registrar?",
+      "gold_retrieval": [
+        {
+          "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ],
+      "notes": null
+    },
+    {
+      "question_id": "331b267822eaa013b4a79d92f2ac5118052a57150df9a29d7d11c531f02d23cf",
+      "answer_type": "date",
+      "answer": "2026-02-02",
+      "question": "What is the Date of Issue of the document in case CFI 057/2025?",
+      "gold_retrieval": [
+        {
+          "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ],
+      "notes": null
+    },
+    {
+      "question_id": "5d271fced60d88e008a69adc2da21de427906206bfb49f5554a3bf1dd6f72772",
+      "answer_type": "number",
+      "answer": 2,
+      "question": "According to the title page of the Common Reporting Standard Law, what is its official DIFC Law number?",
+      "gold_retrieval": [
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ],
+      "notes": null
+    },
+    {
+      "question_id": "bce4c288236518dfd08f6bac5a75c75ea79b1250347c4b998252fa9d7265a7c3",
+      "answer_type": "free_text",
+      "answer": "Partners are jointly and severally liable with the other Partners for all debts and obligations of the General Partnership incurred while they are Partners.",
+      "question": "What kind of liability do Partners have under Article 28(1) of the General Partnership Law 2004?",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": null
+    },
+    {
+      "question_id": "acd0ddc6715f2bccf5076dc47e6874a8ecb782dd10c0b162071f890ad96bef47",
+      "answer_type": "name",
+      "answer": "SCT 295/2025",
+      "question": "Between SCT 295/2025 and SCT 514/2025, which document has the earlier issue date?",
+      "gold_retrieval": [
+        {
+          "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "6306079a16b1dec85690f75c715cdbd78b0685a3e19ee30250d481bc32f2e29a",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page"
+      ],
+      "notes": null
+    }
+  ],
+  "assistant_scores": [],
+  "notes": []
+}

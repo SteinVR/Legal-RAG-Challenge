@@ -1,0 +1,95 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "3c33f9a4de9bac177c65e3c3bd986ef05e527095e4c96aabbbed76599b727eb0",
+  "failure_bucket": "hit",
+  "metrics": {
+    "raw_recall": 1.0,
+    "raw_precision": 1.0,
+    "raw_grounding": 1.0,
+    "pass_a_recall": 1.0,
+    "pass_a_precision": 1.0,
+    "pass_a_grounding": 1.0,
+    "final_recall": 1.0,
+    "final_precision": 1.0,
+    "final_grounding": 1.0
+  },
+  "pages": {
+    "gold": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_number": 1
+      }
+    ],
+    "raw": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_number": 1
+      }
+    ],
+    "pass_a": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_number": 1
+      }
+    ],
+    "final": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_number": 1
+      }
+    ],
+    "raw_hit": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_number": 1
+      }
+    ],
+    "pass_a_hit": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_number": 1
+      }
+    ],
+    "final_hit": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_number": 1
+      }
+    ],
+    "raw_miss": [],
+    "pass_a_miss": [],
+    "final_miss": []
+  },
+  "retrieval_telemetry": {
+    "retrieved_chunk_pages": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_numbers": [
+          1
+        ]
+      }
+    ],
+    "raw_retrieved_chunk_pages": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_numbers": [
+          1
+        ]
+      }
+    ],
+    "pass_a_pages": [
+      {
+        "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+        "page_numbers": [
+          1
+        ]
+      }
+    ],
+    "solver_reported_pages": [],
+    "page_validation": {
+      "action": "grounding_only",
+      "collapsed_answer": false
+    }
+  }
+}

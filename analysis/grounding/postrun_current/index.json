@@ -1,0 +1,73 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_count": 100,
+  "eligible_count": 95,
+  "cases_per_category": 5,
+  "counts_by_failure_bucket": {
+    "gold_empty": 5,
+    "hit": 95
+  },
+  "counts_by_answer_type": {
+    "boolean": 32,
+    "date": 1,
+    "free_text": 30,
+    "name": 15,
+    "names": 5,
+    "number": 17
+  },
+  "selected_case_count": 31,
+  "selected_by_category": {
+    "gold_empty::free_text": 5,
+    "hit::boolean": 5,
+    "hit::date": 1,
+    "hit::free_text": 5,
+    "hit::name": 5,
+    "hit::names": 5,
+    "hit::number": 5
+  },
+  "categories": [
+    {
+      "failure_bucket": "gold_empty",
+      "answer_type": "free_text",
+      "selected_count": 5,
+      "directory": "by_bucket/gold_empty/by_answer_type/free_text"
+    },
+    {
+      "failure_bucket": "hit",
+      "answer_type": "boolean",
+      "selected_count": 5,
+      "directory": "by_bucket/hit/by_answer_type/boolean"
+    },
+    {
+      "failure_bucket": "hit",
+      "answer_type": "date",
+      "selected_count": 1,
+      "directory": "by_bucket/hit/by_answer_type/date"
+    },
+    {
+      "failure_bucket": "hit",
+      "answer_type": "free_text",
+      "selected_count": 5,
+      "directory": "by_bucket/hit/by_answer_type/free_text"
+    },
+    {
+      "failure_bucket": "hit",
+      "answer_type": "name",
+      "selected_count": 5,
+      "directory": "by_bucket/hit/by_answer_type/name"
+    },
+    {
+      "failure_bucket": "hit",
+      "answer_type": "names",
+      "selected_count": 5,
+      "directory": "by_bucket/hit/by_answer_type/names"
+    },
+    {
+      "failure_bucket": "hit",
+      "answer_type": "number",
+      "selected_count": 5,
+      "directory": "by_bucket/hit/by_answer_type/number"
+    }
+  ]
+}

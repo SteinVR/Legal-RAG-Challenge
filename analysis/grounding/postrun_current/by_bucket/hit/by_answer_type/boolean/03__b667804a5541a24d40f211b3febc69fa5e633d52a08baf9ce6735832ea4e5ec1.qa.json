@@ -1,0 +1,33 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "b667804a5541a24d40f211b3febc69fa5e633d52a08baf9ce6735832ea4e5ec1",
+  "question": "Based on the full case files for DEC 001/2025 and CFI 057/2025, was there any judge involved in both cases?",
+  "answer_type": "boolean",
+  "failure_bucket": "hit",
+  "source_type": "cross_case",
+  "difficulty": "medium",
+  "tags": [
+    "deterministic",
+    "comparative",
+    "multi_document",
+    "multi_page",
+    "entity_overlap",
+    "negative",
+    "title_page"
+  ],
+  "gold_pages": [
+    {
+      "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+      "page_number": 1
+    },
+    {
+      "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+      "page_number": 1
+    },
+    {
+      "doc_id": "839de9798f377492eee68f82b202d7cd3544be83d799f6226a02f3678c9bb914",
+      "page_number": 1
+    }
+  ]
+}

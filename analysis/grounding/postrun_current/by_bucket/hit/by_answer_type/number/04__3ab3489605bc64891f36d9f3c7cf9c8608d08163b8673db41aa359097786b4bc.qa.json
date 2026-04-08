@@ -1,0 +1,21 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "3ab3489605bc64891f36d9f3c7cf9c8608d08163b8673db41aa359097786b4bc",
+  "question": "According to Article 12(4) of the Common Reporting Standard Law 2018, for how many years must records be retained by Reporting Financial Institutions after the date of reporting the information?",
+  "answer_type": "number",
+  "failure_bucket": "hit",
+  "source_type": "statute",
+  "difficulty": "easy",
+  "tags": [
+    "deterministic",
+    "single_document",
+    "single_page"
+  ],
+  "gold_pages": [
+    {
+      "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+      "page_number": 7
+    }
+  ]
+}

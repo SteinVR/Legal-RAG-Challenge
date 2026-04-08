@@ -1,0 +1,26 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "6863a7f4a5e76694620518758411bc743142897fa8077f2a73701b89fa2d0b0f",
+  "question": "Under the Foundations Law DIFC Law No. 3 of 2018, what is the maximum fine for failing to provide a copy of an assignment of rights to the Registered Agent or Registrar within 30 days?",
+  "answer_type": "free_text",
+  "failure_bucket": "hit",
+  "source_type": "statute",
+  "difficulty": "medium",
+  "tags": [
+    "free_text",
+    "single_document",
+    "multi_page",
+    "table_lookup"
+  ],
+  "gold_pages": [
+    {
+      "doc_id": "22442c5ee999e2519c68de908be511875a84f2b810ed540c2dcfcbcc65031434",
+      "page_number": 6
+    },
+    {
+      "doc_id": "22442c5ee999e2519c68de908be511875a84f2b810ed540c2dcfcbcc65031434",
+      "page_number": 46
+    }
+  ]
+}

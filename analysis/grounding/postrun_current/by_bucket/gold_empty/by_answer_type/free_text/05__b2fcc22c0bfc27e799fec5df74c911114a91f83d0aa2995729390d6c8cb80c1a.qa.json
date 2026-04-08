@@ -1,0 +1,16 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "b2fcc22c0bfc27e799fec5df74c911114a91f83d0aa2995729390d6c8cb80c1a",
+  "question": "On what date was the DIFC Personal Property Law 2005 enacted?",
+  "answer_type": "free_text",
+  "failure_bucket": "gold_empty",
+  "source_type": "statute",
+  "difficulty": "medium",
+  "tags": [
+    "free_text",
+    "negative",
+    "single_document"
+  ],
+  "gold_pages": []
+}

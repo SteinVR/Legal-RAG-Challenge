@@ -1,0 +1,16 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "84a7c3564026e528c0a5e6a86a72447b4be016d6aa26ce5ce87843c58a975629",
+  "question": "What was the plea bargain in case ARB 034/2025?",
+  "answer_type": "free_text",
+  "failure_bucket": "gold_empty",
+  "source_type": "case",
+  "difficulty": "hard",
+  "tags": [
+    "free_text",
+    "negative",
+    "single_document"
+  ],
+  "gold_pages": []
+}

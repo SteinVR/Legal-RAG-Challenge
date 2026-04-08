@@ -14,9 +14,12 @@ build/
 .venv
 .venv/
 
-# Data artifacts (large, reproducible)
-data/
-!data/**/
+# Data artifacts (large)
+data/other/
+data/warmup/corpus/
+data/warmup/index/
+data/warmup/manifests/
+
 *.parquet
 *.faiss
 

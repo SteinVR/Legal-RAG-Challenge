@@ -1,0 +1,21 @@
+{
+  "run_id": "db562fa__run_030",
+  "run_tag": "apr06-grounding",
+  "question_id": "cdddeb6a063f29cbea5f10b3dccbd83aa16849e1f3124e223d141d1578efeb0a",
+  "question": "Who were the claimants in case CFI 010/2024?",
+  "answer_type": "names",
+  "failure_bucket": "hit",
+  "source_type": "case",
+  "difficulty": "easy",
+  "tags": [
+    "deterministic",
+    "single_document",
+    "single_page"
+  ],
+  "gold_pages": [
+    {
+      "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+      "page_number": 1
+    }
+  ]
+}
