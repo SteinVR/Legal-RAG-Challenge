@@ -19,6 +19,26 @@ from src.submission.api_client import CompetitionApiClient
 LOGGER = get_logger("submission.sync")
 
 
+def _resolve_phase_dir(*, root_dir: Path, phase_value: str) -> Path:
+    """Resolve phase directory with compatibility fallback for `final` -> `full`.
+
+    Args:
+        root_dir: Base storage directory.
+        phase_value: Configured phase value (`warmup` or `final`).
+
+    Returns:
+        Path: Existing phase directory when found; otherwise the canonical phase path.
+    """
+    canonical_dir = root_dir / phase_value
+    if canonical_dir.exists():
+        return canonical_dir
+    if phase_value == "final":
+        legacy_full_dir = root_dir / "full"
+        if legacy_full_dir.exists():
+            return legacy_full_dir
+    return canonical_dir
+
+
 @dataclass(slots=True)
 class PhasePaths:
     """Resolved local filesystem layout for a phase."""
@@ -47,7 +67,7 @@ class PhasePaths:
         Returns:
             Any: The computed result of the function.
         """
-        phase_dir = config.storage.root_dir / config.phase.value
+        phase_dir = _resolve_phase_dir(root_dir=config.storage.root_dir, phase_value=config.phase.value)
         questions_dir = phase_dir / config.storage.questions_dirname
         documents_dir = phase_dir / config.storage.documents_dirname
         corpus_dir = phase_dir / config.storage.corpus_dirname

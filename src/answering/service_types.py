@@ -210,12 +210,20 @@ class DateAnswerSchema(_StructuredAnswerBase):
         return self
 
 class FreeTextAnswerSchema(_StructuredAnswerBase):
-    final_answer: str
+    final_answer: str = Field(min_length=1, max_length=280)
+
+    @field_validator("final_answer", mode="before")
+    @classmethod
+    def _normalize_final_answer(cls, value: Any) -> str:
+        """Normalize final answer text before field-level constraints are enforced."""
+        if value is None:
+            return ""
+        return _normalize_whitespace(str(value))
 
     @model_validator(mode="after")
     def _validate_answerable_contract(self) -> "FreeTextAnswerSchema":
         """Validate answerable contract."""
-        normalized = _normalize_whitespace(self.final_answer)
+        normalized = self.final_answer
         if not normalized:
             raise ValueError("free_text final_answer must be non-empty.")
         if len(normalized) > 280:

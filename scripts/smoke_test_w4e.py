@@ -125,6 +125,7 @@ def main() -> None:
         query_expansion_enabled=retrieval_settings.query_expansion_enabled,
         query_expansion_max_queries=retrieval_settings.query_expansion_max_queries,
         query_expansion_case_only=retrieval_settings.query_expansion_case_only,
+        page_map_paths=(index_paths.page_map_path,),
     )
 
     provider = CodexFreeTextProvider(model="gpt-5.4-mini", api_key=api_key)

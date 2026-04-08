@@ -11,6 +11,7 @@ from dotenv import dotenv_values
 
 from src.common.config import load_app_config
 from src.evaluation.contracts import AnswerType, load_question_records
+from src.submission.sync import PhasePaths
 
 SCHEMA_FIRST_PROVIDER_TYPES = frozenset(answer_type.value for answer_type in AnswerType)
 
@@ -42,12 +43,12 @@ def _build_context(*, config_path: Path, env_file: Path, phase_override: str | N
     storage = config.storage
     phase = config.phase.value
 
-    phase_dir = storage.root_dir / phase
-    questions_dir = phase_dir / storage.questions_dirname
-    questions_path = questions_dir / storage.questions_filename
-    documents_dir = phase_dir / storage.documents_dirname
-    documents_extract_dir = documents_dir / storage.extracted_documents_dirname
-    corpus_dir = phase_dir / storage.corpus_dirname
+    phase_paths = PhasePaths.from_config(config)
+    phase_dir = phase_paths.phase_dir
+    questions_path = phase_paths.questions_path
+    documents_dir = phase_paths.documents_dir
+    documents_extract_dir = phase_paths.documents_extract_dir
+    corpus_dir = phase_paths.corpus_dir
     index_dir = phase_dir / "index"
     submission_dir = phase_dir / "submission"
 

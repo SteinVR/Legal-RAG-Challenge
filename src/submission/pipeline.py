@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import inspect
 import json
+import hashlib
 import logging
 import re
 import time
@@ -77,6 +78,7 @@ from src.submission.pipeline_utils import (
 FREE_TEXT_MODEL = "gpt-5.4-mini"
 DETERMINISTIC_MODEL_NAME = "deterministic-extractor"
 LOGGER = get_logger("submission.pipeline")
+QA_CHECKPOINT_VERSION = 1
 CODE_ARCHIVE_INCLUDE_PATHS = (
     "src",
     "configs",
@@ -150,6 +152,9 @@ class BuildSubmissionService:
         questions_path: str | Path,
         documents_dir: str | Path,
         output_dir: str | Path,
+        resume_from_checkpoint: bool = False,
+        checkpoint_path: str | Path | None = None,
+        checkpoint_every: int = 1,
     ) -> BuildSubmissionResult:
         """Build submission.
 
@@ -157,6 +162,9 @@ class BuildSubmissionService:
             questions_path: Input parameter.
             documents_dir: Input parameter.
             output_dir: Input parameter.
+            resume_from_checkpoint: Whether to reuse saved QA progress when available.
+            checkpoint_path: Optional checkpoint JSON path.
+            checkpoint_every: Persist checkpoint every N newly processed questions.
 
         Returns:
             Any: The computed result of the function.
@@ -164,6 +172,13 @@ class BuildSubmissionService:
         resolved_questions_path = Path(questions_path)
         resolved_documents_dir = Path(documents_dir)
         resolved_output_dir = Path(output_dir)
+        resolved_checkpoint_path = (
+            Path(checkpoint_path)
+            if checkpoint_path is not None
+            else resolved_output_dir / "qa_checkpoint.json"
+        )
+        if checkpoint_every <= 0:
+            raise ValueError("checkpoint_every must be >= 1.")
         log_event(
             LOGGER,
             logging.INFO,
@@ -173,6 +188,9 @@ class BuildSubmissionService:
             questions_path=resolved_questions_path,
             documents_dir=resolved_documents_dir,
             output_dir=resolved_output_dir,
+            resume_from_checkpoint=resume_from_checkpoint,
+            checkpoint_path=resolved_checkpoint_path,
+            checkpoint_every=checkpoint_every,
         )
 
         if not resolved_questions_path.exists():
@@ -216,6 +234,7 @@ class BuildSubmissionService:
         )
 
         questions = load_question_records(resolved_questions_path)
+        resolved_output_dir.mkdir(parents=True, exist_ok=True)
         log_event(
             LOGGER,
             logging.INFO,
@@ -227,7 +246,13 @@ class BuildSubmissionService:
             reused_index=reused_index,
         )
         qa_started = time.perf_counter()
-        answers, traces = self._run_qa_pipeline(runtime_config, questions)
+        answers, traces = self._run_qa_pipeline(
+            runtime_config,
+            questions,
+            checkpoint_path=resolved_checkpoint_path,
+            resume_from_checkpoint=resume_from_checkpoint,
+            checkpoint_every=checkpoint_every,
+        )
         qa_ms = round((time.perf_counter() - qa_started) * 1000, 1)
         log_event(
             LOGGER,
@@ -251,7 +276,6 @@ class BuildSubmissionService:
             unanswerable_retrieval_policy=self.unanswerable_retrieval_policy,
         )
 
-        resolved_output_dir.mkdir(parents=True, exist_ok=True)
         submission_path = self.packager.write_submission_payload(
             submission_payload=submission_payload,
             output_dir=resolved_output_dir,
@@ -379,12 +403,19 @@ class BuildSubmissionService:
         self,
         config: AppConfig,
         questions: list[QuestionRecord],
+        *,
+        checkpoint_path: Path | None = None,
+        resume_from_checkpoint: bool = False,
+        checkpoint_every: int = 1,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         """Run qa pipeline.
 
         Args:
             config: Input parameter.
             questions: Input parameter.
+            checkpoint_path: Optional path to QA checkpoint JSON.
+            resume_from_checkpoint: Whether checkpoint resume is enabled.
+            checkpoint_every: Persist checkpoint every N newly processed questions.
 
         Returns:
             Any: The computed result of the function.
@@ -419,6 +450,7 @@ class BuildSubmissionService:
             query_expansion_enabled=retrieval_settings.query_expansion_enabled,
             query_expansion_max_queries=retrieval_settings.query_expansion_max_queries,
             query_expansion_case_only=retrieval_settings.query_expansion_case_only,
+            page_map_paths=(index_paths.page_map_path,),
         )
         retriever = _CachingRetriever(retrieval_service)
         answering_service = AnsweringService(
@@ -429,12 +461,39 @@ class BuildSubmissionService:
             page_attribution_config=PageAttributionConfig(**config.page_attribution.model_dump()),
         )
 
-        answers: list[dict[str, Any]] = []
-        traces: list[dict[str, Any]] = []
+        question_order = [question.id for question in questions]
+        question_set_digest = self._question_set_digest(questions)
+        answers_by_question_id: dict[str, dict[str, Any]] = {}
+        traces_by_question_id: dict[str, dict[str, Any]] = {}
+        resumed_answer_count = 0
+        newly_processed_count = 0
+        pending_since_checkpoint = 0
+
+        if checkpoint_path is not None and resume_from_checkpoint:
+            answers_by_question_id, traces_by_question_id = self._load_qa_checkpoint(
+                checkpoint_path=checkpoint_path,
+                question_set_digest=question_set_digest,
+            )
+            resumed_answer_count = len(answers_by_question_id)
+            if resumed_answer_count > 0:
+                log_event(
+                    LOGGER,
+                    logging.INFO,
+                    "build_submission.qa.resume",
+                    "Resuming QA from checkpoint.",
+                    stage="submission",
+                    checkpoint_path=checkpoint_path,
+                    resumed_answer_count=resumed_answer_count,
+                    total_question_count=len(questions),
+                )
+
         total_questions = len(questions)
 
         try:
             for index, question in enumerate(questions, start=1):
+                if question.id in answers_by_question_id:
+                    continue
+
                 question_trace_id = uuid4().hex
                 question_started_at = self._clock()
 
@@ -474,31 +533,40 @@ class BuildSubmissionService:
                     tpot_ms=0.0,
                 )
 
-                answers.append(
-                    {
-                        "question_id": question.id,
-                        "answer": answer_result.answer,
-                        "telemetry": telemetry,
-                    }
-                )
-                traces.append(
-                    {
-                        "trace_id": question_trace_id,
-                        "question_id": question.id,
-                        "answer_type": question.answer_type,
-                        "model_name": model_name,
-                        "candidate_count": retrieval_result.candidate_count,
-                        "reranked_count": retrieval_result.reranked_count,
-                        "evidence_chunk_count": len(retrieval_result.evidence_chunks),
-                        "retrieved_chunk_pages": [
-                            {
-                                "doc_id": str(reference["doc_id"]),
-                                "page_numbers": [int(page_number) for page_number in reference["page_numbers"]],
-                            }
-                            for reference in telemetry["retrieval"]["retrieved_chunk_pages"]
-                        ],
-                    }
-                )
+                answers_by_question_id[question.id] = {
+                    "question_id": question.id,
+                    "answer": answer_result.answer,
+                    "telemetry": telemetry,
+                }
+                traces_by_question_id[question.id] = {
+                    "trace_id": question_trace_id,
+                    "question_id": question.id,
+                    "answer_type": question.answer_type,
+                    "model_name": model_name,
+                    "candidate_count": retrieval_result.candidate_count,
+                    "reranked_count": retrieval_result.reranked_count,
+                    "evidence_chunk_count": len(retrieval_result.evidence_chunks),
+                    "retrieved_chunk_pages": [
+                        {
+                            "doc_id": str(reference["doc_id"]),
+                            "page_numbers": [int(page_number) for page_number in reference["page_numbers"]],
+                        }
+                        for reference in telemetry["retrieval"]["retrieved_chunk_pages"]
+                    ],
+                }
+                newly_processed_count += 1
+                pending_since_checkpoint += 1
+
+                if checkpoint_path is not None and pending_since_checkpoint >= checkpoint_every:
+                    self._save_qa_checkpoint(
+                        checkpoint_path=checkpoint_path,
+                        question_set_digest=question_set_digest,
+                        question_order=question_order,
+                        answers_by_question_id=answers_by_question_id,
+                        traces_by_question_id=traces_by_question_id,
+                    )
+                    pending_since_checkpoint = 0
+
                 if questions_debug_enabled():
                     log_event(
                         LOGGER,
@@ -522,12 +590,125 @@ class BuildSubmissionService:
                         stage="submission",
                         processed_question_count=index,
                         total_question_count=total_questions,
+                        answered_question_count=len(answers_by_question_id),
+                        resumed_answer_count=resumed_answer_count,
+                        newly_processed_count=newly_processed_count,
                     )
+            if checkpoint_path is not None:
+                self._save_qa_checkpoint(
+                    checkpoint_path=checkpoint_path,
+                    question_set_digest=question_set_digest,
+                    question_order=question_order,
+                    answers_by_question_id=answers_by_question_id,
+                    traces_by_question_id=traces_by_question_id,
+                )
         finally:
             _close_quietly(provider)
             _close_quietly(backend)
 
+        answers: list[dict[str, Any]] = []
+        traces: list[dict[str, Any]] = []
+        missing_question_ids: list[str] = []
+        for question_id in question_order:
+            answer = answers_by_question_id.get(question_id)
+            trace = traces_by_question_id.get(question_id)
+            if answer is None or trace is None:
+                missing_question_ids.append(question_id)
+                continue
+            answers.append(answer)
+            traces.append(trace)
+
+        if missing_question_ids:
+            raise ValueError(
+                "QA checkpoint state is incomplete for the active question set; "
+                f"missing {len(missing_question_ids)} question_ids."
+            )
+
         return answers, traces
+
+    def _question_set_digest(self, questions: list[QuestionRecord]) -> str:
+        """Build a stable digest used to validate checkpoint compatibility."""
+        serialized = json.dumps([question.id for question in questions], ensure_ascii=False, separators=(",", ":"))
+        return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+
+    def _load_qa_checkpoint(
+        self,
+        *,
+        checkpoint_path: Path,
+        question_set_digest: str,
+    ) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+        """Load QA checkpoint payload if it exists.
+
+        Args:
+            checkpoint_path: Checkpoint file path.
+            question_set_digest: Digest of the currently requested question set.
+
+        Returns:
+            tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]: Answers and traces keyed by question_id.
+        """
+        if not checkpoint_path.exists():
+            return {}, {}
+
+        payload = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"Invalid checkpoint payload: {checkpoint_path}")
+        if payload.get("version") != QA_CHECKPOINT_VERSION:
+            raise ValueError(
+                f"Unsupported checkpoint version in {checkpoint_path}: {payload.get('version')!r}"
+            )
+        if payload.get("question_set_digest") != question_set_digest:
+            raise ValueError("Checkpoint question set mismatch; refusing to resume with incompatible questions.")
+
+        raw_answers = payload.get("answers_by_question_id")
+        raw_traces = payload.get("traces_by_question_id")
+        if not isinstance(raw_answers, dict) or not isinstance(raw_traces, dict):
+            raise ValueError(f"Malformed checkpoint content: {checkpoint_path}")
+
+        answers_by_question_id: dict[str, dict[str, Any]] = {}
+        for question_id, answer in raw_answers.items():
+            if isinstance(question_id, str) and isinstance(answer, dict):
+                answers_by_question_id[question_id] = answer
+
+        traces_by_question_id: dict[str, dict[str, Any]] = {}
+        for question_id, trace in raw_traces.items():
+            if isinstance(question_id, str) and isinstance(trace, dict):
+                traces_by_question_id[question_id] = trace
+
+        return answers_by_question_id, traces_by_question_id
+
+    def _save_qa_checkpoint(
+        self,
+        *,
+        checkpoint_path: Path,
+        question_set_digest: str,
+        question_order: list[str],
+        answers_by_question_id: dict[str, dict[str, Any]],
+        traces_by_question_id: dict[str, dict[str, Any]],
+    ) -> None:
+        """Persist current QA progress atomically."""
+        checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+        ordered_answers = {
+            question_id: answers_by_question_id[question_id]
+            for question_id in question_order
+            if question_id in answers_by_question_id
+        }
+        ordered_traces = {
+            question_id: traces_by_question_id[question_id]
+            for question_id in question_order
+            if question_id in traces_by_question_id
+        }
+        payload = {
+            "version": QA_CHECKPOINT_VERSION,
+            "question_set_digest": question_set_digest,
+            "saved_at": datetime.now(tz=UTC).isoformat(),
+            "answer_count": len(ordered_answers),
+            "trace_count": len(ordered_traces),
+            "answers_by_question_id": ordered_answers,
+            "traces_by_question_id": ordered_traces,
+        }
+        temp_path = checkpoint_path.with_suffix(f"{checkpoint_path.suffix}.tmp")
+        temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        temp_path.replace(checkpoint_path)
 
     def _answer_question(
         self,

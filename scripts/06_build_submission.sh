@@ -28,6 +28,9 @@ PHASE_OVERRIDE=""
 CUSTOM_QUESTIONS_PATH=""
 CUSTOM_DOCUMENTS_DIR=""
 CUSTOM_OUTPUT_DIR=""
+RESUME_FROM_CHECKPOINT=0
+CHECKPOINT_PATH=""
+CHECKPOINT_EVERY=1
 PREFLIGHT=0
 POSITIONAL=()
 
@@ -41,7 +44,7 @@ usage() {
     cat <<'EOF'
 Usage:
   ./scripts/06_build_submission.sh [CONFIG] [PHASE] [QUESTIONS_PATH] [OUTPUT_DIR]
-  ./scripts/06_build_submission.sh --config PATH --env-file PATH [--phase PHASE] [--questions-path PATH] [--documents-dir PATH] [--output-dir PATH] [--preflight]
+  ./scripts/06_build_submission.sh --config PATH --env-file PATH [--phase PHASE] [--questions-path PATH] [--documents-dir PATH] [--output-dir PATH] [--resume-from-checkpoint] [--checkpoint-path PATH] [--checkpoint-every N] [--preflight]
 EOF
 }
 
@@ -69,6 +72,18 @@ while [ $# -gt 0 ]; do
             ;;
         --output-dir)
             CUSTOM_OUTPUT_DIR="$2"
+            shift 2
+            ;;
+        --resume-from-checkpoint)
+            RESUME_FROM_CHECKPOINT=1
+            shift
+            ;;
+        --checkpoint-path)
+            CHECKPOINT_PATH="$2"
+            shift 2
+            ;;
+        --checkpoint-every)
+            CHECKPOINT_EVERY="$2"
             shift 2
             ;;
         --preflight)
@@ -134,6 +149,13 @@ echo "  Phase: $PHASE"
 echo "  Questions: $QUESTIONS_PATH"
 echo "  Documents: $DOCUMENTS_DIR"
 echo "  Output: $OUTPUT_DIR"
+if [ "$RESUME_FROM_CHECKPOINT" -eq 1 ]; then
+    echo "  Resume from checkpoint: true"
+    if [ -n "$CHECKPOINT_PATH" ]; then
+        echo "  Checkpoint path: $CHECKPOINT_PATH"
+    fi
+    echo "  Checkpoint every: $CHECKPOINT_EVERY"
+fi
 
 if [ ! -f "$QUESTIONS_PATH" ]; then
     echo "FAIL: questions file missing: $QUESTIONS_PATH"
@@ -170,13 +192,26 @@ if [ "$PREFLIGHT" -eq 1 ]; then
     exit 0
 fi
 
-"$PYTHON" -m src.main \
-    --config "$CONFIG" \
-    --env-file "$ENV_FILE" \
-    build-submission \
-    --questions-path "$QUESTIONS_PATH" \
-    --documents-dir "$DOCUMENTS_DIR" \
+BUILD_CMD=(
+    "$PYTHON" -m src.main
+    --config "$CONFIG"
+    --env-file "$ENV_FILE"
+    build-submission
+    --questions-path "$QUESTIONS_PATH"
+    --documents-dir "$DOCUMENTS_DIR"
     --output-dir "$OUTPUT_DIR"
+    --checkpoint-every "$CHECKPOINT_EVERY"
+)
+if [ -n "$PHASE_OVERRIDE" ]; then
+    BUILD_CMD+=(--phase "$PHASE_OVERRIDE")
+fi
+if [ "$RESUME_FROM_CHECKPOINT" -eq 1 ]; then
+    BUILD_CMD+=(--resume-from-checkpoint)
+fi
+if [ -n "$CHECKPOINT_PATH" ]; then
+    BUILD_CMD+=(--checkpoint-path "$CHECKPOINT_PATH")
+fi
+"${BUILD_CMD[@]}"
 
 echo "--- Validating artifacts ---"
 if [ -f "$OUTPUT_DIR/submission.json" ]; then

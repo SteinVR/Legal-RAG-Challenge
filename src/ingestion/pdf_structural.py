@@ -111,10 +111,25 @@ def _build_raw_parse_sidecars(
     route_decisions: list[str] = [f"{parser_route.value}_selected"]
 
     if parser_route is ParserRoute.BASELINE_FALLBACK:
-        raise OpenDataLoaderExecutionError(
-            f"Parser route for {pdf_path.name} resolved to baseline_fallback. "
-            "Strict quality mode forbids baseline fallback routing."
+        if not config.ingestion.opendataloader_hybrid_fallback:
+            raise OpenDataLoaderExecutionError(
+                f"Parser route for {pdf_path.name} resolved to baseline_fallback. "
+                "Strict quality mode forbids baseline fallback routing."
+            )
+        LOGGER.warning(
+            "Allowing baseline fallback route for %s because opendataloader_hybrid_fallback=true.",
+            pdf_path.name,
         )
+        route_decisions.append("baseline_fallback_allowed")
+        pymupdf_sidecar = _build_pymupdf_sidecar(
+            doc_id=doc_id,
+            pages=pages,
+            page_geometry=page_geometry,
+            parser_route=final_route,
+        )
+        return route_provenance(final_route), {
+            "pymupdf": pymupdf_sidecar,
+        }
 
     try:
         structural_sidecar = build_opendataloader_sidecar(
@@ -125,15 +140,33 @@ def _build_raw_parse_sidecars(
             route_decisions=route_decisions,
         )
     except OpenDataLoaderExecutionError as exc:
-        LOGGER.error(
-            "Structural opendataloader route %s failed for %s and strict mode forbids fallback.",
+        if not config.ingestion.opendataloader_hybrid_fallback:
+            LOGGER.error(
+                "Structural opendataloader route %s failed for %s and strict mode forbids fallback.",
+                parser_route.value,
+                pdf_path.name,
+            )
+            raise OpenDataLoaderExecutionError(
+                f"Structural parser route {parser_route.value} failed for {pdf_path.name}; "
+                "fallback routing is disabled in strict mode."
+            ) from exc
+        LOGGER.warning(
+            "Structural route %s failed for %s; falling back to pymupdf route.",
             parser_route.value,
             pdf_path.name,
         )
-        raise OpenDataLoaderExecutionError(
-            f"Structural parser route {parser_route.value} failed for {pdf_path.name}; "
-            "fallback routing is disabled in strict mode."
-        ) from exc
+        final_route = ParserRoute.BASELINE_FALLBACK
+        route_decisions.append(f"{parser_route.value}_failed")
+        route_decisions.append("baseline_fallback_activated")
+        pymupdf_sidecar = _build_pymupdf_sidecar(
+            doc_id=doc_id,
+            pages=pages,
+            page_geometry=page_geometry,
+            parser_route=final_route,
+        )
+        return route_provenance(final_route), {
+            "pymupdf": pymupdf_sidecar,
+        }
 
     pymupdf_sidecar = _build_pymupdf_sidecar(
         doc_id=doc_id,
@@ -247,4 +280,3 @@ def _is_layout_complex(pages: list[ParsedPage]) -> bool:
         page.signals.table_count > 0 or page.signals.drawing_count > 0 or page.signals.image_block_count > 0
         for page in pages
     )
-

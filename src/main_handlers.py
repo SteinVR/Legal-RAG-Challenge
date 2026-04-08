@@ -175,6 +175,9 @@ def _run_build_submission(args: argparse.Namespace, config: AppConfig) -> str:
         questions_path=args.questions_path,
         documents_dir=args.documents_dir,
         output_dir=args.output_dir,
+        resume_from_checkpoint=args.resume_from_checkpoint,
+        checkpoint_path=args.checkpoint_path,
+        checkpoint_every=args.checkpoint_every,
     )
     return format_build_submission_result(result)
 

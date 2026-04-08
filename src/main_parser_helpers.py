@@ -154,6 +154,7 @@ def _add_build_submission_command(subparsers: argparse._SubParsersAction[argpars
         "build-submission",
         help="Run the full pipeline and create submission.json + code_archive.zip.",
     )
+    parser.add_argument("--phase", choices=[phase.value for phase in Phase], help="Override the config phase.")
     parser.add_argument(
         "--questions-path",
         required=True,
@@ -169,6 +170,24 @@ def _add_build_submission_command(subparsers: argparse._SubParsersAction[argpars
         required=True,
         help="Output directory for submission artifacts.",
     )
+    parser.add_argument(
+        "--resume-from-checkpoint",
+        action="store_true",
+        help="Resume QA from a saved checkpoint when available.",
+    )
+    parser.add_argument(
+        "--checkpoint-path",
+        help=(
+            "Optional path to the QA checkpoint JSON. "
+            "Defaults to <output-dir>/qa_checkpoint.json."
+        ),
+    )
+    parser.add_argument(
+        "--checkpoint-every",
+        type=int,
+        default=1,
+        help="Persist QA checkpoint every N processed questions (default: 1).",
+    )
 
 
 def _add_validate_submission_command(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -181,6 +200,7 @@ def _add_validate_submission_command(subparsers: argparse._SubParsersAction[argp
         None: This function does not return a value.
     """
     parser = subparsers.add_parser("validate-submission", help="Validate a submission.json against local rules.")
+    parser.add_argument("--phase", choices=[phase.value for phase in Phase], help="Override the config phase.")
     parser.add_argument("--submission-path", required=True)
     parser.add_argument("--questions-path", help="Path to questions.json. Defaults to the phase-local questions file.")
     parser.add_argument(
@@ -236,6 +256,7 @@ def _add_benchmark_summary_command(subparsers: argparse._SubParsersAction[argpar
         "benchmark-summary",
         help="Run a submission against a structured dev benchmark dataset and compute slice metrics.",
     )
+    parser.add_argument("--phase", choices=[phase.value for phase in Phase], help="Override the config phase.")
     parser.add_argument("--submission-path", required=True)
     parser.add_argument("--benchmark-path", help="Path to benchmark dataset JSON.")
     parser.add_argument("--reference-path", help="Path to reference answers JSON/JSONL.")

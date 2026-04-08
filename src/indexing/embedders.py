@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import math
 from collections import Counter
 from collections.abc import Mapping
@@ -18,6 +19,7 @@ DEFAULT_QWEN3_PROMPT_NAME = "document"
 DEFAULT_EMBED_BATCH_SIZE = 16
 BM25_K1 = 1.5
 BM25_B = 0.75
+LOGGER = logging.getLogger(__name__)
 
 
 class DenseEmbedder:
@@ -74,24 +76,43 @@ class Qwen3DenseEmbedder(DenseEmbedder):
             return []
 
         model = self._load_model()
-        encode_kwargs: dict[str, Any] = {
-            "batch_size": self.batch_size,
-            "convert_to_numpy": True,
-            "normalize_embeddings": self.normalize_embeddings,
-            "show_progress_bar": False,
-        }
-        if self.prompt_name:
-            encode_kwargs["prompt_name"] = self.prompt_name
-
-        try:
-            vectors = model.encode(texts, **encode_kwargs)
-        except TypeError:
-            encode_kwargs.pop("prompt_name", None)
-            vectors = model.encode(texts, **encode_kwargs)
+        vectors = self._encode_with_adaptive_batch(model, texts)
 
         if hasattr(vectors, "tolist"):
             return [[float(value) for value in row] for row in vectors.tolist()]
         return [[float(value) for value in row] for row in vectors]
+
+    def _encode_with_adaptive_batch(self, model: Any, texts: list[str]) -> Any:
+        """Encode texts and reduce batch size on CUDA OOM until successful."""
+
+        batch_size = max(int(self.batch_size), 1)
+        while True:
+            encode_kwargs: dict[str, Any] = {
+                "batch_size": batch_size,
+                "convert_to_numpy": True,
+                "normalize_embeddings": self.normalize_embeddings,
+                "show_progress_bar": False,
+            }
+            if self.prompt_name:
+                encode_kwargs["prompt_name"] = self.prompt_name
+
+            try:
+                try:
+                    return model.encode(texts, **encode_kwargs)
+                except TypeError:
+                    encode_kwargs.pop("prompt_name", None)
+                    return model.encode(texts, **encode_kwargs)
+            except Exception as exc:
+                if not _is_torch_cuda_oom(exc) or batch_size == 1:
+                    raise
+                next_batch_size = max(batch_size // 2, 1)
+                LOGGER.warning(
+                    "Dense embedding hit CUDA OOM at batch_size=%d; retrying with batch_size=%d.",
+                    batch_size,
+                    next_batch_size,
+                )
+                _try_release_torch_cuda_cache()
+                batch_size = next_batch_size
 
     def _load_model(self) -> Any:
         """Load and cache SentenceTransformer with strict runtime checks."""
@@ -309,3 +330,29 @@ def dense_encoder_contract(embedder: DenseEmbedder | None = None) -> dict[str, A
         "normalize_embeddings": normalize_embeddings,
         "local_files_only": True,
     }
+
+
+def _is_torch_cuda_oom(exc: Exception) -> bool:
+    """Return whether the raised exception indicates CUDA out-of-memory."""
+
+    message = str(exc).lower()
+    if "cuda out of memory" in message or "outofmemoryerror" in message:
+        return True
+    try:
+        import torch
+
+        return isinstance(exc, torch.OutOfMemoryError)
+    except Exception:
+        return False
+
+
+def _try_release_torch_cuda_cache() -> None:
+    """Best-effort CUDA cache release after OOM before retrying."""
+
+    try:
+        import torch
+
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    except Exception:
+        return

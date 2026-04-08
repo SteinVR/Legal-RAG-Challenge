@@ -19,6 +19,11 @@ data/other/
 data/warmup/corpus/
 data/warmup/index/
 data/warmup/manifests/
+data/full/corpus/
+data/full/index/
+data/full/manifests/
+data/full/questions/
+data/full/submission_e2e_20260408_full_resume
 
 *.parquet
 *.faiss

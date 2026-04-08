@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from src.answering.service import AnsweringService
+from src.answering.service_types import FreeTextAnswerSchema
 from src.common.schemas import QuestionRecord
 from tests.support.smoke_harness import NoApiProvider
 
@@ -166,6 +167,16 @@ class NarrativeClaimantListRetriever:
                 "text": "The Claimant is Obasi. The Defendant is Oreana.",
             }
         ]
+
+
+def test_free_text_schema_smoke_exports_char_limit() -> None:
+    """Ensure structured-output schema includes the free_text character contract."""
+
+    schema = FreeTextAnswerSchema.model_json_schema()
+    final_answer_schema = schema["properties"]["final_answer"]
+    assert final_answer_schema["type"] == "string"
+    assert final_answer_schema["minLength"] == 1
+    assert final_answer_schema["maxLength"] == 280
 
 
 def test_answering_smoke_returns_typed_answer_without_openai() -> None:

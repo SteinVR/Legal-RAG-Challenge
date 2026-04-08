@@ -20,8 +20,8 @@ _CANONICAL_UNANSWERABLE_FREE_TEXT = "There is no information on this question in
 DEFAULT_CODEX_BASE_URL = "https://api.openai.com/v1"
 DEFAULT_CODEX_MODEL = "gpt-5.4-mini"
 DEFAULT_PROVIDER_CONFIDENCE = 0.5
-_MAX_RETRIES = 3
-_RETRY_BACKOFF_SECONDS = (1.0, 3.0, 8.0)
+_MAX_RETRIES = 6
+_RETRY_BACKOFF_SECONDS = (1.0, 3.0, 8.0, 15.0, 20.0, 30.0)
 DEFAULT_MAX_OUTPUT_TOKENS = 2048
 LOGGER = get_logger("providers.codex")
 
