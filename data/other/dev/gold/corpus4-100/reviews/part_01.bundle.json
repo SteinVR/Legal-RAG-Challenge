@@ -1,0 +1,558 @@
+{
+  "shard_id": "part_01",
+  "status": "reviewed",
+  "question_ids": [
+    "08cd8fedba8321c0c2e093aa25abfcaed5d42f8dfed84ce0dbe38ac923977432",
+    "0e588178701bf2b4cde54af83fd9d2e4e3e1579434bf49be66f63c4f515e6733",
+    "3a93189446a3963dd82d4946a2924f11c3aa71c3fb690b66a56deae9bc64eeca",
+    "8b5bfec1929c69051e473e52d4d1062ffd40118a977c7f2c68c508f47a235880",
+    "c391b99cda892ec3c3e575be0fa3a59864c2d5b5e3f0efb02ed9f39191c370e1",
+    "e32d1df95b3f847983b3dbaae9a0395004657920f7f145f745f43ea73290f4c4",
+    "4e0cd66faaafc0395fd07654a3817c1f7f26fb6aed7f8cd88c0f493024692857",
+    "07b32c626efd2cf7b1689f3a339d5bee4e0feb575126b511a88c0852edaf32c5",
+    "1ce38b389439bacc237e4716d1e238b03b9c1f6e5c36bb1443d5590d0d87e52e",
+    "5d94b33f61bae17b9fc3bf1448b9a352a89cf879fd47cc423c385e5bd11942ed",
+    "82d80cce83b13c4855a17e45f8adea3bb5fce791403994bad273b5473df99abb",
+    "b5e251c7f335cd037fe31c48321859536a7741b3531478fe44593a77f4762eaa",
+    "f549185fbf994265fd81e846f3aae83ce80fa7095a6361157bb1a1baa5ac02b5",
+    "40ea968e248844023562a35045105554683cf55317a629ce1880a43ee8fe5cb5",
+    "afe73d351c5b5f5bdfc97cd7b456d60962a46f2d0eea6f46e7782e984165c03d",
+    "6851388def236f5931f05f879ad34c4718534512b931aef849d050e11072a7ac",
+    "d859a045e515e7290174ed1aced15d8527b85f0e4c569d4630dfa521f528d79c",
+    "5eae85790f106be4eac1c80da0d6270feb395888b8f5b0cfddc2bdb3040a778c",
+    "9a6cf532ef57f2f62d0d4148d1fa64ed719d0eb2223ddf866cdfbb0c6eaf8700",
+    "c61b20b7d70ff47da2ff44ba9ec5e12844389349e941e6c16826be03232d1edc"
+  ],
+  "references": [
+    {
+      "question_id": "08cd8fedba8321c0c2e093aa25abfcaed5d42f8dfed84ce0dbe38ac923977432",
+      "question": "Do both cases end up granting the claimant some form of relief?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ],
+      "notes": "Both cases grant claimant relief (continuing injunctions in DEC 001/2025; money judgment in TCD 001/2023)."
+    },
+    {
+      "question_id": "0e588178701bf2b4cde54af83fd9d2e4e3e1579434bf49be66f63c4f515e6733",
+      "question": "May a Reporting Financial Institution use a service provider to fulfill the reporting and due diligence obligations?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Section II service-provider rule."
+    },
+    {
+      "question_id": "3a93189446a3963dd82d4946a2924f11c3aa71c3fb690b66a56deae9bc64eeca",
+      "question": "May the due diligence procedures for New Accounts be applied to all Pre-existing Accounts?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Section II flexibility rule."
+    },
+    {
+      "question_id": "8b5bfec1929c69051e473e52d4d1062ffd40118a977c7f2c68c508f47a235880",
+      "question": "Did the Court accept Techteryx's request for permission to use documents in undefined civil proceedings in any jurisdiction?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "The Court refused that broad formulation."
+    },
+    {
+      "question_id": "c391b99cda892ec3c3e575be0fa3a59864c2d5b5e3f0efb02ed9f39191c370e1",
+      "question": "Does the document define any reporting rule for cryptocurrency wallets?",
+      "answer_type": "boolean",
+      "answer": null,
+      "gold_retrieval": [],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "negative",
+        "single_document"
+      ],
+      "notes": "Negative candidate; no wallet-specific rule appears in the document."
+    },
+    {
+      "question_id": "e32d1df95b3f847983b3dbaae9a0395004657920f7f145f745f43ea73290f4c4",
+      "question": "Must a person carry on a General Partnership business in the DIFC only if the partnership is registered or recognised?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Article 9 contains the registration prohibition."
+    },
+    {
+      "question_id": "4e0cd66faaafc0395fd07654a3817c1f7f26fb6aed7f8cd88c0f493024692857",
+      "question": "What is the date of the older of the two judgments?",
+      "answer_type": "date",
+      "answer": "2024-02-28",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page",
+        "title_page"
+      ],
+      "notes": "Bond is the earlier judgment; Techteryx is dated 2025-10-17."
+    },
+    {
+      "question_id": "07b32c626efd2cf7b1689f3a339d5bee4e0feb575126b511a88c0852edaf32c5",
+      "question": "In one sentence, what is the main functional contrast between the two statutes?",
+      "answer_type": "free_text",
+      "answer": "The CRS regulations set reporting and due-diligence rules for financial accounts, while the partnership law governs formation, administration, and dissolution of general partnerships.",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "free_text",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ],
+      "notes": "Contrast grounded on operative scope pages: CRS reporting regime vs GP law framework for partnership governance."
+    },
+    {
+      "question_id": "1ce38b389439bacc237e4716d1e238b03b9c1f6e5c36bb1443d5590d0d87e52e",
+      "question": "Why were TR88's back charges for third-party rectification works rejected?",
+      "answer_type": "free_text",
+      "answer": "TR88 did not verify what the works were or prove they were Bond's responsibility, and it had also denied Bond access to the site.",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "The court found the evidential basis insufficient."
+    },
+    {
+      "question_id": "5d94b33f61bae17b9fc3bf1448b9a352a89cf879fd47cc423c385e5bd11942ed",
+      "question": "Why did the court accept Bond's AED 161,404.98 credit for the descoped roof-top MEP works?",
+      "answer_type": "free_text",
+      "answer": "Bond produced a detailed calculation and TR88 produced no contrary evidence to show a greater credit was due.",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "The court accepted Bond's uncontradicted calculation."
+    },
+    {
+      "question_id": "82d80cce83b13c4855a17e45f8adea3bb5fce791403994bad273b5473df99abb",
+      "question": "What must a Reporting Financial Institution establish, maintain, and document under Section II?",
+      "answer_type": "free_text",
+      "answer": "The due diligence procedures in Sections II through VII that are designed to identify Reportable Accounts.",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Section II framework."
+    },
+    {
+      "question_id": "b5e251c7f335cd037fe31c48321859536a7741b3531478fe44593a77f4762eaa",
+      "question": "Why did the court give effect to the 15% per annum interest clause?",
+      "answer_type": "free_text",
+      "answer": "The contract fixed the rate, and the court said Article 73 of the UAE Commercial Code supports giving effect to agreed interest rates.",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            19
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "The judgment expressly ties the contractual rate to Article 73."
+    },
+    {
+      "question_id": "f549185fbf994265fd81e846f3aae83ce80fa7095a6361157bb1a1baa5ac02b5",
+      "question": "When may a partner dissolve the partnership by written notice under Article 39A?",
+      "answer_type": "free_text",
+      "answer": "When the partnership was formed for an undefined time and no fixed adventure or undertaking, subject to Article 42 and any agreement between the partners.",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Article 39A(1) sets the notice-based dissolution route."
+    },
+    {
+      "question_id": "40ea968e248844023562a35045105554683cf55317a629ce1880a43ee8fe5cb5",
+      "question": "What is the term used for legislation made by the Board of Directors of the DIFCA for the purposes of the Law?",
+      "answer_type": "name",
+      "answer": "Regulations",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Defined term in Schedule 1."
+    },
+    {
+      "question_id": "afe73d351c5b5f5bdfc97cd7b456d60962a46f2d0eea6f46e7782e984165c03d",
+      "question": "Who was TR88's co-owner and manager?",
+      "answer_type": "name",
+      "answer": "Dr James Khalili",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Identified in the witness section."
+    },
+    {
+      "question_id": "6851388def236f5931f05f879ad34c4718534512b931aef849d050e11072a7ac",
+      "question": "Which banks were the Second to Fourth Defendants?",
+      "answer_type": "names",
+      "answer": [
+        "Mashreq Bank PSC",
+        "Emirates Nbd Bank PJSC",
+        "Abu Dhabi Islamic Bank PJSC"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ],
+      "notes": "The case title lists the three bank defendants."
+    },
+    {
+      "question_id": "d859a045e515e7290174ed1aced15d8527b85f0e4c569d4630dfa521f528d79c",
+      "question": "Name the assistant registrars who issued the two judgments.",
+      "answer_type": "names",
+      "answer": [
+        "Hayley Norton",
+        "Delvin Sumo"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ],
+      "notes": "Each judgment names a different assistant registrar."
+    },
+    {
+      "question_id": "5eae85790f106be4eac1c80da0d6270feb395888b8f5b0cfddc2bdb3040a778c",
+      "question": "What amount was ordered to be paid on account of costs?",
+      "answer_type": "number",
+      "answer": 1083912.49,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Half of the adjusted costs claim was ordered on account."
+    },
+    {
+      "question_id": "9a6cf532ef57f2f62d0d4148d1fa64ed719d0eb2223ddf866cdfbb0c6eaf8700",
+      "question": "For how many years must accounting records be preserved?",
+      "answer_type": "number",
+      "answer": 6,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            6,
+            7
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page"
+      ],
+      "notes": "Article 14(2)(b) and Article 18(2)(b) both require six-year preservation."
+    },
+    {
+      "question_id": "c61b20b7d70ff47da2ff44ba9ec5e12844389349e941e6c16826be03232d1edc",
+      "question": "What is the maximum fine in Schedule 2?",
+      "answer_type": "number",
+      "answer": 20000,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            23
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "table_lookup"
+      ],
+      "notes": "Schedule 2 lists the maximum fine."
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "07b32c626efd2cf7b1689f3a339d5bee4e0feb575126b511a88c0852edaf32c5",
+      "assistant_score": 1.0,
+      "notes": "Accurate one-sentence contrast, complete and grounded in both cited statutes."
+    },
+    {
+      "question_id": "1ce38b389439bacc237e4716d1e238b03b9c1f6e5c36bb1443d5590d0d87e52e",
+      "assistant_score": 1.0,
+      "notes": "Correct rationale; captures both evidentiary failure and denied-access point from the judgment."
+    },
+    {
+      "question_id": "5d94b33f61bae17b9fc3bf1448b9a352a89cf879fd47cc423c385e5bd11942ed",
+      "assistant_score": 1.0,
+      "notes": "Fully grounded and complete explanation of why the AED 161,404.98 credit was accepted."
+    },
+    {
+      "question_id": "82d80cce83b13c4855a17e45f8adea3bb5fce791403994bad273b5473df99abb",
+      "assistant_score": 1.0,
+      "notes": "Correctly states the Section II obligation and identifies the intended scope (Sections II-VII)."
+    },
+    {
+      "question_id": "b5e251c7f335cd037fe31c48321859536a7741b3531478fe44593a77f4762eaa",
+      "assistant_score": 1.0,
+      "notes": "Accurate and well-grounded in clause 11.8 plus Article 73 reasoning."
+    },
+    {
+      "question_id": "f549185fbf994265fd81e846f3aae83ce80fa7095a6361157bb1a1baa5ac02b5",
+      "assistant_score": 1.0,
+      "notes": "Complete statement of Article 39A conditions and caveats; concise and precise."
+    }
+  ],
+  "findings": [
+    "Approved 08cd8fed...: answer=true is correct for both cases; removed non-essential tag entity_overlap.",
+    "Approved 0e588178...: service-provider allowance is explicit on CRS page 5.",
+    "Approved 3a931894...: New Account due diligence may be applied to Pre-existing Accounts (CRS page 5).",
+    "Approved 8b5bfec1...: court explicitly refused undefined civil proceedings in any jurisdiction (DEC page 12).",
+    "Approved c391b99c...: negative boolean is valid; no cryptocurrency wallet reporting rule found.",
+    "Approved e32d1df9...: prohibition in GP Article 9 requires registration/recognition.",
+    "Approved 4e0cd66f...: older judgment date is 2024-02-28; cross-case retrieval is minimal-complete.",
+    "Corrected 07b32c62...: re-grounded second citation from contents page to operative GP page 4 for stronger evidence.",
+    "Approved 1ce38b38...: rejection of back charges is correctly summarized from Bond judgment page 21.",
+    "Approved 5d94b33f...: rationale for AED 161,404.98 credit is correctly grounded on page 17.",
+    "Approved 82d80cce...: Section II duty is correctly stated and grounded on CRS page 4.",
+    "Approved b5e251c7...: contractual 15% and Article 73 support are correctly cited.",
+    "Approved f549185f...: Article 39A notice-based dissolution conditions are correct.",
+    "Approved 40ea968e...: term Regulations is correctly extracted from Schedule 1/legislation clause.",
+    "Approved afe73d35...: Dr James Khalili identified as TR88 co-owner and manager.",
+    "Approved 6851388d...: banks listed as defendants 2-4 are correct.",
+    "Approved d859a045...: assistant registrars Hayley Norton and Delvin Sumo are correctly listed.",
+    "Approved 5eae8579...: payment on account amount USD 1,083,912.49 is correct and grounded on DEC page 24.",
+    "Approved 9a6cf532...: six-year preservation is supported by Articles 14(2)(b) and 18(2)(b).",
+    "Approved c61b20b7...: maximum Schedule 2 fine is USD 20,000."
+  ],
+  "notes": [
+    "Reviewer validated answer correctness, retrieval recall/precision, and schema compatibility for all 20 items.",
+    "Two targeted adjustments were applied: one tag cleanup and one retrieval page tightening for stronger grounding."
+  ]
+}

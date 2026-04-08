@@ -1,0 +1,400 @@
+{
+  "stream_id": "enf_case_single_doc",
+  "doc_ids": [
+    "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+  ],
+  "candidates": [
+    {
+      "question": "What is the case number of the decision?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Case number in caption."
+    },
+    {
+      "question": "Who is the Judgment Creditor?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "notes": "Judgment Creditor name."
+    },
+    {
+      "question": "Who is the Judgment Debtor?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "notes": "Judgment Debtor name."
+    },
+    {
+      "question": "On what date was the Order with Reasons issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "notes": "Issue date."
+    },
+    {
+      "question": "What was the amount of the Partial Award issued on 10 March 2023?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Partial Award amount."
+    },
+    {
+      "question": "On what date was the Final Award issued in the Second Arbitration?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Final Award date."
+    },
+    {
+      "question": "How many applicants filed renewed applications for permission to appeal?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Number of applicants."
+    },
+    {
+      "question": "Which applicant was granted permission to appeal?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            19
+          ]
+        }
+      ],
+      "notes": "Only one applicant granted permission."
+    },
+    {
+      "question": "How many days did the First Applicant have to file and serve his skeleton argument?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "notes": "Skeleton timetable."
+    },
+    {
+      "question": "What email address of Oaklen is provided in the judgment?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            4
+          ]
+        }
+      ],
+      "notes": "No email address is stated."
+    },
+    {
+      "question": "Was the stay application by the Second and Third Applicants granted?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Stay outcome."
+    },
+    {
+      "question": "Did the First Applicant obtain permission to appeal on all three proposed grounds?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            19
+          ]
+        }
+      ],
+      "notes": "Only ground 1 was allowed."
+    },
+    {
+      "question": "Which shareholders and percentages were listed on Obadiah's March 2017 commercial licence?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "2017 shareholder configuration."
+    },
+    {
+      "question": "Which shareholders and percentages were listed on Obadiah's commercial licence as at 6 November 2019?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "2019 shareholder configuration."
+    },
+    {
+      "question": "According to Mr Olivier, when was Mr Ori the General Manager of Obadiah, and who replaced him?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "Management history in evidence."
+    },
+    {
+      "question": "How much profit did Obadiah say it had derived from the sale of units in the project?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Profit figure in evidence."
+    },
+    {
+      "question": "What threshold does RDC 44.19 set for permission to appeal?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "notes": "Permission-to-appeal threshold."
+    },
+    {
+      "question": "Why did the court grant permission to appeal only on Ground 1 for the First Applicant?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            17,
+            18,
+            19
+          ]
+        }
+      ],
+      "notes": "Reasoning for limited permission."
+    },
+    {
+      "question": "What did the court say about the appropriate ambit of a Part 50 examination?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            15,
+            18,
+            19
+          ]
+        }
+      ],
+      "notes": "Scope of Part 50 examination."
+    },
+    {
+      "question": "What bank account number of Obadiah is identified in the judgment?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4,
+            10
+          ]
+        }
+      ],
+      "notes": "No bank account number is stated."
+    }
+  ]
+}

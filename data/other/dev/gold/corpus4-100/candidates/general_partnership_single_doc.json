@@ -1,0 +1,865 @@
+{
+  "stream_id": "general_partnership_single_doc",
+  "doc_ids": [
+    "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+  ],
+  "candidates": [
+    {
+      "question": "Who administers the Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Registrar",
+      "notes": "Article 7 states the Law and related legislation are administered by the Registrar."
+    },
+    {
+      "question": "What body may make Regulations for the purposes of the Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": "Board of Directors of the DIFCA",
+      "notes": "Article 58(1) identifies the rule-making body."
+    },
+    {
+      "question": "What does DIFCA stand for?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "DIFC Authority",
+      "notes": "Defined term in Schedule 1."
+    },
+    {
+      "question": "What court is established under Dubai Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "DIFC Court",
+      "notes": "Defined term in Schedule 1."
+    },
+    {
+      "question": "What term is used for the person appointed by decree of the Ruler pursuant to Dubai Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "President",
+      "notes": "Defined term in Schedule 1."
+    },
+    {
+      "question": "What is the defined term for a general partnership formed in the DIFC?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "General Partnership",
+      "notes": "Defined term in Schedule 1."
+    },
+    {
+      "question": "What is the defined term for a general partnership formed outside the DIFC and registered under Article 13?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            19
+          ]
+        }
+      ],
+      "expected_answer": "Recognised Partnership",
+      "notes": "Defined term in Schedule 1."
+    },
+    {
+      "question": "What is the term used for legislation made by the Board of Directors of the DIFCA for the purposes of the Law?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": "Regulations",
+      "notes": "Defined term in Schedule 1."
+    },
+    {
+      "question": "Is the Law administered by the Registrar?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 7 assigns administration to the Registrar."
+    },
+    {
+      "question": "Must a person carry on a General Partnership business in the DIFC only if the partnership is registered or recognised?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 9 contains the registration prohibition."
+    },
+    {
+      "question": "Does each Partner have to sign the partnership agreement?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 10 requires the agreement to be signed by all partners."
+    },
+    {
+      "question": "Can the Registrar refuse to register a General Partnership or any Partner without giving reasons and without court review?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 12(5) states the refusal need not be reasoned and is not subject to appeal or review."
+    },
+    {
+      "question": "Unless all partners agree otherwise, can ordinary matters be decided by majority even though a change in the nature of the business requires unanimous consent?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 17(c) distinguishes ordinary matters from changes to the business nature."
+    },
+    {
+      "question": "Does every Partner take part in management by default?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 17(a) sets the default management rule."
+    },
+    {
+      "question": "Is a General Partnership required to appoint an auditor in every case?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "Article 20(7) makes an auditor optional unless the Regulations or the partnership agreement provide otherwise."
+    },
+    {
+      "question": "May a Partner use information, money, or property of the General Partnership for private purposes without agreement?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "Article 26 prohibits private use unless all partners agree."
+    },
+    {
+      "question": "Are Partners jointly and severally liable for debts and obligations incurred while they are Partners?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 28(1) states the default liability rule."
+    },
+    {
+      "question": "Does an outgoing Partner remain liable for debts incurred after ceasing to be a Partner?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "Article 34(2) limits outgoing partner liability to pre-exit debts."
+    },
+    {
+      "question": "Does the Law require annual general meetings of the partners?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "statute",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative deterministic candidate; this meeting requirement is not stated in the document."
+    },
+    {
+      "question": "How many persons are needed at minimum to form a General Partnership?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": 2,
+      "notes": "Article 8 defines a general partnership as a relationship between two or more persons."
+    },
+    {
+      "question": "For how many years must accounting records be preserved?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": 6,
+      "notes": "Article 14(2)(b) and Article 18(2)(b) both require six-year preservation."
+    },
+    {
+      "question": "Within how many months after the end of the financial year must accounts be prepared and approved?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": 6,
+      "notes": "Article 19(4) gives the six-month deadline."
+    },
+    {
+      "question": "Within how many days after approval must the accounts be filed with the Registrar?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": 30,
+      "notes": "Article 19(5) gives the filing deadline."
+    },
+    {
+      "question": "How many days does Schedule 1 define as a week?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": 7,
+      "notes": "Schedule 1 defines a week as seven days."
+    },
+    {
+      "question": "How many days does Schedule 1 define as a month?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": 30,
+      "notes": "Schedule 1 defines a month as thirty days."
+    },
+    {
+      "question": "How many days does Schedule 1 define as a year?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": 365,
+      "notes": "Schedule 1 defines a year as 365 days."
+    },
+    {
+      "question": "Over how many days is the United Arab Emirates Central Bank deposit-rate benchmark period stated?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": 90,
+      "notes": "Article 38(c)(ii) refers to the ninety-day deposit rate."
+    },
+    {
+      "question": "What is the maximum fine in Schedule 2?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": 20000,
+      "notes": "Schedule 2 lists the maximum fine."
+    },
+    {
+      "question": "How many days does the Law allow for filing a partnership tax return?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "statute",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative deterministic candidate; no tax-return filing rule appears in the document."
+    },
+    {
+      "question": "Which examples are included in the definition of Document?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "summons",
+        "notice",
+        "statement",
+        "return",
+        "account",
+        "order",
+        "other legal process",
+        "registers"
+      ],
+      "notes": "Schedule 1 definition of Document lists the included examples."
+    },
+    {
+      "question": "Which bodies are defined as the Court and the DIFCA?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "DIFC Court",
+        "DIFC Authority"
+      ],
+      "notes": "Schedule 1 defines both entities."
+    },
+    {
+      "question": "Which legal categories are referenced in Schedule 1 as legislation in the DIFC?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17,
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Federal Law",
+        "Dubai Law",
+        "DIFC Law",
+        "the Law",
+        "the Regulations",
+        "Guidance",
+        "Legislation administered by the Registrar"
+      ],
+      "notes": "Schedule 1's legislation-in-the-DIFC section lists these references."
+    },
+    {
+      "question": "Which examples are included in the definition of Accounting Records?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "cheques",
+        "Records of electronic funds transfers",
+        "invoices",
+        "contracts",
+        "the general and subsidiary ledgers",
+        "work sheets and spread sheets"
+      ],
+      "notes": "Schedule 1 definition of Accounting Records lists these examples."
+    },
+    {
+      "question": "What month and year is shown for the consolidated version on the cover?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "March 2022",
+      "notes": "Cover page states Consolidated Version No. 2 (March 2022)."
+    },
+    {
+      "question": "What year appears in the short title citation of the Law?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": 2004,
+      "notes": "The short title is the General Partnership Law 2004."
+    },
+    {
+      "question": "What year is given in the definition of the Operating Law?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": 2018,
+      "notes": "Schedule 1 defines the Operating Law by its 2018 citation."
+    },
+    {
+      "question": "What must be included in a General Partnership registration application?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "The General Partnership name ending with 'partnership', the registered office address in the DIFC, the nature of the business, and each partner's name and address.",
+      "notes": "Article 12(2) lists the required application content."
+    },
+    {
+      "question": "What must a Recognised Partnership registration application set out?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "Its name, its DIFC service address and authorised service person, the nature of the business, each partner's name and address, and any additional information required by the Registrar.",
+      "notes": "Article 14(2) lists the required application content."
+    },
+    {
+      "question": "What do the accounting records need to do?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "They must be sufficient to show and explain transactions, disclose the financial position with reasonable accuracy, and let the partners verify compliant accounts.",
+      "notes": "Article 18(1) describes the purpose of the records."
+    },
+    {
+      "question": "What is the default management rule under Article 17?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "Every partner manages, no new partner may join without unanimous consent, ordinary matters may be decided by majority, and the business's nature cannot change without unanimous consent.",
+      "notes": "Article 17 combines three default governance rules."
+    },
+    {
+      "question": "What does Article 27 allow the General Partnership to do?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": "Indemnify any partner or other person, subject to the standards and restrictions in the partnership agreement.",
+      "notes": "Article 27 grants an indemnification power."
+    },
+    {
+      "question": "What happens if a partner misapplies fiduciary money or property under Article 31?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "The General Partnership must make good the loss.",
+      "notes": "Article 31 imposes partnership liability for the misapplication."
+    },
+    {
+      "question": "What must a partner do with partnership information, money, or property for private purposes?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": "Not use it for a non-business purpose unless all partners agree.",
+      "notes": "Article 26 states the private-use restriction."
+    },
+    {
+      "question": "What does Article 21 accountability cover?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": "Property, profit, or benefit derived in the conduct of the business or from using the partnership's property, name, or business connection.",
+      "notes": "Article 21(1) describes the fiduciary accounting duty."
+    },
+    {
+      "question": "What is the effect of a written notice to a partner under Article 33?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "It operates as notice to the General Partnership unless the notice is part of a fraud on the partnership by or with that partner's consent.",
+      "notes": "Article 33 sets the notice rule."
+    },
+    {
+      "question": "When may a partner dissolve the partnership by written notice under Article 39A?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "expected_answer": "When the partnership was formed for an undefined time and no fixed adventure or undertaking, subject to Article 42 and any agreement between the partners.",
+      "notes": "Article 39A(1) sets the notice-based dissolution route."
+    },
+    {
+      "question": "What must the Registrar be satisfied of before consenting to a voluntary dissolution?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "expected_answer": "That no outstanding liabilities, guarantees, or other legal obligations will remain after the intended dissolution.",
+      "notes": "Article 42(2) states the consent condition."
+    },
+    {
+      "question": "What is the effect of dissolution on partner authority for winding up?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "expected_answer": "The partners' authority continues only as needed to wind up the affairs and complete unfinished transactions.",
+      "notes": "Article 49 preserves authority for winding up only."
+    },
+    {
+      "question": "What must the Registrar publish for public viewing?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": "A reasonably current version of the register of current and past registrations on the DIFC website.",
+      "notes": "Article 60(3) requires public web access."
+    },
+    {
+      "question": "What does the Law say about any requirement to appoint a company secretary for a General Partnership?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "Negative free_text candidate; the Law does not address any company secretary requirement."
+    }
+  ]
+}

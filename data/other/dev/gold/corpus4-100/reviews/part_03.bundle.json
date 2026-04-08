@@ -1,0 +1,508 @@
+{
+  "shard_id": "part_03",
+  "status": "reviewed",
+  "question_ids": [
+    "17e4793a1e7f196eca087c13a7cb072e5e6070b20defb308afba062285779235",
+    "1d9761ed4568ba728b56e9a310235c4ecf8ed328ea4fe32777621b42ae8e7887",
+    "444307ecabdfb13a36cf845776e592869a6f3b9ebbf064869b1da8e0b3dd5134",
+    "99eee91b133b2896308860a303fc852fd48975969168cc17059af519d9db9ceb",
+    "ce5e675805a40193eae330dbdf99f44feff8ae82ed88023f4cab6b647c831018",
+    "94cbb7e6a01bc2bb7dbb372126d05b8f7747b908f5a071ee659a2219e35da0a3",
+    "9205e3f8e206da4ea42beb0cc2a40aaf660a179e750a9ee6026d0710591608ff",
+    "054bb282bc7c1550b14812912f6ee09b70c485ad63b1623b8ab24d3003baa2ab",
+    "4d1691535eb36c00867b4bb92c609beeff6b41d51945409f541b7a6b5a826871",
+    "7d1964328c75d9d350524e5cac18c519cc0f5e5487b6bd53347c1c538a78beda",
+    "aa4bd0d5c655fc05279b8fe135ec91ab6dd083ce0746de97402156d88ef890b3",
+    "ec695ce27695363186cb118ca3fa723c66869c6f9dbc834950c33562d67c3eec",
+    "1b67d805e6c51673736ef61f9ec1c390fdd4f2706d48a360e380110d720c0339",
+    "51aed32de08da0e9ced8d35c18d1cb77f967dd6ccb1b62e1e788a1db257a8579",
+    "db36a9020163d5d4978d67ea9d05403bb5cef5a1a278c185a7920c8465f175bf",
+    "64210e41fb4ea2bbe5f40ecd11ffd475652e3163261c32186c01b9073124e1d7",
+    "77e657c4aba09c0e1f0c9188ddd3cfda749e71783f8e12679b51faadafacacde",
+    "4b9f7eae468780198cd726568bb65d98d52fb37dba8a871305c62b89adc98155",
+    "91ffaf4e00d3785b1a7ea48b2fa47a49369d12ae1966f8bc276c21c7312c6463",
+    "bcc7605db223df71fbe9b7c6c6304705753886e463f76383d4b70d9e09c9ca99"
+  ],
+  "references": [
+    {
+      "question_id": "17e4793a1e7f196eca087c13a7cb072e5e6070b20defb308afba062285779235",
+      "question": "Do these Regulations include their annexes and may they be cited as the Common Reporting Standard Regulations 2018?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "1d9761ed4568ba728b56e9a310235c4ecf8ed328ea4fe32777621b42ae8e7887",
+      "question": "Must the term Controlling Persons be interpreted consistently with the Financial Action Task Force Recommendations?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "444307ecabdfb13a36cf845776e592869a6f3b9ebbf064869b1da8e0b3dd5134",
+      "question": "Does the reporting requirement include identifying the currency in which each amount is denominated?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "99eee91b133b2896308860a303fc852fd48975969168cc17059af519d9db9ceb",
+      "question": "Does a Reportable Jurisdiction Person include an estate of a decedent that was resident in a Reportable Jurisdiction?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "ce5e675805a40193eae330dbdf99f44feff8ae82ed88023f4cab6b647c831018",
+      "question": "Must a Broad Participation Retirement Fund be subject to government regulation and provide information reporting to tax authorities?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "94cbb7e6a01bc2bb7dbb372126d05b8f7747b908f5a071ee659a2219e35da0a3",
+      "question": "What exact enactment date is stated for both statutes in these PDFs?",
+      "answer_type": "date",
+      "answer": null,
+      "gold_retrieval": [],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "negative",
+        "comparative",
+        "multi_document"
+      ]
+    },
+    {
+      "question_id": "9205e3f8e206da4ea42beb0cc2a40aaf660a179e750a9ee6026d0710591608ff",
+      "question": "On what date was the judgment issued?",
+      "answer_type": "date",
+      "answer": "2024-02-28",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "054bb282bc7c1550b14812912f6ee09b70c485ad63b1623b8ab24d3003baa2ab",
+      "question": "What word did the Court substitute for \"fabricated\" in paragraph 365?",
+      "answer_type": "free_text",
+      "answer": "The Court substituted \"created\" for \"fabricated\".",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "4d1691535eb36c00867b4bb92c609beeff6b41d51945409f541b7a6b5a826871",
+      "question": "What does the Law say about any requirement to appoint a company secretary for a General Partnership?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "7d1964328c75d9d350524e5cac18c519cc0f5e5487b6bd53347c1c538a78beda",
+      "question": "Why did the Court refuse to reserve the costs order?",
+      "answer_type": "free_text",
+      "answer": "The Court treated the injunction as a normal freezing injunction and saw no basis to reserve costs.",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "aa4bd0d5c655fc05279b8fe135ec91ab6dd083ce0746de97402156d88ef890b3",
+      "question": "What does Controlling Persons mean for a trust?",
+      "answer_type": "free_text",
+      "answer": "The settlor(s), trustee(s), protector(s) if any, beneficiaries or classes of beneficiaries, and any other natural person(s) exercising ultimate effective control.",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "ec695ce27695363186cb118ca3fa723c66869c6f9dbc834950c33562d67c3eec",
+      "question": "What did the Court say about when the amendment application should have been made?",
+      "answer_type": "free_text",
+      "answer": "It should have been made when the judgment was circulated in draft.",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "1b67d805e6c51673736ef61f9ec1c390fdd4f2706d48a360e380110d720c0339",
+      "question": "Which organization’s explanatory material is integral to the Common Reporting Standard for these Regulations?",
+      "answer_type": "name",
+      "answer": "OECD",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "51aed32de08da0e9ced8d35c18d1cb77f967dd6ccb1b62e1e788a1db257a8579",
+      "question": "Who was counsel for the Claimant at trial?",
+      "answer_type": "name",
+      "answer": "Mr. Nathan Landis",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "db36a9020163d5d4978d67ea9d05403bb5cef5a1a278c185a7920c8465f175bf",
+      "question": "What is the term for a fund established to provide retirement, disability, or death benefits to fewer than 50 participants?",
+      "answer_type": "name",
+      "answer": "Narrow Participation Retirement Fund",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "64210e41fb4ea2bbe5f40ecd11ffd475652e3163261c32186c01b9073124e1d7",
+      "question": "Which examples are included in the definition of Document?",
+      "answer_type": "names",
+      "answer": [
+        "summons",
+        "notice",
+        "statement",
+        "return",
+        "account",
+        "order",
+        "other legal process",
+        "registers"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "77e657c4aba09c0e1f0c9188ddd3cfda749e71783f8e12679b51faadafacacde",
+      "question": "What are the two supplementary headings unique to the General Partnership Law contents page?",
+      "answer_type": "names",
+      "answer": [
+        "Schedule 1",
+        "Schedule 2"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative"
+      ]
+    },
+    {
+      "question_id": "4b9f7eae468780198cd726568bb65d98d52fb37dba8a871305c62b89adc98155",
+      "question": "What amount did Bond claim in the original Claim Form?",
+      "answer_type": "number",
+      "answer": 4142210.71,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "91ffaf4e00d3785b1a7ea48b2fa47a49369d12ae1966f8bc276c21c7312c6463",
+      "question": "What is the single-beneficiary asset-right limit for a Broad Participation Retirement Fund?",
+      "answer_type": "number",
+      "answer": 5,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "bcc7605db223df71fbe9b7c6c6304705753886e463f76383d4b70d9e09c9ca99",
+      "question": "What was the lump sum price of the MEP Works contract?",
+      "answer_type": "number",
+      "answer": 6510440,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "054bb282bc7c1550b14812912f6ee09b70c485ad63b1623b8ab24d3003baa2ab",
+      "assistant_score": 1.0,
+      "notes": "Correct substitution (\"created\"), concise, and fully grounded in cited amendment section."
+    },
+    {
+      "question_id": "4d1691535eb36c00867b4bb92c609beeff6b41d51945409f541b7a6b5a826871",
+      "assistant_score": 1.0,
+      "notes": "Canonical unanswerable free_text sentence used correctly with empty retrieval."
+    },
+    {
+      "question_id": "7d1964328c75d9d350524e5cac18c519cc0f5e5487b6bd53347c1c538a78beda",
+      "assistant_score": 0.8,
+      "notes": "Reasoning is correct and grounded; slightly compressed versus the full judicial rationale."
+    },
+    {
+      "question_id": "aa4bd0d5c655fc05279b8fe135ec91ab6dd083ce0746de97402156d88ef890b3",
+      "assistant_score": 1.0,
+      "notes": "Accurate and complete trust-specific controlling persons definition, clearly stated and grounded."
+    },
+    {
+      "question_id": "ec695ce27695363186cb118ca3fa723c66869c6f9dbc834950c33562d67c3eec",
+      "assistant_score": 1.0,
+      "notes": "Correct timing point about draft circulation stage; concise and fully relevant."
+    }
+  ],
+  "findings": [
+    "Approved 17e4793a1e7f196eca087c13a7cb072e5e6070b20defb308afba062285779235: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 1d9761ed4568ba728b56e9a310235c4ecf8ed328ea4fe32777621b42ae8e7887: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 444307ecabdfb13a36cf845776e592869a6f3b9ebbf064869b1da8e0b3dd5134: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 99eee91b133b2896308860a303fc852fd48975969168cc17059af519d9db9ceb: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved ce5e675805a40193eae330dbdf99f44feff8ae82ed88023f4cab6b647c831018: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 94cbb7e6a01bc2bb7dbb372126d05b8f7747b908f5a071ee659a2219e35da0a3: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 9205e3f8e206da4ea42beb0cc2a40aaf660a179e750a9ee6026d0710591608ff: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 054bb282bc7c1550b14812912f6ee09b70c485ad63b1623b8ab24d3003baa2ab: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 4d1691535eb36c00867b4bb92c609beeff6b41d51945409f541b7a6b5a826871: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Corrected 7d196432...: retrieval tightened to DEC page 21 where the court explicitly refuses to reserve costs and explains freezing-order treatment.",
+    "Approved aa4bd0d5c655fc05279b8fe135ec91ab6dd083ce0746de97402156d88ef890b3: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved ec695ce27695363186cb118ca3fa723c66869c6f9dbc834950c33562d67c3eec: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 1b67d805e6c51673736ef61f9ec1c390fdd4f2706d48a360e380110d720c0339: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 51aed32de08da0e9ced8d35c18d1cb77f967dd6ccb1b62e1e788a1db257a8579: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved db36a9020163d5d4978d67ea9d05403bb5cef5a1a278c185a7920c8465f175bf: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Corrected 64210e41...: retrieval moved to General Partnership Law page 21 where the Document definition explicitly lists summons/notice/statement/return/account/order/registers.",
+    "Approved 77e657c4aba09c0e1f0c9188ddd3cfda749e71783f8e12679b51faadafacacde: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 4b9f7eae468780198cd726568bb65d98d52fb37dba8a871305c62b89adc98155: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Approved 91ffaf4e00d3785b1a7ea48b2fa47a49369d12ae1966f8bc276c21c7312c6463: answer, source_type, difficulty, tags, and minimal-complete grounding validated against cited pages.",
+    "Corrected bcc7605d...: retrieval moved to TCD page 3 containing the MEP lump-sum contract price AED 6,510,440.00; prior page did not state this value directly."
+  ],
+  "notes": [
+    "Reviewed independently against source PDFs; applied targeted retrieval precision fixes on three records.",
+    "assistant_scores assigned for all free_text questions using docs/evaluation/free_text_review_template.md rubric."
+  ]
+}

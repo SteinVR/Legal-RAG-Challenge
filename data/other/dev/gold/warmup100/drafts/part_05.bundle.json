@@ -1,0 +1,558 @@
+{
+  "shard_id": "part_05",
+  "status": "draft",
+  "question_ids": [
+    "2e8b251fd560f4446bfc9c5fa4b83ecbce69d650a8fd00fc9815c1fb34a764ad",
+    "81d5652bd7e7518381629876f05fdded589e1acc60c8e93aae54488d23493214",
+    "d374bee20e02f7f384e766dd792856c6457f99fc1491e5fee2e6cd50a4d856b7",
+    "fdeb03aecacff6f7d78a86ff22a13e95abe014855c18282b142d6ad1f46daa0a",
+    "5cb2e9e631929fec4306d0bf7cbf145bcfe5f29d86eade85178d359852626cbf",
+    "b31a702f36e2c43e845e13f160ebc35d3d6ea27eb66a351561a94f0ce56b8667",
+    "9596fb754439e6752034890c1272a2df7c0f9000db7d186db21aa232a253fca4",
+    "150d4428704ea7ce7452509bda9c25f4d242b2395114ed0ed59388b87660f218",
+    "8167b0cfeb476ce373ca991b28b3b35f78a8c3c9a5e3d1b682fdbb0ed5604ef4",
+    "ad7357a7eb955085f6438dfcaf44324de7fcf88da86c846242e173eacdeebfda",
+    "be35b591e2e2383879988055e11ebf31df0e145903e04b4e0c6fca1786ff634d",
+    "f29159d38bf494e330b32f03507df593d5869a129796a3b7f6efe14fd1b1a0a5",
+    "33060f268efcac79c65cd3e0a39bc0f7d91d9bb1802bc2e08bfa43ec5a5cd355",
+    "8de44b7964cdde111c1a33ac4cc13948b7b4e14fd120351fcb5a5bfb2b2dfff0",
+    "dd736c7955429054fc55ea9eb55b96d3feb13e410f27a25651eefe5ecb536575",
+    "43f77ed8a37c7af9b3e52b0532c593c768f8f1159db9b9ca717a700d6b0a47f9",
+    "5d271fced60d88e008a69adc2da21de427906206bfb49f5554a3bf1dd6f72772",
+    "2fc105ec9d11e361b057e8ce21245fbc01f14cefe5ccddada9d7541c952106d2",
+    "922dcd5ae0d2420ec5577ed8094f593124f7b69f7e61b12c24ad46410114e8ae",
+    "ff1b357588e9b5881ec9b1558ede2892e7cbf42a6787a1cbb922b45318f66778"
+  ],
+  "references": [
+    {
+      "question_id": "2e8b251fd560f4446bfc9c5fa4b83ecbce69d650a8fd00fc9815c1fb34a764ad",
+      "question": "Looking at the title/cover page of every document across both case TCD 001/2024 and case CFI 016/2025, is there any party (claimant or defendant) common to both cases?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "0471e83c1ea18086cfb6b3ff51da6f22b0efee337f10315b2593f782297ccb84",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "c98c1475692bc22f4abab6a7a7d7969467c94e46a7e68919aaf127179ebf3f54",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "multi_document",
+        "comparative",
+        "negative",
+        "title_page",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "81d5652bd7e7518381629876f05fdded589e1acc60c8e93aae54488d23493214",
+      "question": "Is there a judge who presided over both case ARB 034/2025 and case CFI 067/2025?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "multi_document",
+        "comparative",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "d374bee20e02f7f384e766dd792856c6457f99fc1491e5fee2e6cd50a4d856b7",
+      "question": "Identify whether any person or company is a main party to both ENF 269/2023 and SCT 514/2025.",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "6306079a16b1dec85690f75c715cdbd78b0685a3e19ee30250d481bc32f2e29a",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "multi_document",
+        "comparative",
+        "negative",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "fdeb03aecacff6f7d78a86ff22a13e95abe014855c18282b142d6ad1f46daa0a",
+      "question": "Review the full case files for DEC 001/2025 and TCD 001/2024 — did any judge preside over proceedings in both cases?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "0471e83c1ea18086cfb6b3ff51da6f22b0efee337f10315b2593f782297ccb84",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "c98c1475692bc22f4abab6a7a7d7969467c94e46a7e68919aaf127179ebf3f54",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "839de9798f377492eee68f82b202d7cd3544be83d799f6226a02f3678c9bb914",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "1a255edc261961ec64870466a27ac4e25b5ebc2abe298e1b69f8dd2fc27288f6",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "multi_document",
+        "comparative",
+        "negative",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "5cb2e9e631929fec4306d0bf7cbf145bcfe5f29d86eade85178d359852626cbf",
+      "question": "Does the DIFC law numbered DIFC Law No. 7 of 2018 deal with insolvency and preferential debts?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+          "page_numbers": [
+            1,
+            2
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "single_document",
+        "negative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "b31a702f36e2c43e845e13f160ebc35d3d6ea27eb66a351561a94f0ce56b8667",
+      "question": "According to Article 13 of the Employment Law 2019, can an Employer employ a child who is under sixteen years of age?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "9596fb754439e6752034890c1272a2df7c0f9000db7d186db21aa232a253fca4",
+      "question": "What is the effective date for due diligence requirements for Pre-existing Accounts and New Accounts under the Common Reporting Standard Law 2018?",
+      "answer_type": "free_text",
+      "answer": "Pre-existing Accounts: 31 December 2016; New Accounts: 1 January 2017.",
+      "gold_retrieval": [
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "150d4428704ea7ce7452509bda9c25f4d242b2395114ed0ed59388b87660f218",
+      "question": "Under the Operating Law - DIFC Law No. 7 of 2018, who is responsible for appointing and dismissing the Registrar?",
+      "answer_type": "free_text",
+      "answer": "The Board of Directors of the DIFCA appoints and may dismiss the Registrar, after consulting the President.",
+      "gold_retrieval": [
+        {
+          "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "8167b0cfeb476ce373ca991b28b3b35f78a8c3c9a5e3d1b682fdbb0ed5604ef4",
+      "question": "Looking only at the last page of the document in case SCT 514/2025, what was the outcome of the specific order or application described?",
+      "answer_type": "free_text",
+      "answer": "The Defendant's Application for Permission to Appeal was refused.",
+      "gold_retrieval": [
+        {
+          "doc_id": "6306079a16b1dec85690f75c715cdbd78b0685a3e19ee30250d481bc32f2e29a",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "ad7357a7eb955085f6438dfcaf44324de7fcf88da86c846242e173eacdeebfda",
+      "question": "What was the result of the application heard in case SCT 169/2025?",
+      "answer_type": "free_text",
+      "answer": "The Permission to Appeal Application was refused, the adjournment request was refused, and there was no order as to costs.",
+      "gold_retrieval": [
+        {
+          "doc_id": "3a574fc4f0baa5ec7ff0dcc822d7c55e4f9c493c24addc217c8df3d848c16fa5",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "be35b591e2e2383879988055e11ebf31df0e145903e04b4e0c6fca1786ff634d",
+      "question": "According to the 'IT IS HEREBY ORDERED THAT' section of arbitration case ARB 034/2025, what did the court decide?",
+      "answer_type": "free_text",
+      "answer": "The court discharged the ASI Order, granted the Defendant's Set Aside Application, and ordered the Claimant to pay the Defendant's costs on the standard basis.",
+      "gold_retrieval": [
+        {
+          "doc_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "f29159d38bf494e330b32f03507df593d5869a129796a3b7f6efe14fd1b1a0a5",
+      "question": "What does Article 16(1)(c) of the Employment Law 2019 require an Employer to keep records of regarding an Employee's remuneration?",
+      "answer_type": "free_text",
+      "answer": "The employee's remuneration, gross and net where applicable, and the applicable pay period.",
+      "gold_retrieval": [
+        {
+          "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "33060f268efcac79c65cd3e0a39bc0f7d91d9bb1802bc2e08bfa43ec5a5cd355",
+      "question": "According to Article 16(1) of the Operating Law 2018, what document must every Registered Person file with the Registrar at the same time as applying for Licence renewal?",
+      "answer_type": "name",
+      "answer": "Confirmation Statement",
+      "gold_retrieval": [
+        {
+          "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "8de44b7964cdde111c1a33ac4cc13948b7b4e14fd120351fcb5a5bfb2b2dfff0",
+      "question": "Identify the case with the higher monetary claim: SCT 169/2025 or SCT 295/2025?",
+      "answer_type": "name",
+      "answer": "SCT 169/2025",
+      "gold_retrieval": [
+        {
+          "doc_id": "3a574fc4f0baa5ec7ff0dcc822d7c55e4f9c493c24addc217c8df3d848c16fa5",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "multi_document",
+        "comparative"
+      ]
+    },
+    {
+      "question_id": "dd736c7955429054fc55ea9eb55b96d3feb13e410f27a25651eefe5ecb536575",
+      "question": "Which case has an earlier Date of Issue: ENF 269/2023 or SCT 169/2025?",
+      "answer_type": "name",
+      "answer": "ENF 269/2023",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "3a574fc4f0baa5ec7ff0dcc822d7c55e4f9c493c24addc217c8df3d848c16fa5",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "multi_document",
+        "comparative"
+      ]
+    },
+    {
+      "question_id": "43f77ed8a37c7af9b3e52b0532c593c768f8f1159db9b9ca717a700d6b0a47f9",
+      "question": "From the header/caption section of each document in case TCD 001/2024, identify all parties listed as Claimant.",
+      "answer_type": "names",
+      "answer": [
+        "ARCHITERIORS INTERIOR DESIGN (L.L.C)"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "0471e83c1ea18086cfb6b3ff51da6f22b0efee337f10315b2593f782297ccb84",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "c98c1475692bc22f4abab6a7a7d7969467c94e46a7e68919aaf127179ebf3f54",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "multi_page",
+        "multi_document"
+      ]
+    },
+    {
+      "question_id": "5d271fced60d88e008a69adc2da21de427906206bfb49f5554a3bf1dd6f72772",
+      "question": "According to the title page of the Common Reporting Standard Law, what is its official DIFC Law number?",
+      "answer_type": "number",
+      "answer": 2,
+      "gold_retrieval": [
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "2fc105ec9d11e361b057e8ce21245fbc01f14cefe5ccddada9d7541c952106d2",
+      "question": "If a Muslim Employee works during the holy month of Ramadan, what is the maximum number of hours they can be required to work each day according to Article 23 of the Employment Law 2019?",
+      "answer_type": "number",
+      "answer": 6,
+      "gold_retrieval": [
+        {
+          "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "922dcd5ae0d2420ec5577ed8094f593124f7b69f7e61b12c24ad46410114e8ae",
+      "question": "What official law number is stated on the cover page of the DIFC Trust Law?",
+      "answer_type": "number",
+      "answer": 4,
+      "gold_retrieval": [
+        {
+          "doc_id": "4e387152960c1029b3711cacb05b287b13c977bc61f2558059a62b7b427a62eb",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "ff1b357588e9b5881ec9b1558ede2892e7cbf42a6787a1cbb922b45318f66778",
+      "question": "According to the title page of the DIFC Law on the Application of Civil and Commercial Laws, what is its official law number?",
+      "answer_type": "number",
+      "answer": 3,
+      "gold_retrieval": [
+        {
+          "doc_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    }
+  ],
+  "assistant_scores": [],
+  "findings": [],
+  "notes": []
+}

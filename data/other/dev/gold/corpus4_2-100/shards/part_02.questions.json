@@ -1,0 +1,102 @@
+[
+  {
+    "id": "737e8825480edb84c6431ce40ec94af6ff8eb3af6b3591a6c39ff994b4657612",
+    "question": "Do both statutes prevent later steps or later circumstances from altering the original effective moment once the act is effective?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "0a82da5eee421090cbc00ba3c3fea3f49f96057983385211ea0e83e38642db0a",
+    "question": "Can the Registrar amend the effective time of a Filing when taking corrective action under Regulation 2.6.3?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "32868c181e4d6b0ba34eb6fc0817c70169f81619213ac77c689492d92414efaf",
+    "question": "Did the Court allow the Claimant's application for permission to cross-appeal?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "9bb31e7af8c48b8d9c394f09c03d6009645f764299811060aff09a33a8d12294",
+    "question": "Is retroactive or back-dated filing permitted under Regulation 2.7.2?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "2452eb7b7f44e7016edeeba41a7b1ae4badb99bb5cfc06a918f611e54e558abd",
+    "question": "On what date was the order with reasons issued?",
+    "answer_type": "date"
+  },
+  {
+    "id": "b1e8b7e19881832888e917f24aeb839aa8e1bb8355e027c6f677ead5c8c28bb0",
+    "question": "On what date did the Defendant file the application for security for costs?",
+    "answer_type": "date"
+  },
+  {
+    "id": "243ed6a090495e284bcda7a53945555ee35c8e9c14a27ac3fcf993fdac482fbf",
+    "question": "What must a request for review under Regulation 2.7.3 include?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "46caff4454d75ab3dff337a094a5981ad4d157c063c929d69e9eb9d3c0c745e0",
+    "question": "What threshold does RDC 44.19 set for permission to appeal?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "8639fcc8d3f5c9a1c7b22b5f7c3e6bdc9546b49cc2e173c5ef1e1d6a885fa27b",
+    "question": "Which methods of delivery are accepted for a search request under Regulation 2.9.1?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "b1eb96688844a90f3e9e8ff9ef992d06eae3a6766d9259e961608e561403def6",
+    "question": "What are the two stages of the RDC analysis for security for costs?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "d2f30df27ace35075ae30e9ca7e218af10e0528f652de387b52218c1b01655ba",
+    "question": "What email address of the Claimant is stated in the judgment?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "16b25d9a625b224af6e29cc9c6d5944e44a44d81d71bfac96b13f9b0ceca9e4e",
+    "question": "Which applicant was granted permission to appeal?",
+    "answer_type": "name"
+  },
+  {
+    "id": "4b08b7f764aabfa6467a0df6bcb412b8167c43b127822023402ba8cb1bd48153",
+    "question": "Which statute treats issuer-imposed transfer restrictions as generally ineffective against persons without the required notice or notation?",
+    "answer_type": "name"
+  },
+  {
+    "id": "a73a4fa484db325f96c907f5763845cef3cb9cde1b5b201ddecc34ba8d4738e1",
+    "question": "What legal principle did the Claimant rely on in support of the proposed cross-appeal?",
+    "answer_type": "name"
+  },
+  {
+    "id": "dc153b913f68d9ae38e710392d04b2ab4a54f4ed2845e13952a361810e390fa4",
+    "question": "What is the claim number of this case?",
+    "answer_type": "name"
+  },
+  {
+    "id": "ba12d0cf5464362d1383546865a0f04225a47d25785426c6c7a3e3a986ac64b1",
+    "question": "Name the case that discussed the Crabtree principle and the case that discussed Masri.",
+    "answer_type": "names"
+  },
+  {
+    "id": "00957d62e7648173d04346496df2306addcc8e2842fabcd44244c466f4189b9f",
+    "question": "What is the fee for filing a Financing Statement (Form 1)?",
+    "answer_type": "number"
+  },
+  {
+    "id": "5877c6811eb496b26d3322a027b7d19f3d13f8623454f94c982b7e1d8c3e89ae",
+    "question": "What amount were the Defendant's costs of the appeal and permission applications fixed at?",
+    "answer_type": "number"
+  },
+  {
+    "id": "90b6147e85ae955cc3e3941b416096ee7fd2c79e96a30eae959472f536b0bf20",
+    "question": "What amount of security did the Judge order on 19 March 2025?",
+    "answer_type": "number"
+  },
+  {
+    "id": "d0fa21fb6d676b69e9cddd85cd137c298c43172d50a15aa66badd51ca3a0a8eb",
+    "question": "How many days did the First Applicant have to file and serve his skeleton argument?",
+    "answer_type": "number"
+  }
+]

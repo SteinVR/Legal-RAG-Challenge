@@ -1,0 +1,423 @@
+{
+  "stream_id": "cross_doc_hard",
+  "doc_ids": [
+    "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+    "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+    "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+    "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+  ],
+  "candidates": [
+    {
+      "question": "Do both the Security Regulations and the Personal Property Law permit legal effect without requiring a paper document or ordinary signed writing, provided specified conditions are met?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "Compares writing rules across the two statutes."
+    },
+    {
+      "question": "Does only one of the two statutes contain a substantive Digital Assets carve-out, while the other addresses only the medium of communication?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            7
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "notes": "Compares subject-matter carve-out with communication medium rule."
+    },
+    {
+      "question": "Which statute expressly says that a later change of circumstances does not make an effective endorsement or instruction ineffective?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Only one statute states this expressly."
+    },
+    {
+      "question": "Do both statutes prevent later steps or later circumstances from altering the original effective moment once the act is effective?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Compares fixed effectiveness rules."
+    },
+    {
+      "question": "Which statute treats issuer-imposed transfer restrictions as generally ineffective against persons without the required notice or notation?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4,
+            7
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Only one statute addresses issuer restrictions this way."
+    },
+    {
+      "question": "Does only one of the two statutes contain approved forms and fee appendices, rather than an interpretative schedule?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            2,
+            4,
+            24
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            2,
+            3,
+            18
+          ]
+        }
+      ],
+      "notes": "Compares appendix/schedule function."
+    },
+    {
+      "question": "Name the two private-rule mechanisms that the two statutes treat as relevant to transaction processing or validity: one under the Security Regulations and one under the Personal Property Law.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "Approved Forms versus Business Rules."
+    },
+    {
+      "question": "Name the two actors whose approval, agreement, or processing role is central in the cited provisions: one under the Security Regulations and one under the Personal Property Law.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            5
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8,
+            11
+          ]
+        }
+      ],
+      "notes": "Registrar versus investment intermediary."
+    },
+    {
+      "question": "Which case granted permission to appeal only on one ground?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            5,
+            6
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            16,
+            19
+          ]
+        }
+      ],
+      "notes": "Only one case granted permission on a single ground."
+    },
+    {
+      "question": "Did both cases dismiss a separate application as moot?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            14
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3,
+            19
+          ]
+        }
+      ],
+      "notes": "Mootness compared across the two cases."
+    },
+    {
+      "question": "Name the case that discussed the Crabtree principle and the case that discussed Masri.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            6
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            16,
+            17
+          ]
+        }
+      ],
+      "notes": "Named authorities in each case."
+    },
+    {
+      "question": "Did both courts conclude that the lower decision involved multiple errors of principle warranting appellate interference?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            10,
+            11
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            18,
+            19
+          ]
+        }
+      ],
+      "notes": "Compares appellate stance on lower-court error."
+    },
+    {
+      "question": "Name the case that remitted the underlying application for fresh consideration and the case that instead fixed a timetable for a limited appeal.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            12,
+            13,
+            14
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            19
+          ]
+        }
+      ],
+      "notes": "Contrasts remittal with limited appeal timetable."
+    },
+    {
+      "question": "Did both cases grant all parties or applicants the full interim relief they sought pending appeal?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            2,
+            3
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            3
+          ]
+        }
+      ],
+      "notes": "Compares interim-relief outcomes."
+    },
+    {
+      "question": "Did both cases end with every unsuccessful party or applicant being ordered to pay all opposing-party costs immediately?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3,
+            14
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3,
+            19
+          ]
+        }
+      ],
+      "notes": "Compares final cost consequences."
+    }
+  ]
+}

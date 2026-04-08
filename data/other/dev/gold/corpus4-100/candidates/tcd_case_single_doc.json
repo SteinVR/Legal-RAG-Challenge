@@ -1,0 +1,592 @@
+{
+  "stream_id": "tcd_case_single_doc",
+  "doc_ids": [
+    "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+  ],
+  "candidates": [
+    {
+      "question": "Did the court allow the claim?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Directly stated in the dispositive order."
+    },
+    {
+      "question": "Did the court dismiss the counterclaim?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Directly stated in the dispositive order."
+    },
+    {
+      "question": "Did the parties enter into the MEP Works contract on 26 January 2020?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The contract date is stated in the contract summary."
+    },
+    {
+      "question": "Was the defects period 365 days?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The appendix fixes the defects period at 365 days."
+    },
+    {
+      "question": "Was the finance charge on delayed payment 15% per annum?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The contract appendix states the finance charge rate."
+    },
+    {
+      "question": "Did Bond abandon its prolongation costs claim at trial?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The concession was made in closing and changed the shape of the case."
+    },
+    {
+      "question": "Did the judgment say that either party filed an appeal?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative: no appeal is mentioned in the judgment."
+    },
+    {
+      "question": "What was the lump sum price of the MEP Works contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 6510440,
+      "notes": "Stated in the contract summary."
+    },
+    {
+      "question": "What was the price of the Fit-Out Works contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 3567221,
+      "notes": "Stated in the contract summary."
+    },
+    {
+      "question": "What was the daily liquidated damages rate for the MEP contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 10000,
+      "notes": "Given in the appendix for clause 7.4."
+    },
+    {
+      "question": "What was the daily liquidated damages rate for the Fit-Out contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 5500,
+      "notes": "Given in the appendix for clause 7.4."
+    },
+    {
+      "question": "What amount did Bond claim in the original Claim Form?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": 4142210.71,
+      "notes": "This is the balance claimed at the start of proceedings."
+    },
+    {
+      "question": "How many days did the judgment give a party to appeal?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative: the judgment does not state any appeal timetable."
+    },
+    {
+      "question": "Who delivered the judgment?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Justice Wayne Martin",
+      "notes": "Named in the judgment heading."
+    },
+    {
+      "question": "Who issued the judgment as Assistant Registrar?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "Delvin Sumo",
+      "notes": "Shown in the issue block at the end of the order."
+    },
+    {
+      "question": "Who was counsel for the Claimant at trial?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Mr. Nathan Landis",
+      "notes": "Listed in the counsel section."
+    },
+    {
+      "question": "Who was Bond's MEP Operations Manager?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "Mr. Ajay Kumar",
+      "notes": "Identified in the witness section."
+    },
+    {
+      "question": "Who was TR88's co-owner and manager?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "Dr James Khalili",
+      "notes": "Identified in the witness section."
+    },
+    {
+      "question": "Which two witnesses of fact did Bond call?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mr Ajay Kumar",
+        "Mr Mohamed Riyas"
+      ],
+      "notes": "Both Bond factual witnesses are named in the judgment."
+    },
+    {
+      "question": "Which two witnesses of fact did TR88 call?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11,
+            12
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Dr James Khalili",
+        "Mr Ardalan Foad Bashiri"
+      ],
+      "notes": "Both TR88 factual witnesses are named in the judgment."
+    },
+    {
+      "question": "Which two expert witnesses gave delay and quantum evidence?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mr Vimal Kaspar Dev",
+        "Mr Andew J Bowler"
+      ],
+      "notes": "Requires combining the expert-evidence section."
+    },
+    {
+      "question": "On what date was the judgment issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "2024-02-28",
+      "notes": "The judgment date is stated at the top and in the issue block."
+    },
+    {
+      "question": "On what date did Bond commence these proceedings?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": "2023-03-09",
+      "notes": "The commencement date is expressly stated."
+    },
+    {
+      "question": "On what date did TR88 take possession of the premises and open them for business?",
+      "answer_type": "date",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "2021-12-22",
+      "notes": "Stated in the summary of completion and handover."
+    },
+    {
+      "question": "What reason did the court give for dismissing TR88's liquidated damages and lost profits claims?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": "Bond was not shown to be solely responsible for the delay; the evidence pointed to concurrent delay.",
+      "notes": "The dismissal turned on failure to prove sole responsibility."
+    },
+    {
+      "question": "Why did the court accept Bond's AED 161,404.98 credit for the descoped roof-top MEP works?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": "Bond produced a detailed calculation and TR88 produced no contrary evidence to show a greater credit was due.",
+      "notes": "The court accepted Bond's uncontradicted calculation."
+    },
+    {
+      "question": "Why were TR88's back charges for third-party rectification works rejected?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": "TR88 did not verify what the works were or prove they were Bond's responsibility, and it had also denied Bond access to the site.",
+      "notes": "The court found the evidential basis insufficient."
+    },
+    {
+      "question": "What did Bond's substituted particulars emphasize about extension-of-time applications?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "expected_answer": "They relied on deemed approval if an extension request was not rejected within seven days, and on prolongation-cost claims.",
+      "notes": "The substituted pleading sharpened the contractual EOT argument."
+    },
+    {
+      "question": "What was the effect of TR88 not responding to the Taking Over Certificates within 14 days?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "They were deemed issued on 11 January 2022.",
+      "notes": "The contract's deeming mechanism is expressly applied."
+    },
+    {
+      "question": "Why did the court give effect to the 15% per annum interest clause?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            19
+          ]
+        }
+      ],
+      "expected_answer": "The contract fixed the rate, and the court said Article 73 of the UAE Commercial Code supports giving effect to agreed interest rates.",
+      "notes": "The judgment expressly ties the contractual rate to Article 73."
+    },
+    {
+      "question": "How did the court characterize Mr Dev's delay analysis?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "expected_answer": "It was treated like a black box Primavera exercise that did not grapple with TR88's delay allegations.",
+      "notes": "This captures the court's criticism of the expert method."
+    },
+    {
+      "question": "How did the court characterize Mr Bowler's 20% profit estimate?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "expected_answer": "It was described as a thumb-suck with no basis in TR88's actual profit margin.",
+      "notes": "The court rejected the profit assumption as unsupported."
+    },
+    {
+      "question": "Why were Mr Dev's report costs excluded from Bond's recoverable costs?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            23
+          ]
+        }
+      ],
+      "expected_answer": "He was Bond's employee, his report had problems, and the prolongation costs claim was abandoned.",
+      "notes": "The costs carve-out is explained in the final order."
+    },
+    {
+      "question": "Why did the court accept the Fit-Out descoped works credit proposed by Bond?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": "Bond's figure was unopposed and TR88 offered no evidence proving a greater credit was due.",
+      "notes": "The court relied on the lack of contrary evidence."
+    },
+    {
+      "question": "What warranty provider is identified for the project?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "Negative: the judgment does not identify any warranty provider."
+    }
+  ]
+}

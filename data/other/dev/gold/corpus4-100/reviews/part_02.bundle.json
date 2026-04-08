@@ -1,0 +1,527 @@
+{
+  "shard_id": "part_02",
+  "status": "reviewed",
+  "question_ids": [
+    "1207dcc85ca96d11158351ead9ffc5260f053375fd4b18cfdb81b5e9c6d2bb61",
+    "0e83259ae5b8634c05aa9fa18d6945675ad7d2a59e8be73bf72364dd70637696",
+    "42d7232debc717df1e310885e921a6aaa06208907bc1da0c7d4c61ac4fd0098a",
+    "9093940a7c2ff4a962020858d13c35be648aaf3b958b2beaee548d1ff0862a8b",
+    "ca2a7bd3fd29fc46f26fe94d00d59f1698d7f2d59cf083d51d2845a853288451",
+    "f896ddee905065a505defc236af7a148dfdbf5ec36052f737c08deaa8f23a02f",
+    "85f22f4a05069be55342520d29729115be22263a06ddd865e3b609baacad3029",
+    "48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5",
+    "1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242",
+    "6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1",
+    "83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384",
+    "b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb",
+    "08cc28c0704e573badde057a308230bde9aa15704bd26d767370f121801e4737",
+    "618c3f308693d7b923b174db7ae477d0c2305554c2aca539e3acbe6606d70c73",
+    "e152d8f06170928566f5feca5d9359c6a965672a66827e03ceb970d281f2fcd0",
+    "6d984d3788415a904a97e5c8a71b4cbd74da100989a5c8a37de13e7aee8f41ae",
+    "05a4f39c41ef403564a325fe1292b22a9e23bbe79c30728d7ec6d45743860b84",
+    "6d347cc0fd63c890e890bd57323cb7931c635f30d9d3c645bccdb26818c33e77",
+    "a486608db50205bd5aefe83498bf717590f567e06f535761b31e1040a10dbfe1",
+    "cde36c962d02cf3fd1bd4c20ae67a0f3df7d9b43ee81ffa709f9389583dd0ed5"
+  ],
+  "references": [
+    {
+      "question_id": "1207dcc85ca96d11158351ead9ffc5260f053375fd4b18cfdb81b5e9c6d2bb61",
+      "question": "Do both decisions include a final section after the main order that explains the court's reasoning?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative"
+      ],
+      "notes": "Both decisions include a Schedule of Reasons following the order section."
+    },
+    {
+      "question_id": "0e83259ae5b8634c05aa9fa18d6945675ad7d2a59e8be73bf72364dd70637696",
+      "question": "Must a Group Cash Value Insurance Contract cover 25 or more employees or certificate holders to qualify for the temporary non-reportable treatment?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "42d7232debc717df1e310885e921a6aaa06208907bc1da0c7d4c61ac4fd0098a",
+      "question": "Did Bond abandon its prolongation costs claim at trial?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "9093940a7c2ff4a962020858d13c35be648aaf3b958b2beaee548d1ff0862a8b",
+      "question": "Did the parties enter into the MEP Works contract on 26 January 2020?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "ca2a7bd3fd29fc46f26fe94d00d59f1698d7f2d59cf083d51d2845a853288451",
+      "question": "Did the court dismiss the counterclaim?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "f896ddee905065a505defc236af7a148dfdbf5ec36052f737c08deaa8f23a02f",
+      "question": "Are Partners jointly and severally liable for debts and obligations incurred while they are Partners?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "85f22f4a05069be55342520d29729115be22263a06ddd865e3b609baacad3029",
+      "question": "What is the in-force date shown on the cover page?",
+      "answer_type": "date",
+      "answer": "2020-07-30",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5",
+      "question": "What did the Court say about any settlement agreement between the parties?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242",
+      "question": "What happens if a partner misapplies fiduciary money or property under Article 31?",
+      "answer_type": "free_text",
+      "answer": "If partnership money or property is misapplied in fiduciary circumstances under Article 31, the General Partnership is liable to make good the loss.",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1",
+      "question": "How do the documents differ in the way they package supplementary material?",
+      "answer_type": "free_text",
+      "answer": "The CRS regulations use an annex for extra definitions, while the General Partnership Law uses schedules for interpretation, defined terms, and contraventions with fines.",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            26
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            20,
+            23
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "free_text",
+        "multi_document",
+        "multi_page",
+        "comparative"
+      ]
+    },
+    {
+      "question_id": "83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384",
+      "question": "What must be included in a General Partnership registration application?",
+      "answer_type": "free_text",
+      "answer": "It must state the partnership name ending with \"partnership\", the DIFC registered office address, the nature of business in the DIFC, and each partner's name and address.",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb",
+      "question": "How do the procedural postures differ?",
+      "answer_type": "free_text",
+      "answer": "Techteryx is in consequential post-judgment proceedings on injunction-related issues, while Bond has a final merits judgment after trial with a quantified monetary award.",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3,
+            4
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1,
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "free_text",
+        "multi_document",
+        "multi_page",
+        "comparative"
+      ]
+    },
+    {
+      "question_id": "08cc28c0704e573badde057a308230bde9aa15704bd26d767370f121801e4737",
+      "question": "Who is the single judge common to both judgments?",
+      "answer_type": "name",
+      "answer": null,
+      "gold_retrieval": [],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "618c3f308693d7b923b174db7ae477d0c2305554c2aca539e3acbe6606d70c73",
+      "question": "What is the defined term for a general partnership formed in the DIFC?",
+      "answer_type": "name",
+      "answer": "General Partnership",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "e152d8f06170928566f5feca5d9359c6a965672a66827e03ceb970d281f2fcd0",
+      "question": "Who was the Assistant Registrar named as issuing the order?",
+      "answer_type": "name",
+      "answer": "Hayley Norton",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "6d984d3788415a904a97e5c8a71b4cbd74da100989a5c8a37de13e7aee8f41ae",
+      "question": "Which four categories are included in the term Financial Institution?",
+      "answer_type": "names",
+      "answer": [
+        "Custodial Institution",
+        "Depository Institution",
+        "Investment Entity",
+        "Specified Insurance Company"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "05a4f39c41ef403564a325fe1292b22a9e23bbe79c30728d7ec6d45743860b84",
+      "question": "How many persons are needed at minimum to form a General Partnership?",
+      "answer_type": "number",
+      "answer": 2,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "6d347cc0fd63c890e890bd57323cb7931c635f30d9d3c645bccdb26818c33e77",
+      "question": "How much did the Court deduct from costs for Techteryx's disclosure misstatement?",
+      "answer_type": "number",
+      "answer": 10000,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            22
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "a486608db50205bd5aefe83498bf717590f567e06f535761b31e1040a10dbfe1",
+      "question": "Within how many days must overpayments above USD50,000 be refunded under the qualified credit card issuer rule?",
+      "answer_type": "number",
+      "answer": 60,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "cde36c962d02cf3fd1bd4c20ae67a0f3df7d9b43ee81ffa709f9389583dd0ed5",
+      "question": "Compared with the single defendant in the Bond case, how many defendants are named in the Techteryx case?",
+      "answer_type": "number",
+      "answer": 4,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "title_page"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5",
+      "assistant_score": 1.0,
+      "notes": "Canonical unanswerable free_text response with empty retrieval; correct and compliant."
+    },
+    {
+      "question_id": "1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242",
+      "assistant_score": 1.0,
+      "notes": "Accurately states Article 31 consequence and is fully grounded in cited page."
+    },
+    {
+      "question_id": "6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1",
+      "assistant_score": 1.0,
+      "notes": "Correct comparative summary of Annex vs Schedules with precise grounding."
+    },
+    {
+      "question_id": "83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384",
+      "assistant_score": 1.0,
+      "notes": "Complete list of Article 12(2) registration fields; concise and grounded."
+    },
+    {
+      "question_id": "b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb",
+      "assistant_score": 1.0,
+      "notes": "Correctly contrasts consequential-stage injunction litigation with final trial judgment posture."
+    }
+  ],
+  "findings": [
+    "Approved 1207dcc85ca96d11158351ead9ffc5260f053375fd4b18cfdb81b5e9c6d2bb61: both judgments include order text followed by a reasons section; retrieval is minimal-complete.",
+    "Approved 0e83259ae5b8634c05aa9fa18d6945675ad7d2a59e8be73bf72364dd70637696: threshold of 25+ employees/certificate holders is explicit on cited page.",
+    "Approved 42d7232debc717df1e310885e921a6aaa06208907bc1da0c7d4c61ac4fd0098a: judgment expressly records Bond abandoned prolongation costs claim.",
+    "Approved 9093940a7c2ff4a962020858d13c35be648aaf3b958b2beaee548d1ff0862a8b: contract date and MEP works entry are correctly grounded.",
+    "Approved ca2a7bd3fd29fc46f26fe94d00d59f1698d7f2d59cf083d51d2845a853288451: order paragraph 2 dismisses the counterclaim.",
+    "Approved f896ddee905065a505defc236af7a148dfdbf5ec36052f737c08deaa8f23a02f: Article 28(1) confirms joint and several liability while partner remains a partner.",
+    "Approved 85f22f4a05069be55342520d29729115be22263a06ddd865e3b609baacad3029: cover page states in-force date 2020-07-30.",
+    "Approved 48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5: no settlement discussion is present; canonical unanswerable response is correct.",
+    "Approved 1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242: Article 31 consequence is accurately summarized.",
+    "Approved 6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1: comparative summary of supplementary material structure is accurate.",
+    "Approved 83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384: Article 12(2) list is complete and retrieval is precise.",
+    "Approved b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb: procedural posture contrast is accurate across both cases.",
+    "Corrected 08cc28c0704e573badde057a308230bde9aa15704bd26d767370f121801e4737: deterministic unanswerable name answer changed from string \"None\" to JSON null.",
+    "Approved 618c3f308693d7b923b174db7ae477d0c2305554c2aca539e3acbe6606d70c73: defined term \"General Partnership\" is correctly extracted.",
+    "Approved e152d8f06170928566f5feca5d9359c6a965672a66827e03ceb970d281f2fcd0: Assistant Registrar name Hayley Norton is correct.",
+    "Approved 6d984d3788415a904a97e5c8a71b4cbd74da100989a5c8a37de13e7aee8f41ae: four Financial Institution categories are complete and ordered correctly.",
+    "Approved 05a4f39c41ef403564a325fe1292b22a9e23bbe79c30728d7ec6d45743860b84: minimum number of persons is two per Article 8.",
+    "Approved 6d347cc0fd63c890e890bd57323cb7931c635f30d9d3c645bccdb26818c33e77: costs deduction of USD 10,000 is explicitly stated.",
+    "Approved a486608db50205bd5aefe83498bf717590f567e06f535761b31e1040a10dbfe1: qualified credit card issuer rule uses 60-day refund requirement.",
+    "Approved cde36c962d02cf3fd1bd4c20ae67a0f3df7d9b43ee81ffa709f9389583dd0ed5: Techteryx lists four defendants versus one in Bond case."
+  ],
+  "notes": [
+    "Reviewed against source PDFs with answer/value, retrieval recall-precision, tags, and metadata checks.",
+    "One deterministic unanswerable encoding fix applied (string \"None\" -> null)."
+  ]
+}

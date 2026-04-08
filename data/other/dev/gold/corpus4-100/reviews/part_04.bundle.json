@@ -1,0 +1,528 @@
+{
+  "shard_id": "part_04",
+  "status": "reviewed",
+  "question_ids": [
+    "42881bdcdd51f009f2e630cdbd07e6b35b87f89e12c3e3ef5fe0e3a5fa490810",
+    "1ef03eed0471fbf29089e8804945021951c945e398e934047509fdf4c9fdd07a",
+    "764b5e5421deb4941f3b50dfd124ba87bc53d768fb3fdf31c1a54a805f8e5ce1",
+    "b461b9abc31b866bc7248cc2dfd75a2c4340050aaf3b75b03af79938a2f7053f",
+    "d2ed9d35dfb69dc55a861b19c82055ca4263d082dd9fede3bf3433771a5dbd9f",
+    "35b26e5b32d17a847867997c8cae8b4a770c90b9a71df86fdd4b4b014a81f289",
+    "a84c5c1ac8a09c04e9b3e5b5653bd4d6ba9f793b6ec9a61e16eb34e46a1bf2ab",
+    "9d7c4de87ee0b6bdf5454e5f3db8a2a7217f17601d39da51b8f0a29cd48fe009",
+    "34d4680c1f8f856fedc1efa3938703b6c162ecb5003e27ee1bbd743fcca31994",
+    "734931901ce2900c33d80c0b611d8fb37c457e25b6e0529e0d26f2dc97bc2c32",
+    "8ef2ea7d8b03fdfd009739fd06092f8676f34a0f99e272a64def6fc543118ce3",
+    "dbb3c7a752d90dc1d9b3bae020014a71c1acaab22b856be728834dfa1cc47726",
+    "01562ab34cc708a12cbe990bc6523a495c9e6db208d9b0482a8a3b2d5702bf69",
+    "6c0ad47feb5f6dc3ee88e902c71b9569fed8f35c5f7490b9967e979b1aed4a30",
+    "e821a2bc1919a828d26dbef0ae9c234e8cecce49c9ded70e6193a56837d37f54",
+    "76f626e12a62d4974db5fab76c103f4bc303092ae07dccefd9b1821dd3ab2cc0",
+    "1147915a647ff39a2a6f95fbf83b7fc1e6117d20cc6acc602a9b3e6b92cb65c1",
+    "7710644a88fa1b4492a462d0527ca39733db6a1219ba05b957b9ea814ed0fe89",
+    "a51f259bf9869da02936142f36678193dd9e93988f339dc7ea2a21879d9d1870",
+    "cfa9836f1113bb3cb086dfef80ec96bcaf9d40587a72034777be0a341d4bb701"
+  ],
+  "references": [
+    {
+      "question_id": "42881bdcdd51f009f2e630cdbd07e6b35b87f89e12c3e3ef5fe0e3a5fa490810",
+      "question": "Do both documents expressly refer to outside governing material in the operative text?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ],
+      "notes": "CRS refers to OECD explanatory material; the partnership law refers to the Operating Law."
+    },
+    {
+      "question_id": "1ef03eed0471fbf29089e8804945021951c945e398e934047509fdf4c9fdd07a",
+      "question": "Does the Law require annual general meetings of the partners?",
+      "answer_type": "boolean",
+      "answer": null,
+      "gold_retrieval": [],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "negative",
+        "single_document"
+      ],
+      "notes": "Negative deterministic candidate; this meeting requirement is not stated in the document."
+    },
+    {
+      "question_id": "764b5e5421deb4941f3b50dfd124ba87bc53d768fb3fdf31c1a54a805f8e5ce1",
+      "question": "Unless all partners agree otherwise, can ordinary matters be decided by majority even though a change in the nature of the business requires unanimous consent?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Article 17(c) distinguishes ordinary matters from changes to the business nature."
+    },
+    {
+      "question_id": "b461b9abc31b866bc7248cc2dfd75a2c4340050aaf3b75b03af79938a2f7053f",
+      "question": "Did the Court require a schedule listing every document for collateral use?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "The Court said no schedule was necessary."
+    },
+    {
+      "question_id": "d2ed9d35dfb69dc55a861b19c82055ca4263d082dd9fede3bf3433771a5dbd9f",
+      "question": "Did the Court accept the proposed 7-day period for disclosure compliance?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "The Court said 7 days was impractical and too short."
+    },
+    {
+      "question_id": "35b26e5b32d17a847867997c8cae8b4a770c90b9a71df86fdd4b4b014a81f289",
+      "question": "On what date does a New Account mean an account opened on or after?",
+      "answer_type": "date",
+      "answer": "2017-01-01",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "New-account cutoff."
+    },
+    {
+      "question_id": "a84c5c1ac8a09c04e9b3e5b5653bd4d6ba9f793b6ec9a61e16eb34e46a1bf2ab",
+      "question": "What date did the consequential hearing take place?",
+      "answer_type": "date",
+      "answer": "2025-10-02",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "The hearing is stated to have taken place on 2 October 2025."
+    },
+    {
+      "question_id": "9d7c4de87ee0b6bdf5454e5f3db8a2a7217f17601d39da51b8f0a29cd48fe009",
+      "question": "What is the main difference in relief between the two decisions?",
+      "answer_type": "free_text",
+      "answer": "Techteryx gets continuing interlocutory injunctions and consequential directions, while Bond gets a final money judgment for AED 2,873,837.14 plus costs.",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "free_text",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ],
+      "notes": "Contrasts interim asset-preservation relief with a final monetary award."
+    },
+    {
+      "question_id": "34d4680c1f8f856fedc1efa3938703b6c162ecb5003e27ee1bbd743fcca31994",
+      "question": "What warranty provider is identified for the project?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "negative",
+        "single_document"
+      ],
+      "notes": "Negative: the judgment does not identify any warranty provider."
+    },
+    {
+      "question_id": "734931901ce2900c33d80c0b611d8fb37c457e25b6e0529e0d26f2dc97bc2c32",
+      "question": "What does Article 27 allow the General Partnership to do?",
+      "answer_type": "free_text",
+      "answer": "Indemnify any partner or other person, subject to the standards and restrictions in the partnership agreement.",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Article 27 grants an indemnification power."
+    },
+    {
+      "question_id": "8ef2ea7d8b03fdfd009739fd06092f8676f34a0f99e272a64def6fc543118ce3",
+      "question": "What does Reportable Jurisdiction Person mean?",
+      "answer_type": "free_text",
+      "answer": "An individual, entity, or decedent's estate resident in a Reportable Jurisdiction; entities with no tax residence are treated as resident where effective management is situated.",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Residence-based definition."
+    },
+    {
+      "question_id": "dbb3c7a752d90dc1d9b3bae020014a71c1acaab22b856be728834dfa1cc47726",
+      "question": "What test did the Court apply to wider collateral use of disclosed materials?",
+      "answer_type": "free_text",
+      "answer": "Special circumstances, plus necessity, proportionality, and no unfairness or prejudice.",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "This condenses the Byju's Alpha principles the Court adopted."
+    },
+    {
+      "question_id": "01562ab34cc708a12cbe990bc6523a495c9e6db208d9b0482a8a3b2d5702bf69",
+      "question": "What body may make Regulations for the purposes of the Law?",
+      "answer_type": "name",
+      "answer": "Board of Directors of the DIFCA",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Article 58(1) identifies the rule-making body."
+    },
+    {
+      "question_id": "6c0ad47feb5f6dc3ee88e902c71b9569fed8f35c5f7490b9967e979b1aed4a30",
+      "question": "Which judge issued the amended order with reasons?",
+      "answer_type": "name",
+      "answer": "H.E. Justice Michael Black KC",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ],
+      "notes": "The title page and opening order identify the judge."
+    },
+    {
+      "question_id": "e821a2bc1919a828d26dbef0ae9c234e8cecce49c9ded70e6193a56837d37f54",
+      "question": "What is the term for an account maintained by a Financial Institution that includes Depository Accounts and Custodial Accounts?",
+      "answer_type": "name",
+      "answer": "Financial Account",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Core defined term."
+    },
+    {
+      "question_id": "76f626e12a62d4974db5fab76c103f4bc303092ae07dccefd9b1821dd3ab2cc0",
+      "question": "Which bodies are defined as the Court and the DIFCA?",
+      "answer_type": "names",
+      "answer": [
+        "DIFC Court",
+        "DIFC Authority"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "table_lookup"
+      ],
+      "notes": "Schedule 1 defines both entities."
+    },
+    {
+      "question_id": "1147915a647ff39a2a6f95fbf83b7fc1e6117d20cc6acc602a9b3e6b92cb65c1",
+      "question": "How many days does the Law allow for filing a partnership tax return?",
+      "answer_type": "number",
+      "answer": null,
+      "gold_retrieval": [],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "negative",
+        "single_document"
+      ],
+      "notes": "Negative deterministic candidate; no tax-return filing rule appears in the document."
+    },
+    {
+      "question_id": "7710644a88fa1b4492a462d0527ca39733db6a1219ba05b957b9ea814ed0fe89",
+      "question": "What percentage of gross income makes a Custodial Institution's holding of Financial Assets count as a substantial portion of its business?",
+      "answer_type": "number",
+      "answer": 20,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ],
+      "notes": "Custodial Institution income threshold."
+    },
+    {
+      "question_id": "a51f259bf9869da02936142f36678193dd9e93988f339dc7ea2a21879d9d1870",
+      "question": "By how many days did the Bond trial exceed the Techteryx FRD hearing?",
+      "answer_type": "number",
+      "answer": 1,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page",
+        "title_page"
+      ],
+      "notes": "Bond's trial ran four days; the Techteryx FRD hearing ran three."
+    },
+    {
+      "question_id": "cfa9836f1113bb3cb086dfef80ec96bcaf9d40587a72034777be0a341d4bb701",
+      "question": "What is the maximum aggregate amount payable to any employee, certificate holder, or beneficiary under the group contract rule?",
+      "answer_type": "number",
+      "answer": 1000000,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "table_lookup"
+      ],
+      "notes": "USD cap in the group contract safe harbor."
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "9d7c4de87ee0b6bdf5454e5f3db8a2a7217f17601d39da51b8f0a29cd48fe009",
+      "assistant_score": 1.0,
+      "notes": "Correct comparative synthesis, complete on relief contrast, and grounded in cited pages."
+    },
+    {
+      "question_id": "34d4680c1f8f856fedc1efa3938703b6c162ecb5003e27ee1bbd743fcca31994",
+      "assistant_score": 1.0,
+      "notes": "Canonical unanswerable response is used correctly with empty retrieval."
+    },
+    {
+      "question_id": "734931901ce2900c33d80c0b611d8fb37c457e25b6e0529e0d26f2dc97bc2c32",
+      "assistant_score": 1.0,
+      "notes": "Accurately states Article 27 indemnification rule with precise scope and grounding."
+    },
+    {
+      "question_id": "8ef2ea7d8b03fdfd009739fd06092f8676f34a0f99e272a64def6fc543118ce3",
+      "assistant_score": 1.0,
+      "notes": "Definition is complete and includes the no-tax-residence effective-management clause."
+    },
+    {
+      "question_id": "dbb3c7a752d90dc1d9b3bae020014a71c1acaab22b856be728834dfa1cc47726",
+      "assistant_score": 1.0,
+      "notes": "Captures the Court test (special circumstances, necessity, proportionality, no unfair prejudice) clearly."
+    }
+  ],
+  "findings": [
+    "Approved 42881bdcdd51f009f2e630cdbd07e6b35b87f89e12c3e3ef5fe0e3a5fa490810: both statutes expressly reference governing external legal materials; retrieval is minimal-complete.",
+    "Approved 1ef03eed0471fbf29089e8804945021951c945e398e934047509fdf4c9fdd07a: no annual general meeting requirement appears in the Law; negative encoding is correct.",
+    "Approved 764b5e5421deb4941f3b50dfd124ba87bc53d768fb3fdf31c1a54a805f8e5ce1: Article 17 supports majority rule for ordinary matters and unanimity for nature-of-business changes.",
+    "Approved b461b9abc31b866bc7248cc2dfd75a2c4340050aaf3b75b03af79938a2f7053f: Court did not require a document-by-document schedule; answer false is correct.",
+    "Approved d2ed9d35dfb69dc55a861b19c82055ca4263d082dd9fede3bf3433771a5dbd9f: Court imposed 14 days, not 7 days; answer false is correct and grounded.",
+    "Approved 35b26e5b32d17a847867997c8cae8b4a770c90b9a71df86fdd4b4b014a81f289: New Account date is correctly normalized to 2017-01-01.",
+    "Approved a84c5c1ac8a09c04e9b3e5b5653bd4d6ba9f793b6ec9a61e16eb34e46a1bf2ab: consequential hearing date 2025-10-02 is correct.",
+    "Approved 9d7c4de87ee0b6bdf5454e5f3db8a2a7217f17601d39da51b8f0a29cd48fe009: free_text relief contrast is accurate, complete, and grounded across both cases.",
+    "Approved 34d4680c1f8f856fedc1efa3938703b6c162ecb5003e27ee1bbd743fcca31994: canonical no-information free_text response is appropriate.",
+    "Approved 734931901ce2900c33d80c0b611d8fb37c457e25b6e0529e0d26f2dc97bc2c32: Article 27 indemnification summary is correct and concise.",
+    "Approved 8ef2ea7d8b03fdfd009739fd06092f8676f34a0f99e272a64def6fc543118ce3: Reportable Jurisdiction Person definition is correctly summarized.",
+    "Approved dbb3c7a752d90dc1d9b3bae020014a71c1acaab22b856be728834dfa1cc47726: collateral-use legal test summary matches the Court reasoning.",
+    "Approved 01562ab34cc708a12cbe990bc6523a495c9e6db208d9b0482a8a3b2d5702bf69: Board of Directors of the DIFCA is the correct named body.",
+    "Approved 6c0ad47feb5f6dc3ee88e902c71b9569fed8f35c5f7490b9967e979b1aed4a30: issuing judge name is correct and title-page citation is sufficient.",
+    "Approved e821a2bc1919a828d26dbef0ae9c234e8cecce49c9ded70e6193a56837d37f54: Financial Account term is correctly identified.",
+    "Approved 76f626e12a62d4974db5fab76c103f4bc303092ae07dccefd9b1821dd3ab2cc0: both defined bodies are correctly listed as names array.",
+    "Approved 1147915a647ff39a2a6f95fbf83b7fc1e6117d20cc6acc602a9b3e6b92cb65c1: no filing period for partnership tax return is provided; null answer is correct.",
+    "Approved 7710644a88fa1b4492a462d0527ca39733db6a1219ba05b957b9ea814ed0fe89: 20 percent threshold is correct and page-grounded.",
+    "Approved a51f259bf9869da02936142f36678193dd9e93988f339dc7ea2a21879d9d1870: trial-duration difference is correctly computed as 1 day.",
+    "Approved cfa9836f1113bb3cb086dfef80ec96bcaf9d40587a72034777be0a341d4bb701: maximum aggregate amount is correctly set to 1000000."
+  ],
+  "notes": [
+    "Reviewer validation completed: all 20 references approved as correct; no answer or retrieval changes required.",
+    "assistant_scores assigned for every free_text question using docs/evaluation/free_text_review_template.md rubric."
+  ]
+}

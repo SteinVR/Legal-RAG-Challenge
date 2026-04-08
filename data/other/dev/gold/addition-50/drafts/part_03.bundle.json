@@ -1,0 +1,241 @@
+{
+  "shard_id": "part_03",
+  "status": "draft",
+  "question_ids": [
+    "5872902213e6e981741174b0ca77416b18c0593cd6437111e388c935e4b3d383",
+    "650514a6efa503e666cba307f2c81958d9c3dd57d5d9a15cd3929bb94e4b2d90",
+    "502374e2ac15fddadbc1cae41e644645ff00b531c26412c575db5d2582b36b3d",
+    "8b8a05974fe52ebcb05dcb213084f056a4a520f0141efcbdd67c1093d62b8b78",
+    "5f042974ee740b8302009a474abfe2e27f3db35200cf382ef81494baa169d4b7",
+    "c5bdd8ebf1501450af0a33ce676131ed19b1727989d808a31b84cb17f1d30c21",
+    "613217268c14e7aa3f190f7d8b43610f2ffdae2cf15a4f8d7a3acfa52cefeedb",
+    "c4c53051a4ccb424a1afd1182927354e6f5c6efc137a6c620703f8841dabfd5e",
+    "09ad4f91a1e919bd6061966704fb3c036ed7dab5f2bd9348398ed71bf36640b2",
+    "c5472b4d9079fef43ff5eaa11884d991063d92bbf8613abb67d0e6abaa16e97a"
+  ],
+  "references": [
+    {
+      "question_id": "5872902213e6e981741174b0ca77416b18c0593cd6437111e388c935e4b3d383",
+      "question": "Identify whether any person or company is a main party to both ARB 024/2025 and SCT 454/2024 at any point.",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "55fa145c3f08b4ca22bba9263dbcdb3ec4f9d9c762c73ae20e8e6f8019c010f7",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "f4c4d051d514270964adcf58e124569e396602340b7d9172671759de10a95897",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "entity_overlap",
+        "negative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "650514a6efa503e666cba307f2c81958d9c3dd57d5d9a15cd3929bb94e4b2d90",
+      "question": "Was the SCT judgment in case SCT 133/2025 subsequently appealed to the CFI?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "44eada8b59109a9786d26b923013ae3674be81e37fc9d5a10c5d2e46f04068f7",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "502374e2ac15fddadbc1cae41e644645ff00b531c26412c575db5d2582b36b3d",
+      "question": "What is the Date of Issue of the document in SCT case SCT 459/2024?",
+      "answer_type": "date",
+      "answer": "2025-06-23",
+      "gold_retrieval": [
+        {
+          "doc_id": "ea81bf0f8c1d423dd61e6d2901ca7872209185eb8e25e05a672148a9fb3e635e",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "8b8a05974fe52ebcb05dcb213084f056a4a520f0141efcbdd67c1093d62b8b78",
+      "question": "What is the scope of application of the COMMON REPORTING STANDARD REGULATIONS?",
+      "answer_type": "free_text",
+      "answer": "The Regulations apply to reporting financial institutions supervised under the Law, account holders of reportable accounts held with such institutions, and any other person where a provision specifies that it applies.",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "5f042974ee740b8302009a474abfe2e27f3db35200cf382ef81494baa169d4b7",
+      "question": "What information must an expert's report include regarding the expert's qualifications and knowledge?",
+      "answer_type": "free_text",
+      "answer": "An expert's report must give details of the expert's qualifications and identify which stated facts are within the expert's own direct knowledge; it must also state who performed any test and that person's qualifications.",
+      "gold_retrieval": [
+        {
+          "doc_id": "8f507f768bb46f4ec93c131e6235d956f7db755a60c1341a3bef0f3197c255dd",
+          "page_numbers": [
+            228
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "c5bdd8ebf1501450af0a33ce676131ed19b1727989d808a31b84cb17f1d30c21",
+      "question": "Does 'PRESCRIBED COMPANY REGULATIONS' address military service exemptions or defence contractor licensing?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "negative",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "613217268c14e7aa3f190f7d8b43610f2ffdae2cf15a4f8d7a3acfa52cefeedb",
+      "question": "Under Article 12 of the Real Property Law 2018, what is the term for the office created as a corporation sole?",
+      "answer_type": "name",
+      "answer": "Registrar",
+      "gold_retrieval": [
+        {
+          "doc_id": "b164f6e841bdd425f5fb1bf7913406fcdd82ab8c44bf6440bb47650d012f9af3",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "c4c53051a4ccb424a1afd1182927354e6f5c6efc137a6c620703f8841dabfd5e",
+      "question": "Against which party was enforcement sought in case ENF 084/2023 ENF 085/2023?",
+      "answer_type": "names",
+      "answer": [
+        "Mitsuji Konoshita",
+        "A.P.F. Group Co., Ltd (in Receivership)"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "18d5d0320cded1a097fa66202ff2a80dd38e6ab818dfefffea614cd389632dad",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "09ad4f91a1e919bd6061966704fb3c036ed7dab5f2bd9348398ed71bf36640b2",
+      "question": "What fee in USD applies under Securities Regulations 2019 to filing a Correction Statement (Form 6) where the filer checks box 2a to indicate the RECORD is inaccurate and provides the basis for that belief?",
+      "answer_type": "number",
+      "answer": 200,
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "table_lookup"
+      ]
+    },
+    {
+      "question_id": "c5472b4d9079fef43ff5eaa11884d991063d92bbf8613abb67d0e6abaa16e97a",
+      "question": "How many unique parties initiated the proceedings in case SCT 405/2025?",
+      "answer_type": "number",
+      "answer": 1,
+      "gold_retrieval": [
+        {
+          "doc_id": "65f3f4acfcaca7fc9488e275643135ea7e1d30323e4f4c2cc04d7fc16844e373",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    }
+  ],
+  "assistant_scores": [],
+  "findings": [],
+  "notes": []
+}

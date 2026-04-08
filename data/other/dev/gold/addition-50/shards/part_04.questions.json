@@ -1,0 +1,52 @@
+[
+  {
+    "id": "86edfe12264d560fc9f06558927b434971a19d2c8d42da4961d6da20fef0fc3c",
+    "question": "Is there any main party common to both case SCT 160/2025 and case SCT 475/2024 at any point?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "a7ee08f4f2024646a1a1cda135a055b97679867ac7d581c035e5ff5989d191a4",
+    "question": "Based on the full case files for ARB 034/2025 and ENF-022-2023; ENF-023-2023; CFI-046-2023, was there any judge involved in both?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "86d55f9cfecdbce40e863bdfd2a53ebf1d334988fbd589e30a71430e53be2d4f",
+    "question": "When was the court document in case CFI 084/2024 issued?",
+    "answer_type": "date"
+  },
+  {
+    "id": "1b86fc83e8c9948d3f233e22a320006233ac469918d13e4cc7121dffd092aadf",
+    "question": "What does the \"2. Commencement\" part of the LEASING REGULATIONS cover?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "8d481702ddfb40310a070ac44f4a2e9637043f453afa0319cd83d20fd8ec607e",
+    "question": "What is the prescribed penalty for an offense against the Strata Title Law under the Strata Title Regulations, and what is the penalty for using leased premises for an illegal purpose under the Leasing Regulations?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "f7c313985b48f3a8ec809668642a847275d655c34ede8b1cac9ae37d4571789d",
+    "question": "Who should read Consultation Paper No. 2 of 2025?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "1873b6629582bf1ce1b530a2fb75f36899852388ec33d9ebc5c8ca7d4c5ceabc",
+    "question": "Which case was issued earlier by the Court of First Instance: CFI 055/2020 or CFI 092/2024?",
+    "answer_type": "name"
+  },
+  {
+    "id": "43782a430ea33b468e866b088905fe69e331da8ab8df4e520eac85eba5ed0833",
+    "question": "Provide a list of all defendants mentioned in the case documents for CFI 084/2024.",
+    "answer_type": "names"
+  },
+  {
+    "id": "a44ebf4b70ac84c99d244ec616d12484f7e55f11683ce16e3262886e4e2b181f",
+    "question": "What is the fine under the Common Reporting Standard Law DIFC Law No. 2 of 2018 for a Reporting Financial Institution that fails to keep records of the due diligence procedures performed under the Regulations or fails to keep them for six years, as required by Article 12(3) and 12(4) (in USD)?",
+    "answer_type": "number"
+  },
+  {
+    "id": "a6ff728d3aa449518b55fed1d54885ac76888b15867344c6568d1ff107ca096e",
+    "question": "Under the Limited Partnership Law DIFC Law No. 4 of 2006, what is the maximum fine for failure of a Limited Partnership to keep Accounting Records open to inspection as required under Article 17(2)(c) (in USD)?",
+    "answer_type": "number"
+  }
+]

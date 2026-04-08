@@ -1,0 +1,594 @@
+{
+  "stream_id": "dec_case_single_doc",
+  "doc_ids": [
+    "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+  ],
+  "candidates": [
+    {
+      "question": "Did the Court lift the privacy attached to these proceedings?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Direct holding at the end of the privacy section."
+    },
+    {
+      "question": "Did the Court say all hearings and all judgments should be treated as public?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The Court expressly treated hearings and judgments as public."
+    },
+    {
+      "question": "Did the Court require a schedule listing every document for collateral use?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court said no schedule was necessary."
+    },
+    {
+      "question": "Did the Court accept Techteryx's request for permission to use documents in undefined civil proceedings in any jurisdiction?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court refused that broad formulation."
+    },
+    {
+      "question": "Did the Court accept the proposed 7-day period for disclosure compliance?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court said 7 days was impractical and too short."
+    },
+    {
+      "question": "Did the Court reserve the costs order until the substantive claims were decided?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court declined to reserve costs."
+    },
+    {
+      "question": "Did the order mention an appeal to the Dubai Court of Appeal?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "No appeal to the Dubai Court of Appeal is mentioned."
+    },
+    {
+      "question": "How many hours did the parties have to agree drafts of the orders?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": 48,
+      "notes": "The order required drafts within 48 hours."
+    },
+    {
+      "question": "How many days did the Court allow for disclosure compliance?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": 28,
+      "notes": "The Court set a 28-day period for compliance."
+    },
+    {
+      "question": "How much did the Court deduct from costs for Techteryx's disclosure misstatement?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": 10000,
+      "notes": "The Court reduced costs by USD 10,000 for the disclosure issue."
+    },
+    {
+      "question": "What amount was ordered to be paid on account of costs?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            23
+          ]
+        }
+      ],
+      "expected_answer": 1083912.49,
+      "notes": "Half of the adjusted costs claim was ordered on account."
+    },
+    {
+      "question": "How many DMCC payments with unidentified beneficiaries were identified in Schedule B?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "expected_answer": 106,
+      "notes": "Schedule B is described as identifying 106 payments."
+    },
+    {
+      "question": "How many employees were in DMCC's compliance team?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "The document gives no information about DMCC headcount."
+    },
+    {
+      "question": "Which judge issued the amended order with reasons?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "H.E. Justice Michael Black KC",
+      "notes": "The title page and opening order identify the judge."
+    },
+    {
+      "question": "Who was the Assistant Registrar named as issuing the order?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "Hayley Norton",
+      "notes": "Her name appears in the issuance block."
+    },
+    {
+      "question": "Who represented Techteryx at the hearing?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "Mr David Holloway",
+      "notes": "The introduction identifies Techteryx's counsel."
+    },
+    {
+      "question": "Who represented DMCC at the hearing?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "Mr George McPherson",
+      "notes": "The introduction identifies DMCC's counsel."
+    },
+    {
+      "question": "Which judge explored the public-hearing issue in Lumbini v Lotika?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": "H.E. Justice Sir Jeremy Cooke",
+      "notes": "He is cited as the judge in Lumbini v Lotika."
+    },
+    {
+      "question": "Which judge's collateral-use analysis did the Court rely on in Byju's Alpha?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": "H.E. Justice Le Miere",
+      "notes": "The reasons expressly rely on his decision."
+    },
+    {
+      "question": "Which banks were the Second to Fourth Defendants?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mashreq Bank PSC",
+        "Emirates Nbd Bank PJSC",
+        "Abu Dhabi Islamic Bank PJSC"
+      ],
+      "notes": "The case title lists the three bank defendants."
+    },
+    {
+      "question": "Which counsel appeared for the parties at the hearing?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mr David Holloway",
+        "Mr George McPherson"
+      ],
+      "notes": "The introduction names both counsel."
+    },
+    {
+      "question": "Which judges are cited in the reasons on privacy and collateral use?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            5,
+            9
+          ]
+        }
+      ],
+      "expected_answer": [
+        "H.E. Justice Sir Jeremy Cooke",
+        "H.E. Justice Le Miere"
+      ],
+      "notes": "The privacy and collateral-use sections cite these judges as authorities."
+    },
+    {
+      "question": "What date was the finalised judgment issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "2025-09-16",
+      "notes": "The order refers to the Judgment dated 16 September 2025."
+    },
+    {
+      "question": "What date did the consequential hearing take place?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "2025-10-02",
+      "notes": "The hearing is stated to have taken place on 2 October 2025."
+    },
+    {
+      "question": "What date was the order re-issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "2025-10-17",
+      "notes": "The issuance block records the re-issue date."
+    },
+    {
+      "question": "What word did the Court substitute for \"fabricated\" in paragraph 365?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "created",
+      "notes": "The slip-rule correction replaced the word in the Judgment."
+    },
+    {
+      "question": "What did the Court say about when the amendment application should have been made?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "It should have been made when the judgment was circulated in draft.",
+      "notes": "The Judge criticized the timing of the amendment request."
+    },
+    {
+      "question": "What did the Court say about DMCC's privacy objection based on reputational damage?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": "There was no evidence DMCC, as opposed to the ARIA Fund, provided highly regulated financial services.",
+      "notes": "The Court rejected the reputational-damage argument."
+    },
+    {
+      "question": "What did the Court say about the allegations of fraud in relation to privacy?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": "They had already been made in the Hong Kong proceedings.",
+      "notes": "The Court treated the allegations as already public."
+    },
+    {
+      "question": "What test did the Court apply to wider collateral use of disclosed materials?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            9,
+            10
+          ]
+        }
+      ],
+      "expected_answer": "Special circumstances, plus necessity, proportionality, and no unfairness or prejudice.",
+      "notes": "This condenses the Byju's Alpha principles the Court adopted."
+    },
+    {
+      "question": "How did the Court characterize DMCC's proposed wider collateral-use wording?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "It was too wide and too vague.",
+      "notes": "The Court rejected the broad wording in Techteryx's draft order."
+    },
+    {
+      "question": "What did the Court say about who should swear the disclosure affidavit?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": "MWB should swear it, with FTI assistance if needed, and take responsibility for it.",
+      "notes": "The Court rejected the idea that MWB should be excluded."
+    },
+    {
+      "question": "Why did the Court refuse to reserve the costs order?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": "Because the freezing order served the normal purpose of a freezing injunction, so the costs were not reserved.",
+      "notes": "The Judge distinguished freezing injunctions from American Cyanamid injunctions."
+    },
+    {
+      "question": "What did the Court say about further proceedings if Techteryx needs to preserve assets?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "Techteryx could apply ex parte in writing if further proceedings were proposed to preserve assets.",
+      "notes": "The Court allowed a route for later targeted applications."
+    },
+    {
+      "question": "What did the Court say about any settlement agreement between the parties?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "No settlement agreement is discussed in the document."
+    }
+  ]
+}

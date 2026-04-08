@@ -1,0 +1,524 @@
+{
+  "shard_id": "part_03",
+  "status": "reviewed",
+  "question_ids": [
+    "1a80e5dc69fb76a97c0ada049df2425c9f06de373bbb9ee5b39dbd1f12f85387",
+    "52a35cfabe76f2c538c6f72a841a08e0cc85bbe8f732874a4d2827383794c213",
+    "a499c8553e73100d9ecc8ccd1164beea4b82fa6b32c519de1a37c861925076a1",
+    "f2a28b01dbdda99ec2b09a7001ea72e35b94a42c14c4bc5e5206c59857770306",
+    "30ab0e56ee0c43b5bf94fd9657c7f7ac24f0e7be29ced2933437f7a234713cd7",
+    "b13500141f04c86f328b49c56ba01c7bc13bce5afee9646860912718291a5c1a",
+    "331b267822eaa013b4a79d92f2ac5118052a57150df9a29d7d11c531f02d23cf",
+    "0a414e1d999bcde13b5dac055194ed52527555ac577946acef75372eaad360fa",
+    "52e9e31a6d7a80a597147115b3d38065da495a41e7c11e797d0a190c9a580bcf",
+    "98d473221f50a845466544b43d6bb52b0497893aade63a8659db228459c271b4",
+    "b9e824da7bc69fa5b2f4e989a4d591d9c5196362cc985f70a9c29e6f710ea817",
+    "cd69f5dfe06d2e7afac26c7b332ea925987864cc6730f90cce020d34d823abbe",
+    "84941458c4ade946dae84cf5ebc4abf362a6f6e6fec835ba5c43ad2d3b4b14d7",
+    "5c3ca60614572a117bb7436e202cb32249c186ad8c5526b35a3556b54ff425b7",
+    "acd0ddc6715f2bccf5076dc47e6874a8ecb782dd10c0b162071f890ad96bef47",
+    "5046b4e3fa11a42090ae0cef08c4cd64a1c8761955eb711db396f7fb1634ea86",
+    "f950917f9b85f687161b1022a11c3ce31e4f6ab459af69dfea311c20893fc8a7",
+    "e0798bd394af022603f1ed7a09641de2bb414bd14a9d6a2c494980c86095ccff",
+    "7b31467fd9f391a836ecd316b258a6d5e849cb62a9a0c95573b084c1d1338ba0",
+    "e59a0dc49c291402ead91342b065bc4e9ded0043d126f73dd00ba6045aae46b7"
+  ],
+  "references": [
+    {
+      "question_id": "1a80e5dc69fb76a97c0ada049df2425c9f06de373bbb9ee5b39dbd1f12f85387",
+      "question": "From the title pages of all documents in case CA 005/2025 and case CFI 067/2025, identify whether any individual or company is named as a main party in both cases.",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "03b621728fe29eb6113fcdb57f6458d793fd2d5c5b833ae26d40f04a29c85359",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "title_page",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "52a35cfabe76f2c538c6f72a841a08e0cc85bbe8f732874a4d2827383794c213",
+      "question": "Did cases CA 004/2025 and ARB 034/2025 have any judges in common?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "title_page",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "a499c8553e73100d9ecc8ccd1164beea4b82fa6b32c519de1a37c861925076a1",
+      "question": "If a Reporting Financial Institution fails to provide specified information during an investigation, does this constitute obstruction of Inspectors under Article 17(b) of the Common Reporting Standard Law 2018?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "f2a28b01dbdda99ec2b09a7001ea72e35b94a42c14c4bc5e5206c59857770306",
+      "question": "Is there a judge who presided over both case CFI 057/2025 and case ENF 269/2023?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "title_page",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "30ab0e56ee0c43b5bf94fd9657c7f7ac24f0e7be29ced2933437f7a234713cd7",
+      "question": "Under Article 8(1) of the Operating Law 2018, is a person permitted to operate or conduct business in or from the DIFC without being incorporated, registered, or continued under a Prescribed Law or other Legislation administered by the Registrar?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "b13500141f04c86f328b49c56ba01c7bc13bce5afee9646860912718291a5c1a",
+      "question": "According to Article 7(3)(j) of the Operating Law 2018, can the Registrar delegate its functions and powers to officers or employees of the DIFCA without the approval of the Board of Directors of the DIFCA?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "331b267822eaa013b4a79d92f2ac5118052a57150df9a29d7d11c531f02d23cf",
+      "question": "What is the Date of Issue of the document in case CFI 057/2025?",
+      "answer_type": "date",
+      "answer": "2026-02-02",
+      "gold_retrieval": [
+        {
+          "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "0a414e1d999bcde13b5dac055194ed52527555ac577946acef75372eaad360fa",
+      "question": "What did the jury decide in case ENF 269/2023?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "negative",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "52e9e31a6d7a80a597147115b3d38065da495a41e7c11e797d0a190c9a580bcf",
+      "question": "What was the outcome of the specific order or application described in case SCT 295/2025?",
+      "answer_type": "free_text",
+      "answer": "The permission to appeal application was refused, and there was no order as to costs.",
+      "gold_retrieval": [
+        {
+          "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "98d473221f50a845466544b43d6bb52b0497893aade63a8659db228459c271b4",
+      "question": "When was the consolidated version of the Law on the Application of Civil and Commercial Laws in the DIFC published?",
+      "answer_type": "free_text",
+      "answer": "The consolidated version was published in November 2024.",
+      "gold_retrieval": [
+        {
+          "doc_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "b9e824da7bc69fa5b2f4e989a4d591d9c5196362cc985f70a9c29e6f710ea817",
+      "question": "According to the 'IT IS HEREBY ORDERED THAT' section of case CFI 092/2024, what was the outcome of the Defendants' application?",
+      "answer_type": "free_text",
+      "answer": "The Defendants' immediate judgment application was dismissed, and the claim will proceed to trial alongside the main issues.",
+      "gold_retrieval": [
+        {
+          "doc_id": "d32e76d495ac7d855d805fb71682b98d254520e3799aa4529ebc983212648335",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "cd69f5dfe06d2e7afac26c7b332ea925987864cc6730f90cce020d34d823abbe",
+      "question": "What is the purpose of Article 9(1) of the Foundations Law?",
+      "answer_type": "free_text",
+      "answer": "It empowers the DIFCA Board to make regulations to facilitate the administration of, or further the objects of, the Foundations Law.",
+      "gold_retrieval": [
+        {
+          "doc_id": "22442c5ee999e2519c68de908be511875a84f2b810ed540c2dcfcbcc65031434",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "84941458c4ade946dae84cf5ebc4abf362a6f6e6fec835ba5c43ad2d3b4b14d7",
+      "question": "Is there any information about parole hearings in case CFI 057/2025?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "negative",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "5c3ca60614572a117bb7436e202cb32249c186ad8c5526b35a3556b54ff425b7",
+      "question": "Which case has an earlier Date of Issue: CA 004/2025 or SCT 295/2025?",
+      "answer_type": "name",
+      "answer": "CA 004/2025",
+      "gold_retrieval": [
+        {
+          "doc_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "acd0ddc6715f2bccf5076dc47e6874a8ecb782dd10c0b162071f890ad96bef47",
+      "question": "Between SCT 295/2025 and SCT 514/2025, which document has the earlier issue date?",
+      "answer_type": "name",
+      "answer": "SCT 295/2025",
+      "gold_retrieval": [
+        {
+          "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "6306079a16b1dec85690f75c715cdbd78b0685a3e19ee30250d481bc32f2e29a",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "5046b4e3fa11a42090ae0cef08c4cd64a1c8761955eb711db396f7fb1634ea86",
+      "question": "According to page 2 of the judgment, from which specific claim number did the appeal in CA 009/2024 originate?",
+      "answer_type": "name",
+      "answer": "Claim No. ENF-316-2023/2",
+      "gold_retrieval": [
+        {
+          "doc_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "f950917f9b85f687161b1022a11c3ce31e4f6ab459af69dfea311c20893fc8a7",
+      "question": "Who are listed as the claimants in the case documents for CFI 067/2025?",
+      "answer_type": "names",
+      "answer": [
+        "COINMENA B.S.C. (C)"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "e0798bd394af022603f1ed7a09641de2bb414bd14a9d6a2c494980c86095ccff",
+      "question": "If the Relevant Authority confirms a fine or action after an appeal under Article 21(5) of the Common Reporting Standard Law 2018, how many business days does the Reporting Financial Institution have to pay the fine or perform the action?",
+      "answer_type": "number",
+      "answer": 15,
+      "gold_retrieval": [
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "7b31467fd9f391a836ecd316b258a6d5e849cb62a9a0c95573b084c1d1338ba0",
+      "question": "According to Article 9(9)(a) of the Operating Law 2018, how many months does a Licence typically have effect from its issue date by the Registrar?",
+      "answer_type": "number",
+      "answer": 12,
+      "gold_retrieval": [
+        {
+          "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "e59a0dc49c291402ead91342b065bc4e9ded0043d126f73dd00ba6045aae46b7",
+      "question": "Under Article 14(1) of the Employment Law 2019, how many days does an Employer have to provide an Employee with a written Employment Contract after the commencement of employment?",
+      "answer_type": "number",
+      "answer": 7,
+      "gold_retrieval": [
+        {
+          "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "0a414e1d999bcde13b5dac055194ed52527555ac577946acef75372eaad360fa",
+      "assistant_score": 1.0,
+      "notes": "Draft answer correctly marked the question unanswerable; full-document search found no jury information in ENF 269/2023."
+    },
+    {
+      "question_id": "52e9e31a6d7a80a597147115b3d38065da495a41e7c11e797d0a190c9a580bcf",
+      "assistant_score": 1.0,
+      "notes": "Draft answer matches the order on SCT 295/2025 page 2 and uses the minimal supporting page."
+    },
+    {
+      "question_id": "98d473221f50a845466544b43d6bb52b0497893aade63a8659db228459c271b4",
+      "assistant_score": 1.0,
+      "notes": "Draft answer exactly reflects the title-page publication date for the consolidated version."
+    },
+    {
+      "question_id": "b9e824da7bc69fa5b2f4e989a4d591d9c5196362cc985f70a9c29e6f710ea817",
+      "assistant_score": 1.0,
+      "notes": "Draft answer is substantively identical to the page-2 order dismissing the Defendants' application and sending the claim to trial."
+    },
+    {
+      "question_id": "cd69f5dfe06d2e7afac26c7b332ea925987864cc6730f90cce020d34d823abbe",
+      "assistant_score": 1.0,
+      "notes": "Draft answer accurately paraphrases Article 9(1) of the Foundations Law and stays grounded in the cited page."
+    },
+    {
+      "question_id": "84941458c4ade946dae84cf5ebc4abf362a6f6e6fec835ba5c43ad2d3b4b14d7",
+      "assistant_score": 1.0,
+      "notes": "Draft answer correctly marked the question unanswerable; full-document search found no parole-hearing information in CFI 057/2025."
+    }
+  ],
+  "findings": [
+    "Approved Q1-Q7 and Q14-Q15, Q17-Q20 after page-level audit; draft answers, metadata, and cited pages were already correct and minimal-complete.",
+    "Approved Q8 as unanswerable after a full-document search of ENF 269/2023 confirmed there is no jury information in the provided document.",
+    "Approved Q9-Q13 after checking the cited order/statute pages; retrieval remained minimal-complete, with Q13 also confirmed unanswerable by full-document search.",
+    "Corrected Q16 answer wording from `ENF-316-2023/2` to `Claim No. ENF-316-2023/2` for exactness against page 2 of CA 009/2024."
+  ],
+  "notes": []
+}

@@ -1,0 +1,511 @@
+{
+  "shard_id": "part_05",
+  "status": "reviewed",
+  "question_ids": [
+    "edb488adeb1ed19aab4163ce0f4e2f6de22b808532fc3f4f85ea89ce66a71e77",
+    "2e38bb7ea6bab8f2f8011a42522139e89a1849f625e91e4632bc93a4ed7c5907",
+    "88fa316b322107dabdbb5d642ae6296b968369e810eaf2da5759584dc560e9c0",
+    "bd861029417eaa91fb3a4b5fe64189b8c6133fc9a8d9231c1ab8537749fb58cd",
+    "d6ad26d8bc7b0c6450666032169cb2e69554283c92c216acef0ce5b8edd5d0e3",
+    "3c3f0f86fddb02a4be24f0b5373f3e6f7822b927e92f6afb4a81f1a2e200e0d4",
+    "f2366d2d2cc2a2dab585b0c6681b04fcb1af8b46422c4fbe6a9126ae56c6fe8a",
+    "fae2b9fd1b0e7e971e7d1a6895dd3975b6173b2c29730997a25f0afeb7560965",
+    "351ac9d5ea6c4748f921855d54bef86c8aa822d61cc35845140252211728e50e",
+    "748a883d7f1085718696c657aed1f86ff31f6414d8d52c415e7cd7e5c9b26d2e",
+    "93c6e68b70c3ddfebb2e1d38696611eca418f65d26dedca4c7239fe9325e5ee6",
+    "e1f33d725fd31d285e8c38588e2894cd6c583bf806d53cf816f467bc68ad55c9",
+    "15edca8603b7c32d51bc7d572eed10473d0724bd7cbae05a2459624ed33b2e46",
+    "73005962b25b58f65b6d10cb14e9937f78f55436f4288c7dc5b633f9c6a819a4",
+    "40d44b27dfc1a92be0df9d8909bdadeece97c7390798beebcbdca6fe87e88f35",
+    "7727dfb77f0432c0f09e5a4ae3a49fac3e2ffb77edaba9895df163a28aa69ba7",
+    "3eb5f98cf06655f19b9f8e9f2f7a481e154bd2827e092cf26464c54075baa97e",
+    "9031aca90cc236c2764d280babfcfcb99768ca911879d2c586497c2287a7b6f0",
+    "b08f3a764b232df08d5428bc7f7c3c8aef8e6df06bc6dff05322e9cf943ce475",
+    "da5a77a59b319d2da014c4f0720918e3b8f9724ab91bf7ef007085d4ab8982ba"
+  ],
+  "references": [
+    {
+      "question_id": "edb488adeb1ed19aab4163ce0f4e2f6de22b808532fc3f4f85ea89ce66a71e77",
+      "question": "Do both texts add a later dedicated section for definitions or interpretation rather than keeping definitions only in the opening pages?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            13
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "2e38bb7ea6bab8f2f8011a42522139e89a1849f625e91e4632bc93a4ed7c5907",
+      "question": "Did the court allow the claim?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "88fa316b322107dabdbb5d642ae6296b968369e810eaf2da5759584dc560e9c0",
+      "question": "Did the Court lift the privacy attached to these proceedings?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "bd861029417eaa91fb3a4b5fe64189b8c6133fc9a8d9231c1ab8537749fb58cd",
+      "question": "Can the Registrar refuse to register a General Partnership or any Partner without giving reasons and without court review?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "d6ad26d8bc7b0c6450666032169cb2e69554283c92c216acef0ce5b8edd5d0e3",
+      "question": "Does each Partner have to sign the partnership agreement?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "3c3f0f86fddb02a4be24f0b5373f3e6f7822b927e92f6afb4a81f1a2e200e0d4",
+      "question": "What date was the finalised judgment issued?",
+      "answer_type": "date",
+      "answer": "2025-09-16",
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "f2366d2d2cc2a2dab585b0c6681b04fcb1af8b46422c4fbe6a9126ae56c6fe8a",
+      "question": "On what date did Bond commence these proceedings?",
+      "answer_type": "date",
+      "answer": "2023-03-09",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "fae2b9fd1b0e7e971e7d1a6895dd3975b6173b2c29730997a25f0afeb7560965",
+      "question": "What arbitration institution finally resolved both disputes?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "free_text",
+        "comparative",
+        "multi_document",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "351ac9d5ea6c4748f921855d54bef86c8aa822d61cc35845140252211728e50e",
+      "question": "What must the Registrar be satisfied of before consenting to a voluntary dissolution?",
+      "answer_type": "free_text",
+      "answer": "That no outstanding liabilities, guarantees, or other legal obligations will remain after the intended dissolution.",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "748a883d7f1085718696c657aed1f86ff31f6414d8d52c415e7cd7e5c9b26d2e",
+      "question": "What is the default management rule under Article 17?",
+      "answer_type": "free_text",
+      "answer": "Every partner manages, no new partner may join without unanimous consent, ordinary matters may be decided by majority, and the business's nature cannot change without unanimous consent.",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "93c6e68b70c3ddfebb2e1d38696611eca418f65d26dedca4c7239fe9325e5ee6",
+      "question": "What information must each Reporting Financial Institution report for every Reportable Account?",
+      "answer_type": "free_text",
+      "answer": "The account holder's identifying details, account number, reporting FI name/number, year-end balance or closure, and the relevant income or proceeds amounts, with currency identified.",
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3,
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "e1f33d725fd31d285e8c38588e2894cd6c583bf806d53cf816f467bc68ad55c9",
+      "question": "What reason did the court give for dismissing TR88's liquidated damages and lost profits claims?",
+      "answer_type": "free_text",
+      "answer": "Bond was not shown to be solely responsible for the delay; the evidence pointed to concurrent delay.",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "15edca8603b7c32d51bc7d572eed10473d0724bd7cbae05a2459624ed33b2e46",
+      "question": "Who delivered the judgment?",
+      "answer_type": "name",
+      "answer": "Justice Wayne Martin",
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "73005962b25b58f65b6d10cb14e9937f78f55436f4288c7dc5b633f9c6a819a4",
+      "question": "Who administers the Law?",
+      "answer_type": "name",
+      "answer": "Registrar",
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "40d44b27dfc1a92be0df9d8909bdadeece97c7390798beebcbdca6fe87e88f35",
+      "question": "Which two parties can a Reporting Financial Institution rely on for self-certification under Section IX B?",
+      "answer_type": "names",
+      "answer": [
+        "Account Holder",
+        "Controlling Person"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "7727dfb77f0432c0f09e5a4ae3a49fac3e2ffb77edaba9895df163a28aa69ba7",
+      "question": "Which two witnesses of fact did Bond call?",
+      "answer_type": "names",
+      "answer": [
+        "Mr Ajay Kumar",
+        "Mr Mohamed Riyas"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            10,
+            11
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "3eb5f98cf06655f19b9f8e9f2f7a481e154bd2827e092cf26464c54075baa97e",
+      "question": "Within how many months after the end of the financial year must accounts be prepared and approved?",
+      "answer_type": "number",
+      "answer": 6,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "9031aca90cc236c2764d280babfcfcb99768ca911879d2c586497c2287a7b6f0",
+      "question": "What was the daily liquidated damages rate for the MEP contract?",
+      "answer_type": "number",
+      "answer": 10000,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "b08f3a764b232df08d5428bc7f7c3c8aef8e6df06bc6dff05322e9cf943ce475",
+      "question": "How many days did the Court allow for disclosure compliance?",
+      "answer_type": "number",
+      "answer": 28,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "da5a77a59b319d2da014c4f0720918e3b8f9724ab91bf7ef007085d4ab8982ba",
+      "question": "How many hours did the parties have to agree drafts of the orders?",
+      "answer_type": "number",
+      "answer": 48,
+      "gold_retrieval": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "fae2b9fd1b0e7e971e7d1a6895dd3975b6173b2c29730997a25f0afeb7560965",
+      "assistant_score": 1.0,
+      "notes": "Correct canonical no-information answer; confidence and grounding policy are fully aligned."
+    },
+    {
+      "question_id": "351ac9d5ea6c4748f921855d54bef86c8aa822d61cc35845140252211728e50e",
+      "assistant_score": 1.0,
+      "notes": "Accurately captures Article 42(2) conditions and remains concise and grounded."
+    },
+    {
+      "question_id": "748a883d7f1085718696c657aed1f86ff31f6414d8d52c415e7cd7e5c9b26d2e",
+      "assistant_score": 1.0,
+      "notes": "Covers all default management elements in Article 17 with clear wording."
+    },
+    {
+      "question_id": "93c6e68b70c3ddfebb2e1d38696611eca418f65d26dedca4c7239fe9325e5ee6",
+      "assistant_score": 1.0,
+      "notes": "Complete reporting fields summary including currency requirement; grounded in cited pages."
+    },
+    {
+      "question_id": "e1f33d725fd31d285e8c38588e2894cd6c583bf806d53cf816f467bc68ad55c9",
+      "assistant_score": 1.0,
+      "notes": "Correctly states concurrent-delay/sole-responsibility reasoning for dismissal of TR88 claims."
+    }
+  ],
+  "findings": [
+    "Approved edb488adeb1ed19aab4163ce0f4e2f6de22b808532fc3f4f85ea89ce66a71e77: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 2e38bb7ea6bab8f2f8011a42522139e89a1849f625e91e4632bc93a4ed7c5907: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 88fa316b322107dabdbb5d642ae6296b968369e810eaf2da5759584dc560e9c0: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved bd861029417eaa91fb3a4b5fe64189b8c6133fc9a8d9231c1ab8537749fb58cd: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved d6ad26d8bc7b0c6450666032169cb2e69554283c92c216acef0ce5b8edd5d0e3: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 3c3f0f86fddb02a4be24f0b5373f3e6f7822b927e92f6afb4a81f1a2e200e0d4: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved f2366d2d2cc2a2dab585b0c6681b04fcb1af8b46422c4fbe6a9126ae56c6fe8a: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved fae2b9fd1b0e7e971e7d1a6895dd3975b6173b2c29730997a25f0afeb7560965: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 351ac9d5ea6c4748f921855d54bef86c8aa822d61cc35845140252211728e50e: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 748a883d7f1085718696c657aed1f86ff31f6414d8d52c415e7cd7e5c9b26d2e: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 93c6e68b70c3ddfebb2e1d38696611eca418f65d26dedca4c7239fe9325e5ee6: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved e1f33d725fd31d285e8c38588e2894cd6c583bf806d53cf816f467bc68ad55c9: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 15edca8603b7c32d51bc7d572eed10473d0724bd7cbae05a2459624ed33b2e46: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 73005962b25b58f65b6d10cb14e9937f78f55436f4288c7dc5b633f9c6a819a4: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 40d44b27dfc1a92be0df9d8909bdadeece97c7390798beebcbdca6fe87e88f35: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Corrected 7727dfb77f0432c0f09e5a4ae3a49fac3e2ffb77edaba9895df163a28aa69ba7: expanded retrieval to pages 10 and 11 and updated tags to multi_page so both witness names are explicitly grounded.",
+    "Approved 3eb5f98cf06655f19b9f8e9f2f7a481e154bd2827e092cf26464c54075baa97e: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved 9031aca90cc236c2764d280babfcfcb99768ca911879d2c586497c2287a7b6f0: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved b08f3a764b232df08d5428bc7f7c3c8aef8e6df06bc6dff05322e9cf943ce475: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete.",
+    "Approved da5a77a59b319d2da014c4f0720918e3b8f9724ab91bf7ef007085d4ab8982ba: answer, retrieval grounding, source_type, difficulty, and tags are valid and minimal-complete."
+  ],
+  "notes": [
+    "Reviewed against corpus_4 PDFs with page-level recall/precision checks.",
+    "assistant_scores are proxy scores for reviewed free_text draft answers, using docs/evaluation/free_text_review_template.md."
+  ]
+}

@@ -1,0 +1,428 @@
+{
+  "stream_id": "personal_property_single_doc",
+  "doc_ids": [
+    "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+  ],
+  "candidates": [
+    {
+      "question": "What is the short title of the law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Article 1 short title."
+    },
+    {
+      "question": "Who made the law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Legislative authority."
+    },
+    {
+      "question": "In which jurisdiction does the law apply?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Application of the law."
+    },
+    {
+      "question": "On what exact date does the law say it comes into force?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "The law refers to an Enactment Notice, but no date is given in the document."
+    },
+    {
+      "question": "What year appears in the law citation on the cover page?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Year in citation."
+    },
+    {
+      "question": "How many Parts are listed in the contents before Schedule 1?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "notes": "Count of Parts in contents."
+    },
+    {
+      "question": "What article number sets out transfer authority?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "notes": "Transfer authority article lookup."
+    },
+    {
+      "question": "Does Article 7 make the Law apply to real property?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Real property exclusion."
+    },
+    {
+      "question": "What does Schedule 1 contain?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Interpretative content of Schedule 1."
+    },
+    {
+      "question": "What is presumed when property is transferred by way of gift?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Gift presumption."
+    },
+    {
+      "question": "At what point does title pass for unascertained property under a sale contract?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Unascertained property rule."
+    },
+    {
+      "question": "Does Article 11 make Articles 8 to 10 apply to Digital Assets?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "notes": "Digital Assets carve-out."
+    },
+    {
+      "question": "What gives control of a bearer security in physical form?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "notes": "Control rule for bearer security."
+    },
+    {
+      "question": "What does Article 19(4) require for transfer authority over registered investments?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "notes": "Registered investments transfer authority."
+    },
+    {
+      "question": "Does Article 21 say that the absence of signed writing invalidates enforcement of an investment-related record or instruction?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "No-writing rule."
+    },
+    {
+      "question": "Which rights are listed in Article 26(1)(a) for an investment entitlement holder?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "notes": "Rights attached to investment entitlement."
+    },
+    {
+      "question": "What is required for a debit or credit of an investment entitlement to be effective under Article 28(1)?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "notes": "Authorization requirements."
+    },
+    {
+      "question": "When is a conditional debit or credit effective against third parties under Article 28(3)?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "notes": "Conditional effectiveness."
+    },
+    {
+      "question": "Under Article 30(5), what does a contravention of Article 30(1) not render ineffective?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "notes": "Effect-preservation rule."
+    },
+    {
+      "question": "How are shortfalls allocated under Article 32(1)(b)?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "notes": "Shortfall allocation."
+    },
+    {
+      "question": "How many categories of property are listed in Article 12(4) as excluded from Article 12?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Count of excluded property categories."
+    },
+    {
+      "question": "Does the Law provide a specimen form for transfer instructions?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            2,
+            17
+          ]
+        }
+      ],
+      "notes": "No specimen form is provided."
+    }
+  ]
+}

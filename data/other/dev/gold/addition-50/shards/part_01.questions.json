@@ -1,0 +1,52 @@
+[
+  {
+    "id": "102e2fcc4d0ee868876f4b0221cdad9aef8d5d4bacc85cf873c8baaee1ad3f76",
+    "question": "Were there any changes to the judges presiding over case ENF 269/2023 across its various stages?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "e7169d1f4f87839931d9d134ae6eea4db07aaf4b8b19bcf378c859a67b0a5689",
+    "question": "Is there any main party that appeared in both cases SCT 452/2024 and SCT 475/2024 at any point?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "18f5f5e97efe56943d6d2ac09f2233ec1cd1bf99c4f58ea40f51cc0429727a3a",
+    "question": "When was the SCT document in case SCT 475/2024 issued?",
+    "answer_type": "date"
+  },
+  {
+    "id": "e1f14d72545e14a9a1f1d5043c62c325165cc7450fd13737b6d5a34fcaeb6534",
+    "question": "What is the Date of Issue of the document in SCT case SCT 011/2025?",
+    "answer_type": "date"
+  },
+  {
+    "id": "4b10fe12a17e5111597030142b5a31eec167f614572f7dde63b1b63516f2e32f",
+    "question": "According to DIFC Courts Order No. 2 of 2016, who issued DIFC Courts Order No. 2 of 2007 establishing the SCT?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "b5039c091ebecda3215d34bbb3bb3c81b68bc4a945287daa613454d4c3caeaec",
+    "question": "In ENF 084-2023 ENF 085-2023 Jtrust Asia PTE. LTD v (1) Mitsuji Konoshita (2) A.P.F. Group CO., LTD (in Receivership), what was ordered about the Worldwide Freezing Order following the hearing on 25 April 2023?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "86b8589193b68dac71158e2daa4036fa0a44a2ec7e4218226d4a06b9fc2fcb67",
+    "question": "Which case has an earlier Date of Issue: CA 013/2024 or CA 016/2024?",
+    "answer_type": "name"
+  },
+  {
+    "id": "15eca7d5e170857c76cdc4152cc83676e0964f628673dcc46f9f284af3dedaac",
+    "question": "Which party opposed recognition of the arbitral award in case ARB 024/2025?",
+    "answer_type": "names"
+  },
+  {
+    "id": "c0aa03bf4e814edcb3ee1ef69cbbc76331bea018206d18dd9153acb3e4a9b0c9",
+    "question": "Who were the claimants in case CFI 058/2024?",
+    "answer_type": "names"
+  },
+  {
+    "id": "7b2a758e1cf397922102a07636d9e4721c755af2f15773389b305e132c1bb466",
+    "question": "How much money in AED did the claimant request in case TCD 001/2023?",
+    "answer_type": "number"
+  }
+]

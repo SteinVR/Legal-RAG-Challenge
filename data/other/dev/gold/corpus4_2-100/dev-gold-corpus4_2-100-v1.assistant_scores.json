@@ -1,0 +1,137 @@
+[
+  {
+    "question_id": "032a28b5d4cd019aa36d01af8b59c27e3037afd8d5714685db720fdb44866e3a",
+    "assistant_score": 1.0,
+    "notes": "Correct, complete, directly grounded in Regulation 1.2.1."
+  },
+  {
+    "question_id": "8639fcc8d3f5c9a1c7b22b5f7c3e6bdc9546b49cc2e173c5ef1e1d6a885fa27b",
+    "assistant_score": 1.0,
+    "notes": "Correctly enumerates accepted delivery methods from Regulation 2.9.1."
+  },
+  {
+    "question_id": "7c8841ea0b699fdaa9af7136dc997f9e56b4e8f6e0979ad41882760bada76e8a",
+    "assistant_score": 1.0,
+    "notes": "Both required conditions are included with no extraneous content."
+  },
+  {
+    "question_id": "c5c7eddacc461ebbf67e6b1dff474512ccdf8bd1ef8ddf88a305fd961330b26e",
+    "assistant_score": 1.0,
+    "notes": "Covers all Regulation 2.4.1 refusal grounds precisely."
+  },
+  {
+    "question_id": "c7ce52531a9e0bd11b0bedd68fcd53c6fae058739a0e8e074ff2ad11b98001e7",
+    "assistant_score": 0.99,
+    "notes": "Faithful summary of Regulation 2.6.2 elements."
+  },
+  {
+    "question_id": "243ed6a090495e284bcda7a53945555ee35c8e9c14a27ac3fcf993fdac482fbf",
+    "assistant_score": 1.0,
+    "notes": "Accurate and complete list of required review materials; fully grounded in Regulation 2.7.3."
+  },
+  {
+    "question_id": "df1e3124c44330d699ce9a1c01d670a0691158455b57156a948ce044980dbf44",
+    "assistant_score": 1.0,
+    "notes": "Canonical no-information response; regulations do not provide an email address."
+  },
+  {
+    "question_id": "5bd325194d5ca5221d747ce8164e66135252b591e975a5cec7313ccf8e84d4c6",
+    "assistant_score": 0.99,
+    "notes": "Accurate summary of Article 6(a)-(b)."
+  },
+  {
+    "question_id": "bf7e0ebf84229c956c1154a4d1386ed4b887fc9fc8191ef518ece6c115d182db",
+    "assistant_score": 0.98,
+    "notes": "Correct presumption and exception."
+  },
+  {
+    "question_id": "441c5056004870aface17e51e9325b7f307ea0eeb84236cc5cf2810c5ad903ce",
+    "assistant_score": 1.0,
+    "notes": "Exact legal rule from Article 10(3), concise and fully relevant."
+  },
+  {
+    "question_id": "8a221a3c76e2fb8291561a9c44e0157c7687725cee0c5f4f47f6ff95ee60a2c1",
+    "assistant_score": 0.97,
+    "notes": "Correct control rule; wording remains faithful."
+  },
+  {
+    "question_id": "9b979082c31ae4ad36f857eab9a6e3dbc1404128e7467f6ebc52687ba6e4bfc1",
+    "assistant_score": 1.0,
+    "notes": "Accurately captures Article 19(4) transfer-authority requirement."
+  },
+  {
+    "question_id": "6910955670e693e7ffae4e88e5fec443919d480da5d4bca8ce95cb78fa1f809e",
+    "assistant_score": 1.0,
+    "notes": "Accurate and complete restatement of Article 28(1)."
+  },
+  {
+    "question_id": "f7a6ffc10f783b13fa087ae80b5dabe418073e561aee101eafd5de26449ea182",
+    "assistant_score": 1.0,
+    "notes": "Faithful to Article 28(3): effectiveness only upon condition satisfaction."
+  },
+  {
+    "question_id": "03232ae6d4fe7269105a2336ab3bfc7dfde0f76ca22e244ff45b9f0e78e6cfa5",
+    "assistant_score": 0.99,
+    "notes": "Accurate and concise paraphrase of Article 30(5)."
+  },
+  {
+    "question_id": "d1c051e58ef45da6f83864b6b42d957e2abb7820286741bc3adcd12a23739c2e",
+    "assistant_score": 1.0,
+    "notes": "Correct proportional-allocation rule from Article 32(1)(b)."
+  },
+  {
+    "question_id": "d2f30df27ace35075ae30e9ca7e218af10e0528f652de387b52218c1b01655ba",
+    "assistant_score": 1.0,
+    "notes": "Canonical no-information response with correct empty retrieval."
+  },
+  {
+    "question_id": "b1eb96688844a90f3e9e8ff9ef992d06eae3a6766d9259e961608e561403def6",
+    "assistant_score": 1.0,
+    "notes": "Captures both RDC stages with faithful wording and proper scope."
+  },
+  {
+    "question_id": "dabdf43e53a0a297bae73c481901a2f9fcbd867c7577d72aa09338d0761043cb",
+    "assistant_score": 0.96,
+    "notes": "Captures principal error categories from pages 10-11."
+  },
+  {
+    "question_id": "727ed847a54a912ceb448a9b5b5345aae2212f63d62c4ddcb27dd91ac229fe1c",
+    "assistant_score": 0.97,
+    "notes": "Correct legal effect; no unsupported additions."
+  },
+  {
+    "question_id": "935cc72350cfbef1697985a255d86275b34bb3172922e19a0674a45113ddb75b",
+    "assistant_score": 0.96,
+    "notes": "Substantively complete remittal directions with minor compression."
+  },
+  {
+    "question_id": "8c7ee96a3a68a7d179f010352164772535c8917bdd189cd53b7998aebcf18a61",
+    "assistant_score": 1.0,
+    "notes": "Canonical no-information response; no such bank details are provided."
+  },
+  {
+    "question_id": "2a24c361f42ce5dbbdf845c2e0dbca07e21dc7ef636d2f3ace153c3ff1cb230e",
+    "assistant_score": 0.98,
+    "notes": "Fully grounded; complete and concise."
+  },
+  {
+    "question_id": "46caff4454d75ab3dff337a094a5981ad4d157c063c929d69e9eb9d3c0c745e0",
+    "assistant_score": 1.0,
+    "notes": "Matches RDC 44.19 threshold language exactly and remains concise."
+  },
+  {
+    "question_id": "e974af078d9afe2e3c178bfa8f3b615961100855d9ab234f2d94e833daabe2cb",
+    "assistant_score": 0.97,
+    "notes": "Correct reason split: compelling reason for Ground 1, no real prospect for others."
+  },
+  {
+    "question_id": "3f938060b3d2c9c018be2534c1afcddf008f34464edac7758eadfb4bed6ec86c",
+    "assistant_score": 0.97,
+    "notes": "Captures both the broad factual context and judicial-officer ambit principle."
+  },
+  {
+    "question_id": "3c84afca53855c8e3c01290d3db66dfe8c62db128f6250b1331391dbe92108b0",
+    "assistant_score": 1.0,
+    "notes": "Canonical no-information response; correct and grounded by absence."
+  }
+]

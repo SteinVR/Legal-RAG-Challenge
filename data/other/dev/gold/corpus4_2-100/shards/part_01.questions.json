@@ -1,0 +1,102 @@
+[
+  {
+    "id": "3b53c596ac65a7f42ca61f840494935fb044110a32c8f602944ca9d7dd9503e0",
+    "question": "Do both the Security Regulations and the Personal Property Law permit legal effect without requiring a paper document or ordinary signed writing, provided specified conditions are met?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "b07df9652665758ea5f91f66a4e2e4ac90bb7ac05797ea42a680450909f62e30",
+    "question": "Did both cases grant all parties or applicants the full interim relief they sought pending appeal?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "283affa0bd68750fa8f5d17eaa8a9a4247ed437345b8e367b1768701c4be0bee",
+    "question": "Does Article 21 say that the absence of signed writing invalidates enforcement of an investment-related record or instruction?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "7bee2a70fcd7ecdd169ca34c3bc71d3950404ac3d54bc5b9442114b228b914fb",
+    "question": "Does only one of the two statutes contain approved forms and fee appendices, rather than an interpretative schedule?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "df17a83bb0663799bccc22951e3e02268384afa2b5609a96142e73a3179d4c51",
+    "question": "Did the Court reject the idea that the mere existence of a litigation funder automatically justified a reduced security figure?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "b0f6405c390a8f558e833465e10a2993b1c6b9a4e3b7bab48f146600c6e3fb0c",
+    "question": "On what date did the Defendant file its acknowledgement of service?",
+    "answer_type": "date"
+  },
+  {
+    "id": "032a28b5d4cd019aa36d01af8b59c27e3037afd8d5714685db720fdb44866e3a",
+    "question": "Under Regulation 1.2.1, what does \"in writing\" mean?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "441c5056004870aface17e51e9325b7f307ea0eeb84236cc5cf2810c5ad903ce",
+    "question": "At what point does title pass for unascertained property under a sale contract?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "7c8841ea0b699fdaa9af7136dc997f9e56b4e8f6e0979ad41882760bada76e8a",
+    "question": "What two conditions must be met for a requested search delivery mode other than ordinary mail to be honored?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "9b979082c31ae4ad36f857eab9a6e3dbc1404128e7467f6ebc52687ba6e4bfc1",
+    "question": "What does Article 19(4) require for transfer authority over registered investments?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "d1c051e58ef45da6f83864b6b42d957e2abb7820286741bc3adcd12a23739c2e",
+    "question": "How are shortfalls allocated under Article 32(1)(b)?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "f7a6ffc10f783b13fa087ae80b5dabe418073e561aee101eafd5de26449ea182",
+    "question": "When is a conditional debit or credit effective against third parties under Article 28(3)?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "3e39043cd72b7a231a8033c96e736f0599bfdf61a7b9b875fd54e10fdb87ad65",
+    "question": "What is the defined name of the law referenced as \"Law\" in the definitions table?",
+    "answer_type": "name"
+  },
+  {
+    "id": "824ab970e65de2136ccf5bbcb7f7bb24f7432c44e7eaf0a7fadda0d88f8c04a3",
+    "question": "Which statute expressly says that a later change of circumstances does not make an effective endorsement or instruction ineffective?",
+    "answer_type": "name"
+  },
+  {
+    "id": "bc4adffe780b96c330ba0d3525de0ba4fbb59d0b6ddcf7162db9dee906527d84",
+    "question": "Who made the law?",
+    "answer_type": "name"
+  },
+  {
+    "id": "6055646150c020471cdebfec33811affcb68177dec15d417a38b64b61bb1dccf",
+    "question": "Which rights are listed in Article 26(1)(a) for an investment entitlement holder?",
+    "answer_type": "names"
+  },
+  {
+    "id": "e696184d7a15770f1d74731eeca0c6537b7237d51402c52f4967bab4f7639127",
+    "question": "Which three judges sat on the Court of Appeal panel?",
+    "answer_type": "names"
+  },
+  {
+    "id": "3028443cccb5e44e39809b29fed95fa364e635e7500f24976962b234eb650ac8",
+    "question": "What year appears in the law citation on the cover page?",
+    "answer_type": "number"
+  },
+  {
+    "id": "7e488abe3074d1264c1a560e49dd1bf3a8fdd3adf931943dfa4177e1ec398b83",
+    "question": "What is the fee to add or delete a single party on Form 5?",
+    "answer_type": "number"
+  },
+  {
+    "id": "c6a0218850ba25dd3673704f422ec446904286e1a1c151ed1ae771d8de67e123",
+    "question": "How many approved forms are promulgated in Regulation 2.3.1?",
+    "answer_type": "number"
+  }
+]

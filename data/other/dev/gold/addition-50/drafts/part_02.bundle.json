@@ -1,0 +1,254 @@
+{
+  "shard_id": "part_02",
+  "status": "draft",
+  "question_ids": [
+    "35d6c2d2ed8aa9d373ec75650e685edc1381a3a0996eda368170ace230ee6298",
+    "16c1417ba538c9c965a7e7432ab8cdbb04e3ac568e79de2b0df54c96864ecdeb",
+    "33c3a86de7d817032909a56c57c6f6e041bf4153c047a5cb109de474db6b10d4",
+    "091a852745cd16d88bb6ad216b95cd2331ef2beeb14066112dea71a6f100dcf3",
+    "75608e37f4696ea1353c4f0185cd3818bbd40c008673b9865db5e7ea15002489",
+    "dfe6a0d3b8f948e4a84162d42a56482c340c4f41cd88bc11df56e04095f47479",
+    "d246b978c7e9b7365898182cdea0626268501da4de5a1f2eeffd3e14cae4a956",
+    "c8ebc3976c9802b6905d2e5b43546eafc42f1129d4a300244f82d5fd4e7cb351",
+    "99b94d7895b73981962f2201fd84dd178b69111c7bd598d7148ff41b88dfce7c",
+    "5ea25e54d2ef988aa3504bd4b1b9f57c04e9cf37a73cc207c150162e262a9e86"
+  ],
+  "references": [
+    {
+      "question_id": "35d6c2d2ed8aa9d373ec75650e685edc1381a3a0996eda368170ace230ee6298",
+      "question": "Do cases CA 013/2024 and CFI 092/2024 involve any of the same legal entities or individuals as main parties at any point?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "dbe11c5a8dedb41beb61f9ceb04121b49b037741af11efc934962fa1b4a5f2c2",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "d32e76d495ac7d855d805fb71682b98d254520e3799aa4529ebc983212648335",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "entity_overlap",
+        "negative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "16c1417ba538c9c965a7e7432ab8cdbb04e3ac568e79de2b0df54c96864ecdeb",
+      "question": "Under Article 15 of the Law of the Dubai International Financial Centre No. (9) of 2004, can companies incorporated within the Centre be fully owned by persons or entities that are not nationals of or domiciled in the UAE?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "330c4f93e8097a653beb1c1028035943e18fb7475cdf59d01164a8887c7fedb3",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "33c3a86de7d817032909a56c57c6f6e041bf4153c047a5cb109de474db6b10d4",
+      "question": "On what date did the DIFC court issue its enforcement document in case ENF 084/2023 ENF 085/2023?",
+      "answer_type": "date",
+      "answer": "2023-04-27",
+      "gold_retrieval": [
+        {
+          "doc_id": "18d5d0320cded1a097fa66202ff2a80dd38e6ab818dfefffea614cd389632dad",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "091a852745cd16d88bb6ad216b95cd2331ef2beeb14066112dea71a6f100dcf3",
+      "question": "How does the General Partnership Regulations define \"Approved Person\"?",
+      "answer_type": "free_text",
+      "answer": "Approved Person means a person authorised to accept service of any document or notice on behalf of the Recognised Partnership under Article 13(2)(b) of the Law.",
+      "gold_retrieval": [
+        {
+          "doc_id": "7a852920f26de500808a071c4c3e125a1a4a079649aee58edc5f96c2e158a9f1",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "75608e37f4696ea1353c4f0185cd3818bbd40c008673b9865db5e7ea15002489",
+      "question": "In Oleta v Onesimo [2024] DIFC SCT 454, what new claims did the Defendant raise in its Notice of Appeal that were ruled impermissible?",
+      "answer_type": "free_text",
+      "answer": "The Defendant newly raised claims for failure to fulfil the three-month notice period and for visa cost recovery under Articles 57(2) and 63 of the DIFC Employment Law.",
+      "gold_retrieval": [
+        {
+          "doc_id": "f4c4d051d514270964adcf58e124569e396602340b7d9172671759de10a95897",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "dfe6a0d3b8f948e4a84162d42a56482c340c4f41cd88bc11df56e04095f47479",
+      "question": "Under Article 8 of the Law of the Dubai International Financial Centre No. (9) of 2004, which courts have jurisdiction over crimes committed within the Centre?",
+      "answer_type": "free_text",
+      "answer": "Article 8 provides that the Courts of the Emirate have jurisdiction on crimes committed within the Centre.",
+      "gold_retrieval": [
+        {
+          "doc_id": "330c4f93e8097a653beb1c1028035943e18fb7475cdf59d01164a8887c7fedb3",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "d246b978c7e9b7365898182cdea0626268501da4de5a1f2eeffd3e14cae4a956",
+      "question": "Which case had a higher claim amount: SCT 160/2025 or SCT 415/2024?",
+      "answer_type": "name",
+      "answer": "SCT 415/2024",
+      "gold_retrieval": [
+        {
+          "doc_id": "e4741149b9a44c7cd24286313a2c89e92923b8e99786d4b02107f093aa8293c2",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "e9a32d22eb9bac59756c1fe25e6d5ffd09d75582efcbe191fe8f078145cc08a5",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "c8ebc3976c9802b6905d2e5b43546eafc42f1129d4a300244f82d5fd4e7cb351",
+      "question": "What area of law is covered by the consultation paper \"PROPOSED NEW INTELLECTUAL PROPERTY LAW\"?",
+      "answer_type": "name",
+      "answer": "Intellectual Property Law",
+      "gold_retrieval": [
+        {
+          "doc_id": "8135757fe11e278d356c3db494b2baab34e9682bd296683021f5162eef1065f9",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "99b94d7895b73981962f2201fd84dd178b69111c7bd598d7148ff41b88dfce7c",
+      "question": "Who were the defendants in the proceedings for case SCT 459/2024?",
+      "answer_type": "names",
+      "answer": [
+        "NAZLI"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "ea81bf0f8c1d423dd61e6d2901ca7872209185eb8e25e05a672148a9fb3e635e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "5ea25e54d2ef988aa3504bd4b1b9f57c04e9cf37a73cc207c150162e262a9e86",
+      "question": "What is the total number of distinct defendants in case SCT 042/2025?",
+      "answer_type": "number",
+      "answer": 1,
+      "gold_retrieval": [
+        {
+          "doc_id": "4e30baac0c5eb8273894d8f7e17d4066356c92eb15eedcc802abf45cf942da43",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    }
+  ],
+  "assistant_scores": [],
+  "findings": [],
+  "notes": []
+}

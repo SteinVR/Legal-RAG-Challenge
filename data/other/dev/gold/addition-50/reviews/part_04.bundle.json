@@ -1,0 +1,299 @@
+{
+  "shard_id": "part_04",
+  "status": "reviewed",
+  "question_ids": [
+    "86edfe12264d560fc9f06558927b434971a19d2c8d42da4961d6da20fef0fc3c",
+    "a7ee08f4f2024646a1a1cda135a055b97679867ac7d581c035e5ff5989d191a4",
+    "86d55f9cfecdbce40e863bdfd2a53ebf1d334988fbd589e30a71430e53be2d4f",
+    "1b86fc83e8c9948d3f233e22a320006233ac469918d13e4cc7121dffd092aadf",
+    "8d481702ddfb40310a070ac44f4a2e9637043f453afa0319cd83d20fd8ec607e",
+    "f7c313985b48f3a8ec809668642a847275d655c34ede8b1cac9ae37d4571789d",
+    "1873b6629582bf1ce1b530a2fb75f36899852388ec33d9ebc5c8ca7d4c5ceabc",
+    "43782a430ea33b468e866b088905fe69e331da8ab8df4e520eac85eba5ed0833",
+    "a44ebf4b70ac84c99d244ec616d12484f7e55f11683ce16e3262886e4e2b181f",
+    "a6ff728d3aa449518b55fed1d54885ac76888b15867344c6568d1ff107ca096e"
+  ],
+  "references": [
+    {
+      "question_id": "86edfe12264d560fc9f06558927b434971a19d2c8d42da4961d6da20fef0fc3c",
+      "question": "Is there any main party common to both case SCT 160/2025 and case SCT 475/2024 at any point?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "e4741149b9a44c7cd24286313a2c89e92923b8e99786d4b02107f093aa8293c2",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "78461539a8b7238c314b7dd56483e1682c5e1ce7f3cf8fc6947e22c0ac5d0d18",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "entity_overlap",
+        "negative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "a7ee08f4f2024646a1a1cda135a055b97679867ac7d581c035e5ff5989d191a4",
+      "question": "Based on the full case files for ARB 034/2025 and ENF-022-2023; ENF-023-2023; CFI-046-2023, was there any judge involved in both?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "29c70158f1764b519bf8a27cc9dfa96851a6fecf25116059e658c570f39b7492",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "negative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "86d55f9cfecdbce40e863bdfd2a53ebf1d334988fbd589e30a71430e53be2d4f",
+      "question": "When was the court document in case CFI 084/2024 issued?",
+      "answer_type": "date",
+      "answer": "2026-02-12",
+      "gold_retrieval": [
+        {
+          "doc_id": "1fbae05f38185db6113ecb323f836cd8c5d188037921f5c5c5b7e0a812d9aa14",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "1b86fc83e8c9948d3f233e22a320006233ac469918d13e4cc7121dffd092aadf",
+      "question": "What does the \"2. Commencement\" part of the LEASING REGULATIONS cover?",
+      "answer_type": "free_text",
+      "answer": "It states that the Leasing Regulations commence on the date of their issuance.",
+      "gold_retrieval": [
+        {
+          "doc_id": "02ec30ff6c98fa3adccd3834d73d76a2ae11dab91f2b4ea3501ff24db27436cc",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "8d481702ddfb40310a070ac44f4a2e9637043f453afa0319cd83d20fd8ec607e",
+      "question": "What is the prescribed penalty for an offense against the Strata Title Law under the Strata Title Regulations, and what is the penalty for using leased premises for an illegal purpose under the Leasing Regulations?",
+      "answer_type": "free_text",
+      "answer": "Under the Strata Title Regulations, the penalty for an offence against the Strata Title Law is USD 1,000; under the Leasing Regulations, using leased premises for an illegal purpose carries a USD 10,000 penalty.",
+      "gold_retrieval": [
+        {
+          "doc_id": "b486db089615010a9b45bc71411b5a238a0a0b9aaf074d875f98f5b934f75079",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "02ec30ff6c98fa3adccd3834d73d76a2ae11dab91f2b4ea3501ff24db27436cc",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "table_lookup"
+      ]
+    },
+    {
+      "question_id": "f7c313985b48f3a8ec809668642a847275d655c34ede8b1cac9ae37d4571789d",
+      "question": "Who should read Consultation Paper No. 2 of 2025?",
+      "answer_type": "free_text",
+      "answer": "It is for persons conducting or proposing to conduct business in the DIFC, especially family offices, family members and investment officers, private equity funds and investment managers, registered persons, legal advisers, corporate service providers, and other stakeholders.",
+      "gold_retrieval": [
+        {
+          "doc_id": "4065b840f805f5dd59314e787d41c9e539faaa347821cf45ea1aec728faf4de4",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "1873b6629582bf1ce1b530a2fb75f36899852388ec33d9ebc5c8ca7d4c5ceabc",
+      "question": "Which case was issued earlier by the Court of First Instance: CFI 055/2020 or CFI 092/2024?",
+      "answer_type": "name",
+      "answer": "CFI 092/2024",
+      "gold_retrieval": [
+        {
+          "doc_id": "b02055aab210dceb055711108f8d4b8a75e8b3c935efe5cab3291ac9a07abada",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "d32e76d495ac7d855d805fb71682b98d254520e3799aa4529ebc983212648335",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "43782a430ea33b468e866b088905fe69e331da8ab8df4e520eac85eba5ed0833",
+      "question": "Provide a list of all defendants mentioned in the case documents for CFI 084/2024.",
+      "answer_type": "names",
+      "answer": [
+        "LANGUR HOLDING CORPORATION S.L"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "1fbae05f38185db6113ecb323f836cd8c5d188037921f5c5c5b7e0a812d9aa14",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "a44ebf4b70ac84c99d244ec616d12484f7e55f11683ce16e3262886e4e2b181f",
+      "question": "What is the fine under the Common Reporting Standard Law DIFC Law No. 2 of 2018 for a Reporting Financial Institution that fails to keep records of the due diligence procedures performed under the Regulations or fails to keep them for six years, as required by Article 12(3) and 12(4) (in USD)?",
+      "answer_type": "number",
+      "answer": 2800,
+      "gold_retrieval": [
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            7
+          ]
+        },
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page",
+        "table_lookup"
+      ]
+    },
+    {
+      "question_id": "a6ff728d3aa449518b55fed1d54885ac76888b15867344c6568d1ff107ca096e",
+      "question": "Under the Limited Partnership Law DIFC Law No. 4 of 2006, what is the maximum fine for failure of a Limited Partnership to keep Accounting Records open to inspection as required under Article 17(2)(c) (in USD)?",
+      "answer_type": "number",
+      "answer": 1000,
+      "gold_retrieval": [
+        {
+          "doc_id": "709720c8dbdec5b25dee24c384f0cae7d2b94e3704c44f57c5a98ddf87b94f54",
+          "page_numbers": [
+            27
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "table_lookup"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "1b86fc83e8c9948d3f233e22a320006233ac469918d13e4cc7121dffd092aadf",
+      "assistant_score": 1.0,
+      "notes": "Draft answer is correct, concise, and fully grounded in Regulation 2 (Commencement)."
+    },
+    {
+      "question_id": "8d481702ddfb40310a070ac44f4a2e9637043f453afa0319cd83d20fd8ec607e",
+      "assistant_score": 1.0,
+      "notes": "Draft answer correctly states both penalties and is fully supported by the cited Strata and Leasing provisions."
+    },
+    {
+      "question_id": "f7c313985b48f3a8ec809668642a847275d655c34ede8b1cac9ae37d4571789d",
+      "assistant_score": 1.0,
+      "notes": "Draft answer accurately captures the target audience listed in the consultation paper and remains grounded in the cited page."
+    }
+  ],
+  "findings": [
+    "Approved Q86edfe12264d560fc9f06558927b434971a19d2c8d42da4961d6da20fef0fc3c, Qa7ee08f4f2024646a1a1cda135a055b97679867ac7d581c035e5ff5989d191a4, Q86d55f9cfecdbce40e863bdfd2a53ebf1d334988fbd589e30a71430e53be2d4f, Q1b86fc83e8c9948d3f233e22a320006233ac469918d13e4cc7121dffd092aadf, Q8d481702ddfb40310a070ac44f4a2e9637043f453afa0319cd83d20fd8ec607e, Qf7c313985b48f3a8ec809668642a847275d655c34ede8b1cac9ae37d4571789d, Q43782a430ea33b468e866b088905fe69e331da8ab8df4e520eac85eba5ed0833, and Qa44ebf4b70ac84c99d244ec616d12484f7e55f11683ce16e3262886e4e2b181f as drafted after page-level verification.",
+    "Q1873b6629582bf1ce1b530a2fb75f36899852388ec33d9ebc5c8ca7d4c5ceabc retained answer CFI 092/2024, but gold_retrieval was corrected from title pages to the explicit Date of issue pages (page 2 in both case files); title_page was removed and multi_page was added.",
+    "Qa6ff728d3aa449518b55fed1d54885ac76888b15867344c6568d1ff107ca096e retained answer 1000, but gold_retrieval was pruned from pages [7, 27] to Schedule 2 page [27] only and tags were corrected from multi_page to single_page.",
+    "All three free_text draft answers were scored 1.0 against the reviewed references because they are correct, complete, grounded, and clearly stated."
+  ],
+  "notes": [
+    "assistant_scores were assigned against the annotator draft free_text answers using docs/evaluation/free_text_review_template.md."
+  ]
+}

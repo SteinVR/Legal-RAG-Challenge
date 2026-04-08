@@ -1,0 +1,517 @@
+{
+  "shard_id": "part_03",
+  "status": "reviewed",
+  "question_ids": [
+    "882013e6994b71fa9e23e343c61fc6476a3a387cb3161fa042394a95dace4e94",
+    "17bfa386a1f22d295d3ee717aae19a749af280616a875eade14b102a23dd9244",
+    "68747d99590804fb4ee222ed72dea34ad4e25db553fc8005c357efa83e76cfb8",
+    "a8100f000a2ffa3d3bf051c6dafdc187f35ed3b5fcdb35a5bdc6de7689d48661",
+    "637d3839de0a65f8c354724a8d07d581018408262e6de311b30b981aa28cbb66",
+    "c8bd14fd89c211485a2181de90704867a936e5c094247bf7fed909e6db36528f",
+    "2a24c361f42ce5dbbdf845c2e0dbca07e21dc7ef636d2f3ace153c3ff1cb230e",
+    "5bd325194d5ca5221d747ce8164e66135252b591e975a5cec7313ccf8e84d4c6",
+    "8a221a3c76e2fb8291561a9c44e0157c7687725cee0c5f4f47f6ff95ee60a2c1",
+    "bf7e0ebf84229c956c1154a4d1386ed4b887fc9fc8191ef518ece6c115d182db",
+    "dabdf43e53a0a297bae73c481901a2f9fcbd867c7577d72aa09338d0761043cb",
+    "2d3208fa8785e8cca62f274df4fc994103155c2dba337400bd32bfd8c107f315",
+    "5d3bc2d1766c6774622ab7606484d86a0ee02d3c7c189811b4bcfceae8b3d5b6",
+    "ab613bfda1fe56340fafa1adda8f9d70a5bda4aed58fd521d5069c74c8c0f8da",
+    "33077cafec056dc1eaadb102da3cf0bc37f8c0a0ae0b73ec061c1c7cd4d1a71a",
+    "d63e5750f2544b559c35dc02254d69ecb973d641ca96f0ed83e005e80e711ea0",
+    "08134e30a29f5814c5c0a9e72a79a4155924caa8d4ff9165d7a12811af332f53",
+    "619cc2728e3e6e8f82ca91daf5ced51ba251c67e0d3c0a90f2ce1450fefd7de5",
+    "a9baaf3300d9bb364445af12c8d62805595599753ec2b1c947916b531bcbba75",
+    "e0ba7275a0c7a10725681d4c15c6c5045e5b3ac9f76d168d5568084bddbc5759"
+  ],
+  "references": [
+    {
+      "question_id": "882013e6994b71fa9e23e343c61fc6476a3a387cb3161fa042394a95dace4e94",
+      "question": "Did both courts conclude that the lower decision involved multiple errors of principle warranting appellate interference?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            10,
+            11
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            18,
+            19
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "17bfa386a1f22d295d3ee717aae19a749af280616a875eade14b102a23dd9244",
+      "question": "Does only one of the two statutes contain a substantive Digital Assets carve-out, while the other addresses only the medium of communication?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            7
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "68747d99590804fb4ee222ed72dea34ad4e25db553fc8005c357efa83e76cfb8",
+      "question": "Did the First Applicant obtain permission to appeal on all three proposed grounds?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            19
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "a8100f000a2ffa3d3bf051c6dafdc187f35ed3b5fcdb35a5bdc6de7689d48661",
+      "question": "Do these Regulations apply to any person to whom the Law applies?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "637d3839de0a65f8c354724a8d07d581018408262e6de311b30b981aa28cbb66",
+      "question": "On what date did Consolidated Version No. 2 of the Securities Regulations come into force?",
+      "answer_type": "date",
+      "answer": "2024-03-08",
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "c8bd14fd89c211485a2181de90704867a936e5c094247bf7fed909e6db36528f",
+      "question": "On what date was the Order with Reasons issued?",
+      "answer_type": "date",
+      "answer": "2025-07-01",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "2a24c361f42ce5dbbdf845c2e0dbca07e21dc7ef636d2f3ace153c3ff1cb230e",
+      "question": "According to Mr Olivier, when was Mr Ori the General Manager of Obadiah, and who replaced him?",
+      "answer_type": "free_text",
+      "answer": "He said Mr Ori was General Manager from March 2018 to March 2020, and that Mr Ozias replaced him.",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "5bd325194d5ca5221d747ce8164e66135252b591e975a5cec7313ccf8e84d4c6",
+      "question": "What does Schedule 1 contain?",
+      "answer_type": "free_text",
+      "answer": "It contains interpretative provisions that apply to the Law and a list of defined terms used in the Law.",
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "8a221a3c76e2fb8291561a9c44e0157c7687725cee0c5f4f47f6ff95ee60a2c1",
+      "question": "What gives control of a bearer security in physical form?",
+      "answer_type": "free_text",
+      "answer": "Control is obtained when the physical form of the bearer security is delivered to the person and retained in that person's possession.",
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "bf7e0ebf84229c956c1154a4d1386ed4b887fc9fc8191ef518ece6c115d182db",
+      "question": "What is presumed when property is transferred by way of gift?",
+      "answer_type": "free_text",
+      "answer": "It is presumed that the parties intended title to transfer to the transferee unless a contrary intention is proved.",
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "dabdf43e53a0a297bae73c481901a2f9fcbd867c7577d72aa09338d0761043cb",
+      "question": "What were the main errors the Court identified in limiting security to the strike-out stage?",
+      "answer_type": "free_text",
+      "answer": "The Court found no evidence that higher security would stifle the claim, reliance on speculative/irrelevant factors, automatic discounting for funding, failure to assess prejudice to the Defendant, and arbitrary quantum methodology.",
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            10,
+            11
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "2d3208fa8785e8cca62f274df4fc994103155c2dba337400bd32bfd8c107f315",
+      "question": "What is the case number of the decision?",
+      "answer_type": "name",
+      "answer": "ENF 269/2023",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "5d3bc2d1766c6774622ab7606484d86a0ee02d3c7c189811b4bcfceae8b3d5b6",
+      "question": "Who is the Judgment Creditor?",
+      "answer_type": "name",
+      "answer": "Oaklen",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "ab613bfda1fe56340fafa1adda8f9d70a5bda4aed58fd521d5069c74c8c0f8da",
+      "question": "What was the name of the agreement under which the Claimant provided marketing and branding services?",
+      "answer_type": "name",
+      "answer": "10-year Partnership and Services Agreement",
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "33077cafec056dc1eaadb102da3cf0bc37f8c0a0ae0b73ec061c1c7cd4d1a71a",
+      "question": "Name the seven approved forms promulgated in Regulation 2.3.1.",
+      "answer_type": "names",
+      "answer": [
+        "Financing Statement (Form 1)",
+        "Financing Statement Amendment - Encumbered Asset Change (Form 2)",
+        "Financing Statement Amendment - Encumbered Asset Restatement (Form 3)",
+        "Financing Statement Amendment (Form 4)",
+        "Financing Statement Amendment - Party Details (Form 5)",
+        "Correction Statement (Form 6)",
+        "Information Request (Form 7)"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "d63e5750f2544b559c35dc02254d69ecb973d641ca96f0ed83e005e80e711ea0",
+      "question": "Which shareholders and percentages were listed on Obadiah's March 2017 commercial licence?",
+      "answer_type": "names",
+      "answer": [
+        "Oona (49%)",
+        "Ocia (50%)",
+        "Mr Ori (1%)"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "08134e30a29f5814c5c0a9e72a79a4155924caa8d4ff9165d7a12811af332f53",
+      "question": "How many categories of property are listed in Article 12(4) as excluded from Article 12?",
+      "answer_type": "number",
+      "answer": 4,
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "619cc2728e3e6e8f82ca91daf5ced51ba251c67e0d3c0a90f2ce1450fefd7de5",
+      "question": "What is the form number for an Information Request?",
+      "answer_type": "number",
+      "answer": 7,
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "a9baaf3300d9bb364445af12c8d62805595599753ec2b1c947916b531bcbba75",
+      "question": "What article number sets out transfer authority?",
+      "answer_type": "number",
+      "answer": 19,
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "e0ba7275a0c7a10725681d4c15c6c5045e5b3ac9f76d168d5568084bddbc5759",
+      "question": "Within how many business days must the Registrar notify a filer of a refusal where practicable?",
+      "answer_type": "number",
+      "answer": 5,
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "2a24c361f42ce5dbbdf845c2e0dbca07e21dc7ef636d2f3ace153c3ff1cb230e",
+      "assistant_score": 0.98,
+      "notes": "Fully grounded; complete and concise."
+    },
+    {
+      "question_id": "5bd325194d5ca5221d747ce8164e66135252b591e975a5cec7313ccf8e84d4c6",
+      "assistant_score": 0.99,
+      "notes": "Accurate summary of Article 6(a)-(b)."
+    },
+    {
+      "question_id": "8a221a3c76e2fb8291561a9c44e0157c7687725cee0c5f4f47f6ff95ee60a2c1",
+      "assistant_score": 0.97,
+      "notes": "Correct control rule; wording remains faithful."
+    },
+    {
+      "question_id": "bf7e0ebf84229c956c1154a4d1386ed4b887fc9fc8191ef518ece6c115d182db",
+      "assistant_score": 0.98,
+      "notes": "Correct presumption and exception."
+    },
+    {
+      "question_id": "dabdf43e53a0a297bae73c481901a2f9fcbd867c7577d72aa09338d0761043cb",
+      "assistant_score": 0.96,
+      "notes": "Captures principal error categories from pages 10-11."
+    }
+  ],
+  "findings": [
+    "Trimmed several over-inclusive retrieval citations to minimal-complete pages.",
+    "Normalized one name answer to exact agreement name.",
+    "Normalized approved-forms names list to canonical form names without form numbers."
+  ],
+  "notes": [
+    "All 5 free_text references were scored and checked against cited evidence."
+  ]
+}

@@ -1,0 +1,506 @@
+{
+  "stream_id": "crs_single_doc",
+  "doc_ids": ["04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"],
+  "candidates": [
+    {
+      "question": "Do these Regulations include their annexes and may they be cited as the Common Reporting Standard Regulations 2018?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [3]}],
+      "expected_answer": true,
+      "notes": "Covers the title and citation rule."
+    },
+    {
+      "question": "Does the reporting requirement include identifying the currency in which each amount is denominated?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [4]}],
+      "expected_answer": true,
+      "notes": "Direct reporting requirement."
+    },
+    {
+      "question": "May a Reporting Financial Institution use a service provider to fulfill the reporting and due diligence obligations?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [4]}],
+      "expected_answer": true,
+      "notes": "Section II service-provider rule."
+    },
+    {
+      "question": "May the due diligence procedures for New Accounts be applied to all Pre-existing Accounts?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [4]}],
+      "expected_answer": true,
+      "notes": "Section II flexibility rule."
+    },
+    {
+      "question": "Is an account with a negative balance deemed to have a balance or value equal to nil?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [13]}],
+      "expected_answer": true,
+      "notes": "Account balance rule."
+    },
+    {
+      "question": "Must a Group Cash Value Insurance Contract cover 25 or more employees or certificate holders to qualify for the temporary non-reportable treatment?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [12]}],
+      "expected_answer": true,
+      "notes": "Group contract threshold."
+    },
+    {
+      "question": "Must a Broad Participation Retirement Fund be subject to government regulation and provide information reporting to tax authorities?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [15]}],
+      "expected_answer": true,
+      "notes": "One of the retirement-fund conditions."
+    },
+    {
+      "question": "Does a Reportable Jurisdiction Person include an estate of a decedent that was resident in a Reportable Jurisdiction?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [21]}],
+      "expected_answer": true,
+      "notes": "Section VIII definition."
+    },
+    {
+      "question": "Must the term Controlling Persons be interpreted consistently with the Financial Action Task Force Recommendations?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [21]}],
+      "expected_answer": true,
+      "notes": "Interpretive instruction in the definition."
+    },
+    {
+      "question": "Is a trust that is a Passive NFE excluded from being treated as a similar legal arrangement for the Passive NFE rule?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [25]}],
+      "expected_answer": true,
+      "notes": "Section IX carve-out for trusts."
+    },
+    {
+      "question": "Does the document define any reporting rule for cryptocurrency wallets?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative candidate; no wallet-specific rule appears in the document."
+    },
+    {
+      "question": "What percentage of gross income makes a Custodial Institution's holding of Financial Assets count as a substantial portion of its business?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [13]}],
+      "expected_answer": 20,
+      "notes": "Custodial Institution income threshold."
+    },
+    {
+      "question": "How many employees or certificate holders must a group contract cover?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [12]}],
+      "expected_answer": 25,
+      "notes": "Group contract coverage threshold."
+    },
+    {
+      "question": "What is the single-beneficiary asset-right limit for a Broad Participation Retirement Fund?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [15]}],
+      "expected_answer": 5,
+      "notes": "Broad Participation Retirement Fund condition."
+    },
+    {
+      "question": "How many participants must a Narrow Participation Retirement Fund have fewer than?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [16]}],
+      "expected_answer": 50,
+      "notes": "Participant-count threshold."
+    },
+    {
+      "question": "Within how many days must overpayments above USD50,000 be refunded under the qualified credit card issuer rule?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [16]}],
+      "expected_answer": 60,
+      "notes": "Refund deadline."
+    },
+    {
+      "question": "What percentage of gross income is used for the Investment Entity test in subparagraph A(6)(b)?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [14]}],
+      "expected_answer": 50,
+      "notes": "Primary-income threshold."
+    },
+    {
+      "question": "What is the maximum aggregate amount payable to any employee, certificate holder, or beneficiary under the group contract rule?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [12]}],
+      "expected_answer": 1000000,
+      "notes": "USD cap in the group contract safe harbor."
+    },
+    {
+      "question": "What percentage of a Narrow Participation Retirement Fund's assets may be held by nonresident participants?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [16]}],
+      "expected_answer": 20,
+      "notes": "Nonresident asset cap."
+    },
+    {
+      "question": "After how many months does the new-business exception for an NFE stop applying?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [22]}],
+      "expected_answer": 24,
+      "notes": "Start-up exception duration."
+    },
+    {
+      "question": "How many cryptocurrency reporting categories does the document specify?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative candidate; no cryptocurrency categories are specified."
+    },
+    {
+      "question": "What body makes these Regulations?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [3]}],
+      "expected_answer": "Board of Directors of the DIFCA",
+      "notes": "Regulation-maker identification."
+    },
+    {
+      "question": "Which organization’s explanatory material is integral to the Common Reporting Standard for these Regulations?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [3]}],
+      "expected_answer": "OECD",
+      "notes": "Interpretive source."
+    },
+    {
+      "question": "What is the term for an account maintained by a Financial Institution that includes Depository Accounts and Custodial Accounts?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [16]}],
+      "expected_answer": "Financial Account",
+      "notes": "Core defined term."
+    },
+    {
+      "question": "What is the term for an account that holds one or more Financial Assets for the benefit of another person?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [17]}],
+      "expected_answer": "Custodial Account",
+      "notes": "Definition term."
+    },
+    {
+      "question": "What is the term for a contract under which the issuer agrees to make payments for a period determined by life expectancy?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [17]}],
+      "expected_answer": "Annuity Contract",
+      "notes": "Direct definition."
+    },
+    {
+      "question": "What is the term for an insurance company that issues or is obligated to make payments with respect to Cash Value Insurance Contracts or Annuity Contracts?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [14]}],
+      "expected_answer": "Specified Insurance Company",
+      "notes": "Entity classification."
+    },
+    {
+      "question": "What is the term for a fund established to provide retirement, disability, or death benefits to fewer than 50 participants?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [16]}],
+      "expected_answer": "Narrow Participation Retirement Fund",
+      "notes": "Retirement-fund definition."
+    },
+    {
+      "question": "What is the term for a Financial Account maintained by a Reporting Financial Institution as of 31 December 2016?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [18]}],
+      "expected_answer": "Pre-existing Account",
+      "notes": "Temporal definition."
+    },
+    {
+      "question": "Which four categories are included in the term Financial Institution?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [13]}],
+      "expected_answer": ["Custodial Institution", "Depository Institution", "Investment Entity", "Specified Insurance Company"],
+      "notes": "High-level definition list."
+    },
+    {
+      "question": "Which two parties can a Reporting Financial Institution rely on for self-certification under Section IX B?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [24]}],
+      "expected_answer": ["Account Holder", "Controlling Person"],
+      "notes": "Self-certification sources."
+    },
+    {
+      "question": "Which three entities are listed in the first Non-Reporting Financial Institution category?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [14, 15]}],
+      "expected_answer": ["Governmental Entity", "International Organisation", "Central Bank"],
+      "notes": "Section VIII non-reporting list."
+    },
+    {
+      "question": "Which natural persons are included in the trust definition of Controlling Persons?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [21]}],
+      "expected_answer": ["settlor(s)", "trustee(s)", "protector(s)", "beneficiary(ies)", "any other natural person(s) exercising ultimate effective control over the trust"],
+      "notes": "Trust-control definition."
+    },
+    {
+      "question": "What is the in-force date shown on the cover page?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [1]}],
+      "expected_answer": "2020-07-30",
+      "notes": "Document date."
+    },
+    {
+      "question": "On what date does a New Account mean an account opened on or after?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [18]}],
+      "expected_answer": "2017-01-01",
+      "notes": "New-account cutoff."
+    },
+    {
+      "question": "As of what date is a Pre-existing Account defined?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [18]}],
+      "expected_answer": "2016-12-31",
+      "notes": "Pre-existing-account cutoff."
+    },
+    {
+      "question": "By what date must a Qualified Credit Card Issuer implement the policy or refund rule?",
+      "answer_type": "date",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [16]}],
+      "expected_answer": "2018-01-01",
+      "notes": "Implementation deadline."
+    },
+    {
+      "question": "What information must each Reporting Financial Institution report for every Reportable Account?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [3, 4]}],
+      "expected_answer": "The account holder's identifying details, account number, reporting FI name/number, year-end balance or closure, and the relevant income or proceeds amounts, with currency identified.",
+      "notes": "Section I reporting bundle."
+    },
+    {
+      "question": "When is an account treated as a Reportable Account?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [4]}],
+      "expected_answer": "Beginning on the date it is identified as reportable under Sections II through VII, and it is then reported annually in the following calendar year.",
+      "notes": "Reporting trigger and cadence."
+    },
+    {
+      "question": "What must a Reporting Financial Institution establish, maintain, and document under Section II?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [4]}],
+      "expected_answer": "The due diligence procedures in Sections II through VII that are designed to identify Reportable Accounts.",
+      "notes": "Section II framework."
+    },
+    {
+      "question": "When may the residence address test be used for a pre-existing individual account?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [5]}],
+      "expected_answer": "When the institution has a current residence address in its records based on Documentary Evidence; then it may treat the holder as resident in that jurisdiction.",
+      "notes": "Residence-address shortcut."
+    },
+    {
+      "question": "What does the electronic record search look for in lower value pre-existing individual accounts?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [5, 6]}],
+      "expected_answer": "Indicia such as a Reportable Jurisdiction address, telephone number, standing instructions, power of attorney, or a care-of/in-hold mail address.",
+      "notes": "Section III indicia search."
+    },
+    {
+      "question": "What must a new individual account self-certification do?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [8]}],
+      "expected_answer": "It must establish the account holder's tax residence(s) and confirm the certification's reasonableness based on the account opening information.",
+      "notes": "New individual account onboarding rule."
+    },
+    {
+      "question": "What does Account Holder mean?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [22]}],
+      "expected_answer": "The person listed or identified as the holder of the Financial Account; for cash value insurance or annuity contracts, the person entitled to access cash value or change the beneficiary, or otherwise the owner/persons with vested entitlement.",
+      "notes": "Miscellaneous definition."
+    },
+    {
+      "question": "What does Documentary Evidence include?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [23]}],
+      "expected_answer": "A certificate of residence, valid ID for an individual, official documentation for an entity, or audited financial statements, third-party credit reports, bankruptcy filings, or securities regulator reports.",
+      "notes": "Documentary-evidence list."
+    },
+    {
+      "question": "What does Reportable Jurisdiction Person mean?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [21]}],
+      "expected_answer": "An individual, entity, or decedent's estate resident in a Reportable Jurisdiction; entities with no tax residence are treated as resident where effective management is situated.",
+      "notes": "Residence-based definition."
+    },
+    {
+      "question": "What does Controlling Persons mean for a trust?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [21]}],
+      "expected_answer": "The settlor(s), trustee(s), protector(s) if any, beneficiaries or classes of beneficiaries, and any other natural person(s) exercising ultimate effective control.",
+      "notes": "Trust-control definition."
+    },
+    {
+      "question": "What does Financial Asset mean?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [14]}],
+      "expected_answer": "It includes securities, partnership interests, commodities, swaps, insurance contracts, annuity contracts, and related interests, but excludes a non-debt direct interest in real property.",
+      "notes": "Asset definition summary."
+    },
+    {
+      "question": "What is the account-maintained rule for a Depository Account?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [{"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [25]}],
+      "expected_answer": "It is maintained by the Financial Institution obligated to make payments on the account, not by an agent.",
+      "notes": "Account-maintenance rule."
+    },
+    {
+      "question": "What does the document say about cryptocurrency wallet reporting?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "Negative candidate; canonical no-information answer."
+    }
+  ]
+}

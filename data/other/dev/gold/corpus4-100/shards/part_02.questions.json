@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1207dcc85ca96d11158351ead9ffc5260f053375fd4b18cfdb81b5e9c6d2bb61",
+    "question": "Do both decisions include a final section after the main order that explains the court's reasoning?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "0e83259ae5b8634c05aa9fa18d6945675ad7d2a59e8be73bf72364dd70637696",
+    "question": "Must a Group Cash Value Insurance Contract cover 25 or more employees or certificate holders to qualify for the temporary non-reportable treatment?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "42d7232debc717df1e310885e921a6aaa06208907bc1da0c7d4c61ac4fd0098a",
+    "question": "Did Bond abandon its prolongation costs claim at trial?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "9093940a7c2ff4a962020858d13c35be648aaf3b958b2beaee548d1ff0862a8b",
+    "question": "Did the parties enter into the MEP Works contract on 26 January 2020?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "ca2a7bd3fd29fc46f26fe94d00d59f1698d7f2d59cf083d51d2845a853288451",
+    "question": "Did the court dismiss the counterclaim?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "f896ddee905065a505defc236af7a148dfdbf5ec36052f737c08deaa8f23a02f",
+    "question": "Are Partners jointly and severally liable for debts and obligations incurred while they are Partners?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "85f22f4a05069be55342520d29729115be22263a06ddd865e3b609baacad3029",
+    "question": "What is the in-force date shown on the cover page?",
+    "answer_type": "date"
+  },
+  {
+    "id": "48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5",
+    "question": "What did the Court say about any settlement agreement between the parties?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242",
+    "question": "What happens if a partner misapplies fiduciary money or property under Article 31?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1",
+    "question": "How do the documents differ in the way they package supplementary material?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384",
+    "question": "What must be included in a General Partnership registration application?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb",
+    "question": "How do the procedural postures differ?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "08cc28c0704e573badde057a308230bde9aa15704bd26d767370f121801e4737",
+    "question": "Who is the single judge common to both judgments?",
+    "answer_type": "name"
+  },
+  {
+    "id": "618c3f308693d7b923b174db7ae477d0c2305554c2aca539e3acbe6606d70c73",
+    "question": "What is the defined term for a general partnership formed in the DIFC?",
+    "answer_type": "name"
+  },
+  {
+    "id": "e152d8f06170928566f5feca5d9359c6a965672a66827e03ceb970d281f2fcd0",
+    "question": "Who was the Assistant Registrar named as issuing the order?",
+    "answer_type": "name"
+  },
+  {
+    "id": "6d984d3788415a904a97e5c8a71b4cbd74da100989a5c8a37de13e7aee8f41ae",
+    "question": "Which four categories are included in the term Financial Institution?",
+    "answer_type": "names"
+  },
+  {
+    "id": "05a4f39c41ef403564a325fe1292b22a9e23bbe79c30728d7ec6d45743860b84",
+    "question": "How many persons are needed at minimum to form a General Partnership?",
+    "answer_type": "number"
+  },
+  {
+    "id": "6d347cc0fd63c890e890bd57323cb7931c635f30d9d3c645bccdb26818c33e77",
+    "question": "How much did the Court deduct from costs for Techteryx's disclosure misstatement?",
+    "answer_type": "number"
+  },
+  {
+    "id": "a486608db50205bd5aefe83498bf717590f567e06f535761b31e1040a10dbfe1",
+    "question": "Within how many days must overpayments above USD50,000 be refunded under the qualified credit card issuer rule?",
+    "answer_type": "number"
+  },
+  {
+    "id": "cde36c962d02cf3fd1bd4c20ae67a0f3df7d9b43ee81ffa709f9389583dd0ed5",
+    "question": "Compared with the single defendant in the Bond case, how many defendants are named in the Techteryx case?",
+    "answer_type": "number"
+  }
+]

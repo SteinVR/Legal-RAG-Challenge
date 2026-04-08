@@ -1,0 +1,4938 @@
+{
+  "summary": {
+    "pool_question_count": 200,
+    "selected_question_count": 100,
+    "pool_answer_type_counts": {
+      "boolean": 43,
+      "date": 13,
+      "free_text": 55,
+      "name": 33,
+      "names": 16,
+      "number": 40
+    },
+    "pool_difficulty_counts": {
+      "easy": 100,
+      "hard": 30,
+      "medium": 70
+    },
+    "pool_negative_count": 15,
+    "selected_answer_type_counts": {
+      "boolean": 27,
+      "date": 8,
+      "free_text": 26,
+      "name": 13,
+      "names": 8,
+      "number": 18
+    },
+    "selected_difficulty_counts": {
+      "easy": 48,
+      "hard": 16,
+      "medium": 36
+    },
+    "selected_negative_count": 9,
+    "selected_stream_counts": {
+      "cross_doc_hard": 16,
+      "crs_single_doc": 24,
+      "dec_case_single_doc": 18,
+      "general_partnership_single_doc": 24,
+      "tcd_case_single_doc": 18
+    },
+    "selected_question_ids": [
+      "edb488adeb1ed19aab4163ce0f4e2f6de22b808532fc3f4f85ea89ce66a71e77",
+      "42881bdcdd51f009f2e630cdbd07e6b35b87f89e12c3e3ef5fe0e3a5fa490810",
+      "77e657c4aba09c0e1f0c9188ddd3cfda749e71783f8e12679b51faadafacacde",
+      "94cbb7e6a01bc2bb7dbb372126d05b8f7747b908f5a071ee659a2219e35da0a3",
+      "07b32c626efd2cf7b1689f3a339d5bee4e0feb575126b511a88c0852edaf32c5",
+      "6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1",
+      "1207dcc85ca96d11158351ead9ffc5260f053375fd4b18cfdb81b5e9c6d2bb61",
+      "08cd8fedba8321c0c2e093aa25abfcaed5d42f8dfed84ce0dbe38ac923977432",
+      "cde36c962d02cf3fd1bd4c20ae67a0f3df7d9b43ee81ffa709f9389583dd0ed5",
+      "a51f259bf9869da02936142f36678193dd9e93988f339dc7ea2a21879d9d1870",
+      "08cc28c0704e573badde057a308230bde9aa15704bd26d767370f121801e4737",
+      "d859a045e515e7290174ed1aced15d8527b85f0e4c569d4630dfa521f528d79c",
+      "4e0cd66faaafc0395fd07654a3817c1f7f26fb6aed7f8cd88c0f493024692857",
+      "9d7c4de87ee0b6bdf5454e5f3db8a2a7217f17601d39da51b8f0a29cd48fe009",
+      "b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb",
+      "fae2b9fd1b0e7e971e7d1a6895dd3975b6173b2c29730997a25f0afeb7560965",
+      "17e4793a1e7f196eca087c13a7cb072e5e6070b20defb308afba062285779235",
+      "444307ecabdfb13a36cf845776e592869a6f3b9ebbf064869b1da8e0b3dd5134",
+      "0e588178701bf2b4cde54af83fd9d2e4e3e1579434bf49be66f63c4f515e6733",
+      "3a93189446a3963dd82d4946a2924f11c3aa71c3fb690b66a56deae9bc64eeca",
+      "0e83259ae5b8634c05aa9fa18d6945675ad7d2a59e8be73bf72364dd70637696",
+      "ce5e675805a40193eae330dbdf99f44feff8ae82ed88023f4cab6b647c831018",
+      "99eee91b133b2896308860a303fc852fd48975969168cc17059af519d9db9ceb",
+      "1d9761ed4568ba728b56e9a310235c4ecf8ed328ea4fe32777621b42ae8e7887",
+      "c391b99cda892ec3c3e575be0fa3a59864c2d5b5e3f0efb02ed9f39191c370e1",
+      "7710644a88fa1b4492a462d0527ca39733db6a1219ba05b957b9ea814ed0fe89",
+      "91ffaf4e00d3785b1a7ea48b2fa47a49369d12ae1966f8bc276c21c7312c6463",
+      "a486608db50205bd5aefe83498bf717590f567e06f535761b31e1040a10dbfe1",
+      "cfa9836f1113bb3cb086dfef80ec96bcaf9d40587a72034777be0a341d4bb701",
+      "1b67d805e6c51673736ef61f9ec1c390fdd4f2706d48a360e380110d720c0339",
+      "e821a2bc1919a828d26dbef0ae9c234e8cecce49c9ded70e6193a56837d37f54",
+      "db36a9020163d5d4978d67ea9d05403bb5cef5a1a278c185a7920c8465f175bf",
+      "6d984d3788415a904a97e5c8a71b4cbd74da100989a5c8a37de13e7aee8f41ae",
+      "40d44b27dfc1a92be0df9d8909bdadeece97c7390798beebcbdca6fe87e88f35",
+      "85f22f4a05069be55342520d29729115be22263a06ddd865e3b609baacad3029",
+      "35b26e5b32d17a847867997c8cae8b4a770c90b9a71df86fdd4b4b014a81f289",
+      "93c6e68b70c3ddfebb2e1d38696611eca418f65d26dedca4c7239fe9325e5ee6",
+      "82d80cce83b13c4855a17e45f8adea3bb5fce791403994bad273b5473df99abb",
+      "8ef2ea7d8b03fdfd009739fd06092f8676f34a0f99e272a64def6fc543118ce3",
+      "aa4bd0d5c655fc05279b8fe135ec91ab6dd083ce0746de97402156d88ef890b3",
+      "88fa316b322107dabdbb5d642ae6296b968369e810eaf2da5759584dc560e9c0",
+      "b461b9abc31b866bc7248cc2dfd75a2c4340050aaf3b75b03af79938a2f7053f",
+      "8b5bfec1929c69051e473e52d4d1062ffd40118a977c7f2c68c508f47a235880",
+      "d2ed9d35dfb69dc55a861b19c82055ca4263d082dd9fede3bf3433771a5dbd9f",
+      "da5a77a59b319d2da014c4f0720918e3b8f9724ab91bf7ef007085d4ab8982ba",
+      "b08f3a764b232df08d5428bc7f7c3c8aef8e6df06bc6dff05322e9cf943ce475",
+      "6d347cc0fd63c890e890bd57323cb7931c635f30d9d3c645bccdb26818c33e77",
+      "5eae85790f106be4eac1c80da0d6270feb395888b8f5b0cfddc2bdb3040a778c",
+      "6c0ad47feb5f6dc3ee88e902c71b9569fed8f35c5f7490b9967e979b1aed4a30",
+      "e152d8f06170928566f5feca5d9359c6a965672a66827e03ceb970d281f2fcd0",
+      "6851388def236f5931f05f879ad34c4718534512b931aef849d050e11072a7ac",
+      "3c3f0f86fddb02a4be24f0b5373f3e6f7822b927e92f6afb4a81f1a2e200e0d4",
+      "a84c5c1ac8a09c04e9b3e5b5653bd4d6ba9f793b6ec9a61e16eb34e46a1bf2ab",
+      "054bb282bc7c1550b14812912f6ee09b70c485ad63b1623b8ab24d3003baa2ab",
+      "ec695ce27695363186cb118ca3fa723c66869c6f9dbc834950c33562d67c3eec",
+      "dbb3c7a752d90dc1d9b3bae020014a71c1acaab22b856be728834dfa1cc47726",
+      "7d1964328c75d9d350524e5cac18c519cc0f5e5487b6bd53347c1c538a78beda",
+      "48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5",
+      "73005962b25b58f65b6d10cb14e9937f78f55436f4288c7dc5b633f9c6a819a4",
+      "01562ab34cc708a12cbe990bc6523a495c9e6db208d9b0482a8a3b2d5702bf69",
+      "618c3f308693d7b923b174db7ae477d0c2305554c2aca539e3acbe6606d70c73",
+      "40ea968e248844023562a35045105554683cf55317a629ce1880a43ee8fe5cb5",
+      "e32d1df95b3f847983b3dbaae9a0395004657920f7f145f745f43ea73290f4c4",
+      "d6ad26d8bc7b0c6450666032169cb2e69554283c92c216acef0ce5b8edd5d0e3",
+      "bd861029417eaa91fb3a4b5fe64189b8c6133fc9a8d9231c1ab8537749fb58cd",
+      "764b5e5421deb4941f3b50dfd124ba87bc53d768fb3fdf31c1a54a805f8e5ce1",
+      "f896ddee905065a505defc236af7a148dfdbf5ec36052f737c08deaa8f23a02f",
+      "1ef03eed0471fbf29089e8804945021951c945e398e934047509fdf4c9fdd07a",
+      "05a4f39c41ef403564a325fe1292b22a9e23bbe79c30728d7ec6d45743860b84",
+      "9a6cf532ef57f2f62d0d4148d1fa64ed719d0eb2223ddf866cdfbb0c6eaf8700",
+      "3eb5f98cf06655f19b9f8e9f2f7a481e154bd2827e092cf26464c54075baa97e",
+      "c61b20b7d70ff47da2ff44ba9ec5e12844389349e941e6c16826be03232d1edc",
+      "1147915a647ff39a2a6f95fbf83b7fc1e6117d20cc6acc602a9b3e6b92cb65c1",
+      "64210e41fb4ea2bbe5f40ecd11ffd475652e3163261c32186c01b9073124e1d7",
+      "76f626e12a62d4974db5fab76c103f4bc303092ae07dccefd9b1821dd3ab2cc0",
+      "83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384",
+      "748a883d7f1085718696c657aed1f86ff31f6414d8d52c415e7cd7e5c9b26d2e",
+      "734931901ce2900c33d80c0b611d8fb37c457e25b6e0529e0d26f2dc97bc2c32",
+      "1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242",
+      "f549185fbf994265fd81e846f3aae83ce80fa7095a6361157bb1a1baa5ac02b5",
+      "351ac9d5ea6c4748f921855d54bef86c8aa822d61cc35845140252211728e50e",
+      "4d1691535eb36c00867b4bb92c609beeff6b41d51945409f541b7a6b5a826871",
+      "2e38bb7ea6bab8f2f8011a42522139e89a1849f625e91e4632bc93a4ed7c5907",
+      "ca2a7bd3fd29fc46f26fe94d00d59f1698d7f2d59cf083d51d2845a853288451",
+      "9093940a7c2ff4a962020858d13c35be648aaf3b958b2beaee548d1ff0862a8b",
+      "42d7232debc717df1e310885e921a6aaa06208907bc1da0c7d4c61ac4fd0098a",
+      "bcc7605db223df71fbe9b7c6c6304705753886e463f76383d4b70d9e09c9ca99",
+      "9031aca90cc236c2764d280babfcfcb99768ca911879d2c586497c2287a7b6f0",
+      "4b9f7eae468780198cd726568bb65d98d52fb37dba8a871305c62b89adc98155",
+      "15edca8603b7c32d51bc7d572eed10473d0724bd7cbae05a2459624ed33b2e46",
+      "51aed32de08da0e9ced8d35c18d1cb77f967dd6ccb1b62e1e788a1db257a8579",
+      "afe73d351c5b5f5bdfc97cd7b456d60962a46f2d0eea6f46e7782e984165c03d",
+      "7727dfb77f0432c0f09e5a4ae3a49fac3e2ffb77edaba9895df163a28aa69ba7",
+      "9205e3f8e206da4ea42beb0cc2a40aaf660a179e750a9ee6026d0710591608ff",
+      "f2366d2d2cc2a2dab585b0c6681b04fcb1af8b46422c4fbe6a9126ae56c6fe8a",
+      "e1f33d725fd31d285e8c38588e2894cd6c583bf806d53cf816f467bc68ad55c9",
+      "5d94b33f61bae17b9fc3bf1448b9a352a89cf879fd47cc423c385e5bd11942ed",
+      "1ce38b389439bacc237e4716d1e238b03b9c1f6e5c36bb1443d5590d0d87e52e",
+      "b5e251c7f335cd037fe31c48321859536a7741b3531478fe44593a77f4762eaa",
+      "34d4680c1f8f856fedc1efa3938703b6c162ecb5003e27ee1bbd743fcca31994"
+    ]
+  },
+  "records": [
+    {
+      "id": "fc4ab8e0a714fcb850a852cd7ec327332fb380a35ae8a3d60acaa1c6f01bcec6",
+      "question": "Do both documents present a contents page before the operative text begins?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Both PDFs open with a contents page on page 2.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "edb488adeb1ed19aab4163ce0f4e2f6de22b808532fc3f4f85ea89ce66a71e77",
+      "question": "Do both texts add a later dedicated section for definitions or interpretation rather than keeping definitions only in the opening pages?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            13,
+            26
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            20,
+            23
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "CRS uses Section VIII and Annex 1; the partnership law uses Schedule 1.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "2c7f75c9594a71cd9de46a6f0c223070e30141f6a97adcbcf3409b027bb47ab4",
+      "question": "Do both contents pages list exactly nine top-level divisions before the supplementary material?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Section I-IX and Part 1-9 are both listed on the contents pages.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "42881bdcdd51f009f2e630cdbd07e6b35b87f89e12c3e3ef5fe0e3a5fa490810",
+      "question": "Do both documents expressly refer to outside governing material in the operative text?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "CRS refers to OECD explanatory material; the partnership law refers to the Operating Law.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ab55179a8fec8fd0dfed55c044f0799457f54c674a4439409c9a4c39883ca385",
+      "question": "How many top-level divisions are listed across the two contents pages if you count only Parts in the partnership law and Sections I-IX in the CRS regulations?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": 18,
+      "notes": "Nine sections in each contents page, counted as 9 + 9.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "6bba6d3f8a76cfad8a97dadaba0565eb2f710d6e9eed5d4f70ace8dfc2a4c06a",
+      "question": "How many supplementary headings are listed across those contents pages if you count Annex 1 in the CRS regulations and Schedules 1-2 in the partnership law?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": 3,
+      "notes": "One annex in CRS plus two schedules in the partnership law.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "6aaf11ede5cd8bf3659511c891004a250e379b56e10df3b6c9ffbd5ac935a7c4",
+      "question": "What is the difference between the title-year numbers in '2018' and '2004'?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": 14,
+      "notes": "The title-year gap is 2018 minus 2004.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "263466894fe12b20a4247672c893f6a73b4d2b10fc6a5a34a9bc7c5178b8fdec",
+      "question": "Which statute is the regulations document that is cited as the Common Reporting Standard Regulations?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            1,
+            3
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Common Reporting Standard Regulations",
+      "notes": "Uses the CRS title to distinguish it from the partnership law.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "512428cae38eeb1e878e08b53e773bb0b599923be670f7b63742c5ee8ca956df",
+      "question": "Which statute is the law titled General Partnership Law 2004?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1,
+            4
+          ]
+        }
+      ],
+      "expected_answer": "General Partnership Law",
+      "notes": "The partnership law title and section 1 identify it directly.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "f95d97e523361268244d7006edff09780ff3d1a29b875a9bb2fde9c1163c159e",
+      "question": "Which institution is named as the administrator of the partnership law, contrasted with the reporting authority in the CRS regulations?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "Registrar",
+      "notes": "Section 7 of the partnership law names the Registrar as administrator.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "77e657c4aba09c0e1f0c9188ddd3cfda749e71783f8e12679b51faadafacacde",
+      "question": "What are the two supplementary headings unique to the General Partnership Law contents page?",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2,
+            20,
+            23
+          ]
+        },
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Schedule 1",
+        "Schedule 2"
+      ],
+      "notes": "The partnership law has two schedules; the CRS text instead has an annex.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e4da6aacdf77cd658354beefd60adba8f2583976a544c4e36fcdfa5d2a55724d",
+      "question": "What is the explicit in-force date stated on the CRS regulations title page?",
+      "answer_type": "date",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "2020-07-30",
+      "notes": "The title page states the regulations are in force on 30 July 2020.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "94cbb7e6a01bc2bb7dbb372126d05b8f7747b908f5a071ee659a2219e35da0a3",
+      "question": "What exact enactment date is stated for both statutes in these PDFs?",
+      "answer_type": "date",
+      "difficulty": "hard",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "The PDFs only reference an Enactment Notice for the partnership law and do not reproduce exact enactment dates.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "07b32c626efd2cf7b1689f3a339d5bee4e0feb575126b511a88c0852edaf32c5",
+      "question": "In one sentence, what is the main functional contrast between the two statutes?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3,
+            13,
+            26
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4,
+            17,
+            20,
+            23
+          ]
+        }
+      ],
+      "expected_answer": "The CRS regulations set reporting and due-diligence rules for financial accounts, while the partnership law governs formation, administration, and dissolution of general partnerships.",
+      "notes": "A concise synthesis of the documents' different regulatory aims.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1",
+      "question": "How do the documents differ in the way they package supplementary material?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            26
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            20,
+            23
+          ]
+        }
+      ],
+      "expected_answer": "The CRS text uses an annex for additional definitions, while the partnership law uses schedules for interpretation, defined terms, and fines.",
+      "notes": "Requires comparing Annex 1 with Schedules 1 and 2.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "4f45974d6281ad6e31d5a375f2af634019974823f8ac7374fb72a0b7edf74b2f",
+      "question": "Do both judgments arise from first-instance DIFC Court proceedings rather than appeals?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Both documents are judgments of the DIFC Court of First Instance.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "1207dcc85ca96d11158351ead9ffc5260f053375fd4b18cfdb81b5e9c6d2bb61",
+      "question": "Do both decisions include a final section after the main order that explains the court's reasoning?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3,
+            4
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2,
+            3
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Techteryx has a schedule of reasons and Bond has a schedule of reasons.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "08cd8fedba8321c0c2e093aa25abfcaed5d42f8dfed84ce0dbe38ac923977432",
+      "question": "Do both cases end up granting the claimant some form of relief?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Techteryx keeps injunctions and Bond receives a money judgment.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "cde36c962d02cf3fd1bd4c20ae67a0f3df7d9b43ee81ffa709f9389583dd0ed5",
+      "question": "Compared with the single defendant in the Bond case, how many defendants are named in the Techteryx case?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": 4,
+      "notes": "Techteryx sues four defendants; Bond sues one.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "a51f259bf9869da02936142f36678193dd9e93988f339dc7ea2a21879d9d1870",
+      "question": "By how many days did the Bond trial exceed the Techteryx FRD hearing?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": 1,
+      "notes": "Bond's trial ran four days; the Techteryx FRD hearing ran three.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "08f06be8f03609d35faf8041b201e85603ab9d662a600087acd054c4833098cd",
+      "question": "How many of the Techteryx defendants are banks?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": 3,
+      "notes": "Mashreq, Emirates NBD, and Abu Dhabi Islamic Bank are bank defendants.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "d7d756f63109582a755c9237f3342456391911605886ee045ec5ccf0d69db87b",
+      "question": "Which judge issued the Techteryx order?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "H.E. Justice Michael Black KC",
+      "notes": "Named in the title and reasons pages of the Techteryx order.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "b9873b26bb3f4c092da51ccf4fcb50319a17bb52423bd0512feee849a3929d75",
+      "question": "Which judge issued the Bond judgment?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1,
+            2
+          ]
+        },
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Justice Wayne Martin",
+      "notes": "The Bond judgment title page identifies the judge directly.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "08cc28c0704e573badde057a308230bde9aa15704bd26d767370f121801e4737",
+      "question": "Who is the single judge common to both judgments?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": true,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "The two judgments were issued by different judges, so there is no shared judge name to extract.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d859a045e515e7290174ed1aced15d8527b85f0e4c569d4630dfa521f528d79c",
+      "question": "Name the assistant registrars who issued the two judgments.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Hayley Norton",
+        "Delvin Sumo"
+      ],
+      "notes": "Each judgment names a different assistant registrar.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "4e0cd66faaafc0395fd07654a3817c1f7f26fb6aed7f8cd88c0f493024692857",
+      "question": "What is the date of the older of the two judgments?",
+      "answer_type": "date",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "2024-02-28",
+      "notes": "Bond is the earlier judgment; Techteryx is dated 2025-10-17.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9d7c4de87ee0b6bdf5454e5f3db8a2a7217f17601d39da51b8f0a29cd48fe009",
+      "question": "What is the main difference in relief between the two decisions?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1,
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2,
+            22
+          ]
+        }
+      ],
+      "expected_answer": "Techteryx gets continuing interlocutory injunctions and consequential directions, while Bond gets a final money judgment for AED 2,873,837.14 plus costs.",
+      "notes": "Contrasts interim asset-preservation relief with a final monetary award.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb",
+      "question": "How do the procedural postures differ?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3,
+            4
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1,
+            2
+          ]
+        }
+      ],
+      "expected_answer": "Techteryx is still in post-judgment consequential proceedings over injunctions, disclosure, privacy, and costs; Bond has already reached final trial judgment on the merits.",
+      "notes": "One case is interlocutory/consequential, the other is a completed trial judgment.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1d59ba654525db7acf5adef360488d9d2b4f2002adeaa58a118e3e9ff68e25be",
+      "question": "What common feature do both judgments share at the end of the orders?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "Each ends with a registrar-issued direction to agree further draft orders or consequential steps rather than a fully self-executing final disposal on every issue.",
+      "notes": "Both decisions leave follow-on drafting or consequential issues to be completed.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": false
+    },
+    {
+      "id": "fae2b9fd1b0e7e971e7d1a6895dd3975b6173b2c29730997a25f0afeb7560965",
+      "question": "What arbitration institution finally resolved both disputes?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": true,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "The documents do not name any arbitration institution as the final resolver of either dispute.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "17e4793a1e7f196eca087c13a7cb072e5e6070b20defb308afba062285779235",
+      "question": "Do these Regulations include their annexes and may they be cited as the Common Reporting Standard Regulations 2018?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Covers the title and citation rule.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "444307ecabdfb13a36cf845776e592869a6f3b9ebbf064869b1da8e0b3dd5134",
+      "question": "Does the reporting requirement include identifying the currency in which each amount is denominated?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Direct reporting requirement.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "0e588178701bf2b4cde54af83fd9d2e4e3e1579434bf49be66f63c4f515e6733",
+      "question": "May a Reporting Financial Institution use a service provider to fulfill the reporting and due diligence obligations?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Section II service-provider rule.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3a93189446a3963dd82d4946a2924f11c3aa71c3fb690b66a56deae9bc64eeca",
+      "question": "May the due diligence procedures for New Accounts be applied to all Pre-existing Accounts?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Section II flexibility rule.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "be88bfa1ff2b1669b08998457e0e37b94ea712af4c9aa41bc98862558e293103",
+      "question": "Is an account with a negative balance deemed to have a balance or value equal to nil?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Account balance rule.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "0e83259ae5b8634c05aa9fa18d6945675ad7d2a59e8be73bf72364dd70637696",
+      "question": "Must a Group Cash Value Insurance Contract cover 25 or more employees or certificate holders to qualify for the temporary non-reportable treatment?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Group contract threshold.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ce5e675805a40193eae330dbdf99f44feff8ae82ed88023f4cab6b647c831018",
+      "question": "Must a Broad Participation Retirement Fund be subject to government regulation and provide information reporting to tax authorities?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "One of the retirement-fund conditions.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "99eee91b133b2896308860a303fc852fd48975969168cc17059af519d9db9ceb",
+      "question": "Does a Reportable Jurisdiction Person include an estate of a decedent that was resident in a Reportable Jurisdiction?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Section VIII definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1d9761ed4568ba728b56e9a310235c4ecf8ed328ea4fe32777621b42ae8e7887",
+      "question": "Must the term Controlling Persons be interpreted consistently with the Financial Action Task Force Recommendations?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Interpretive instruction in the definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9236da3024763f09e7e8c29d215673b2ddd6b184f4e6a6d9ca6cd16be5fbf92f",
+      "question": "Is a trust that is a Passive NFE excluded from being treated as a similar legal arrangement for the Passive NFE rule?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            25
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Section IX carve-out for trusts.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "c391b99cda892ec3c3e575be0fa3a59864c2d5b5e3f0efb02ed9f39191c370e1",
+      "question": "Does the document define any reporting rule for cryptocurrency wallets?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative candidate; no wallet-specific rule appears in the document.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7710644a88fa1b4492a462d0527ca39733db6a1219ba05b957b9ea814ed0fe89",
+      "question": "What percentage of gross income makes a Custodial Institution's holding of Financial Assets count as a substantial portion of its business?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "expected_answer": 20,
+      "notes": "Custodial Institution income threshold.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e00f12841b20b2d596f7cf326c7dd18d010fa13628c5d70f308ce87260996f15",
+      "question": "How many employees or certificate holders must a group contract cover?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "expected_answer": 25,
+      "notes": "Group contract coverage threshold.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "91ffaf4e00d3785b1a7ea48b2fa47a49369d12ae1966f8bc276c21c7312c6463",
+      "question": "What is the single-beneficiary asset-right limit for a Broad Participation Retirement Fund?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": 5,
+      "notes": "Broad Participation Retirement Fund condition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "44e60f88e6672543302e354393af72406dbaa66dda7c4b7560e0df30f6a1e8c2",
+      "question": "How many participants must a Narrow Participation Retirement Fund have fewer than?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": 50,
+      "notes": "Participant-count threshold.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "a486608db50205bd5aefe83498bf717590f567e06f535761b31e1040a10dbfe1",
+      "question": "Within how many days must overpayments above USD50,000 be refunded under the qualified credit card issuer rule?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": 60,
+      "notes": "Refund deadline.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7dac085cb5bdfbb13d765d540a29b2aa502fba4cf0732986afd069eb71c85bc2",
+      "question": "What percentage of gross income is used for the Investment Entity test in subparagraph A(6)(b)?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "expected_answer": 50,
+      "notes": "Primary-income threshold.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "cfa9836f1113bb3cb086dfef80ec96bcaf9d40587a72034777be0a341d4bb701",
+      "question": "What is the maximum aggregate amount payable to any employee, certificate holder, or beneficiary under the group contract rule?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "expected_answer": 1000000,
+      "notes": "USD cap in the group contract safe harbor.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "88687deb6cf8a7f5b4511230d60f7ee8dfb2d9b105d1294aa23e7e376a28927f",
+      "question": "What percentage of a Narrow Participation Retirement Fund's assets may be held by nonresident participants?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": 20,
+      "notes": "Nonresident asset cap.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "a70fca0d824e8995d4fadfe35c101e0a5c4907e3b31bafb053e3e686879ad28e",
+      "question": "After how many months does the new-business exception for an NFE stop applying?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            22
+          ]
+        }
+      ],
+      "expected_answer": 24,
+      "notes": "Start-up exception duration.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "a2bd04e6ef59ff41232955f32886aa66db0316549f0bcf1c31ed2046d5b8004c",
+      "question": "How many cryptocurrency reporting categories does the document specify?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative candidate; no cryptocurrency categories are specified.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "43e788d55aacaf360ef83182aa965731494994cca54c125c818e2050407cdf2a",
+      "question": "What body makes these Regulations?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "Board of Directors of the DIFCA",
+      "notes": "Regulation-maker identification.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "1b67d805e6c51673736ef61f9ec1c390fdd4f2706d48a360e380110d720c0339",
+      "question": "Which organization’s explanatory material is integral to the Common Reporting Standard for these Regulations?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "OECD",
+      "notes": "Interpretive source.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e821a2bc1919a828d26dbef0ae9c234e8cecce49c9ded70e6193a56837d37f54",
+      "question": "What is the term for an account maintained by a Financial Institution that includes Depository Accounts and Custodial Accounts?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": "Financial Account",
+      "notes": "Core defined term.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c91bba9c0a080b9b33ef801f08b6ed830e89ca6441618656cd527fb02ce8a189",
+      "question": "What is the term for an account that holds one or more Financial Assets for the benefit of another person?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": "Custodial Account",
+      "notes": "Definition term.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "73d81e53e9508a7213521ae7fd2aedbe39438d06dbfe8aaf77fbce363f724224",
+      "question": "What is the term for a contract under which the issuer agrees to make payments for a period determined by life expectancy?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": "Annuity Contract",
+      "notes": "Direct definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "b43bfec6ea5592768c93cfd1dc57d993d5743b7dd6f2c2dfd8fa15bb8d2dd172",
+      "question": "What is the term for an insurance company that issues or is obligated to make payments with respect to Cash Value Insurance Contracts or Annuity Contracts?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "expected_answer": "Specified Insurance Company",
+      "notes": "Entity classification.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "db36a9020163d5d4978d67ea9d05403bb5cef5a1a278c185a7920c8465f175bf",
+      "question": "What is the term for a fund established to provide retirement, disability, or death benefits to fewer than 50 participants?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": "Narrow Participation Retirement Fund",
+      "notes": "Retirement-fund definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3e76ca1fa125cd9c8109c37102af1bdcac98c01e8b65b9ed78ab38a21a06c5ac",
+      "question": "What is the term for a Financial Account maintained by a Reporting Financial Institution as of 31 December 2016?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "Pre-existing Account",
+      "notes": "Temporal definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "6d984d3788415a904a97e5c8a71b4cbd74da100989a5c8a37de13e7aee8f41ae",
+      "question": "Which four categories are included in the term Financial Institution?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Custodial Institution",
+        "Depository Institution",
+        "Investment Entity",
+        "Specified Insurance Company"
+      ],
+      "notes": "High-level definition list.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "40d44b27dfc1a92be0df9d8909bdadeece97c7390798beebcbdca6fe87e88f35",
+      "question": "Which two parties can a Reporting Financial Institution rely on for self-certification under Section IX B?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Account Holder",
+        "Controlling Person"
+      ],
+      "notes": "Self-certification sources.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "66782ebda47a92fadbc97817f78ba005a0dc8a2c558aeee48b8a8cecbb468e51",
+      "question": "Which three entities are listed in the first Non-Reporting Financial Institution category?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            14,
+            15
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Governmental Entity",
+        "International Organisation",
+        "Central Bank"
+      ],
+      "notes": "Section VIII non-reporting list.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "69b9548c20fe135618d98110dabecf4f4124270e2dec651d33fd4a0ca51fb71d",
+      "question": "Which natural persons are included in the trust definition of Controlling Persons?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": [
+        "settlor(s)",
+        "trustee(s)",
+        "protector(s)",
+        "beneficiary(ies)",
+        "any other natural person(s) exercising ultimate effective control over the trust"
+      ],
+      "notes": "Trust-control definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "85f22f4a05069be55342520d29729115be22263a06ddd865e3b609baacad3029",
+      "question": "What is the in-force date shown on the cover page?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "2020-07-30",
+      "notes": "Document date.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "35b26e5b32d17a847867997c8cae8b4a770c90b9a71df86fdd4b4b014a81f289",
+      "question": "On what date does a New Account mean an account opened on or after?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "2017-01-01",
+      "notes": "New-account cutoff.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7fae3ee3ed30e1ae6f2096c912d634325cfba066a86c3cbcf02826439bf23385",
+      "question": "As of what date is a Pre-existing Account defined?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "2016-12-31",
+      "notes": "Pre-existing-account cutoff.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "6ed9d66a458bb84d3a37106ce0013e88265d979d10ff70e0e600399bace06d63",
+      "question": "By what date must a Qualified Credit Card Issuer implement the policy or refund rule?",
+      "answer_type": "date",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": "2018-01-01",
+      "notes": "Implementation deadline.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "93c6e68b70c3ddfebb2e1d38696611eca418f65d26dedca4c7239fe9325e5ee6",
+      "question": "What information must each Reporting Financial Institution report for every Reportable Account?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            3,
+            4
+          ]
+        }
+      ],
+      "expected_answer": "The account holder's identifying details, account number, reporting FI name/number, year-end balance or closure, and the relevant income or proceeds amounts, with currency identified.",
+      "notes": "Section I reporting bundle.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "dc2030372a7884d4bc75e54a3758509e95831d32a0f9d7b62d9f67e189602089",
+      "question": "When is an account treated as a Reportable Account?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "Beginning on the date it is identified as reportable under Sections II through VII, and it is then reported annually in the following calendar year.",
+      "notes": "Reporting trigger and cadence.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "82d80cce83b13c4855a17e45f8adea3bb5fce791403994bad273b5473df99abb",
+      "question": "What must a Reporting Financial Institution establish, maintain, and document under Section II?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "The due diligence procedures in Sections II through VII that are designed to identify Reportable Accounts.",
+      "notes": "Section II framework.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "21308832908ab4b47752afc5ee8bd194f20ebf6c91b7a252d794c50e74f1e397",
+      "question": "When may the residence address test be used for a pre-existing individual account?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": "When the institution has a current residence address in its records based on Documentary Evidence; then it may treat the holder as resident in that jurisdiction.",
+      "notes": "Residence-address shortcut.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "c78c67b960be26ed08dc3be57f82b6adaf443ae1cdb757c5ff371950f9b70020",
+      "question": "What does the electronic record search look for in lower value pre-existing individual accounts?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "expected_answer": "Indicia such as a Reportable Jurisdiction address, telephone number, standing instructions, power of attorney, or a care-of/in-hold mail address.",
+      "notes": "Section III indicia search.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "ab80f0889f0700bf49da7597a067c47dffe27ba61505e57be6523af35683abeb",
+      "question": "What must a new individual account self-certification do?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "It must establish the account holder's tax residence(s) and confirm the certification's reasonableness based on the account opening information.",
+      "notes": "New individual account onboarding rule.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "5dd49e3d0d8996c6824a69aa0c4fcbcf0050436a69f20c5828f4caf1b7bb14aa",
+      "question": "What does Account Holder mean?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            22
+          ]
+        }
+      ],
+      "expected_answer": "The person listed or identified as the holder of the Financial Account; for cash value insurance or annuity contracts, the person entitled to access cash value or change the beneficiary, or otherwise the owner/persons with vested entitlement.",
+      "notes": "Miscellaneous definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "8bf0c4d8c3628e52f11521d8bdb1cc67b7e8b65a27f719a3397d7c622f5e8066",
+      "question": "What does Documentary Evidence include?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            23
+          ]
+        }
+      ],
+      "expected_answer": "A certificate of residence, valid ID for an individual, official documentation for an entity, or audited financial statements, third-party credit reports, bankruptcy filings, or securities regulator reports.",
+      "notes": "Documentary-evidence list.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "8ef2ea7d8b03fdfd009739fd06092f8676f34a0f99e272a64def6fc543118ce3",
+      "question": "What does Reportable Jurisdiction Person mean?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": "An individual, entity, or decedent's estate resident in a Reportable Jurisdiction; entities with no tax residence are treated as resident where effective management is situated.",
+      "notes": "Residence-based definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "aa4bd0d5c655fc05279b8fe135ec91ab6dd083ce0746de97402156d88ef890b3",
+      "question": "What does Controlling Persons mean for a trust?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": "The settlor(s), trustee(s), protector(s) if any, beneficiaries or classes of beneficiaries, and any other natural person(s) exercising ultimate effective control.",
+      "notes": "Trust-control definition.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "2025214b2b2443ebdcd03f7424bb45f6ad5542f0c5084dba75753cb11c76ba38",
+      "question": "What does Financial Asset mean?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "expected_answer": "It includes securities, partnership interests, commodities, swaps, insurance contracts, annuity contracts, and related interests, but excludes a non-debt direct interest in real property.",
+      "notes": "Asset definition summary.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "ed108a2327f87b15011d8ce43200e0b42716664f7a7b8d039f7f8d8f3842367f",
+      "question": "What is the account-maintained rule for a Depository Account?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+          "page_numbers": [
+            25
+          ]
+        }
+      ],
+      "expected_answer": "It is maintained by the Financial Institution obligated to make payments on the account, not by an agent.",
+      "notes": "Account-maintenance rule.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "f5c7a6f010bd83aa2ca5c7487715df0a9c881f31acef37f12cc883b1a86e36a4",
+      "question": "What does the document say about cryptocurrency wallet reporting?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513"
+      ],
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "Negative candidate; canonical no-information answer.",
+      "stream_id": "crs_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "88fa316b322107dabdbb5d642ae6296b968369e810eaf2da5759584dc560e9c0",
+      "question": "Did the Court lift the privacy attached to these proceedings?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Direct holding at the end of the privacy section.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7fe74045ddf3b534ceb5b62ee56c9a626a3eba86a8e5bd4c4c984260d1950929",
+      "question": "Did the Court say all hearings and all judgments should be treated as public?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The Court expressly treated hearings and judgments as public.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "b461b9abc31b866bc7248cc2dfd75a2c4340050aaf3b75b03af79938a2f7053f",
+      "question": "Did the Court require a schedule listing every document for collateral use?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court said no schedule was necessary.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "8b5bfec1929c69051e473e52d4d1062ffd40118a977c7f2c68c508f47a235880",
+      "question": "Did the Court accept Techteryx's request for permission to use documents in undefined civil proceedings in any jurisdiction?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court refused that broad formulation.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d2ed9d35dfb69dc55a861b19c82055ca4263d082dd9fede3bf3433771a5dbd9f",
+      "question": "Did the Court accept the proposed 7-day period for disclosure compliance?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court said 7 days was impractical and too short.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b1b5feab8fa91ffa484b741270f74466937107b3dc9a42a2d8d76e565b8eea11",
+      "question": "Did the Court reserve the costs order until the substantive claims were decided?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "The Court declined to reserve costs.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "ab7868a4b36a03ac48a3c3c6492c1f1fab92c19dc954259d48509cface8eccea",
+      "question": "Did the order mention an appeal to the Dubai Court of Appeal?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "No appeal to the Dubai Court of Appeal is mentioned.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "da5a77a59b319d2da014c4f0720918e3b8f9724ab91bf7ef007085d4ab8982ba",
+      "question": "How many hours did the parties have to agree drafts of the orders?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": 48,
+      "notes": "The order required drafts within 48 hours.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b08f3a764b232df08d5428bc7f7c3c8aef8e6df06bc6dff05322e9cf943ce475",
+      "question": "How many days did the Court allow for disclosure compliance?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": 28,
+      "notes": "The Court set a 28-day period for compliance.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6d347cc0fd63c890e890bd57323cb7931c635f30d9d3c645bccdb26818c33e77",
+      "question": "How much did the Court deduct from costs for Techteryx's disclosure misstatement?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": 10000,
+      "notes": "The Court reduced costs by USD 10,000 for the disclosure issue.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5eae85790f106be4eac1c80da0d6270feb395888b8f5b0cfddc2bdb3040a778c",
+      "question": "What amount was ordered to be paid on account of costs?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            23
+          ]
+        }
+      ],
+      "expected_answer": 1083912.49,
+      "notes": "Half of the adjusted costs claim was ordered on account.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "092706ca9d6175f4256bb4dce9aab1e620ee3363667c1af32c1e8dfc389fd105",
+      "question": "How many DMCC payments with unidentified beneficiaries were identified in Schedule B?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "expected_answer": 106,
+      "notes": "Schedule B is described as identifying 106 payments.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "16282e28e7ea3cae7e1186b9baa3be2158c17f520fdaa960821d8bfb95108bba",
+      "question": "How many employees were in DMCC's compliance team?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "The document gives no information about DMCC headcount.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "6c0ad47feb5f6dc3ee88e902c71b9569fed8f35c5f7490b9967e979b1aed4a30",
+      "question": "Which judge issued the amended order with reasons?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "H.E. Justice Michael Black KC",
+      "notes": "The title page and opening order identify the judge.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e152d8f06170928566f5feca5d9359c6a965672a66827e03ceb970d281f2fcd0",
+      "question": "Who was the Assistant Registrar named as issuing the order?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "Hayley Norton",
+      "notes": "Her name appears in the issuance block.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9a317016e73f509e6dcbf9fb59e6ddeb4473859afbe82674e13ad8e58a4b98f2",
+      "question": "Who represented Techteryx at the hearing?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "Mr David Holloway",
+      "notes": "The introduction identifies Techteryx's counsel.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "42dccf29d6d2dbf47b7afbe5858333f842c4f7b510db15d121f29b7ae6da92f4",
+      "question": "Who represented DMCC at the hearing?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "Mr George McPherson",
+      "notes": "The introduction identifies DMCC's counsel.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "7999b4b53866d7d4d99a143e96fd0bdab83895a8aa5e2053a90b26ecc282a170",
+      "question": "Which judge explored the public-hearing issue in Lumbini v Lotika?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": "H.E. Justice Sir Jeremy Cooke",
+      "notes": "He is cited as the judge in Lumbini v Lotika.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "2f2344bebb1c05eda6c388ed0cd713d792362fb358db0dbb7ee591359665fb90",
+      "question": "Which judge's collateral-use analysis did the Court rely on in Byju's Alpha?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": "H.E. Justice Le Miere",
+      "notes": "The reasons expressly rely on his decision.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "6851388def236f5931f05f879ad34c4718534512b931aef849d050e11072a7ac",
+      "question": "Which banks were the Second to Fourth Defendants?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mashreq Bank PSC",
+        "Emirates Nbd Bank PJSC",
+        "Abu Dhabi Islamic Bank PJSC"
+      ],
+      "notes": "The case title lists the three bank defendants.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "f04e31721db48621375dfa29d6480d15d25165c99a0c23d92f4503d6c529df6a",
+      "question": "Which counsel appeared for the parties at the hearing?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mr David Holloway",
+        "Mr George McPherson"
+      ],
+      "notes": "The introduction names both counsel.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "04d35c55308fddc4805857215e29d28e29d798f412a394a003e3c0ac2cf3bc04",
+      "question": "Which judges are cited in the reasons on privacy and collateral use?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            5,
+            9
+          ]
+        }
+      ],
+      "expected_answer": [
+        "H.E. Justice Sir Jeremy Cooke",
+        "H.E. Justice Le Miere"
+      ],
+      "notes": "The privacy and collateral-use sections cite these judges as authorities.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "3c3f0f86fddb02a4be24f0b5373f3e6f7822b927e92f6afb4a81f1a2e200e0d4",
+      "question": "What date was the finalised judgment issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "2025-09-16",
+      "notes": "The order refers to the Judgment dated 16 September 2025.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "a84c5c1ac8a09c04e9b3e5b5653bd4d6ba9f793b6ec9a61e16eb34e46a1bf2ab",
+      "question": "What date did the consequential hearing take place?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "2025-10-02",
+      "notes": "The hearing is stated to have taken place on 2 October 2025.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "4a73448f8c19adb17091ee22984b526d9c32615cf7e05754e70e116bee518913",
+      "question": "What date was the order re-issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "2025-10-17",
+      "notes": "The issuance block records the re-issue date.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "054bb282bc7c1550b14812912f6ee09b70c485ad63b1623b8ab24d3003baa2ab",
+      "question": "What word did the Court substitute for \"fabricated\" in paragraph 365?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "created",
+      "notes": "The slip-rule correction replaced the word in the Judgment.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ec695ce27695363186cb118ca3fa723c66869c6f9dbc834950c33562d67c3eec",
+      "question": "What did the Court say about when the amendment application should have been made?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "It should have been made when the judgment was circulated in draft.",
+      "notes": "The Judge criticized the timing of the amendment request.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "f70c8424b3ee8c834c14fe54d9cc2c83a16687c438fb02e4d34ac3d71dfb6f5b",
+      "question": "What did the Court say about DMCC's privacy objection based on reputational damage?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": "There was no evidence DMCC, as opposed to the ARIA Fund, provided highly regulated financial services.",
+      "notes": "The Court rejected the reputational-damage argument.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "eeb89331f0264f85afd83d5128165b52d3ac05559f1f4da53994590ded4dd950",
+      "question": "What did the Court say about the allegations of fraud in relation to privacy?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": "They had already been made in the Hong Kong proceedings.",
+      "notes": "The Court treated the allegations as already public.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "dbb3c7a752d90dc1d9b3bae020014a71c1acaab22b856be728834dfa1cc47726",
+      "question": "What test did the Court apply to wider collateral use of disclosed materials?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            9,
+            10
+          ]
+        }
+      ],
+      "expected_answer": "Special circumstances, plus necessity, proportionality, and no unfairness or prejudice.",
+      "notes": "This condenses the Byju's Alpha principles the Court adopted.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "551ce6a16a4b010ed98fb7f405045ec749cb2030dcb63883816af85ae3ed331d",
+      "question": "How did the Court characterize DMCC's proposed wider collateral-use wording?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "It was too wide and too vague.",
+      "notes": "The Court rejected the broad wording in Techteryx's draft order.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "e968936d3e6fea0f286e470d9100db0d6e80b5671c91d283f189990e216e368b",
+      "question": "What did the Court say about who should swear the disclosure affidavit?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": "MWB should swear it, with FTI assistance if needed, and take responsibility for it.",
+      "notes": "The Court rejected the idea that MWB should be excluded.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "7d1964328c75d9d350524e5cac18c519cc0f5e5487b6bd53347c1c538a78beda",
+      "question": "Why did the Court refuse to reserve the costs order?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": "Because the freezing order served the normal purpose of a freezing injunction, so the costs were not reserved.",
+      "notes": "The Judge distinguished freezing injunctions from American Cyanamid injunctions.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d8457c89c64e93a7d286ed71b99104c5c354ab3997ba05aac3349ba6768bfdb7",
+      "question": "What did the Court say about further proceedings if Techteryx needs to preserve assets?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "Techteryx could apply ex parte in writing if further proceedings were proposed to preserve assets.",
+      "notes": "The Court allowed a route for later targeted applications.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5",
+      "question": "What did the Court say about any settlement agreement between the parties?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e"
+      ],
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "No settlement agreement is discussed in the document.",
+      "stream_id": "dec_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "73005962b25b58f65b6d10cb14e9937f78f55436f4288c7dc5b633f9c6a819a4",
+      "question": "Who administers the Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Registrar",
+      "notes": "Article 7 states the Law and related legislation are administered by the Registrar.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "01562ab34cc708a12cbe990bc6523a495c9e6db208d9b0482a8a3b2d5702bf69",
+      "question": "What body may make Regulations for the purposes of the Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": "Board of Directors of the DIFCA",
+      "notes": "Article 58(1) identifies the rule-making body.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c5694da027b10903c3c0996cda2c0349099904d4fdf0a8fe0ad3109a6ffbec0a",
+      "question": "What does DIFCA stand for?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "DIFC Authority",
+      "notes": "Defined term in Schedule 1.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "5e4e028d29088cc9cea25aedb46653cf4d21e582381293d7a4c5c2dde7b5b603",
+      "question": "What court is established under Dubai Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "DIFC Court",
+      "notes": "Defined term in Schedule 1.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "979f981f7b4f2f3a557cb061b9dbd8169cccaf9e1acb6e0b8b7438e9b04ef37b",
+      "question": "What term is used for the person appointed by decree of the Ruler pursuant to Dubai Law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "President",
+      "notes": "Defined term in Schedule 1.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "618c3f308693d7b923b174db7ae477d0c2305554c2aca539e3acbe6606d70c73",
+      "question": "What is the defined term for a general partnership formed in the DIFC?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": "General Partnership",
+      "notes": "Defined term in Schedule 1.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1f426debe2e24a895f9cbce3276036494c3a0c01ca34a95b2e58fb822d2b857d",
+      "question": "What is the defined term for a general partnership formed outside the DIFC and registered under Article 13?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            19
+          ]
+        }
+      ],
+      "expected_answer": "Recognised Partnership",
+      "notes": "Defined term in Schedule 1.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "40ea968e248844023562a35045105554683cf55317a629ce1880a43ee8fe5cb5",
+      "question": "What is the term used for legislation made by the Board of Directors of the DIFCA for the purposes of the Law?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": "Regulations",
+      "notes": "Defined term in Schedule 1.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "16bfb065dd62f1b4f97b6e889160af517d372651e2505bc00a9ddce10687f5f3",
+      "question": "Is the Law administered by the Registrar?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 7 assigns administration to the Registrar.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "e32d1df95b3f847983b3dbaae9a0395004657920f7f145f745f43ea73290f4c4",
+      "question": "Must a person carry on a General Partnership business in the DIFC only if the partnership is registered or recognised?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 9 contains the registration prohibition.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d6ad26d8bc7b0c6450666032169cb2e69554283c92c216acef0ce5b8edd5d0e3",
+      "question": "Does each Partner have to sign the partnership agreement?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 10 requires the agreement to be signed by all partners.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "bd861029417eaa91fb3a4b5fe64189b8c6133fc9a8d9231c1ab8537749fb58cd",
+      "question": "Can the Registrar refuse to register a General Partnership or any Partner without giving reasons and without court review?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 12(5) states the refusal need not be reasoned and is not subject to appeal or review.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "764b5e5421deb4941f3b50dfd124ba87bc53d768fb3fdf31c1a54a805f8e5ce1",
+      "question": "Unless all partners agree otherwise, can ordinary matters be decided by majority even though a change in the nature of the business requires unanimous consent?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 17(c) distinguishes ordinary matters from changes to the business nature.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5da9d1b626c8fa4664e4ce14f75a3a20c09729f4e1245bca1620ca65e8a3006c",
+      "question": "Does every Partner take part in management by default?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 17(a) sets the default management rule.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "725dd6be8cda00b303387b37a660faf9a9800f68a27d67c4883b5390c0e9db53",
+      "question": "Is a General Partnership required to appoint an auditor in every case?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "Article 20(7) makes an auditor optional unless the Regulations or the partnership agreement provide otherwise.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "3b9dbf18c0a677133afc33feb04391e758b7b17ccc55ca7b8e936a2dbf7b0783",
+      "question": "May a Partner use information, money, or property of the General Partnership for private purposes without agreement?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "Article 26 prohibits private use unless all partners agree.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "f896ddee905065a505defc236af7a148dfdbf5ec36052f737c08deaa8f23a02f",
+      "question": "Are Partners jointly and severally liable for debts and obligations incurred while they are Partners?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Article 28(1) states the default liability rule.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6217dec5bd6a6d242bd353a7db28d1672a13263ce9b38ce36f073e8168ded4dd",
+      "question": "Does an outgoing Partner remain liable for debts incurred after ceasing to be a Partner?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": false,
+      "notes": "Article 34(2) limits outgoing partner liability to pre-exit debts.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "1ef03eed0471fbf29089e8804945021951c945e398e934047509fdf4c9fdd07a",
+      "question": "Does the Law require annual general meetings of the partners?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative deterministic candidate; this meeting requirement is not stated in the document.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "05a4f39c41ef403564a325fe1292b22a9e23bbe79c30728d7ec6d45743860b84",
+      "question": "How many persons are needed at minimum to form a General Partnership?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": 2,
+      "notes": "Article 8 defines a general partnership as a relationship between two or more persons.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9a6cf532ef57f2f62d0d4148d1fa64ed719d0eb2223ddf866cdfbb0c6eaf8700",
+      "question": "For how many years must accounting records be preserved?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": 6,
+      "notes": "Article 14(2)(b) and Article 18(2)(b) both require six-year preservation.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3eb5f98cf06655f19b9f8e9f2f7a481e154bd2827e092cf26464c54075baa97e",
+      "question": "Within how many months after the end of the financial year must accounts be prepared and approved?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": 6,
+      "notes": "Article 19(4) gives the six-month deadline.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5b8a12854f38d747de9cde4cf0918d6881b0e9774f5487f3cb09a7e09578ad29",
+      "question": "Within how many days after approval must the accounts be filed with the Registrar?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "expected_answer": 30,
+      "notes": "Article 19(5) gives the filing deadline.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "c52ff4022cc7a12d564c2431c3f433a8dfebb4748c70801d929833d2c2cec053",
+      "question": "How many days does Schedule 1 define as a week?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": 7,
+      "notes": "Schedule 1 defines a week as seven days.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "48c8242263a3f308b29e673c0792d794d98a16c0e9282faf3422439188176d53",
+      "question": "How many days does Schedule 1 define as a month?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": 30,
+      "notes": "Schedule 1 defines a month as thirty days.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "07ecbec6f7d67300f1dc3b35b5aecabe416c54c04c00afe71c28b405f1167a89",
+      "question": "How many days does Schedule 1 define as a year?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": 365,
+      "notes": "Schedule 1 defines a year as 365 days.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "23e0c17bf556a62afbca1d6604f775040981426ab4a9c9263a9b405630eca215",
+      "question": "Over how many days is the United Arab Emirates Central Bank deposit-rate benchmark period stated?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": 90,
+      "notes": "Article 38(c)(ii) refers to the ninety-day deposit rate.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "c61b20b7d70ff47da2ff44ba9ec5e12844389349e941e6c16826be03232d1edc",
+      "question": "What is the maximum fine in Schedule 2?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": 20000,
+      "notes": "Schedule 2 lists the maximum fine.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1147915a647ff39a2a6f95fbf83b7fc1e6117d20cc6acc602a9b3e6b92cb65c1",
+      "question": "How many days does the Law allow for filing a partnership tax return?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative deterministic candidate; no tax-return filing rule appears in the document.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "64210e41fb4ea2bbe5f40ecd11ffd475652e3163261c32186c01b9073124e1d7",
+      "question": "Which examples are included in the definition of Document?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "summons",
+        "notice",
+        "statement",
+        "return",
+        "account",
+        "order",
+        "other legal process",
+        "registers"
+      ],
+      "notes": "Schedule 1 definition of Document lists the included examples.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "76f626e12a62d4974db5fab76c103f4bc303092ae07dccefd9b1821dd3ab2cc0",
+      "question": "Which bodies are defined as the Court and the DIFCA?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "DIFC Court",
+        "DIFC Authority"
+      ],
+      "notes": "Schedule 1 defines both entities.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "865dc88e60196e90f893e35b08838d5978dcef229a067a959660fc17946d7396",
+      "question": "Which legal categories are referenced in Schedule 1 as legislation in the DIFC?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            17,
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Federal Law",
+        "Dubai Law",
+        "DIFC Law",
+        "the Law",
+        "the Regulations",
+        "Guidance",
+        "Legislation administered by the Registrar"
+      ],
+      "notes": "Schedule 1's legislation-in-the-DIFC section lists these references.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "0f396dc5fecda3fa578d7c8df6bff2e7e1254f6e07f5e2ebaa6b4c65fbe039aa",
+      "question": "Which examples are included in the definition of Accounting Records?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": [
+        "cheques",
+        "Records of electronic funds transfers",
+        "invoices",
+        "contracts",
+        "the general and subsidiary ledgers",
+        "work sheets and spread sheets"
+      ],
+      "notes": "Schedule 1 definition of Accounting Records lists these examples.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "20fddb1a76975836edbb30e5ba0b908b62523176e483c0865b1fdfd97f16183e",
+      "question": "What month and year is shown for the consolidated version on the cover?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "March 2022",
+      "notes": "Cover page states Consolidated Version No. 2 (March 2022).",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "d94b6aa90e8b960ef023c1932ca35186a5198aeee7e7e962efddf0fa2db44ae8",
+      "question": "What year appears in the short title citation of the Law?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": 2004,
+      "notes": "The short title is the General Partnership Law 2004.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "11339afc0d4a5e053926a7d0a9db02984aaedb4da8a113cd5a5093fe0e4ab39b",
+      "question": "What year is given in the definition of the Operating Law?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            18
+          ]
+        }
+      ],
+      "expected_answer": 2018,
+      "notes": "Schedule 1 defines the Operating Law by its 2018 citation.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384",
+      "question": "What must be included in a General Partnership registration application?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "The General Partnership name ending with 'partnership', the registered office address in the DIFC, the nature of the business, and each partner's name and address.",
+      "notes": "Article 12(2) lists the required application content.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "eaf43b1ffe35026d2e1938e3cb7ccf37e8e9de69f7aae62e52109efb01a73b8c",
+      "question": "What must a Recognised Partnership registration application set out?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "expected_answer": "Its name, its DIFC service address and authorised service person, the nature of the business, each partner's name and address, and any additional information required by the Registrar.",
+      "notes": "Article 14(2) lists the required application content.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "8db2130387b416ecce5e4478566c861761655da1deb199007257f05939348a0c",
+      "question": "What do the accounting records need to do?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "They must be sufficient to show and explain transactions, disclose the financial position with reasonable accuracy, and let the partners verify compliant accounts.",
+      "notes": "Article 18(1) describes the purpose of the records.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "748a883d7f1085718696c657aed1f86ff31f6414d8d52c415e7cd7e5c9b26d2e",
+      "question": "What is the default management rule under Article 17?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": "Every partner manages, no new partner may join without unanimous consent, ordinary matters may be decided by majority, and the business's nature cannot change without unanimous consent.",
+      "notes": "Article 17 combines three default governance rules.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "734931901ce2900c33d80c0b611d8fb37c457e25b6e0529e0d26f2dc97bc2c32",
+      "question": "What does Article 27 allow the General Partnership to do?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": "Indemnify any partner or other person, subject to the standards and restrictions in the partnership agreement.",
+      "notes": "Article 27 grants an indemnification power.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242",
+      "question": "What happens if a partner misapplies fiduciary money or property under Article 31?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "The General Partnership must make good the loss.",
+      "notes": "Article 31 imposes partnership liability for the misapplication.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "2f85e4076a901b0d95513e63f762cca1c2b408656b4492cc017b45eeab470c09",
+      "question": "What must a partner do with partnership information, money, or property for private purposes?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "expected_answer": "Not use it for a non-business purpose unless all partners agree.",
+      "notes": "Article 26 states the private-use restriction.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "e42b8813278a557c3018ce71bf521e22ba1ddf55543cba080f45f9da8a99adab",
+      "question": "What does Article 21 accountability cover?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "expected_answer": "Property, profit, or benefit derived in the conduct of the business or from using the partnership's property, name, or business connection.",
+      "notes": "Article 21(1) describes the fiduciary accounting duty.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "1ba711c35dfc87bf143b79505e5da83a28282586465c8f7c0b91d887ae449179",
+      "question": "What is the effect of a written notice to a partner under Article 33?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "It operates as notice to the General Partnership unless the notice is part of a fraud on the partnership by or with that partner's consent.",
+      "notes": "Article 33 sets the notice rule.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "f549185fbf994265fd81e846f3aae83ce80fa7095a6361157bb1a1baa5ac02b5",
+      "question": "When may a partner dissolve the partnership by written notice under Article 39A?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "expected_answer": "When the partnership was formed for an undefined time and no fixed adventure or undertaking, subject to Article 42 and any agreement between the partners.",
+      "notes": "Article 39A(1) sets the notice-based dissolution route.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "351ac9d5ea6c4748f921855d54bef86c8aa822d61cc35845140252211728e50e",
+      "question": "What must the Registrar be satisfied of before consenting to a voluntary dissolution?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "expected_answer": "That no outstanding liabilities, guarantees, or other legal obligations will remain after the intended dissolution.",
+      "notes": "Article 42(2) states the consent condition.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "8bc0bca2cb8d74a8da3dcbe3f27ab2f2ecf9c16d0e6eeb9813b3170bad9b14c9",
+      "question": "What is the effect of dissolution on partner authority for winding up?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "expected_answer": "The partners' authority continues only as needed to wind up the affairs and complete unfinished transactions.",
+      "notes": "Article 49 preserves authority for winding up only.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "407b07d38e7221bdc4c11ae7336a70b30b94f45e95d228e49dd898cb7046718a",
+      "question": "What must the Registrar publish for public viewing?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": "A reasonably current version of the register of current and past registrations on the DIFC website.",
+      "notes": "Article 60(3) requires public web access.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "4d1691535eb36c00867b4bb92c609beeff6b41d51945409f541b7a6b5a826871",
+      "question": "What does the Law say about any requirement to appoint a company secretary for a General Partnership?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425"
+      ],
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "Negative free_text candidate; the Law does not address any company secretary requirement.",
+      "stream_id": "general_partnership_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "2e38bb7ea6bab8f2f8011a42522139e89a1849f625e91e4632bc93a4ed7c5907",
+      "question": "Did the court allow the claim?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Directly stated in the dispositive order.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ca2a7bd3fd29fc46f26fe94d00d59f1698d7f2d59cf083d51d2845a853288451",
+      "question": "Did the court dismiss the counterclaim?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "Directly stated in the dispositive order.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9093940a7c2ff4a962020858d13c35be648aaf3b958b2beaee548d1ff0862a8b",
+      "question": "Did the parties enter into the MEP Works contract on 26 January 2020?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The contract date is stated in the contract summary.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "cdd999ad1813fa6b82bf7b4c7dfef0fd92e1b0a005f5d4d76ccfae4f467bfc03",
+      "question": "Was the defects period 365 days?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The appendix fixes the defects period at 365 days.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "802628fcf1b2db1caebbd01c40fa08de3830490e476b06d2756c51d5420a44f0",
+      "question": "Was the finance charge on delayed payment 15% per annum?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The contract appendix states the finance charge rate.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "42d7232debc717df1e310885e921a6aaa06208907bc1da0c7d4c61ac4fd0098a",
+      "question": "Did Bond abandon its prolongation costs claim at trial?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "expected_answer": true,
+      "notes": "The concession was made in closing and changed the shape of the case.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9f5d13ee3e783e7b74578a9e51033f880fd93913222a8d9e1c17f38477e16cef",
+      "question": "Did the judgment say that either party filed an appeal?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative: no appeal is mentioned in the judgment.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "bcc7605db223df71fbe9b7c6c6304705753886e463f76383d4b70d9e09c9ca99",
+      "question": "What was the lump sum price of the MEP Works contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 6510440,
+      "notes": "Stated in the contract summary.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3330d52f69661898d96fdaf09288549900860f9d162c670e0f69fca490342cf9",
+      "question": "What was the price of the Fit-Out Works contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 3567221,
+      "notes": "Stated in the contract summary.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "9031aca90cc236c2764d280babfcfcb99768ca911879d2c586497c2287a7b6f0",
+      "question": "What was the daily liquidated damages rate for the MEP contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 10000,
+      "notes": "Given in the appendix for clause 7.4.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "4ea3e47c916e845110b545b12e137184775225a179fcb433c5cf70b3bce133ec",
+      "question": "What was the daily liquidated damages rate for the Fit-Out contract?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "expected_answer": 5500,
+      "notes": "Given in the appendix for clause 7.4.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "4b9f7eae468780198cd726568bb65d98d52fb37dba8a871305c62b89adc98155",
+      "question": "What amount did Bond claim in the original Claim Form?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": 4142210.71,
+      "notes": "This is the balance claimed at the start of proceedings.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "a3e60f65d468e28d8e8f9c3cde52a642fe7425c2dc74cdf758213bcb3a789ca1",
+      "question": "How many days did the judgment give a party to appeal?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "Negative: the judgment does not state any appeal timetable.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "15edca8603b7c32d51bc7d572eed10473d0724bd7cbae05a2459624ed33b2e46",
+      "question": "Who delivered the judgment?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Justice Wayne Martin",
+      "notes": "Named in the judgment heading.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "61a571dfb79f2142242a5574681e06c0f8f3dc7565ebe650182dfa85fe2eea80",
+      "question": "Who issued the judgment as Assistant Registrar?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "expected_answer": "Delvin Sumo",
+      "notes": "Shown in the issue block at the end of the order.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "51aed32de08da0e9ced8d35c18d1cb77f967dd6ccb1b62e1e788a1db257a8579",
+      "question": "Who was counsel for the Claimant at trial?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "Mr. Nathan Landis",
+      "notes": "Listed in the counsel section.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "44c9813821be645ce908c49430eae27398c9a5fbc4a4c3577701433d73777ac5",
+      "question": "Who was Bond's MEP Operations Manager?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "Mr. Ajay Kumar",
+      "notes": "Identified in the witness section.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "afe73d351c5b5f5bdfc97cd7b456d60962a46f2d0eea6f46e7782e984165c03d",
+      "question": "Who was TR88's co-owner and manager?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": "Dr James Khalili",
+      "notes": "Identified in the witness section.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7727dfb77f0432c0f09e5a4ae3a49fac3e2ffb77edaba9895df163a28aa69ba7",
+      "question": "Which two witnesses of fact did Bond call?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mr Ajay Kumar",
+        "Mr Mohamed Riyas"
+      ],
+      "notes": "Both Bond factual witnesses are named in the judgment.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e91f2648304477e34f3fd60554731151c7d6eb0d659c16f4b97869e1983d87e2",
+      "question": "Which two witnesses of fact did TR88 call?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            11,
+            12
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Dr James Khalili",
+        "Mr Ardalan Foad Bashiri"
+      ],
+      "notes": "Both TR88 factual witnesses are named in the judgment.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "e924652258ed2f2fae31da6f55f2a260565b86e4f3c404e44c2cb6da2e3d99d4",
+      "question": "Which two expert witnesses gave delay and quantum evidence?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "expected_answer": [
+        "Mr Vimal Kaspar Dev",
+        "Mr Andew J Bowler"
+      ],
+      "notes": "Requires combining the expert-evidence section.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "9205e3f8e206da4ea42beb0cc2a40aaf660a179e750a9ee6026d0710591608ff",
+      "question": "On what date was the judgment issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "expected_answer": "2024-02-28",
+      "notes": "The judgment date is stated at the top and in the issue block.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "f2366d2d2cc2a2dab585b0c6681b04fcb1af8b46422c4fbe6a9126ae56c6fe8a",
+      "question": "On what date did Bond commence these proceedings?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "expected_answer": "2023-03-09",
+      "notes": "The commencement date is expressly stated.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5e503a828d773e7821a77bba31b8b0df9ed446b6d860bc9f957e1aa044c245f3",
+      "question": "On what date did TR88 take possession of the premises and open them for business?",
+      "answer_type": "date",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "2021-12-22",
+      "notes": "Stated in the summary of completion and handover.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "e1f33d725fd31d285e8c38588e2894cd6c583bf806d53cf816f467bc68ad55c9",
+      "question": "What reason did the court give for dismissing TR88's liquidated damages and lost profits claims?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            16
+          ]
+        }
+      ],
+      "expected_answer": "Bond was not shown to be solely responsible for the delay; the evidence pointed to concurrent delay.",
+      "notes": "The dismissal turned on failure to prove sole responsibility.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5d94b33f61bae17b9fc3bf1448b9a352a89cf879fd47cc423c385e5bd11942ed",
+      "question": "Why did the court accept Bond's AED 161,404.98 credit for the descoped roof-top MEP works?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            17
+          ]
+        }
+      ],
+      "expected_answer": "Bond produced a detailed calculation and TR88 produced no contrary evidence to show a greater credit was due.",
+      "notes": "The court accepted Bond's uncontradicted calculation.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1ce38b389439bacc237e4716d1e238b03b9c1f6e5c36bb1443d5590d0d87e52e",
+      "question": "Why were TR88's back charges for third-party rectification works rejected?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            21
+          ]
+        }
+      ],
+      "expected_answer": "TR88 did not verify what the works were or prove they were Bond's responsibility, and it had also denied Bond access to the site.",
+      "notes": "The court found the evidential basis insufficient.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e54efd13c8aacd22f254e5cd61bf88a9f63f70779155f1225cc6bbfdfefe131f",
+      "question": "What did Bond's substituted particulars emphasize about extension-of-time applications?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "expected_answer": "They relied on deemed approval if an extension request was not rejected within seven days, and on prolongation-cost claims.",
+      "notes": "The substituted pleading sharpened the contractual EOT argument.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "e0282918275013f5d7e565a3847dbe2fd431a8b3c25630570636e5316af2437e",
+      "question": "What was the effect of TR88 not responding to the Taking Over Certificates within 14 days?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "expected_answer": "They were deemed issued on 11 January 2022.",
+      "notes": "The contract's deeming mechanism is expressly applied.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "b5e251c7f335cd037fe31c48321859536a7741b3531478fe44593a77f4762eaa",
+      "question": "Why did the court give effect to the 15% per annum interest clause?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            19
+          ]
+        }
+      ],
+      "expected_answer": "The contract fixed the rate, and the court said Article 73 of the UAE Commercial Code supports giving effect to agreed interest rates.",
+      "notes": "The judgment expressly ties the contractual rate to Article 73.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9d55c83b7650c63c3373a623a7cd9dcd48f3252c3c5bcbf460eec353d2704ec3",
+      "question": "How did the court characterize Mr Dev's delay analysis?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            13
+          ]
+        }
+      ],
+      "expected_answer": "It was treated like a black box Primavera exercise that did not grapple with TR88's delay allegations.",
+      "notes": "This captures the court's criticism of the expert method.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "05a24b59724503cd291a447b252697c4d0f27876fe2d9cd3d05b79fef8b6d4b3",
+      "question": "How did the court characterize Mr Bowler's 20% profit estimate?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "expected_answer": "It was described as a thumb-suck with no basis in TR88's actual profit margin.",
+      "notes": "The court rejected the profit assumption as unsupported.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "e8d90c1960fb5cd225875c75785fa60615ae2c87ff2d3894b5862f8a24959c80",
+      "question": "Why were Mr Dev's report costs excluded from Bond's recoverable costs?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            23
+          ]
+        }
+      ],
+      "expected_answer": "He was Bond's employee, his report had problems, and the prolongation costs claim was abandoned.",
+      "notes": "The costs carve-out is explained in the final order.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "3253817f433a0a520e30eba54fc7e346ba5fcad45c5cacb5c819f6155227f620",
+      "question": "Why did the court accept the Fit-Out descoped works credit proposed by Bond?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            20
+          ]
+        }
+      ],
+      "expected_answer": "Bond's figure was unopposed and TR88 offered no evidence proving a greater credit was due.",
+      "notes": "The court relied on the lack of contrary evidence.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": false
+    },
+    {
+      "id": "34d4680c1f8f856fedc1efa3938703b6c162ecb5003e27ee1bbd743fcca31994",
+      "question": "What warranty provider is identified for the project?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+      ],
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "Negative: the judgment does not identify any warranty provider.",
+      "stream_id": "tcd_case_single_doc",
+      "selected_for_gold": true
+    }
+  ]
+}

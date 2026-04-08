@@ -1,0 +1,2487 @@
+{
+  "summary": {
+    "question_count": 100,
+    "answer_type_counts": {
+      "boolean": 21,
+      "date": 8,
+      "free_text": 27,
+      "name": 17,
+      "names": 9,
+      "number": 18
+    },
+    "difficulty_counts": {
+      "easy": 50,
+      "hard": 15,
+      "medium": 35
+    },
+    "negative_count": 8,
+    "stream_counts": {
+      "ca_case_single_doc": 20,
+      "cross_doc_hard": 15,
+      "enf_case_single_doc": 20,
+      "personal_property_single_doc": 22,
+      "security_single_doc": 23
+    },
+    "source_type_counts": {
+      "case": 40,
+      "cross_case": 7,
+      "statute": 53
+    },
+    "selected_question_ids": [
+      "637d3839de0a65f8c354724a8d07d581018408262e6de311b30b981aa28cbb66",
+      "a8100f000a2ffa3d3bf051c6dafdc187f35ed3b5fcdb35a5bdc6de7689d48661",
+      "3e39043cd72b7a231a8033c96e736f0599bfdf61a7b9b875fd54e10fdb87ad65",
+      "032a28b5d4cd019aa36d01af8b59c27e3037afd8d5714685db720fdb44866e3a",
+      "c18bc5844911a0ca4fd495ffa3cc52124fee3d19ee5e8a27f5f72682d509fd10",
+      "c6a0218850ba25dd3673704f422ec446904286e1a1c151ed1ae771d8de67e123",
+      "7cfaaa279beaf809a0404f70ec1e237c3e646b228d33047b20c4abd4b5bd2258",
+      "00957d62e7648173d04346496df2306addcc8e2842fabcd44244c466f4189b9f",
+      "43c96b9145f071a70e73374107ebbb24489efa091ada3da76610cb0f2e97aef2",
+      "ab9fec8cc560a236830dcee0e894c596e5603a2c822c1a7829fd319ff2c0d463",
+      "e0ba7275a0c7a10725681d4c15c6c5045e5b3ac9f76d168d5568084bddbc5759",
+      "0a82da5eee421090cbc00ba3c3fea3f49f96057983385211ea0e83e38642db0a",
+      "7e488abe3074d1264c1a560e49dd1bf3a8fdd3adf931943dfa4177e1ec398b83",
+      "8639fcc8d3f5c9a1c7b22b5f7c3e6bdc9546b49cc2e173c5ef1e1d6a885fa27b",
+      "7c8841ea0b699fdaa9af7136dc997f9e56b4e8f6e0979ad41882760bada76e8a",
+      "c5c7eddacc461ebbf67e6b1dff474512ccdf8bd1ef8ddf88a305fd961330b26e",
+      "c7ce52531a9e0bd11b0bedd68fcd53c6fae058739a0e8e074ff2ad11b98001e7",
+      "243ed6a090495e284bcda7a53945555ee35c8e9c14a27ac3fcf993fdac482fbf",
+      "9bb31e7af8c48b8d9c394f09c03d6009645f764299811060aff09a33a8d12294",
+      "619cc2728e3e6e8f82ca91daf5ced51ba251c67e0d3c0a90f2ce1450fefd7de5",
+      "df1e3124c44330d699ce9a1c01d670a0691158455b57156a948ce044980dbf44",
+      "33077cafec056dc1eaadb102da3cf0bc37f8c0a0ae0b73ec061c1c7cd4d1a71a",
+      "c2d4d742dbc859eb1f262b53a315124fd1a063752794cf81aa9ca4e4862ab6b6",
+      "34aa1e246e49e2303808771c682c1a98c99724618aee889291ec293aacea13ac",
+      "bc4adffe780b96c330ba0d3525de0ba4fbb59d0b6ddcf7162db9dee906527d84",
+      "4221bb7266e2923a0b0f362646dc594b2a188e32cf96fba42532378c31cb5956",
+      "e46ad8628071b6bac6bd4c17e5f53eb357b33f314ed4f8d4a7ffcc26f3de5539",
+      "3028443cccb5e44e39809b29fed95fa364e635e7500f24976962b234eb650ac8",
+      "0d445938afad189c36cd927f6420870ecf678f22e2f1158bf2c9f0db84a2b680",
+      "a9baaf3300d9bb364445af12c8d62805595599753ec2b1c947916b531bcbba75",
+      "1ee4918361e40396d89d499474dfa72c2ac7397111c5967becf70f8742b0bdc9",
+      "5bd325194d5ca5221d747ce8164e66135252b591e975a5cec7313ccf8e84d4c6",
+      "bf7e0ebf84229c956c1154a4d1386ed4b887fc9fc8191ef518ece6c115d182db",
+      "441c5056004870aface17e51e9325b7f307ea0eeb84236cc5cf2810c5ad903ce",
+      "6f90ff9bbd5147f27b1d1aaf3a4dd5995e8ebdf1bc8af62f5b708ccf89cbeeb8",
+      "8a221a3c76e2fb8291561a9c44e0157c7687725cee0c5f4f47f6ff95ee60a2c1",
+      "9b979082c31ae4ad36f857eab9a6e3dbc1404128e7467f6ebc52687ba6e4bfc1",
+      "283affa0bd68750fa8f5d17eaa8a9a4247ed437345b8e367b1768701c4be0bee",
+      "6055646150c020471cdebfec33811affcb68177dec15d417a38b64b61bb1dccf",
+      "6910955670e693e7ffae4e88e5fec443919d480da5d4bca8ce95cb78fa1f809e",
+      "f7a6ffc10f783b13fa087ae80b5dabe418073e561aee101eafd5de26449ea182",
+      "03232ae6d4fe7269105a2336ab3bfc7dfde0f76ca22e244ff45b9f0e78e6cfa5",
+      "d1c051e58ef45da6f83864b6b42d957e2abb7820286741bc3adcd12a23739c2e",
+      "08134e30a29f5814c5c0a9e72a79a4155924caa8d4ff9165d7a12811af332f53",
+      "6f0453b829312016141de6b7352661614db96225aaecd8c0c6769054033ca16f",
+      "dc153b913f68d9ae38e710392d04b2ab4a54f4ed2845e13952a361810e390fa4",
+      "ae3b2d0d754b0ed6345e6b1ecfb795011a0186a157942b5e3c8a8da6474b34f5",
+      "2452eb7b7f44e7016edeeba41a7b1ae4badb99bb5cfc06a918f611e54e558abd",
+      "e696184d7a15770f1d74731eeca0c6537b7237d51402c52f4967bab4f7639127",
+      "81bc286f5b974b6493b56f9f5f8318298d489e86869f76a0f42487c3aba17259",
+      "6876a74fc2aedc5a327481d0b0158ae62d2e90d5b9b62cbce9d7c4a1239fbff4",
+      "b0f6405c390a8f558e833465e10a2993b1c6b9a4e3b7bab48f146600c6e3fb0c",
+      "b1e8b7e19881832888e917f24aeb839aa8e1bb8355e027c6f677ead5c8c28bb0",
+      "90b6147e85ae955cc3e3941b416096ee7fd2c79e96a30eae959472f536b0bf20",
+      "ab613bfda1fe56340fafa1adda8f9d70a5bda4aed58fd521d5069c74c8c0f8da",
+      "5877c6811eb496b26d3322a027b7d19f3d13f8623454f94c982b7e1d8c3e89ae",
+      "32868c181e4d6b0ba34eb6fc0817c70169f81619213ac77c689492d92414efaf",
+      "d2f30df27ace35075ae30e9ca7e218af10e0528f652de387b52218c1b01655ba",
+      "df17a83bb0663799bccc22951e3e02268384afa2b5609a96142e73a3179d4c51",
+      "a73a4fa484db325f96c907f5763845cef3cb9cde1b5b201ddecc34ba8d4738e1",
+      "b1eb96688844a90f3e9e8ff9ef992d06eae3a6766d9259e961608e561403def6",
+      "dabdf43e53a0a297bae73c481901a2f9fcbd867c7577d72aa09338d0761043cb",
+      "727ed847a54a912ceb448a9b5b5345aae2212f63d62c4ddcb27dd91ac229fe1c",
+      "935cc72350cfbef1697985a255d86275b34bb3172922e19a0674a45113ddb75b",
+      "8c7ee96a3a68a7d179f010352164772535c8917bdd189cd53b7998aebcf18a61",
+      "2d3208fa8785e8cca62f274df4fc994103155c2dba337400bd32bfd8c107f315",
+      "5d3bc2d1766c6774622ab7606484d86a0ee02d3c7c189811b4bcfceae8b3d5b6",
+      "005a89032a872c6b7e0d5d03f1767719fc3ab5b1146bf221ec53a5500e632d6e",
+      "c8bd14fd89c211485a2181de90704867a936e5c094247bf7fed909e6db36528f",
+      "c915a75023c18f76cc061fde84dede56b40e863a64296f342d7cb7f70cc54592",
+      "a9f70e30e54299587ab63c67edacb6d0026c4e8cdc58d93593bea897bcbb1468",
+      "b9fa4a13ada890eff823a9a1a822ac037930154b25041ff70b6dcf1be7de1e12",
+      "16b25d9a625b224af6e29cc9c6d5944e44a44d81d71bfac96b13f9b0ceca9e4e",
+      "d0fa21fb6d676b69e9cddd85cd137c298c43172d50a15aa66badd51ca3a0a8eb",
+      "8c8eeeeba7a6c1eace5f993e5fd5ee0eb331443fc937cff46c5da06698c7c0ef",
+      "1fb0f898d8efef8ab77d9e9437e22d4f4f039f1dc867362ed340cb5676fe85fa",
+      "68747d99590804fb4ee222ed72dea34ad4e25db553fc8005c357efa83e76cfb8",
+      "d63e5750f2544b559c35dc02254d69ecb973d641ca96f0ed83e005e80e711ea0",
+      "f814180842a21915a59bff2562edfb4d7cadeec7b05513a5f42fd6989cc398d5",
+      "2a24c361f42ce5dbbdf845c2e0dbca07e21dc7ef636d2f3ace153c3ff1cb230e",
+      "ff4100c238c19d96a6d1884d2f3878d5f383d696a23d1fa3c6a14a872fbfa8bd",
+      "46caff4454d75ab3dff337a094a5981ad4d157c063c929d69e9eb9d3c0c745e0",
+      "e974af078d9afe2e3c178bfa8f3b615961100855d9ab234f2d94e833daabe2cb",
+      "3f938060b3d2c9c018be2534c1afcddf008f34464edac7758eadfb4bed6ec86c",
+      "3c84afca53855c8e3c01290d3db66dfe8c62db128f6250b1331391dbe92108b0",
+      "3b53c596ac65a7f42ca61f840494935fb044110a32c8f602944ca9d7dd9503e0",
+      "17bfa386a1f22d295d3ee717aae19a749af280616a875eade14b102a23dd9244",
+      "824ab970e65de2136ccf5bbcb7f7bb24f7432c44e7eaf0a7fadda0d88f8c04a3",
+      "737e8825480edb84c6431ce40ec94af6ff8eb3af6b3591a6c39ff994b4657612",
+      "4b08b7f764aabfa6467a0df6bcb412b8167c43b127822023402ba8cb1bd48153",
+      "7bee2a70fcd7ecdd169ca34c3bc71d3950404ac3d54bc5b9442114b228b914fb",
+      "502a270a2eed204fdef12d658ff290cb38cc8747ab7ea950ea61c128176446ae",
+      "80e242c66dcf9829d90a17a53168f5aae4475ac69673a771b590f3b07b4fd101",
+      "6e80d32a34d82c53daf841777d9cf50ca5256509b3205cbbe16e252636006164",
+      "ab3d5b4bf9a1899c20f96e404af11415691ebfde4706dd619a9bb126caf5015f",
+      "ba12d0cf5464362d1383546865a0f04225a47d25785426c6c7a3e3a986ac64b1",
+      "882013e6994b71fa9e23e343c61fc6476a3a387cb3161fa042394a95dace4e94",
+      "de237054593d06ab425a518b055b25c8c737be54582170daef9aac2375995164",
+      "b07df9652665758ea5f91f66a4e2e4ac90bb7ac05797ea42a680450909f62e30",
+      "8e78398e654e4b37101f10f9ae7510fc48e9053c72135fad6f95e85dec27f65a"
+    ]
+  },
+  "records": [
+    {
+      "id": "637d3839de0a65f8c354724a8d07d581018408262e6de311b30b981aa28cbb66",
+      "question": "On what date did Consolidated Version No. 2 of the Securities Regulations come into force?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Title-page effective date.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "a8100f000a2ffa3d3bf051c6dafdc187f35ed3b5fcdb35a5bdc6de7689d48661",
+      "question": "Do these Regulations apply to any person to whom the Law applies?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Scope rule in Regulation 1.1.1.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3e39043cd72b7a231a8033c96e736f0599bfdf61a7b9b875fd54e10fdb87ad65",
+      "question": "What is the defined name of the law referenced as \"Law\" in the definitions table?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Definition of Law on page 3.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "032a28b5d4cd019aa36d01af8b59c27e3037afd8d5714685db720fdb44866e3a",
+      "question": "Under Regulation 1.2.1, what does \"in writing\" mean?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Writing definition.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c18bc5844911a0ca4fd495ffa3cc52124fee3d19ee5e8a27f5f72682d509fd10",
+      "question": "What document must be submitted to effect a filing under Regulation 2.2.1?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            4
+          ]
+        }
+      ],
+      "notes": "Relevant approved form requirement.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c6a0218850ba25dd3673704f422ec446904286e1a1c151ed1ae771d8de67e123",
+      "question": "How many approved forms are promulgated in Regulation 2.3.1?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Count of approved forms.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7cfaaa279beaf809a0404f70ec1e237c3e646b228d33047b20c4abd4b5bd2258",
+      "question": "What is the form number for a Financing Statement?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Financing Statement form number.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "00957d62e7648173d04346496df2306addcc8e2842fabcd44244c466f4189b9f",
+      "question": "What is the fee for filing a Financing Statement (Form 1)?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "notes": "Fee schedule.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "43c96b9145f071a70e73374107ebbb24489efa091ada3da76610cb0f2e97aef2",
+      "question": "What is the fee for filing a Correction Statement (Form 6)?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "notes": "Fee schedule.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ab9fec8cc560a236830dcee0e894c596e5603a2c822c1a7829fd319ff2c0d463",
+      "question": "Can filings be made in paper format?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Paper filing rule.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e0ba7275a0c7a10725681d4c15c6c5045e5b3ac9f76d168d5568084bddbc5759",
+      "question": "Within how many business days must the Registrar notify a filer of a refusal where practicable?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Refusal-notice deadline.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "0a82da5eee421090cbc00ba3c3fea3f49f96057983385211ea0e83e38642db0a",
+      "question": "Can the Registrar amend the effective time of a Filing when taking corrective action under Regulation 2.6.3?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Limits on corrective action.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7e488abe3074d1264c1a560e49dd1bf3a8fdd3adf931943dfa4177e1ec398b83",
+      "question": "What is the fee to add or delete a single party on Form 5?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "notes": "Form 5 fee line.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "8639fcc8d3f5c9a1c7b22b5f7c3e6bdc9546b49cc2e173c5ef1e1d6a885fa27b",
+      "question": "Which methods of delivery are accepted for a search request under Regulation 2.9.1?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "Accepted delivery modes.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7c8841ea0b699fdaa9af7136dc997f9e56b4e8f6e0979ad41882760bada76e8a",
+      "question": "What two conditions must be met for a requested search delivery mode other than ordinary mail to be honored?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "Conditions for special delivery mode.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c5c7eddacc461ebbf67e6b1dff474512ccdf8bd1ef8ddf88a305fd961330b26e",
+      "question": "What grounds may cause the Registrar to refuse to permit a Filing under Regulation 2.4.1?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Refusal grounds.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c7ce52531a9e0bd11b0bedd68fcd53c6fae058739a0e8e074ff2ad11b98001e7",
+      "question": "What must the Registrar's corrective action statement identify under Regulation 2.6.2?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Required elements of corrective statement.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "243ed6a090495e284bcda7a53945555ee35c8e9c14a27ac3fcf993fdac482fbf",
+      "question": "What must a request for review under Regulation 2.7.3 include?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Review request contents.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9bb31e7af8c48b8d9c394f09c03d6009645f764299811060aff09a33a8d12294",
+      "question": "Is retroactive or back-dated filing permitted under Regulation 2.7.2?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Back-dating rule.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "619cc2728e3e6e8f82ca91daf5ced51ba251c67e0d3c0a90f2ce1450fefd7de5",
+      "question": "What is the form number for an Information Request?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Form number lookup.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "df1e3124c44330d699ce9a1c01d670a0691158455b57156a948ce044980dbf44",
+      "question": "What email address is provided in the Regulations for submitting a search request?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "No email address is stated.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "33077cafec056dc1eaadb102da3cf0bc37f8c0a0ae0b73ec061c1c7cd4d1a71a",
+      "question": "Name the seven approved forms promulgated in Regulation 2.3.1.",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Full approved-form list.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c2d4d742dbc859eb1f262b53a315124fd1a063752794cf81aa9ca4e4862ab6b6",
+      "question": "Do the Regulations specify a telephone number for the Registrar?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            7
+          ]
+        }
+      ],
+      "notes": "No telephone number is stated.",
+      "stream_id": "security_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "34aa1e246e49e2303808771c682c1a98c99724618aee889291ec293aacea13ac",
+      "question": "What is the short title of the law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Article 1 short title.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "bc4adffe780b96c330ba0d3525de0ba4fbb59d0b6ddcf7162db9dee906527d84",
+      "question": "Who made the law?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Legislative authority.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "4221bb7266e2923a0b0f362646dc594b2a188e32cf96fba42532378c31cb5956",
+      "question": "In which jurisdiction does the law apply?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Application of the law.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e46ad8628071b6bac6bd4c17e5f53eb357b33f314ed4f8d4a7ffcc26f3de5539",
+      "question": "On what exact date does the law say it comes into force?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "The law refers to an Enactment Notice, but no date is given in the document.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3028443cccb5e44e39809b29fed95fa364e635e7500f24976962b234eb650ac8",
+      "question": "What year appears in the law citation on the cover page?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Year in citation.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "0d445938afad189c36cd927f6420870ecf678f22e2f1158bf2c9f0db84a2b680",
+      "question": "How many Parts are listed in the contents before Schedule 1?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "notes": "Count of Parts in contents.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "a9baaf3300d9bb364445af12c8d62805595599753ec2b1c947916b531bcbba75",
+      "question": "What article number sets out transfer authority?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "notes": "Transfer authority article lookup.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1ee4918361e40396d89d499474dfa72c2ac7397111c5967becf70f8742b0bdc9",
+      "question": "Does Article 7 make the Law apply to real property?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Real property exclusion.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5bd325194d5ca5221d747ce8164e66135252b591e975a5cec7313ccf8e84d4c6",
+      "question": "What does Schedule 1 contain?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Interpretative content of Schedule 1.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "bf7e0ebf84229c956c1154a4d1386ed4b887fc9fc8191ef518ece6c115d182db",
+      "question": "What is presumed when property is transferred by way of gift?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Gift presumption.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "441c5056004870aface17e51e9325b7f307ea0eeb84236cc5cf2810c5ad903ce",
+      "question": "At what point does title pass for unascertained property under a sale contract?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Unascertained property rule.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6f90ff9bbd5147f27b1d1aaf3a4dd5995e8ebdf1bc8af62f5b708ccf89cbeeb8",
+      "question": "Does Article 11 make Articles 8 to 10 apply to Digital Assets?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "notes": "Digital Assets carve-out.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "8a221a3c76e2fb8291561a9c44e0157c7687725cee0c5f4f47f6ff95ee60a2c1",
+      "question": "What gives control of a bearer security in physical form?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "notes": "Control rule for bearer security.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "9b979082c31ae4ad36f857eab9a6e3dbc1404128e7467f6ebc52687ba6e4bfc1",
+      "question": "What does Article 19(4) require for transfer authority over registered investments?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8
+          ]
+        }
+      ],
+      "notes": "Registered investments transfer authority.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "283affa0bd68750fa8f5d17eaa8a9a4247ed437345b8e367b1768701c4be0bee",
+      "question": "Does Article 21 say that the absence of signed writing invalidates enforcement of an investment-related record or instruction?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "No-writing rule.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6055646150c020471cdebfec33811affcb68177dec15d417a38b64b61bb1dccf",
+      "question": "Which rights are listed in Article 26(1)(a) for an investment entitlement holder?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            11
+          ]
+        }
+      ],
+      "notes": "Rights attached to investment entitlement.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6910955670e693e7ffae4e88e5fec443919d480da5d4bca8ce95cb78fa1f809e",
+      "question": "What is required for a debit or credit of an investment entitlement to be effective under Article 28(1)?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "notes": "Authorization requirements.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "f7a6ffc10f783b13fa087ae80b5dabe418073e561aee101eafd5de26449ea182",
+      "question": "When is a conditional debit or credit effective against third parties under Article 28(3)?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            12
+          ]
+        }
+      ],
+      "notes": "Conditional effectiveness.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "03232ae6d4fe7269105a2336ab3bfc7dfde0f76ca22e244ff45b9f0e78e6cfa5",
+      "question": "Under Article 30(5), what does a contravention of Article 30(1) not render ineffective?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "notes": "Effect-preservation rule.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d1c051e58ef45da6f83864b6b42d957e2abb7820286741bc3adcd12a23739c2e",
+      "question": "How are shortfalls allocated under Article 32(1)(b)?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "notes": "Shortfall allocation.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "08134e30a29f5814c5c0a9e72a79a4155924caa8d4ff9165d7a12811af332f53",
+      "question": "How many categories of property are listed in Article 12(4) as excluded from Article 12?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Count of excluded property categories.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6f0453b829312016141de6b7352661614db96225aaecd8c0c6769054033ca16f",
+      "question": "Does the Law provide a specimen form for transfer instructions?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            2,
+            17
+          ]
+        }
+      ],
+      "notes": "No specimen form is provided.",
+      "stream_id": "personal_property_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "dc153b913f68d9ae38e710392d04b2ab4a54f4ed2845e13952a361810e390fa4",
+      "question": "What is the claim number of this case?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Claim number in caption.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ae3b2d0d754b0ed6345e6b1ecfb795011a0186a157942b5e3c8a8da6474b34f5",
+      "question": "Which court issued the reasons in this case?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Court name in heading.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "2452eb7b7f44e7016edeeba41a7b1ae4badb99bb5cfc06a918f611e54e558abd",
+      "question": "On what date was the order with reasons issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "notes": "Date of issue.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e696184d7a15770f1d74731eeca0c6537b7237d51402c52f4967bab4f7639127",
+      "question": "Which three judges sat on the Court of Appeal panel?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Panel composition.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "81bc286f5b974b6493b56f9f5f8318298d489e86869f76a0f42487c3aba17259",
+      "question": "What amount of debt or damages did the Claimant seek, exclusive of interest and costs?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Claim amount.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6876a74fc2aedc5a327481d0b0158ae62d2e90d5b9b62cbce9d7c4a1239fbff4",
+      "question": "On what date did the Claimant file its Claim Form?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Claim Form filing date.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b0f6405c390a8f558e833465e10a2993b1c6b9a4e3b7bab48f146600c6e3fb0c",
+      "question": "On what date did the Defendant file its acknowledgement of service?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Acknowledgement date.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b1e8b7e19881832888e917f24aeb839aa8e1bb8355e027c6f677ead5c8c28bb0",
+      "question": "On what date did the Defendant file the application for security for costs?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Security application date.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "90b6147e85ae955cc3e3941b416096ee7fd2c79e96a30eae959472f536b0bf20",
+      "question": "What amount of security did the Judge order on 19 March 2025?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Original security amount.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ab613bfda1fe56340fafa1adda8f9d70a5bda4aed58fd521d5069c74c8c0f8da",
+      "question": "What was the name of the agreement under which the Claimant provided marketing and branding services?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Name of the agreement.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5877c6811eb496b26d3322a027b7d19f3d13f8623454f94c982b7e1d8c3e89ae",
+      "question": "What amount were the Defendant's costs of the appeal and permission applications fixed at?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Fixed costs amount.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "32868c181e4d6b0ba34eb6fc0817c70169f81619213ac77c689492d92414efaf",
+      "question": "Did the Court allow the Claimant's application for permission to cross-appeal?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            2,
+            13
+          ]
+        }
+      ],
+      "notes": "Cross-appeal outcome.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d2f30df27ace35075ae30e9ca7e218af10e0528f652de387b52218c1b01655ba",
+      "question": "What email address of the Claimant is stated in the judgment?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1,
+            15
+          ]
+        }
+      ],
+      "notes": "No email address is stated.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "df17a83bb0663799bccc22951e3e02268384afa2b5609a96142e73a3179d4c51",
+      "question": "Did the Court reject the idea that the mere existence of a litigation funder automatically justified a reduced security figure?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            8,
+            11
+          ]
+        }
+      ],
+      "notes": "Litigation funding point.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "a73a4fa484db325f96c907f5763845cef3cb9cde1b5b201ddecc34ba8d4738e1",
+      "question": "What legal principle did the Claimant rely on in support of the proposed cross-appeal?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Named principle for cross-appeal.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b1eb96688844a90f3e9e8ff9ef992d06eae3a6766d9259e961608e561403def6",
+      "question": "What are the two stages of the RDC analysis for security for costs?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            7,
+            8
+          ]
+        }
+      ],
+      "notes": "Two-stage framework.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "dabdf43e53a0a297bae73c481901a2f9fcbd867c7577d72aa09338d0761043cb",
+      "question": "What were the main errors the Court identified in limiting security to the strike-out stage?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            10,
+            11
+          ]
+        }
+      ],
+      "notes": "Errors of principle identified by the Court.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "727ed847a54a912ceb448a9b5b5345aae2212f63d62c4ddcb27dd91ac229fe1c",
+      "question": "What did the Court decide about whether the Security Order allowed further security after the Strike-out Application?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            9,
+            10
+          ]
+        }
+      ],
+      "notes": "Interpretation of Security Order.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "935cc72350cfbef1697985a255d86275b34bb3172922e19a0674a45113ddb75b",
+      "question": "What directions did the Court give the CFI on remittal when reconsidering security?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            2,
+            12,
+            13,
+            14
+          ]
+        }
+      ],
+      "notes": "Remittal directions.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "8c7ee96a3a68a7d179f010352164772535c8917bdd189cd53b7998aebcf18a61",
+      "question": "What bank account number for payment of the AED 550,000 appeal costs is set out in the judgment?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "No bank account number is stated.",
+      "stream_id": "ca_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "2d3208fa8785e8cca62f274df4fc994103155c2dba337400bd32bfd8c107f315",
+      "question": "What is the case number of the decision?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Case number in caption.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "5d3bc2d1766c6774622ab7606484d86a0ee02d3c7c189811b4bcfceae8b3d5b6",
+      "question": "Who is the Judgment Creditor?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "notes": "Judgment Creditor name.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "005a89032a872c6b7e0d5d03f1767719fc3ab5b1146bf221ec53a5500e632d6e",
+      "question": "Who is the Judgment Debtor?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "notes": "Judgment Debtor name.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c8bd14fd89c211485a2181de90704867a936e5c094247bf7fed909e6db36528f",
+      "question": "On what date was the Order with Reasons issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "notes": "Issue date.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "c915a75023c18f76cc061fde84dede56b40e863a64296f342d7cb7f70cc54592",
+      "question": "What was the amount of the Partial Award issued on 10 March 2023?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Partial Award amount.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "a9f70e30e54299587ab63c67edacb6d0026c4e8cdc58d93593bea897bcbb1468",
+      "question": "On what date was the Final Award issued in the Second Arbitration?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Final Award date.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b9fa4a13ada890eff823a9a1a822ac037930154b25041ff70b6dcf1be7de1e12",
+      "question": "How many applicants filed renewed applications for permission to appeal?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Number of applicants.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "16b25d9a625b224af6e29cc9c6d5944e44a44d81d71bfac96b13f9b0ceca9e4e",
+      "question": "Which applicant was granted permission to appeal?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            19
+          ]
+        }
+      ],
+      "notes": "Only one applicant granted permission.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d0fa21fb6d676b69e9cddd85cd137c298c43172d50a15aa66badd51ca3a0a8eb",
+      "question": "How many days did the First Applicant have to file and serve his skeleton argument?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "notes": "Skeleton timetable.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "8c8eeeeba7a6c1eace5f993e5fd5ee0eb331443fc937cff46c5da06698c7c0ef",
+      "question": "What email address of Oaklen is provided in the judgment?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            4
+          ]
+        }
+      ],
+      "notes": "No email address is stated.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "1fb0f898d8efef8ab77d9e9437e22d4f4f039f1dc867362ed340cb5676fe85fa",
+      "question": "Was the stay application by the Second and Third Applicants granted?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Stay outcome.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "68747d99590804fb4ee222ed72dea34ad4e25db553fc8005c357efa83e76cfb8",
+      "question": "Did the First Applicant obtain permission to appeal on all three proposed grounds?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            19
+          ]
+        }
+      ],
+      "notes": "Only ground 1 was allowed.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "d63e5750f2544b559c35dc02254d69ecb973d641ca96f0ed83e005e80e711ea0",
+      "question": "Which shareholders and percentages were listed on Obadiah's March 2017 commercial licence?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "2017 shareholder configuration.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "f814180842a21915a59bff2562edfb4d7cadeec7b05513a5f42fd6989cc398d5",
+      "question": "Which shareholders and percentages were listed on Obadiah's commercial licence as at 6 November 2019?",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "2019 shareholder configuration.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "2a24c361f42ce5dbbdf845c2e0dbca07e21dc7ef636d2f3ace153c3ff1cb230e",
+      "question": "According to Mr Olivier, when was Mr Ori the General Manager of Obadiah, and who replaced him?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "Management history in evidence.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ff4100c238c19d96a6d1884d2f3878d5f383d696a23d1fa3c6a14a872fbfa8bd",
+      "question": "How much profit did Obadiah say it had derived from the sale of units in the project?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Profit figure in evidence.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "46caff4454d75ab3dff337a094a5981ad4d157c063c929d69e9eb9d3c0c745e0",
+      "question": "What threshold does RDC 44.19 set for permission to appeal?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "notes": "Permission-to-appeal threshold.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "e974af078d9afe2e3c178bfa8f3b615961100855d9ab234f2d94e833daabe2cb",
+      "question": "Why did the court grant permission to appeal only on Ground 1 for the First Applicant?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            17,
+            18,
+            19
+          ]
+        }
+      ],
+      "notes": "Reasoning for limited permission.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3f938060b3d2c9c018be2534c1afcddf008f34464edac7758eadfb4bed6ec86c",
+      "question": "What did the court say about the appropriate ambit of a Part 50 examination?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            15,
+            18,
+            19
+          ]
+        }
+      ],
+      "notes": "Scope of Part 50 examination.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3c84afca53855c8e3c01290d3db66dfe8c62db128f6250b1331391dbe92108b0",
+      "question": "What bank account number of Obadiah is identified in the judgment?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4,
+            10
+          ]
+        }
+      ],
+      "notes": "No bank account number is stated.",
+      "stream_id": "enf_case_single_doc",
+      "selected_for_gold": true
+    },
+    {
+      "id": "3b53c596ac65a7f42ca61f840494935fb044110a32c8f602944ca9d7dd9503e0",
+      "question": "Do both the Security Regulations and the Personal Property Law permit legal effect without requiring a paper document or ordinary signed writing, provided specified conditions are met?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "Compares writing rules across the two statutes.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "17bfa386a1f22d295d3ee717aae19a749af280616a875eade14b102a23dd9244",
+      "question": "Does only one of the two statutes contain a substantive Digital Assets carve-out, while the other addresses only the medium of communication?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            7
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "notes": "Compares subject-matter carve-out with communication medium rule.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "824ab970e65de2136ccf5bbcb7f7bb24f7432c44e7eaf0a7fadda0d88f8c04a3",
+      "question": "Which statute expressly says that a later change of circumstances does not make an effective endorsement or instruction ineffective?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Only one statute states this expressly.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "737e8825480edb84c6431ce40ec94af6ff8eb3af6b3591a6c39ff994b4657612",
+      "question": "Do both statutes prevent later steps or later circumstances from altering the original effective moment once the act is effective?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Compares fixed effectiveness rules.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "4b08b7f764aabfa6467a0df6bcb412b8167c43b127822023402ba8cb1bd48153",
+      "question": "Which statute treats issuer-imposed transfer restrictions as generally ineffective against persons without the required notice or notation?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4,
+            7
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            10
+          ]
+        }
+      ],
+      "notes": "Only one statute addresses issuer restrictions this way.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "7bee2a70fcd7ecdd169ca34c3bc71d3950404ac3d54bc5b9442114b228b914fb",
+      "question": "Does only one of the two statutes contain approved forms and fee appendices, rather than an interpretative schedule?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            2,
+            4,
+            24
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            2,
+            3,
+            18
+          ]
+        }
+      ],
+      "notes": "Compares appendix/schedule function.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "502a270a2eed204fdef12d658ff290cb38cc8747ab7ea950ea61c128176446ae",
+      "question": "Name the two private-rule mechanisms that the two statutes treat as relevant to transaction processing or validity: one under the Security Regulations and one under the Personal Property Law.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "notes": "Approved Forms versus Business Rules.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "80e242c66dcf9829d90a17a53168f5aae4475ac69673a771b590f3b07b4fd101",
+      "question": "Name the two actors whose approval, agreement, or processing role is central in the cited provisions: one under the Security Regulations and one under the Personal Property Law.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+        "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            5
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8,
+            11
+          ]
+        }
+      ],
+      "notes": "Registrar versus investment intermediary.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "6e80d32a34d82c53daf841777d9cf50ca5256509b3205cbbe16e252636006164",
+      "question": "Which case granted permission to appeal only on one ground?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            5,
+            6
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            16,
+            19
+          ]
+        }
+      ],
+      "notes": "Only one case granted permission on a single ground.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ab3d5b4bf9a1899c20f96e404af11415691ebfde4706dd619a9bb126caf5015f",
+      "question": "Did both cases dismiss a separate application as moot?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            14
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3,
+            19
+          ]
+        }
+      ],
+      "notes": "Mootness compared across the two cases.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "ba12d0cf5464362d1383546865a0f04225a47d25785426c6c7a3e3a986ac64b1",
+      "question": "Name the case that discussed the Crabtree principle and the case that discussed Masri.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            6
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            16,
+            17
+          ]
+        }
+      ],
+      "notes": "Named authorities in each case.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "882013e6994b71fa9e23e343c61fc6476a3a387cb3161fa042394a95dace4e94",
+      "question": "Did both courts conclude that the lower decision involved multiple errors of principle warranting appellate interference?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            10,
+            11
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            18,
+            19
+          ]
+        }
+      ],
+      "notes": "Compares appellate stance on lower-court error.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "de237054593d06ab425a518b055b25c8c737be54582170daef9aac2375995164",
+      "question": "Name the case that remitted the underlying application for fresh consideration and the case that instead fixed a timetable for a limited appeal.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            12,
+            13,
+            14
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            19
+          ]
+        }
+      ],
+      "notes": "Contrasts remittal with limited appeal timetable.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "b07df9652665758ea5f91f66a4e2e4ac90bb7ac05797ea42a680450909f62e30",
+      "question": "Did both cases grant all parties or applicants the full interim relief they sought pending appeal?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            2,
+            3
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            2,
+            3
+          ]
+        }
+      ],
+      "notes": "Compares interim-relief outcomes.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    },
+    {
+      "id": "8e78398e654e4b37101f10f9ae7510fc48e9053c72135fad6f95e85dec27f65a",
+      "question": "Did both cases end with every unsuccessful party or applicant being ordered to pay all opposing-party costs immediately?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+        "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3,
+            14
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3,
+            19
+          ]
+        }
+      ],
+      "notes": "Compares final cost consequences.",
+      "stream_id": "cross_doc_hard",
+      "selected_for_gold": true
+    }
+  ]
+}

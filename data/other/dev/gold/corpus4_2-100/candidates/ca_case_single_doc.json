@@ -1,0 +1,397 @@
+{
+  "stream_id": "ca_case_single_doc",
+  "doc_ids": [
+    "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+  ],
+  "candidates": [
+    {
+      "question": "What is the claim number of this case?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Claim number in caption."
+    },
+    {
+      "question": "Which court issued the reasons in this case?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Court name in heading."
+    },
+    {
+      "question": "On what date was the order with reasons issued?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            15
+          ]
+        }
+      ],
+      "notes": "Date of issue."
+    },
+    {
+      "question": "Which three judges sat on the Court of Appeal panel?",
+      "answer_type": "names",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Panel composition."
+    },
+    {
+      "question": "What amount of debt or damages did the Claimant seek, exclusive of interest and costs?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Claim amount."
+    },
+    {
+      "question": "On what date did the Claimant file its Claim Form?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Claim Form filing date."
+    },
+    {
+      "question": "On what date did the Defendant file its acknowledgement of service?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Acknowledgement date."
+    },
+    {
+      "question": "On what date did the Defendant file the application for security for costs?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Security application date."
+    },
+    {
+      "question": "What amount of security did the Judge order on 19 March 2025?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Original security amount."
+    },
+    {
+      "question": "What was the name of the agreement under which the Claimant provided marketing and branding services?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Name of the agreement."
+    },
+    {
+      "question": "What amount were the Defendant's costs of the appeal and permission applications fixed at?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Fixed costs amount."
+    },
+    {
+      "question": "Did the Court allow the Claimant's application for permission to cross-appeal?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            2,
+            13
+          ]
+        }
+      ],
+      "notes": "Cross-appeal outcome."
+    },
+    {
+      "question": "What email address of the Claimant is stated in the judgment?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            1,
+            15
+          ]
+        }
+      ],
+      "notes": "No email address is stated."
+    },
+    {
+      "question": "Did the Court reject the idea that the mere existence of a litigation funder automatically justified a reduced security figure?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            8,
+            11
+          ]
+        }
+      ],
+      "notes": "Litigation funding point."
+    },
+    {
+      "question": "What legal principle did the Claimant rely on in support of the proposed cross-appeal?",
+      "answer_type": "name",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Named principle for cross-appeal."
+    },
+    {
+      "question": "What are the two stages of the RDC analysis for security for costs?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            7,
+            8
+          ]
+        }
+      ],
+      "notes": "Two-stage framework."
+    },
+    {
+      "question": "What were the main errors the Court identified in limiting security to the strike-out stage?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            10,
+            11
+          ]
+        }
+      ],
+      "notes": "Errors of principle identified by the Court."
+    },
+    {
+      "question": "What did the Court decide about whether the Security Order allowed further security after the Strike-out Application?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            9,
+            10
+          ]
+        }
+      ],
+      "notes": "Interpretation of Security Order."
+    },
+    {
+      "question": "What directions did the Court give the CFI on remittal when reconsidering security?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            2,
+            12,
+            13,
+            14
+          ]
+        }
+      ],
+      "notes": "Remittal directions."
+    },
+    {
+      "question": "What bank account number for payment of the AED 550,000 appeal costs is set out in the judgment?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "case",
+      "doc_ids": [
+        "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "No bank account number is stated."
+    }
+  ]
+}

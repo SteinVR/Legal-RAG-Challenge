@@ -1,0 +1,392 @@
+{
+  "stream_id": "cross_doc_hard",
+  "doc_ids": [
+    "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513",
+    "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+    "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+    "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32"
+  ],
+  "candidates": [
+    {
+      "question": "Do both documents present a contents page before the operative text begins?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [2]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [2]}
+      ],
+      "expected_answer": true,
+      "notes": "Both PDFs open with a contents page on page 2."
+    },
+    {
+      "question": "Do both texts add a later dedicated section for definitions or interpretation rather than keeping definitions only in the opening pages?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [13, 26]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [20, 23]}
+      ],
+      "expected_answer": true,
+      "notes": "CRS uses Section VIII and Annex 1; the partnership law uses Schedule 1."
+    },
+    {
+      "question": "Do both contents pages list exactly nine top-level divisions before the supplementary material?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [2]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [2]}
+      ],
+      "expected_answer": true,
+      "notes": "Section I-IX and Part 1-9 are both listed on the contents pages."
+    },
+    {
+      "question": "Do both documents expressly refer to outside governing material in the operative text?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [3]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [17]}
+      ],
+      "expected_answer": true,
+      "notes": "CRS refers to OECD explanatory material; the partnership law refers to the Operating Law."
+    },
+    {
+      "question": "How many top-level divisions are listed across the two contents pages if you count only Parts in the partnership law and Sections I-IX in the CRS regulations?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [2]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [2]}
+      ],
+      "expected_answer": 18,
+      "notes": "Nine sections in each contents page, counted as 9 + 9."
+    },
+    {
+      "question": "How many supplementary headings are listed across those contents pages if you count Annex 1 in the CRS regulations and Schedules 1-2 in the partnership law?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [2]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [2]}
+      ],
+      "expected_answer": 3,
+      "notes": "One annex in CRS plus two schedules in the partnership law."
+    },
+    {
+      "question": "What is the difference between the title-year numbers in '2018' and '2004'?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [1]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [1]}
+      ],
+      "expected_answer": 14,
+      "notes": "The title-year gap is 2018 minus 2004."
+    },
+    {
+      "question": "Which statute is the regulations document that is cited as the Common Reporting Standard Regulations?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [1, 3]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [1]}
+      ],
+      "expected_answer": "Common Reporting Standard Regulations",
+      "notes": "Uses the CRS title to distinguish it from the partnership law."
+    },
+    {
+      "question": "Which statute is the law titled General Partnership Law 2004?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [1]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [1, 4]}
+      ],
+      "expected_answer": "General Partnership Law",
+      "notes": "The partnership law title and section 1 identify it directly."
+    },
+    {
+      "question": "Which institution is named as the administrator of the partnership law, contrasted with the reporting authority in the CRS regulations?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [3]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [4]}
+      ],
+      "expected_answer": "Registrar",
+      "notes": "Section 7 of the partnership law names the Registrar as administrator."
+    },
+    {
+      "question": "What are the two supplementary headings unique to the General Partnership Law contents page?",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [2, 20, 23]},
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [2]}
+      ],
+      "expected_answer": ["Schedule 1", "Schedule 2"],
+      "notes": "The partnership law has two schedules; the CRS text instead has an annex."
+    },
+    {
+      "question": "What is the explicit in-force date stated on the CRS regulations title page?",
+      "answer_type": "date",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [1]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [1]}
+      ],
+      "expected_answer": "2020-07-30",
+      "notes": "The title page states the regulations are in force on 30 July 2020."
+    },
+    {
+      "question": "What exact enactment date is stated for both statutes in these PDFs?",
+      "answer_type": "date",
+      "difficulty": "hard",
+      "negative": true,
+      "source_type": "statute",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "The PDFs only reference an Enactment Notice for the partnership law and do not reproduce exact enactment dates."
+    },
+    {
+      "question": "In one sentence, what is the main functional contrast between the two statutes?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [3, 13, 26]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [4, 17, 20, 23]}
+      ],
+      "expected_answer": "The CRS regulations set reporting and due-diligence rules for financial accounts, while the partnership law governs formation, administration, and dissolution of general partnerships.",
+      "notes": "A concise synthesis of the documents' different regulatory aims."
+    },
+    {
+      "question": "How do the documents differ in the way they package supplementary material?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "statute",
+      "page_hints": [
+        {"doc_id": "04be93255ec4b88e6e6c65c8e9335e10729723c2637452f3ad66d5b3dbe87513", "page_numbers": [26]},
+        {"doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425", "page_numbers": [20, 23]}
+      ],
+      "expected_answer": "The CRS text uses an annex for additional definitions, while the partnership law uses schedules for interpretation, defined terms, and fines.",
+      "notes": "Requires comparing Annex 1 with Schedules 1 and 2."
+    },
+    {
+      "question": "Do both judgments arise from first-instance DIFC Court proceedings rather than appeals?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1]}
+      ],
+      "expected_answer": true,
+      "notes": "Both documents are judgments of the DIFC Court of First Instance."
+    },
+    {
+      "question": "Do both decisions include a final section after the main order that explains the court's reasoning?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [3, 4]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [2, 3]}
+      ],
+      "expected_answer": true,
+      "notes": "Techteryx has a schedule of reasons and Bond has a schedule of reasons."
+    },
+    {
+      "question": "Do both cases end up granting the claimant some form of relief?",
+      "answer_type": "boolean",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1, 2, 3]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [2]}
+      ],
+      "expected_answer": true,
+      "notes": "Techteryx keeps injunctions and Bond receives a money judgment."
+    },
+    {
+      "question": "Compared with the single defendant in the Bond case, how many defendants are named in the Techteryx case?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1]}
+      ],
+      "expected_answer": 4,
+      "notes": "Techteryx sues four defendants; Bond sues one."
+    },
+    {
+      "question": "By how many days did the Bond trial exceed the Techteryx FRD hearing?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [3]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1]}
+      ],
+      "expected_answer": 1,
+      "notes": "Bond's trial ran four days; the Techteryx FRD hearing ran three."
+    },
+    {
+      "question": "How many of the Techteryx defendants are banks?",
+      "answer_type": "number",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1]}
+      ],
+      "expected_answer": 3,
+      "notes": "Mashreq, Emirates NBD, and Abu Dhabi Islamic Bank are bank defendants."
+    },
+    {
+      "question": "Which judge issued the Techteryx order?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1, 3, 4]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1]}
+      ],
+      "expected_answer": "H.E. Justice Michael Black KC",
+      "notes": "Named in the title and reasons pages of the Techteryx order."
+    },
+    {
+      "question": "Which judge issued the Bond judgment?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1, 2]},
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1]}
+      ],
+      "expected_answer": "Justice Wayne Martin",
+      "notes": "The Bond judgment title page identifies the judge directly."
+    },
+    {
+      "question": "Who is the single judge common to both judgments?",
+      "answer_type": "name",
+      "difficulty": "hard",
+      "negative": true,
+      "source_type": "cross_case",
+      "page_hints": [],
+      "expected_answer": null,
+      "notes": "The two judgments were issued by different judges, so there is no shared judge name to extract."
+    },
+    {
+      "question": "Name the assistant registrars who issued the two judgments.",
+      "answer_type": "names",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [3]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [2]}
+      ],
+      "expected_answer": ["Hayley Norton", "Delvin Sumo"],
+      "notes": "Each judgment names a different assistant registrar."
+    },
+    {
+      "question": "What is the date of the older of the two judgments?",
+      "answer_type": "date",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1]}
+      ],
+      "expected_answer": "2024-02-28",
+      "notes": "Bond is the earlier judgment; Techteryx is dated 2025-10-17."
+    },
+    {
+      "question": "What is the main difference in relief between the two decisions?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [1, 3]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [2, 22]}
+      ],
+      "expected_answer": "Techteryx gets continuing interlocutory injunctions and consequential directions, while Bond gets a final money judgment for AED 2,873,837.14 plus costs.",
+      "notes": "Contrasts interim asset-preservation relief with a final monetary award."
+    },
+    {
+      "question": "How do the procedural postures differ?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [3, 4]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [1, 2]}
+      ],
+      "expected_answer": "Techteryx is still in post-judgment consequential proceedings over injunctions, disclosure, privacy, and costs; Bond has already reached final trial judgment on the merits.",
+      "notes": "One case is interlocutory/consequential, the other is a completed trial judgment."
+    },
+    {
+      "question": "What common feature do both judgments share at the end of the orders?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": false,
+      "source_type": "cross_case",
+      "page_hints": [
+        {"doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e", "page_numbers": [3]},
+        {"doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32", "page_numbers": [2]}
+      ],
+      "expected_answer": "Each ends with a registrar-issued direction to agree further draft orders or consequential steps rather than a fully self-executing final disposal on every issue.",
+      "notes": "Both decisions leave follow-on drafting or consequential issues to be completed."
+    },
+    {
+      "question": "What arbitration institution finally resolved both disputes?",
+      "answer_type": "free_text",
+      "difficulty": "hard",
+      "negative": true,
+      "source_type": "cross_case",
+      "page_hints": [],
+      "expected_answer": "There is no information on this question in the provided documents.",
+      "notes": "The documents do not name any arbitration institution as the final resolver of either dispute."
+    }
+  ]
+}

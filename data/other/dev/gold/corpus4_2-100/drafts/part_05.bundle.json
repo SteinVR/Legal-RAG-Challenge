@@ -1,0 +1,471 @@
+{
+  "shard_id": "part_05",
+  "status": "draft",
+  "question_ids": [
+    "ab3d5b4bf9a1899c20f96e404af11415691ebfde4706dd619a9bb126caf5015f",
+    "1fb0f898d8efef8ab77d9e9437e22d4f4f039f1dc867362ed340cb5676fe85fa",
+    "6f90ff9bbd5147f27b1d1aaf3a4dd5995e8ebdf1bc8af62f5b708ccf89cbeeb8",
+    "c2d4d742dbc859eb1f262b53a315124fd1a063752794cf81aa9ca4e4862ab6b6",
+    "a9f70e30e54299587ab63c67edacb6d0026c4e8cdc58d93593bea897bcbb1468",
+    "03232ae6d4fe7269105a2336ab3bfc7dfde0f76ca22e244ff45b9f0e78e6cfa5",
+    "3f938060b3d2c9c018be2534c1afcddf008f34464edac7758eadfb4bed6ec86c",
+    "727ed847a54a912ceb448a9b5b5345aae2212f63d62c4ddcb27dd91ac229fe1c",
+    "935cc72350cfbef1697985a255d86275b34bb3172922e19a0674a45113ddb75b",
+    "c7ce52531a9e0bd11b0bedd68fcd53c6fae058739a0e8e074ff2ad11b98001e7",
+    "e974af078d9afe2e3c178bfa8f3b615961100855d9ab234f2d94e833daabe2cb",
+    "005a89032a872c6b7e0d5d03f1767719fc3ab5b1146bf221ec53a5500e632d6e",
+    "4221bb7266e2923a0b0f362646dc594b2a188e32cf96fba42532378c31cb5956",
+    "8c8eeeeba7a6c1eace5f993e5fd5ee0eb331443fc937cff46c5da06698c7c0ef",
+    "c18bc5844911a0ca4fd495ffa3cc52124fee3d19ee5e8a27f5f72682d509fd10",
+    "80e242c66dcf9829d90a17a53168f5aae4475ac69673a771b590f3b07b4fd101",
+    "f814180842a21915a59bff2562edfb4d7cadeec7b05513a5f42fd6989cc398d5",
+    "43c96b9145f071a70e73374107ebbb24489efa091ada3da76610cb0f2e97aef2",
+    "81bc286f5b974b6493b56f9f5f8318298d489e86869f76a0f42487c3aba17259",
+    "c915a75023c18f76cc061fde84dede56b40e863a64296f342d7cb7f70cc54592"
+  ],
+  "references": [
+    {
+      "question_id": "ab3d5b4bf9a1899c20f96e404af11415691ebfde4706dd619a9bb126caf5015f",
+      "question": "Did both cases dismiss a separate application as moot?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            14
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3,
+            19
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "1fb0f898d8efef8ab77d9e9437e22d4f4f039f1dc867362ed340cb5676fe85fa",
+      "question": "Was the stay application by the Second and Third Applicants granted?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "6f90ff9bbd5147f27b1d1aaf3a4dd5995e8ebdf1bc8af62f5b708ccf89cbeeb8",
+      "question": "Does Article 11 make Articles 8 to 10 apply to Digital Assets?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            5,
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "c2d4d742dbc859eb1f262b53a315124fd1a063752794cf81aa9ca4e4862ab6b6",
+      "question": "Do the Regulations specify a telephone number for the Registrar?",
+      "answer_type": "boolean",
+      "answer": null,
+      "gold_retrieval": [],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "a9f70e30e54299587ab63c67edacb6d0026c4e8cdc58d93593bea897bcbb1468",
+      "question": "On what date was the Final Award issued in the Second Arbitration?",
+      "answer_type": "date",
+      "answer": "2023-06-21",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "03232ae6d4fe7269105a2336ab3bfc7dfde0f76ca22e244ff45b9f0e78e6cfa5",
+      "question": "Under Article 30(5), what does a contravention of Article 30(1) not render ineffective?",
+      "answer_type": "free_text",
+      "answer": "A contravention does not render the credit or disposition ineffective.",
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            14
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "3f938060b3d2c9c018be2534c1afcddf008f34464edac7758eadfb4bed6ec86c",
+      "question": "What did the court say about the appropriate ambit of a Part 50 examination?",
+      "answer_type": "free_text",
+      "answer": "The Court held that a wide-ranging Part 50 inquiry into means of satisfaction was justified, and that the precise ambit is for the judicial officer conducting the examination.",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            15,
+            18,
+            19
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "727ed847a54a912ceb448a9b5b5345aae2212f63d62c4ddcb27dd91ac229fe1c",
+      "question": "What did the Court decide about whether the Security Order allowed further security after the Strike-out Application?",
+      "answer_type": "free_text",
+      "answer": "The Court held the Security Order was confined to security up to the strike-out stage and did not permit further security under that order.",
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            9,
+            10
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "935cc72350cfbef1697985a255d86275b34bb3172922e19a0674a45113ddb75b",
+      "question": "What directions did the Court give the CFI on remittal when reconsidering security?",
+      "answer_type": "free_text",
+      "answer": "On remittal, the CFI must proceed on satisfied jurisdictional conditions and treat the Order 3 issues and proposed cross-appeal issues as adverse to the Claimant at the original application date; quantum, timing and terms are for the CFI.",
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            2,
+            12,
+            13,
+            14
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "c7ce52531a9e0bd11b0bedd68fcd53c6fae058739a0e8e074ff2ad11b98001e7",
+      "question": "What must the Registrar's corrective action statement identify under Regulation 2.6.2?",
+      "answer_type": "free_text",
+      "answer": "It must identify the record concerned, the date of corrective action, and the nature and grounds of that action.",
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "e974af078d9afe2e3c178bfa8f3b615961100855d9ab234f2d94e833daabe2cb",
+      "question": "Why did the court grant permission to appeal only on Ground 1 for the First Applicant?",
+      "answer_type": "free_text",
+      "answer": "Because Ground 1 raised an important construction issue about Part 50 jurisdiction, while Grounds 2 and 3 had no real prospect of success.",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            17,
+            18,
+            19
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "005a89032a872c6b7e0d5d03f1767719fc3ab5b1146bf221ec53a5500e632d6e",
+      "question": "Who is the Judgment Debtor?",
+      "answer_type": "name",
+      "answer": "Obadiah",
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1,
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "4221bb7266e2923a0b0f362646dc594b2a188e32cf96fba42532378c31cb5956",
+      "question": "In which jurisdiction does the law apply?",
+      "answer_type": "name",
+      "answer": "DIFC",
+      "gold_retrieval": [
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "8c8eeeeba7a6c1eace5f993e5fd5ee0eb331443fc937cff46c5da06698c7c0ef",
+      "question": "What email address of Oaklen is provided in the judgment?",
+      "answer_type": "name",
+      "answer": null,
+      "gold_retrieval": [],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "c18bc5844911a0ca4fd495ffa3cc52124fee3d19ee5e8a27f5f72682d509fd10",
+      "question": "What document must be submitted to effect a filing under Regulation 2.2.1?",
+      "answer_type": "name",
+      "answer": "The relevant Approved Form prescribed under Regulation 2.3",
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            4
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "80e242c66dcf9829d90a17a53168f5aae4475ac69673a771b590f3b07b4fd101",
+      "question": "Name the two actors whose approval, agreement, or processing role is central in the cited provisions: one under the Security Regulations and one under the Personal Property Law.",
+      "answer_type": "names",
+      "answer": [
+        "Registrar",
+        "Investment intermediary"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            5
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            8,
+            11
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "comparative",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "f814180842a21915a59bff2562edfb4d7cadeec7b05513a5f42fd6989cc398d5",
+      "question": "Which shareholders and percentages were listed on Obadiah's commercial licence as at 6 November 2019?",
+      "answer_type": "names",
+      "answer": [
+        "Mr Ori (51%)",
+        "Orphie (49%)"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "43c96b9145f071a70e73374107ebbb24489efa091ada3da76610cb0f2e97aef2",
+      "question": "What is the fee for filing a Correction Statement (Form 6)?",
+      "answer_type": "number",
+      "answer": 200,
+      "gold_retrieval": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "81bc286f5b974b6493b56f9f5f8318298d489e86869f76a0f42487c3aba17259",
+      "question": "What amount of debt or damages did the Claimant seek, exclusive of interest and costs?",
+      "answer_type": "number",
+      "answer": 405351504,
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "c915a75023c18f76cc061fde84dede56b40e863a64296f342d7cb7f70cc54592",
+      "question": "What was the amount of the Partial Award issued on 10 March 2023?",
+      "answer_type": "number",
+      "answer": 57803026.17,
+      "gold_retrieval": [
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    }
+  ],
+  "assistant_scores": [],
+  "findings": [],
+  "notes": []
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1a80e5dc69fb76a97c0ada049df2425c9f06de373bbb9ee5b39dbd1f12f85387",
+    "question": "From the title pages of all documents in case CA 005/2025 and case CFI 067/2025, identify whether any individual or company is named as a main party in both cases.",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "52a35cfabe76f2c538c6f72a841a08e0cc85bbe8f732874a4d2827383794c213",
+    "question": "Did cases CA 004/2025 and ARB 034/2025 have any judges in common?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "a499c8553e73100d9ecc8ccd1164beea4b82fa6b32c519de1a37c861925076a1",
+    "question": "If a Reporting Financial Institution fails to provide specified information during an investigation, does this constitute obstruction of Inspectors under Article 17(b) of the Common Reporting Standard Law 2018?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "f2a28b01dbdda99ec2b09a7001ea72e35b94a42c14c4bc5e5206c59857770306",
+    "question": "Is there a judge who presided over both case CFI 057/2025 and case ENF 269/2023?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "30ab0e56ee0c43b5bf94fd9657c7f7ac24f0e7be29ced2933437f7a234713cd7",
+    "question": "Under Article 8(1) of the Operating Law 2018, is a person permitted to operate or conduct business in or from the DIFC without being incorporated, registered, or continued under a Prescribed Law or other Legislation administered by the Registrar?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "b13500141f04c86f328b49c56ba01c7bc13bce5afee9646860912718291a5c1a",
+    "question": "According to Article 7(3)(j) of the Operating Law 2018, can the Registrar delegate its functions and powers to officers or employees of the DIFCA without the approval of the Board of Directors of the DIFCA?",
+    "answer_type": "boolean"
+  },
+  {
+    "id": "331b267822eaa013b4a79d92f2ac5118052a57150df9a29d7d11c531f02d23cf",
+    "question": "What is the Date of Issue of the document in case CFI 057/2025?",
+    "answer_type": "date"
+  },
+  {
+    "id": "0a414e1d999bcde13b5dac055194ed52527555ac577946acef75372eaad360fa",
+    "question": "What did the jury decide in case ENF 269/2023?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "52e9e31a6d7a80a597147115b3d38065da495a41e7c11e797d0a190c9a580bcf",
+    "question": "What was the outcome of the specific order or application described in case SCT 295/2025?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "98d473221f50a845466544b43d6bb52b0497893aade63a8659db228459c271b4",
+    "question": "When was the consolidated version of the Law on the Application of Civil and Commercial Laws in the DIFC published?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "b9e824da7bc69fa5b2f4e989a4d591d9c5196362cc985f70a9c29e6f710ea817",
+    "question": "According to the 'IT IS HEREBY ORDERED THAT' section of case CFI 092/2024, what was the outcome of the Defendants' application?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "cd69f5dfe06d2e7afac26c7b332ea925987864cc6730f90cce020d34d823abbe",
+    "question": "What is the purpose of Article 9(1) of the Foundations Law?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "84941458c4ade946dae84cf5ebc4abf362a6f6e6fec835ba5c43ad2d3b4b14d7",
+    "question": "Is there any information about parole hearings in case CFI 057/2025?",
+    "answer_type": "free_text"
+  },
+  {
+    "id": "5c3ca60614572a117bb7436e202cb32249c186ad8c5526b35a3556b54ff425b7",
+    "question": "Which case has an earlier Date of Issue: CA 004/2025 or SCT 295/2025?",
+    "answer_type": "name"
+  },
+  {
+    "id": "acd0ddc6715f2bccf5076dc47e6874a8ecb782dd10c0b162071f890ad96bef47",
+    "question": "Between SCT 295/2025 and SCT 514/2025, which document has the earlier issue date?",
+    "answer_type": "name"
+  },
+  {
+    "id": "5046b4e3fa11a42090ae0cef08c4cd64a1c8761955eb711db396f7fb1634ea86",
+    "question": "According to page 2 of the judgment, from which specific claim number did the appeal in CA 009/2024 originate?",
+    "answer_type": "name"
+  },
+  {
+    "id": "f950917f9b85f687161b1022a11c3ce31e4f6ab459af69dfea311c20893fc8a7",
+    "question": "Who are listed as the claimants in the case documents for CFI 067/2025?",
+    "answer_type": "names"
+  },
+  {
+    "id": "e0798bd394af022603f1ed7a09641de2bb414bd14a9d6a2c494980c86095ccff",
+    "question": "If the Relevant Authority confirms a fine or action after an appeal under Article 21(5) of the Common Reporting Standard Law 2018, how many business days does the Reporting Financial Institution have to pay the fine or perform the action?",
+    "answer_type": "number"
+  },
+  {
+    "id": "7b31467fd9f391a836ecd316b258a6d5e849cb62a9a0c95573b084c1d1338ba0",
+    "question": "According to Article 9(9)(a) of the Operating Law 2018, how many months does a Licence typically have effect from its issue date by the Registrar?",
+    "answer_type": "number"
+  },
+  {
+    "id": "e59a0dc49c291402ead91342b065bc4e9ded0043d126f73dd00ba6045aae46b7",
+    "question": "Under Article 14(1) of the Employment Law 2019, how many days does an Employer have to provide an Employee with a written Employment Contract after the commencement of employment?",
+    "answer_type": "number"
+  }
+]

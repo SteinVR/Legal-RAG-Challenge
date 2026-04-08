@@ -1,0 +1,132 @@
+[
+  {
+    "question_id": "07b32c626efd2cf7b1689f3a339d5bee4e0feb575126b511a88c0852edaf32c5",
+    "assistant_score": 1.0,
+    "notes": "Accurate one-sentence contrast, complete and grounded in both cited statutes."
+  },
+  {
+    "question_id": "6e7c50c80b4d0deb11123ac0e2e9194cacc711a65a5c138f4794d7f029abc3a1",
+    "assistant_score": 1.0,
+    "notes": "Correct comparative summary of Annex vs Schedules with precise grounding."
+  },
+  {
+    "question_id": "9d7c4de87ee0b6bdf5454e5f3db8a2a7217f17601d39da51b8f0a29cd48fe009",
+    "assistant_score": 1.0,
+    "notes": "Correct comparative synthesis, complete on relief contrast, and grounded in cited pages."
+  },
+  {
+    "question_id": "b94f60c289f0ec2f83a2ad0f331305c7ac306d24b08d3a8040f3363acc1337eb",
+    "assistant_score": 1.0,
+    "notes": "Correctly contrasts consequential-stage injunction litigation with final trial judgment posture."
+  },
+  {
+    "question_id": "fae2b9fd1b0e7e971e7d1a6895dd3975b6173b2c29730997a25f0afeb7560965",
+    "assistant_score": 1.0,
+    "notes": "Correct canonical no-information answer; confidence and grounding policy are fully aligned."
+  },
+  {
+    "question_id": "93c6e68b70c3ddfebb2e1d38696611eca418f65d26dedca4c7239fe9325e5ee6",
+    "assistant_score": 1.0,
+    "notes": "Complete reporting fields summary including currency requirement; grounded in cited pages."
+  },
+  {
+    "question_id": "82d80cce83b13c4855a17e45f8adea3bb5fce791403994bad273b5473df99abb",
+    "assistant_score": 1.0,
+    "notes": "Correctly states the Section II obligation and identifies the intended scope (Sections II-VII)."
+  },
+  {
+    "question_id": "8ef2ea7d8b03fdfd009739fd06092f8676f34a0f99e272a64def6fc543118ce3",
+    "assistant_score": 1.0,
+    "notes": "Definition is complete and includes the no-tax-residence effective-management clause."
+  },
+  {
+    "question_id": "aa4bd0d5c655fc05279b8fe135ec91ab6dd083ce0746de97402156d88ef890b3",
+    "assistant_score": 1.0,
+    "notes": "Accurate and complete trust-specific controlling persons definition, clearly stated and grounded."
+  },
+  {
+    "question_id": "054bb282bc7c1550b14812912f6ee09b70c485ad63b1623b8ab24d3003baa2ab",
+    "assistant_score": 1.0,
+    "notes": "Correct substitution (\"created\"), concise, and fully grounded in cited amendment section."
+  },
+  {
+    "question_id": "ec695ce27695363186cb118ca3fa723c66869c6f9dbc834950c33562d67c3eec",
+    "assistant_score": 1.0,
+    "notes": "Correct timing point about draft circulation stage; concise and fully relevant."
+  },
+  {
+    "question_id": "dbb3c7a752d90dc1d9b3bae020014a71c1acaab22b856be728834dfa1cc47726",
+    "assistant_score": 1.0,
+    "notes": "Captures the Court test (special circumstances, necessity, proportionality, no unfair prejudice) clearly."
+  },
+  {
+    "question_id": "7d1964328c75d9d350524e5cac18c519cc0f5e5487b6bd53347c1c538a78beda",
+    "assistant_score": 0.8,
+    "notes": "Reasoning is correct and grounded; slightly compressed versus the full judicial rationale."
+  },
+  {
+    "question_id": "48849f6fdb4b273ea302c0fc1e1976f31729bc6983262a402deebe7ffca9f6e5",
+    "assistant_score": 1.0,
+    "notes": "Canonical unanswerable free_text response with empty retrieval; correct and compliant."
+  },
+  {
+    "question_id": "83d15cf57ee2e07aacf633696a9792f0a193b29e4400b90904f2e1c6bddec384",
+    "assistant_score": 1.0,
+    "notes": "Complete list of Article 12(2) registration fields; concise and grounded."
+  },
+  {
+    "question_id": "748a883d7f1085718696c657aed1f86ff31f6414d8d52c415e7cd7e5c9b26d2e",
+    "assistant_score": 1.0,
+    "notes": "Covers all default management elements in Article 17 with clear wording."
+  },
+  {
+    "question_id": "734931901ce2900c33d80c0b611d8fb37c457e25b6e0529e0d26f2dc97bc2c32",
+    "assistant_score": 1.0,
+    "notes": "Accurately states Article 27 indemnification rule with precise scope and grounding."
+  },
+  {
+    "question_id": "1d356814de25d5623275b9b1de2113fcebf2002ff4199294cdaaf10641257242",
+    "assistant_score": 1.0,
+    "notes": "Accurately states Article 31 consequence and is fully grounded in cited page."
+  },
+  {
+    "question_id": "f549185fbf994265fd81e846f3aae83ce80fa7095a6361157bb1a1baa5ac02b5",
+    "assistant_score": 1.0,
+    "notes": "Complete statement of Article 39A conditions and caveats; concise and precise."
+  },
+  {
+    "question_id": "351ac9d5ea6c4748f921855d54bef86c8aa822d61cc35845140252211728e50e",
+    "assistant_score": 1.0,
+    "notes": "Accurately captures Article 42(2) conditions and remains concise and grounded."
+  },
+  {
+    "question_id": "4d1691535eb36c00867b4bb92c609beeff6b41d51945409f541b7a6b5a826871",
+    "assistant_score": 1.0,
+    "notes": "Canonical unanswerable free_text sentence used correctly with empty retrieval."
+  },
+  {
+    "question_id": "e1f33d725fd31d285e8c38588e2894cd6c583bf806d53cf816f467bc68ad55c9",
+    "assistant_score": 1.0,
+    "notes": "Correctly states concurrent-delay/sole-responsibility reasoning for dismissal of TR88 claims."
+  },
+  {
+    "question_id": "5d94b33f61bae17b9fc3bf1448b9a352a89cf879fd47cc423c385e5bd11942ed",
+    "assistant_score": 1.0,
+    "notes": "Fully grounded and complete explanation of why the AED 161,404.98 credit was accepted."
+  },
+  {
+    "question_id": "1ce38b389439bacc237e4716d1e238b03b9c1f6e5c36bb1443d5590d0d87e52e",
+    "assistant_score": 1.0,
+    "notes": "Correct rationale; captures both evidentiary failure and denied-access point from the judgment."
+  },
+  {
+    "question_id": "b5e251c7f335cd037fe31c48321859536a7741b3531478fe44593a77f4762eaa",
+    "assistant_score": 1.0,
+    "notes": "Accurate and well-grounded in clause 11.8 plus Article 73 reasoning."
+  },
+  {
+    "question_id": "34d4680c1f8f856fedc1efa3938703b6c162ecb5003e27ee1bbd743fcca31994",
+    "assistant_score": 1.0,
+    "notes": "Canonical unanswerable response is used correctly with empty retrieval."
+  }
+]

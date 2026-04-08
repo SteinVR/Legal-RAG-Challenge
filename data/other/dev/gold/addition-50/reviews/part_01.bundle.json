@@ -1,0 +1,278 @@
+{
+  "shard_id": "part_01",
+  "status": "reviewed",
+  "question_ids": [
+    "102e2fcc4d0ee868876f4b0221cdad9aef8d5d4bacc85cf873c8baaee1ad3f76",
+    "e7169d1f4f87839931d9d134ae6eea4db07aaf4b8b19bcf378c859a67b0a5689",
+    "18f5f5e97efe56943d6d2ac09f2233ec1cd1bf99c4f58ea40f51cc0429727a3a",
+    "e1f14d72545e14a9a1f1d5043c62c325165cc7450fd13737b6d5a34fcaeb6534",
+    "4b10fe12a17e5111597030142b5a31eec167f614572f7dde63b1b63516f2e32f",
+    "b5039c091ebecda3215d34bbb3bb3c81b68bc4a945287daa613454d4c3caeaec",
+    "86b8589193b68dac71158e2daa4036fa0a44a2ec7e4218226d4a06b9fc2fcb67",
+    "15eca7d5e170857c76cdc4152cc83676e0964f628673dcc46f9f284af3dedaac",
+    "c0aa03bf4e814edcb3ee1ef69cbbc76331bea018206d18dd9153acb3e4a9b0c9",
+    "7b2a758e1cf397922102a07636d9e4721c755af2f15773389b305e132c1bb466"
+  ],
+  "references": [
+    {
+      "question_id": "102e2fcc4d0ee868876f4b0221cdad9aef8d5d4bacc85cf873c8baaee1ad3f76",
+      "question": "Were there any changes to the judges presiding over case ENF 269/2023 across its various stages?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "5f2e0f8fe61acf2975a8b3a1a4f51ff3fe01961d220da1ec068cab0f398d6177",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "e7169d1f4f87839931d9d134ae6eea4db07aaf4b8b19bcf378c859a67b0a5689",
+      "question": "Is there any main party that appeared in both cases SCT 452/2024 and SCT 475/2024 at any point?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "0a59bb9e8700bdbde4b2cd2ccb3ef6d0e80558a346cf7308f4ff2a0868b1a76c",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "78461539a8b7238c314b7dd56483e1682c5e1ce7f3cf8fc6947e22c0ac5d0d18",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page",
+        "entity_overlap",
+        "negative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "18f5f5e97efe56943d6d2ac09f2233ec1cd1bf99c4f58ea40f51cc0429727a3a",
+      "question": "When was the SCT document in case SCT 475/2024 issued?",
+      "answer_type": "date",
+      "answer": "2025-04-02",
+      "gold_retrieval": [
+        {
+          "doc_id": "78461539a8b7238c314b7dd56483e1682c5e1ce7f3cf8fc6947e22c0ac5d0d18",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "e1f14d72545e14a9a1f1d5043c62c325165cc7450fd13737b6d5a34fcaeb6534",
+      "question": "What is the Date of Issue of the document in SCT case SCT 011/2025?",
+      "answer_type": "date",
+      "answer": "2025-10-22",
+      "gold_retrieval": [
+        {
+          "doc_id": "00427a0402e71479e78abd615764eba7f3874352663aa227caeca830a3cbf6b4",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "4b10fe12a17e5111597030142b5a31eec167f614572f7dde63b1b63516f2e32f",
+      "question": "According to DIFC Courts Order No. 2 of 2016, who issued DIFC Courts Order No. 2 of 2007 establishing the SCT?",
+      "answer_type": "free_text",
+      "answer": "DIFC Courts Order No. 2 of 2007 was issued by the then Chief Justice, Sir Anthony Evans.",
+      "gold_retrieval": [
+        {
+          "doc_id": "bd427f328c98eda1f08f1dcca94816894273c14148b9a55836491f7f2bebaf62",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "b5039c091ebecda3215d34bbb3bb3c81b68bc4a945287daa613454d4c3caeaec",
+      "question": "In ENF 084-2023 ENF 085-2023 Jtrust Asia PTE. LTD v (1) Mitsuji Konoshita (2) A.P.F. Group CO., LTD (in Receivership), what was ordered about the Worldwide Freezing Order following the hearing on 25 April 2023?",
+      "answer_type": "free_text",
+      "answer": "Following the 25 April 2023 hearing, the court ordered the Worldwide Freezing Order to continue in force on the same terms until further order.",
+      "gold_retrieval": [
+        {
+          "doc_id": "18d5d0320cded1a097fa66202ff2a80dd38e6ab818dfefffea614cd389632dad",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "free_text",
+        "single_page",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "86b8589193b68dac71158e2daa4036fa0a44a2ec7e4218226d4a06b9fc2fcb67",
+      "question": "Which case has an earlier Date of Issue: CA 013/2024 or CA 016/2024?",
+      "answer_type": "name",
+      "answer": "CA 013/2024",
+      "gold_retrieval": [
+        {
+          "doc_id": "dbe11c5a8dedb41beb61f9ceb04121b49b037741af11efc934962fa1b4a5f2c2",
+          "page_numbers": [
+            2
+          ]
+        },
+        {
+          "doc_id": "7762b20eeb3ca0cb3dd62a4b079bf01d6b5e7f8707d7be77ad9c6ff1e230aabe",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "comparative",
+        "multi_document",
+        "multi_page"
+      ]
+    },
+    {
+      "question_id": "15eca7d5e170857c76cdc4152cc83676e0964f628673dcc46f9f284af3dedaac",
+      "question": "Which party opposed recognition of the arbitral award in case ARB 024/2025?",
+      "answer_type": "names",
+      "answer": [
+        "Olwin"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "55fa145c3f08b4ca22bba9263dbcdb3ec4f9d9c762c73ae20e8e6f8019c010f7",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "c0aa03bf4e814edcb3ee1ef69cbbc76331bea018206d18dd9153acb3e4a9b0c9",
+      "question": "Who were the claimants in case CFI 058/2024?",
+      "answer_type": "names",
+      "answer": [
+        "Atul Dhawan Ashok Amir Chand Dhawan"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "51d4b9c700ef128624b2b79f6caaf68f2cb879fce9e5329aefce57439322a162",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "7b2a758e1cf397922102a07636d9e4721c755af2f15773389b305e132c1bb466",
+      "question": "How much money in AED did the claimant request in case TCD 001/2023?",
+      "answer_type": "number",
+      "answer": 4142210.71,
+      "gold_retrieval": [
+        {
+          "doc_id": "ad76dc7093851d116c8878802b815608adceed54f6b5195ae04ffec28ae25d32",
+          "page_numbers": [
+            9
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_page",
+        "single_document"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "4b10fe12a17e5111597030142b5a31eec167f614572f7dde63b1b63516f2e32f",
+      "assistant_score": 1.0,
+      "notes": "Accurate issuer identification (then Chief Justice Sir Anthony Evans), complete, grounded on cited page, concise."
+    },
+    {
+      "question_id": "b5039c091ebecda3215d34bbb3bb3c81b68bc4a945287daa613454d4c3caeaec",
+      "assistant_score": 1.0,
+      "notes": "Correctly states WFO continued on same terms until further order; fully grounded in the operative order paragraph."
+    }
+  ],
+  "findings": [
+    "Replaced the empty review scaffold with 10 reviewed references for shard part_01.",
+    "All 10 draft answer values were independently verified against source PDFs; no factual disagreements identified.",
+    "Gold retrieval evidence was checked for minimal-complete grounding and retained as-is after verification.",
+    "Added required free_text assistant_scores for question_ids 4b10fe12... and b5039c09... using the local rubric."
+  ],
+  "notes": []
+}

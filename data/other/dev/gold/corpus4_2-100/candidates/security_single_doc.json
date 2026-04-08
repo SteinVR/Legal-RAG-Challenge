@@ -1,0 +1,447 @@
+{
+  "stream_id": "security_single_doc",
+  "doc_ids": [
+    "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+  ],
+  "candidates": [
+    {
+      "question": "On what date did Consolidated Version No. 2 of the Securities Regulations come into force?",
+      "answer_type": "date",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "notes": "Title-page effective date."
+    },
+    {
+      "question": "Do these Regulations apply to any person to whom the Law applies?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Scope rule in Regulation 1.1.1."
+    },
+    {
+      "question": "What is the defined name of the law referenced as \"Law\" in the definitions table?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Definition of Law on page 3."
+    },
+    {
+      "question": "Under Regulation 1.2.1, what does \"in writing\" mean?",
+      "answer_type": "free_text",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Writing definition."
+    },
+    {
+      "question": "What document must be submitted to effect a filing under Regulation 2.2.1?",
+      "answer_type": "name",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            4
+          ]
+        }
+      ],
+      "notes": "Relevant approved form requirement."
+    },
+    {
+      "question": "How many approved forms are promulgated in Regulation 2.3.1?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Count of approved forms."
+    },
+    {
+      "question": "What is the form number for a Financing Statement?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Financing Statement form number."
+    },
+    {
+      "question": "What is the fee for filing a Financing Statement (Form 1)?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "notes": "Fee schedule."
+    },
+    {
+      "question": "What is the fee for filing a Correction Statement (Form 6)?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "notes": "Fee schedule."
+    },
+    {
+      "question": "Can filings be made in paper format?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "notes": "Paper filing rule."
+    },
+    {
+      "question": "Within how many business days must the Registrar notify a filer of a refusal where practicable?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Refusal-notice deadline."
+    },
+    {
+      "question": "Can the Registrar amend the effective time of a Filing when taking corrective action under Regulation 2.6.3?",
+      "answer_type": "boolean",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Limits on corrective action."
+    },
+    {
+      "question": "What is the fee to add or delete a single party on Form 5?",
+      "answer_type": "number",
+      "difficulty": "easy",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            24
+          ]
+        }
+      ],
+      "notes": "Form 5 fee line."
+    },
+    {
+      "question": "Which methods of delivery are accepted for a search request under Regulation 2.9.1?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "Accepted delivery modes."
+    },
+    {
+      "question": "What two conditions must be met for a requested search delivery mode other than ordinary mail to be honored?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "Conditions for special delivery mode."
+    },
+    {
+      "question": "What grounds may cause the Registrar to refuse to permit a Filing under Regulation 2.4.1?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Refusal grounds."
+    },
+    {
+      "question": "What must the Registrar's corrective action statement identify under Regulation 2.6.2?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            5
+          ]
+        }
+      ],
+      "notes": "Required elements of corrective statement."
+    },
+    {
+      "question": "What must a request for review under Regulation 2.7.3 include?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Review request contents."
+    },
+    {
+      "question": "Is retroactive or back-dated filing permitted under Regulation 2.7.2?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "notes": "Back-dating rule."
+    },
+    {
+      "question": "What is the form number for an Information Request?",
+      "answer_type": "number",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Form number lookup."
+    },
+    {
+      "question": "What email address is provided in the Regulations for submitting a search request?",
+      "answer_type": "free_text",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            7
+          ]
+        }
+      ],
+      "notes": "No email address is stated."
+    },
+    {
+      "question": "Name the seven approved forms promulgated in Regulation 2.3.1.",
+      "answer_type": "names",
+      "difficulty": "medium",
+      "negative": false,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            4
+          ]
+        }
+      ],
+      "notes": "Full approved-form list."
+    },
+    {
+      "question": "Do the Regulations specify a telephone number for the Registrar?",
+      "answer_type": "boolean",
+      "difficulty": "medium",
+      "negative": true,
+      "source_type": "statute",
+      "doc_ids": [
+        "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5"
+      ],
+      "page_hints": [
+        {
+          "doc_id": "3fa59589a91bf4913703ba0eedd08faa128948285b8a9d085bd7422248abe6c5",
+          "page_numbers": [
+            3,
+            7
+          ]
+        }
+      ],
+      "notes": "No telephone number is stated."
+    }
+  ]
+}

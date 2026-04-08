@@ -1,0 +1,587 @@
+{
+  "shard_id": "part_02",
+  "status": "reviewed",
+  "question_ids": [
+    "12eaaba41338f13b21be7ab9fa1d754390b7aab512e9f33ea7184cc2b2f54d86",
+    "39890efe7db1258f568e838c284020a9fc79b8bf0deddab76fdf853c9b0171ed",
+    "9f9fb4b911d75c22f2c9a42bb852848ac45594179a7d0d126c8ef0ac8941b18d",
+    "e9b7a25f2bca575390d55244471366612a7698321f47c4f1eb28724c8448ef7d",
+    "042ddf2ed161068fab8072f16e01a15e11da9d741d207bfc0185e5133a810193",
+    "802d12a65530cd728da4c2f4430275488285ced247123431a905f8d525e80ede",
+    "e14ad296801b3fb6855a3a9338f1e9b8e2d1bfb05c99682a3cf4f9140b49b17b",
+    "095cb50318776a3b8ef11769cd941775694c194924783ee31109c25e3306600e",
+    "436c12cc4eb26087bd1540f5d47825712632e90b4d5b2bca6c52e3b26151f874",
+    "89f4b2e86cf7e48e185b9d5775d67e7c8a51beccbb20abce8dac2a1b0e80b723",
+    "b982f3b308042c0eb23dfe264a56ab53866fbea5d3981c4bfcf3ffb6de22054e",
+    "c9f0dd67c60a88de9c2c38956f2ffd7b394eb4d7568c73d1869b4182480faf64",
+    "fcabd6aa14e2df4b7ca00fa516a70eba6de58b74dfde30270e3fe3eec6d1da7a",
+    "4fa07316db9a19980de495d2190350cc4b494ae0ab741cda7784e895709719e1",
+    "a8813f8f56099bd156b5fe797cc44b061d2a54fb69ca2e748ffb7cc462eaa85e",
+    "f564b1fd7332944fa826e3af69330b53e8fed018c370dde5b57a8e338d4ecd62",
+    "cdddeb6a063f29cbea5f10b3dccbd83aa16849e1f3124e223d141d1578efeb0a",
+    "146567e3d096312584103b24983e3ff8e904e4ec5dea993d9774d24fef15fce7",
+    "6c32a091c7108047fabbea4f78137837d79c46a5a864963872cb7035ea9cce0f",
+    "e153746c20cc385a520728ac381151f424c9eee10e4c582904fee70afe9af243"
+  ],
+  "references": [
+    {
+      "question_id": "12eaaba41338f13b21be7ab9fa1d754390b7aab512e9f33ea7184cc2b2f54d86",
+      "question": "Is there a judge who presided over both case CA 004/2025 and case CFI 010/2024?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "39890efe7db1258f568e838c284020a9fc79b8bf0deddab76fdf853c9b0171ed",
+      "question": "Is there any main party common to both case CFI 057/2025 and case SCT 295/2025?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "negative",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "9f9fb4b911d75c22f2c9a42bb852848ac45594179a7d0d126c8ef0ac8941b18d",
+      "question": "Do cases CA 004/2025 and SCT 295/2025 involve any of the same legal entities or individuals as parties?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "negative",
+        "entity_overlap"
+      ]
+    },
+    {
+      "question_id": "e9b7a25f2bca575390d55244471366612a7698321f47c4f1eb28724c8448ef7d",
+      "question": "Was the same judge involved in both case CFI 010/2024 and case CFI 016/2025?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "042ddf2ed161068fab8072f16e01a15e11da9d741d207bfc0185e5133a810193",
+      "question": "Does the Law on the Application of Civil and Commercial Laws in the DIFC Law No. 3 of 2004 apply in the jurisdiction of the Dubai International Financial Centre?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "802d12a65530cd728da4c2f4430275488285ced247123431a905f8d525e80ede",
+      "question": "Based on the second page of the document, was the Claimant's application for continuation of the ASI Order granted by the court in case ARB 034/2025?",
+      "answer_type": "boolean",
+      "answer": false,
+      "gold_retrieval": [
+        {
+          "doc_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page",
+        "negative"
+      ]
+    },
+    {
+      "question_id": "e14ad296801b3fb6855a3a9338f1e9b8e2d1bfb05c99682a3cf4f9140b49b17b",
+      "question": "Under Article 11(5) of the DIFC Trust Law 2018, is a term of the trust expressly declaring that the laws of the DIFC shall govern the trust valid, effective, and conclusive regardless of any other circumstance?",
+      "answer_type": "boolean",
+      "answer": true,
+      "gold_retrieval": [
+        {
+          "doc_id": "4e387152960c1029b3711cacb05b287b13c977bc61f2558059a62b7b427a62eb",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "095cb50318776a3b8ef11769cd941775694c194924783ee31109c25e3306600e",
+      "question": "Who is responsible for administering the Employment Law and any Regulations made under it?",
+      "answer_type": "free_text",
+      "answer": "The DIFCA administers the Employment Law and any Regulations made under it.",
+      "gold_retrieval": [
+        {
+          "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "436c12cc4eb26087bd1540f5d47825712632e90b4d5b2bca6c52e3b26151f874",
+      "question": "What was the result of the application heard in case CFI 057/2025?",
+      "answer_type": "free_text",
+      "answer": "The Defendant's Permission to Appeal Application was refused, and the Defendant was ordered to pay the Claimant's costs of the application.",
+      "gold_retrieval": [
+        {
+          "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+          "page_numbers": [
+            2
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "89f4b2e86cf7e48e185b9d5775d67e7c8a51beccbb20abce8dac2a1b0e80b723",
+      "question": "Were the Miranda rights properly administered in case ENF 269/2023?",
+      "answer_type": "free_text",
+      "answer": "There is no information on this question in the provided documents.",
+      "gold_retrieval": [],
+      "source_type": "case",
+      "difficulty": "hard",
+      "tags": [
+        "free_text",
+        "negative",
+        "single_document"
+      ]
+    },
+    {
+      "question_id": "b982f3b308042c0eb23dfe264a56ab53866fbea5d3981c4bfcf3ffb6de22054e",
+      "question": "What was the result of the application heard in case CFI 067/2025?",
+      "answer_type": "free_text",
+      "answer": "The Defendant's application for immediate judgment and/or strike out was dismissed, and the Applicant was ordered to pay 80% of the Respondent's costs, assessed at USD 155,879.50.",
+      "gold_retrieval": [
+        {
+          "doc_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "c9f0dd67c60a88de9c2c38956f2ffd7b394eb4d7568c73d1869b4182480faf64",
+      "question": "According to the 'IT IS HEREBY ORDERED THAT' section of case SCT 454/2024, what was the outcome of the application for permission to appeal?",
+      "answer_type": "free_text",
+      "answer": "The application for permission to appeal was refused.",
+      "gold_retrieval": [
+        {
+          "doc_id": "f4c4d051d514270964adcf58e124569e396602340b7d9172671759de10a95897",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "free_text",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "fcabd6aa14e2df4b7ca00fa516a70eba6de58b74dfde30270e3fe3eec6d1da7a",
+      "question": "Which specific DIFC Laws were amended by DIFC Law No. 2 of 2022?",
+      "answer_type": "free_text",
+      "answer": "Common Reporting Standard Law, Employment Law, Foundations Law, General Partnership Law, Limited Liability Partnership Law, Personal Property Law, Trust Law, and the Law on the Application of Civil and Commercial Laws in the DIFC.",
+      "gold_retrieval": [
+        {
+          "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "22442c5ee999e2519c68de908be511875a84f2b810ed540c2dcfcbcc65031434",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "b82ac8228e051d96bf8d706d3251893ebff1c9457b066fce3b7cb99af956f2a7",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "4e387152960c1029b3711cacb05b287b13c977bc61f2558059a62b7b427a62eb",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "hard",
+      "tags": [
+        "free_text",
+        "multi_document",
+        "multi_page",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "4fa07316db9a19980de495d2190350cc4b494ae0ab741cda7784e895709719e1",
+      "question": "Between CFI 010/2024 and SCT 169/2025, which document has the earlier issue date?",
+      "answer_type": "name",
+      "answer": "SCT 169/2025",
+      "gold_retrieval": [
+        {
+          "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "3a574fc4f0baa5ec7ff0dcc822d7c55e4f9c493c24addc217c8df3d848c16fa5",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "a8813f8f56099bd156b5fe797cc44b061d2a54fb69ca2e748ffb7cc462eaa85e",
+      "question": "Which case has an earlier Date of Issue: CFI 010/2024 or CFI 016/2025?",
+      "answer_type": "name",
+      "answer": "CFI 010/2024",
+      "gold_retrieval": [
+        {
+          "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "f564b1fd7332944fa826e3af69330b53e8fed018c370dde5b57a8e338d4ecd62",
+      "question": "Between CFI 016/2025 and CFI 057/2025, which document has the earlier issue date?",
+      "answer_type": "name",
+      "answer": "CFI 057/2025",
+      "gold_retrieval": [
+        {
+          "doc_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "cross_case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "multi_document",
+        "multi_page",
+        "comparative",
+        "title_page"
+      ]
+    },
+    {
+      "question_id": "cdddeb6a063f29cbea5f10b3dccbd83aa16849e1f3124e223d141d1578efeb0a",
+      "question": "Who were the claimants in case CFI 010/2024?",
+      "answer_type": "names",
+      "answer": [
+        "Fursa Consulting"
+      ],
+      "gold_retrieval": [
+        {
+          "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+          "page_numbers": [
+            1
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "146567e3d096312584103b24983e3ff8e904e4ec5dea993d9774d24fef15fce7",
+      "question": "According to Article 14(2)(b) of the General Partnership Law 2004, how many years must a Recognised Partnership's Accounting Records be preserved?",
+      "answer_type": "number",
+      "answer": 6,
+      "gold_retrieval": [
+        {
+          "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "6c32a091c7108047fabbea4f78137837d79c46a5a864963872cb7035ea9cce0f",
+      "question": "What was the claim value in AED referenced in the appeal judgment CA 005/2025?",
+      "answer_type": "number",
+      "answer": 405351504,
+      "gold_retrieval": [
+        {
+          "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+          "page_numbers": [
+            3
+          ]
+        }
+      ],
+      "source_type": "case",
+      "difficulty": "medium",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    },
+    {
+      "question_id": "e153746c20cc385a520728ac381151f424c9eee10e4c582904fee70afe9af243",
+      "question": "According to Article 10 of the Employment Law 2019, how many months after the Termination Date must a claim under this Law be presented to the Court, unless otherwise specified?",
+      "answer_type": "number",
+      "answer": 6,
+      "gold_retrieval": [
+        {
+          "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+          "page_numbers": [
+            6
+          ]
+        }
+      ],
+      "source_type": "statute",
+      "difficulty": "easy",
+      "tags": [
+        "deterministic",
+        "single_document",
+        "single_page"
+      ]
+    }
+  ],
+  "assistant_scores": [
+    {
+      "question_id": "095cb50318776a3b8ef11769cd941775694c194924783ee31109c25e3306600e",
+      "assistant_score": 1.0,
+      "notes": "Correct, complete, and directly grounded in Employment Law page 6."
+    },
+    {
+      "question_id": "436c12cc4eb26087bd1540f5d47825712632e90b4d5b2bca6c52e3b26151f874",
+      "assistant_score": 1.0,
+      "notes": "Matches the refusal and costs outcome stated on CFI 057/2025 page 2."
+    },
+    {
+      "question_id": "89f4b2e86cf7e48e185b9d5775d67e7c8a51beccbb20abce8dac2a1b0e80b723",
+      "assistant_score": 1.0,
+      "notes": "Properly calibrated no-answer response; ENF 269/2023 does not discuss Miranda rights."
+    },
+    {
+      "question_id": "b982f3b308042c0eb23dfe264a56ab53866fbea5d3981c4bfcf3ffb6de22054e",
+      "assistant_score": 0.8,
+      "notes": "The draft answer captured the dismissal but omitted the quantified 80% / USD 155,879.50 costs outcome on page 1."
+    },
+    {
+      "question_id": "c9f0dd67c60a88de9c2c38956f2ffd7b394eb4d7568c73d1869b4182480faf64",
+      "assistant_score": 1.0,
+      "notes": "Correctly states that the permission to appeal application was refused."
+    },
+    {
+      "question_id": "fcabd6aa14e2df4b7ca00fa516a70eba6de58b74dfde30270e3fe3eec6d1da7a",
+      "assistant_score": 1.0,
+      "notes": "Correctly lists all eight laws shown as amended by DIFC Law No. 2 of 2022 across the cited title pages."
+    }
+  ],
+  "findings": [
+    "Approved Q1, Q4, Q14, Q15, Q16, and Q17: judge/date/party-name determinations all match the cited case title pages, and the cited retrieval remains minimal-complete.",
+    "Approved Q2 and Q3: the cited first pages show no overlapping parties between the compared cases; the negative cross-case retrieval is complete without extra pages.",
+    "Approved Q5, Q7, Q18, and Q20: the single cited statute pages fully support the reviewed boolean/number answers with no additional pages needed.",
+    "Approved Q6, Q8, Q9, Q10, Q12, Q13, and Q19 after direct PDF checks; Q10 remains a valid no-answer item after reviewing ENF 269/2023 pages 1-3 for any Miranda-rights discussion.",
+    "Corrected Q11 free-text answer for CFI 067/2025 to include the quantified costs outcome on page 1: 80% of the Respondent's costs, assessed at USD 155,879.50."
+  ],
+  "notes": [
+    "Reviewed against the cited PDF pages in data/warmup/documents/pdfs, with ENF 269/2023 pages 1-3 additionally checked to confirm the no-answer free-text item."
+  ]
+}
