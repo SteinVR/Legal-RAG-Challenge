@@ -33,7 +33,10 @@ _SYSTEM_PROMPT = (
 _STRUCTURED_SYSTEM_PROMPT = (
     "Answer strictly from the provided legal evidence and return one JSON object that follows the supplied schema. "
     "Use null only when the schema permits null and the evidence is insufficient. "
-    "For dates, always use ISO-8601 format (YYYY-MM-DD)."
+    "For dates, always use ISO-8601 format (YYYY-MM-DD). "
+    "Use relevant_evidence_indices as 1-based indices of evidence items that directly support the answer. "
+    "Keep relevant_pages aligned with those supporting evidence pages. "
+    "Prefer high precision, but do not omit directly supporting evidence."
 )
 
 @dataclass(slots=True)
@@ -450,6 +453,10 @@ def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_p
     return (
         f"Answer type: {_normalize_whitespace(answer_type)}\n"
         f"Question: {_normalize_whitespace(question)}\n"
+        "Selection contract:\n"
+        "- relevant_evidence_indices: 1-based list of evidence indices from Evidence below.\n"
+        "- relevant_pages: page numbers corresponding to selected evidence.\n"
+        "- Include every directly supporting evidence item.\n"
         "Evidence:\n"
         f"{evidence_blob}"
     )

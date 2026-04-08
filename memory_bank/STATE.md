@@ -12,7 +12,7 @@
 | Methodology | RAPID |
 | Delivered | Waves 1-4 complete; TASK-BASELINE postmortem complete; canonical e2e pipeline verified on RTX 4060 |
 | Current focus | Continue strict eval hardening with no hidden fallback behavior; push grounding quality after stability recovery |
-| Latest validation | 2026-04-06: `tests/test_smoke_warmup_runtime.py` passed; full warmup e2e run `submission_e2e_20260406_fix` completed 100/100 with restored assistant coverage (`assistant_score_count=30`) |
+| Latest validation | 2026-04-08: retrieval-only warmup gate passed (`grounding_mean=0.8295`), then full warmup e2e run `submission_e2e_20260408_gen_filter` completed 100/100 with `assistant_score_count=30` |
 | Baseline reference | 2026-03-23 warmup submission: `total_score=0.2273`, grounding `G=0.5702`; grounding remains the main optimization lever |
 | Canonical architecture | `docs/unified_document_processing_architecture.md`; governance chain stays `memory_bank/ARCHITECTURE.md` -> `memory_bank/component_design.md` -> `memory_bank/specs/` -> `memory_bank/tasks/` |
 
@@ -56,6 +56,7 @@
 - 2026-03-23 to 2026-03-25: Wave 4 landed across parser, retrieval, typed answering, and cross-case decomposition. Key hardening included strict parser contracts, schema-first solving, reasoning-model provider fixes, and test stabilization (`342 passed`, `ruff clean`).
 - 2026-03-25 to 2026-04-03: Full e2e reruns verified the canonical pipeline on GPU. Corpus re-parse produced `opendataloader:tagged` provenance, GPU OCR stayed idle on born-digital pages, index rebuilt to `3804` chunks, and the warmup submission moved to the current tracking state.
 - 2026-04-06: Recovery run `submission_e2e_20260406_fix` completed with reused corpus/index, generated full artifact set, and restored assistant scoring (`assistant_score_count=30`, `assistant=0.9867`). Overall improved from `0.3402` to `0.5241` vs `submission_fullrun_20260406_001200`.
+- 2026-04-08: Generation layer switched to non-destructive precision filtering with recall guard (`relevant_evidence_indices` + guarded narrowing, no structured->legacy fallback). Warmup e2e `submission_e2e_20260408_gen_filter` reached `total=0.7332`, `grounding=0.8202`, validation warnings `0`.
 
 ---
 
@@ -70,6 +71,7 @@
 | Previous Fullrun (`submission_fullrun_20260403_190231`) | 0.4866 | 0.8714 | 0.9867 | 0.5590 | 4745.49 | 0.9609 | 32 |
 | Current Fullrun (`submission_fullrun_20260406_001200`) | 0.3402 | 0.8429 | 0.0000 | 0.6023 | 5342.02 | 0.9573 | 27 |
 | Recovery Fullrun (`submission_e2e_20260406_fix`) | 0.5241 | 0.8714 | 0.9867 | 0.6015 | 4600.94 | 0.9616 | 26 |
+| Generation Filter Warmup (`submission_e2e_20260408_gen_filter`) | 0.7332 | 0.9429 | 0.9867 | 0.8202 | 6246.52 | 0.9351 | 0 |
 
 ### 6.2 Latest Comparison (Recovery vs 2026-04-06 fullrun)
 
@@ -77,3 +79,13 @@
 - Overall delta vs `submission_fullrun_20260406_001200`: `total +0.1839`, `det +0.0286`, `assistant +0.9867`, `grounding -0.0007`, `ttft_multiplier +0.0043`.
 - Runtime behavior: `build-submission` reused corpus/index and completed QA stage in ~`460141 ms`; runtime log `logs/project/runtime/warmup/20260405T224512Z_build-submission_cb9589bdeaea4bf5ad95272545de12fc.jsonl`.
 - Quality note: free_text assistant slice recovered (from zero-coverage collapse to normal benchmark scoring), while grounding stayed essentially flat.
+
+### 6.3 Total Score Formula (2026-04-08, `submission_e2e_20260408_gen_filter`)
+
+- Source formula (`src/evaluation/scorer.py`): `Total = (0.7 * Deterministic + 0.3 * Assistant) * Grounding * Telemetry * TTFT_multiplier`.
+- Run metrics:
+`Deterministic=0.942857142857`, `Assistant=0.986666666667`, `Grounding=0.820186561384`, `Telemetry=1.0`, `TTFT_multiplier=0.935140542183`.
+- Substitution:
+`(0.7*0.942857142857 + 0.3*0.986666666667) * 0.820186561384 * 1.0 * 0.935140542183`
+`= 0.956000000000 * 0.820186561384 * 1.0 * 0.935140542183`
+`= 0.733242158653` (matches report value `0.7332421586529945`).

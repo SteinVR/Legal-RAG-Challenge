@@ -9,16 +9,18 @@ the primary objective is `grounding_mean`.
 from __future__ import annotations
 
 import argparse
-import re
 import time
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 from pathlib import Path
 
 from src.answering.page_attribution import (
     PageAttributionConfig,
-    candidate_pages_from_chunks,
     group_page_reference_pairs,
-    prune_candidate_pages,
+)
+from src.answering.service_helpers import (
+    _coerce_retrieval_payload,
+    _effective_page_attribution_config,
+    _pass_a_pages_from_retrieval_payload,
 )
 from src.answering.service_types import extract_query_metadata
 from src.common.config import DEFAULT_CONFIG_PATH, AppConfig, load_app_config
@@ -36,18 +38,6 @@ from src.retrieval.hybrid_search import QdrantHybridSearchBackend, RRFHybridSear
 from src.retrieval.reranker import QwenReranker
 from src.retrieval.service import RetrievalResult, RetrievalService
 
-_TITLE_PAGE_QUERY_PATTERN = re.compile(r"\b(?:title|cover)\s+page\b", re.IGNORECASE)
-_EXPLICIT_PAGE_NUMBER_PATTERN = re.compile(r"\bpage\s+(?P<page>\d{1,3})\b", re.IGNORECASE)
-_EXPLICIT_PAGE_PHRASES: dict[str, int] = {
-    "first page": 1,
-    "second page": 2,
-    "third page": 3,
-    "fourth page": 4,
-    "fifth page": 5,
-    "title page": 1,
-    "cover page": 1,
-}
-
 
 @dataclass(slots=True, frozen=True)
 class GroundingRunMetrics:
@@ -62,6 +52,8 @@ class GroundingRunMetrics:
     raw_zero_recall_count: int
     pass_a_precision_mean: float
     pass_a_recall_mean: float
+    pass_a_recall_gap_from_raw: float
+    pass_a_recall_ratio_to_raw: float
     runtime_sec: float
 
 
@@ -104,6 +96,18 @@ def _build_parser() -> argparse.ArgumentParser:
         required=True,
         help="Path to benchmark JSON with references/gold_retrieval.",
     )
+    parser.add_argument(
+        "--max-pass-a-recall-gap",
+        type=float,
+        default=None,
+        help="Optional hard gate: fail when (raw_recall_mean - pass_a_recall_mean) exceeds this value.",
+    )
+    parser.add_argument(
+        "--min-pass-a-recall-ratio",
+        type=float,
+        default=None,
+        help="Optional hard gate: fail when (pass_a_recall_mean / raw_recall_mean) is below this value.",
+    )
     return parser
 
 
@@ -131,116 +135,38 @@ def _assert_index_artifacts_ready(index_paths: IndexPaths) -> None:
         )
 
 
-def _effective_page_attribution_config(
-    *,
-    base_config: PageAttributionConfig,
-    question_text: str,
-) -> PageAttributionConfig:
-    """Apply title-page exception so title-page queries are not over-suppressed."""
-
-    if not base_config.suppress_title_pages:
-        return base_config
-    if not _TITLE_PAGE_QUERY_PATTERN.search(question_text):
-        return base_config
-    return replace(base_config, suppress_title_pages=False)
-
-
 def _predict_page_references(
     *,
     question: QuestionRecord,
     retrieval_result: RetrievalResult,
     base_config: PageAttributionConfig,
 ) -> list[PageReference]:
-    """Compute predicted page references via retrieval + Pass A page attribution."""
+    """Compute pre-LLM pages exactly as the answering service does before provider call."""
 
-    if not retrieval_result.evidence_chunks:
+    pages, _ = _coerce_retrieval_payload(retrieval_result)
+    if not pages and not retrieval_result.retrieved_chunk_pages:
         return []
 
-    candidate_pages = candidate_pages_from_chunks(retrieval_result.evidence_chunks)
     effective_config = _effective_page_attribution_config(
         base_config=base_config,
         question_text=question.question,
     )
-    pass_a_result = prune_candidate_pages(candidate_pages, config=effective_config)
-    selected_pairs = {
-        (page.doc_id, int(page.page_number))
-        for page in pass_a_result.selected_pages
-        if int(page.page_number) > 0
-    }
-    selected_pairs = _filter_pairs_by_explicit_page_hints(
-        selected_pairs=selected_pairs,
-        question_text=question.question,
+    pass_a_pages = _pass_a_pages_from_retrieval_payload(
+        retrieval_output=retrieval_result,
+        pages=pages,
+        config=effective_config,
     )
+    selected_pairs = {
+        (page.doc_id, int(page_number))
+        for page in pass_a_pages
+        for page_number in page.page_numbers
+        if int(page_number) > 0
+    }
     if selected_pairs:
         return group_page_reference_pairs(selected_pairs)
 
     fallback_pairs = flatten_page_references(retrieval_result.retrieved_chunk_pages)
-    fallback_pairs = _filter_pairs_by_explicit_page_hints(
-        selected_pairs=fallback_pairs,
-        question_text=question.question,
-    )
     return group_page_reference_pairs(fallback_pairs)
-
-
-def _filter_pairs_by_explicit_page_hints(
-    *,
-    selected_pairs: set[tuple[str, int]],
-    question_text: str,
-) -> set[tuple[str, int]]:
-    """Narrow predicted pages when the question explicitly names target page numbers.
-
-    The filter is conservative: when explicit hints exist but none of the predicted
-    pairs match, it preserves the original predictions to avoid introducing empty
-    retrieval outputs.
-    """
-
-    if not selected_pairs:
-        return selected_pairs
-
-    filtered_pairs = set(selected_pairs)
-
-    explicit_pages = _extract_explicit_page_hints(question_text)
-    if explicit_pages:
-        explicit_filtered = {
-            (doc_id, page_number)
-            for doc_id, page_number in filtered_pairs
-            if page_number in explicit_pages
-        }
-        if explicit_filtered:
-            filtered_pairs = explicit_filtered
-
-    if _question_requests_last_page(question_text):
-        max_page_by_doc: dict[str, int] = {}
-        for doc_id, page_number in filtered_pairs:
-            previous_max = max_page_by_doc.get(doc_id)
-            if previous_max is None or page_number > previous_max:
-                max_page_by_doc[doc_id] = page_number
-        last_page_pairs = {
-            (doc_id, page_number)
-            for doc_id, page_number in filtered_pairs
-            if max_page_by_doc.get(doc_id) == page_number
-        }
-        if last_page_pairs:
-            filtered_pairs = last_page_pairs
-
-    return filtered_pairs
-
-
-def _extract_explicit_page_hints(question_text: str) -> set[int]:
-    """Extract explicit target page hints from question text."""
-
-    explicit_pages = {int(match.group("page")) for match in _EXPLICIT_PAGE_NUMBER_PATTERN.finditer(question_text)}
-    lowered_question = question_text.casefold()
-    for phrase, page_number in _EXPLICIT_PAGE_PHRASES.items():
-        if phrase in lowered_question:
-            explicit_pages.add(page_number)
-    return {page_number for page_number in explicit_pages if page_number > 0}
-
-
-def _question_requests_last_page(question_text: str) -> bool:
-    """Return whether question text explicitly requests the last page."""
-
-    return "last page" in question_text.casefold()
 
 
 def _assert_gpu_runtime_contract(config: AppConfig) -> tuple[object, QwenReranker]:
@@ -343,6 +269,14 @@ def _mean(values: list[float]) -> float:
     return sum(values) / len(values)
 
 
+def _safe_ratio(*, numerator: float, denominator: float) -> float:
+    """Return a safe ratio for recall alignment reporting."""
+
+    if denominator == 0.0:
+        return 1.0 if numerator == 0.0 else 0.0
+    return numerator / denominator
+
+
 def _run_grounding_benchmark(
     *,
     questions: list[QuestionRecord],
@@ -399,16 +333,20 @@ def _run_grounding_benchmark(
     raw_precision_values = [score.precision for score in raw_scores]
     raw_recall_values = [score.recall for score in raw_scores]
 
+    raw_recall_mean = _mean(raw_recall_values)
+    pass_a_recall_mean = _mean(pass_a_recall_values)
     return GroundingRunMetrics(
         question_count=len(pass_a_scores),
         grounding_mean=_mean(pass_a_grounding_values),
         grounding_zero_count=sum(1 for score in pass_a_grounding_values if score == 0.0),
         raw_grounding_mean=_mean(raw_grounding_values),
         raw_precision_mean=_mean(raw_precision_values),
-        raw_recall_mean=_mean(raw_recall_values),
+        raw_recall_mean=raw_recall_mean,
         raw_zero_recall_count=sum(1 for score in raw_recall_values if score == 0.0),
         pass_a_precision_mean=_mean(pass_a_precision_values),
-        pass_a_recall_mean=_mean(pass_a_recall_values),
+        pass_a_recall_mean=pass_a_recall_mean,
+        pass_a_recall_gap_from_raw=raw_recall_mean - pass_a_recall_mean,
+        pass_a_recall_ratio_to_raw=_safe_ratio(numerator=pass_a_recall_mean, denominator=raw_recall_mean),
         runtime_sec=0.0,
     )
 
@@ -425,6 +363,8 @@ def _print_summary(metrics: GroundingRunMetrics) -> None:
     print(f"raw_zero_recall_count={metrics.raw_zero_recall_count}")
     print(f"pass_a_recall_mean={metrics.pass_a_recall_mean:.12f}")
     print(f"pass_a_precision_mean={metrics.pass_a_precision_mean:.12f}")
+    print(f"pass_a_recall_gap_from_raw={metrics.pass_a_recall_gap_from_raw:.12f}")
+    print(f"pass_a_recall_ratio_to_raw={metrics.pass_a_recall_ratio_to_raw:.12f}")
     print(f"runtime_sec={metrics.runtime_sec:.3f}")
     print(
         "AUTORESEARCH_METRIC "
@@ -436,9 +376,33 @@ def _print_summary(metrics: GroundingRunMetrics) -> None:
         f"raw_zero_recall_count={metrics.raw_zero_recall_count} "
         f"pass_a_recall_mean={metrics.pass_a_recall_mean:.12f} "
         f"pass_a_precision_mean={metrics.pass_a_precision_mean:.12f} "
+        f"pass_a_recall_gap_from_raw={metrics.pass_a_recall_gap_from_raw:.12f} "
+        f"pass_a_recall_ratio_to_raw={metrics.pass_a_recall_ratio_to_raw:.12f} "
         f"runtime_sec={metrics.runtime_sec:.3f} "
         f"question_count={metrics.question_count}"
     )
+
+
+def _validate_recall_alignment(
+    *,
+    metrics: GroundingRunMetrics,
+    max_pass_a_recall_gap: float | None,
+    min_pass_a_recall_ratio: float | None,
+) -> None:
+    """Enforce optional recall-alignment gates for pre-LLM page emission."""
+
+    if max_pass_a_recall_gap is not None and metrics.pass_a_recall_gap_from_raw > max_pass_a_recall_gap:
+        raise RuntimeError(
+            "Pre-LLM recall alignment gate failed: "
+            f"pass_a_recall_gap_from_raw={metrics.pass_a_recall_gap_from_raw:.12f} "
+            f"> max_pass_a_recall_gap={max_pass_a_recall_gap:.12f}."
+        )
+    if min_pass_a_recall_ratio is not None and metrics.pass_a_recall_ratio_to_raw < min_pass_a_recall_ratio:
+        raise RuntimeError(
+            "Pre-LLM recall alignment gate failed: "
+            f"pass_a_recall_ratio_to_raw={metrics.pass_a_recall_ratio_to_raw:.12f} "
+            f"< min_pass_a_recall_ratio={min_pass_a_recall_ratio:.12f}."
+        )
 
 
 def main() -> int:
@@ -490,7 +454,14 @@ def main() -> int:
         raw_zero_recall_count=raw_metrics.raw_zero_recall_count,
         pass_a_precision_mean=raw_metrics.pass_a_precision_mean,
         pass_a_recall_mean=raw_metrics.pass_a_recall_mean,
+        pass_a_recall_gap_from_raw=raw_metrics.pass_a_recall_gap_from_raw,
+        pass_a_recall_ratio_to_raw=raw_metrics.pass_a_recall_ratio_to_raw,
         runtime_sec=time.perf_counter() - started_at,
+    )
+    _validate_recall_alignment(
+        metrics=metrics,
+        max_pass_a_recall_gap=args.max_pass_a_recall_gap,
+        min_pass_a_recall_ratio=args.min_pass_a_recall_ratio,
     )
     _print_summary(metrics)
     return 0

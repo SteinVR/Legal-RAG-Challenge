@@ -92,27 +92,41 @@ class _StructuredAnswerBase(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     is_answerable: bool
+    relevant_evidence_indices: list[int] = Field(default_factory=list)
     relevant_pages: list[int] = Field(default_factory=list)
     reasoning_summary: str
     confidence: float | None = None
+
+    @staticmethod
+    def _normalize_positive_integer_list(value: Any, *, field_name: str) -> list[int]:
+        """Normalize positive integer lists used by structured page hints."""
+
+        if value is None:
+            return []
+        if not isinstance(value, list):
+            raise ValueError(f"{field_name} must be a list of integers.")
+        normalized: list[int] = []
+        for raw_item in value:
+            try:
+                item = int(raw_item)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"{field_name} must contain integers.") from exc
+            if item > 0:
+                normalized.append(item)
+        return sorted(set(normalized))
+
+    @field_validator("relevant_evidence_indices", mode="before")
+    @classmethod
+    def _normalize_relevant_evidence_indices(cls, value: Any) -> list[int]:
+        """Normalize evidence indices selected by the structured solver."""
+
+        return cls._normalize_positive_integer_list(value, field_name="relevant_evidence_indices")
 
     @field_validator("relevant_pages", mode="before")
     @classmethod
     def _normalize_relevant_pages(cls, value: Any) -> list[int]:
         """Normalize relevant pages."""
-        if value is None:
-            return []
-        if not isinstance(value, list):
-            raise ValueError("relevant_pages must be a list of integers.")
-        normalized: list[int] = []
-        for raw_page in value:
-            try:
-                page_number = int(raw_page)
-            except (TypeError, ValueError) as exc:
-                raise ValueError("relevant_pages must contain integers.") from exc
-            if page_number > 0:
-                normalized.append(page_number)
-        return sorted(set(normalized))
+        return cls._normalize_positive_integer_list(value, field_name="relevant_pages")
 
     @field_validator("reasoning_summary")
     @classmethod

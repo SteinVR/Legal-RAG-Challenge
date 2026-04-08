@@ -413,6 +413,28 @@ def _safe_relevant_page_pairs(
     }
 
 
+def _safe_relevant_evidence_pairs(
+    *,
+    pages: list[_PageCandidate],
+    relevant_evidence_indices: list[int],
+) -> set[tuple[str, int]]:
+    """Map structured solver evidence indices to concrete (doc_id, page_number) pairs."""
+
+    if not relevant_evidence_indices:
+        return set()
+
+    mapped_pairs: set[tuple[str, int]] = set()
+    for evidence_index in relevant_evidence_indices:
+        page_position = int(evidence_index) - 1
+        if page_position < 0 or page_position >= len(pages):
+            continue
+        page = pages[page_position]
+        for page_number in page.page_numbers:
+            if int(page_number) > 0:
+                mapped_pairs.add((page.doc_id, int(page_number)))
+    return mapped_pairs
+
+
 def _supported_page_pairs_for_free_text(
     *,
     answer: str,

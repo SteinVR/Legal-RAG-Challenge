@@ -123,19 +123,6 @@ class AnsweringService:
                 raw_retrieval_refs=raw_retrieval_refs,
                 pass_a_refs=pass_a_refs,
             )
-            # Structured no-answer on free_text is intentionally treated as a
-            # soft miss because the legacy generator often recovers it.
-            if (
-                answer_type == AnswerType.FREE_TEXT
-                and result.answer == CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER
-                and pass_a_pages
-            ):
-                result = self._answer_free_text(
-                    question=question,
-                    pages=pass_a_pages,
-                    raw_retrieval_refs=raw_retrieval_refs,
-                    pass_a_refs=pass_a_refs,
-                )
         elif answer_type == AnswerType.FREE_TEXT:
             result = self._answer_free_text(
                 question=question,
@@ -242,6 +229,9 @@ class AnsweringService:
         confidence = _coerce_confidence(response.get("confidence", 0.0), default=0.0)
         provider_model_name = _resolve_provider_model_name(self._provider)
         base_refs = list(pass_a_refs)
+        relevant_evidence_indices = _normalize_relevant_page_list(
+            getattr(validated_response, "relevant_evidence_indices", [])
+        )
         relevant_pages = _normalize_relevant_page_list(getattr(validated_response, "relevant_pages", []))
         relevant_pages = _prefer_issue_date_relevant_pages(
             question_text=question.question,
@@ -252,12 +242,16 @@ class AnsweringService:
         supporting_pages = pages
         supporting_refs = base_refs
         narrowed_refs: list[PageReference] = []
-        if relevant_pages:
-            allowed_pairs = _safe_relevant_page_pairs(pages=pages, relevant_pages=relevant_pages)
-            if allowed_pairs:
-                supporting_pages = _filter_pages_by_pairs(pages, allowed_pairs, require_full_span=True)
-                narrowed_refs = _group_page_references(supporting_pages)
-                supporting_refs = narrowed_refs
+        allowed_pairs: set[tuple[str, int]] = set()
+        allowed_pairs |= _safe_relevant_evidence_pairs(
+            pages=pages,
+            relevant_evidence_indices=relevant_evidence_indices,
+        )
+        allowed_pairs |= _safe_relevant_page_pairs(pages=pages, relevant_pages=relevant_pages)
+        if allowed_pairs:
+            supporting_pages = _filter_pages_by_pairs(pages, allowed_pairs, require_full_span=True)
+            narrowed_refs = _group_page_references(supporting_pages)
+            supporting_refs = narrowed_refs
         supported_page_pairs = flatten_page_references(supporting_refs)
 
         is_answerable = bool(getattr(validated_response, "is_answerable", False))

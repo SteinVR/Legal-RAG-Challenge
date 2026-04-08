@@ -27,6 +27,8 @@ class PageAttributionConfig:
     validation_mode: ValidationMode = "degrade_first"
     emit_empty_pages_for_no_answer: bool = True
     allow_solver_page_narrowing: bool = True
+    min_filtered_page_ratio: float = 0.34
+    min_filtered_page_count: int = 1
 
 
 @dataclass(slots=True)
@@ -193,7 +195,7 @@ def finalize_page_attribution(
     is_no_answer: bool,
     config: PageAttributionConfig,
 ) -> FinalizedPageAttribution:
-    """Execute `finalize_page_attribution`.
+    """Finalize emitted pages with precision filtering and non-destructive recall guard.
 
     Args:
         answer: Input parameter.
@@ -212,12 +214,21 @@ def finalize_page_attribution(
     del answer, answer_type
 
     candidate_pairs = flatten_page_references(pass_a_pages or raw_retrieved_chunk_pages)
+    if not candidate_pairs:
+        return FinalizedPageAttribution(
+            final_pages=[],
+            accepted_solver_pages=[],
+            validation_action="no_candidate_pages",
+            collapsed_answer=bool(config.validation_mode == "strict_suppress" and not answer_supported and not is_no_answer),
+        )
+
     accepted_solver_pairs = (
         candidate_pairs & flatten_page_references(solver_reported_pages)
         if config.allow_solver_page_narrowing
         else set()
     )
     accepted_solver_pages = group_page_reference_pairs(accepted_solver_pairs)
+    supported_pairs = candidate_pairs & supported_page_pairs if supported_page_pairs else set()
 
     if is_no_answer and config.emit_empty_pages_for_no_answer:
         return FinalizedPageAttribution(
@@ -227,45 +238,76 @@ def finalize_page_attribution(
             collapsed_answer=False,
         )
 
-    if config.validation_mode == "strict_suppress" and not answer_supported:
-        return FinalizedPageAttribution(
-            final_pages=[],
-            accepted_solver_pages=accepted_solver_pages,
-            validation_action="collapsed_answer",
-            collapsed_answer=True,
-        )
+    collapsed_answer = bool(config.validation_mode == "strict_suppress" and not answer_supported and not is_no_answer)
+    chosen_pairs = set(candidate_pairs)
+    validation_action = "preserved_pages"
 
-    if answer_supported and accepted_solver_pairs:
-        return FinalizedPageAttribution(
-            final_pages=accepted_solver_pages,
-            accepted_solver_pages=accepted_solver_pages,
-            validation_action="solver_subset",
-            collapsed_answer=False,
-        )
-
-    supported_pairs = candidate_pairs & supported_page_pairs if supported_page_pairs else set()
-    if supported_pairs and supported_pairs != candidate_pairs:
-        return FinalizedPageAttribution(
-            final_pages=group_page_reference_pairs(supported_pairs),
-            accepted_solver_pages=[],
-            validation_action="trimmed_pages",
-            collapsed_answer=False,
-        )
-
-    if answer_supported or (candidate_pairs and is_no_answer):
-        return FinalizedPageAttribution(
-            final_pages=group_page_reference_pairs(candidate_pairs),
-            accepted_solver_pages=[],
-            validation_action="preserved_pages" if answer_supported else "trimmed_pages",
-            collapsed_answer=False,
-        )
+    if answer_supported:
+        solver_supported_pairs = accepted_solver_pairs & supported_pairs if accepted_solver_pairs and supported_pairs else set()
+        if solver_supported_pairs:
+            chosen_pairs, guard_action = _apply_recall_guard(
+                candidate_pairs=candidate_pairs,
+                filtered_pairs=solver_supported_pairs,
+                config=config,
+            )
+            validation_action = "solver_supported_subset" if guard_action is None else guard_action
+        elif accepted_solver_pairs:
+            chosen_pairs, guard_action = _apply_recall_guard(
+                candidate_pairs=candidate_pairs,
+                filtered_pairs=accepted_solver_pairs,
+                config=config,
+            )
+            validation_action = "solver_subset" if guard_action is None else guard_action
+        elif supported_pairs and supported_pairs != candidate_pairs:
+            chosen_pairs, guard_action = _apply_recall_guard(
+                candidate_pairs=candidate_pairs,
+                filtered_pairs=supported_pairs,
+                config=config,
+            )
+            validation_action = "trimmed_pages" if guard_action is None else guard_action
+    elif is_no_answer:
+        if accepted_solver_pairs:
+            chosen_pairs, guard_action = _apply_recall_guard(
+                candidate_pairs=candidate_pairs,
+                filtered_pairs=accepted_solver_pairs,
+                config=config,
+            )
+            validation_action = "no_answer_solver_subset" if guard_action is None else guard_action
+        else:
+            validation_action = "no_answer_preserved"
+    else:
+        validation_action = "unsupported_preserved"
 
     return FinalizedPageAttribution(
-        final_pages=[],
-        accepted_solver_pages=[],
-        validation_action="collapsed_answer",
-        collapsed_answer=True,
+        final_pages=group_page_reference_pairs(chosen_pairs),
+        accepted_solver_pages=accepted_solver_pages,
+        validation_action=validation_action,
+        collapsed_answer=collapsed_answer,
     )
+
+
+def _apply_recall_guard(
+    *,
+    candidate_pairs: set[tuple[str, int]],
+    filtered_pairs: set[tuple[str, int]],
+    config: PageAttributionConfig,
+) -> tuple[set[tuple[str, int]], str | None]:
+    """Apply recall guardrails so precision filtering never destroys retrieval coverage."""
+
+    if not filtered_pairs:
+        return candidate_pairs, "recall_guard_empty_preserved"
+
+    min_filtered_page_count = max(int(config.min_filtered_page_count), 1)
+    if len(filtered_pairs) < min_filtered_page_count:
+        return candidate_pairs, "recall_guard_min_count_preserved"
+
+    candidate_count = max(len(candidate_pairs), 1)
+    retained_ratio = float(len(filtered_pairs)) / float(candidate_count)
+    min_filtered_page_ratio = max(0.0, min(float(config.min_filtered_page_ratio), 1.0))
+    if retained_ratio < min_filtered_page_ratio:
+        return candidate_pairs, "recall_guard_ratio_preserved"
+
+    return filtered_pairs, None
 
 
 def group_page_reference_pairs(page_pairs: Iterable[tuple[str, int]]) -> list[PageReference]:

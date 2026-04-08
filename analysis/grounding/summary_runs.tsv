@@ -1,1 +1,2 @@
 run_id	question_count	gold_empty_count	raw_miss_count	pass_a_miss_count	final_miss_count	hit_count	raw_miss_rate	pass_a_miss_rate	final_miss_rate	mean_raw_recall	mean_pass_a_recall	mean_final_grounding
+gen_filter_20260408	100	5	3	0	0	92	0.031578947368	0.000000000000	0.000000000000	0.906140350877	0.900877192982	0.863354275141

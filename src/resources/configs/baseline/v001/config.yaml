@@ -77,8 +77,10 @@ page_attribution:
   suppress_title_pages: true
   suppress_repeated_boilerplate: true
   validation_mode: degrade_first
-  emit_empty_pages_for_no_answer: true
+  emit_empty_pages_for_no_answer: false
   allow_solver_page_narrowing: true
+  min_filtered_page_ratio: 0.34
+  min_filtered_page_count: 1
 
 answering:
   reasoning_effort_by_type:
