@@ -43,6 +43,6 @@ class StructuredOutputProvider(Protocol):
         system_prompt: str,
         user_prompt: str,
         max_output_tokens: int,
-        reasoning_effort: str = "medium",
+        reasoning_effort: str = "high",
     ) -> Mapping[str, Any]:
         """Generate a structured JSON payload that matches the provided schema."""

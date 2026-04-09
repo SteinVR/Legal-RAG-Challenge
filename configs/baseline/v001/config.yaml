@@ -74,22 +74,22 @@ ingestion:
 
 page_attribution:
   pass_a_enabled: true
-  suppress_title_pages: true
+  suppress_title_pages: false
   suppress_repeated_boilerplate: true
   validation_mode: degrade_first
-  emit_empty_pages_for_no_answer: false
-  allow_solver_page_narrowing: true
-  min_filtered_page_ratio: 0.34
+  emit_empty_pages_for_no_answer: true
+  allow_solver_page_narrowing: false
+  min_filtered_page_ratio: 0.35
   min_filtered_page_count: 1
 
 answering:
   reasoning_effort_by_type:
     boolean: high
-    number: medium
+    number: high
     name: high
     names: high
-    date: medium
-    free_text: medium
+    date: high
+    free_text: high
   confidence_threshold_by_type:
     boolean: 0.7
     number: 0.55
@@ -140,7 +140,7 @@ retrieval:
   query_expansion_case_only: true
 
 decomposition:
-  enabled: true
+  enabled: false
   max_subquestions: 4
 
 runtime:

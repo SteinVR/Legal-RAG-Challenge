@@ -215,9 +215,14 @@ def _build_retrieval_telemetry(
         payload["solver_reported_pages"] = [
             _serialize_page_reference(reference) for reference in page_trace.solver_reported_pages
         ]
+        final_count = sum(len(reference.page_numbers) for reference in page_trace.final_emitted_pages)
         payload["page_validation"] = {
             "action": page_trace.validation_action,
             "collapsed_answer": page_trace.collapsed_answer,
+            "selection_source": page_trace.selection_source,
+            "llm_selected_count": int(page_trace.llm_selected_count),
+            "guard_triggered": bool(page_trace.guard_triggered),
+            "final_count": int(final_count),
         }
     if retrieval_result.diagnostics:
         payload["diagnostics"] = dict(retrieval_result.diagnostics)

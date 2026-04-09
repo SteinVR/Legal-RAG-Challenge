@@ -26,8 +26,8 @@ class PageAttributionConfig:
     suppress_repeated_boilerplate: bool = True
     validation_mode: ValidationMode = "degrade_first"
     emit_empty_pages_for_no_answer: bool = True
-    allow_solver_page_narrowing: bool = True
-    min_filtered_page_ratio: float = 0.34
+    allow_solver_page_narrowing: bool = False
+    min_filtered_page_ratio: float = 0.35
     min_filtered_page_count: int = 1
 
 
@@ -53,6 +53,9 @@ class FinalizedPageAttribution:
     accepted_solver_pages: list[PageReference] = field(default_factory=list)
     validation_action: str = "preserved_pages"
     collapsed_answer: bool = False
+    selection_source: str = "pass_a"
+    llm_selected_count: int = 0
+    guard_triggered: bool = False
 
 
 @dataclass(slots=True)
@@ -63,6 +66,9 @@ class PageAttributionTrace:
     final_emitted_pages: list[PageReference] = field(default_factory=list)
     validation_action: str = "preserved_pages"
     collapsed_answer: bool = False
+    selection_source: str = "pass_a"
+    llm_selected_count: int = 0
+    guard_triggered: bool = False
 
 
 def candidate_pages_from_chunks(chunks: Iterable[RetrievedChunk]) -> list[CandidatePage]:
@@ -220,13 +226,13 @@ def finalize_page_attribution(
             accepted_solver_pages=[],
             validation_action="no_candidate_pages",
             collapsed_answer=bool(config.validation_mode == "strict_suppress" and not answer_supported and not is_no_answer),
+            selection_source="none",
+            llm_selected_count=0,
+            guard_triggered=False,
         )
 
-    accepted_solver_pairs = (
-        candidate_pairs & flatten_page_references(solver_reported_pages)
-        if config.allow_solver_page_narrowing
-        else set()
-    )
+    accepted_solver_pairs = candidate_pairs & flatten_page_references(solver_reported_pages)
+    llm_selected_count = len(accepted_solver_pairs)
     accepted_solver_pages = group_page_reference_pairs(accepted_solver_pairs)
     supported_pairs = candidate_pairs & supported_page_pairs if supported_page_pairs else set()
 
@@ -236,53 +242,42 @@ def finalize_page_attribution(
             accepted_solver_pages=accepted_solver_pages,
             validation_action="no_answer_empty",
             collapsed_answer=False,
+            selection_source="none",
+            llm_selected_count=llm_selected_count,
+            guard_triggered=False,
         )
 
     collapsed_answer = bool(config.validation_mode == "strict_suppress" and not answer_supported and not is_no_answer)
     chosen_pairs = set(candidate_pairs)
     validation_action = "preserved_pages"
+    selection_source = "pass_a"
+    guard_triggered = False
 
     if answer_supported:
-        solver_supported_pairs = accepted_solver_pairs & supported_pairs if accepted_solver_pairs and supported_pairs else set()
-        if solver_supported_pairs:
-            chosen_pairs, guard_action = _apply_recall_guard(
-                candidate_pairs=candidate_pairs,
-                filtered_pairs=solver_supported_pairs,
-                config=config,
-            )
-            validation_action = "solver_supported_subset" if guard_action is None else guard_action
-        elif accepted_solver_pairs:
-            chosen_pairs, guard_action = _apply_recall_guard(
-                candidate_pairs=candidate_pairs,
-                filtered_pairs=accepted_solver_pairs,
-                config=config,
-            )
-            validation_action = "solver_subset" if guard_action is None else guard_action
-        elif supported_pairs and supported_pairs != candidate_pairs:
+        if supported_pairs and supported_pairs != candidate_pairs:
             chosen_pairs, guard_action = _apply_recall_guard(
                 candidate_pairs=candidate_pairs,
                 filtered_pairs=supported_pairs,
                 config=config,
             )
             validation_action = "trimmed_pages" if guard_action is None else guard_action
+            selection_source = "supported_pairs"
+            guard_triggered = guard_action is not None
     elif is_no_answer:
-        if accepted_solver_pairs:
-            chosen_pairs, guard_action = _apply_recall_guard(
-                candidate_pairs=candidate_pairs,
-                filtered_pairs=accepted_solver_pairs,
-                config=config,
-            )
-            validation_action = "no_answer_solver_subset" if guard_action is None else guard_action
-        else:
-            validation_action = "no_answer_preserved"
+        validation_action = "no_answer_preserved"
+        selection_source = "pass_a"
     else:
         validation_action = "unsupported_preserved"
+        selection_source = "pass_a"
 
     return FinalizedPageAttribution(
         final_pages=group_page_reference_pairs(chosen_pairs),
         accepted_solver_pages=accepted_solver_pages,
         validation_action=validation_action,
         collapsed_answer=collapsed_answer,
+        selection_source=selection_source,
+        llm_selected_count=llm_selected_count,
+        guard_triggered=guard_triggered,
     )
 
 
@@ -356,6 +351,9 @@ def build_page_trace(
     final_emitted_pages: list[PageReference],
     validation_action: str,
     collapsed_answer: bool,
+    selection_source: str = "pass_a",
+    llm_selected_count: int = 0,
+    guard_triggered: bool = False,
 ) -> PageAttributionTrace:
     """Build page trace.
 
@@ -366,6 +364,9 @@ def build_page_trace(
         final_emitted_pages: Input parameter.
         validation_action: Input parameter.
         collapsed_answer: Input parameter.
+        selection_source: Input parameter.
+        llm_selected_count: Input parameter.
+        guard_triggered: Input parameter.
 
     Returns:
         Any: The computed result of the function.
@@ -377,6 +378,9 @@ def build_page_trace(
         final_emitted_pages=list(final_emitted_pages),
         validation_action=validation_action,
         collapsed_answer=collapsed_answer,
+        selection_source=selection_source,
+        llm_selected_count=max(int(llm_selected_count), 0),
+        guard_triggered=bool(guard_triggered),
     )
 
 

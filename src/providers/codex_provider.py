@@ -32,11 +32,18 @@ _SYSTEM_PROMPT = (
 )
 _STRUCTURED_SYSTEM_PROMPT = (
     "Answer strictly from the provided legal evidence and return one JSON object that follows the supplied schema. "
+    "Treat the Evidence list as the authoritative candidate set for page attribution. "
     "Use null only when the schema permits null and the evidence is insufficient. "
+    "Run a self-review gate before finalizing: verify every claim in final_answer is directly supported by Evidence. "
+    "Set is_answerable=false only as a last resort, when no evidence item directly supports any defensible answer. "
+    "If is_answerable=false, set relevant_evidence_indices=[] and relevant_pages=[]. "
+    "If at least one evidence item supports a defensible answer, set is_answerable=true. "
+    f"For free_text with is_answerable=false, final_answer must be exactly '{_CANONICAL_UNANSWERABLE_FREE_TEXT}'. "
+    "For non-free_text with is_answerable=false, final_answer must be null. "
     "For dates, always use ISO-8601 format (YYYY-MM-DD). "
     "Use relevant_evidence_indices as 1-based indices of evidence items that directly support the answer. "
     "Keep relevant_pages aligned with those supporting evidence pages. "
-    "Prefer high precision, but do not omit directly supporting evidence."
+    "Prioritize evidence recall: include every directly supporting evidence item."
 )
 
 @dataclass(slots=True)
@@ -152,7 +159,7 @@ class CodexFreeTextProvider:
     ) -> dict[str, Any]:
         """Execute `generate_structured`."""
         started_at = time.perf_counter()
-        normalized_effort = str(reasoning_effort).strip().lower() or "medium"
+        normalized_effort = str(reasoning_effort).strip().lower() or "high"
         schema_name = f"{answer_type}_answer"
         schema_payload = _strict_openai_schema(answer_schema.model_json_schema())
 
@@ -203,13 +210,12 @@ class CodexFreeTextProvider:
                           "Retrying due to malformed structured output.", stage="answering")
                 time.sleep(1.0)
                 continue
-            # Normalize unanswerable free_text to canonical phrasing before validation.
-            if (
-                answer_type == "free_text"
-                and isinstance(structured, dict)
-                and not structured.get("is_answerable", True)
-            ):
-                structured["final_answer"] = _CANONICAL_UNANSWERABLE_FREE_TEXT
+            # Normalize unanswerable outputs to match schema contracts before validation.
+            if isinstance(structured, dict) and not structured.get("is_answerable", True):
+                if answer_type == "free_text":
+                    structured["final_answer"] = _CANONICAL_UNANSWERABLE_FREE_TEXT
+                else:
+                    structured["final_answer"] = None
             try:
                 validated = answer_schema.model_validate(structured)
             except ValidationError as exc:
@@ -288,7 +294,7 @@ class CodexStructuredOutputProvider:
         system_prompt: str,
         user_prompt: str,
         max_output_tokens: int,
-        reasoning_effort: str = "medium",
+        reasoning_effort: str = "high",
     ) -> dict[str, Any]:
         """Execute `generate_structured`."""
         if max_output_tokens <= 0:
@@ -454,8 +460,14 @@ def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_p
         f"Answer type: {_normalize_whitespace(answer_type)}\n"
         f"Question: {_normalize_whitespace(question)}\n"
         "Selection contract:\n"
+        "- Self-review gate: draft answer, verify direct support in Evidence, then finalize.\n"
+        "- Set is_answerable=false only when no Evidence item directly supports any defensible answer.\n"
+        f"- If is_answerable=false and answer_type=free_text, set final_answer to '{_CANONICAL_UNANSWERABLE_FREE_TEXT}'.\n"
+        "- If is_answerable=false and answer_type!=free_text, set final_answer to null.\n"
         "- relevant_evidence_indices: 1-based list of evidence indices from Evidence below.\n"
         "- relevant_pages: page numbers corresponding to selected evidence.\n"
+        "- If no evidence item explicitly supports the answer, return relevant_evidence_indices=[] and relevant_pages=[].\n"
+        "- Do not reference pages outside this Evidence list.\n"
         "- Include every directly supporting evidence item.\n"
         "Evidence:\n"
         f"{evidence_blob}"

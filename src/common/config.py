@@ -21,11 +21,11 @@ ENV_VAR_PATTERN = re.compile(r"\$(\w+)|\$\{([^}]+)\}")
 SUPPORTED_ANSWER_TYPES = frozenset({"boolean", "number", "name", "names", "date", "free_text"})
 DEFAULT_REASONING_EFFORT_BY_TYPE: dict[str, str] = {
     "boolean": "high",
-    "number": "medium",
+    "number": "high",
     "name": "high",
     "names": "high",
-    "date": "medium",
-    "free_text": "medium",
+    "date": "high",
+    "free_text": "high",
 }
 DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE: dict[str, float] = {
     "boolean": 0.7,
@@ -254,8 +254,8 @@ class PageAttributionSettings(BaseModel):
     suppress_repeated_boilerplate: bool = True
     validation_mode: Literal["degrade_first", "strict_suppress"] = "strict_suppress"
     emit_empty_pages_for_no_answer: bool = True
-    allow_solver_page_narrowing: bool = True
-    min_filtered_page_ratio: float = 0.34
+    allow_solver_page_narrowing: bool = False
+    min_filtered_page_ratio: float = 0.35
     min_filtered_page_count: int = 1
 
     @field_validator("validation_mode", mode="before")

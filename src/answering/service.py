@@ -46,13 +46,13 @@ class AnsweringService:
         self,
         question: QuestionRecord,
         *,
-        allow_decomposition: bool = True,
+        allow_decomposition: bool = False,
     ) -> AnswerResult:
         """Execute `answer_question`.
 
         Args:
             question: Input parameter.
-            allow_decomposition: Whether multi-case decomposition may be applied.
+            allow_decomposition: Deprecated compatibility flag. Decomposition is disabled.
 
         Returns:
             Any: The computed result of the function.
@@ -63,15 +63,7 @@ class AnsweringService:
         except ValueError as exc:
             raise ValueError(f"Unsupported answer_type: {question.answer_type}") from exc
 
-        from src.answering.decomposition import answer_with_decomposition, should_decompose
-
-        if allow_decomposition and should_decompose(question, query_metadata, enabled=True):
-            return answer_with_decomposition(
-                question=question,
-                query_metadata=query_metadata,
-                answering_service=self,
-                max_subquestions=4,
-            )
+        del allow_decomposition
 
         retrieval_output = self._retriever.retrieve(question, query_metadata=query_metadata)
         pages, retrieval_refs = _coerce_retrieval_payload(retrieval_output)
@@ -169,6 +161,9 @@ class AnsweringService:
                         final_emitted_pages=finalized.final_pages,
                         validation_action=finalized.validation_action,
                         collapsed_answer=finalized.collapsed_answer,
+                        selection_source=finalized.selection_source,
+                        llm_selected_count=finalized.llm_selected_count,
+                        guard_triggered=finalized.guard_triggered,
                     ),
                 )
 
@@ -283,6 +278,9 @@ class AnsweringService:
                         final_emitted_pages=finalized.final_pages,
                         validation_action=finalized.validation_action,
                         collapsed_answer=finalized.collapsed_answer,
+                        selection_source=finalized.selection_source,
+                        llm_selected_count=finalized.llm_selected_count,
+                        guard_triggered=finalized.guard_triggered,
                     ),
                     model_name=provider_model_name,
                 )
@@ -296,6 +294,9 @@ class AnsweringService:
                     final_emitted_pages=finalized.final_pages,
                     validation_action=finalized.validation_action,
                     collapsed_answer=finalized.collapsed_answer,
+                    selection_source=finalized.selection_source,
+                    llm_selected_count=finalized.llm_selected_count,
+                    guard_triggered=finalized.guard_triggered,
                 ),
             )
 
@@ -339,6 +340,9 @@ class AnsweringService:
                         final_emitted_pages=finalized.final_pages,
                         validation_action=finalized.validation_action,
                         collapsed_answer=finalized.collapsed_answer,
+                        selection_source=finalized.selection_source,
+                        llm_selected_count=finalized.llm_selected_count,
+                        guard_triggered=finalized.guard_triggered,
                     ),
                     model_name=provider_model_name,
                 )
@@ -352,6 +356,9 @@ class AnsweringService:
                     final_emitted_pages=finalized.final_pages,
                     validation_action=finalized.validation_action,
                     collapsed_answer=finalized.collapsed_answer,
+                    selection_source=finalized.selection_source,
+                    llm_selected_count=finalized.llm_selected_count,
+                    guard_triggered=finalized.guard_triggered,
                 ),
             )
 
@@ -384,6 +391,9 @@ class AnsweringService:
                     final_emitted_pages=finalized.final_pages,
                     validation_action=finalized.validation_action,
                     collapsed_answer=finalized.collapsed_answer,
+                    selection_source=finalized.selection_source,
+                    llm_selected_count=finalized.llm_selected_count,
+                    guard_triggered=finalized.guard_triggered,
                 ),
                 model_name=provider_model_name,
             )
@@ -416,6 +426,9 @@ class AnsweringService:
                     final_emitted_pages=finalized.final_pages,
                     validation_action=finalized.validation_action,
                     collapsed_answer=finalized.collapsed_answer,
+                    selection_source=finalized.selection_source,
+                    llm_selected_count=finalized.llm_selected_count,
+                    guard_triggered=finalized.guard_triggered,
                 ),
             )
 
@@ -431,6 +444,9 @@ class AnsweringService:
                 final_emitted_pages=finalized.final_pages,
                 validation_action=finalized.validation_action,
                 collapsed_answer=finalized.collapsed_answer,
+                selection_source=finalized.selection_source,
+                llm_selected_count=finalized.llm_selected_count,
+                guard_triggered=finalized.guard_triggered,
             ),
             model_name=provider_model_name,
         )
@@ -582,6 +598,9 @@ class AnsweringService:
                 final_emitted_pages=finalized.final_pages,
                 validation_action=finalized.validation_action,
                 collapsed_answer=finalized.collapsed_answer,
+                selection_source=finalized.selection_source,
+                llm_selected_count=finalized.llm_selected_count,
+                guard_triggered=finalized.guard_triggered,
             ),
             model_name=_resolve_provider_model_name(self._provider),
         )

@@ -18,15 +18,10 @@ import fitz
 from qdrant_client import QdrantClient
 
 import src.indexing.service as indexing_service
-from src.answering.decomposition import (
-    answer_with_decomposition,
-    should_decompose,
-)
 from src.answering.page_attribution import PageAttributionConfig
 from src.answering.service import (
     AnsweringService,
     AnswerResult,
-    extract_query_metadata,
 )
 from src.common.config import AppConfig
 from src.common.file_hash import sha256_for_file
@@ -69,7 +64,6 @@ from src.submission.pipeline_utils import (
     _index_artifacts_complete,
     _project_root,
     _supports_api_key_argument,
-    _synthetic_retrieval_from_decomposition,
     _validate_locally_before_packaging,
     _write_trace_artifacts,
     format_build_submission_result,
@@ -500,19 +494,13 @@ class BuildSubmissionService:
                 answer_result = self._answer_question(
                     question=question,
                     answering_service=answering_service,
-                    decomposition_enabled=config.decomposition.enabled,
-                    max_subquestions=config.decomposition.max_subquestions,
                 )
                 total_time_ms = _elapsed_milliseconds(
                     started_at=question_started_at,
                     ended_at=self._clock(),
                 )
 
-                if answer_result.model_name == "decomposition_w4e":
-                    retrieval_result = _synthetic_retrieval_from_decomposition(question, answer_result)
-                    retriever.discard_latest()
-                else:
-                    retrieval_result = retriever.consume_latest(question)
+                retrieval_result = retriever.consume_latest(question)
                 default_model_name = (
                     provider_model
                     if question.answer_type == AnswerType.FREE_TEXT.value
@@ -715,30 +703,17 @@ class BuildSubmissionService:
         *,
         question: QuestionRecord,
         answering_service: AnsweringService,
-        decomposition_enabled: bool = False,
-        max_subquestions: int = 4,
     ) -> AnswerResult:
         """Execute `_answer_question`.
 
         Args:
             question: Input parameter.
             answering_service: Input parameter.
-            decomposition_enabled: Input parameter.
-            max_subquestions: Input parameter.
 
         Returns:
             Any: The computed result of the function.
         """
-        if decomposition_enabled:
-            query_metadata = extract_query_metadata(question.question)
-            if should_decompose(question, query_metadata, enabled=True):
-                return answer_with_decomposition(
-                    question=question,
-                    query_metadata=query_metadata,
-                    answering_service=answering_service,
-                    max_subquestions=max_subquestions,
-                )
-        return answering_service.answer_question(question)
+        return answering_service.answer_question(question, allow_decomposition=False)
 
     def _build_provider(self, model: str) -> Any:
         """Build provider.

@@ -453,7 +453,7 @@ def _semantic_blocks_for_candidate(
         user_prompt=user_prompt,
         # Keep a generous budget to avoid truncating schema-bound JSON for wide tables.
         max_output_tokens=1200,
-        reasoning_effort="medium",
+        reasoning_effort="high",
     )
     blocks = result.get("blocks")
     if not isinstance(blocks, list):

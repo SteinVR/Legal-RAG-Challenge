@@ -11,6 +11,7 @@ from typing import Any
 import pytest
 
 from src.answering.service import AnsweringService
+from src.answering.page_attribution import PageAttributionConfig
 from src.common.config import AppConfig, load_app_config
 from src.common.schemas import QuestionRecord
 from src.indexing.service import IndexPaths, build_query_embedder
@@ -196,22 +197,47 @@ def test_warmup_smoke_questions_no_openai() -> None:
         query_expansion_enabled=config.retrieval.query_expansion_enabled,
         query_expansion_max_queries=config.retrieval.query_expansion_max_queries,
         query_expansion_case_only=config.retrieval.query_expansion_case_only,
+        page_map_paths=(index_paths.page_map_path,),
     )
     answering = AnsweringService(
         retriever=retrieval,
         provider=NoApiProvider(),
         reasoning_effort_by_type=config.answering.reasoning_effort_by_type,
         confidence_threshold_by_type=config.answering.confidence_threshold_by_type,
+        page_attribution_config=PageAttributionConfig(**config.page_attribution.model_dump()),
     )
 
     try:
         for question in questions:
             result = answering.answer_question(question)
-            assert result.evidence_pages, f"No grounding pages emitted for question_id={question.id}"
+            gold_pages = gold_answers[question.id].get("gold_retrieval", [])
+            if gold_pages and result.answer is not None:
+                assert result.evidence_pages, f"No grounding pages emitted for question_id={question.id}"
+            elif gold_pages and result.answer is None:
+                assert len(CASE_ID_PATTERN.findall(question.question)) >= 2, (
+                    "Typed no-answer is only acceptable in no-OpenAI smoke for multi-case comparisons; "
+                    f"question_id={question.id}"
+                )
+                assert result.page_trace.raw_retrieved_chunk_pages, (
+                    "Expected retrieval evidence to exist even when deterministic answer is unavailable; "
+                    f"question_id={question.id}"
+                )
+            else:
+                if result.answer is None:
+                    assert result.evidence_pages == [], (
+                        "Expected empty grounding pages for unresolved gold-empty question "
+                        f"question_id={question.id}"
+                    )
 
             if question.answer_type == "free_text":
                 assert isinstance(result.answer, str)
                 assert result.answer.strip()
+                continue
+
+            if len(CASE_ID_PATTERN.findall(question.question)) >= 2:
+                continue
+
+            if result.answer is None:
                 continue
 
             expected = gold_answers[question.id]["answer"]

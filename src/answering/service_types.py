@@ -38,11 +38,11 @@ SCHEMA_FIRST_ANSWER_TYPES: frozenset[AnswerType] = frozenset(
 )
 DEFAULT_REASONING_EFFORT_BY_TYPE: dict[str, str] = {
     AnswerType.BOOLEAN.value: "high",
-    AnswerType.NUMBER.value: "medium",
+    AnswerType.NUMBER.value: "high",
     AnswerType.NAME.value: "high",
     AnswerType.NAMES.value: "high",
-    AnswerType.DATE.value: "medium",
-    AnswerType.FREE_TEXT.value: "medium",
+    AnswerType.DATE.value: "high",
+    AnswerType.FREE_TEXT.value: "high",
 }
 DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE: dict[str, float] = {
     AnswerType.BOOLEAN.value: 0.7,
