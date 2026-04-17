@@ -1,0 +1,13 @@
+## Code conventions
+- Prefer simple solutions (SOLID/DRY).
+- Prefer minimal fallback logic. Favor runtime fail-fast; add fallback branches only when they are required by an explicit runtime or integration contract.
+- All code must be **modular and typed**. Each logical step is a self-contained module with explicit input/output types.
+- Prioritize readability and hot-swappability.
+- Keep files single-role. One file, one responsibility boundary. Do not mix unrelated roles in the same file.
+- Keep scripts ideally within 100-600 lines of code. Allow 600-800 only to preserve a meaningful semantic boundary; otherwise refactor or decompose. Above 800 requires decomposition.
+- **Runtime logging** at key pipeline boundaries is mandatory. Keep logs concise -- structured one-liners (`key=value`). Follow skill `apm-logs` for format and placement.
+- Testing is smoke-first: prefer per-module smoke tests and smoke E2E tests. Narrow integration tests are allowed when they add unique value. After runs, inspect runtime logs and produced results.
+- Code documentation must stay lightweight and local:
+  - Write concise **docstrings**.
+  - Keep a `README.md` in `src/` and in every subdirectory inside `src/`.
+  - Each such `README.md` must contain a graph of the scripts in that directory and a detailed flat list describing those scripts.
