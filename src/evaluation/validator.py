@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
-from datetime import date
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -18,6 +17,7 @@ from .contracts import (
     ValidationIssue,
 )
 from .validator_checks import validate_answer_value, validate_retrieval
+
 
 @dataclass(slots=True)
 class ValidationPolicy:

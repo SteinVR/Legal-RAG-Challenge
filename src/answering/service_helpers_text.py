@@ -4,9 +4,17 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from typing import Any
 
-from .service_types import *  # noqa: F401,F403
+from .service_constants import (
+    _ENTITY_LIST_ITEM_PATTERN,
+    _LEGAL_ROLE_PATTERN,
+    _NAME_PATTERN,
+    _ROLE_ENTITY_EXTRACTOR,
+    _SINGLE_TOKEN_ENTITY_EXCLUSIONS,
+    _STOPWORDS,
+    _UPPER_ENTITY_PATTERN,
+)
+
 
 def _keyword_tokens(text: str) -> set[str]:
     """Execute `_keyword_tokens`.

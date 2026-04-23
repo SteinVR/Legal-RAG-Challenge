@@ -238,9 +238,7 @@ class AnsweringSettings(BaseModel):
             if answer_type not in SUPPORTED_ANSWER_TYPES:
                 continue
             if not 0 <= threshold <= 1:
-                raise ValueError(
-                    f"answering.confidence_threshold_by_type[{answer_type!r}] must be between 0 and 1."
-                )
+                raise ValueError(f"answering.confidence_threshold_by_type[{answer_type!r}] must be between 0 and 1.")
         return value
 
 
@@ -253,9 +251,9 @@ class PageAttributionSettings(BaseModel):
     suppress_title_pages: bool = True
     suppress_repeated_boilerplate: bool = True
     validation_mode: Literal["degrade_first", "strict_suppress"] = "strict_suppress"
-    emit_empty_pages_for_no_answer: bool = True
+    emit_empty_pages_for_no_answer: bool = False
     allow_solver_page_narrowing: bool = False
-    min_filtered_page_ratio: float = 0.35
+    min_filtered_page_ratio: float = 0.96
     min_filtered_page_count: int = 1
 
     @field_validator("validation_mode", mode="before")
@@ -571,6 +569,7 @@ def _expand_env_vars(value: Any, env: Mapping[str, str]) -> Any:
 
 def _build_env_replacer(env: Mapping[str, str]):
     """Build env replacer."""
+
     def replace(match: re.Match[str]) -> str:
         """Execute `replace`."""
         variable_name = match.group(1) or match.group(2) or ""

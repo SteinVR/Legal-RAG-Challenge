@@ -13,10 +13,11 @@ from .contracts import AnswerType, AssistantScoreRecord, ReferenceAnswerRecord
 from .goldset_core import (
     ALLOWED_TAGS,
     DATE_PATTERN,
-    StratumKey,
     UNANSWERABLE_FREE_TEXT_ANSWER,
     GoldShardBundle,
+    StratumKey,
 )
+
 
 def validate_gold_shard_bundle(
     bundle: GoldShardBundle,

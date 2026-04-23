@@ -8,11 +8,12 @@
 
 | Attribute | Value |
 |-----------|-------|
-| Blockers | No active execution blockers; strict smoke and full e2e answer-generation gates are green |
+| Blockers | No active execution blockers recorded; full e2e metrics below are legacy-recorded until regenerated or re-exported under the current artifact bundle layout |
 | Methodology | RAPID |
 | Delivered | Waves 1-4 complete; TASK-BASELINE postmortem complete; canonical e2e pipeline verified on RTX 4060 |
 | Current focus | Continue strict eval hardening with no hidden fallback behavior; push grounding quality after stability recovery |
-| Latest validation | 2026-04-08: retrieval-only warmup gate passed (`grounding_mean=0.8295`), then full warmup e2e run `submission_e2e_20260408_gen_filter` completed 100/100 with `assistant_score_count=30` |
+| Latest recorded validation | 2026-04-08: retrieval-only warmup gate passed (`grounding_mean=0.8295`), then full warmup e2e run `submission_e2e_20260408_gen_filter` completed 100/100 with `assistant_score_count=30`; this is a legacy STATE record, not proof that a tracked `data/warmup/submission_*` bundle still exists |
+| Artifact evidence policy | Old tracked `data/warmup/submission_*` run bundles were superseded by structured `artifacts/warmup_runs/runs/<run_id>/` bundles; `artifacts/` is ignored, so future sessions must verify the local/external bundle or regenerate it before citing artifact-backed evidence |
 | Baseline reference | 2026-03-23 warmup submission: `total_score=0.2273`, grounding `G=0.5702`; grounding remains the main optimization lever |
 | Canonical architecture | `docs/unified_document_processing_architecture.md`; governance chain stays `memory_bank/ARCHITECTURE.md` -> `memory_bank/component_design.md` -> `memory_bank/specs/` -> `memory_bank/tasks/` |
 
@@ -25,7 +26,7 @@
 | 2026-03-17 | retrieved_chunk_pages [] vs non-empty ambiguity in EVALUATION.md | High | Open -- needs organizer clarification |
 | 2026-03-21 | Warmup real-corpus smoke does not exercise OCR-selected pages | Low | Open -- warmup corpus is born-digital (all native); GPU OCR loaded but not triggered. Need scanned PDF fixtures to exercise OCR path |
 | 2026-04-06 | Smoke regression in `test_warmup_smoke_questions_no_openai` (`question_id=5d271f...`) | High | Resolved -- targeted retrieval/grounding fixes plus warmup smoke expansion; test now passes |
-| 2026-04-06 | Assistant coverage collapse (`assistant_score_count=0`) in fullrun benchmark summary | High | Resolved -- free-text scoring path recovered; current run reports `assistant_score_count=30`, `assistant=0.9867` |
+| 2026-04-06 | Assistant coverage collapse (`assistant_score_count=0`) in fullrun benchmark summary | High | Resolved -- free-text scoring path recovered; latest recorded run reports `assistant_score_count=30`, `assistant=0.9867` |
 
 ---
 
@@ -56,13 +57,15 @@
 - 2026-03-23 to 2026-03-25: Wave 4 landed across parser, retrieval, typed answering, and cross-case decomposition. Key hardening included strict parser contracts, schema-first solving, reasoning-model provider fixes, and test stabilization (`342 passed`, `ruff clean`).
 - 2026-03-25 to 2026-04-03: Full e2e reruns verified the canonical pipeline on GPU. Corpus re-parse produced `opendataloader:tagged` provenance, GPU OCR stayed idle on born-digital pages, index rebuilt to `3804` chunks, and the warmup submission moved to the current tracking state.
 - 2026-04-06: Recovery run `submission_e2e_20260406_fix` completed with reused corpus/index, generated full artifact set, and restored assistant scoring (`assistant_score_count=30`, `assistant=0.9867`). Overall improved from `0.3402` to `0.5241` vs `submission_fullrun_20260406_001200`.
-- 2026-04-08: Generation layer switched to non-destructive precision filtering with recall guard (`relevant_evidence_indices` + guarded narrowing, no structured->legacy fallback). Warmup e2e `submission_e2e_20260408_gen_filter` reached `total=0.7332`, `grounding=0.8202`, validation warnings `0`.
+- 2026-04-08: Generation layer switched to non-destructive precision filtering with recall guard (`relevant_evidence_indices` + guarded narrowing, no structured->legacy fallback). Warmup e2e `submission_e2e_20260408_gen_filter` reached `total=0.7332`, `grounding=0.8202`, validation warnings `0`; the metrics are preserved here as a legacy record after tracked `data/warmup/submission_*` bundles were removed in favor of the ignored `artifacts/warmup_runs/` convention.
 
 ---
 
 ## 6. Tracking
 
 ### 6.1 Run Results
+
+The table records historical benchmark metrics. It is not an artifact manifest: verify `artifacts/warmup_runs/runs/<run_id>/` locally or regenerate a run bundle before treating a row as current file-backed evidence.
 
 | Run | Total | Deterministic | Assistant | Grounding | TTFT ms | TTFT Multiplier | Warnings |
 |-----|-------|---------------|-----------|-----------|---------|-----------------|----------|
@@ -73,9 +76,9 @@
 | Recovery Fullrun (`submission_e2e_20260406_fix`) | 0.5241 | 0.8714 | 0.9867 | 0.6015 | 4600.94 | 0.9616 | 26 |
 | Generation Filter Warmup (`submission_e2e_20260408_gen_filter`) | 0.7332 | 0.9429 | 0.9867 | 0.8202 | 6246.52 | 0.9351 | 0 |
 
-### 6.2 Latest Comparison (Recovery vs 2026-04-06 fullrun)
+### 6.2 Legacy Comparison (Recovery vs 2026-04-06 fullrun)
 
-- Artifacts: `data/warmup/submission_e2e_20260406_fix/benchmark_report.json` and `data/warmup/submission_e2e_20260406_fix/comparison_vs_prev_fullrun.json`.
+- Legacy artifact paths were `data/warmup/submission_e2e_20260406_fix/benchmark_report.json` and `data/warmup/submission_e2e_20260406_fix/comparison_vs_prev_fullrun.json`; old tracked run bundles have been superseded by `artifacts/warmup_runs/runs/<run_id>/` and may not exist in a fresh checkout.
 - Overall delta vs `submission_fullrun_20260406_001200`: `total +0.1839`, `det +0.0286`, `assistant +0.9867`, `grounding -0.0007`, `ttft_multiplier +0.0043`.
 - Runtime behavior: `build-submission` reused corpus/index and completed QA stage in ~`460141 ms`; runtime log `logs/project/runtime/warmup/20260405T224512Z_build-submission_cb9589bdeaea4bf5ad95272545de12fc.jsonl`.
 - Quality note: free_text assistant slice recovered (from zero-coverage collapse to normal benchmark scoring), while grounding stayed essentially flat.

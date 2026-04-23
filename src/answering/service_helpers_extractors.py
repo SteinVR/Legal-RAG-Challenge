@@ -10,8 +10,49 @@ from collections.abc import Iterable
 from datetime import date
 from typing import Any
 
-from .service_types import *  # noqa: F401,F403
-from .service_helpers_text import *  # noqa: F401,F403
+from src.evaluation.contracts import AnswerType, PageReference
+
+from .service_constants import (
+    _AMOUNT_CUE_PATTERN,
+    _BOOLEAN_NEGATIVE,
+    _BOOLEAN_NO_MODAL_PATTERN,
+    _BOOLEAN_NO_PERMISSION_PATTERN,
+    _CONTRACT_ENTITY_PATTERN,
+    _DATE_OF_ISSUE_CUE_PATTERN,
+    _DATE_PATTERN,
+    _DURATION_QUESTION_HINTS,
+    _ISO_DATE_PATTERN,
+    _LAW_NUMBER_PATTERN,
+    _LAW_NUMBER_QUERY_PATTERN,
+    _LEGAL_OUTCOME_PATTERNS,
+    _MONTH_FIRST_DATE_PATTERN,
+    _MONTHS,
+    _NUMBER_PATTERN,
+    _OBLIGATION_QUESTION_HINTS,
+    _PERMISSION_QUESTION_HINTS,
+    _SINGLE_TOKEN_ENTITY_EXCLUSIONS,
+    _TEMPORAL_CUE_PATTERN,
+    _WORD_NUMBER_TOKENS,
+    _WORD_NUMBER_VALUES,
+)
+from .service_helpers_text import (
+    _context_window,
+    _entity_matches,
+    _grounding_clauses,
+    _keyword_tokens,
+    _normalize_entity_candidate,
+    _normalize_whitespace,
+    _score_context,
+    _sentence_for_span,
+    _sentences,
+)
+from .service_types import (
+    DeterministicExtractor,
+    FreeTextGroundingValidationError,
+    _PageCandidate,
+    _SolvedAnswer,
+)
+
 
 def _answers_equivalent(left: Any, right: Any) -> bool:
     """Execute `_answers_equivalent`."""
@@ -82,7 +123,12 @@ def _extract_number(
             score += 2.0
         if duration_intent and has_duration_unit_suffix:
             score += 3.0
-        if duration_intent and looks_like_legal_reference_number and not has_temporal_cue and not has_duration_unit_suffix:
+        if (
+            duration_intent
+            and looks_like_legal_reference_number
+            and not has_temporal_cue
+            and not has_duration_unit_suffix
+        ):
             continue
         if duration_intent and is_parenthetical_marker and not has_temporal_cue and not has_duration_unit_suffix:
             continue

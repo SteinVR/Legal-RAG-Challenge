@@ -107,7 +107,9 @@ def apply_env_overrides(config: "AppConfig", env: Mapping[str, str]) -> "AppConf
     if ocr_model_root_dir_override:
         ingestion_updates["ocr_model_root_dir"] = Path(ocr_model_root_dir_override.strip()).expanduser()
     if ocr_text_detection_model_dir_override:
-        ingestion_updates["ocr_text_detection_model_dir"] = Path(ocr_text_detection_model_dir_override.strip()).expanduser()
+        ingestion_updates["ocr_text_detection_model_dir"] = Path(
+            ocr_text_detection_model_dir_override.strip()
+        ).expanduser()
     if ocr_text_recognition_model_dir_override:
         ingestion_updates["ocr_text_recognition_model_dir"] = Path(
             ocr_text_recognition_model_dir_override.strip()
@@ -141,7 +143,11 @@ def apply_env_overrides(config: "AppConfig", env: Mapping[str, str]) -> "AppConf
 
     if decomposition_enabled_override:
         config = config.model_copy(
-            update={"decomposition": config.decomposition.model_copy(update={"enabled": parse_bool(decomposition_enabled_override)})}
+            update={
+                "decomposition": config.decomposition.model_copy(
+                    update={"enabled": parse_bool(decomposition_enabled_override)}
+                )
+            }
         )
 
     if log_level_override:
@@ -156,12 +162,20 @@ def apply_env_overrides(config: "AppConfig", env: Mapping[str, str]) -> "AppConf
 
     if debug_documents_override:
         config = config.model_copy(
-            update={"logging": config.logging.model_copy(update={"debug_documents": parse_bool(debug_documents_override)})}
+            update={
+                "logging": config.logging.model_copy(
+                    update={"debug_documents": parse_bool(debug_documents_override)}
+                )
+            }
         )
 
     if debug_questions_override:
         config = config.model_copy(
-            update={"logging": config.logging.model_copy(update={"debug_questions": parse_bool(debug_questions_override)})}
+            update={
+                "logging": config.logging.model_copy(
+                    update={"debug_questions": parse_bool(debug_questions_override)}
+                )
+            }
         )
 
     return config

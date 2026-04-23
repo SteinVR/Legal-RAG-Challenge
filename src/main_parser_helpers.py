@@ -6,6 +6,7 @@ import argparse
 
 from src.common.schemas import Phase
 
+
 def _add_download_questions_command(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     """Execute `_add_download_questions_command`.
 

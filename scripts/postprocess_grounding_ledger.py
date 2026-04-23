@@ -11,12 +11,53 @@ from src.evaluation.contracts import load_reference_records, load_submission_pay
 from src.evaluation.grounding_ledger import (
     build_grounding_ledger_rows,
     build_grounding_summary,
-    build_top_failures_from_ledger_dir,
+    build_grounding_summary_payload,
+    build_top_failures_from_runs_dir,
     upsert_summary_row,
     write_grounding_ledger_csv,
     write_grounding_ledger_jsonl,
     write_top_failures_tsv,
 )
+
+
+def _write_manifest(
+    *,
+    run_id: str,
+    run_dir: Path,
+    warmup_root: Path,
+    submission_path: Path,
+    benchmark_path: Path,
+    summary_json_path: Path,
+    ledger_jsonl_path: Path,
+    ledger_csv_path: Path,
+    summary_runs_tsv_path: Path,
+    top_failures_tsv_path: Path,
+    grounding_summary: dict[str, object],
+) -> None:
+    """Write a minimal manifest for grounding-only bundles."""
+
+    manifest_path = run_dir / "manifest.json"
+    payload = {
+        "run_id": run_id,
+        "phase": "warmup",
+        "run_kind": "grounding_only",
+        "artifacts": {
+            "warmup_root": str(warmup_root.resolve()),
+            "submission_dir": str((run_dir / "submission").resolve()) if (run_dir / "submission").exists() else None,
+            "eval_dir": str((run_dir / "eval").resolve()) if (run_dir / "eval").exists() else None,
+            "grounding_dir": str((run_dir / "grounding").resolve()),
+            "submission_json": str(submission_path.resolve()),
+            "benchmark_path": str(benchmark_path.resolve()),
+            "grounding_summary_json": str(summary_json_path.resolve()),
+            "grounding_ledger_jsonl": str(ledger_jsonl_path.resolve()),
+            "grounding_ledger_csv": str(ledger_csv_path.resolve()),
+            "summary_runs_tsv": str(summary_runs_tsv_path.resolve()),
+            "top_failures_tsv": str(top_failures_tsv_path.resolve()),
+        },
+        "benchmark": None,
+        "grounding": grounding_summary,
+    }
+    manifest_path.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -27,14 +68,13 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--submission-path", required=True, help="Path to submission.json.")
     parser.add_argument("--benchmark-path", required=True, help="Path to benchmark JSON/JSONL references.")
     parser.add_argument(
-        "--ledger-dir",
-        default="artifacts/autoresearch/ledger",
-        help="Directory where per-run JSONL/CSV ledgers are written.",
+        "--run-dir",
+        help="Optional run bundle directory. Defaults to artifacts/warmup_runs/runs/<run-id>.",
     )
     parser.add_argument(
-        "--analysis-dir",
-        default="analysis/grounding",
-        help="Directory where tracked summaries are written.",
+        "--warmup-root",
+        default="artifacts/warmup_runs",
+        help="Root directory for structured warmup run artifacts.",
     )
     parser.add_argument(
         "--top-n",
@@ -62,46 +102,47 @@ def main() -> int:
     )
     summary = build_grounding_summary(run_id=run_id, rows=rows)
 
-    ledger_dir = Path(args.ledger_dir)
-    analysis_dir = Path(args.analysis_dir)
-    ledger_jsonl_path = ledger_dir / f"{run_id}.jsonl"
-    ledger_csv_path = ledger_dir / f"{run_id}.csv"
-    summary_path = analysis_dir / "summary_runs.tsv"
-    top_failures_path = analysis_dir / "top_failures.tsv"
-    summary_json_path = analysis_dir / f"{run_id}.summary.json"
+    warmup_root = Path(args.warmup_root)
+    run_dir = Path(args.run_dir) if args.run_dir else warmup_root / "runs" / run_id
+    grounding_dir = run_dir / "grounding"
+    runs_dir = warmup_root / "runs"
+    ledger_jsonl_path = grounding_dir / "ledger.jsonl"
+    ledger_csv_path = grounding_dir / "ledger.csv"
+    summary_path = warmup_root / "summary_runs.tsv"
+    top_failures_path = warmup_root / "top_failures.tsv"
+    summary_json_path = grounding_dir / "summary.json"
 
     write_grounding_ledger_jsonl(path=ledger_jsonl_path, rows=rows)
     write_grounding_ledger_csv(path=ledger_csv_path, rows=rows)
     upsert_summary_row(path=summary_path, summary=summary)
-    top_failures = build_top_failures_from_ledger_dir(ledger_dir=ledger_dir, top_n=max(int(args.top_n), 0))
+    top_failures = build_top_failures_from_runs_dir(
+        runs_dir=runs_dir,
+        top_n=max(int(args.top_n), 0),
+    )
     write_top_failures_tsv(path=top_failures_path, rows=top_failures)
 
     summary_json_path.parent.mkdir(parents=True, exist_ok=True)
-    summary_json_path.write_text(
-        json.dumps(
-            {
-                "run_id": summary.run_id,
-                "question_count": summary.question_count,
-                "gold_empty_count": summary.gold_empty_count,
-                "raw_miss_count": summary.raw_miss_count,
-                "pass_a_miss_count": summary.pass_a_miss_count,
-                "final_miss_count": summary.final_miss_count,
-                "hit_count": summary.hit_count,
-                "raw_miss_rate": summary.raw_miss_rate,
-                "pass_a_miss_rate": summary.pass_a_miss_rate,
-                "final_miss_rate": summary.final_miss_rate,
-                "mean_raw_recall": summary.mean_raw_recall,
-                "mean_pass_a_recall": summary.mean_pass_a_recall,
-                "mean_final_grounding": summary.mean_final_grounding,
-                "ledger_jsonl": str(ledger_jsonl_path),
-                "ledger_csv": str(ledger_csv_path),
-                "summary_runs_tsv": str(summary_path),
-                "top_failures_tsv": str(top_failures_path),
-            },
-            ensure_ascii=True,
-            indent=2,
-        ),
-        encoding="utf-8",
+    summary_payload = build_grounding_summary_payload(
+        summary=summary,
+        rows=rows,
+        ledger_jsonl_path=ledger_jsonl_path,
+        ledger_csv_path=ledger_csv_path,
+        summary_runs_tsv_path=summary_path,
+        top_failures_tsv_path=top_failures_path,
+    )
+    summary_json_path.write_text(json.dumps(summary_payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+    _write_manifest(
+        run_id=run_id,
+        run_dir=run_dir,
+        warmup_root=warmup_root,
+        submission_path=Path(args.submission_path),
+        benchmark_path=Path(args.benchmark_path),
+        summary_json_path=summary_json_path,
+        ledger_jsonl_path=ledger_jsonl_path,
+        ledger_csv_path=ledger_csv_path,
+        summary_runs_tsv_path=summary_path,
+        top_failures_tsv_path=top_failures_path,
+        grounding_summary=summary_payload,
     )
 
     print(f"run_id={run_id}")

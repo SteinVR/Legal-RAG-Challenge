@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from src.evaluation.contracts import PageReference, ReferenceAnswerRecord, flatten_page_references
-from src.evaluation.scorer import score_grounding
+from src.evaluation.scorer import GROUNDING_BETA, score_grounding
 
 _FAILURE_BUCKETS = ("raw_miss", "pass_a_miss", "final_miss")
 _TOP_FAILURE_BUCKETS = set(_FAILURE_BUCKETS)
@@ -194,6 +194,65 @@ def build_grounding_summary(*, run_id: str, rows: list[GroundingLedgerRow]) -> G
     )
 
 
+def build_grounding_summary_payload(
+    *,
+    summary: GroundingSummaryRow,
+    rows: list[GroundingLedgerRow],
+    ledger_jsonl_path: Path,
+    ledger_csv_path: Path,
+    summary_runs_tsv_path: Path,
+    top_failures_tsv_path: Path,
+) -> dict[str, Any]:
+    """Build extended JSON summary payload for one grounding run."""
+
+    eligible_rows = [row for row in rows if row.failure_bucket != "gold_empty"]
+    raw_precision_values: list[float] = []
+    pass_a_precision_values: list[float] = []
+    raw_grounding_values: list[float] = []
+    pass_a_grounding_values: list[float] = []
+    final_recall_values: list[float] = []
+
+    for row in eligible_rows:
+        gold_pairs = _pairs_from_compact_string(row.gold_pages)
+        raw_pairs = _pairs_from_compact_string(row.raw_pages)
+        pass_a_pairs = _pairs_from_compact_string(row.pass_a_pages)
+        final_pairs = _pairs_from_compact_string(row.final_pages)
+
+        raw_precision_values.append(_score_precision(predicted_pairs=raw_pairs, gold_pairs=gold_pairs))
+        pass_a_precision_values.append(_score_precision(predicted_pairs=pass_a_pairs, gold_pairs=gold_pairs))
+        raw_grounding_values.append(score_grounding(predicted_pairs=raw_pairs, gold_pairs=gold_pairs))
+        pass_a_grounding_values.append(score_grounding(predicted_pairs=pass_a_pairs, gold_pairs=gold_pairs))
+        final_recall_values.append(_score_recall(predicted_pairs=final_pairs, gold_pairs=gold_pairs))
+
+    return {
+        "run_id": summary.run_id,
+        "question_count": summary.question_count,
+        "eligible_question_count": len(eligible_rows),
+        "gold_empty_count": summary.gold_empty_count,
+        "raw_miss_count": summary.raw_miss_count,
+        "pass_a_miss_count": summary.pass_a_miss_count,
+        "final_miss_count": summary.final_miss_count,
+        "hit_count": summary.hit_count,
+        "raw_miss_rate": summary.raw_miss_rate,
+        "pass_a_miss_rate": summary.pass_a_miss_rate,
+        "final_miss_rate": summary.final_miss_rate,
+        "mean_raw_recall": summary.mean_raw_recall,
+        "mean_pass_a_recall": summary.mean_pass_a_recall,
+        "mean_final_recall": _safe_mean(final_recall_values),
+        "mean_raw_precision": _safe_mean(raw_precision_values),
+        "mean_pass_a_precision": _safe_mean(pass_a_precision_values),
+        "mean_final_precision": _safe_mean([row.final_precision for row in eligible_rows]),
+        "mean_raw_grounding": _safe_mean(raw_grounding_values),
+        "mean_pass_a_grounding": _safe_mean(pass_a_grounding_values),
+        "mean_final_grounding": summary.mean_final_grounding,
+        "grounding_beta": GROUNDING_BETA,
+        "ledger_jsonl": str(ledger_jsonl_path),
+        "ledger_csv": str(ledger_csv_path),
+        "summary_runs_tsv": str(summary_runs_tsv_path),
+        "top_failures_tsv": str(top_failures_tsv_path),
+    }
+
+
 def build_top_failures_from_ledger_dir(*, ledger_dir: Path, top_n: int) -> list[dict[str, str | int]]:
     """Aggregate top persistent failure question IDs across all available run ledgers."""
 
@@ -202,6 +261,63 @@ def build_top_failures_from_ledger_dir(*, ledger_dir: Path, top_n: int) -> list[
     answer_type_by_question: dict[str, str] = {}
 
     for ledger_path in sorted(ledger_dir.glob("*.csv")):
+        for row in _read_csv_rows(ledger_path):
+            question_id = str(row.get("question_id") or "").strip()
+            failure_bucket = str(row.get("failure_bucket") or "").strip()
+            run_id = str(row.get("run_id") or "").strip()
+            answer_type = str(row.get("answer_type") or "").strip()
+            if not question_id or not run_id:
+                continue
+            if failure_bucket not in _TOP_FAILURE_BUCKETS:
+                continue
+
+            bucket_counts = bucket_counts_by_question.setdefault(
+                question_id,
+                {bucket: 0 for bucket in _FAILURE_BUCKETS},
+            )
+            bucket_counts[failure_bucket] += 1
+            run_ids_by_question.setdefault(question_id, set()).add(run_id)
+            if answer_type:
+                answer_type_by_question.setdefault(question_id, answer_type)
+
+    ranked_rows: list[dict[str, str | int]] = []
+    for question_id, bucket_counts in bucket_counts_by_question.items():
+        total_failures = sum(bucket_counts.values())
+        dominant_bucket = max(
+            _FAILURE_BUCKETS,
+            key=lambda bucket: (bucket_counts[bucket], bucket),
+        )
+        ranked_rows.append(
+            {
+                "question_id": question_id,
+                "answer_type": answer_type_by_question.get(question_id, ""),
+                "run_count": len(run_ids_by_question.get(question_id, set())),
+                "total_failures": total_failures,
+                "raw_miss_count": bucket_counts["raw_miss"],
+                "pass_a_miss_count": bucket_counts["pass_a_miss"],
+                "final_miss_count": bucket_counts["final_miss"],
+                "dominant_bucket": dominant_bucket,
+            }
+        )
+
+    ranked_rows.sort(
+        key=lambda row: (
+            -int(row["run_count"]),
+            -int(row["total_failures"]),
+            str(row["question_id"]),
+        )
+    )
+    return ranked_rows[: max(top_n, 0)]
+
+
+def build_top_failures_from_runs_dir(*, runs_dir: Path, top_n: int) -> list[dict[str, str | int]]:
+    """Aggregate top persistent failure question IDs across structured run bundles."""
+
+    bucket_counts_by_question: dict[str, dict[str, int]] = {}
+    run_ids_by_question: dict[str, set[str]] = {}
+    answer_type_by_question: dict[str, str] = {}
+
+    for ledger_path in sorted(runs_dir.glob("*/grounding/ledger.csv")):
         for row in _read_csv_rows(ledger_path):
             question_id = str(row.get("question_id") or "").strip()
             failure_bucket = str(row.get("failure_bucket") or "").strip()
@@ -357,6 +473,29 @@ def _pairs_to_compact_string(pairs: set[tuple[str, int]]) -> str:
         return ""
     ordered = sorted(pairs, key=lambda pair: (pair[0], pair[1]))
     return "|".join(f"{doc_id}:{page_number}" for doc_id, page_number in ordered)
+
+
+def _pairs_from_compact_string(raw_pairs: str) -> set[tuple[str, int]]:
+    """Parse compact `doc_id:page|...` strings back into pair sets."""
+
+    normalized = str(raw_pairs or "").strip()
+    if not normalized:
+        return set()
+
+    pairs: set[tuple[str, int]] = set()
+    for item in normalized.split("|"):
+        doc_id, separator, page_number = item.partition(":")
+        if not separator:
+            continue
+        doc_id = doc_id.strip()
+        page_number = page_number.strip()
+        if not doc_id or not page_number:
+            continue
+        try:
+            pairs.add((doc_id, int(page_number)))
+        except ValueError:
+            continue
+    return pairs
 
 
 def _score_recall(*, predicted_pairs: set[tuple[str, int]], gold_pairs: set[tuple[str, int]]) -> float:

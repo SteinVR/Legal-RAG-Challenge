@@ -21,9 +21,7 @@ from src.common.schemas import CanonicalPageRecord, CorpusParseManifest, PageMap
 from src.indexing.chunking_core import IndexChunk, build_index_chunks
 from src.indexing.embedders import (
     BM25SparseEncoder,
-    DenseEmbedder,
     build_dense_embedder,
-    build_query_embedder,
     dense_encoder_contract,
 )
 from src.indexing.state import load_page_parent_map

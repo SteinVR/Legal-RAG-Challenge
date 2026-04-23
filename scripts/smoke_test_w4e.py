@@ -29,7 +29,7 @@ from src.answering.service import AnsweringService, AnswerResult, extract_query_
 from src.common.config import load_app_config
 from src.common.schemas import QuestionRecord
 from src.indexing.service import IndexPaths, build_query_embedder
-from src.providers.codex_provider import CodexFreeTextProvider
+from src.providers.codex_provider import CodexAnsweringProvider
 from src.retrieval.hybrid_search import QdrantHybridSearchBackend, RRFHybridSearch
 from src.retrieval.reranker import QwenReranker
 from src.retrieval.service import RetrievalService
@@ -128,7 +128,7 @@ def main() -> None:
         page_map_paths=(index_paths.page_map_path,),
     )
 
-    provider = CodexFreeTextProvider(model="gpt-5.4-mini", api_key=api_key)
+    provider = CodexAnsweringProvider(model="gpt-5.4-mini", api_key=api_key)
     answering_service = AnsweringService(
         retriever=retrieval_service,
         provider=provider,
@@ -159,7 +159,10 @@ def main() -> None:
         try:
             if decomposed:
                 answer_result = answer_with_decomposition(
-                    q, query_metadata, answering_service, max_subquestions=4,
+                    q,
+                    query_metadata,
+                    answering_service,
+                    max_subquestions=4,
                 )
             else:
                 answer_result = answering_service.answer_question(q)
@@ -169,9 +172,11 @@ def main() -> None:
             print(f"  -> answer={answer_preview}")
             print(f"  -> confidence={answer_result.confidence:.2f}, pages={page_count}")
             if answer_result.page_trace:
-                print(f"  -> trace: raw={len(answer_result.page_trace.raw_retrieved_chunk_pages)}, "
-                      f"pass_a={len(answer_result.page_trace.pass_a_pages)}, "
-                      f"final={len(answer_result.page_trace.final_emitted_pages)}")
+                print(
+                    f"  -> trace: raw={len(answer_result.page_trace.raw_retrieved_chunk_pages)}, "
+                    f"pass_a={len(answer_result.page_trace.pass_a_pages)}, "
+                    f"final={len(answer_result.page_trace.final_emitted_pages)}"
+                )
             results.append((q, answer_result, decomposed, "ok"))
         except Exception as exc:
             error_msg = str(exc)[:120]

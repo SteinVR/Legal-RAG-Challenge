@@ -17,8 +17,6 @@ from src.common.runtime_logging import (
     runtime_log_path,
     shutdown_runtime_logging,
 )
-from src.submission.api_client import CompetitionApiClient
-
 from src.main_handlers import _run_command
 from src.main_parser_helpers import (
     _add_analyze_benchmark_consistency_command,
@@ -35,6 +33,7 @@ from src.main_parser_helpers import (
     _add_sync_command,
     _add_validate_submission_command,
 )
+from src.submission.api_client import CompetitionApiClient
 
 ClientFactory = Callable[[AppConfig], CompetitionApiClient]
 LOGGER = get_logger("main")

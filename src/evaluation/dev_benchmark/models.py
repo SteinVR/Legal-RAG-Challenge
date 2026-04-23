@@ -2,11 +2,6 @@
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
-from statistics import mean, pstdev
-from typing import Any
-
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from ..contracts import (
@@ -17,13 +12,7 @@ from ..contracts import (
     ReferenceAnswerRecord,
     ScoreMetrics,
     ScoreReport,
-    UnanswerableRetrievalPolicy,
-    load_assistant_score_records,
-    load_question_records,
-    load_submission_payload,
-    question_types_from_questions,
 )
-from ..scorer import ScoreOptions, score_submission
 
 
 class BenchmarkQuestionMetadata(BaseModel):

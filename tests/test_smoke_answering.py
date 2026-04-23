@@ -59,8 +59,7 @@ class ListedClaimantRetriever:
                 "doc_id": "synthetic_case",
                 "page_number": 1,
                 "text": (
-                    "Claim No: SCT 295/2025 THE COURT BETWEEN OLEXA Claimant/Applicant "
-                    "and ODON Defendant/Respondent."
+                    "Claim No: SCT 295/2025 THE COURT BETWEEN OLEXA Claimant/Applicant and ODON Defendant/Respondent."
                 ),
             },
             {
@@ -199,6 +198,28 @@ def test_answering_smoke_returns_typed_answer_without_openai() -> None:
     assert len(result.evidence_pages) == 1
     assert result.evidence_pages[0].doc_id == "synthetic_law"
     assert result.evidence_pages[0].page_numbers == [2]
+
+
+def test_answering_smoke_routes_free_text_through_structured_provider() -> None:
+    """Ensure free-text answering uses the structured provider path without API calls."""
+
+    service = AnsweringService(
+        retriever=StaticPageRetriever(),
+        provider=NoApiProvider(),
+    )
+    question = QuestionRecord(
+        id="smoke-answering-free-text-q1",
+        question="What does the law say about filing notice?",
+        answer_type="free_text",
+    )
+
+    result = service.answer_question(question)
+
+    assert isinstance(result.answer, str)
+    assert result.answer
+    assert result.confidence == 0.8
+    assert result.evidence_pages
+    assert result.evidence_pages[0].doc_id == "synthetic_law"
 
 
 def test_answering_smoke_prefers_explicit_law_number_over_year_literal() -> None:

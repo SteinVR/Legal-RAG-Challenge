@@ -8,7 +8,12 @@ from src.answering import service_helpers as answering_helpers
 from src.answering.service_types import _PageCandidate
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference, ReferenceAnswerRecord
-from src.evaluation.goldset_core import GoldShardBundle, merge_reviewed_shards, sample_questions_stratified, split_questions_stratified
+from src.evaluation.goldset_core import (
+    GoldShardBundle,
+    merge_reviewed_shards,
+    sample_questions_stratified,
+    split_questions_stratified,
+)
 from src.main_handlers import _resolve_assistant_scores_path
 
 

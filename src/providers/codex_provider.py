@@ -1,4 +1,4 @@
-"""Concrete Codex-backed provider for grounded free-text generation."""
+"""Concrete Codex-backed providers for answering and schema-bound generation."""
 
 from __future__ import annotations
 
@@ -25,17 +25,13 @@ _RETRY_BACKOFF_SECONDS = (1.0, 3.0, 8.0, 15.0, 20.0, 30.0)
 DEFAULT_MAX_OUTPUT_TOKENS = 2048
 LOGGER = get_logger("providers.codex")
 
-_SYSTEM_PROMPT = (
-    "Answer strictly from the provided legal evidence. "
-    "Return exactly one JSON object with keys: answer (string) and confidence (number from 0 to 1). "
-    "Do not include markdown or additional keys."
-)
 _STRUCTURED_SYSTEM_PROMPT = (
     "Answer strictly from the provided legal evidence and return one JSON object that follows the supplied schema. "
     "Treat the Evidence list as the authoritative candidate set for page attribution. "
     "Use null only when the schema permits null and the evidence is insufficient. "
     "Run a self-review gate before finalizing: verify every claim in final_answer is directly supported by Evidence. "
     "Set is_answerable=false only as a last resort, when no evidence item directly supports any defensible answer. "
+    "Do not use is_answerable=false just because support is distributed across multiple evidence items or pages. "
     "If is_answerable=false, set relevant_evidence_indices=[] and relevant_pages=[]. "
     "If at least one evidence item supports a defensible answer, set is_answerable=true. "
     f"For free_text with is_answerable=false, final_answer must be exactly '{_CANONICAL_UNANSWERABLE_FREE_TEXT}'. "
@@ -43,12 +39,14 @@ _STRUCTURED_SYSTEM_PROMPT = (
     "For dates, always use ISO-8601 format (YYYY-MM-DD). "
     "Use relevant_evidence_indices as 1-based indices of evidence items that directly support the answer. "
     "Keep relevant_pages aligned with those supporting evidence pages. "
-    "Prioritize evidence recall: include every directly supporting evidence item."
+    "Prioritize evidence recall: include every directly supporting evidence item. "
+    "When in doubt between a narrower and broader supporting set, prefer the broader supported set."
 )
 
+
 @dataclass(slots=True)
-class CodexFreeTextProvider:
-    """HTTP provider that calls a Codex-compatible `/responses` endpoint."""
+class CodexAnsweringProvider:
+    """HTTP provider that calls a Codex-compatible `/responses` endpoint for structured answering."""
 
     model: str = DEFAULT_CODEX_MODEL
     base_url: str = DEFAULT_CODEX_BASE_URL
@@ -64,8 +62,7 @@ class CodexFreeTextProvider:
         token = _resolve_provider_token(self.api_key)
         if not token:
             raise ValueError(
-                "Codex provider token is missing. Set CODEX_OAUTH_TOKEN, OPENAI_API_KEY, "
-                "or pass api_key explicitly."
+                "Codex provider token is missing. Set CODEX_OAUTH_TOKEN, OPENAI_API_KEY, or pass api_key explicitly."
             )
         if self.timeout_seconds <= 0:
             raise ValueError("timeout_seconds must be positive.")
@@ -79,74 +76,6 @@ class CodexFreeTextProvider:
             timeout_seconds=self.timeout_seconds,
             transport=self.transport,
         )
-
-    def generate(
-        self,
-        *,
-        question: str,
-        evidence_pages: list[dict[str, Any]],
-        max_chars: int,
-    ) -> dict[str, Any]:
-        """Execute `generate`."""
-        if max_chars <= 0:
-            raise ValueError("max_chars must be positive.")
-        started_at = time.perf_counter()
-
-        response = _post_with_retry(
-            self._client,
-            "responses",
-            {
-                "model": self.model,
-                "input": [
-                    {
-                        "role": "system",
-                        "content": [
-                            {
-                                "type": "input_text",
-                                "text": _SYSTEM_PROMPT,
-                            }
-                        ],
-                    },
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "input_text",
-                                "text": _build_user_prompt(
-                                    question=question,
-                                    evidence_pages=evidence_pages,
-                                    max_chars=max_chars,
-                                ),
-                            }
-                        ],
-                    },
-                ],
-                "max_output_tokens": self.max_output_tokens,
-            },
-        )
-        payload = response.json()
-        if not isinstance(payload, dict):
-            raise ValueError("Provider response must be a JSON object.")
-
-        response_text = _extract_response_text(payload)
-        answer, confidence = _parse_answer_payload(response_text, max_chars=max_chars)
-        result = {
-            "answer": answer,
-            "confidence": confidence,
-        }
-        log_event(
-            LOGGER,
-            logging.DEBUG,
-            "provider.generate.complete",
-            "Provider response received.",
-            stage="answering",
-            model=self.model,
-            evidence_page_count=len(evidence_pages),
-            max_chars=max_chars,
-            duration_ms=round((time.perf_counter() - started_at) * 1000, 3),
-            answer_chars=len(answer),
-        )
-        return result
 
     def generate_structured(
         self,
@@ -206,8 +135,13 @@ class CodexFreeTextProvider:
                 structured = _parse_structured_payload(response_text)
             except ValueError as exc:
                 last_exc = exc
-                log_event(LOGGER, logging.WARNING, "provider.structured.parse_retry",
-                          "Retrying due to malformed structured output.", stage="answering")
+                log_event(
+                    LOGGER,
+                    logging.WARNING,
+                    "provider.structured.parse_retry",
+                    "Retrying due to malformed structured output.",
+                    stage="answering",
+                )
                 time.sleep(1.0)
                 continue
             # Normalize unanswerable outputs to match schema contracts before validation.
@@ -220,8 +154,13 @@ class CodexFreeTextProvider:
                 validated = answer_schema.model_validate(structured)
             except ValidationError as exc:
                 last_exc = exc
-                log_event(LOGGER, logging.WARNING, "provider.structured.validation_retry",
-                          "Retrying due to schema validation failure.", stage="answering")
+                log_event(
+                    LOGGER,
+                    logging.WARNING,
+                    "provider.structured.validation_retry",
+                    "Retrying due to schema validation failure.",
+                    stage="answering",
+                )
                 time.sleep(1.0)
                 continue
             break
@@ -248,13 +187,14 @@ class CodexFreeTextProvider:
         """Execute `close`."""
         self._client.close()
 
-    def __enter__(self) -> "CodexFreeTextProvider":
+    def __enter__(self) -> "CodexAnsweringProvider":
         """Execute `__enter__`."""
         return self
 
     def __exit__(self, *_: object) -> None:
         """Execute `__exit__`."""
         self.close()
+
 
 @dataclass(slots=True)
 class CodexStructuredOutputProvider:
@@ -273,8 +213,7 @@ class CodexStructuredOutputProvider:
         token = _resolve_provider_token(self.api_key)
         if not token:
             raise ValueError(
-                "Codex provider token is missing. Set CODEX_OAUTH_TOKEN, OPENAI_API_KEY, "
-                "or pass api_key explicitly."
+                "Codex provider token is missing. Set CODEX_OAUTH_TOKEN, OPENAI_API_KEY, or pass api_key explicitly."
             )
         if self.timeout_seconds <= 0:
             raise ValueError("timeout_seconds must be positive.")
@@ -363,6 +302,7 @@ class CodexStructuredOutputProvider:
         """Execute `__exit__`."""
         self.close()
 
+
 def _build_http_client(
     *,
     token: str,
@@ -385,6 +325,7 @@ def _build_http_client(
         transport=transport,
     )
 
+
 def _resolve_provider_token(explicit_token: str | None) -> str:
     """Resolve provider token."""
     candidates = [
@@ -398,6 +339,7 @@ def _resolve_provider_token(explicit_token: str | None) -> str:
         if token:
             return token
     return ""
+
 
 def _format_page_reference(page: dict[str, Any]) -> str:
     """Format page reference."""
@@ -422,22 +364,6 @@ def _format_page_reference(page: dict[str, Any]) -> str:
         return ""
     return str(parsed_page) if parsed_page > 0 else ""
 
-def _build_user_prompt(*, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> str:
-    """Build user prompt."""
-    evidence_lines: list[str] = []
-    for index, page in enumerate(evidence_pages, start=1):
-        doc_id = str(page.get("doc_id") or "").strip()
-        page_ref = _format_page_reference(page)
-        text = _normalize_whitespace(str(page.get("text") or ""))
-        evidence_lines.append(f"[{index}] doc_id={doc_id}; pages={page_ref}; text={text}")
-
-    evidence_blob = "\n".join(evidence_lines) if evidence_lines else "(no evidence)"
-    return (
-        f"Question: {_normalize_whitespace(question)}\n"
-        f"Answer max length: {max_chars} characters.\n"
-        "Evidence:\n"
-        f"{evidence_blob}"
-    )
 
 def _strict_openai_schema(schema: dict[str, Any]) -> dict[str, Any]:
     """Ensure a Pydantic-generated JSON schema is OpenAI strict-mode compatible."""
@@ -445,6 +371,7 @@ def _strict_openai_schema(schema: dict[str, Any]) -> dict[str, Any]:
     if "properties" in schema:
         schema["required"] = sorted(schema["properties"])
     return schema
+
 
 def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_pages: list[dict[str, Any]]) -> str:
     """Build structured user prompt."""
@@ -462,16 +389,21 @@ def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_p
         "Selection contract:\n"
         "- Self-review gate: draft answer, verify direct support in Evidence, then finalize.\n"
         "- Set is_answerable=false only when no Evidence item directly supports any defensible answer.\n"
-        f"- If is_answerable=false and answer_type=free_text, set final_answer to '{_CANONICAL_UNANSWERABLE_FREE_TEXT}'.\n"
+        "- Do not set is_answerable=false merely because support must be synthesized across multiple Evidence items.\n"
+        "- If is_answerable=false and answer_type=free_text, set final_answer to "
+        f"'{_CANONICAL_UNANSWERABLE_FREE_TEXT}'.\n"
         "- If is_answerable=false and answer_type!=free_text, set final_answer to null.\n"
         "- relevant_evidence_indices: 1-based list of evidence indices from Evidence below.\n"
         "- relevant_pages: page numbers corresponding to selected evidence.\n"
-        "- If no evidence item explicitly supports the answer, return relevant_evidence_indices=[] and relevant_pages=[].\n"
+        "- If no evidence item explicitly supports the answer, return relevant_evidence_indices=[] "
+        "and relevant_pages=[].\n"
         "- Do not reference pages outside this Evidence list.\n"
         "- Include every directly supporting evidence item.\n"
+        "- When uncertain, prefer a broader supported evidence set over an underspecified subset.\n"
         "Evidence:\n"
         f"{evidence_blob}"
     )
+
 
 def _extract_response_text(payload: dict[str, Any]) -> str:
     """Extract response text."""
@@ -518,32 +450,6 @@ def _extract_response_text(payload: dict[str, Any]) -> str:
 
     raise ValueError("Provider response does not contain readable text output.")
 
-def _parse_answer_payload(response_text: str, *, max_chars: int) -> tuple[str, float]:
-    """Parse answer payload."""
-    normalized = _normalize_whitespace(response_text)
-    if not normalized:
-        raise ValueError("Provider returned an empty answer payload.")
-
-    answer = normalized
-    confidence = DEFAULT_PROVIDER_CONFIDENCE
-    try:
-        parsed = json.loads(normalized)
-    except json.JSONDecodeError:
-        parsed = None
-
-    if isinstance(parsed, dict):
-        raw_answer = parsed.get("answer")
-        if raw_answer is None:
-            raise ValueError("Provider JSON payload must include an answer field.")
-        answer = _normalize_whitespace(str(raw_answer))
-        confidence = _coerce_confidence(parsed.get("confidence", DEFAULT_PROVIDER_CONFIDENCE))
-
-    if len(answer) > max_chars:
-        answer = answer[:max_chars].rstrip()
-    if not answer:
-        raise ValueError("Provider produced an empty answer after normalization.")
-
-    return answer, confidence
 
 def _parse_structured_payload(response_text: str) -> dict[str, Any]:
     """Parse structured payload."""
@@ -558,6 +464,7 @@ def _parse_structured_payload(response_text: str) -> dict[str, Any]:
         raise ValueError("Provider structured payload must be a JSON object.")
     return parsed
 
+
 def _coerce_confidence(raw_confidence: Any) -> float:
     """Execute `_coerce_confidence`."""
     try:
@@ -570,9 +477,11 @@ def _coerce_confidence(raw_confidence: Any) -> float:
         return DEFAULT_PROVIDER_CONFIDENCE
     return confidence
 
+
 def _normalize_whitespace(value: str) -> str:
     """Normalize whitespace."""
     return " ".join(value.split())
+
 
 def _post_with_retry(
     client: httpx.Client,

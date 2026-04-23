@@ -3,23 +3,73 @@
 from __future__ import annotations
 
 import logging
-from typing import cast
+from collections.abc import Mapping
 
+from pydantic import ValidationError
+
+from src.answering.page_attribution import (
+    PageAttributionConfig,
+    build_page_trace,
+    finalize_page_attribution,
+    flatten_page_references,
+)
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
+from src.common.schemas import QuestionRecord
+from src.evaluation.contracts import AnswerType, PageReference
+from src.providers.base import AnsweringProvider
 
-from .service_helpers import *  # noqa: F401,F403
-from .service_types import *  # noqa: F401,F403
+from .service_helpers import (
+    _clean_verbose_name_answer,
+    _coerce_confidence,
+    _coerce_retrieval_payload,
+    _effective_page_attribution_config,
+    _empty_result,
+    _filter_pages_by_pairs,
+    _group_page_references,
+    _normalize_confidence_threshold_map,
+    _normalize_reasoning_effort_map,
+    _normalize_relevant_page_list,
+    _pass_a_pages_from_retrieval_payload,
+    _passes_typed_guardrails,
+    _prefer_issue_date_relevant_pages,
+    _provider_evidence_page,
+    _resolve_provider_model_name,
+    _safe_relevant_evidence_pairs,
+    _safe_relevant_page_pairs,
+    _supported_page_pairs_for_free_text,
+)
+from .service_types import (
+    ANSWER_SCHEMA_REGISTRY,
+    CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
+    AnswerResult,
+    FreeTextGroundingValidationError,
+    QueryMetadata,
+    Retriever,
+    _normalize_whitespace,
+    _PageCandidate,
+    extract_query_metadata,
+)
 
 LOGGER = get_logger("answering.service")
 
+__all__ = [
+    "AnswerResult",
+    "AnsweringService",
+    "CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER",
+    "FreeTextGroundingValidationError",
+    "QueryMetadata",
+    "extract_query_metadata",
+]
+
+
 class AnsweringService:
-    """Extraction-first answer routing with grounded free-text fallback."""
+    """Extraction-first answer routing with structured answering."""
 
     def __init__(
         self,
         *,
         retriever: Retriever,
-        provider: FreeTextProvider,
+        provider: AnsweringProvider,
         reasoning_effort_by_type: Mapping[str, str] | None = None,
         confidence_threshold_by_type: Mapping[str, float] | None = None,
         page_attribution_config: PageAttributionConfig | None = None,
@@ -107,7 +157,7 @@ class AnsweringService:
                         collapsed_answer=False,
                     ),
                 )
-        elif _supports_structured_provider(self._provider):
+        else:
             result = self._answer_with_structured_solver(
                 question=question,
                 answer_type=answer_type,
@@ -115,57 +165,6 @@ class AnsweringService:
                 raw_retrieval_refs=raw_retrieval_refs,
                 pass_a_refs=pass_a_refs,
             )
-        elif answer_type == AnswerType.FREE_TEXT:
-            result = self._answer_free_text(
-                question=question,
-                pages=pass_a_pages,
-                raw_retrieval_refs=raw_retrieval_refs,
-                pass_a_refs=pass_a_refs,
-            )
-        else:
-            solved = self._solve_deterministic(question=question, answer_type=answer_type, pages=pass_a_pages)
-            if solved is None:
-                result = _empty_result(
-                    question_id=question.id,
-                    page_trace=build_page_trace(
-                        raw_retrieved_chunk_pages=raw_retrieval_refs,
-                        pass_a_pages=pass_a_refs,
-                        solver_reported_pages=[],
-                        final_emitted_pages=[],
-                        validation_action="no_answer_empty",
-                        collapsed_answer=False,
-                    ),
-                )
-            else:
-                supported_refs = _group_page_references(solved.supporting_pages)
-                finalized = finalize_page_attribution(
-                    answer=solved.answer,
-                    answer_type=answer_type.value,
-                    raw_retrieved_chunk_pages=raw_retrieval_refs,
-                    pass_a_pages=pass_a_refs,
-                    solver_reported_pages=[],
-                    supported_page_pairs=flatten_page_references(supported_refs),
-                    answer_supported=True,
-                    is_no_answer=False,
-                    config=self._page_attribution_config,
-                )
-                result = AnswerResult(
-                    question_id=question.id,
-                    answer=solved.answer,
-                    confidence=1.0,
-                    evidence_pages=finalized.final_pages,
-                    page_trace=build_page_trace(
-                        raw_retrieved_chunk_pages=raw_retrieval_refs,
-                        pass_a_pages=pass_a_refs,
-                        solver_reported_pages=[],
-                        final_emitted_pages=finalized.final_pages,
-                        validation_action=finalized.validation_action,
-                        collapsed_answer=finalized.collapsed_answer,
-                        selection_source=finalized.selection_source,
-                        llm_selected_count=finalized.llm_selected_count,
-                        guard_triggered=finalized.guard_triggered,
-                    ),
-                )
 
         if questions_debug_enabled():
             log_event(
@@ -203,11 +202,10 @@ class AnsweringService:
         Returns:
             Any: The computed result of the function.
         """
-        provider = cast(StructuredProvider, self._provider)
         answer_schema = ANSWER_SCHEMA_REGISTRY[answer_type.value]
         reasoning_effort = self._reasoning_effort_by_type[answer_type.value]
         evidence_pages = [_provider_evidence_page(page) for page in pages]
-        response = provider.generate_structured(
+        response = self._provider.generate_structured(
             question=question.question,
             answer_type=answer_type.value,
             evidence_pages=evidence_pages,
@@ -449,158 +447,4 @@ class AnsweringService:
                 guard_triggered=finalized.guard_triggered,
             ),
             model_name=provider_model_name,
-        )
-
-    def _solve_deterministic(
-        self,
-        *,
-        question: QuestionRecord,
-        answer_type: AnswerType,
-        pages: list[_PageCandidate],
-    ) -> _SolvedAnswer | None:
-        """Execute `_solve_deterministic`.
-
-        Args:
-            question: Input parameter.
-            answer_type: Input parameter.
-            pages: Input parameter.
-
-        Returns:
-            Any: The computed result of the function.
-        """
-        question_tokens = _keyword_tokens(question.question)
-        per_answer: dict[str, tuple[Any, list[_PageCandidate]]] = {}
-        extractor = _get_deterministic_extractor(answer_type)
-        prefer_law_number = answer_type == AnswerType.NUMBER and _is_law_number_question(question.question)
-        issue_date_question = answer_type == AnswerType.DATE and bool(_ISSUE_DATE_QUERY_PATTERN.search(question.question))
-
-        if issue_date_question:
-            strongest_pages_by_key: dict[tuple[str, tuple[int, ...]], _PageCandidate] = {}
-            ordered_page_keys: list[tuple[str, tuple[int, ...]]] = []
-            for page in pages:
-                page_key = (page.doc_id, page.page_numbers)
-                existing_page = strongest_pages_by_key.get(page_key)
-                if existing_page is None:
-                    ordered_page_keys.append(page_key)
-                    strongest_pages_by_key[page_key] = page
-                elif len(page.text) > len(existing_page.text):
-                    strongest_pages_by_key[page_key] = page
-            for page_key in ordered_page_keys:
-                page = strongest_pages_by_key[page_key]
-                candidate = extractor(page=page, question_tokens=question_tokens)
-                if candidate is None:
-                    continue
-                return _SolvedAnswer(answer=candidate.answer, supporting_pages=_dedupe_pages(candidate.supporting_pages))
-            return None
-
-        for page in pages:
-            if answer_type == AnswerType.NUMBER:
-                candidate = extractor(
-                    page=page,
-                    question_tokens=question_tokens,
-                    prefer_law_number=prefer_law_number,
-                )
-            else:
-                candidate = extractor(page=page, question_tokens=question_tokens)
-
-            if candidate is None:
-                continue
-
-            key = _answer_key(candidate.answer)
-            stored = per_answer.get(key)
-            if stored is None:
-                per_answer[key] = (candidate.answer, list(candidate.supporting_pages))
-                continue
-
-            _, existing_pages = stored
-            existing_pages.extend(candidate.supporting_pages)
-
-        if len(per_answer) != 1:
-            return None
-
-        answer, supporting_pages = next(iter(per_answer.values()))
-        return _SolvedAnswer(answer=answer, supporting_pages=_dedupe_pages(supporting_pages))
-
-    def _answer_free_text(
-        self,
-        *,
-        question: QuestionRecord,
-        pages: list[_PageCandidate],
-        raw_retrieval_refs: list[PageReference],
-        pass_a_refs: list[PageReference],
-    ) -> AnswerResult:
-        """Execute `_answer_free_text`.
-
-        Args:
-            question: Input parameter.
-            pages: Input parameter.
-            raw_retrieval_refs: Input parameter.
-            pass_a_refs: Input parameter.
-
-        Returns:
-            Any: The computed result of the function.
-        """
-        if not pages:
-            return AnswerResult(
-                question_id=question.id,
-                answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER,
-                confidence=0.0,
-                evidence_pages=[],
-                page_trace=build_page_trace(
-                    raw_retrieved_chunk_pages=raw_retrieval_refs,
-                    pass_a_pages=pass_a_refs,
-                    solver_reported_pages=[],
-                    final_emitted_pages=[],
-                    validation_action="no_answer_empty",
-                    collapsed_answer=False,
-                ),
-            )
-
-        evidence_pages = [
-            _provider_evidence_page(page)
-            for page in pages
-        ]
-        response = self._provider.generate(
-            question=question.question,
-            evidence_pages=evidence_pages,
-            max_chars=280,
-        )
-
-        answer = _normalize_whitespace(str(response.get("answer", "")))
-        if not answer:
-            raise ValueError("Provider returned an empty free_text answer.")
-        if len(answer) > 280:
-            raise ValueError("free_text answers must be at most 280 characters.")
-
-        confidence = _validate_provider_confidence(response.get("confidence", 0.0))
-        supported_page_pairs = _supported_page_pairs_for_free_text(answer=answer, pages=pages)
-        answer_supported = bool(supported_page_pairs)
-        finalized = finalize_page_attribution(
-            answer=answer,
-            answer_type=AnswerType.FREE_TEXT.value,
-            raw_retrieved_chunk_pages=raw_retrieval_refs,
-            pass_a_pages=pass_a_refs,
-            solver_reported_pages=[],
-            supported_page_pairs=supported_page_pairs,
-            answer_supported=answer_supported,
-            is_no_answer=False,
-            config=self._page_attribution_config,
-        )
-        return AnswerResult(
-            question_id=question.id,
-            answer=CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER if finalized.collapsed_answer else answer,
-            confidence=confidence,
-            evidence_pages=finalized.final_pages,
-            page_trace=build_page_trace(
-                raw_retrieved_chunk_pages=raw_retrieval_refs,
-                pass_a_pages=pass_a_refs,
-                solver_reported_pages=[],
-                final_emitted_pages=finalized.final_pages,
-                validation_action=finalized.validation_action,
-                collapsed_answer=finalized.collapsed_answer,
-                selection_source=finalized.selection_source,
-                llm_selected_count=finalized.llm_selected_count,
-                guard_triggered=finalized.guard_triggered,
-            ),
-            model_name=_resolve_provider_model_name(self._provider),
         )

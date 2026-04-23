@@ -176,8 +176,8 @@ This section reflects the currently implemented module layout.
 ### G. Providers (`src/providers/`)
 - Responsibility: provider protocols and concrete Codex/OpenAI implementations
 - Current modules:
-    - `base.py` - `FreeTextProvider` and `StructuredOutputProvider` protocols
-    - `codex_provider.py` - concrete free-text + structured providers, retry/parsing/schema enforcement
+    - `base.py` - `AnsweringProvider` and `StructuredOutputProvider` protocols
+    - `codex_provider.py` - concrete answering + structured providers, retry/parsing/schema enforcement
     - `__init__.py` - package exports
 
 ### H. Common (`src/common/`)
@@ -215,7 +215,8 @@ This section reflects the currently implemented module layout.
 - benchmark: `benchmark-summary`, `compare-benchmark-runs`, `analyze-benchmark-consistency`
 - Config:
 - primary: `configs/baseline/v001/config.yaml`
-- fallback packaged copy: `src/resources/configs/baseline/v001/config.yaml`
+- packaged default: `src/resources/configs/baseline/v001/config.yaml` is used only when the repo-root config is unavailable, such as packaged/imported execution
+- Warmup run bundles: structured e2e/analysis evidence is written under `artifacts/warmup_runs/runs/<run_id>/`; `artifacts/` is ignored, so `memory_bank/STATE.md` records historical metrics but should not be treated as a committed artifact manifest
 - Phase-local data layout:
     - `data/{phase}/questions/`
     - `data/{phase}/documents/`

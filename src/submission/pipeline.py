@@ -2,20 +2,15 @@
 
 from __future__ import annotations
 
-import inspect
-import json
 import hashlib
+import json
 import logging
-import re
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
-
-import fitz
-from qdrant_client import QdrantClient
 
 import src.indexing.service as indexing_service
 from src.answering.page_attribution import PageAttributionConfig
@@ -24,37 +19,23 @@ from src.answering.service import (
     AnswerResult,
 )
 from src.common.config import AppConfig
-from src.common.file_hash import sha256_for_file
 from src.common.runtime_logging import get_logger, log_event, questions_debug_enabled
-from src.common.schemas import CorpusParseManifest, ParseStatus, Phase, QuestionRecord
+from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import (
-    AnswerType,
     UnanswerableRetrievalPolicy,
     load_question_records,
-    question_types_from_questions,
-)
-from src.evaluation.validator import (
-    SubmissionValidationReport,
-    SubmissionValidator,
-    ValidationPolicy,
-    build_corpus_registry,
 )
 from src.indexing.service import HybridIndexService, IndexPaths
 from src.ingestion.service import CorpusParseService, CorpusPaths
-from src.providers.codex_provider import CodexFreeTextProvider
+from src.providers.codex_provider import CodexAnsweringProvider
 from src.retrieval.hybrid_search import QdrantHybridSearchBackend, RRFHybridSearch
 from src.retrieval.reranker import QwenReranker
-from src.retrieval.service import RetrievalResult, RetrievalService
+from src.retrieval.service import RetrievalService
 from src.submission.packager import SubmissionPackager, build_submission_payload
-from src.submission.submit_gate import MAX_CODE_ARCHIVE_BYTES, SubmitGate
-from src.submission.sync import PhasePaths
-from src.submission.telemetry_packer import build_answer_telemetry
-
 from src.submission.pipeline_utils import (
-    _CachingRetriever,
-    _LazyProvider,
     _architecture_summary,
     _assert_required_gpu_runtime,
+    _CachingRetriever,
     _close_quietly,
     _config_aligned_to_documents_dir,
     _corpus_artifacts_complete,
@@ -62,15 +43,18 @@ from src.submission.pipeline_utils import (
     _estimate_input_tokens,
     _estimate_output_tokens,
     _index_artifacts_complete,
+    _LazyProvider,
     _project_root,
     _supports_api_key_argument,
     _validate_locally_before_packaging,
     _write_trace_artifacts,
     format_build_submission_result,
 )
+from src.submission.submit_gate import MAX_CODE_ARCHIVE_BYTES, SubmitGate
+from src.submission.sync import PhasePaths
+from src.submission.telemetry_packer import build_answer_telemetry
 
-FREE_TEXT_MODEL = "gpt-5.4-mini"
-DETERMINISTIC_MODEL_NAME = "deterministic-extractor"
+ANSWERING_MODEL = "gpt-5.4-mini"
 LOGGER = get_logger("submission.pipeline")
 QA_CHECKPOINT_VERSION = 1
 CODE_ARCHIVE_INCLUDE_PATHS = (
@@ -82,6 +66,12 @@ CODE_ARCHIVE_INCLUDE_PATHS = (
     "uv.lock",
     ".python-version",
 )
+
+__all__ = [
+    "BuildSubmissionResult",
+    "BuildSubmissionService",
+    "format_build_submission_result",
+]
 
 
 @dataclass(slots=True)
@@ -107,7 +97,7 @@ class BuildSubmissionService:
         config: AppConfig,
         *,
         env_file: Path | None = None,
-        provider_class: type = CodexFreeTextProvider,
+        provider_class: type = CodexAnsweringProvider,
         max_code_archive_bytes: int = MAX_CODE_ARCHIVE_BYTES,
         provider_api_key: str | None = None,
         clock: Any | None = None,
@@ -128,7 +118,7 @@ class BuildSubmissionService:
         self.config = config
         self.env_file = env_file or Path(".env")
         self.provider_class = provider_class
-        self.free_text_model = FREE_TEXT_MODEL
+        self.answering_model = ANSWERING_MODEL
         self.provider_api_key = provider_api_key
         self.unanswerable_retrieval_policy = UnanswerableRetrievalPolicy(
             config.evaluation.unanswerable_retrieval_policy
@@ -167,9 +157,7 @@ class BuildSubmissionService:
         resolved_documents_dir = Path(documents_dir)
         resolved_output_dir = Path(output_dir)
         resolved_checkpoint_path = (
-            Path(checkpoint_path)
-            if checkpoint_path is not None
-            else resolved_output_dir / "qa_checkpoint.json"
+            Path(checkpoint_path) if checkpoint_path is not None else resolved_output_dir / "qa_checkpoint.json"
         )
         if checkpoint_every <= 0:
             raise ValueError("checkpoint_every must be >= 1.")
@@ -422,11 +410,10 @@ class BuildSubmissionService:
             enable_sparse_compat=True,
         )
 
-        provider_model = self.free_text_model
+        provider_model = self.answering_model
         provider = _LazyProvider(
             factory=self._build_provider,
             model=provider_model,
-            supports_structured=hasattr(self.provider_class, "generate_structured"),
         )
         retrieval_settings = config.retrieval
 
@@ -501,11 +488,7 @@ class BuildSubmissionService:
                 )
 
                 retrieval_result = retriever.consume_latest(question)
-                default_model_name = (
-                    provider_model
-                    if question.answer_type == AnswerType.FREE_TEXT.value
-                    else DETERMINISTIC_MODEL_NAME
-                )
+                default_model_name = provider_model
                 model_name = answer_result.model_name or default_model_name
                 input_tokens = _estimate_input_tokens(question=question, retrieval_result=retrieval_result)
                 output_tokens = _estimate_output_tokens(answer_result)
@@ -641,9 +624,7 @@ class BuildSubmissionService:
         if not isinstance(payload, dict):
             raise ValueError(f"Invalid checkpoint payload: {checkpoint_path}")
         if payload.get("version") != QA_CHECKPOINT_VERSION:
-            raise ValueError(
-                f"Unsupported checkpoint version in {checkpoint_path}: {payload.get('version')!r}"
-            )
+            raise ValueError(f"Unsupported checkpoint version in {checkpoint_path}: {payload.get('version')!r}")
         if payload.get("question_set_digest") != question_set_digest:
             raise ValueError("Checkpoint question set mismatch; refusing to resume with incompatible questions.")
 

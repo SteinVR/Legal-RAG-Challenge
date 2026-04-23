@@ -8,17 +8,8 @@ from typing import Any, Protocol
 from pydantic import BaseModel
 
 
-class FreeTextProvider(Protocol):
-    """Minimal contract for grounded free-text generation."""
-
-    def generate(
-        self,
-        *,
-        question: str,
-        evidence_pages: list[dict[str, Any]],
-        max_chars: int,
-    ) -> Mapping[str, Any]:
-        """Generate a grounded answer with a confidence score."""
+class AnsweringProvider(Protocol):
+    """Minimal contract for schema-bound answering generation."""
 
     def generate_structured(
         self,
@@ -29,7 +20,7 @@ class FreeTextProvider(Protocol):
         answer_schema: type[BaseModel],
         reasoning_effort: str,
     ) -> Mapping[str, Any]:
-        """Generate a schema-bound structured answer when supported."""
+        """Generate a schema-bound structured answer."""
 
 
 class StructuredOutputProvider(Protocol):

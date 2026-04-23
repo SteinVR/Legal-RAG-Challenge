@@ -23,28 +23,25 @@ from src.evaluation.contracts import (
     question_types_from_questions,
 )
 from src.evaluation.dev_benchmark import (
-    BenchmarkConsistencyReport,
     BenchmarkMetadataRecord,
-    BenchmarkRunReport,
     analyze_run_consistency,
     benchmark_submission,
     build_benchmark_report,
     compare_benchmark_reports,
-    compare_benchmark_runs,
     load_benchmark_run_report,
-    run_benchmark,
 )
 from src.evaluation.scorer import ScoreOptions, score_submission
 from src.evaluation.validator import SubmissionValidator, ValidationPolicy, build_corpus_registry
 from src.indexing.service import HybridIndexService, format_build_index_result
 from src.ingestion.service import CorpusParseService, format_parse_result
-from src.providers.codex_provider import CodexFreeTextProvider
+from src.providers.codex_provider import CodexAnsweringProvider
 from src.submission.api_client import CompetitionApiClient
 from src.submission.pipeline import BuildSubmissionService, format_build_submission_result
 from src.submission.sync import CommandResult, PhasePaths, PhaseSyncService
 
 LOGGER = get_logger("main")
 ClientFactory = Callable[[AppConfig], CompetitionApiClient]
+
 
 def _run_command(args: argparse.Namespace, config: AppConfig, client_factory: ClientFactory) -> str:
     """Run command."""
@@ -168,7 +165,7 @@ def _run_build_submission(args: argparse.Namespace, config: AppConfig) -> str:
     service = BuildSubmissionService(
         config,
         env_file=Path(args.env_file),
-        provider_class=CodexFreeTextProvider,
+        provider_class=CodexAnsweringProvider,
         provider_api_key=_resolve_provider_api_key(Path(args.env_file)),
     )
     result = service.build_submission(
@@ -248,9 +245,7 @@ def _run_validate_submission(args: argparse.Namespace, config: AppConfig) -> str
         question_types=question_types,
         corpus_registry=build_corpus_registry(documents_dir),
         policy=ValidationPolicy(
-            unanswerable_retrieval_policy=UnanswerableRetrievalPolicy(
-                config.evaluation.unanswerable_retrieval_policy
-            ),
+            unanswerable_retrieval_policy=UnanswerableRetrievalPolicy(config.evaluation.unanswerable_retrieval_policy),
             require_full_question_coverage=True,
             emit_ambiguity_warning=True,
         ),
@@ -286,17 +281,13 @@ def _run_score_submission(args: argparse.Namespace, config: AppConfig) -> str:
     submission_payload = load_submission_payload(args.submission_path)
     references = load_reference_records(args.reference_path)
     validation_question_types = question_types_from_questions(load_question_records(questions_path))
-    assistant_scores = (
-        load_assistant_score_records(args.assistant_scores_path) if args.assistant_scores_path else None
-    )
+    assistant_scores = load_assistant_score_records(args.assistant_scores_path) if args.assistant_scores_path else None
     report = score_submission(
         submission_payload,
         references=references,
         assistant_scores=assistant_scores,
         options=ScoreOptions(
-            unanswerable_retrieval_policy=UnanswerableRetrievalPolicy(
-                config.evaluation.unanswerable_retrieval_policy
-            ),
+            unanswerable_retrieval_policy=UnanswerableRetrievalPolicy(config.evaluation.unanswerable_retrieval_policy),
             documents_dir=str(documents_dir),
             validation_question_types=validation_question_types,
         ),
@@ -345,9 +336,7 @@ def _run_benchmark_summary(args: argparse.Namespace, config: AppConfig) -> str:
             run_label=args.label,
             config_version=args.config_version,
             submission_uuid=args.submission_uuid,
-            unanswerable_retrieval_policy=UnanswerableRetrievalPolicy(
-                config.evaluation.unanswerable_retrieval_policy
-            ),
+            unanswerable_retrieval_policy=UnanswerableRetrievalPolicy(config.evaluation.unanswerable_retrieval_policy),
         )
     else:
         if not args.reference_path or not args.metadata_path or not args.benchmark_name:

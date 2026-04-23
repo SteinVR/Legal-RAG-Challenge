@@ -7,8 +7,8 @@ from pathlib import Path
 import src.indexing.service as indexing_service
 from src.common.schemas import QuestionRecord
 from src.indexing.service import HybridIndexService, IndexPaths
-from src.retrieval.evidence_compressor import SupportPageEvidenceCompressor
 from src.ingestion.service import CorpusParseService
+from src.retrieval.evidence_compressor import SupportPageEvidenceCompressor
 from src.retrieval.hybrid_search import QdrantHybridSearchBackend, RRFHybridSearch
 from src.retrieval.reranker import LexicalFallbackReranker
 from src.retrieval.service import RetrievalService
@@ -21,7 +21,13 @@ class CapturingHybridSearch:
     def __init__(self) -> None:
         self.last_top_k: int | None = None
 
-    def search(self, question: QuestionRecord, top_k: int, *, query_metadata: object | None = None) -> list[dict[str, object]]:
+    def search(
+        self,
+        question: QuestionRecord,
+        top_k: int,
+        *,
+        query_metadata: object | None = None,
+    ) -> list[dict[str, object]]:
         """Return synthetic candidates and record the requested top_k."""
 
         del question, query_metadata

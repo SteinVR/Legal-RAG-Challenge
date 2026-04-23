@@ -2,13 +2,57 @@
 
 from __future__ import annotations
 
+import math
+import re
+from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import replace
 from itertools import combinations
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-from .service_types import *  # noqa: F401,F403
-from .service_helpers_extractors import *  # noqa: F401,F403
+from src.answering.page_attribution import candidate_pages_from_chunks, flatten_page_references, prune_candidate_pages
+from src.evaluation.contracts import AnswerType, PageReference
+from src.retrieval.service import RetrievalResult
+
+from .service_constants import (
+    _AMOUNT_CUE_PATTERN,
+    _DATE_OF_ISSUE_CUE_PATTERN,
+    _ISSUE_DATE_QUERY_PATTERN,
+    _TEMPORAL_CUE_PATTERN,
+    _TITLE_PAGE_QUERY_PATTERN,
+)
+from .service_helpers_extractors import (
+    _answers_equivalent,
+    _extract_boolean,
+    _extract_number,
+    _extract_number_candidates,
+    _group_page_references,
+    _provider_evidence_page,
+    _validate_free_text_grounding,
+)
+from .service_helpers_text import (
+    _clean_verbose_name_answer,
+    _context_window,
+    _keyword_tokens,
+    _normalize_whitespace,
+    _sentences,
+)
+from .service_types import (
+    DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE,
+    DEFAULT_REASONING_EFFORT_BY_TYPE,
+    AnswerResult,
+    DeterministicExtractor,
+    FreeTextGroundingValidationError,
+    _PageCandidate,
+)
+
+if TYPE_CHECKING:
+    from src.answering.page_attribution import PageAttributionConfig, PageAttributionTrace
+
+del TYPE_CHECKING
+
+__exported_symbols = (_clean_verbose_name_answer, _provider_evidence_page)
+
 
 def _coerce_page(page: Mapping[str, Any]) -> _PageCandidate:
     """Execute `_coerce_page`."""
@@ -313,14 +357,6 @@ def _parse_iso_date_parts(value: str) -> tuple[int, int, int]:
     return int(match.group(1)), int(match.group(2)), int(match.group(3))
 
 
-def _supports_structured_provider(provider: FreeTextProvider) -> bool:
-    """Execute `_supports_structured_provider`."""
-    supports_flag = getattr(provider, "supports_structured", None)
-    if isinstance(supports_flag, bool):
-        return supports_flag
-    return callable(getattr(provider, "generate_structured", None))
-
-
 def _resolve_provider_model_name(provider: Any) -> str | None:
     """Resolve provider model name."""
     model_name = getattr(provider, "model", None)
@@ -533,11 +569,7 @@ def _is_spurious_title_year_literal(*, proposed_answer: Any, pages: list[_PageCa
             if int(value) != year:
                 continue
             context = _context_window(page.text, start, end, radius=28).casefold()
-            looks_like_case_literal = (
-                "case" in context
-                or "case no" in context
-                or "case number" in context
-            )
+            looks_like_case_literal = "case" in context or "case no" in context or "case number" in context
             has_amount_cue = bool(_AMOUNT_CUE_PATTERN.search(context))
             has_temporal_cue = bool(_TEMPORAL_CUE_PATTERN.search(context))
             if looks_like_case_literal and not has_amount_cue and not has_temporal_cue:

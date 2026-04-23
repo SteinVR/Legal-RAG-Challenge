@@ -58,21 +58,76 @@ class DeterministicDenseEmbedder:
 class NoApiProvider:
     """Provider stub that guarantees no OpenAI API calls in smoke tests."""
 
-    supports_structured = False
+    model_name = "no-api-smoke-provider"
 
-    def generate(self, *, question: str, evidence_pages: list[dict[str, Any]], max_chars: int) -> dict[str, Any]:
-        """Build a deterministic free-text answer from provided evidence only."""
+    def generate_structured(
+        self,
+        *,
+        question: str,
+        answer_type: str,
+        evidence_pages: list[dict[str, Any]],
+        **_: Any,
+    ) -> dict[str, Any]:
+        """Return a compact structured answer from synthetic smoke evidence."""
 
-        del question
         evidence_text = " ".join(str(page.get("text") or "") for page in evidence_pages)
         normalized = normalize_compact_text(evidence_text)
-        answer = normalized[:max_chars] if normalized else "No supporting text found."
-        return {"answer": answer, "confidence": 0.2}
+        final_answer = _smoke_answer(question=question, answer_type=answer_type, evidence_text=normalized)
+        if final_answer is None:
+            return {
+                "is_answerable": False,
+                "final_answer": None,
+                "relevant_evidence_indices": [],
+                "relevant_pages": [],
+                "reasoning_summary": "No supporting text found.",
+                "confidence": 0.0,
+            }
 
-    def generate_structured(self, **_: Any) -> dict[str, Any]:
-        """Reject structured calls because smoke tests must avoid provider execution."""
+        all_indices = list(range(1, len(evidence_pages) + 1))
+        return {
+            "is_answerable": True,
+            "final_answer": final_answer,
+            "relevant_evidence_indices": all_indices,
+            "relevant_pages": _relevant_pages_for_indices(evidence_pages=evidence_pages, indices=all_indices),
+            "reasoning_summary": "Deterministic local smoke answer from provided evidence.",
+            "confidence": 0.8 if answer_type == "free_text" else 1.0,
+        }
 
-        raise AssertionError("Structured provider calls are disabled in smoke tests.")
+
+def _smoke_answer(*, question: str, answer_type: str, evidence_text: str) -> Any:
+    """Resolve simple answers for synthetic smoke fixtures only."""
+
+    if not evidence_text:
+        return None
+    question_lower = question.casefold()
+    if answer_type == "free_text":
+        return evidence_text[:280]
+    if answer_type == "boolean":
+        return True
+    if answer_type == "date":
+        return "2025-12-19"
+    if answer_type == "number":
+        return 2 if "law number" in question_lower else 30
+    if answer_type == "names":
+        return ["OLEXA"] if "listed" in question_lower else ["Obasi"]
+    if answer_type == "name":
+        return "OLEXA" if "listed" in question_lower else "Obasi"
+    return None
+
+
+def _relevant_pages_for_indices(*, evidence_pages: list[dict[str, Any]], indices: list[int]) -> list[int]:
+    """Collect sorted page numbers for selected evidence indices."""
+
+    selected = set(indices)
+    return sorted(
+        {
+            int(page_number)
+            for index, page in enumerate(evidence_pages, start=1)
+            if index in selected
+            for page_number in page.get("page_numbers", [page.get("page_number")])
+            if page_number is not None
+        }
+    )
 
 
 def prepare_synthetic_fixture(tmp_path: Path) -> SyntheticFixture:
@@ -137,4 +192,3 @@ def normalize_compact_text(value: str) -> str:
     """Normalize text for stable assertions across whitespace differences."""
 
     return " ".join(str(value).split())
-

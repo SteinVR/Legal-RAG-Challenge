@@ -10,11 +10,12 @@ from typing import Any
 
 import pytest
 
-from src.answering.service import AnsweringService
 from src.answering.page_attribution import PageAttributionConfig
+from src.answering.service import AnsweringService
 from src.common.config import AppConfig, load_app_config
 from src.common.schemas import QuestionRecord
-from src.indexing.service import IndexPaths, build_query_embedder
+from src.indexing.embedders import build_query_embedder
+from src.indexing.service import IndexPaths
 from src.retrieval.hybrid_search import QdrantHybridSearchBackend, RRFHybridSearch
 from src.retrieval.reranker import QwenReranker
 from src.retrieval.service import RetrievalService

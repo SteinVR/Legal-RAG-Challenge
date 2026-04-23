@@ -25,9 +25,9 @@ class PageAttributionConfig:
     suppress_title_pages: bool = True
     suppress_repeated_boilerplate: bool = True
     validation_mode: ValidationMode = "degrade_first"
-    emit_empty_pages_for_no_answer: bool = True
+    emit_empty_pages_for_no_answer: bool = False
     allow_solver_page_narrowing: bool = False
-    min_filtered_page_ratio: float = 0.35
+    min_filtered_page_ratio: float = 0.96
     min_filtered_page_count: int = 1
 
 
@@ -162,10 +162,7 @@ def prune_candidate_pages(raw_pages: list[CandidatePage], *, config: PageAttribu
     for page in raw_pages:
         strongest_page = strongest_page_by_doc[page.doc_id]
         preferred_anchor = strongest_non_boilerplate_by_doc.get(page.doc_id, strongest_page)
-        allow_strongest_suppression = (
-            page is strongest_page
-            and page is not preferred_anchor
-        )
+        allow_strongest_suppression = page is strongest_page and page is not preferred_anchor
         suppress = False
         if page is not strongest_page or allow_strongest_suppression:
             shares_chunk_with_anchor = _shares_chunk(page, preferred_anchor)
@@ -225,7 +222,9 @@ def finalize_page_attribution(
             final_pages=[],
             accepted_solver_pages=[],
             validation_action="no_candidate_pages",
-            collapsed_answer=bool(config.validation_mode == "strict_suppress" and not answer_supported and not is_no_answer),
+            collapsed_answer=bool(
+                config.validation_mode == "strict_suppress" and not answer_supported and not is_no_answer
+            ),
             selection_source="none",
             llm_selected_count=0,
             guard_triggered=False,
@@ -255,14 +254,18 @@ def finalize_page_attribution(
 
     if answer_supported:
         if supported_pairs and supported_pairs != candidate_pairs:
-            chosen_pairs, guard_action = _apply_recall_guard(
-                candidate_pairs=candidate_pairs,
-                filtered_pairs=supported_pairs,
-                config=config,
-            )
-            validation_action = "trimmed_pages" if guard_action is None else guard_action
-            selection_source = "supported_pairs"
-            guard_triggered = guard_action is not None
+            if not config.allow_solver_page_narrowing:
+                validation_action = "solver_narrowing_disabled_preserved"
+                selection_source = "pass_a"
+            else:
+                chosen_pairs, guard_action = _apply_recall_guard(
+                    candidate_pairs=candidate_pairs,
+                    filtered_pairs=supported_pairs,
+                    config=config,
+                )
+                validation_action = "trimmed_pages" if guard_action is None else guard_action
+                selection_source = "supported_pairs"
+                guard_triggered = guard_action is not None
     elif is_no_answer:
         validation_action = "no_answer_preserved"
         selection_source = "pass_a"
@@ -428,10 +431,7 @@ def _is_repeated_boilerplate_candidate(
     Returns:
         Any: The computed result of the function.
     """
-    return (
-        config.suppress_repeated_boilerplate
-        and repeated_texts[(page.doc_id, _normalized_text(page.text))] > 1
-    )
+    return config.suppress_repeated_boilerplate and repeated_texts[(page.doc_id, _normalized_text(page.text))] > 1
 
 
 def _is_boilerplate_candidate(

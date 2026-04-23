@@ -4,12 +4,11 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Any, Callable, Iterable
+from typing import Any, Iterable
 
 from src.common.schemas import CanonicalPageRecord, ContentBlockType
 from src.indexing.chunking_text import (
     clause_sources_for_text,
-    content_paragraphs,
     extract_article_heading,
     extract_part_heading,
     extract_section_heading,

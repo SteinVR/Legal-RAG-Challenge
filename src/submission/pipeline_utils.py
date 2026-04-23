@@ -104,12 +104,7 @@ class _CachingRetriever:
 class _LazyProvider:
     factory: Any
     model: str
-    supports_structured: bool = True
     _delegate: Any | None = field(default=None, init=False, repr=False)
-
-    def generate(self, **kwargs: Any) -> Any:
-        """Execute `generate`."""
-        return self._provider().generate(**kwargs)
 
     def generate_structured(self, **kwargs: Any) -> Any:
         """Execute `generate_structured`."""

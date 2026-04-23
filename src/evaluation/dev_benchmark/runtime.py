@@ -10,10 +10,7 @@ from typing import Any
 from ..contracts import (
     AnswerType,
     AssistantScoreRecord,
-    BenchmarkDifficulty,
-    BenchmarkSourceType,
     ReferenceAnswerRecord,
-    ScoreMetrics,
     ScoreReport,
     UnanswerableRetrievalPolicy,
     load_assistant_score_records,
@@ -27,7 +24,6 @@ from .models import (
     BenchmarkConsistencyReport,
     BenchmarkDataset,
     BenchmarkDeltaReport,
-    BenchmarkMetadataRecord,
     BenchmarkMetricRange,
     BenchmarkQuestionConsistency,
     BenchmarkQuestionMetadata,
@@ -35,6 +31,7 @@ from .models import (
     BenchmarkSliceReport,
     MetricDelta,
 )
+
 
 def load_benchmark_dataset(path: str | Path) -> BenchmarkDataset:
     """Load a benchmark dataset from JSON."""

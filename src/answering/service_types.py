@@ -5,25 +5,28 @@ from __future__ import annotations
 import math
 import re
 import unicodedata
-from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import date
-from typing import Any, Callable, Literal, Protocol
+from typing import TYPE_CHECKING, Any, Callable, Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from src.answering.page_attribution import (
-    PageAttributionConfig,
-    PageAttributionTrace,
-    build_page_trace,
-    candidate_pages_from_chunks,
-    finalize_page_attribution,
-    flatten_page_references,
-    prune_candidate_pages,
-)
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference
 from src.retrieval.service import RetrievalResult
+
+from .service_constants import (
+    _CASE_ID_PATTERN,
+    _DIFC_CASE_REF_PATTERN,
+    _DOCUMENT_TITLE_CUE_PATTERN,
+    _MULTI_DOCUMENT_SIGNAL_PATTERN,
+    _STATUTE_ID_PATTERN,
+)
+
+if TYPE_CHECKING:
+    from src.answering.page_attribution import PageAttributionTrace
+
+del TYPE_CHECKING
 
 CANONICAL_UNANSWERABLE_FREE_TEXT_ANSWER = "There is no information on this question in the provided documents."
 SCHEMA_FIRST_ANSWER_TYPES: frozenset[AnswerType] = frozenset(
@@ -53,21 +56,23 @@ DEFAULT_CONFIDENCE_THRESHOLD_BY_TYPE: dict[str, float] = {
     AnswerType.FREE_TEXT.value: 0.5,
 }
 
+
 class FreeTextGroundingValidationError(ValueError):
     """Raised when a generated free-text answer is unsupported by the evidence."""
 
-from .service_constants import *  # noqa: F401,F403
 
 def _normalize_whitespace(value: str) -> str:
     """Normalize Unicode whitespace and collapse multi-space sequences."""
 
     return " ".join(unicodedata.normalize("NFKC", value).split())
 
+
 def _parse_iso_date_parts(value: str) -> tuple[int, int, int]:
     """Parse a strict ISO-8601 date string and return numeric components."""
 
     parsed_date = date.fromisoformat(value)
     return parsed_date.year, parsed_date.month, parsed_date.day
+
 
 def _safe_iso_date(*, year: int, month: int, day: int) -> str | None:
     """Return normalized ISO-8601 date or `None` when the date is invalid."""
@@ -76,6 +81,7 @@ def _safe_iso_date(*, year: int, month: int, day: int) -> str | None:
         return date(year, month, day).isoformat()
     except ValueError:
         return None
+
 
 def _copy_page_references(references: list[PageReference]) -> list[PageReference]:
     """Clone page reference payloads to avoid accidental mutation sharing."""
@@ -87,6 +93,7 @@ def _copy_page_references(references: list[PageReference]) -> list[PageReference
         )
         for reference in references
     ]
+
 
 class _StructuredAnswerBase(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -147,6 +154,7 @@ class _StructuredAnswerBase(BaseModel):
             raise ValueError("confidence must be finite and between 0 and 1.")
         return value
 
+
 class BooleanAnswerSchema(_StructuredAnswerBase):
     final_answer: bool | None
 
@@ -157,6 +165,7 @@ class BooleanAnswerSchema(_StructuredAnswerBase):
             raise ValueError("boolean final_answer must be null iff is_answerable=false.")
         return self
 
+
 class NumberAnswerSchema(_StructuredAnswerBase):
     final_answer: int | float | None
 
@@ -166,6 +175,7 @@ class NumberAnswerSchema(_StructuredAnswerBase):
         if self.is_answerable != (self.final_answer is not None):
             raise ValueError("number final_answer must be null iff is_answerable=false.")
         return self
+
 
 class NameAnswerSchema(_StructuredAnswerBase):
     final_answer: str | None
@@ -181,6 +191,7 @@ class NameAnswerSchema(_StructuredAnswerBase):
                 raise ValueError("name final_answer must be non-empty.")
             self.final_answer = normalized
         return self
+
 
 class NamesAnswerSchema(_StructuredAnswerBase):
     final_answer: list[str] | None
@@ -207,6 +218,7 @@ class NamesAnswerSchema(_StructuredAnswerBase):
             self.final_answer = normalized
         return self
 
+
 class DateAnswerSchema(_StructuredAnswerBase):
     final_answer: str | None
 
@@ -222,6 +234,7 @@ class DateAnswerSchema(_StructuredAnswerBase):
                 raise ValueError("date final_answer must be ISO-8601 (YYYY-MM-DD).")
             self.final_answer = normalized
         return self
+
 
 class FreeTextAnswerSchema(_StructuredAnswerBase):
     final_answer: str = Field(min_length=1, max_length=280)
@@ -247,6 +260,7 @@ class FreeTextAnswerSchema(_StructuredAnswerBase):
         self.final_answer = normalized
         return self
 
+
 ANSWER_SCHEMA_REGISTRY: dict[str, type[BaseModel]] = {
     AnswerType.BOOLEAN.value: BooleanAnswerSchema,
     AnswerType.NUMBER.value: NumberAnswerSchema,
@@ -256,6 +270,7 @@ ANSWER_SCHEMA_REGISTRY: dict[str, type[BaseModel]] = {
     AnswerType.FREE_TEXT.value: FreeTextAnswerSchema,
 }
 
+
 @dataclass(frozen=True, slots=True)
 class LegalEntityMetadata:
     entity_type: Literal["case_id", "statute_id"]
@@ -263,11 +278,13 @@ class LegalEntityMetadata:
     normalized_value: str
     is_strong: bool
 
+
 @dataclass(frozen=True, slots=True)
 class QueryMetadata:
     legal_entities: tuple[LegalEntityMetadata, ...]
     document_title_cues: tuple[str, ...]
     likely_multi_document: bool
+
 
 def extract_query_metadata(question_text: str) -> QueryMetadata:
     """Extract query metadata."""
@@ -351,6 +368,7 @@ def extract_query_metadata(question_text: str) -> QueryMetadata:
         likely_multi_document=likely_multi_document,
     )
 
+
 class Retriever(Protocol):
     """Retrieval interface expected by the answering service."""
 
@@ -361,6 +379,7 @@ class Retriever(Protocol):
         query_metadata: QueryMetadata | None = None,
     ) -> RetrievalResult | list[dict[str, Any]]:
         """Return candidate evidence pages or a typed retrieval result."""
+
 
 @dataclass(slots=True)
 class AnswerResult:
@@ -381,6 +400,7 @@ class AnswerResult:
         else:
             self.evidence_pages = _copy_page_references(self.evidence_pages)
 
+
 @dataclass(slots=True)
 class _PageCandidate:
     doc_id: str
@@ -393,23 +413,13 @@ class _PageCandidate:
         """Execute `page_number`."""
         return self.page_numbers[0]
 
+
 @dataclass(slots=True)
 class _SolvedAnswer:
     answer: Any
     supporting_pages: list[_PageCandidate]
 
-DeterministicExtractor = Callable[..., _SolvedAnswer | None]
 
-class StructuredProvider(Protocol):
-    def generate_structured(
-        self,
-        *,
-        question: str,
-        answer_type: str,
-        evidence_pages: list[dict[str, Any]],
-        answer_schema: type[BaseModel],
-        reasoning_effort: str,
-    ) -> Mapping[str, Any]:
-        """Generate a schema-bound structured answer."""
+DeterministicExtractor = Callable[..., _SolvedAnswer | None]
 
 __all__ = [name for name in globals() if not name.startswith("__")]
