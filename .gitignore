@@ -23,7 +23,7 @@ data/full/index/
 data/full/manifests/
 data/full/questions/
 data/full/submission_e2e_20260408_full_resume
-
+artifacts
 *.parquet
 *.faiss
 
@@ -41,6 +41,5 @@ run.log
 
 .apm/
 
-# Autoresearch heavy artifacts
+# Experiment heavy artifacts
 artifacts/autoresearch/ledger/
-analysis/grounding/*.summary.json
