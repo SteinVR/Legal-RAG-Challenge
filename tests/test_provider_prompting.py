@@ -28,7 +28,20 @@ def test_structured_prompt_keeps_instructions_in_system_and_task_payload_in_user
     assert "Evidence:\n[1] doc_id=synthetic_law; pages=2;" in user_prompt
 
     assert "You are the answering specialist in a legal RAG pipeline" in _STRUCTURED_SYSTEM_PROMPT
+    assert "Answerability decision:" in _STRUCTURED_SYSTEM_PROMPT
+    assert "Your default posture is to find a defensible answer supported by Evidence" in _STRUCTURED_SYSTEM_PROMPT
+    assert "do not use is_answerable=false as a substitute for low confidence" in _STRUCTURED_SYSTEM_PROMPT
+    assert "choose the supported answer" in _STRUCTURED_SYSTEM_PROMPT
+    unanswerable_fragment = (
+        "If is_answerable=false:\n"
+        "  - Set relevant_evidence_indices=[] and relevant_pages=[]"
+    )
+    assert unanswerable_fragment in _STRUCTURED_SYSTEM_PROMPT
     assert "Final self-review:" in _STRUCTURED_SYSTEM_PROMPT
+    assert "you did not choose is_answerable=false when Evidence supports any defensible answer" in (
+        _STRUCTURED_SYSTEM_PROMPT
+    )
+    assert "Verify whether is_answerable correctly reflects the Evidence support" in _STRUCTURED_SYSTEM_PROMPT
     assert "relevant_evidence_indices" in _STRUCTURED_SYSTEM_PROMPT
     assert "{canonical_unanswerable_free_text}" not in _STRUCTURED_SYSTEM_PROMPT
     assert "There is no information on this question in the provided documents." in _STRUCTURED_SYSTEM_PROMPT
