@@ -79,8 +79,6 @@ page_attribution:
   validation_mode: degrade_first
   emit_empty_pages_for_no_answer: false
   allow_solver_page_narrowing: false
-  min_filtered_page_ratio: 0.96
-  min_filtered_page_count: 1
 
 answering:
   reasoning_effort_by_type:

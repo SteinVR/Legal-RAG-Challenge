@@ -253,8 +253,6 @@ class PageAttributionSettings(BaseModel):
     validation_mode: Literal["degrade_first", "strict_suppress"] = "strict_suppress"
     emit_empty_pages_for_no_answer: bool = False
     allow_solver_page_narrowing: bool = False
-    min_filtered_page_ratio: float = 0.96
-    min_filtered_page_count: int = 1
 
     @field_validator("validation_mode", mode="before")
     @classmethod
@@ -262,24 +260,6 @@ class PageAttributionSettings(BaseModel):
         """Normalize validation mode."""
         if isinstance(value, str):
             return parse_page_validation_mode(value)
-        return value
-
-    @field_validator("min_filtered_page_ratio")
-    @classmethod
-    def ensure_valid_min_filtered_page_ratio(cls, value: float) -> float:
-        """Validate recall-guard ratio bounds."""
-
-        if value < 0.0 or value > 1.0:
-            raise ValueError("page_attribution.min_filtered_page_ratio must be between 0 and 1.")
-        return value
-
-    @field_validator("min_filtered_page_count")
-    @classmethod
-    def ensure_positive_min_filtered_page_count(cls, value: int) -> int:
-        """Validate minimum number of pages retained after filtering."""
-
-        if value <= 0:
-            raise ValueError("page_attribution.min_filtered_page_count must be positive.")
         return value
 
 

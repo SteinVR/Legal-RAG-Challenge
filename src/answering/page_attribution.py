@@ -27,8 +27,6 @@ class PageAttributionConfig:
     validation_mode: ValidationMode = "degrade_first"
     emit_empty_pages_for_no_answer: bool = False
     allow_solver_page_narrowing: bool = False
-    min_filtered_page_ratio: float = 0.96
-    min_filtered_page_count: int = 1
 
 
 @dataclass(slots=True)
@@ -55,7 +53,6 @@ class FinalizedPageAttribution:
     collapsed_answer: bool = False
     selection_source: str = "pass_a"
     llm_selected_count: int = 0
-    guard_triggered: bool = False
 
 
 @dataclass(slots=True)
@@ -68,7 +65,6 @@ class PageAttributionTrace:
     collapsed_answer: bool = False
     selection_source: str = "pass_a"
     llm_selected_count: int = 0
-    guard_triggered: bool = False
 
 
 def candidate_pages_from_chunks(chunks: Iterable[RetrievedChunk]) -> list[CandidatePage]:
@@ -198,7 +194,7 @@ def finalize_page_attribution(
     is_no_answer: bool,
     config: PageAttributionConfig,
 ) -> FinalizedPageAttribution:
-    """Finalize emitted pages with precision filtering and non-destructive recall guard.
+    """Finalize emitted pages from Pass A or solver-selected supported pages.
 
     Args:
         answer: Input parameter.
@@ -227,7 +223,6 @@ def finalize_page_attribution(
             ),
             selection_source="none",
             llm_selected_count=0,
-            guard_triggered=False,
         )
 
     accepted_solver_pairs = candidate_pairs & flatten_page_references(solver_reported_pages)
@@ -243,14 +238,12 @@ def finalize_page_attribution(
             collapsed_answer=False,
             selection_source="none",
             llm_selected_count=llm_selected_count,
-            guard_triggered=False,
         )
 
     collapsed_answer = bool(config.validation_mode == "strict_suppress" and not answer_supported and not is_no_answer)
     chosen_pairs = set(candidate_pairs)
     validation_action = "preserved_pages"
     selection_source = "pass_a"
-    guard_triggered = False
 
     if answer_supported:
         if supported_pairs and supported_pairs != candidate_pairs:
@@ -258,14 +251,9 @@ def finalize_page_attribution(
                 validation_action = "solver_narrowing_disabled_preserved"
                 selection_source = "pass_a"
             else:
-                chosen_pairs, guard_action = _apply_recall_guard(
-                    candidate_pairs=candidate_pairs,
-                    filtered_pairs=supported_pairs,
-                    config=config,
-                )
-                validation_action = "trimmed_pages" if guard_action is None else guard_action
+                chosen_pairs = supported_pairs
+                validation_action = "trimmed_pages"
                 selection_source = "supported_pairs"
-                guard_triggered = guard_action is not None
     elif is_no_answer:
         validation_action = "no_answer_preserved"
         selection_source = "pass_a"
@@ -280,32 +268,7 @@ def finalize_page_attribution(
         collapsed_answer=collapsed_answer,
         selection_source=selection_source,
         llm_selected_count=llm_selected_count,
-        guard_triggered=guard_triggered,
     )
-
-
-def _apply_recall_guard(
-    *,
-    candidate_pairs: set[tuple[str, int]],
-    filtered_pairs: set[tuple[str, int]],
-    config: PageAttributionConfig,
-) -> tuple[set[tuple[str, int]], str | None]:
-    """Apply recall guardrails so precision filtering never destroys retrieval coverage."""
-
-    if not filtered_pairs:
-        return candidate_pairs, "recall_guard_empty_preserved"
-
-    min_filtered_page_count = max(int(config.min_filtered_page_count), 1)
-    if len(filtered_pairs) < min_filtered_page_count:
-        return candidate_pairs, "recall_guard_min_count_preserved"
-
-    candidate_count = max(len(candidate_pairs), 1)
-    retained_ratio = float(len(filtered_pairs)) / float(candidate_count)
-    min_filtered_page_ratio = max(0.0, min(float(config.min_filtered_page_ratio), 1.0))
-    if retained_ratio < min_filtered_page_ratio:
-        return candidate_pairs, "recall_guard_ratio_preserved"
-
-    return filtered_pairs, None
 
 
 def group_page_reference_pairs(page_pairs: Iterable[tuple[str, int]]) -> list[PageReference]:
@@ -356,7 +319,6 @@ def build_page_trace(
     collapsed_answer: bool,
     selection_source: str = "pass_a",
     llm_selected_count: int = 0,
-    guard_triggered: bool = False,
 ) -> PageAttributionTrace:
     """Build page trace.
 
@@ -369,7 +331,6 @@ def build_page_trace(
         collapsed_answer: Input parameter.
         selection_source: Input parameter.
         llm_selected_count: Input parameter.
-        guard_triggered: Input parameter.
 
     Returns:
         Any: The computed result of the function.
@@ -383,7 +344,6 @@ def build_page_trace(
         collapsed_answer=collapsed_answer,
         selection_source=selection_source,
         llm_selected_count=max(int(llm_selected_count), 0),
-        guard_triggered=bool(guard_triggered),
     )
 
 

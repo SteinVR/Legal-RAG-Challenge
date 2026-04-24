@@ -22,6 +22,7 @@ from src.indexing.chunking_core import IndexChunk, build_index_chunks
 from src.indexing.embedders import (
     BM25SparseEncoder,
     build_dense_embedder,
+    build_query_embedder,
     dense_encoder_contract,
 )
 from src.indexing.state import load_page_parent_map
@@ -29,6 +30,14 @@ from src.indexing.text_features import tokenize_text
 from src.submission.sync import PhasePaths
 
 LOGGER = get_logger("indexing.service")
+__all__ = [
+    "BM25SparseEncoder",
+    "BuildIndexResult",
+    "HybridIndexService",
+    "IndexPaths",
+    "build_query_embedder",
+    "format_build_index_result",
+]
 
 
 @dataclass(slots=True)

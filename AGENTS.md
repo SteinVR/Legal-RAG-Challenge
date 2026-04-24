@@ -7,7 +7,7 @@
 ## Workflow
 - Core loop: investigate -> plan -> implement -> verify.
 - Use the own internal todo list proactively.
-- Do not present environment, permission, hardware, or runtime prerequisites as final blockers when they can be resolved by user approval/action. State the exact missing prerequisite and ask the user for the needed permission/action instead of treating it as an excuse to stop verification.
+- GPU/CUDA/model-runtime checks and GPU-backed e2e runs must be executed outside the Codex sandbox. The sandbox can hide CUDA devices; do not conclude that CUDA is unavailable until an outside-sandbox check has been run.
 
 ## Skills paradigm
 - Proactively load the relevant skill at the start of a task -- do not wait to be explicitly asked.

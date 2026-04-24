@@ -39,8 +39,6 @@ def apply_env_overrides(config: "AppConfig", env: Mapping[str, str]) -> "AppConf
     enable_semantic_table_blocks_override = env.get("COMPETITION_ENABLE_SEMANTIC_TABLE_BLOCKS")
     pass_a_enabled_override = env.get("COMPETITION_PASS_A_ENABLED")
     page_validation_mode_override = env.get("COMPETITION_PAGE_VALIDATION_MODE")
-    page_filter_min_ratio_override = env.get("COMPETITION_PAGE_FILTER_MIN_RATIO")
-    page_filter_min_count_override = env.get("COMPETITION_PAGE_FILTER_MIN_COUNT")
     require_gpu_override = env.get("COMPETITION_REQUIRE_GPU")
     decomposition_enabled_override = env.get("COMPETITION_DECOMPOSITION_ENABLED")
     log_level_override = env.get("COMPETITION_LOG_LEVEL")
@@ -127,10 +125,6 @@ def apply_env_overrides(config: "AppConfig", env: Mapping[str, str]) -> "AppConf
         page_attribution_updates["pass_a_enabled"] = parse_bool(pass_a_enabled_override)
     if page_validation_mode_override:
         page_attribution_updates["validation_mode"] = parse_page_validation_mode(page_validation_mode_override)
-    if page_filter_min_ratio_override:
-        page_attribution_updates["min_filtered_page_ratio"] = float(page_filter_min_ratio_override)
-    if page_filter_min_count_override:
-        page_attribution_updates["min_filtered_page_count"] = int(page_filter_min_count_override)
     if page_attribution_updates:
         config = config.model_copy(
             update={"page_attribution": config.page_attribution.model_copy(update=page_attribution_updates)}

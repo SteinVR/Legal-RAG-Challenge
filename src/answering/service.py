@@ -278,7 +278,6 @@ class AnsweringService:
                         collapsed_answer=finalized.collapsed_answer,
                         selection_source=finalized.selection_source,
                         llm_selected_count=finalized.llm_selected_count,
-                        guard_triggered=finalized.guard_triggered,
                     ),
                     model_name=provider_model_name,
                 )
@@ -294,7 +293,6 @@ class AnsweringService:
                     collapsed_answer=finalized.collapsed_answer,
                     selection_source=finalized.selection_source,
                     llm_selected_count=finalized.llm_selected_count,
-                    guard_triggered=finalized.guard_triggered,
                 ),
             )
 
@@ -340,7 +338,6 @@ class AnsweringService:
                         collapsed_answer=finalized.collapsed_answer,
                         selection_source=finalized.selection_source,
                         llm_selected_count=finalized.llm_selected_count,
-                        guard_triggered=finalized.guard_triggered,
                     ),
                     model_name=provider_model_name,
                 )
@@ -356,7 +353,6 @@ class AnsweringService:
                     collapsed_answer=finalized.collapsed_answer,
                     selection_source=finalized.selection_source,
                     llm_selected_count=finalized.llm_selected_count,
-                    guard_triggered=finalized.guard_triggered,
                 ),
             )
 
@@ -391,7 +387,6 @@ class AnsweringService:
                     collapsed_answer=finalized.collapsed_answer,
                     selection_source=finalized.selection_source,
                     llm_selected_count=finalized.llm_selected_count,
-                    guard_triggered=finalized.guard_triggered,
                 ),
                 model_name=provider_model_name,
             )
@@ -426,7 +421,6 @@ class AnsweringService:
                     collapsed_answer=finalized.collapsed_answer,
                     selection_source=finalized.selection_source,
                     llm_selected_count=finalized.llm_selected_count,
-                    guard_triggered=finalized.guard_triggered,
                 ),
             )
 
@@ -444,7 +438,6 @@ class AnsweringService:
                 collapsed_answer=finalized.collapsed_answer,
                 selection_source=finalized.selection_source,
                 llm_selected_count=finalized.llm_selected_count,
-                guard_triggered=finalized.guard_triggered,
             ),
             model_name=provider_model_name,
         )
