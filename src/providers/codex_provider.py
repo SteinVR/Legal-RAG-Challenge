@@ -8,6 +8,7 @@ import math
 import os
 import time
 from dataclasses import dataclass, field
+from importlib import resources
 from typing import Any
 
 import httpx
@@ -24,24 +25,20 @@ _MAX_RETRIES = 6
 _RETRY_BACKOFF_SECONDS = (1.0, 3.0, 8.0, 15.0, 20.0, 30.0)
 DEFAULT_MAX_OUTPUT_TOKENS = 2048
 LOGGER = get_logger("providers.codex")
+_SYSTEM_PROMPT_RESOURCE = ("resources", "prompts", "answering", "system.md")
 
-_STRUCTURED_SYSTEM_PROMPT = (
-    "Answer strictly from the provided legal evidence and return one JSON object that follows the supplied schema. "
-    "Treat the Evidence list as the authoritative candidate set for page attribution. "
-    "Use null only when the schema permits null and the evidence is insufficient. "
-    "Run a self-review gate before finalizing: verify every claim in final_answer is directly supported by Evidence. "
-    "Set is_answerable=false only as a last resort, when no evidence item directly supports any defensible answer. "
-    "Do not use is_answerable=false just because support is distributed across multiple evidence items or pages. "
-    "If is_answerable=false, set relevant_evidence_indices=[] and relevant_pages=[]. "
-    "If at least one evidence item supports a defensible answer, set is_answerable=true. "
-    f"For free_text with is_answerable=false, final_answer must be exactly '{_CANONICAL_UNANSWERABLE_FREE_TEXT}'. "
-    "For non-free_text with is_answerable=false, final_answer must be null. "
-    "For dates, always use ISO-8601 format (YYYY-MM-DD). "
-    "Use relevant_evidence_indices as 1-based indices of evidence items that directly support the answer. "
-    "Keep relevant_pages aligned with those supporting evidence pages. "
-    "Prioritize evidence recall: include every directly supporting evidence item. "
-    "When in doubt between a narrower and broader supporting set, prefer the broader supported set."
-)
+
+def _load_structured_system_prompt() -> str:
+    """Load the schema-bound answering system prompt from packaged resources."""
+
+    template = resources.files("src").joinpath(*_SYSTEM_PROMPT_RESOURCE).read_text(encoding="utf-8")
+    return template.replace(
+        "{canonical_unanswerable_free_text}",
+        _CANONICAL_UNANSWERABLE_FREE_TEXT,
+    ).strip()
+
+
+_STRUCTURED_SYSTEM_PROMPT = _load_structured_system_prompt()
 
 
 @dataclass(slots=True)
@@ -386,20 +383,6 @@ def _build_structured_user_prompt(*, question: str, answer_type: str, evidence_p
     return (
         f"Answer type: {_normalize_whitespace(answer_type)}\n"
         f"Question: {_normalize_whitespace(question)}\n"
-        "Selection contract:\n"
-        "- Self-review gate: draft answer, verify direct support in Evidence, then finalize.\n"
-        "- Set is_answerable=false only when no Evidence item directly supports any defensible answer.\n"
-        "- Do not set is_answerable=false merely because support must be synthesized across multiple Evidence items.\n"
-        "- If is_answerable=false and answer_type=free_text, set final_answer to "
-        f"'{_CANONICAL_UNANSWERABLE_FREE_TEXT}'.\n"
-        "- If is_answerable=false and answer_type!=free_text, set final_answer to null.\n"
-        "- relevant_evidence_indices: 1-based list of evidence indices from Evidence below.\n"
-        "- relevant_pages: page numbers corresponding to selected evidence.\n"
-        "- If no evidence item explicitly supports the answer, return relevant_evidence_indices=[] "
-        "and relevant_pages=[].\n"
-        "- Do not reference pages outside this Evidence list.\n"
-        "- Include every directly supporting evidence item.\n"
-        "- When uncertain, prefer a broader supported evidence set over an underspecified subset.\n"
         "Evidence:\n"
         f"{evidence_blob}"
     )

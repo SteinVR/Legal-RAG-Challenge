@@ -1,12 +1,3 @@
-## Memory Bank (SSOT)
-- Directory is `memory_bank/`.
-- **TASKS.md:** grouped, ordered high-level tasks only (lives directly in `memory_bank/`, not inside `tasks/`).
-- **design/SPEC-{module}.md:** frozen global module specifications -- contracts, ready interfaces, typecheck gates, invariants, data formats. Updated only with approval.
-- **specs/SPEC_{TASK_ID}.md:** frozen task specification -- goal, pipeline, contracts, ready interfaces, typecheck automation, DoD. **Read-only during execution. Do not modify.**
-- **tasks/{TASK_ID}.md:** working journal -- notes, review findings, outcome.
-- **STATE.md:** compact operational status and blockers.
-- Keep main headers from templates intact; add sub-sections only when needed.
-
 ## Project map
 - `memory_bank/` -- architecture source of truth, state, and task board.
 - `src/` -- implementation. `src/AGENTS.md` defines implementation code conventions for this tree.
@@ -16,6 +7,7 @@
 ## Workflow
 - Core loop: investigate -> plan -> implement -> verify.
 - Use the own internal todo list proactively.
+- Do not present environment, permission, hardware, or runtime prerequisites as final blockers when they can be resolved by user approval/action. State the exact missing prerequisite and ask the user for the needed permission/action instead of treating it as an excuse to stop verification.
 
 ## Skills paradigm
 - Proactively load the relevant skill at the start of a task -- do not wait to be explicitly asked.

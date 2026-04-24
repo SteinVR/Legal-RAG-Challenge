@@ -37,7 +37,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
-include = ["src/resources/**/*.yaml"]
+include = ["src/resources/**/*.yaml", "src/resources/**/*.md"]
 
 [[tool.uv.index]]
 name = "local-cuda"
