@@ -50,17 +50,33 @@ fi
 echo ".env: present ($ENV_FILE)"
 
 provider_key_count=0
-for KEY in CODEX_OAUTH_TOKEN OPENAI_API_KEY CODEX_API_KEY; do
-    VALUE="${!KEY:-}"
-    if [ -z "$VALUE" ]; then
-        VALUE=$(grep "^${KEY}=" "$ENV_FILE" 2>/dev/null | tail -n 1 | cut -d= -f2- || true)
-    fi
-    if [ -z "$VALUE" ] || [ "$VALUE" = "set_in_real_env" ]; then
+while IFS='|' read -r KEY VALUE_LEN; do
+    if [ -z "$KEY" ]; then
         continue
     fi
     provider_key_count=$((provider_key_count + 1))
-    echo "$KEY: set (${#VALUE} chars)"
-done
+    echo "$KEY: set (${VALUE_LEN} chars)"
+done < <("$PYTHON" - "$ENV_FILE" <<'PY'
+import os
+import sys
+from pathlib import Path
+
+try:
+    from dotenv import dotenv_values
+except Exception:
+    dotenv_values = None
+
+env_file = Path(sys.argv[1])
+env_values = dotenv_values(env_file) if dotenv_values is not None and env_file.exists() else {}
+for key in ("CODEX_OAUTH_TOKEN", "OPENAI_API_KEY", "CODEX_API_KEY"):
+    value = os.environ.get(key, "").strip()
+    if not value:
+        value = str(env_values.get(key) or "").strip()
+    if not value or value == "set_in_real_env":
+        continue
+    print(f"{key}|{len(value)}")
+PY
+)
 if [ "$provider_key_count" -eq 0 ]; then
     warn "No provider credential found (checked CODEX_OAUTH_TOKEN, OPENAI_API_KEY, CODEX_API_KEY)."
 fi
@@ -110,6 +126,12 @@ fi
 DISK_FREE=$(df -h "$PROJECT_ROOT" 2>/dev/null | tail -1 | awk '{print $4}')
 echo "Disk free: $DISK_FREE"
 
+if command -v java >/dev/null 2>&1; then
+    echo "Java: $(java -version 2>&1 | head -n 1)"
+else
+    warn "Java runtime is missing; opendataloader-pdf structural conversion requires java."
+fi
+
 # Python runtime readiness
 echo "--- Python runtime ---"
 "$PYTHON" - <<'PY'
@@ -132,6 +154,20 @@ try:
 except Exception as exc:
     print(f"WARN: paddle check failed: {exc!r}")
 
+try:
+    import opendataloader_pdf
+
+    print(f"opendataloader_pdf: {getattr(opendataloader_pdf, '__version__', 'present')}")
+except Exception as exc:
+    print(f"WARN: opendataloader_pdf check failed: {exc!r}")
+
+try:
+    import docling
+
+    print(f"docling: {getattr(docling, '__version__', 'present')}")
+except Exception as exc:
+    print(f"WARN: docling check failed: {exc!r}")
+
 hf_cache = Path.home() / ".cache" / "huggingface" / "hub"
 embedder_dir = hf_cache / "models--Qwen--Qwen3-Embedding-0.6B"
 reranker_dir = hf_cache / "models--Qwen--Qwen3-Reranker-0.6B"
@@ -144,6 +180,18 @@ print(f"Reranker cache: {'present' if reranker_dir.exists() else 'missing'}")
 print(f"OCR det cache: {'present' if ocr_det_dir.exists() else 'missing'}")
 print(f"OCR rec cache: {'present' if ocr_rec_dir.exists() else 'missing'}")
 PY
+
+if [ -x "$(dirname "$PYTHON")/opendataloader-pdf" ]; then
+    echo "OpenDataLoader CLI: present ($(dirname "$PYTHON")/opendataloader-pdf)"
+else
+    warn "OpenDataLoader CLI missing. Run ./scripts/01_install_deps.sh or ./scripts/01b_install_opendataloader_runtime.sh."
+fi
+
+if [ -x "$(dirname "$PYTHON")/opendataloader-pdf-hybrid" ]; then
+    echo "OpenDataLoader hybrid CLI: present ($(dirname "$PYTHON")/opendataloader-pdf-hybrid)"
+else
+    warn "OpenDataLoader hybrid CLI missing. Docling hybrid backend will not start."
+fi
 
 # Data directories
 if [ -d "$PROJECT_ROOT/data/warmup/documents/pdfs" ]; then

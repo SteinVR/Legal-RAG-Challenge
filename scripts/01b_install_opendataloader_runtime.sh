@@ -1,66 +1,65 @@
 #!/usr/bin/env bash
-# 01b_install_opendataloader_runtime.sh — Install system + Python runtime for vendored opendataloader-pdf.
+# 01b_install_opendataloader_runtime.sh - Install/verify OpenDataLoader + Docling hybrid runtime.
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PYTHON="$PROJECT_ROOT/.venv/bin/python"
-OPENDATALOADER_ROOT="$PROJECT_ROOT/external/opendataloader-pdf"
-OPENDATALOADER_PYTHON_DIR="$OPENDATALOADER_ROOT/python/opendataloader-pdf"
-OPENDATALOADER_JAVA_DIR="$OPENDATALOADER_ROOT/java"
-HEADLESS_JAVA_TOOL_OPTION="-Djava.awt.headless=true"
+GIT_COMMON_DIR="$(git -C "$PROJECT_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+COMMON_ROOT="$PROJECT_ROOT"
+if [ -n "$GIT_COMMON_DIR" ]; then
+    COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
+fi
 
-WITH_HYBRID=1
-SKIP_SYSTEM_PACKAGES=0
+if [ -x "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+elif [ -x "$COMMON_ROOT/.venv/bin/python" ]; then
+    PYTHON="$COMMON_ROOT/.venv/bin/python"
+else
+    echo "FAIL: python runtime missing; run ./scripts/01_install_deps.sh first." >&2
+    exit 1
+fi
+
+VENV_DIR="$(cd "$(dirname "$PYTHON")/.." && pwd)"
+OPENDATALOADER_BIN="$VENV_DIR/bin/opendataloader-pdf"
+OPENDATALOADER_HYBRID_BIN="$VENV_DIR/bin/opendataloader-pdf-hybrid"
+INSTALL=1
+SMOKE_PARSE=1
 
 usage() {
-    cat <<'EOF'
-Usage: scripts/01b_install_opendataloader_runtime.sh [options]
+    cat <<'USAGE'
+Usage: ./scripts/01b_install_opendataloader_runtime.sh [options]
 
 Options:
-  --with-hybrid           Explicitly keep hybrid extras enabled.
-  --without-hybrid        Skip hybrid-server extras and install only the base wrapper.
-  --skip-system-packages  Do not install JDK/Maven; only build/install vendored artifacts.
-  -h, --help              Show this help.
+  --verify-only      Do not install; only verify current runtime.
+  --no-smoke         Skip the local opendataloader-pdf smoke parse.
+  -h, --help         Show this help.
 
-This script is intended for manual operator execution. It:
-1. Installs Java + Maven with the detected package manager.
-2. Builds the vendored opendataloader-pdf CLI JAR.
-3. Installs the vendored Python wrapper into the repo .venv.
-4. Verifies java, maven, the bundled JAR, and Python importability.
-EOF
+This project uses the PyPI opendataloader-pdf package, not a vendored external build.
+The hybrid backend is provided by opendataloader-pdf[hybrid] and exposed as:
+  .venv/bin/opendataloader-pdf-hybrid --host 127.0.0.1 --port 5002 --device cpu --force-ocr
+USAGE
 }
 
-while (($# > 0)); do
+while [ $# -gt 0 ]; do
     case "$1" in
-    --with-hybrid)
-        WITH_HYBRID=1
-        ;;
-    --without-hybrid)
-        WITH_HYBRID=0
-        ;;
-    --skip-system-packages)
-        SKIP_SYSTEM_PACKAGES=1
-        ;;
-    -h|--help)
-        usage
-        exit 0
-        ;;
-    *)
-        echo "Unknown argument: $1" >&2
-        usage >&2
-        exit 1
-        ;;
+        --verify-only)
+            INSTALL=0
+            shift
+            ;;
+        --no-smoke)
+            SMOKE_PARSE=0
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "FAIL: unknown option '$1'" >&2
+            usage >&2
+            exit 1
+            ;;
     esac
-    shift
 done
-
-require_file() {
-    local path="$1"
-    if [[ ! -e "$path" ]]; then
-        echo "FAIL: required path is missing: $path" >&2
-        exit 1
-    fi
-}
 
 require_cmd() {
     local name="$1"
@@ -70,148 +69,47 @@ require_cmd() {
     fi
 }
 
-run_as_root() {
-    if [[ "${EUID:-$(id -u)}" -eq 0 ]]; then
-        "$@"
-        return
-    fi
-    if command -v sudo >/dev/null 2>&1; then
-        sudo "$@"
-        return
-    fi
-    echo "FAIL: root privileges are required for system package installation, but sudo is not available." >&2
-    exit 1
-}
+cd "$PROJECT_ROOT"
 
-detect_package_manager() {
-    local candidates=(pacman apt-get dnf brew)
-    local candidate
-    for candidate in "${candidates[@]}"; do
-        if command -v "$candidate" >/dev/null 2>&1; then
-            printf '%s\n' "$candidate"
-            return
-        fi
-    done
-    return 1
-}
-
-install_system_packages() {
-    local package_manager
-    if [[ "$SKIP_SYSTEM_PACKAGES" -eq 1 ]]; then
-        echo "=== Skipping system package installation by request ==="
-        return
-    fi
-
-    if command -v java >/dev/null 2>&1 && command -v mvn >/dev/null 2>&1; then
-        echo "=== java and mvn already present; skipping system package installation ==="
-        return
-    fi
-
-    if ! package_manager="$(detect_package_manager)"; then
-        echo "FAIL: unsupported package manager. Install Java 11+ and Maven manually, then rerun with --skip-system-packages." >&2
-        exit 1
-    fi
-
-    echo "=== Installing system packages via $package_manager ==="
-    case "$package_manager" in
-        pacman)
-            run_as_root pacman -Sy --noconfirm jdk-openjdk maven
-            ;;
-        apt-get)
-            run_as_root apt-get update
-            run_as_root apt-get install -y openjdk-21-jdk maven
-            ;;
-        dnf)
-            run_as_root dnf install -y java-21-openjdk-devel maven
-            ;;
-        brew)
-            brew install openjdk@21 maven
-            cat <<'EOF'
-NOTE: Homebrew may require you to add OpenJDK to PATH manually, for example:
-  export PATH="$(brew --prefix openjdk@21)/bin:$PATH"
-EOF
-            ;;
-    esac
-}
-
-build_vendored_jar() {
-    echo "=== Building vendored opendataloader-pdf JAR ==="
-    require_cmd mvn
-    require_file "$OPENDATALOADER_JAVA_DIR/pom.xml"
-    (
-        cd "$OPENDATALOADER_JAVA_DIR"
-        mvn -DskipTests package
-    )
-}
-
-install_python_wrapper() {
-    local target
-    local cleanup_readme=0
-
+if [ "$INSTALL" -eq 1 ]; then
     require_cmd uv
-    require_file "$PYTHON"
-    require_file "$OPENDATALOADER_PYTHON_DIR/pyproject.toml"
-    require_file "$OPENDATALOADER_ROOT/README.md"
+    echo "=== Installing OpenDataLoader Hybrid Runtime ==="
+    uv pip install --python "$PYTHON" "opendataloader-pdf[hybrid]>=2.3.0"
+fi
 
-    echo "=== Installing vendored Python wrapper into .venv ==="
-
-    if [[ ! -f "$OPENDATALOADER_PYTHON_DIR/README.md" ]]; then
-        cp "$OPENDATALOADER_ROOT/README.md" "$OPENDATALOADER_PYTHON_DIR/README.md"
-        cleanup_readme=1
-    fi
-
-    if [[ "$WITH_HYBRID" -eq 1 ]]; then
-        target="$OPENDATALOADER_PYTHON_DIR[hybrid]"
-    else
-        target="$OPENDATALOADER_PYTHON_DIR"
-    fi
-
-    uv pip install --python "$PYTHON" -e "$target"
-
-    if [[ "$cleanup_readme" -eq 1 ]]; then
-        rm -f "$OPENDATALOADER_PYTHON_DIR/README.md"
-    fi
-}
-
-verify_runtime() {
-    local jar_path
-    local smoke_dir
-
-    echo "=== Verifying runtime ==="
-    require_cmd java
-    require_cmd mvn
-    java -version
-    mvn -version
-
-    jar_path="$("$PYTHON" - <<'PY'
+echo "=== Verifying OpenDataLoader Runtime ==="
+require_cmd java
+echo "java: $(java -version 2>&1 | head -n 1)"
+"$PYTHON" - <<'PY'
+import importlib
 from importlib.resources import files
-print(files("opendataloader_pdf").joinpath("jar/opendataloader-pdf-cli.jar"))
-PY
-)"
 
-    if [[ ! -f "$jar_path" ]]; then
-        echo "FAIL: bundled JAR not found at $jar_path" >&2
-        exit 1
-    fi
-
-    "$PYTHON" - <<'PY'
-import opendataloader_pdf
-from importlib.resources import files
+for module_name in ("opendataloader_pdf", "docling", "fastapi", "uvicorn"):
+    module = importlib.import_module(module_name)
+    print(f"{module_name}: {getattr(module, '__version__', 'OK')}")
 
 jar_path = files("opendataloader_pdf").joinpath("jar/opendataloader-pdf-cli.jar")
-print(f"opendataloader_pdf import OK: {opendataloader_pdf.__file__}")
-print(f"bundled jar OK: {jar_path}")
+if not jar_path.is_file():
+    raise SystemExit(f"FAIL: bundled OpenDataLoader JAR is missing: {jar_path}")
+print(f"bundled jar: {jar_path}")
 PY
 
-    if [[ -x "$PROJECT_ROOT/.venv/bin/opendataloader-pdf" ]]; then
-        "$PROJECT_ROOT/.venv/bin/opendataloader-pdf" --help >/dev/null
-        echo "opendataloader-pdf CLI wrapper: OK"
+for cli_path in "$OPENDATALOADER_BIN" "$OPENDATALOADER_HYBRID_BIN"; do
+    if [ -x "$cli_path" ]; then
+        echo "CLI OK: $cli_path"
     else
-        echo "FAIL: .venv/bin/opendataloader-pdf is missing" >&2
+        echo "FAIL: expected CLI is missing: $cli_path" >&2
         exit 1
     fi
+done
 
+"$OPENDATALOADER_BIN" --help >/dev/null
+"$OPENDATALOADER_HYBRID_BIN" --help >/dev/null
+
+if [ "$SMOKE_PARSE" -eq 1 ]; then
+    echo "=== Running OpenDataLoader Smoke Parse ==="
     smoke_dir="$(mktemp -d)"
+    trap 'rm -rf "$smoke_dir"' EXIT
     "$PYTHON" - <<'PY' "$smoke_dir"
 import sys
 from pathlib import Path
@@ -226,31 +124,20 @@ page.insert_text((72, 72), "DIFC LAW NO. 1\nArticle 1\nSmoke parse for opendatal
 doc.save(pdf_path)
 doc.close()
 PY
-    JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS:-} ${HEADLESS_JAVA_TOOL_OPTION}" \
-        "$PROJECT_ROOT/.venv/bin/opendataloader-pdf" \
+    JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS:-} -Djava.awt.headless=true" \
+        "$OPENDATALOADER_BIN" \
         "$smoke_dir/smoke.pdf" \
         --output-dir "$smoke_dir/out" \
         --format json \
         --table-method cluster \
         --reading-order xycut \
         --quiet
-    if [[ ! -f "$smoke_dir/out/smoke.json" ]]; then
+    if [ ! -f "$smoke_dir/out/smoke.json" ]; then
         echo "FAIL: opendataloader smoke parse did not produce JSON output" >&2
         exit 1
     fi
     echo "opendataloader smoke parse: OK"
-}
+fi
 
-main() {
-    require_file "$PROJECT_ROOT/.venv"
-    require_file "$OPENDATALOADER_ROOT"
-
-    install_system_packages
-    build_vendored_jar
-    install_python_wrapper
-    verify_runtime
-
-    echo "=== opendataloader runtime is ready ==="
-}
-
-main "$@"
+echo "=== OpenDataLoader Runtime OK ==="
+echo "Hybrid backend command: $OPENDATALOADER_HYBRID_BIN --host 127.0.0.1 --port 5002 --device cpu --force-ocr --log-level info"

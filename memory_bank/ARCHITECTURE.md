@@ -187,10 +187,10 @@ This section reflects the currently implemented module layout.
 
 ### I. Operator Scripts (`scripts/`)
 - Numbered pipeline scripts:
-    - `00_check_env.sh` - preflight environment check (`.venv/.env`, provider keys, GPU/CUDA, model caches, warmup data)
+    - `00_check_env.sh` - preflight environment check (`.venv/.env`, provider keys, GPU/CUDA, model caches, OpenDataLoader/Docling runtime, warmup data)
     - `00_repair_gpu_runtime.sh` - NVIDIA runtime recovery helper (`nvidia-modprobe`, device nodes, CUDA checks in `torch` and `paddle`)
-    - `01_install_deps.sh` - Python dependency installer (`uv`), editable package install, `paddlepaddle-gpu` setup, import verification
-    - `01b_install_opendataloader_runtime.sh` - manual OpenDataLoader runtime bootstrap (system deps, Maven build, Python wrapper install, smoke parse)
+    - `01_install_deps.sh` - canonical Python dependency installer (`uv`), `.venv` creation/repair, editable package install, Paddle GPU setup, OpenDataLoader hybrid extras, import/CLI verification
+    - `01b_install_opendataloader_runtime.sh` - package-based OpenDataLoader/Docling runtime verifier/repair helper, including CLI checks and smoke parse
     - `02_download_models.sh` - retrieval model downloader (`Qwen3-Embedding-0.6B`, `Qwen3-Reranker-0.6B`) with optional `--verify` smoke path
     - `03_lint_and_test.sh` - local quality gate (`bash -n`, `ruff`, `compileall`, `pytest`)
     - `04_parse_corpus.sh` - wrapper for `parse-corpus` with phase-aware paths and output artifact validation
@@ -200,7 +200,7 @@ This section reflects the currently implemented module layout.
     - Additional utilities:
     - `smoke_test_w4e.py` - fast end-to-end smoke run on a small question slice to catch retrieval/answering regressions
     - `audit_challenge_corpus.py` - corpus auditing utility (documents/questions/archive coverage and summary report)
-    - `download_cuda_wheels.sh` - helper to pre-download CUDA wheel files for faster/offline dependency installation
+    - `autoresearch_grounding_runner.py`, `autoresearch_keep.py`, `e2e_resume.py`, `postprocess_grounding_ledger.py` - warmup/autoresearch execution and analysis helpers
 
 ---
 
