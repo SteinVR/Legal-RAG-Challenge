@@ -67,9 +67,6 @@ def build_opendataloader_sidecar(
 ) -> RawParseSidecar:
     """Execute opendataloader for one routed path and adapt JSON to sidecar schema."""
 
-    if parser_route is ParserRoute.BASELINE_FALLBACK:
-        raise ValueError("Baseline fallback route does not execute opendataloader.")
-
     source_path = Path(pdf_path)
     try:
         with TemporaryDirectory(prefix=f"opendataloader-{source_path.stem}-") as tmp_dir:
@@ -125,14 +122,12 @@ def route_provenance(parser_route: ParserRoute) -> str:
 
 def _route_provenance(parser_route: ParserRoute) -> str:
     """Execute `_route_provenance`."""
-    suffix = {
+    route_suffixes = {
         ParserRoute.TAGGED: "tagged",
         ParserRoute.HYBRID: "hybrid",
         ParserRoute.LOCAL_ONLY: "local_only",
-    }.get(parser_route)
-    if suffix is None:
-        return "pymupdf:native"
-    return f"opendataloader:{suffix}"
+    }
+    return f"opendataloader:{route_suffixes[parser_route]}"
 
 
 def _run_opendataloader_convert(

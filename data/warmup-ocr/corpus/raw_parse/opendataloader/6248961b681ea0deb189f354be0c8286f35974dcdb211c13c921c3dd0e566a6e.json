@@ -1,0 +1,1467 @@
+{
+  "doc_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 7,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "4": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "5": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "6": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "7": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 100,
+    "table_count": 0
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n93",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "CFI 016/2025 Omar Ben Hallam v Natixis",
+      "bbox": [
+        25.0,
+        676.253,
+        366.333,
+        696.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n94",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "FEBRUARY 03, 2026 COURT OF FIRST INSTANCE ORDERS",
+      "bbox": [
+        25.667,
+        656.587,
+        349.667,
+        670.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n95",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No: CFI 016/2025",
+      "bbox": [
+        438.333,
+        611.587,
+        571.667,
+        625.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n96",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "IN THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": [
+        123.667,
+        581.587,
+        473.0,
+        594.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n97",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN THE COURT OF FIRST INSTANCE",
+      "bbox": [
+        25.0,
+        551.587,
+        230.333,
+        564.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n98",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": [
+        25.0,
+        523.587,
+        87.0,
+        537.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n99",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "OMAR BEN HALLAM",
+      "bbox": [
+        238.333,
+        494.253,
+        357.667,
+        507.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n101",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": [
+        287.0,
+        438.253,
+        309.667,
+        450.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n102",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "NATIXIS",
+      "bbox": [
+        275.0,
+        408.253,
+        322.333,
+        421.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n100",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claimant",
+      "bbox": [
+        521.0,
+        465.587,
+        571.667,
+        479.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n103",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Defendant",
+      "bbox": [
+        513.667,
+        380.253,
+        571.667,
+        394.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n104",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ORDER WITH REASONS OF H.E. DEPUTY CHIEF JUSTICE ALI AL MADHANI",
+      "bbox": [
+        84.333,
+        331.587,
+        511.667,
+        346.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n105",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UPON the Claim Form being filed on 24 February 2025 (the \"Claim\")",
+      "bbox": [
+        24.333,
+        275.92,
+        391.0,
+        293.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n106",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Order with Reasons of H.E. Deputy Chief Justice Ali Al Madhani dated 19 September 2025 (the \"Judgment)",
+      "bbox": [
+        24.0,
+        225.92,
+        572.0,
+        262.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n107",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Claimant's Application No. CFI-016-2025/3 seeking a variation of the Judgment in relation to awarded costs (the \"No Costs Application\")",
+      "bbox": [
+        24.667,
+        175.92,
+        572.0,
+        212.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n108",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "IT IS HEREBY ORDERED THAT:",
+      "bbox": [
+        25.0,
+        148.253,
+        201.667,
+        161.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n109",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "1 The No Costs Application is dismissed.",
+      "bbox": [
+        26.0,
+        117.253,
+        246.667,
+        133.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n110",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "There shall be no order as to costs for the No Costs Application.",
+      "bbox": [
+        24.667,
+        89.92,
+        378.667,
+        105.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n111",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "The Claimant is to pay AED 70,000 in costs to the Defendant pursuant to the Judgment.",
+      "bbox": [
+        24.667,
+        61.92,
+        506.667,
+        79.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n112",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Issued by:",
+      "bbox": [
+        403.333,
+        809.253,
+        462.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n113",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Hayley Norton",
+      "bbox": [
+        403.333,
+        786.587,
+        485.333,
+        802.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n114",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Assistant Registrar",
+      "bbox": [
+        404.667,
+        766.587,
+        508.0,
+        782.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n115",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Date of issue: 3 February 2026",
+      "bbox": [
+        404.667,
+        746.587,
+        572.0,
+        762.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n116",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "At: 4pm",
+      "bbox": [
+        404.333,
+        726.92,
+        447.667,
+        740.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n117",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "SCHEDULE OF REASONS",
+      "bbox": [
+        24.0,
+        698.253,
+        172.333,
+        712.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n118",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1 This No Costs Application is brought by the Claimant seeking an order to vary the Judgment dated 19 September 2025 insofar as it relates to costs.",
+      "bbox": [
+        25.667,
+        647.253,
+        572.0,
+        685.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n119",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The Judgment was awarded in favour of the Defendant; as three of the Claimant's claims were struck out; and the fourth was dismissed subject to immediate judgment. At paragraphs 4 and 5 of the summary order; the parties were directed to file their costs submissions.",
+      "bbox": [
+        24.0,
+        579.587,
+        572.0,
+        637.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n120",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "On 26 September 2025, the Defendant filed its Statement of Costs; the Claimant filed its objections as to quantum on 1 October 2025. As of the date of issue of this Order; costs quantum has not been determined by the Court.",
+      "bbox": [
+        24.667,
+        512.253,
+        572.0,
+        568.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n121",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "4 . On 29 October 2025, the Claimant filed his No Costs Application following a letter addressed to the Court; which requested the Court to issue an order of its own initiative to vary the Judgment so that no costs order was made. The No Costs Application relies on Practice Direction No. 1 of 2025, which immunes parties to an employment dispute to adverse costs orders.",
+      "bbox": [
+        25.0,
+        422.253,
+        572.0,
+        501.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n122",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The No Costs Application fails on jurisdiction: The reasons for this are below.",
+      "bbox": [
+        25.333,
+        395.253,
+        446.333,
+        411.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n123",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "To note, will dispense with a reiteration of the factual background and procedural history as it is unnecessary at this point of proceedings.",
+      "bbox": [
+        25.0,
+        346.92,
+        572.0,
+        384.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n124",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "Practice_Direction No 1of 2025",
+      "bbox": [
+        25.333,
+        321.587,
+        197.0,
+        334.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n125",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "This Practice Direction came into effect on 1 October 2025 with the purpose of enhancing access to justice in employment-related disputes by amending the costs approach; amongst other directions; so that the general rule that each party bears its own costs is applied in the Court of First Instance and employment proceedings are private by default.",
+      "bbox": [
+        23.333,
+        230.92,
+        572.667,
+        309.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n126",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Paragraphs 3 and 4 of the Practice Direction reads:",
+      "bbox": [
+        24.667,
+        203.253,
+        314.667,
+        220.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n127",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "'Adverse Costs Orders",
+      "bbox": [
+        51.333,
+        175.587,
+        172.667,
+        191.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-1",
+      "kind": "list",
+      "page_number": 2,
+      "text": "3.1 The general rule in employment disputes shall be that each party bears its own legal costs.\n3.2 The Court may; in its discretion; make an adverse costs order where: (a) a party has brought or conducted proceedings unreasonably; (b) a party has acted vexatiously or in bad faith; or (c) it is otherwise in the interests of justice to do SO such order must be proportionate and accompanied by reasons:' Any",
+      "bbox": [
+        46.333,
+        58.253,
+        572.0,
+        163.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-2",
+      "kind": "list_item",
+      "page_number": 2,
+      "text": "3.1 The general rule in employment disputes shall be that each party bears its own legal costs.",
+      "bbox": [
+        47.333,
+        147.253,
+        549.333,
+        163.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-3",
+      "kind": "list_item",
+      "page_number": 2,
+      "text": "3.2 The Court may; in its discretion; make an adverse costs order where: (a) a party has brought or conducted proceedings unreasonably; (b) a party has acted vexatiously or in bad faith; or (c) it is otherwise in the interests of justice to do SO such order must be proportionate and accompanied by reasons:' Any",
+      "bbox": [
+        46.333,
+        58.253,
+        572.0,
+        135.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n130",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "\"Confidentiality of Employment Proceedings",
+      "bbox": [
+        45.667,
+        808.92,
+        283.667,
+        826.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-4",
+      "kind": "list",
+      "page_number": 3,
+      "text": "4.1 Employment proceedings before the CFI shall, by default, be conducted in private.\n4.2 The Court may; upon application or of its own motion; lift confidentiality where it is necessary in the interests of justice; including but not limited to: (a) public accountability; (b) avoiding prejudice to third parties; or (c) preventing abuse of process.\n4.3 Final judgments may be published in anonymised form unless the Court determines that full publication is warranted:'",
+      "bbox": [
+        46.0,
+        665.253,
+        572.0,
+        799.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-5",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "4.1 Employment proceedings before the CFI shall, by default, be conducted in private.",
+      "bbox": [
+        47.333,
+        780.92,
+        504.333,
+        799.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-6",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "4.2 The Court may; upon application or of its own motion; lift confidentiality where it is necessary in the interests of justice; including but not limited to: (a) public accountability; (b) avoiding prejudice to third parties; or (c) preventing abuse of process.",
+      "bbox": [
+        46.0,
+        713.253,
+        572.0,
+        771.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-7",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "4.3 Final judgments may be published in anonymised form unless the Court determines that full publication is warranted:'",
+      "bbox": [
+        46.0,
+        665.253,
+        572.0,
+        703.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-8",
+      "kind": "list",
+      "page_number": 3,
+      "text": "9 variation of the costs order; in the Judgment on the basis that Practice Direction No. 1 of 2025 directs that employment disputes shall ordinarily bear its own costs.\n10. Further; the Claimant seeks relief through the anonymisation of the parties in any public listing and the removal of the Claim from domains; including YouTube, and to compel the Defendant to do the same; under the same Practice Direction. public\n11. The entire No Costs Application rests on the Practice Direction; including pleadings related to the power to enforcement proceedings under DIFC Law No. 2 of 2025 and an application of the Overriding Objective. stay\n12. In response to the variation request, the Defendant makes three submissions; first, the Practice Direction does not apply to this Claim. In the alternative; it is secondly submitted that the Practice Direction alone cannot overturn an issued costs order or, thirdly; an adverse costs order should be made under paragraph 3.2 of the Practice Direction as the Claimant has conducted proceedings unreasonably.\n13. On its first submission, the Defendant highlights that the Practice Direction bears no reference to having retrospective power; and the Claimant accepted that some sum in respect of costs would be payable by him. The Practice Direction does not override this.\n14 Second, if retrospective power is accepted by the Court, the costs order has already been made and cannot be overturned by the Practice Direction; only by way of the Claimant's successful appeal. The Claimant has not appealed.\n15. Third, if the Court accepts that the costs issue remains live; the Defendant submits that the Court should exercise its discretionary case management powers to issue an adverse costs order on the indemnity basis within 14 days summarily assessed in the sum of AED 390,910.77, which is the same amount as filed on 26 September 2025, under paragraph 3.2 of the Practice Direction: The Defendant advances paragraph 3.2(a) and (c) are satisfied on the basis that the Claimant has conducted proceedings unreasonably; evidenced by his entire claim being struck out; and it is otherwise in the interests of justice to do so as the parties have conducted proceedings entirely on the basis of the usual costs rules applying:",
+      "bbox": [
+        23.333,
+        25.253,
+        572.333,
+        631.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-9",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "9 variation of the costs order; in the Judgment on the basis that Practice Direction No. 1 of 2025 directs that employment disputes shall ordinarily bear its own costs.",
+      "bbox": [
+        24.0,
+        576.587,
+        571.667,
+        631.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-10",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "10. Further; the Claimant seeks relief through the anonymisation of the parties in any public listing and the removal of the Claim from domains; including YouTube, and to compel the Defendant to do the same; under the same Practice Direction. public",
+      "bbox": [
+        24.333,
+        509.587,
+        572.333,
+        566.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-11",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "11. The entire No Costs Application rests on the Practice Direction; including pleadings related to the power to enforcement proceedings under DIFC Law No. 2 of 2025 and an application of the Overriding Objective. stay",
+      "bbox": [
+        23.667,
+        439.253,
+        572.333,
+        498.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-12",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "12. In response to the variation request, the Defendant makes three submissions; first, the Practice Direction does not apply to this Claim. In the alternative; it is secondly submitted that the Practice Direction alone cannot overturn an issued costs order or, thirdly; an adverse costs order should be made under paragraph 3.2 of the Practice Direction as the Claimant has conducted proceedings unreasonably.",
+      "bbox": [
+        25.333,
+        332.253,
+        572.0,
+        428.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-13",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "13. On its first submission, the Defendant highlights that the Practice Direction bears no reference to having retrospective power; and the Claimant accepted that some sum in respect of costs would be payable by him. The Practice Direction does not override this.",
+      "bbox": [
+        23.333,
+        261.92,
+        572.0,
+        320.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-14",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "14 Second, if retrospective power is accepted by the Court, the costs order has already been made and cannot be overturned by the Practice Direction; only by way of the Claimant's successful appeal. The Claimant has not appealed.",
+      "bbox": [
+        25.333,
+        194.587,
+        572.0,
+        251.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-15",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "15. Third, if the Court accepts that the costs issue remains live; the Defendant submits that the Court should exercise its discretionary case management powers to issue an adverse costs order on the indemnity basis within 14 days summarily assessed in the sum of AED 390,910.77, which is the same amount as filed on 26 September 2025, under paragraph 3.2 of the Practice Direction: The Defendant advances paragraph 3.2(a) and (c) are satisfied on the basis that the Claimant has conducted proceedings unreasonably; evidenced by his entire claim being struck out; and it is otherwise in the interests of justice to do so as the parties have conducted proceedings entirely on the basis of the usual costs rules applying:",
+      "bbox": [
+        24.0,
+        25.253,
+        572.0,
+        183.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n141",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "16. In response to the privacy relief; the Defendant submits that the Practice Direction does not have any retrospective power but nonetheless is agreeable to the public judgments being anonymised and the YouTube video being removed, even though the Defendant recognises that any right to confidentiality has already been suspended giving the timing and widespread public law reports. Therefore, there may be little value in anonymising the case now. again",
+      "bbox": [
+        23.667,
+        728.587,
+        572.333,
+        825.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n142",
+      "kind": "heading",
+      "page_number": 4,
+      "text": "Discussion",
+      "bbox": [
+        25.667,
+        702.92,
+        85.667,
+        715.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-16",
+      "kind": "list",
+      "page_number": 4,
+      "text": "17. Without looking into the merit of the Claim or the No Costs Application in relation to the applicability of the Practice Direction; in my view this sought relief fails on jurisdiction at its face.\n18. The Practice Direction is stated to \"come into force on 09 October 2025\" There is no provision in the Practice Direction or the Rules of the DIFC Courts that would trigger retrospective power in the application of paragraph 3 of the Practice Direction; as the wording of the Practice Direction does not allow for retrospective application:\n19. The Judgment was issued on 19 September 2025, a little under a month before the Practice Direction came into effect; and so the Claimant cannot rely on the direction's jurisdiction to compel the Court to vary the Judgment.\n20. Nonetheless, if the Practice Direction had retrospective jurisdiction; it would not prevent the Court from issuing an adverse costs order on its own initiative: \"3.2 The Court may; in its discretion, make an adverse costs order where: (a) a party has brought or conducted proceedings unreasonably; (b) a party has acted vexatiously or in bad faith; or (c) it is otherwise in the interests of justice to do so\n21 The purpose of the Practice Direction is to implement a general no-costs rule pursuant to the Overriding Objective; not immune parties t0 employment proceedings from paying costs altogether or limiting the Court's case management powers. It acts to give a starting point, not enforce a no-costs obligation: Summarily; on its face the Practice Direction does not apply to this Claim\n22. am also not satisfied that the Practice Direction applies separately to the costs order of the Judgment.\n23. Foremost; the parties acted throughout proceedings from the date the Claim was filed with the perception andunderstanding would be following the event (RDC 38.7). This is evidenced in the Claimant's costs submissions; filed on 1 October 2025, which submitted that an award in the range of AED 70,000 to AED 100,000 was reasonable and proportionate. Adverse costs orders awarded on the conduct of parties stems from this rule and is grounded in RDC 38.8, which reads: paid",
+      "bbox": [
+        23.333,
+        116.92,
+        572.667,
+        688.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-17",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "17. Without looking into the merit of the Claim or the No Costs Application in relation to the applicability of the Practice Direction; in my view this sought relief fails on jurisdiction at its face.",
+      "bbox": [
+        24.0,
+        652.587,
+        571.667,
+        688.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-18",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "18. The Practice Direction is stated to \"come into force on 09 October 2025\" There is no provision in the Practice Direction or the Rules of the DIFC Courts that would trigger retrospective power in the application of paragraph 3 of the Practice Direction; as the wording of the Practice Direction does not allow for retrospective application:",
+      "bbox": [
+        23.333,
+        562.587,
+        572.667,
+        641.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-19",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "19. The Judgment was issued on 19 September 2025, a little under a month before the Practice Direction came into effect; and so the Claimant cannot rely on the direction's jurisdiction to compel the Court to vary the Judgment.",
+      "bbox": [
+        25.0,
+        495.253,
+        572.0,
+        552.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-20",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "20. Nonetheless, if the Practice Direction had retrospective jurisdiction; it would not prevent the Court from issuing an adverse costs order on its own initiative: \"3.2 The Court may; in its discretion, make an adverse costs order where: (a) a party has brought or conducted proceedings unreasonably; (b) a party has acted vexatiously or in bad faith; or (c) it is otherwise in the interests of justice to do so",
+      "bbox": [
+        24.0,
+        380.253,
+        572.667,
+        485.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-21",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "21 The purpose of the Practice Direction is to implement a general no-costs rule pursuant to the Overriding Objective; not immune parties t0 employment proceedings from paying costs altogether or limiting the Court's case management powers. It acts to give a starting point, not enforce a no-costs obligation: Summarily; on its face the Practice Direction does not apply to this Claim",
+      "bbox": [
+        23.667,
+        290.587,
+        572.333,
+        367.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-22",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "22. am also not satisfied that the Practice Direction applies separately to the costs order of the Judgment.",
+      "bbox": [
+        24.333,
+        242.92,
+        572.333,
+        281.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-23",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "23. Foremost; the parties acted throughout proceedings from the date the Claim was filed with the perception andunderstanding would be following the event (RDC 38.7). This is evidenced in the Claimant's costs submissions; filed on 1 October 2025, which submitted that an award in the range of AED 70,000 to AED 100,000 was reasonable and proportionate. Adverse costs orders awarded on the conduct of parties stems from this rule and is grounded in RDC 38.8, which reads: paid",
+      "bbox": [
+        24.333,
+        116.92,
+        571.667,
+        231.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n151",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "\"In deciding what order (if any) to make about costs, the Court must have regard to all the circumstances; including:",
+      "bbox": [
+        47.0,
+        65.587,
+        571.667,
+        104.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n152",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(1) the conduct of all the parties;",
+      "bbox": [
+        46.667,
+        38.587,
+        222.667,
+        54.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-24",
+      "kind": "list",
+      "page_number": 5,
+      "text": "(2) whether a party has succeeded on part of his case; even if he has not been wholly successful; and\n(3) any payment into Court or admissible offer to settle made by a party which is drawn to the Court's attention and which is not a Part 32 offer:'",
+      "bbox": [
+        46.667,
+        742.253,
+        572.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-25",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(2) whether a party has succeeded on part of his case; even if he has not been wholly successful; and",
+      "bbox": [
+        46.667,
+        791.587,
+        572.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-26",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(3) any payment into Court or admissible offer to settle made by a party which is drawn to the Court's attention and which is not a Part 32 offer:'",
+      "bbox": [
+        46.667,
+        742.253,
+        572.0,
+        777.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n155",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Second, a dispute over costs quantum or costs entitlement in a decided case does not constitute a fresh claim separate from proceedings to which the Practice Direction could apply. The wording of the Practice Direction is that it was issued for the purpose of enhancing \"access to justice in employment-related disputes\" , not for the determination of disputes over costs arising from employment-related claims. The costs are intrinsically linked to the claim itself and not considered a separate issue in the Practice Direction. prior",
+      "bbox": [
+        24.0,
+        619.253,
+        571.667,
+        737.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n156",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Therefore; as the parties went into proceedings with the expectation that costs are by one party on its outcome; and as the Practice Direction in its capacity does not make costs a distinct issue from the main proceedings; costs will be decided as per RDC 38.8 and awarded to the Defendant in this Order. paid",
+      "bbox": [
+        23.333,
+        533.587,
+        572.0,
+        607.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n157",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Last, given the lack of statutory obligation to do so, also concur that there is little value in anonymising proceedings at this stage.",
+      "bbox": [
+        25.0,
+        483.253,
+        571.667,
+        520.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n158",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Costs will address the Costs Order.",
+      "bbox": [
+        25.667,
+        457.587,
+        59.0,
+        470.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n159",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "The Defendant seeks AED 390,910.77 in costs, which is submitted to have been reasonably incurred due to the time taken to respond to the Claimant's lengthy submissions.",
+      "bbox": [
+        24.667,
+        379.253,
+        571.667,
+        415.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n160",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "It is the Defendant's position that the Claimant's conduct and the substantive Claim take circumstances away from the norm.",
+      "bbox": [
+        24.667,
+        332.253,
+        571.667,
+        368.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n161",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "On his conduct; the Defendant submits that the Claimant acted unreasonably in bringing a weak, unsupported claim to the value of AED 4.2 million even after being advised that his Claim would not succeed. The claims pleadings were incoherent and misleading; that relied on misquoted statute and failed promises; therefore unnecessarily incurring costs for the Defendant. The Defendant relies on the Judgment's concession at paragraphs 21_ the Defendant pleads that it attempted to enter into negotiations to save as to costs; but this effort was snubbed by the Claimant.",
+      "bbox": [
+        23.333,
+        182.587,
+        572.0,
+        321.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n162",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "31 The Defendant relies on Practice Direction 5 of 2014 to have costs assessed on an indemnity basis:",
+      "bbox": [
+        25.0,
+        136.92,
+        572.0,
+        171.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n163",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "\"Costs on the Indemnity Basis RDC 38.17",
+      "bbox": [
+        47.333,
+        106.587,
+        287.0,
+        124.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n164",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "1 In determining whether costs should be assessed on the indemnity basis as opposed to the standard basis (see in this regard RDC (Rules of the DIFC Courts) 38.17), the following factors; inter alia, will be taken into consideration in the exercise of a judge's discretion:",
+      "bbox": [
+        46.667,
+        37.92,
+        572.333,
+        97.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n165",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "circumstances where the facts of the case andlor the conduct of the paying party arelis such as to take the situation away from the norm; for example where the Court has found deliberate misconduct in breach of a direction of the Court or unreasonable conduct to a high degree in connection with the litigation; or",
+      "bbox": [
+        46.667,
+        739.587,
+        572.0,
+        823.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-27",
+      "kind": "list",
+      "page_number": 6,
+      "text": "(ii) otherwise inappropriate conduct in its wider sense in relation to a paying party's pre-litigation dealings with the receiving party; or in relation to the commencement or conduct of the litigation itself; or\n(iii) where the Court considers the paying party's conduct to be an abuse of process. [emphasis added].",
+      "bbox": [
+        45.333,
+        624.253,
+        572.333,
+        728.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-28",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "(ii) otherwise inappropriate conduct in its wider sense in relation to a paying party's pre-litigation dealings with the receiving party; or in relation to the commencement or conduct of the litigation itself; or",
+      "bbox": [
+        45.333,
+        672.92,
+        572.333,
+        728.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-29",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "(iii) where the Court considers the paying party's conduct to be an abuse of process. [emphasis added].",
+      "bbox": [
+        46.667,
+        624.253,
+        572.0,
+        659.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-30",
+      "kind": "list",
+      "page_number": 6,
+      "text": "32. Therefore; given the Claimant's conduct, total Claim value of AED 4.2 million; the serious allegations making the substance of the Claim; the fact that the Claim was defeated early and that costs sought are only at 10% of the value, it is proportionate to award all costs sought.\n33. In objection; the Claimant submits that a costs award in the range of AED 70,000 to 100,000 should not be exceeded Order and riddled with inconsistencies. accept that, as this submission was filed before the No Costs Application; this range is now submitted in the alternative to the Court rejecting the No Costs Application.\n34 The Costs Order restricts submissions related to the Statement of Costs dated 25 August 2025. The Defendant also filed two additional schedules dated 11 August 2025, and a further statement dated 26 September 2025.\n35. The documents themselves are submitted to be inconsistent. Some errors are explained with typographical faults; but the Claimant also identified changing or unexplained hourly rates without justification; which are in excess of both the expected hours to draft a defence to a modest claim with a two-hour hearing; and the guidelines for practitioner fees in Practice Direction 1 of 2023.\n36. The Claimant further objects to costs assessed on the indemnity basis as his conduct was not unreasonable to a high degree. It is submitted that the Claim was brought on honest; good faith. In the alternative, the Claimant pleads that the Court should order a detailed costs assessment under Part 40 of the DIFC Court Rules.\n37 . Last, the Claimant contends that no mediation or settlement attempts have been made outside \"save as to costs\" emails dated 21-22 August 2025.\n38. In my assessment; the Defendant shall be awarded AED 70,000 in costs.\n39. determined in the Defendant's favour as an immediate judgment. Therefore; the case concluded at the Court's doorstep with a relatively short hearing and final Judgment; that was not appealed.",
+      "bbox": [
+        23.667,
+        63.253,
+        572.667,
+        619.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-31",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "32. Therefore; given the Claimant's conduct, total Claim value of AED 4.2 million; the serious allegations making the substance of the Claim; the fact that the Claim was defeated early and that costs sought are only at 10% of the value, it is proportionate to award all costs sought.",
+      "bbox": [
+        24.0,
+        561.92,
+        572.333,
+        619.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-32",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "33. In objection; the Claimant submits that a costs award in the range of AED 70,000 to 100,000 should not be exceeded Order and riddled with inconsistencies. accept that, as this submission was filed before the No Costs Application; this range is now submitted in the alternative to the Court rejecting the No Costs Application.",
+      "bbox": [
+        25.0,
+        454.253,
+        572.0,
+        550.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-33",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "34 The Costs Order restricts submissions related to the Statement of Costs dated 25 August 2025. The Defendant also filed two additional schedules dated 11 August 2025, and a further statement dated 26 September 2025.",
+      "bbox": [
+        24.667,
+        385.92,
+        571.667,
+        442.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-34",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "35. The documents themselves are submitted to be inconsistent. Some errors are explained with typographical faults; but the Claimant also identified changing or unexplained hourly rates without justification; which are in excess of both the expected hours to draft a defence to a modest claim with a two-hour hearing; and the guidelines for practitioner fees in Practice Direction 1 of 2023.",
+      "bbox": [
+        23.667,
+        296.587,
+        572.667,
+        375.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-35",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "36. The Claimant further objects to costs assessed on the indemnity basis as his conduct was not unreasonable to a high degree. It is submitted that the Claim was brought on honest; good faith. In the alternative, the Claimant pleads that the Court should order a detailed costs assessment under Part 40 of the DIFC Court Rules.",
+      "bbox": [
+        24.333,
+        210.92,
+        572.667,
+        287.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-36",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "37 . Last, the Claimant contends that no mediation or settlement attempts have been made outside \"save as to costs\" emails dated 21-22 August 2025.",
+      "bbox": [
+        24.667,
+        160.253,
+        571.667,
+        196.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-37",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "38. In my assessment; the Defendant shall be awarded AED 70,000 in costs.",
+      "bbox": [
+        24.667,
+        133.253,
+        433.0,
+        149.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-38",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "39. determined in the Defendant's favour as an immediate judgment. Therefore; the case concluded at the Court's doorstep with a relatively short hearing and final Judgment; that was not appealed.",
+      "bbox": [
+        24.0,
+        63.253,
+        572.0,
+        120.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-39",
+      "kind": "list",
+      "page_number": 7,
+      "text": "40 concede with the Claimant that the Defendant's Statements of Costs filed across August and September operate outside the scope of the Costs Order as to what quantum should be assessed and appear in excess of reasonable time and seniority of practitioner to work on defending what is agreed to be a weak Claim.\n41_ 1 appreciate that the Claimant's Particulars of Claim is lengthy; but time spent in excess of 154 hours appears disproportionate particularly as the listed practitioners have 9, 13 and 18 years of experience respectively.\n42. also acknowledge that the Claimant's conduct was unwise; but not so unreasonable as to amount to deliberate misconduct or breach that would take these circumstances out of the norm. The Claim was weak and should not have been pursued as per the advice given to the Claimant but proceedings were modest with little argument; minimal, straightforward evidence and no\n43. Summarily; have determined that the Practice Direction does not apply to the Costs Order; and so costs are to be awarded to the Defendant pursuant to the Judgment. However; in the interests of justice and the overriding objective; as well as an evaluation of the length of proceedings and complexity of the Claim; costs will be awarded at a lower quantum than sought in the Defendant's submissions.\n44 concede with the Claimant that AED 70,000 is the appropriate quantum to award costs. The Claim was essentially struck out at the earliest opportunity. The content of the Claim was not complex; nor were there repeated applications for disclosure, production or expert evidence as would be expected of a Claim at this value. Only three short applications were filed the lattermost of which was dealt with in this Order and the singular Hearing was only two hours long. The Claim was, for all intents and purposes, determined at the Courts door. A high adverse costs award is therefore not appropriate for this Claim:",
+      "bbox": [
+        23.667,
+        312.253,
+        572.667,
+        825.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-40",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "40 concede with the Claimant that the Defendant's Statements of Costs filed across August and September operate outside the scope of the Costs Order as to what quantum should be assessed and appear in excess of reasonable time and seniority of practitioner to work on defending what is agreed to be a weak Claim.",
+      "bbox": [
+        24.333,
+        750.92,
+        572.333,
+        825.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-41",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "41_ 1 appreciate that the Claimant's Particulars of Claim is lengthy; but time spent in excess of 154 hours appears disproportionate particularly as the listed practitioners have 9, 13 and 18 years of experience respectively.",
+      "bbox": [
+        24.0,
+        679.92,
+        572.667,
+        737.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-42",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "42. also acknowledge that the Claimant's conduct was unwise; but not so unreasonable as to amount to deliberate misconduct or breach that would take these circumstances out of the norm. The Claim was weak and should not have been pursued as per the advice given to the Claimant but proceedings were modest with little argument; minimal, straightforward evidence and no",
+      "bbox": [
+        24.333,
+        591.587,
+        572.333,
+        670.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-43",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "43. Summarily; have determined that the Practice Direction does not apply to the Costs Order; and so costs are to be awarded to the Defendant pursuant to the Judgment. However; in the interests of justice and the overriding objective; as well as an evaluation of the length of proceedings and complexity of the Claim; costs will be awarded at a lower quantum than sought in the Defendant's submissions.",
+      "bbox": [
+        24.0,
+        465.253,
+        572.0,
+        559.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-44",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "44 concede with the Claimant that AED 70,000 is the appropriate quantum to award costs. The Claim was essentially struck out at the earliest opportunity. The content of the Claim was not complex; nor were there repeated applications for disclosure, production or expert evidence as would be expected of a Claim at this value. Only three short applications were filed the lattermost of which was dealt with in this Order and the singular Hearing was only two hours long. The Claim was, for all intents and purposes, determined at the Courts door. A high adverse costs award is therefore not appropriate for this Claim:",
+      "bbox": [
+        23.667,
+        312.253,
+        572.0,
+        451.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n181",
+      "kind": "heading",
+      "page_number": 7,
+      "text": "Conclusion",
+      "bbox": [
+        24.0,
+        287.587,
+        87.0,
+        302.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-45",
+      "kind": "list",
+      "page_number": 7,
+      "text": "45. The No Costs Application is rejected.\n46. There shall be no costs ordered in relation to the No Costs Application.\n47. Costs for the Claim pursuant to the Judgment are awarded to the Defendant at the quantum of AED 70,000",
+      "bbox": [
+        25.333,
+        183.587,
+        572.0,
+        274.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-46",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "45. The No Costs Application is rejected.",
+      "bbox": [
+        25.333,
+        257.92,
+        242.0,
+        274.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-47",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "46. There shall be no costs ordered in relation to the No Costs Application.",
+      "bbox": [
+        25.333,
+        230.587,
+        420.667,
+        246.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e-n-auto-48",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "47. Costs for the Claim pursuant to the Judgment are awarded to the Defendant at the quantum of AED 70,000",
+      "bbox": [
+        25.667,
+        183.587,
+        572.0,
+        218.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}

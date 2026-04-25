@@ -1,0 +1,2869 @@
+{
+  "doc_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 7,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "2": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "3": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "4": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "5": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "6": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "7": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 72,
+    "table_count": 2
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n125",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFCV",
+      "bbox": [
+        232.667,
+        627.373,
+        360.667,
+        667.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n127",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": [
+        75.333,
+        456.04,
+        521.333,
+        508.707
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n128",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "DIFC LAW NO. 3 OF 2004",
+      "bbox": [
+        154.667,
+        382.373,
+        442.0,
+        408.707
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n129",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Consolidated Version (November 2024) As amended by",
+      "bbox": [
+        253.333,
+        262.373,
+        342.667,
+        302.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n130",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "of Application of Civil and Commercial Laws in the DIFC Amendment Law DIFC Law No. 8 of 2024 Law",
+      "bbox": [
+        133.007,
+        223.373,
+        462.333,
+        247.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n131",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFC Laws Amendment Law DIFC Law No.2 of 2022",
+      "bbox": [
+        236.667,
+        182.04,
+        357.333,
+        206.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n132",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "CONTENTS",
+      "bbox": [
+        266.333,
+        772.373,
+        329.667,
+        784.373
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-t133-node",
+      "kind": "table",
+      "page_number": 2,
+      "text": "| PART 1: GENERAL |  |\n| --- | --- |\n| 1 | Title |\n| 2 | Legislative Authority _ |\n| 3 | Application of the Law |\n| 4. | Date of enactment |\n| 5 . | Commencement |\n| 6. | Interpretation |\n| 7 . | The objectives of this Law |\n| PART 2: APPLICATION OF LAWS. |  |\n| 8 | Choice of applicable law |\n| 8A | Content of DIFC law |\n| 8B. | Interpretation of DIFC Statutes |\n| 9 | Submission to jurisdiction |\n| SCHEDULE 1 |  |",
+      "bbox": [
+        63.781,
+        573.405,
+        525.462,
+        760.588
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n134",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "1. Title",
+      "bbox": [
+        64.0,
+        744.707,
+        122.667,
+        754.707
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n135",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law may be cited as the \"Law on the Application of Civil and Commercial Laws in the DIFC 2004\" .",
+      "bbox": [
+        99.667,
+        718.04,
+        525.667,
+        732.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n136",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "2 Legislative Authority",
+      "bbox": [
+        64.333,
+        694.373,
+        193.0,
+        708.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n137",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law is made by the Ruler of Dubai.",
+      "bbox": [
+        99.667,
+        671.04,
+        266.333,
+        683.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n138",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "3. Application of the Law",
+      "bbox": [
+        64.0,
+        646.373,
+        200.0,
+        659.707
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n139",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This applies in the jurisdiction of the Dubai International Financial Centre. Law",
+      "bbox": [
+        100.0,
+        620.707,
+        420.0,
+        636.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n140",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "4. Date of enactment",
+      "bbox": [
+        64.667,
+        600.707,
+        179.333,
+        610.707
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n141",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law is enacted on the date specified in the Enactment Notice in respect of this Law",
+      "bbox": [
+        99.667,
+        574.04,
+        455.307,
+        588.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n142",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "5 Commencement",
+      "bbox": [
+        64.0,
+        552.373,
+        171.333,
+        563.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n143",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law comes into force on the date specified in the Enactment Notice in respect of this Law",
+      "bbox": [
+        100.0,
+        526.04,
+        483.0,
+        540.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n144",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "6. Interpretation",
+      "bbox": [
+        64.667,
+        502.373,
+        163.667,
+        515.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n145",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Schedule 1 contains a list of defined terms used in this Law",
+      "bbox": [
+        99.667,
+        479.707,
+        340.333,
+        491.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n146",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "7 The objectives of this Law",
+      "bbox": [
+        65.667,
+        455.04,
+        213.0,
+        467.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n147",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The objectives of this Law are to:",
+      "bbox": [
+        99.667,
+        431.04,
+        236.333,
+        443.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n148",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "provide certainty as to the commercial matters arising in the DIFC;",
+      "bbox": [
+        133.333,
+        394.04,
+        299.667,
+        420.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n149",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "assist in the development of the non-statutory law of the DIFC through decisions of the DIFC Courts; and",
+      "bbox": [
+        133.667,
+        359.04,
+        532.333,
+        383.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n150",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "allow persons to adopt the laws of another jurisdiction in relation to civil and commercial matters arising within the DIFC.",
+      "bbox": [
+        133.667,
+        322.04,
+        531.333,
+        347.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n151",
+      "kind": "heading",
+      "page_number": 4,
+      "text": "PART 2: APPLICATION OF LAWS",
+      "bbox": [
+        64.0,
+        761.373,
+        225.333,
+        772.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n152",
+      "kind": "heading",
+      "page_number": 4,
+      "text": "8. Choice of applicable law",
+      "bbox": [
+        64.0,
+        735.04,
+        206.333,
+        747.707
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n153",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Since by virtue of Article 3 of Federal Law No. 8 of 2004, DIFC Law is able to apply in the DIFC notwithstanding any Federal Law on civil or commercial matters; the rights and liabilities between persons in any civil or commercial matter are to be determined according to the laws for the time being in force in the Jurisdiction chosen in accordance with paragraph (2)",
+      "bbox": [
+        134.333,
+        674.373,
+        531.667,
+        725.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n154",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The relevant Jurisdiction is to be the one first ascertained under the following paragraphs:",
+      "bbox": [
+        99.333,
+        650.04,
+        496.667,
+        666.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n155",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "so far as there is a regulatory content; any applicable DIFC Statute; failing which,",
+      "bbox": [
+        172.0,
+        626.373,
+        500.0,
+        642.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n156",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Statute; failing which,",
+      "bbox": [
+        171.333,
+        590.707,
+        261.667,
+        605.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n157",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "matter; failing which,",
+      "bbox": [
+        171.333,
+        554.707,
+        259.0,
+        569.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n158",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "the laws of any Jurisdiction which appears to the DIFC Court or Arbitrator to be the one most closely related to the facts of and the persons concerned in the matter; failing which;",
+      "bbox": [
+        171.667,
+        518.707,
+        531.667,
+        544.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n159",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "DIFC Law.",
+      "bbox": [
+        172.0,
+        497.373,
+        219.333,
+        508.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n160",
+      "kind": "heading",
+      "page_number": 4,
+      "text": "8AContent of DIFC Law",
+      "bbox": [
+        64.0,
+        473.373,
+        195.333,
+        484.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n161",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The following provisions apply where DIFC Law is the law applicable to civil or commercial matter pursuant to Article 8 above",
+      "bbox": [
+        135.0,
+        435.707,
+        531.333,
+        461.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n162",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The content of DIFC Law shall be determined by any applicable DIFC Statute; and any DIFC Court judgments interpreting and applying the applicable DIFC Statute in a manner consistent with this Law",
+      "bbox": [
+        134.333,
+        390.04,
+        532.667,
+        426.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n163",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The common law (including the principles and rules of equity) supplements DIFC Statute except to the extent modified by this Law or any other DIFC Law_ The DIFC Courts in determining the common law for the DIFC in any case may have regard to the common law of England and Wales and other common law jurisdictions.",
+      "bbox": [
+        99.333,
+        327.707,
+        531.667,
+        378.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n164",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(including the principles and rules of equity), as determined by the DIFC Courts, must not be inconsistent with DIFC Statute",
+      "bbox": [
+        135.333,
+        293.373,
+        531.667,
+        318.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n165",
+      "kind": "heading",
+      "page_number": 4,
+      "text": "8B. Interpretation of DIFC Statutes",
+      "bbox": [
+        64.0,
+        267.04,
+        239.0,
+        280.373
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n166",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The interpretation of DIFC Statutes may be guided by:",
+      "bbox": [
+        135.0,
+        242.707,
+        357.0,
+        257.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n167",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(a jurisprudence from common law jurisdictions regarding the interpretation and application of analogous laws; and",
+      "bbox": [
+        142.0,
+        206.04,
+        532.333,
+        234.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n168",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "the rules and principles of statutory interpretation from common law jurisdictions.",
+      "bbox": [
+        171.667,
+        183.707,
+        501.0,
+        197.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n169",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Article 8B(1) applies to all DIFC Statutes; regardless of whether the relevant DIFC Statute is based on an international model law or another non-common law source.",
+      "bbox": [
+        99.333,
+        149.373,
+        531.667,
+        173.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n170",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "If a DIFC Statute is based on an international model law, its interpretation may also be guided by international jurisprudence interpreting and applying the international model law, as well as interpretative aids and commentary published by international bodies regarding the international model law",
+      "bbox": [
+        99.333,
+        90.04,
+        531.667,
+        137.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n171",
+      "kind": "heading",
+      "page_number": 5,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": [
+        123.667,
+        793.707,
+        531.667,
+        806.373
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n172",
+      "kind": "heading",
+      "page_number": 5,
+      "text": "9 Submission to jurisdiction",
+      "bbox": [
+        64.333,
+        771.707,
+        213.667,
+        785.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n173",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "The DIFC Court shall determine any matter before it in accordance with the laws that may apply by virtue of Article 8.",
+      "bbox": [
+        135.0,
+        735.707,
+        531.667,
+        760.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n174",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "2 An Arbitrator shall determine any matter before them in accordance with the laws that may apply by virtue of Article 8.",
+      "bbox": [
+        103.0,
+        699.707,
+        531.667,
+        724.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n175",
+      "kind": "heading",
+      "page_number": 6,
+      "text": "SCHEDULE 1 INTERPRETATION",
+      "bbox": [
+        250.667,
+        756.707,
+        344.0,
+        778.707
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n176",
+      "kind": "heading",
+      "page_number": 6,
+      "text": "1 Rules of interpretation",
+      "bbox": [
+        64.333,
+        730.373,
+        199.667,
+        743.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n177",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "In the Law a reference to:",
+      "bbox": [
+        100.0,
+        708.707,
+        207.333,
+        719.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n178",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "statutory provision includes a reference to the statutory provision as amended or re-enacted from time to time;",
+      "bbox": [
+        136.0,
+        672.707,
+        531.667,
+        696.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n179",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a person includes any natural person; body corporate or body unincorporate, including a company, partnership, unincorporated association; government or state;",
+      "bbox": [
+        135.333,
+        634.373,
+        531.667,
+        660.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n180",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "an obligation to publish or cause to be published particular document shall, unless expressly provided otherwise in the include publishing Or causing to be published in printed Or electronic form; Law",
+      "bbox": [
+        135.0,
+        588.707,
+        531.333,
+        624.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n181",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "shall refer to a business a calendar excluding Saturdays; Sundays and official public holidays; day day , being",
+      "bbox": [
+        134.0,
+        549.04,
+        532.333,
+        577.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n182",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a calendar year shall mean a year of the Gregorian calendar;",
+      "bbox": [
+        135.667,
+        526.373,
+        379.0,
+        539.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n183",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "reference to the masculine gender includes the feminine.",
+      "bbox": [
+        141.667,
+        502.04,
+        369.667,
+        516.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n184",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "The headings in the shall not affect its interpretation. Law",
+      "bbox": [
+        100.333,
+        478.04,
+        331.667,
+        492.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n185",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "References in this Law to a body corporate include a body corporate incorporated outside DIFC.",
+      "bbox": [
+        99.667,
+        454.707,
+        487.0,
+        467.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n186",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "A reference in this Law to a Part, Article or Schedule by number only, and without further identification; is a reference to the Part, Article or Schedule of that number in this Law.",
+      "bbox": [
+        100.0,
+        420.04,
+        531.667,
+        443.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n187",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "A reference in an Article or other division of this Law to a paragraph; sub-paragraph or Article by number or letter only, and without further identification; is a reference to the paragraph; sub-paragraph or Article of that number or letter contained in the Article or other division of this Law in which that reference occurs .",
+      "bbox": [
+        99.667,
+        372.04,
+        533.0,
+        407.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n188",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Unless the context otherwise requires , where this Law refers to an enactment, the reference is to that enactment as amended from time to time, and includes a reference to that enactment as extended or applied by or under another enactment; including any other provision of that enactment",
+      "bbox": [
+        99.667,
+        322.04,
+        531.667,
+        359.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n189",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "References to this to a writing, instrument or certificate include any mode of communication that preserves a record of the information contained therein and is capable of reproduced in tangible form, including electronic means . filing, Law being",
+      "bbox": [
+        98.667,
+        273.373,
+        531.667,
+        313.0
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n190",
+      "kind": "heading",
+      "page_number": 7,
+      "text": "2. Legislation in the DIFC",
+      "bbox": [
+        64.0,
+        744.373,
+        203.0,
+        758.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n191",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "References to legislation and Guidance in the Law shall be construed in accordance with the following provisions:",
+      "bbox": [
+        99.0,
+        708.373,
+        532.0,
+        735.04
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n192",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Federal Law is law made by the federal government of the United Arab Emirates;",
+      "bbox": [
+        134.333,
+        685.04,
+        463.667,
+        697.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n193",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Dubai Law is law made by the Ruler; as applicable in the Emirate of Dubai; and",
+      "bbox": [
+        134.333,
+        660.373,
+        457.0,
+        674.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n194",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the Law on the Application of Civil and Commercial Law, DIFC Law No. 3 of 2004 is made by the Ruler .",
+      "bbox": [
+        134.333,
+        626.707,
+        532.333,
+        649.707
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n195",
+      "kind": "heading",
+      "page_number": 7,
+      "text": "Defined Terms",
+      "bbox": [
+        99.667,
+        602.707,
+        166.0,
+        613.04
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-n196",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "In the Law, unless the context indicates otherwise, the defined terms listed below shall have the corresponding meanings.",
+      "bbox": [
+        99.667,
+        564.707,
+        531.333,
+        590.373
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-t197-node",
+      "kind": "table",
+      "page_number": 7,
+      "text": "| Terms | Definitions |\n| --- | --- |\n| Arbitrator | an Arbitrator appointed by the parties for the purpose of arbitrating matters between the parties. |\n| DIFC | the Dubai International Financial Centre . |\n| DIFC Bodies | the bodies established pursuant to Article (3) of Law No. 9 of 2004 concerning the Dubai International Financial Centre (as amended) |\n| DIFC Court | the DIFC Court of First Instance and the DIFC Court of Appeal. |\n| DIFC Law | the law of the DIFC as established by DIFC Statute and the decisions of the DIFC Courts |\n| DIFC Statute | laws enacted by the Ruler as proposed by DIFC Bodies, and any regulations or rules issued by them pursuant to such laws |\n| Jurisdiction | any jurisdiction in any country for the time recognised by the UAE. being |\n| Law | the Law on the Application of Civil and Commercial Law 2004. |\n| person | has the meaning given in Article 1 of Schedule 1 of the Law |\n| Ruler | the ruler of the Emirate of Dubai . |\n| Schedule | schedule to the Law |\n| UAE | the United Arab Emirates . |",
+      "bbox": [
+        100.441,
+        191.445,
+        502.833,
+        566.585
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": [
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-t133",
+      "page_number": 2,
+      "bbox": [
+        63.781,
+        573.405,
+        525.462,
+        760.588
+      ],
+      "raw_json": {
+        "type": "table",
+        "id": 133,
+        "level": "1",
+        "page number": 2,
+        "bounding box": [
+          63.781,
+          573.405,
+          525.462,
+          760.588
+        ],
+        "number of rows": 14,
+        "number of columns": 2,
+        "rows": [
+          {
+            "type": "table row",
+            "row number": 1,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  747.218,
+                  525.462,
+                  760.588
+                ],
+                "row number": 1,
+                "column number": 1,
+                "row span": 1,
+                "column span": 2,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 72,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      747.218,
+                      525.462,
+                      760.588
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "PART 1: GENERAL"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  747.218,
+                  525.462,
+                  760.588
+                ],
+                "row number": 1,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": []
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 2,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  733.848,
+                  294.621,
+                  747.218
+                ],
+                "row number": 2,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 73,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      733.848,
+                      294.621,
+                      747.218
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "1"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  733.848,
+                  525.462,
+                  747.218
+                ],
+                "row number": 2,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 74,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      733.848,
+                      525.462,
+                      747.218
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Title"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 3,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  720.478,
+                  294.621,
+                  733.848
+                ],
+                "row number": 3,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 75,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      720.478,
+                      294.621,
+                      733.848
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "2"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  720.478,
+                  525.462,
+                  733.848
+                ],
+                "row number": 3,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 76,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      720.478,
+                      525.462,
+                      733.848
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Legislative Authority _"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 4,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  707.107,
+                  294.621,
+                  720.478
+                ],
+                "row number": 4,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 77,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      707.107,
+                      294.621,
+                      720.478
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "3"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  707.107,
+                  525.462,
+                  720.478
+                ],
+                "row number": 4,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 78,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      707.107,
+                      525.462,
+                      720.478
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Application of the Law"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 5,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  693.737,
+                  294.621,
+                  707.107
+                ],
+                "row number": 5,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 79,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      693.737,
+                      294.621,
+                      707.107
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "4."
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  693.737,
+                  525.462,
+                  707.107
+                ],
+                "row number": 5,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 80,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      693.737,
+                      525.462,
+                      707.107
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Date of enactment"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 6,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  680.367,
+                  294.621,
+                  693.737
+                ],
+                "row number": 6,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 81,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      680.367,
+                      294.621,
+                      693.737
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "5 ."
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  680.367,
+                  525.462,
+                  693.737
+                ],
+                "row number": 6,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 82,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      680.367,
+                      525.462,
+                      693.737
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Commencement"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 7,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  666.997,
+                  294.621,
+                  680.367
+                ],
+                "row number": 7,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 83,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      666.997,
+                      294.621,
+                      680.367
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "6."
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  666.997,
+                  525.462,
+                  680.367
+                ],
+                "row number": 7,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 84,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      666.997,
+                      525.462,
+                      680.367
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Interpretation"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 8,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  653.626,
+                  294.621,
+                  666.997
+                ],
+                "row number": 8,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 85,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      653.626,
+                      294.621,
+                      666.997
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "7 ."
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  653.626,
+                  525.462,
+                  666.997
+                ],
+                "row number": 8,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 86,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      653.626,
+                      525.462,
+                      666.997
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "The objectives of this Law"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 9,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  640.256,
+                  525.462,
+                  653.626
+                ],
+                "row number": 9,
+                "column number": 1,
+                "row span": 1,
+                "column span": 2,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 87,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      640.256,
+                      525.462,
+                      653.626
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "PART 2: APPLICATION OF LAWS."
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  640.256,
+                  525.462,
+                  653.626
+                ],
+                "row number": 9,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": []
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 10,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  626.886,
+                  294.621,
+                  640.256
+                ],
+                "row number": 10,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 88,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      626.886,
+                      294.621,
+                      640.256
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "8"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  626.886,
+                  525.462,
+                  640.256
+                ],
+                "row number": 10,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 89,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      626.886,
+                      525.462,
+                      640.256
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Choice of applicable law"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 11,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  613.516,
+                  294.621,
+                  626.886
+                ],
+                "row number": 11,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 90,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      613.516,
+                      294.621,
+                      626.886
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "8A"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  613.516,
+                  525.462,
+                  626.886
+                ],
+                "row number": 11,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 91,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      613.516,
+                      525.462,
+                      626.886
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Content of DIFC law"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 12,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  600.146,
+                  294.621,
+                  613.516
+                ],
+                "row number": 12,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 92,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      600.146,
+                      294.621,
+                      613.516
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "8B."
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  600.146,
+                  525.462,
+                  613.516
+                ],
+                "row number": 12,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 93,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      600.146,
+                      525.462,
+                      613.516
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Interpretation of DIFC Statutes"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 13,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  586.775,
+                  294.621,
+                  600.146
+                ],
+                "row number": 13,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 94,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      586.775,
+                      294.621,
+                      600.146
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "9"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  586.775,
+                  525.462,
+                  600.146
+                ],
+                "row number": 13,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 95,
+                    "page number": 2,
+                    "bounding box": [
+                      294.621,
+                      586.775,
+                      525.462,
+                      600.146
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Submission to jurisdiction"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 14,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  63.781,
+                  573.405,
+                  525.462,
+                  586.775
+                ],
+                "row number": 14,
+                "column number": 1,
+                "row span": 1,
+                "column span": 2,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 96,
+                    "page number": 2,
+                    "bounding box": [
+                      63.781,
+                      573.405,
+                      525.462,
+                      586.775
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "SCHEDULE 1"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  294.621,
+                  573.405,
+                  525.462,
+                  586.775
+                ],
+                "row number": 14,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": []
+              }
+            ]
+          }
+        ]
+      },
+      "raw_html": null,
+      "linked_context_block_id": null
+    },
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-t197",
+      "page_number": 7,
+      "bbox": [
+        100.441,
+        191.445,
+        502.833,
+        566.585
+      ],
+      "raw_json": {
+        "type": "table",
+        "id": 197,
+        "level": "2",
+        "page number": 7,
+        "bounding box": [
+          100.441,
+          191.445,
+          502.833,
+          566.585
+        ],
+        "number of rows": 13,
+        "number of columns": 2,
+        "rows": [
+          {
+            "type": "table row",
+            "row number": 1,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  537.728,
+                  301.637,
+                  566.585
+                ],
+                "row number": 1,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 98,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      537.728,
+                      301.637,
+                      566.585
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Terms"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  537.728,
+                  502.833,
+                  566.585
+                ],
+                "row number": 1,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 99,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      537.728,
+                      502.833,
+                      566.585
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Definitions"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 2,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  508.871,
+                  301.637,
+                  537.728
+                ],
+                "row number": 2,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 100,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      508.871,
+                      301.637,
+                      537.728
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Arbitrator"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  508.871,
+                  502.833,
+                  537.728
+                ],
+                "row number": 2,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 101,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      508.871,
+                      502.833,
+                      537.728
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "an Arbitrator appointed by the parties for the purpose of arbitrating matters between the parties."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 3,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  480.014,
+                  301.637,
+                  508.871
+                ],
+                "row number": 3,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 102,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      480.014,
+                      301.637,
+                      508.871
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "DIFC"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  480.014,
+                  502.833,
+                  508.871
+                ],
+                "row number": 3,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 103,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      480.014,
+                      502.833,
+                      508.871
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "the Dubai International Financial Centre ."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 4,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  451.157,
+                  301.637,
+                  480.014
+                ],
+                "row number": 4,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 104,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      451.157,
+                      301.637,
+                      480.014
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "DIFC Bodies"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  451.157,
+                  502.833,
+                  480.014
+                ],
+                "row number": 4,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 105,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      451.157,
+                      502.833,
+                      480.014
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "the bodies established pursuant to Article (3) of Law No. 9 of 2004 concerning the Dubai International Financial Centre (as amended)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 5,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  422.301,
+                  301.637,
+                  451.157
+                ],
+                "row number": 5,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 106,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      422.301,
+                      301.637,
+                      451.157
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "DIFC Court"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  422.301,
+                  502.833,
+                  451.157
+                ],
+                "row number": 5,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 107,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      422.301,
+                      502.833,
+                      451.157
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "the DIFC Court of First Instance and the DIFC Court of Appeal."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 6,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  393.444,
+                  301.637,
+                  422.301
+                ],
+                "row number": 6,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 108,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      393.444,
+                      301.637,
+                      422.301
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "DIFC Law"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  393.444,
+                  502.833,
+                  422.301
+                ],
+                "row number": 6,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 109,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      393.444,
+                      502.833,
+                      422.301
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "the law of the DIFC as established by DIFC Statute and the decisions of the DIFC Courts"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 7,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  364.587,
+                  301.637,
+                  393.444
+                ],
+                "row number": 7,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 110,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      364.587,
+                      301.637,
+                      393.444
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "DIFC Statute"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  364.587,
+                  502.833,
+                  393.444
+                ],
+                "row number": 7,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 111,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      364.587,
+                      502.833,
+                      393.444
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "laws enacted by the Ruler as proposed by DIFC Bodies, and any regulations or rules issued by them pursuant to such laws"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 8,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  335.73,
+                  301.637,
+                  364.587
+                ],
+                "row number": 8,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 112,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      335.73,
+                      301.637,
+                      364.587
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Jurisdiction"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  335.73,
+                  502.833,
+                  364.587
+                ],
+                "row number": 8,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 113,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      335.73,
+                      502.833,
+                      364.587
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "any jurisdiction in any country for the time recognised by the UAE. being"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 9,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  306.873,
+                  301.637,
+                  335.73
+                ],
+                "row number": 9,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 114,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      306.873,
+                      301.637,
+                      335.73
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Law"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  306.873,
+                  502.833,
+                  335.73
+                ],
+                "row number": 9,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 115,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      306.873,
+                      502.833,
+                      335.73
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "the Law on the Application of Civil and Commercial Law 2004."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 10,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  278.016,
+                  301.637,
+                  306.873
+                ],
+                "row number": 10,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 116,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      278.016,
+                      301.637,
+                      306.873
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "person"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  278.016,
+                  502.833,
+                  306.873
+                ],
+                "row number": 10,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 117,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      278.016,
+                      502.833,
+                      306.873
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "has the meaning given in Article 1 of Schedule 1 of the Law"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 11,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  249.159,
+                  301.637,
+                  278.016
+                ],
+                "row number": 11,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 118,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      249.159,
+                      301.637,
+                      278.016
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Ruler"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  249.159,
+                  502.833,
+                  278.016
+                ],
+                "row number": 11,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 119,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      249.159,
+                      502.833,
+                      278.016
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "the ruler of the Emirate of Dubai ."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 12,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  220.302,
+                  301.637,
+                  249.159
+                ],
+                "row number": 12,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 120,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      220.302,
+                      301.637,
+                      249.159
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Schedule"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  220.302,
+                  502.833,
+                  249.159
+                ],
+                "row number": 12,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 121,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      220.302,
+                      502.833,
+                      249.159
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "schedule to the Law"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 13,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  100.441,
+                  191.445,
+                  301.637,
+                  220.302
+                ],
+                "row number": 13,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 122,
+                    "page number": 7,
+                    "bounding box": [
+                      100.441,
+                      191.445,
+                      301.637,
+                      220.302
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "UAE"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 7,
+                "bounding box": [
+                  301.637,
+                  191.445,
+                  502.833,
+                  220.302
+                ],
+                "row number": 13,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 123,
+                    "page number": 7,
+                    "bounding box": [
+                      301.637,
+                      191.445,
+                      502.833,
+                      220.302
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "the United Arab Emirates ."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "raw_html": null,
+      "linked_context_block_id": null
+    }
+  ]
+}

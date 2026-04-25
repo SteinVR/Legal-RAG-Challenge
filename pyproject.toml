@@ -17,6 +17,7 @@ dependencies = [
     "accelerate>=1.0",
     "sentence-transformers>=4.0",
     "numpy>=1.26",
+    "opendataloader-pdf>=2.3.0",
 ]
 
 [project.scripts]

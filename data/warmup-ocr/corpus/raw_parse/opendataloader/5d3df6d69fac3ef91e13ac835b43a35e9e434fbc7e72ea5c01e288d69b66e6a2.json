@@ -1,0 +1,3485 @@
+{
+  "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 19,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "4": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "5": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "6": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "7": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "8": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "9": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "10": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "11": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "12": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "13": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "14": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "15": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "16": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "17": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "18": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "19": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 239,
+    "table_count": 0
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n220",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ENF 269/2023 (1) Ozias (2) Ori (3) Octavio v (1) Obadiah (2) Oaklen",
+      "bbox": [
+        25.333,
+        653.253,
+        509.667,
+        696.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n221",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "JULY 01, 2025 ENFORCEMENT ORDERS",
+      "bbox": [
+        25.0,
+        632.92,
+        242.333,
+        646.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n222",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Case No: ENF 269/2023",
+      "bbox": [
+        437.0,
+        587.587,
+        571.667,
+        600.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n223",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": [
+        131.0,
+        557.587,
+        465.0,
+        571.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n224",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "COURT OF APPEAL",
+      "bbox": [
+        24.333,
+        527.587,
+        139.667,
+        540.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n225",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": [
+        25.0,
+        499.587,
+        87.0,
+        512.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n226",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OZIAS",
+      "bbox": [
+        287.0,
+        469.587,
+        326.333,
+        483.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n227",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "(2) ORI",
+      "bbox": [
+        277.0,
+        446.253,
+        318.333,
+        460.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n228",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "(3) OCTAVIO",
+      "bbox": [
+        262.333,
+        423.587,
+        333.0,
+        438.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n230",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": [
+        287.0,
+        369.587,
+        309.667,
+        381.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n231",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OBADIAH",
+      "bbox": [
+        269.667,
+        338.92,
+        326.333,
+        352.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n233",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OAKLEN",
+      "bbox": [
+        272.333,
+        281.587,
+        323.667,
+        294.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n229",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AppellantslRespondents",
+      "bbox": [
+        438.667,
+        394.587,
+        572.0,
+        410.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n232",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DefendantlJudgment Debtor",
+      "bbox": [
+        417.0,
+        308.253,
+        572.0,
+        326.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n234",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "ClaimantlJudgment Creditor",
+      "bbox": [
+        418.333,
+        251.253,
+        572.0,
+        268.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n235",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ORDER WITH REASONS OF H.E. CHIEF JUSTICE WAYNE MARTIN",
+      "bbox": [
+        111.667,
+        204.92,
+        483.667,
+        219.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n236",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UPON the Claimant's Arbitration Claim Form dated 17 August 2023 in Case No. ARB-016-2023 (the \"Arbitration Claim\") for a Recognition and Enforcement Order for the DIFC-LCIA Partial Award dated 10 March 2023 (as corrected) and Final Award dated 21 June 2023 (together the \"Award\") issued in the Dubai International Financial Centre by a Tribunal",
+      "bbox": [
+        24.0,
+        88.587,
+        572.0,
+        166.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n237",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Amended Order of H.E. Justice Shamlan Al Sawalehi in Claim No. ARB-016-2023 dated 6 September 2023 and re-issued on 27 September 2023 recognising the Award as binding and ordering that the Award shall be enforced in the same manner as a judgment of the DIFC Courts (the",
+      "bbox": [
+        24.0,
+        17.92,
+        572.0,
+        74.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n238",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "\"Amended Order\")",
+      "bbox": [
+        24.667,
+        810.92,
+        125.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n239",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON the application of the Judgment Creditor dated 14 October 2024 under Rule 50.2 of the Rules of the DIFC Courts (the \"RDC\") (the \"Part 50 Examination Application\")",
+      "bbox": [
+        25.0,
+        758.587,
+        572.0,
+        795.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n240",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON the Order of HE Justice Nassir AI Nasser dated 21 October 2024 (the \"Amended Examination Order\" or \"Part 50 Orders\") granting the Part 50 Examination Application and ordering among other matters that the Respondents be required to produce documents and attend Court for questioning about the assets of the Judgment Debtor at a hearing at 11am (GST) on 6 November 2024 (the \"Examination Hearing\")",
+      "bbox": [
+        24.0,
+        647.92,
+        572.0,
+        746.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n241",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON the Order of HE Justice Nassir Al Nasser dated 31 January 2025 dismissing the Respondents' Set Aside Applications to set aside the Amended Examination Order dated 1 November 2024",
+      "bbox": [
+        25.0,
+        580.253,
+        571.667,
+        636.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n242",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON the Order of HE Justice Nassir AI Nasser dated 13 February 2025 dismissing the Respondents' Second Set-Aside Application dated 6 February 2025",
+      "bbox": [
+        25.667,
+        527.253,
+        572.0,
+        566.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n243",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "rejecting the Appellants' Permission to Appeal Applications and Applications dated 21 February 2025 Stay",
+      "bbox": [
+        24.0,
+        459.587,
+        572.333,
+        494.545
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n244",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON the First; Second and Third Appellants' renewed application for permission to appeal dated 21 2025 (the \"Renewed Applications' May",
+      "bbox": [
+        25.0,
+        405.625,
+        572.333,
+        443.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n245",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON he First; Second and Third Appellants' renewed applications (the Applications\") \"Stay stay",
+      "bbox": [
+        26.0,
+        375.253,
+        568.0,
+        395.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n246",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND PURSUANT TO the Rules of the DIFC Courts (the \"RDC\")",
+      "bbox": [
+        25.333,
+        346.92,
+        364.333,
+        364.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n247",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "IT IS HEREBY ORDERED THAT:",
+      "bbox": [
+        25.0,
+        318.92,
+        201.667,
+        332.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-1",
+      "kind": "list",
+      "page_number": 2,
+      "text": "1 The First Applicant is granted permission to appeal in respect of the proposed first ground of appeal only.\n2 The operation of the Part 50 Orders relating to the First Applicant is stayed until further order.",
+      "bbox": [
+        24.667,
+        240.253,
+        572.333,
+        305.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-2",
+      "kind": "list_item",
+      "page_number": 2,
+      "text": "1 The First Applicant is granted permission to appeal in respect of the proposed first ground of appeal only.",
+      "bbox": [
+        25.0,
+        269.587,
+        572.333,
+        305.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-3",
+      "kind": "list_item",
+      "page_number": 2,
+      "text": "2 The operation of the Part 50 Orders relating to the First Applicant is stayed until further order.",
+      "bbox": [
+        24.667,
+        240.253,
+        533.333,
+        258.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n250",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The First Applicant shall file and serve his skeleton argument in support of the appeal within fourteen (14) days of the date of this Order.",
+      "bbox": [
+        24.0,
+        191.92,
+        571.333,
+        229.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n251",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The Judgment Creditor shall file and serve its skeleton argument in opposition to the appeal within fourteen (14) days of service of the First Applicant's skeleton argument.",
+      "bbox": [
+        24.0,
+        144.253,
+        571.667,
+        183.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n252",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The First Applicant shall file and serve any skeleton argument in reply within ten (10) days after the service of that skeleton.",
+      "bbox": [
+        25.0,
+        98.92,
+        572.0,
+        133.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-4",
+      "kind": "list",
+      "page_number": 2,
+      "text": "6 Within ten (10) days of the date of this Order, the parties shall provide to the Registry their available dates for a hearing of the appeal in the period between 45 and 140 days after the date of this Order.\n7 . The Renewed Application by the Second and Third Applicants is dismissed.",
+      "bbox": [
+        24.333,
+        19.92,
+        572.0,
+        85.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-5",
+      "kind": "list_item",
+      "page_number": 2,
+      "text": "6 Within ten (10) days of the date of this Order, the parties shall provide to the Registry their available dates for a hearing of the appeal in the period between 45 and 140 days after the date of this Order.",
+      "bbox": [
+        24.333,
+        47.92,
+        572.0,
+        85.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-6",
+      "kind": "list_item",
+      "page_number": 2,
+      "text": "7 . The Renewed Application by the Second and Third Applicants is dismissed.",
+      "bbox": [
+        25.333,
+        19.92,
+        440.667,
+        37.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n255",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The Application by the Second and Third Applicants is dismissed. Stay",
+      "bbox": [
+        25.0,
+        808.29,
+        412.667,
+        827.217
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n256",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The Second and Third Applicants the Judgment Creditor's costs of their Renewed Application and of their Stay Application: In default of agreement with respect to the quantum of those costs, will be assessed in accordance with the orders which follow. they",
+      "bbox": [
+        24.333,
+        740.958,
+        572.333,
+        798.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n257",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Within twenty-eight (28) days of the date of this Order; the Judgment Creditor shall file a Statement of Costs incurred in respect of the Renewed Application and the Application made by the Second and Third Applicants; together with any short submissions in support of the costs claimed. Stay",
+      "bbox": [
+        24.0,
+        672.253,
+        572.0,
+        729.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n258",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "11 . shall file and serve any submissions relating to the quantum of costs claimed.",
+      "bbox": [
+        24.667,
+        624.587,
+        436.667,
+        659.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n259",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Within seven (7) days of service of any submissions in accordance with the preceding order; the Judgment Creditor shall file any submissions in reply to those submissions.",
+      "bbox": [
+        24.0,
+        576.587,
+        572.0,
+        613.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n260",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The quantum of the costs payable pursuant to these Orders shall thereafter be assessed by the Chief Justice on the papers.",
+      "bbox": [
+        24.333,
+        528.587,
+        572.0,
+        565.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n261",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Issued by:",
+      "bbox": [
+        430.333,
+        501.587,
+        488.333,
+        516.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n262",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Delvin Sumo Assistant Registrar",
+      "bbox": [
+        431.333,
+        458.587,
+        534.667,
+        493.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n263",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Date of issue: 1 July 2025",
+      "bbox": [
+        431.667,
+        438.92,
+        571.667,
+        453.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n264",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Time: 1Oam",
+      "bbox": [
+        431.0,
+        420.253,
+        495.667,
+        432.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n265",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "SCHEDULE OF REASONS",
+      "bbox": [
+        24.0,
+        390.253,
+        172.0,
+        403.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n266",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "Summary",
+      "bbox": [
+        24.0,
+        357.92,
+        81.0,
+        373.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n267",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "1",
+      "bbox": [
+        26.333,
+        331.587,
+        33.0,
+        341.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n269",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Mr Octavio (the \"Second\" and \"Third Applicants\")",
+      "bbox": [
+        289.333,
+        327.587,
+        570.667,
+        344.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n268",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Mr Ozias (the \"First Applicant\"), Mr Ori and",
+      "bbox": [
+        40.0,
+        326.587,
+        287.333,
+        343.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n270",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "have each filed renewed applications for",
+      "bbox": [
+        25.333,
+        305.253,
+        253.333,
+        321.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n271",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Permission to Appeal (\"Renewed Application\") from the",
+      "bbox": [
+        256.0,
+        305.253,
+        572.0,
+        321.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n273",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Judge dismissing",
+      "bbox": [
+        191.0,
+        284.253,
+        293.667,
+        303.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n272",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "decision of",
+      "bbox": [
+        25.0,
+        287.587,
+        71.667,
+        300.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n275",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Aside Orders for their",
+      "bbox": [
+        441.0,
+        287.587,
+        473.0,
+        300.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n274",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "to Set",
+      "bbox": [
+        395.667,
+        287.587,
+        409.0,
+        299.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n279",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "their first applications for between the parties; the amount due under that Award was ultimately to Oaklen in full in April 2022. It is unnecessary to relate the circumstances which resulted in the Award being satisfied after execution proceedings were taken by Oaklen in the Onshore Courts of Dubai. paid",
+      "bbox": [
+        428.667,
+        261.92,
+        572.0,
+        280.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n276",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Examination an Enforcement under Part 50",
+      "bbox": [
+        26.333,
+        264.92,
+        93.667,
+        277.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n277",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "of the Rules of the their Application DIFC",
+      "bbox": [
+        183.0,
+        264.92,
+        218.333,
+        277.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n278",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Courts (\"RDC\") ,",
+      "bbox": [
+        333.667,
+        263.587,
+        425.667,
+        277.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n280",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Permission to Appeal having been dismissed by a Judge of this Court:.",
+      "bbox": [
+        25.333,
+        241.587,
+        398.667,
+        260.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n281",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "Procedural history",
+      "bbox": [
+        25.333,
+        212.253,
+        129.667,
+        228.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n282",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "2 The ClaimantlJudgment Creditor; Oaklen (\"Oaklen\") entered into a building contract with the DefendantlJudgment Debtor, (Obadiah\") for the construction of a luxury residential building in onshore Dubai called \"Olene\" . The building; which comprised residential units; was completed in 2021 .",
+      "bbox": [
+        25.333,
+        138.253,
+        572.0,
+        200.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n283",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Oaklen initiated two Arbitrations against Obadiah. The first commenced on 21 February 2018 and related to issues concerning water ingress at the site. On 30 January 2020, a Final Award was issued in favour of Oaklen in relation to that Arbitration which; after subsequent adjustment; required Obadiah to pay Oaklen AED 42,410,920.05 (exclusive of interest and costs) . After various legal manoeuvres",
+      "bbox": [
+        24.0,
+        51.253,
+        571.333,
+        129.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-7",
+      "kind": "list",
+      "page_number": 4,
+      "text": "4. The Second Arbitration was commenced by Oaklen against Obadiah 9 June 2020. On 10 March 2023, a Partial Award was issued in favour of Oaklen in the amount of AED 57,803,026.17. A Final Award was issued in that Arbitration on 21 June 2023. As at 14 August 2023, the total amount of AED 73,267,151.26 was due from Obadiah to Oaklen as a result of the Second Arbitration. As no of that Award has been satisfied to date; interest has continued to accrue on that amount at 5% per annum part\n5. On 17 August 2023, Oaklen applied to this Court for an order recognizing and enforcing the Final Award in the Second Arbitration:. On 6 September 2023, a Judge of the Court made orders for recognition and enforcement of the Award that were amended and reissued on 27 September 2023. Oaklen then sought and obtained, on 30 October 2023, an order from the Enforcement Judge to the effect that the Amended Order of Recognition and Enforcement was final and executory and therefore capable of enforcement:.",
+      "bbox": [
+        24.0,
+        510.253,
+        572.333,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-8",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "4. The Second Arbitration was commenced by Oaklen against Obadiah 9 June 2020. On 10 March 2023, a Partial Award was issued in favour of Oaklen in the amount of AED 57,803,026.17. A Final Award was issued in that Arbitration on 21 June 2023. As at 14 August 2023, the total amount of AED 73,267,151.26 was due from Obadiah to Oaklen as a result of the Second Arbitration. As no of that Award has been satisfied to date; interest has continued to accrue on that amount at 5% per annum part",
+      "bbox": [
+        24.0,
+        642.587,
+        572.333,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-9",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "5. On 17 August 2023, Oaklen applied to this Court for an order recognizing and enforcing the Final Award in the Second Arbitration:. On 6 September 2023, a Judge of the Court made orders for recognition and enforcement of the Award that were amended and reissued on 27 September 2023. Oaklen then sought and obtained, on 30 October 2023, an order from the Enforcement Judge to the effect that the Amended Order of Recognition and Enforcement was final and executory and therefore capable of enforcement:.",
+      "bbox": [
+        24.0,
+        510.253,
+        572.0,
+        627.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n286",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Oaklen then initiated execution proceedings in the Onshore Courts of Dubai, based upon the judgment of this Court. Disclosure of information obtained through those execution proceedings caused Oaklen to conclude that Obadiah held no assets or bank accounts in the UAE. On 21 2024, Oaklen obtained an order in the Onshore Courts requiring the First Applicant to appear before the Execution Court for the purpose of disclosing any assets held by Obadiah. Oaklen asserts that the First Applicant failed to comply with that order. May",
+      "bbox": [
+        23.333,
+        380.92,
+        572.0,
+        499.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-10",
+      "kind": "list",
+      "page_number": 4,
+      "text": "7 . On 25 September and 14 October 2024, Oaklen applied in this Court for orders pursuant to RDC Part 50 requiring all three Applicants to attend for examination and to produce documents and information to their examination. Such orders were made by an Enforcement Judge on 15 October 2024 without notice to any of the prospective examinees; as is standard practice. On 21 October 2024, the Part 50 Orders were amended by the Enforcement prior Judge.\n8. On 1 November 2024, following service, the Applicants applied to set aside the Part 50 Orders and for a of those orders pending determination of that application: On 6 November 2024, by consent; an order was made vacating the examination hearing which was to take place that and staying the Part 50 Orders until the determination of the application to set them aside. stay day\n9 The parties then exchanged evidence and argument in relation to the Applications to Set Aside the Part 50 Orders; which were heard on 9 January 2025.\n10. On 31 January 2025, the Enforcement Judge dismissed all Applications to Set Aside the Part 50 Orders. That is the decision which is the subject of the Renewed Application. The reasons given by the Enforcement Judge for the decision to dismiss the Application to Set Aside the orders will be considered in the context of the proposed grounds of appeal.",
+      "bbox": [
+        24.333,
+        47.253,
+        572.0,
+        370.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-11",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "7 . On 25 September and 14 October 2024, Oaklen applied in this Court for orders pursuant to RDC Part 50 requiring all three Applicants to attend for examination and to produce documents and information to their examination. Such orders were made by an Enforcement Judge on 15 October 2024 without notice to any of the prospective examinees; as is standard practice. On 21 October 2024, the Part 50 Orders were amended by the Enforcement prior Judge.",
+      "bbox": [
+        25.0,
+        270.95,
+        571.667,
+        370.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-12",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "8. On 1 November 2024, following service, the Applicants applied to set aside the Part 50 Orders and for a of those orders pending determination of that application: On 6 November 2024, by consent; an order was made vacating the examination hearing which was to take place that and staying the Part 50 Orders until the determination of the application to set them aside. stay day",
+      "bbox": [
+        24.333,
+        182.92,
+        571.667,
+        263.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-13",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "9 The parties then exchanged evidence and argument in relation to the Applications to Set Aside the Part 50 Orders; which were heard on 9 January 2025.",
+      "bbox": [
+        25.333,
+        136.587,
+        572.0,
+        173.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-14",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "10. On 31 January 2025, the Enforcement Judge dismissed all Applications to Set Aside the Part 50 Orders. That is the decision which is the subject of the Renewed Application. The reasons given by the Enforcement Judge for the decision to dismiss the Application to Set Aside the orders will be considered in the context of the proposed grounds of appeal.",
+      "bbox": [
+        24.333,
+        47.253,
+        572.0,
+        125.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n291",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "11 On 6 February 2025, each Applicant filed a second Application to Set Aside the Examination Orders made pursuant to Part 50 On 13 February 2025, the Enforcement Judge dismissed those Applications.",
+      "bbox": [
+        24.667,
+        768.587,
+        572.0,
+        825.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n292",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Each Applicant then applied for Permission to Appeal from the decision of the Enforcement Judge made on 31 January 2025 dismissing their Applications to Set Aside the Part 50 Orders. Those Applications were dismissed by another Judge of the Court on 29 April 2025.",
+      "bbox": [
+        24.667,
+        700.587,
+        573.0,
+        759.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n293",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "The Applicants have criticized the terms of the decision to dismiss their initial Applications for Permission to Appeal in the skeleton arguments served in support of the Renewed Application. However:",
+      "bbox": [
+        25.667,
+        634.92,
+        572.0,
+        690.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-15",
+      "kind": "list",
+      "page_number": 5,
+      "text": "(a) As the Judge who dismissed the First Application for Permission to Appeal was not the Judge who made the decision under appeal, his reasons can shed no light on the reasons for the decision under appeal; and\n(b) A Renewed Application takes effect as an Application de novo in which the grounds of appeal are considered afresh by the Court of Appeal without enquiry into the question of whether the Judge erred in refusing the initial Application for Permission to Appeal.",
+      "bbox": [
+        46.667,
+        494.92,
+        572.333,
+        620.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-16",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(a) As the Judge who dismissed the First Application for Permission to Appeal was not the Judge who made the decision under appeal, his reasons can shed no light on the reasons for the decision under appeal; and",
+      "bbox": [
+        46.667,
+        563.587,
+        572.0,
+        620.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-17",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(b) A Renewed Application takes effect as an Application de novo in which the grounds of appeal are considered afresh by the Court of Appeal without enquiry into the question of whether the Judge erred in refusing the initial Application for Permission to Appeal.",
+      "bbox": [
+        46.667,
+        494.92,
+        572.333,
+        552.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n296",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Accordingly; in this case; no point would be served by considering the reasons given by the Judge who dismissed the initial Application for Permission to Appeal or the criticisms of those reasons .",
+      "bbox": [
+        25.333,
+        447.92,
+        572.0,
+        485.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n297",
+      "kind": "heading",
+      "page_number": 5,
+      "text": "Permission to appeal legal principles",
+      "bbox": [
+        25.0,
+        417.253,
+        241.333,
+        433.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n298",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "RDC 44.117 provides:",
+      "bbox": [
+        25.333,
+        389.92,
+        165.667,
+        406.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n299",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "\"44.117 The Court of Appeal will allow an appeal from the decision of the Court of First Instance where the decision of the lower Court was:",
+      "bbox": [
+        46.333,
+        344.253,
+        572.0,
+        378.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n300",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Wrong; or",
+      "bbox": [
+        69.333,
+        313.253,
+        144.0,
+        331.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n301",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Unjust because of a serious procedural or other irregularity in the proceedings in the lower Court:'",
+      "bbox": [
+        69.333,
+        268.92,
+        572.0,
+        303.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n302",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "RDC 44.5 requires that an appellant obtain permission to appeal to the Court of Appeal except where the appeal is against a committal order.",
+      "bbox": [
+        25.333,
+        217.253,
+        573.0,
+        255.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n303",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "RDC 44.19 provides:",
+      "bbox": [
+        25.333,
+        190.587,
+        160.0,
+        207.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n304",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "\"44.19 Permission to appeal may only be given where the lower Court or the Appeal Court considers that:",
+      "bbox": [
+        46.333,
+        144.92,
+        572.667,
+        178.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n305",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "The appeal would have a real prospect of success; or",
+      "bbox": [
+        70.0,
+        114.253,
+        375.333,
+        130.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n306",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "There is some other compelling reason the appeal should be heard:' why",
+      "bbox": [
+        68.667,
+        86.291,
+        475.333,
+        104.882
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n307",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "RDC 44.19 provides that permission to appeal may only be given where the appeal would have a real prospect of success or there is some other compelling reason why the appeal should be heard.",
+      "bbox": [
+        24.667,
+        38.587,
+        571.333,
+        76.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-18",
+      "kind": "list",
+      "page_number": 6,
+      "text": "19. means realistic rather than fanciful and involves the same test as is applied in applications for immediate judgment:.\n20 A real prospect of success does not mean a probability of success, but more than mere 2 arguability .\n21. \"Some other compelling reason why the appeal should be heard\" may include the public interest in clarifying the meaning and scope of relevant practice and provisions of DIFC and wider UAE law. 3\n22. same test as is applied in an application for immediate 4 judgment:\n23. It is also established that a real prospect of success does not mean a probability of success, but more than mere arguability 5\n24. Accordingly; in order to obtain the grant of permission a prospective appellant needs to establish more than the proposition that the proposed appeal is reasonably arguable rather; it must be 6 established that there is a real prospect of success.\n25. Particular principles apply to applications for permission to appeal against case management decisions; discretionary decisions and multi factorial assessments undertaken by a Judge at first instance; given the hurdles which must be overcome to obtain appellant intervention in such cases. As only one of the grounds relied upon by the First Applicant and none of the grounds relied upon by the Second and Third Applicants raises issues of this nature; it is unnecessary to analyse the relevant principles in detail. It is sufficient to observe that an appellate court will only interfere with a discretionary decision if a wrong legal principle was applied or the decision was so outside the range of decisions open to the judge that error can be inferred; and if leaving the decision unreversed would cause significant injustice.\n26. In this case, all Applicants assert that not only do their appeals have real prospects of success; but also contend that there are compelling reasons for the grant of permission to appeal for the purpose of clarifying contentious legal issues.",
+      "bbox": [
+        23.333,
+        250.253,
+        572.667,
+        824.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-19",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "19. means realistic rather than fanciful and involves the same test as is applied in applications for immediate judgment:.",
+      "bbox": [
+        23.667,
+        787.587,
+        571.667,
+        824.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-20",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "20 A real prospect of success does not mean a probability of success, but more than mere 2 arguability .",
+      "bbox": [
+        23.667,
+        740.587,
+        571.333,
+        777.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-21",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "21. \"Some other compelling reason why the appeal should be heard\" may include the public interest in clarifying the meaning and scope of relevant practice and provisions of DIFC and wider UAE law. 3",
+      "bbox": [
+        24.0,
+        692.253,
+        571.333,
+        730.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-22",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "22. same test as is applied in an application for immediate 4 judgment:",
+      "bbox": [
+        23.333,
+        624.587,
+        572.333,
+        680.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-23",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "23. It is also established that a real prospect of success does not mean a probability of success, but more than mere arguability 5",
+      "bbox": [
+        25.0,
+        576.587,
+        572.0,
+        613.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-24",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "24. Accordingly; in order to obtain the grant of permission a prospective appellant needs to establish more than the proposition that the proposed appeal is reasonably arguable rather; it must be 6 established that there is a real prospect of success.",
+      "bbox": [
+        24.667,
+        507.92,
+        571.667,
+        568.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-25",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "25. Particular principles apply to applications for permission to appeal against case management decisions; discretionary decisions and multi factorial assessments undertaken by a Judge at first instance; given the hurdles which must be overcome to obtain appellant intervention in such cases. As only one of the grounds relied upon by the First Applicant and none of the grounds relied upon by the Second and Third Applicants raises issues of this nature; it is unnecessary to analyse the relevant principles in detail. It is sufficient to observe that an appellate court will only interfere with a discretionary decision if a wrong legal principle was applied or the decision was so outside the range of decisions open to the judge that error can be inferred; and if leaving the decision unreversed would cause significant injustice.",
+      "bbox": [
+        24.0,
+        318.587,
+        572.0,
+        498.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-26",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "26. In this case, all Applicants assert that not only do their appeals have real prospects of success; but also contend that there are compelling reasons for the grant of permission to appeal for the purpose of clarifying contentious legal issues.",
+      "bbox": [
+        24.0,
+        250.253,
+        572.667,
+        307.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n316",
+      "kind": "heading",
+      "page_number": 6,
+      "text": "The evidence",
+      "bbox": [
+        25.667,
+        222.92,
+        101.667,
+        235.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n317",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "27 . The evidence in support of and in opposition to the Part 50 Orders took the form of witness statements and documents. In accordance with standard practice; no witnesses were cross-examined. It is appropriate to review the findings made by the Enforcement Judge in the context of the evidence that was before him for the purpose of assessing whether there is a real prospect that the appellate court might find that the findings and the orders which he made were not open to him:.",
+      "bbox": [
+        24.0,
+        111.253,
+        572.0,
+        209.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n318",
+      "kind": "heading",
+      "page_number": 6,
+      "text": "Mr Osmar's first witness statement",
+      "bbox": [
+        26.333,
+        85.92,
+        213.667,
+        99.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-27",
+      "kind": "list",
+      "page_number": 7,
+      "text": "28. The evidence in support of the Part 50 Orders took the form of witness statements provided by Mr Osmar, who is a legal practitioner who has been employed as a Legal Director at Oaklen; together with various documents attached to Mr Osmar's statements.\n29. In his first statement; Mr Osmar asserted that Obadiah is a limited liability company incorporated in Dubai which Oaklen has always understood to form part of the Oleen; which is a real estate developer in the UAE which conducts business through a complex structure of companies in the UAE and overseas. 8 Mr Osmar stated that he did not understand it to be contested by Obadiah that it is of the Oleen and the building project which was the subject of the disputes between Oaklen and Obadiah is showcased on the Oleen's official website as part of its portfolio. According to Mr Osmar, the project was managed by Oleen acting as the representative of the Employer and throughout the execution of the project; Oaklen dealt exclusively with employees of other Oleen companies; including in some instances; Mr Octavio part\n30. Mr Osmar asserted that Obadiah remains within the Oleen and although its shareholding and registered ownership have changed from time to time, he asserted that it is in practice controlled by the same people. He contended that it had no distinct management team with all decisions being taken at the Oleen level.9\n31. According to Mr Osmar, in March 2017 Obadiah's commercial license identified its shareholders as the shares. The listed managers included a Mr Olida who was a long standing employee of various Oleen entities.\n32. Obadiah's commercial license as at 6 November 2019 recorded that the shareholding had changed and that Mr Ori held 51% of the shares; with the remaining 49% held by Orphie; another entity in the Oleen. Mr Octavio was one of the directors of Orphie. At that time; the manager of Obadiah was stated to be Mr Ori.\n33. The commercial license of Obadiah identified its sole shareholder as Mr Ordell, who is a national of Sri Lanka. Mr Ozias was identified in that license as the sole manager of Obadiah\n34 . Notwithstanding these changes; Mr Osmar asserted that he believes that Obadiah has remained a party of the Oleen at all times. He further asserted his belief that the changes in share holding and office holding were undertaken to try and create distance between the Oleen and Obadiah around the time a potential adverse ruling was about to be issued in the First Arbitration and to make it difficult for Oaklen to enforce the judgment debt against Obadiah or to seek any remedy against the relevant managers or office holders of Obadiah pursuant to relevant UAE Laws. 10\n35. Mr Osmar asserted that although Mr Ozias is registered as the sole manager of Obadiah; in practice Obadiah has always been subject to the ultimate control of Mr Octavio; and Mr Ori has always had substantial managerial powers over the company. He further asserted that it is clear that Obadiah has always been managed centrally within the Oleen.",
+      "bbox": [
+        24.0,
+        47.253,
+        572.333,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-28",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "28. The evidence in support of the Part 50 Orders took the form of witness statements provided by Mr Osmar, who is a legal practitioner who has been employed as a Legal Director at Oaklen; together with various documents attached to Mr Osmar's statements.",
+      "bbox": [
+        24.667,
+        770.92,
+        572.0,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-29",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "29. In his first statement; Mr Osmar asserted that Obadiah is a limited liability company incorporated in Dubai which Oaklen has always understood to form part of the Oleen; which is a real estate developer in the UAE which conducts business through a complex structure of companies in the UAE and overseas. 8 Mr Osmar stated that he did not understand it to be contested by Obadiah that it is of the Oleen and the building project which was the subject of the disputes between Oaklen and Obadiah is showcased on the Oleen's official website as part of its portfolio. According to Mr Osmar, the project was managed by Oleen acting as the representative of the Employer and throughout the execution of the project; Oaklen dealt exclusively with employees of other Oleen companies; including in some instances; Mr Octavio part",
+      "bbox": [
+        24.0,
+        579.92,
+        572.333,
+        758.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-30",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "30. Mr Osmar asserted that Obadiah remains within the Oleen and although its shareholding and registered ownership have changed from time to time, he asserted that it is in practice controlled by the same people. He contended that it had no distinct management team with all decisions being taken at the Oleen level.9",
+      "bbox": [
+        24.0,
+        492.92,
+        571.667,
+        569.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-31",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "31. According to Mr Osmar, in March 2017 Obadiah's commercial license identified its shareholders as the shares. The listed managers included a Mr Olida who was a long standing employee of various Oleen entities.",
+      "bbox": [
+        24.667,
+        404.253,
+        572.0,
+        480.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-32",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "32. Obadiah's commercial license as at 6 November 2019 recorded that the shareholding had changed and that Mr Ori held 51% of the shares; with the remaining 49% held by Orphie; another entity in the Oleen. Mr Octavio was one of the directors of Orphie. At that time; the manager of Obadiah was stated to be Mr Ori.",
+      "bbox": [
+        24.0,
+        316.253,
+        572.333,
+        392.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-33",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "33. The commercial license of Obadiah identified its sole shareholder as Mr Ordell, who is a national of Sri Lanka. Mr Ozias was identified in that license as the sole manager of Obadiah",
+      "bbox": [
+        25.0,
+        265.253,
+        571.667,
+        301.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-34",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "34 . Notwithstanding these changes; Mr Osmar asserted that he believes that Obadiah has remained a party of the Oleen at all times. He further asserted his belief that the changes in share holding and office holding were undertaken to try and create distance between the Oleen and Obadiah around the time a potential adverse ruling was about to be issued in the First Arbitration and to make it difficult for Oaklen to enforce the judgment debt against Obadiah or to seek any remedy against the relevant managers or office holders of Obadiah pursuant to relevant UAE Laws. 10",
+      "bbox": [
+        24.0,
+        136.587,
+        572.0,
+        256.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-35",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "35. Mr Osmar asserted that although Mr Ozias is registered as the sole manager of Obadiah; in practice Obadiah has always been subject to the ultimate control of Mr Octavio; and Mr Ori has always had substantial managerial powers over the company. He further asserted that it is clear that Obadiah has always been managed centrally within the Oleen.",
+      "bbox": [
+        24.0,
+        47.253,
+        572.0,
+        126.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-36",
+      "kind": "list",
+      "page_number": 8,
+      "text": "36. Mr Osmar stated that at no point during the building project did Oaklen have any commercial dealings with Mr Ori or Mr Ozias, and that throughout the execution of the project their dealings were exclusively with employees of other Oleen companies. He is not aware of any other employees or officers of Obadiah other than the registered Manager and Obadiah did not have any separate address or offices apart from Oleen's offices. 11\n37 . Further, during the Second Arbitration; Obadiah was legally represented by the in house legal team of the Oleen and all correspondence and communications in connection with those proceedings were addressed to Oleen.\n38. Mr Osmar observed that in one of the partial awards issued by the Tribunal in the Second Arbitration; the Tribunal noted: \"It was common ground that Obadiah was a single purpose vehicle (SPV) formed for the purpose of this project; and that it was owned and controlled by the Oleen. According to Mr Osgood [an employee of the Oleen], such an arrangement was standard practice, and he himself was apparently a director of so many such group companies that he was unable to recall precisely how \"12 many directorships he had:'\n39 Mr Osmar stated that Mr Ori is a resident of the UAE and has been involved in Obadiah as a shareholder and manager ever since Oaklen was engaged in the building project. He was appointed manager in or around 17 January 2018 until he left that position in about 2020.\n40 Mr Osmar asserted that \"it should be uncontroversial that Mr Octavio is a UAE resident; the ultimate owner of the Oleen;, and that by extension controlled Obadiah at all relevant times\" . He observed that the Tribunal in the Second Arbitration held, on the basis of evidence given by an employee of Oleen; that the parent company in the Group was entirely owned by Mr Octavio; who was the controlling shareholder within the Oleen and CEO. The Tribunal observed that no evidence was given before it to the effect that Obadiah had any employees or personnel other than those employed by Oleen; and that Obadiah had no separate address or offices.\n41 According to Mr Osmar; when there was an issue between Oaklen and Obadiah Mr Octavio would involved in order to and resolve the issue. He provided examples of that occurrence; including an interchange which occurred with Mr Octavio in January 2018 when disputes first arose; and another occasion in June 2020 when Mr Osmar was meeting with representatives of Obadiah to discuss some of the outstanding issues; when Mr Octavio attended the meeting and took over the discussion on behalf of Obadiah. Shortly after that meeting Mr Osmar received a call from the inhouse lawyer at Oleen who suggested that Mr Octavio could speak to management at Oaklen if \"that would move things in the right direction between Obadiah and Oaklen\" . 13 get try\n42. Mr Osmar further observed that Mr Octavio signed a power of attorney on behalf of Obadiah on 29 November 2018 in order to provide authority for legal counsel to represent the company in relation to represent the company by virtue of a resolution from the Board of Managers dated 12 October 2017. On that basis; Mr Osmar asserted that Mr Octavio is and always has been a de facto director of Obadiah.14",
+      "bbox": [
+        23.333,
+        68.253,
+        572.0,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-37",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "36. Mr Osmar stated that at no point during the building project did Oaklen have any commercial dealings with Mr Ori or Mr Ozias, and that throughout the execution of the project their dealings were exclusively with employees of other Oleen companies. He is not aware of any other employees or officers of Obadiah other than the registered Manager and Obadiah did not have any separate address or offices apart from Oleen's offices. 11",
+      "bbox": [
+        23.333,
+        727.92,
+        572.0,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-38",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "37 . Further, during the Second Arbitration; Obadiah was legally represented by the in house legal team of the Oleen and all correspondence and communications in connection with those proceedings were addressed to Oleen.",
+      "bbox": [
+        24.0,
+        662.253,
+        572.0,
+        718.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-39",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "38. Mr Osmar observed that in one of the partial awards issued by the Tribunal in the Second Arbitration; the Tribunal noted: \"It was common ground that Obadiah was a single purpose vehicle (SPV) formed for the purpose of this project; and that it was owned and controlled by the Oleen. According to Mr Osgood [an employee of the Oleen], such an arrangement was standard practice, and he himself was apparently a director of so many such group companies that he was unable to recall precisely how \"12 many directorships he had:'",
+      "bbox": [
+        25.0,
+        503.253,
+        572.0,
+        648.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-40",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "39 Mr Osmar stated that Mr Ori is a resident of the UAE and has been involved in Obadiah as a shareholder and manager ever since Oaklen was engaged in the building project. He was appointed manager in or around 17 January 2018 until he left that position in about 2020.",
+      "bbox": [
+        24.333,
+        434.92,
+        572.0,
+        491.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-41",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "40 Mr Osmar asserted that \"it should be uncontroversial that Mr Octavio is a UAE resident; the ultimate owner of the Oleen;, and that by extension controlled Obadiah at all relevant times\" . He observed that the Tribunal in the Second Arbitration held, on the basis of evidence given by an employee of Oleen; that the parent company in the Group was entirely owned by Mr Octavio; who was the controlling shareholder within the Oleen and CEO. The Tribunal observed that no evidence was given before it to the effect that Obadiah had any employees or personnel other than those employed by Oleen; and that Obadiah had no separate address or offices.",
+      "bbox": [
+        24.333,
+        285.587,
+        572.0,
+        423.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-42",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "41 According to Mr Osmar; when there was an issue between Oaklen and Obadiah Mr Octavio would involved in order to and resolve the issue. He provided examples of that occurrence; including an interchange which occurred with Mr Octavio in January 2018 when disputes first arose; and another occasion in June 2020 when Mr Osmar was meeting with representatives of Obadiah to discuss some of the outstanding issues; when Mr Octavio attended the meeting and took over the discussion on behalf of Obadiah. Shortly after that meeting Mr Osmar received a call from the inhouse lawyer at Oleen who suggested that Mr Octavio could speak to management at Oaklen if \"that would move things in the right direction between Obadiah and Oaklen\" . 13 get try",
+      "bbox": [
+        23.457,
+        115.92,
+        572.0,
+        276.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-43",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "42. Mr Osmar further observed that Mr Octavio signed a power of attorney on behalf of Obadiah on 29 November 2018 in order to provide authority for legal counsel to represent the company in relation to represent the company by virtue of a resolution from the Board of Managers dated 12 October 2017. On that basis; Mr Osmar asserted that Mr Octavio is and always has been a de facto director of Obadiah.14",
+      "bbox": [
+        25.333,
+        68.253,
+        572.0,
+        105.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n335",
+      "kind": "heading",
+      "page_number": 9,
+      "text": "Mr Ozias",
+      "bbox": [
+        26.333,
+        743.92,
+        76.667,
+        756.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n336",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "43. Mr Ozias filed a witness statement in support of his Application to Set Aside the Part 50 Orders. Apart from affirming his role as General Manager of Obadiah; in that statement Mr Oziassays nothing whatever in relation to his roles and responsibilities with the company: Nor does he say when he took on the role of Manager; or in what circumstances. In the statement; Mr Ozias asserts that he is not resident in the DIFC, Dubai or any part of the UAE and is resident in and a citizen of Sri Lanka. He states that he was in Sri Lanka at all relevant times when examination orders were made against him. The balance of his statement is directed to advancing legal argument in support of his Application.",
+      "bbox": [
+        24.667,
+        591.587,
+        572.0,
+        729.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n337",
+      "kind": "heading",
+      "page_number": 9,
+      "text": "Mr Olivier's first witness statement",
+      "bbox": [
+        26.333,
+        566.253,
+        211.667,
+        578.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-44",
+      "kind": "list",
+      "page_number": 9,
+      "text": "44. The Application of the Second and Third Applicants that the examination orders made against them should be set aside was supported by an affidavit from Mr Olivier who is a partner in the law firm representing those parties.\n45. There is nothing in Mr Oliviers statement which would suggest that he has any direct or personal knowledge of the matters to which he refers rather his statement is limited to matters he has been told by Mr Orrel, who is Head of Legal at Oleen.\n46. Mr Olivier asserted that the entire share capital of Obadiah was transferred to Mr Ordell, who is said to be an unrelated third party; in September 2022 after the building project was completed and before the first Partial Final Award in the Second Arbitration:\n47. Mr Olivier asserted that Mr Osmar's description of the Oleen is misleading; although he does not dispute that there was a period during which Obadiah was part of \"Oleen\" which he describes as a brand rather than a group of companies. He further accepted that Obadiah was affiliated with Mr Octavio by means of his indirect shareholding in Obadiah; but denies that there was ever a time in which the Oleen held a majority shareholding in Obadiah\n48. Mr is not the place for legal argument\" , and then devoted much of his statement to the advancement To the extent that such argument depends upon assertions of fact Mr Olivier asserted that:",
+      "bbox": [
+        24.0,
+        181.587,
+        572.667,
+        554.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-45",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "44. The Application of the Second and Third Applicants that the examination orders made against them should be set aside was supported by an affidavit from Mr Olivier who is a partner in the law firm representing those parties.",
+      "bbox": [
+        24.0,
+        495.587,
+        572.667,
+        554.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-46",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "45. There is nothing in Mr Oliviers statement which would suggest that he has any direct or personal knowledge of the matters to which he refers rather his statement is limited to matters he has been told by Mr Orrel, who is Head of Legal at Oleen.",
+      "bbox": [
+        24.0,
+        427.253,
+        572.333,
+        484.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-47",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "46. Mr Olivier asserted that the entire share capital of Obadiah was transferred to Mr Ordell, who is said to be an unrelated third party; in September 2022 after the building project was completed and before the first Partial Final Award in the Second Arbitration:",
+      "bbox": [
+        24.333,
+        361.587,
+        572.667,
+        416.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-48",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "47. Mr Olivier asserted that Mr Osmar's description of the Oleen is misleading; although he does not dispute that there was a period during which Obadiah was part of \"Oleen\" which he describes as a brand rather than a group of companies. He further accepted that Obadiah was affiliated with Mr Octavio by means of his indirect shareholding in Obadiah; but denies that there was ever a time in which the Oleen held a majority shareholding in Obadiah",
+      "bbox": [
+        24.333,
+        250.587,
+        572.0,
+        348.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-49",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "48. Mr is not the place for legal argument\" , and then devoted much of his statement to the advancement To the extent that such argument depends upon assertions of fact Mr Olivier asserted that:",
+      "bbox": [
+        24.333,
+        181.587,
+        571.0,
+        238.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-50",
+      "kind": "list",
+      "page_number": 9,
+      "text": "(a) Mr Ori was the General Manager of Obadiah between March 2018 and March 2020 when he was replaced in that capacity by Mr Ozias and\n(b) Mr Octaviowas a minority indirect shareholder in Obadiah through his interest in Orphie from July 2013 to October 2020 and was a director of Orphie which held 499 of the shareholding in Obaidah up until September 2022.",
+      "bbox": [
+        46.667,
+        65.253,
+        572.0,
+        170.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-51",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "(a) Mr Ori was the General Manager of Obadiah between March 2018 and March 2020 when he was replaced in that capacity by Mr Ozias and",
+      "bbox": [
+        46.667,
+        134.253,
+        572.0,
+        170.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-52",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "(b) Mr Octaviowas a minority indirect shareholder in Obadiah through his interest in Orphie from July 2013 to October 2020 and was a director of Orphie which held 499 of the shareholding in Obaidah up until September 2022.",
+      "bbox": [
+        46.667,
+        65.253,
+        571.333,
+        123.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n345",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "These assertions do not appear to be contentious.",
+      "bbox": [
+        25.0,
+        37.92,
+        292.667,
+        54.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-53",
+      "kind": "list",
+      "page_number": 10,
+      "text": "49 Mr Olivier asserted that \"Obadiah was sold to an unrelated third party in 2022\" . However; Mr Olivier says nothing of the circumstances or the terms of the sale; the identity of the purchaser; or the subsequent business activities of Obadiah.\n50. Mr Olivier asserted, on the basis of what he has apparently been told by Mr Orrel, whose sources of information are not revealed; that the commercial rationale for the acquisition for Obadiah was:",
+      "bbox": [
+        24.333,
+        720.587,
+        572.0,
+        824.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-54",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "49 Mr Olivier asserted that \"Obadiah was sold to an unrelated third party in 2022\" . However; Mr Olivier says nothing of the circumstances or the terms of the sale; the identity of the purchaser; or the subsequent business activities of Obadiah.",
+      "bbox": [
+        24.333,
+        768.253,
+        572.0,
+        824.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-55",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "50. Mr Olivier asserted, on the basis of what he has apparently been told by Mr Orrel, whose sources of information are not revealed; that the commercial rationale for the acquisition for Obadiah was:",
+      "bbox": [
+        24.667,
+        720.587,
+        572.0,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-56",
+      "kind": "list",
+      "page_number": 10,
+      "text": "(a) To obtain Obadiah's cash at bank;\n(b) To acquire a potentially valuable claim against the groundworks contractor;\n(c) To utilise Obadiah's real estate registration; and\n(d) To utilise Obadiah's brand; reputation and industry contacts arising from having completed the internationally acclaimed Olene project. 15",
+      "bbox": [
+        46.333,
+        589.253,
+        572.0,
+        709.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-57",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "(a) To obtain Obadiah's cash at bank;",
+      "bbox": [
+        46.667,
+        693.253,
+        249.333,
+        709.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-58",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "(b) To acquire a potentially valuable claim against the groundworks contractor;",
+      "bbox": [
+        46.667,
+        664.253,
+        464.667,
+        682.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-59",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "(c) To utilise Obadiah's real estate registration; and",
+      "bbox": [
+        47.333,
+        637.253,
+        320.333,
+        653.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-60",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "(d) To utilise Obadiah's brand; reputation and industry contacts arising from having completed the internationally acclaimed Olene project. 15",
+      "bbox": [
+        46.333,
+        589.253,
+        572.0,
+        627.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-61",
+      "kind": "list",
+      "page_number": 10,
+      "text": "51 MrOlivier asserted that the Second and Third Applicants have not had any involvement in the affairs of Obadiah since the transfer of it's shares in 2022. However, the basis for that assertion is not identified.\n52. Mr Olivier asserted that Mr Ori was a 51% shareholder of Obadiah when it was incorporated. Mr Ori then transferred his interest in 50% of the shares in the company to Ocia; until he repurchased that interest in October 2017.\n53. As regards Mr Octavio; Mr Olivier asserted that in 2013 Mr Octavio acquired an indirect minority shareholding in Obadiah via his interest in Ohana; which held a 49% interest in Obadiah. In 2017, the shares held by Ohana in Obadiah were transferred to an affiliated company; Orphie, of which Mr Octavio was a director because that company owned the plot of land which was intended to be used for the project. Orphie's 49% holding in Obadiah was transferred to Mr Ordell in September 2022, along with Mr Ori's 51% shareholding, although again; nothing is said of the circumstances or terms of that transfer.\n54. It is unnecessary to refer to the large part of Mr Olivier's statement which is concerned with the development of legal argument.",
+      "bbox": [
+        23.667,
+        255.253,
+        572.667,
+        578.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-62",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "51 MrOlivier asserted that the Second and Third Applicants have not had any involvement in the affairs of Obadiah since the transfer of it's shares in 2022. However, the basis for that assertion is not identified.",
+      "bbox": [
+        24.333,
+        523.587,
+        572.333,
+        578.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-63",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "52. Mr Olivier asserted that Mr Ori was a 51% shareholder of Obadiah when it was incorporated. Mr Ori then transferred his interest in 50% of the shares in the company to Ocia; until he repurchased that interest in October 2017.",
+      "bbox": [
+        25.0,
+        454.92,
+        572.667,
+        509.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-64",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "53. As regards Mr Octavio; Mr Olivier asserted that in 2013 Mr Octavio acquired an indirect minority shareholding in Obadiah via his interest in Ohana; which held a 49% interest in Obadiah. In 2017, the shares held by Ohana in Obadiah were transferred to an affiliated company; Orphie, of which Mr Octavio was a director because that company owned the plot of land which was intended to be used for the project. Orphie's 49% holding in Obadiah was transferred to Mr Ordell in September 2022, along with Mr Ori's 51% shareholding, although again; nothing is said of the circumstances or terms of that transfer.",
+      "bbox": [
+        23.667,
+        306.253,
+        572.667,
+        441.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-65",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "54. It is unnecessary to refer to the large part of Mr Olivier's statement which is concerned with the development of legal argument.",
+      "bbox": [
+        24.667,
+        255.253,
+        572.0,
+        292.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n356",
+      "kind": "heading",
+      "page_number": 10,
+      "text": "Mr Osmar's second witness statement",
+      "bbox": [
+        26.333,
+        229.253,
+        233.0,
+        243.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n357",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "55. Much of Mr Osmar's second witness statement is concerned with responding to the argumentative assertions contained in Mr Olivier's first statement. However; pertinently to the issues presently under consideration; he observed that in the course of the execution proceedings brought against Obadiah in the UAE Onshore Courts in relation to the First Arbitration; Obadiah represented that it had derived AED 375m in profit from the sale of units in the project. Obviously; that poses a question as to the assets (if any) derived from those profits which is relevant to matters which could be the subject of examination under Part 50.",
+      "bbox": [
+        24.333,
+        80.92,
+        572.333,
+        216.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-66",
+      "kind": "list",
+      "page_number": 11,
+      "text": "56 . Mr Osmar also observed that Mr Olivier was able to obtain and exhibit to his witness statement numerous documents that appear confidential to Obadiah; including draft legal memoranda; legal correspondence and the register of members. He asserted that as Mr Olivier represents Mr Ori and Mr Octavio; it can be inferred that still have access to documents held by Obadiah. they\n57 . Mr Osmar also asserted that based upon information relating to Mr Ozias' immigration record obtained through the Onshore execution proceedings; Mr Ozias was a UAE resident from at least 27 October 2019 until 26 October 2022, and that his residence in the UAE was not sponsored by Obadiah; but by Olavi; of which Mr Ozias is the registered Manager and a 25% shareholder 16\n58. Mr Osmar further asserted that as recently as June 2024 Mr Octavio held himself out as a representative of Obadiah in dealings with the parent company of Oaklen 17\n59. Mr Osmar reiterated his assertion that Mr Octavio was at all material times controlling Obadiah and would therefore be aware of its business dealings and assets and the extent to which those assets would have been transferred to other entities. 18\n60 Mr Osmar also referred to public statements made by Mr Octavio to the media relating to the project; in which he described it as an Oleen project. 19 The evidence summary\n61 The evidence upon which Oaklen relied came from Mr Osmar, who is a senior employee of Oaklen; and the various documents to which he referred. He gave direct evidence of a meeting with Mr Octavio which he attended, and there is no reason to doubt his evidence with respect to the general nature of the dealings which Oaklen had with Oleen personnel and Mr Octavio.\n62. By contrast; the evidence upon which the Applicants relied came from Mr Ozias; Mr Olivier; and the documents to which Mr Olivier referred. Mr Ozias' evidence was entirely limited to his current place of residence. In his statement; he made no reference to the fact that evidence adduced in the course of execution proceedings in the Onshore Courts of Dubai established that he was resident in that is, for most of the period of the Second have occurred. He has been the registered Manager of Obadiah since March 2020. However; he gave no evidence of how he came to be the manager of Obadiah; or of any duties he has performed in that or of the business activities Obadiah has carried out during his term as manager. In particular; he gave no evidence as to the circumstances in which he remained the registered Manager of Obadiah after the transfer of all of the shares in Obadiah to Mr Ordell, who is said to be an entirely disinterested third party. The evidence of Mr Ozias raises more questions than it answers.\n63. The documents to which Mr Olivier referred are consistent with the evidence given by Mr Osmar. As already noted, to the extent that Mr Olivier makes assertions of fact in his witness statements, it is apparent that he has no direct knowledge of those facts but has relied entirely upon statements made to him by Mr Orrel, an officer of Oleen. Mr Olivier does not explain why Mr Orrel, an officer of Oleen; was the source of his instructions; apparently inconsistently with his assertion that Obadiah was never part of the Oleen. Nor does Mr Olivier explain how he was able to produce documents which would apparently have been in the possession of Obadiah long after control of Obadiah is said to have been transferred to a disinterested third party and at a time at which Mr Olivier's clients; Mr Ori and Mr Octavio; are said to have no continuing interest or activities in relation to Obadiah Nor did Mr Olivier 2024, long after the transfer of all the shares in Obadiah to Mr Ordell.",
+      "bbox": [
+        24.0,
+        17.92,
+        572.667,
+        824.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-67",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "56 . Mr Osmar also observed that Mr Olivier was able to obtain and exhibit to his witness statement numerous documents that appear confidential to Obadiah; including draft legal memoranda; legal correspondence and the register of members. He asserted that as Mr Olivier represents Mr Ori and Mr Octavio; it can be inferred that still have access to documents held by Obadiah. they",
+      "bbox": [
+        24.333,
+        747.625,
+        572.333,
+        824.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-68",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "57 . Mr Osmar also asserted that based upon information relating to Mr Ozias' immigration record obtained through the Onshore execution proceedings; Mr Ozias was a UAE resident from at least 27 October 2019 until 26 October 2022, and that his residence in the UAE was not sponsored by Obadiah; but by Olavi; of which Mr Ozias is the registered Manager and a 25% shareholder 16",
+      "bbox": [
+        24.0,
+        659.587,
+        571.667,
+        738.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-69",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "58. Mr Osmar further asserted that as recently as June 2024 Mr Octavio held himself out as a representative of Obadiah in dealings with the parent company of Oaklen 17",
+      "bbox": [
+        24.333,
+        611.253,
+        571.333,
+        648.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-70",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "59. Mr Osmar reiterated his assertion that Mr Octavio was at all material times controlling Obadiah and would therefore be aware of its business dealings and assets and the extent to which those assets would have been transferred to other entities. 18",
+      "bbox": [
+        24.667,
+        545.253,
+        572.0,
+        601.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-71",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "60 Mr Osmar also referred to public statements made by Mr Octavio to the media relating to the project; in which he described it as an Oleen project. 19 The evidence summary",
+      "bbox": [
+        24.333,
+        465.92,
+        572.0,
+        533.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-72",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "61 The evidence upon which Oaklen relied came from Mr Osmar, who is a senior employee of Oaklen; and the various documents to which he referred. He gave direct evidence of a meeting with Mr Octavio which he attended, and there is no reason to doubt his evidence with respect to the general nature of the dealings which Oaklen had with Oleen personnel and Mr Octavio.",
+      "bbox": [
+        24.0,
+        376.92,
+        572.667,
+        454.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-73",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "62. By contrast; the evidence upon which the Applicants relied came from Mr Ozias; Mr Olivier; and the documents to which Mr Olivier referred. Mr Ozias' evidence was entirely limited to his current place of residence. In his statement; he made no reference to the fact that evidence adduced in the course of execution proceedings in the Onshore Courts of Dubai established that he was resident in that is, for most of the period of the Second have occurred. He has been the registered Manager of Obadiah since March 2020. However; he gave no evidence of how he came to be the manager of Obadiah; or of any duties he has performed in that or of the business activities Obadiah has carried out during his term as manager. In particular; he gave no evidence as to the circumstances in which he remained the registered Manager of Obadiah after the transfer of all of the shares in Obadiah to Mr Ordell, who is said to be an entirely disinterested third party. The evidence of Mr Ozias raises more questions than it answers.",
+      "bbox": [
+        24.333,
+        126.587,
+        572.333,
+        366.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-74",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "63. The documents to which Mr Olivier referred are consistent with the evidence given by Mr Osmar. As already noted, to the extent that Mr Olivier makes assertions of fact in his witness statements, it is apparent that he has no direct knowledge of those facts but has relied entirely upon statements made to him by Mr Orrel, an officer of Oleen. Mr Olivier does not explain why Mr Orrel, an officer of Oleen; was the source of his instructions; apparently inconsistently with his assertion that Obadiah was never part of the Oleen. Nor does Mr Olivier explain how he was able to produce documents which would apparently have been in the possession of Obadiah long after control of Obadiah is said to have been transferred to a disinterested third party and at a time at which Mr Olivier's clients; Mr Ori and Mr Octavio; are said to have no continuing interest or activities in relation to Obadiah Nor did Mr Olivier 2024, long after the transfer of all the shares in Obadiah to Mr Ordell.",
+      "bbox": [
+        24.333,
+        17.92,
+        572.333,
+        115.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-75",
+      "kind": "list",
+      "page_number": 12,
+      "text": "64. Mr Olivier gives no evidence of the circumstances or the terms upon which the shares in Obadiah were transferred to Mr Ordell He asserts that one of the commercial motives for the acquisition of the shares was access to Obadiah's cash at bank, but gives no evidence as to the quantum of that cash or what has happened to it. Nor does he provide any evidence with respect to Obadiah's utilisation of the commercial value which Mr Olivier asserts Obadiah retained, in the form of claims against other parties and business opportunities. Of course, the current Commercial Manager of Obadiah; Mr Ozias; has given no evidence in relation to those matters either.\n65. Further; although Mr Olivier has given evidence of his instructions in relation to the management of Obadiah; he has given no evidence in relation to Obadiah's assets, and in particular no evidence with respect to the deployment of the very substantial revenues which he concedes were received by Obadiah as a consequence of the sale of the units in the development.\n66 . Mr Olivier does not identify the sources of information upon which Mr Orrel presumably relied for the purpose of providing instructions to Mr Olivier. It follows that to the extent; Mr Olivier's evidence involves assertions of fact which are not substantiated by documents; it is hearsay relying upon unidentified hearsay. Mr Olivier provides no explanation as to why Mr Ori and Mr Octavio did not provide the evidence which he has asserted. Obviously are in a much better position to provide evidence of factual matters than Mr Olivier; and both are resident in the UAE. they\n67 . In these circumstances; an appellate court would give no weight to any assertions of fact made by Mr Olivier which are not substantiated by documentary evidence_ An appellate court would also conclude that, like Mr Ozias' evidence; Mr Olivier's evidence raises many more questions than it answers. The decision at first instance\n68. The Enforcement Judge's reasons for dismissing the Applications to Set Aside the Part 50 Orders are briefly expressed; following a summary of the submissions presented by the parties.\n69. In relation to Mr Ozias, the Judge referred to the definition given to the expression \"officer\" for the purposes of Part 50 in and observed that Mr Ozias is the current \"director\" of Obadiah and therefore may be in possession or control of information about the means of Obadiah; satisfying the definition provided in Oskar. The Judge rejected the proposition that the Court had no jurisdiction to order Mr Ozias to attend an examination because he was outside the UAE, but gave no reasons for that conclusion.",
+      "bbox": [
+        23.333,
+        45.253,
+        572.333,
+        696.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-76",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "64. Mr Olivier gives no evidence of the circumstances or the terms upon which the shares in Obadiah were transferred to Mr Ordell He asserts that one of the commercial motives for the acquisition of the shares was access to Obadiah's cash at bank, but gives no evidence as to the quantum of that cash or what has happened to it. Nor does he provide any evidence with respect to Obadiah's utilisation of the commercial value which Mr Olivier asserts Obadiah retained, in the form of claims against other parties and business opportunities. Of course, the current Commercial Manager of Obadiah; Mr Ozias; has given no evidence in relation to those matters either.",
+      "bbox": [
+        24.0,
+        558.587,
+        572.0,
+        696.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-77",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "65. Further; although Mr Olivier has given evidence of his instructions in relation to the management of Obadiah; he has given no evidence in relation to Obadiah's assets, and in particular no evidence with respect to the deployment of the very substantial revenues which he concedes were received by Obadiah as a consequence of the sale of the units in the development.",
+      "bbox": [
+        24.333,
+        470.253,
+        572.0,
+        547.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-78",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "66 . Mr Olivier does not identify the sources of information upon which Mr Orrel presumably relied for the purpose of providing instructions to Mr Olivier. It follows that to the extent; Mr Olivier's evidence involves assertions of fact which are not substantiated by documents; it is hearsay relying upon unidentified hearsay. Mr Olivier provides no explanation as to why Mr Ori and Mr Octavio did not provide the evidence which he has asserted. Obviously are in a much better position to provide evidence of factual matters than Mr Olivier; and both are resident in the UAE. they",
+      "bbox": [
+        24.0,
+        342.92,
+        572.333,
+        458.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-79",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "67 . In these circumstances; an appellate court would give no weight to any assertions of fact made by Mr Olivier which are not substantiated by documentary evidence_ An appellate court would also conclude that, like Mr Ozias' evidence; Mr Olivier's evidence raises many more questions than it answers. The decision at first instance",
+      "bbox": [
+        25.0,
+        224.92,
+        572.0,
+        330.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-80",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "68. The Enforcement Judge's reasons for dismissing the Applications to Set Aside the Part 50 Orders are briefly expressed; following a summary of the submissions presented by the parties.",
+      "bbox": [
+        24.667,
+        174.253,
+        572.0,
+        212.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-81",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "69. In relation to Mr Ozias, the Judge referred to the definition given to the expression \"officer\" for the purposes of Part 50 in and observed that Mr Ozias is the current \"director\" of Obadiah and therefore may be in possession or control of information about the means of Obadiah; satisfying the definition provided in Oskar. The Judge rejected the proposition that the Court had no jurisdiction to order Mr Ozias to attend an examination because he was outside the UAE, but gave no reasons for that conclusion.",
+      "bbox": [
+        23.333,
+        45.253,
+        572.0,
+        163.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-82",
+      "kind": "list",
+      "page_number": 13,
+      "text": "70 In relation to Mr Ori, the Judge observed that he had previously been the Manager of Obadiah; and was a shareholder (in fact majority shareholder for a time) in Obadiah until 2022. On that basis, he was satisfied that Mr Ori may have been in possession or control or aware of the judgment debtor's means during the period of the arbitral procedure.\n71_ In relation to Mr Octavio; the Judge observed that although he was not a de jure officer of Obadiah; the evidence established that he was \"by way of conduct an officer of the judgment debtor and a decision-maker in the judgment debtor\" which satisfied the Judge that Mr Octavio would be aware of the judgment debtor's means. 21\n72. The Judge also rejected arguments which were presented in relation to abuse of process; finding that Oaklen had followed the normal procedure specified by the rules of court. Those arguments are not pursued on appeal.",
+      "bbox": [
+        24.0,
+        591.253,
+        572.0,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-83",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "70 In relation to Mr Ori, the Judge observed that he had previously been the Manager of Obadiah; and was a shareholder (in fact majority shareholder for a time) in Obadiah until 2022. On that basis, he was satisfied that Mr Ori may have been in possession or control or aware of the judgment debtor's means during the period of the arbitral procedure.",
+      "bbox": [
+        24.667,
+        748.253,
+        572.0,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-84",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "71_ In relation to Mr Octavio; the Judge observed that although he was not a de jure officer of Obadiah; the evidence established that he was \"by way of conduct an officer of the judgment debtor and a decision-maker in the judgment debtor\" which satisfied the Judge that Mr Octavio would be aware of the judgment debtor's means. 21",
+      "bbox": [
+        24.667,
+        659.92,
+        572.0,
+        736.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-85",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "72. The Judge also rejected arguments which were presented in relation to abuse of process; finding that Oaklen had followed the normal procedure specified by the rules of court. Those arguments are not pursued on appeal.",
+      "bbox": [
+        24.0,
+        591.253,
+        572.0,
+        650.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n377",
+      "kind": "heading",
+      "page_number": 13,
+      "text": "The Second and Third Applicants' grounds of appeal",
+      "bbox": [
+        26.667,
+        561.587,
+        321.667,
+        577.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n378",
+      "kind": "heading",
+      "page_number": 13,
+      "text": "Ground 1",
+      "bbox": [
+        26.333,
+        536.253,
+        76.333,
+        548.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n379",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "73. The first ground of appeal advanced by the Second and Third Applicants is in the following terms:",
+      "bbox": [
+        25.333,
+        505.253,
+        563.333,
+        524.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n380",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "\"1 The Judge erred in law andlor as a matter of statutory construction in holding that anyone who has a possibility of holding information needed t0 enforce a judgment or order is an \"officer\" of a company or other corporation under RDC 50.2(2). The correct interpretation of RDC 50.2(2) is that an \"officer\" is an individual who is likely to hold information; alternatively; that there is a real prospect that hold such information such they",
+      "bbox": [
+        46.667,
+        396.63,
+        572.0,
+        496.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-86",
+      "kind": "list",
+      "page_number": 13,
+      "text": "74. All grounds of appeal; including this ground; are supported by extensive written submissions from the Applicants. However; it is unnecessary to traverse those submissions in detail, for the reasons which follow.\n75. Ground 1 proceeds on a false premise. The Judge did not hold that anyone who has a possibility of holding information is an officer of a company for the purposes of Part 50. To the contrary; he expressly adopted the definition given to the term \"officer\" in China State. In the case of each Applicant; he set out the reasons why he concluded that each Applicant \"may be in possession or control of information about the judgement debtor's means\"\n76. Although the reasons are briefly stated, the finding made by the Judge was clearly open on the evidence which has been set out in above-\n77 . In short; Mr Ori was the Manager of Obadiah from 2018 to 2020, which covers much of the period during which the building project was undertaken. He was the majority shareholder in Obadiah from November 2019 until September 2022, which covers much of the period during which the Second Arbitration was conducted. He has given no evidence in these proceedings; and the nature of the evidence which has been adduced is entirely capable of supporting an inference that he may be in possession of information relating to the means by which Obadiah might satisfy the judgment debt.",
+      "bbox": [
+        24.0,
+        42.92,
+        572.0,
+        387.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-87",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "74. All grounds of appeal; including this ground; are supported by extensive written submissions from the Applicants. However; it is unnecessary to traverse those submissions in detail, for the reasons which follow.",
+      "bbox": [
+        24.0,
+        330.253,
+        571.667,
+        387.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-88",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "75. Ground 1 proceeds on a false premise. The Judge did not hold that anyone who has a possibility of holding information is an officer of a company for the purposes of Part 50. To the contrary; he expressly adopted the definition given to the term \"officer\" in China State. In the case of each Applicant; he set out the reasons why he concluded that each Applicant \"may be in possession or control of information about the judgement debtor's means\"",
+      "bbox": [
+        24.333,
+        219.92,
+        572.0,
+        317.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-89",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "76. Although the reasons are briefly stated, the finding made by the Judge was clearly open on the evidence which has been set out in above-",
+      "bbox": [
+        25.0,
+        174.92,
+        572.0,
+        210.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-90",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "77 . In short; Mr Ori was the Manager of Obadiah from 2018 to 2020, which covers much of the period during which the building project was undertaken. He was the majority shareholder in Obadiah from November 2019 until September 2022, which covers much of the period during which the Second Arbitration was conducted. He has given no evidence in these proceedings; and the nature of the evidence which has been adduced is entirely capable of supporting an inference that he may be in possession of information relating to the means by which Obadiah might satisfy the judgment debt.",
+      "bbox": [
+        24.0,
+        42.92,
+        572.0,
+        161.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-91",
+      "kind": "list",
+      "page_number": 14,
+      "text": "78. In relation to Mr Octavio the Judge found; in effect; that he was a de facto officer of Obadiah; by reason of which he may be aware of Obadiah's means to satisfy the judgment debt. That conclusion was plainly open to the Judge on the evidence before him viewed in the context of Mr Octavio's unexplained failure to provide any evidence in support of the Application to Set Aside the Part 50 Orders.\n79. It follows that there is no basis for any inference to the effect that the Judge was applying anything other than the test enunciated in China State; and the conclusions which he reached in the application of that test were plainly open on the evidence.\n80 Ground 1 concludes by advancing an alternative interpretation of the word \"officer\" to that enunciated by the Court of Appeal in Oskar. There is no reason why the Court of Appeal would review the decision in Oskar so soon after it was published, and no basis for doing so in this case, given that the test enunciated in Oskar was clearly satisfied on the evidence before the Court.\n81 Ground 1 has no prospect of success.",
+      "bbox": [
+        24.0,
+        543.253,
+        572.667,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-92",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "78. In relation to Mr Octavio the Judge found; in effect; that he was a de facto officer of Obadiah; by reason of which he may be aware of Obadiah's means to satisfy the judgment debt. That conclusion was plainly open to the Judge on the evidence before him viewed in the context of Mr Octavio's unexplained failure to provide any evidence in support of the Application to Set Aside the Part 50 Orders.",
+      "bbox": [
+        24.667,
+        730.92,
+        572.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-93",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "79. It follows that there is no basis for any inference to the effect that the Judge was applying anything other than the test enunciated in China State; and the conclusions which he reached in the application of that test were plainly open on the evidence.",
+      "bbox": [
+        24.667,
+        659.92,
+        572.667,
+        718.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-94",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "80 Ground 1 concludes by advancing an alternative interpretation of the word \"officer\" to that enunciated by the Court of Appeal in Oskar. There is no reason why the Court of Appeal would review the decision in Oskar so soon after it was published, and no basis for doing so in this case, given that the test enunciated in Oskar was clearly satisfied on the evidence before the Court.",
+      "bbox": [
+        24.0,
+        571.253,
+        572.0,
+        647.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-95",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "81 Ground 1 has no prospect of success.",
+      "bbox": [
+        25.0,
+        543.253,
+        248.0,
+        559.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n389",
+      "kind": "heading",
+      "page_number": 14,
+      "text": "Ground 2",
+      "bbox": [
+        26.333,
+        518.253,
+        79.0,
+        530.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n390",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "82. Ground 2 provides:",
+      "bbox": [
+        24.667,
+        488.587,
+        150.333,
+        505.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n391",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "Further or alternatively; the Judge erred in law in determining that RDC 50 permits a wideranging enquiry into the debtor's financial affairs, such as to deem an \"officer\" anyone with information relevant to (a) the debtor's past assets; or (b) other possible methods by which the judgment creditor may obtain satisfaction of the debt such as the reversal of past transactions Only the possession of information material to means to satisfy the judgment; including current or future assets (or other information necessary for that purpose) , is relevant in determining whether an individual is an \"officer\" under RDC 50.2(2).",
+      "bbox": [
+        45.333,
+        339.253,
+        572.333,
+        478.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n392",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "findings which were not made and motives which cannot be inferred. The ground essentially relies upon the ambit of the information which was required to be disclosed pursuant to the orders to sustain the proposition that the Judge had authorized an enquiry of impermissibly wide ambit. The ground relies upon a decision of the Federal Court of Australia in McCormack v National Australia Bank22 in which it was held that an examination conducted for the purpose of ascertaining whether certain transfers of property by a judgment debtor to his wife were transactions made with a view to defrauding creditors went beyond the scope of the equivalent Australian legislative provision.",
+      "bbox": [
+        23.333,
+        169.587,
+        572.667,
+        330.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-96",
+      "kind": "list",
+      "page_number": 14,
+      "text": "84. However; the argument in support of this ground properly recognizes that there is a Hong decision which is inconsistent with the decision in McCormack Bloomsbury International Ltd V Nouvelle Foods (Hong Kong) Ltd. 23 Kong\n85. The skeleton also accepts that the DIFC Court has made no determination as to which of those lines of authority should be followed. It is unnecessary for any such determination to be made in this case because it has not been found, nor could it be found, that the dominant purpose of the enquiry is to investigate transactions for the purpose of ascertaining whether were a fraud on creditors. they",
+      "bbox": [
+        24.0,
+        33.253,
+        572.0,
+        159.212
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-97",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "84. However; the argument in support of this ground properly recognizes that there is a Hong decision which is inconsistent with the decision in McCormack Bloomsbury International Ltd V Nouvelle Foods (Hong Kong) Ltd. 23 Kong",
+      "bbox": [
+        24.667,
+        101.253,
+        571.0,
+        159.212
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-98",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "85. The skeleton also accepts that the DIFC Court has made no determination as to which of those lines of authority should be followed. It is unnecessary for any such determination to be made in this case because it has not been found, nor could it be found, that the dominant purpose of the enquiry is to investigate transactions for the purpose of ascertaining whether were a fraud on creditors. they",
+      "bbox": [
+        24.0,
+        33.253,
+        572.0,
+        89.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-99",
+      "kind": "list",
+      "page_number": 15,
+      "text": "86. Oaklen currently has no information of any significance in relation to the means by which Obadiah might satisfy the judgment debt, in circumstances in which the apparent dissipation of very large streams of revenue is unexplained, the terms of the transaction by which all of the shares in Obadiah were transferred to a third party who is said to be disinterested have not been provided; and although a number of sources of value to the purchaser in that transaction have been identified in the evidence; nothing has been said in relation to the current commercial value which might be attributed to those matters.\n87 . In these circumstances; a wide-ranging enquiry into the means by which Obadiah might satisfy the judgment debt is entirely justified. The possibility that such an enquiry might identify assets in the form of causes of action, or perhaps assets of Obadiah held on constructive trust by third parties; does not sustain the conclusion that the enquiry is being undertaken for an impermissible purpose; even if the proposition enunciated in McCormack was adopted by this Court.\n88. The appropriate ambit of an examination conducted under Part 50 is a matter to be determined by the judicial officer before whom the examination is conducted. This ground seeks to attribute to Oaklen and the Judge making the Part 50 Order a purpose or intention which cannot be inferred from the terms of the order made viewed in the context of the evidence adduced.\n89. For these reasons; ground 2 has no prospect of success.",
+      "bbox": [
+        23.333,
+        434.587,
+        572.667,
+        799.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-100",
+      "kind": "list_item",
+      "page_number": 15,
+      "text": "86. Oaklen currently has no information of any significance in relation to the means by which Obadiah might satisfy the judgment debt, in circumstances in which the apparent dissipation of very large streams of revenue is unexplained, the terms of the transaction by which all of the shares in Obadiah were transferred to a third party who is said to be disinterested have not been provided; and although a number of sources of value to the purchaser in that transaction have been identified in the evidence; nothing has been said in relation to the current commercial value which might be attributed to those matters.",
+      "bbox": [
+        24.0,
+        662.253,
+        572.333,
+        799.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-101",
+      "kind": "list_item",
+      "page_number": 15,
+      "text": "87 . In these circumstances; a wide-ranging enquiry into the means by which Obadiah might satisfy the judgment debt is entirely justified. The possibility that such an enquiry might identify assets in the form of causes of action, or perhaps assets of Obadiah held on constructive trust by third parties; does not sustain the conclusion that the enquiry is being undertaken for an impermissible purpose; even if the proposition enunciated in McCormack was adopted by this Court.",
+      "bbox": [
+        23.333,
+        550.253,
+        572.667,
+        648.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-102",
+      "kind": "list_item",
+      "page_number": 15,
+      "text": "88. The appropriate ambit of an examination conducted under Part 50 is a matter to be determined by the judicial officer before whom the examination is conducted. This ground seeks to attribute to Oaklen and the Judge making the Part 50 Order a purpose or intention which cannot be inferred from the terms of the order made viewed in the context of the evidence adduced.",
+      "bbox": [
+        24.0,
+        464.587,
+        572.0,
+        540.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-103",
+      "kind": "list_item",
+      "page_number": 15,
+      "text": "89. For these reasons; ground 2 has no prospect of success.",
+      "bbox": [
+        25.0,
+        434.587,
+        350.667,
+        450.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n399",
+      "kind": "heading",
+      "page_number": 15,
+      "text": "Ground 3",
+      "bbox": [
+        26.0,
+        409.92,
+        78.333,
+        422.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n400",
+      "kind": "heading",
+      "page_number": 15,
+      "text": "90. Ground 3 provides:",
+      "bbox": [
+        24.667,
+        379.253,
+        150.333,
+        396.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n401",
+      "kind": "paragraph",
+      "page_number": 15,
+      "text": "In the alternative to Grounds 1 and 2, the Judge erred in law in holding; without qualification; that an \"officer\" is anyone who may be in possession of information needed to enforce a judgment or be able to obtain and provide it. On the true construction of RDC 50.2(2), an \"officer\" must also hold some current and definable 'office' or position in the judgment debtor; notwithstanding the Court of Appeal's decision in Oskar [2024] DIFC CA 009 (\"Oskar\"): see RDC 50.5(4)(6).\"",
+      "bbox": [
+        46.667,
+        269.92,
+        572.0,
+        369.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-104",
+      "kind": "list",
+      "page_number": 15,
+      "text": "91 This ground invites the Court to review and overturn the recent decision of the Court of Appeal in China State; in which the proposition inherent in the ground was expressly rejected by a unanimous decision of the Court. The argument advanced in support of this ground is entirely unconvincing and does not sustain any possibility that the decision in Oskar might be reversed.\n92. Ground 3 has no prospect of success.",
+      "bbox": [
+        24.667,
+        154.587,
+        572.0,
+        259.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-105",
+      "kind": "list_item",
+      "page_number": 15,
+      "text": "91 This ground invites the Court to review and overturn the recent decision of the Court of Appeal in China State; in which the proposition inherent in the ground was expressly rejected by a unanimous decision of the Court. The argument advanced in support of this ground is entirely unconvincing and does not sustain any possibility that the decision in Oskar might be reversed.",
+      "bbox": [
+        24.667,
+        181.92,
+        572.0,
+        259.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-106",
+      "kind": "list_item",
+      "page_number": 15,
+      "text": "92. Ground 3 has no prospect of success.",
+      "bbox": [
+        25.0,
+        154.587,
+        247.667,
+        169.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n404",
+      "kind": "heading",
+      "page_number": 15,
+      "text": "Ground 4",
+      "bbox": [
+        26.333,
+        129.587,
+        78.333,
+        141.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n405",
+      "kind": "heading",
+      "page_number": 15,
+      "text": "93. Ground 4 is limited to Mr Octavio and provides:",
+      "bbox": [
+        24.667,
+        99.253,
+        298.667,
+        115.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n406",
+      "kind": "paragraph",
+      "page_number": 15,
+      "text": "41 The Judge erred in law; in principle andlor in his evaluation of the evidence in that he asked himself whether Mr Octavio was an \"officer\" in the sense of an 'office-holder' (rather than giving the term the definition ascribed to it by Oskar). He therefore applied the wrong test. Having applied the wrong test; and concluded that Mr Octavio was previously a de facto 'office-holder', he proceeded to err in principle by inferring from this that Mr Octavio is aware of the Judgment Debtor's current means. In any event; the evidence did not show that Mr Octavio is or was ever a de facto 'office-holder' of Obadiah or that he is aware of its means to satisfy the judgment debt.:'",
+      "bbox": [
+        47.0,
+        30.587,
+        572.0,
+        88.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-107",
+      "kind": "list",
+      "page_number": 16,
+      "text": "94. This ground is another ground which proceeds on a false premise. The Judge did not ask himself whether Mr Octaviowas an \"office-holder\" rather than an \"officer\" as defined by the Court in China State_ To the contrary; the Judge concluded that Mr Octavio had a sufficient degree of control over the affairs of Obadiah to be classified as a de facto director. That same degree of control also sustained his conclusion that Mr Octavio may be in possession of or have access to information relevant to the means by which Obadiah might satisfy the judgment debt. As already indicated, that conclusion was plainly open to the Judge on the evidence before him and there is no prospect that a Court of Appeal would interfere with that conclusion.\n95. Ground 4 has no prospect of success. Conclusion Renewed Application by the Second and Third Applicants\n96. None of the grounds of appeal advanced by the Second and Third Applicants has any prospect of success, nor do any of the grounds advanced provide any compelling reason for the grant of permission to appeal. Three of the four grounds proposed proceed upon a false premise and the fourth invites the Court of Appeal to overturn a very recent decision for reasons which do not establish any likelihood of that occurring.\n97 . It follows that that the Renewed Application by the Second and Third Applicants must be dismissed, together with the Application for a The Second and Third Applicants must pay the Judgment Creditor's costs of both Applications. Stay",
+      "bbox": [
+        24.0,
+        343.587,
+        572.667,
+        736.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-108",
+      "kind": "list_item",
+      "page_number": 16,
+      "text": "94. This ground is another ground which proceeds on a false premise. The Judge did not ask himself whether Mr Octaviowas an \"office-holder\" rather than an \"officer\" as defined by the Court in China State_ To the contrary; the Judge concluded that Mr Octavio had a sufficient degree of control over the affairs of Obadiah to be classified as a de facto director. That same degree of control also sustained his conclusion that Mr Octavio may be in possession of or have access to information relevant to the means by which Obadiah might satisfy the judgment debt. As already indicated, that conclusion was plainly open to the Judge on the evidence before him and there is no prospect that a Court of Appeal would interfere with that conclusion.",
+      "bbox": [
+        24.0,
+        580.92,
+        572.667,
+        736.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-109",
+      "kind": "list_item",
+      "page_number": 16,
+      "text": "95. Ground 4 has no prospect of success. Conclusion Renewed Application by the Second and Third Applicants",
+      "bbox": [
+        25.0,
+        521.253,
+        422.667,
+        566.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-110",
+      "kind": "list_item",
+      "page_number": 16,
+      "text": "96. None of the grounds of appeal advanced by the Second and Third Applicants has any prospect of success, nor do any of the grounds advanced provide any compelling reason for the grant of permission to appeal. Three of the four grounds proposed proceed upon a false premise and the fourth invites the Court of Appeal to overturn a very recent decision for reasons which do not establish any likelihood of that occurring.",
+      "bbox": [
+        24.0,
+        412.587,
+        572.667,
+        510.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-111",
+      "kind": "list_item",
+      "page_number": 16,
+      "text": "97 . It follows that that the Renewed Application by the Second and Third Applicants must be dismissed, together with the Application for a The Second and Third Applicants must pay the Judgment Creditor's costs of both Applications. Stay",
+      "bbox": [
+        24.333,
+        343.587,
+        571.667,
+        401.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n412",
+      "kind": "heading",
+      "page_number": 16,
+      "text": "First Applicant's grounds of appeal",
+      "bbox": [
+        25.333,
+        314.253,
+        221.333,
+        330.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n413",
+      "kind": "heading",
+      "page_number": 16,
+      "text": "Grounds 1 and 2",
+      "bbox": [
+        26.0,
+        288.92,
+        117.667,
+        301.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n414",
+      "kind": "paragraph",
+      "page_number": 16,
+      "text": "98. Grounds 1 and 2 of the First Applicant's grounds of appeal are in the following terms:",
+      "bbox": [
+        25.0,
+        258.253,
+        498.0,
+        277.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n415",
+      "kind": "paragraph",
+      "page_number": 16,
+      "text": "The Judge erred in law andlor as a matter of statutory construction in holding that the Court has jurisdiction to make an order under RDC 50.2(2) against an individual outside the UAE who is not a party to the proceedings. RDC 50.2 confers no such jurisdiction.",
+      "bbox": [
+        47.333,
+        190.587,
+        572.0,
+        249.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n416",
+      "kind": "paragraph",
+      "page_number": 16,
+      "text": "2. Alternatively, the Judge erred in law in holding that the Court will make an order under RDC 50.2(2) against an \"officer\" abroad without a sufficiently close; or any; connection being demonstrated between the alleged \"officer\" and the claim giving rise to the judgment debt. The Court may not make such an order without such a connection being established:'",
+      "bbox": [
+        46.667,
+        101.92,
+        572.0,
+        179.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n417",
+      "kind": "paragraph",
+      "page_number": 16,
+      "text": "99. Ground 1 relies upon the decision in Masri v Consolidated Contractors (no. 4) (Masri\").24 In that case the House of Lords determined that although the equivalent English rule, like Part 50, had no to officers of a company who are within the jurisdiction of the Court, the Court concluded that the rule was not intended to apply t0 officers who are outside the jurisdiction.",
+      "bbox": [
+        24.667,
+        31.587,
+        572.0,
+        89.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-112",
+      "kind": "list",
+      "page_number": 17,
+      "text": "100. Two of the reasons relied upon by the Court in Masri are of doubtful application in the DIFC. First; the Court relied upon a presumption against extraterritoriality.There is reason to doubt whether such a presumption has any application to an international commercial court such as this, and in Oskar the Court of Appeal expressly referred to the international character of this Court's jurisdiction in adopting a broad approach to the operation of Part 50.\n101Second, in Masri the Court also relied upon the absence of any provision in the equivalent English Rules for service of an examination order out of the jurisdiction.\n102. The First Applicant accepts that this point is of reduced significance in the DIFC, given that permission is not required to serve out of the jurisdiction at all, but asserts that the consideration is still relevant because the Rules do not make provision for service of an examination order outside of the jurisdiction. Given that there is no need for permission to serve outside of the jurisdiction generally it is difficult to see how the absence of any express provision relating to service of an Examination Order out of the jurisdiction can sustain any conclusion with respect to the ambit of the jurisdiction conferred by Part 50.\n103. There are other difficulties with the proposition underpinning this ground. It relies upon reading words into Part 50 which are not there; in a context in which there are passages in the decision of the Court of Appeal in Oskar which support the broad operation of Part 50 unconstrained by considerations of territory or geographical jurisdiction.\n104. The argument also relies upon the application of a decision made in a unitary jurisdiction (England and Wales) in a jurisdiction which forms part of a federated State The ground presumes that the Court has jurisdiction to issue orders in relation to \"officers\" who are outside the DIFC but within the UAE, but lacks jurisdiction to make orders against \"officers\" outside the UAE. Nothing in the text of the Rule supports such a construction.\n105. Further, as the First Applicant accepts; the decision in Masri is inconsistent with decisions in Singapore and Kong25 in which it was held that the relevant Courts had jurisdiction to issue examination orders relating to non parties outside their geographical jurisdiction. Hong\n106. Notwithstanding the many obstacles in the of the success of this ground of appeal; the question of whether a relatively recent decision of the highest Court of England Wales should be applied to the interpretation of Part 50 of the Rules of this Court raises an issue of some importance with respect to the ambit of the jurisdiction of this Court. For that reason; have concluded that there is a compelling reason why permission to appeal should be granted in respect of ground 1 _ path\n107. In these circumstances; it is unnecessary for me to express any view as to whether the ground has a real prospect of success, and given the distinct possibility that may be a member of the Court it is undesirable for me to express such a view in the absence of the full argument that will be presented to the Court of Appeal in due course.",
+      "bbox": [
+        23.0,
+        19.587,
+        573.0,
+        777.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-113",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "100. Two of the reasons relied upon by the Court in Masri are of doubtful application in the DIFC. First; the Court relied upon a presumption against extraterritoriality.There is reason to doubt whether such a presumption has any application to an international commercial court such as this, and in Oskar the Court of Appeal expressly referred to the international character of this Court's jurisdiction in adopting a broad approach to the operation of Part 50.",
+      "bbox": [
+        24.0,
+        679.587,
+        572.0,
+        777.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-114",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "101Second, in Masri the Court also relied upon the absence of any provision in the equivalent English Rules for service of an examination order out of the jurisdiction.",
+      "bbox": [
+        25.333,
+        632.587,
+        572.333,
+        669.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-115",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "102. The First Applicant accepts that this point is of reduced significance in the DIFC, given that permission is not required to serve out of the jurisdiction at all, but asserts that the consideration is still relevant because the Rules do not make provision for service of an examination order outside of the jurisdiction. Given that there is no need for permission to serve outside of the jurisdiction generally it is difficult to see how the absence of any express provision relating to service of an Examination Order out of the jurisdiction can sustain any conclusion with respect to the ambit of the jurisdiction conferred by Part 50.",
+      "bbox": [
+        23.0,
+        483.587,
+        572.0,
+        621.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-116",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "103. There are other difficulties with the proposition underpinning this ground. It relies upon reading words into Part 50 which are not there; in a context in which there are passages in the decision of the Court of Appeal in Oskar which support the broad operation of Part 50 unconstrained by considerations of territory or geographical jurisdiction.",
+      "bbox": [
+        24.667,
+        394.587,
+        572.0,
+        472.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-117",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "104. The argument also relies upon the application of a decision made in a unitary jurisdiction (England and Wales) in a jurisdiction which forms part of a federated State The ground presumes that the Court has jurisdiction to issue orders in relation to \"officers\" who are outside the DIFC but within the UAE, but lacks jurisdiction to make orders against \"officers\" outside the UAE. Nothing in the text of the Rule supports such a construction.",
+      "bbox": [
+        23.667,
+        285.253,
+        573.0,
+        384.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-118",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "105. Further, as the First Applicant accepts; the decision in Masri is inconsistent with decisions in Singapore and Kong25 in which it was held that the relevant Courts had jurisdiction to issue examination orders relating to non parties outside their geographical jurisdiction. Hong",
+      "bbox": [
+        24.0,
+        216.587,
+        572.0,
+        274.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-119",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "106. Notwithstanding the many obstacles in the of the success of this ground of appeal; the question of whether a relatively recent decision of the highest Court of England Wales should be applied to the interpretation of Part 50 of the Rules of this Court raises an issue of some importance with respect to the ambit of the jurisdiction of this Court. For that reason; have concluded that there is a compelling reason why permission to appeal should be granted in respect of ground 1 _ path",
+      "bbox": [
+        23.333,
+        108.253,
+        572.0,
+        207.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-120",
+      "kind": "list_item",
+      "page_number": 17,
+      "text": "107. In these circumstances; it is unnecessary for me to express any view as to whether the ground has a real prospect of success, and given the distinct possibility that may be a member of the Court it is undesirable for me to express such a view in the absence of the full argument that will be presented to the Court of Appeal in due course.",
+      "bbox": [
+        24.667,
+        19.587,
+        572.0,
+        97.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-121",
+      "kind": "list",
+      "page_number": 18,
+      "text": "108. Ground 2 relies upon the possibility; to which reference was made in Masri and in the Singapore decision to which reference was earlier made; to the effect that if there is no general jurisdiction to make examination orders against officers outside the jurisdiction generally, orders might nevertheless be made if the relevant officer is the alter ego of the judgment debtor or has a sufficiently close connection to the underlying claim giving rise to the judgment debt to sustain the order.\n109 However, neither the English nor the Singaporean Courts have established any such principle. With respect to those Courts; can see no reason why a close connection to the underlying claim giving rise to the judgment debt would sustain an exception to a general principle; given that the examination is directed to the means by which the judgment debtor might satisfy the judgment debt, and not to the manner in which the judgment debt was incurred.\n110. In this case, Mr Ozias has been the only Manager of Obadiah from 2020 until the current date. As already noted, he was resident in Dubai from October 2019 until October 2022, during much of the time of the Second Arbitration and at the time the shares in Obadiah were transferred to Mr Ordell. He is currently the only office holder in Obadiah and must have knowledge of Obadiah's means and assets in order to fulfil his duties. There can be no doubt that he falls within the functional definition of \"officer\" enunciated in Oskar and if this Court has any power at all to issue orders for the examination of persons outside the jurisdiction; there couldn't be any doubt that he would fall within the scope of that power.\n111. It follows that;, in the circumstances of this case, ground 2 has no prospect of success.",
+      "bbox": [
+        24.0,
+        421.587,
+        572.667,
+        826.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-122",
+      "kind": "list_item",
+      "page_number": 18,
+      "text": "108. Ground 2 relies upon the possibility; to which reference was made in Masri and in the Singapore decision to which reference was earlier made; to the effect that if there is no general jurisdiction to make examination orders against officers outside the jurisdiction generally, orders might nevertheless be made if the relevant officer is the alter ego of the judgment debtor or has a sufficiently close connection to the underlying claim giving rise to the judgment debt to sustain the order.",
+      "bbox": [
+        24.667,
+        727.587,
+        572.333,
+        826.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-123",
+      "kind": "list_item",
+      "page_number": 18,
+      "text": "109 However, neither the English nor the Singaporean Courts have established any such principle. With respect to those Courts; can see no reason why a close connection to the underlying claim giving rise to the judgment debt would sustain an exception to a general principle; given that the examination is directed to the means by which the judgment debtor might satisfy the judgment debt, and not to the manner in which the judgment debt was incurred.",
+      "bbox": [
+        24.0,
+        618.92,
+        571.333,
+        717.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-124",
+      "kind": "list_item",
+      "page_number": 18,
+      "text": "110. In this case, Mr Ozias has been the only Manager of Obadiah from 2020 until the current date. As already noted, he was resident in Dubai from October 2019 until October 2022, during much of the time of the Second Arbitration and at the time the shares in Obadiah were transferred to Mr Ordell. He is currently the only office holder in Obadiah and must have knowledge of Obadiah's means and assets in order to fulfil his duties. There can be no doubt that he falls within the functional definition of \"officer\" enunciated in Oskar and if this Court has any power at all to issue orders for the examination of persons outside the jurisdiction; there couldn't be any doubt that he would fall within the scope of that power.",
+      "bbox": [
+        24.0,
+        450.92,
+        572.667,
+        607.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-125",
+      "kind": "list_item",
+      "page_number": 18,
+      "text": "111. It follows that;, in the circumstances of this case, ground 2 has no prospect of success.",
+      "bbox": [
+        25.333,
+        421.587,
+        506.667,
+        438.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n430",
+      "kind": "heading",
+      "page_number": 18,
+      "text": "Ground 3",
+      "bbox": [
+        26.333,
+        396.92,
+        78.333,
+        409.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n431",
+      "kind": "paragraph",
+      "page_number": 18,
+      "text": "112. Ground 3 of the First Applicant's grounds of appeal is in the following terms:",
+      "bbox": [
+        25.333,
+        365.92,
+        455.333,
+        383.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n432",
+      "kind": "paragraph",
+      "page_number": 18,
+      "text": "\"3.In the alternative to Grounds 1 and 2 above; the Judge erred in law and in principle by failing to deal with or even to record Mr Ozias' submission that the categories of disclosure and information sought by the Amended Examination Order went beyond the information necessary to enforce the judgment debt against Obadiah in circumstances where the purpose of RDC 50 is to obtain such information; not to facilitate a wide-ranging enquiry into the debtor's financial transactions (which would more properly be the subject of insolvency proceedings) '",
+      "bbox": [
+        45.667,
+        236.587,
+        572.0,
+        355.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n433",
+      "kind": "paragraph",
+      "page_number": 18,
+      "text": "113. Ground 3 embodies a proposition which is analogous to the proposition underpinning ground 2 proposed by the Second and Third Applicants. To that extent, the ground has no prospect of success; for the reasons given above. The submissions in support of this ground condescend to a detailed analysis of particular paragraphs in the orders made with respect to the information to be provided by the examinees. The ambit of the information to be provided by examinees in any particular case is a matter which falls within the discretion of the Enforcement Judge making the order for examination: Consistently with well established principle an appellate court would only interfere with the exercise of the Judge's discretion in exceptional circumstances.",
+      "bbox": [
+        23.667,
+        67.587,
+        573.0,
+        226.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-126",
+      "kind": "list",
+      "page_number": 19,
+      "text": "114. There are no circumstances which would encourage appellate intervention in this case. For the reasons already given; a wide ranging enquiry into the means of Obadiah is entirely justified by the evidence. The terms of the order made are apt to facilitate that enquiry; and there is no prospect that the Court of Appeal would review and rewrite particular paragraphs of the Part 50 Orders at the behest of an appellant.\n115. Ground 3 has no prospect of success. Conclusion First Applicant\n116. For the reasons given; the First Applicant's Renewed Application will be granted but limited to the first ground of appeal. That ground raises a relatively short of construction of the RDC, and the appeal can that the issues have already been extensively canvassed in the skeletons served by the parties. Given the delays which have already occurred in relation to the conduct of these examinations; it is appropriate to order a timetable which will facilitate the hearing and disposition of the appeal within the shortest practicable time. point\n117. Issues relating to the costs of the First Applicant's Renewed Application should be referred to the Court of Appeal which will no doubt take into account the fact that the Renewed Application has failed in respect of two of the three proposed grounds.",
+      "bbox": [
+        23.333,
+        472.587,
+        572.667,
+        826.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-127",
+      "kind": "list_item",
+      "page_number": 19,
+      "text": "114. There are no circumstances which would encourage appellate intervention in this case. For the reasons already given; a wide ranging enquiry into the means of Obadiah is entirely justified by the evidence. The terms of the order made are apt to facilitate that enquiry; and there is no prospect that the Court of Appeal would review and rewrite particular paragraphs of the Part 50 Orders at the behest of an appellant.",
+      "bbox": [
+        24.0,
+        727.253,
+        572.667,
+        826.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-128",
+      "kind": "list_item",
+      "page_number": 19,
+      "text": "115. Ground 3 has no prospect of success. Conclusion First Applicant",
+      "bbox": [
+        25.333,
+        670.587,
+        253.333,
+        716.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-129",
+      "kind": "list_item",
+      "page_number": 19,
+      "text": "116. For the reasons given; the First Applicant's Renewed Application will be granted but limited to the first ground of appeal. That ground raises a relatively short of construction of the RDC, and the appeal can that the issues have already been extensively canvassed in the skeletons served by the parties. Given the delays which have already occurred in relation to the conduct of these examinations; it is appropriate to order a timetable which will facilitate the hearing and disposition of the appeal within the shortest practicable time. point",
+      "bbox": [
+        23.333,
+        540.92,
+        572.0,
+        659.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2-n-auto-130",
+      "kind": "list_item",
+      "page_number": 19,
+      "text": "117. Issues relating to the costs of the First Applicant's Renewed Application should be referred to the Court of Appeal which will no doubt take into account the fact that the Renewed Application has failed in respect of two of the three proposed grounds.",
+      "bbox": [
+        24.667,
+        472.587,
+        572.0,
+        530.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}

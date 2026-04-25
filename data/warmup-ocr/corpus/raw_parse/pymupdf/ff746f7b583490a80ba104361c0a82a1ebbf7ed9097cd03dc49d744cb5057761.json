@@ -1,0 +1,2755 @@
+{
+  "doc_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761",
+  "parser_name": "pymupdf",
+  "parser_route": "hybrid",
+  "parser_provenance": "pymupdf:native",
+  "page_count": 7,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "2": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "3": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "4": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "5": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "6": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ],
+    "7": [
+      0.0,
+      0.0,
+      594.9600219726562,
+      842.0399780273438
+    ]
+  },
+  "diagnostics": {},
+  "route_decisions": [
+    "hybrid_selected"
+  ],
+  "nodes": [
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b1",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b2",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "APPLICATION",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b3",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "N OF CIVIL",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b4",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "LAW ON",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b5",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "THE",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b6",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b7",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND COMMERCIAL",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b8",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "LAWS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b9",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "THE",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b10",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b11",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFC LAW",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b12",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "NO. 3 OF 2004",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b13",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Consolidated Version",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b14",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "(November 2024)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b15",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "As amended by",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b16",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Law of Application of Civil and Commercial Laws in the DIFC Amendment Law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b17",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFC Law No. 8 of 2024",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b18",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFC Laws Amendment Law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p1-b19",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DIFC Law No.2 of 2022",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b1",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b2",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "CONTENTS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b3",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "PART 1: GENERAL",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b4",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "..1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b5",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "..1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b6",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Title ..",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b7",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b8",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ". 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b9",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "2.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b10",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Legislative Authority ...",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b11",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ". 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b12",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "3.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b13",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Application of the Law ..",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b14",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ". 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b15",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Date of enactment..",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b16",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "4.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b17",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Commencement....",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b18",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ". 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b19",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "5.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b20",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ". 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b21",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "6.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b22",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Interpretation.....",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b23",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ". 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b24",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "7.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b25",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The objectives of this Law .",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b26",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ".2",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b27",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "PART 2: APPLICATION OF LAWS.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b28",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ".2",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b29",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "8.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b30",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Choice of applicable law ..",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b31",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Content of DIFC law .....",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b32",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "8A.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b33",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": ".2",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b34",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "8B.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b35",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "..2",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b36",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Interpretation of DIFC Statutes ..",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b37",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "9.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b38",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "..3",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b39",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Submission to jurisdiction....",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b40",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "…4",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b41",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "SCHEDULE 1..",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-b42",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "i",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b1",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b2",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "PART 1: GENERAL",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b3",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Title",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b4",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "1.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b5",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law may be cited as the \"Law on the Application of Civil and Commercial Laws in the DIFC 2004\".",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b6",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "2.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b7",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Legislative Authority",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b8",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law is made by the Ruler of Dubai.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b9",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Application of the Law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b10",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "3.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b11",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law applies in the jurisdiction of the Dubai International Financial Centre.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b12",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Date of enactment",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b13",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "4.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b14",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law is enacted on the date specified in the Enactment Notice in respect of this Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b15",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "5.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b16",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Commencement",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b17",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "This Law comes into force on the date specified in the Enactment Notice in respect of this Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b18",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "6.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b19",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Interpretation",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b20",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Schedule 1 contains a list of defined terms used in this Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b21",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "7.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b22",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The objectives of this Law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b23",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The objectives of this Law are to:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b24",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "provide certainty as to the rights, liabilities and obligations of persons in relation to civil and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b25",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "(a)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b26",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "commercial matters arising in the DIFC;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b27",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "assist in the development of the non-statutory law of the DIFC through decisions of the DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b28",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "(b)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b29",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Courts; and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b30",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "allow persons to adopt the laws of another jurisdiction in relation to civil and commercial matters",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b31",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "(c)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b32",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "arising within the DIFC.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-b33",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b1",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b2",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "PART 2: APPLICATION OF LAWS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b3",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "8.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b4",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Choice of applicable law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b5",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Since by virtue of Article 3 of Federal Law No. 8 of 2004, DIFC Law is able to apply in the DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b6",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(1)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b7",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "notwithstanding any Federal Law on civil or commercial matters, the rights and liabilities between",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b8",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "persons in any civil or commercial matter are to be determined according to the laws for the time",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b9",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "being in force in the Jurisdiction chosen in accordance with paragraph (2).",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b10",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The relevant Jurisdiction is to be the one first ascertained under the following paragraphs:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b11",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(2)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b12",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "so far as there is a regulatory content, any applicable DIFC Statute; failing which,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b13",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(a)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b14",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "the law of any Jurisdiction other than that of the DIFC expressly chosen by any DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b15",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(b)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b16",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Statute; failing which,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b17",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "the laws of a Jurisdiction as agreed between all the relevant persons concerned in the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b18",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(c)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b19",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "matter; failing which,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b20",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "the laws of any Jurisdiction which appears to the DIFC Court or Arbitrator to be the one",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b21",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(d)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b22",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "most closely related to the facts of and the persons concerned in the matter; failing which,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b23",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "DIFC Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b24",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(e)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b25",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "8A.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b26",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Content of DIFC Law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b27",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The following provisions apply where DIFC Law is the law applicable to a civil or commercial",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b28",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(1)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b29",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "matter pursuant to Article 8 above.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b30",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The content of DIFC Law shall be determined by any applicable DIFC Statute, and any DIFC Court",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b31",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(2)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b32",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "judgments interpreting and applying the applicable DIFC Statute in a manner consistent with this",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b33",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b34",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The common law (including the principles and rules of equity) supplements DIFC Statute except",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b35",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(3)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b36",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "to the extent modified by this Law or any other DIFC Law. The DIFC Courts in determining the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b37",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "common law for the DIFC in any case may have regard to the common law of England and Wales",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b38",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "and other common law jurisdictions.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b39",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The common law of the DIFC (including the principles and rules of equity), as determined by the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b40",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(4)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b41",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "DIFC Courts, must not be inconsistent with DIFC Statute.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b42",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "8B.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b43",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Interpretation of DIFC Statutes",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b44",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The interpretation of DIFC Statutes may be guided by:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b45",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(1)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b46",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "jurisprudence from common law jurisdictions regarding the interpretation and application",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b47",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(a)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b48",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "of analogous laws; and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b49",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(b)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b50",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "the rules and principles of statutory interpretation from common law jurisdictions.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b51",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Article 8B(1) applies to all DIFC Statutes, regardless of whether the relevant DIFC Statute is based",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b52",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(2)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b53",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "on an international model law or another non-common law source.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b54",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "If a DIFC Statute is based on an international model law, its interpretation may also be guided by",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b55",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(3)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b56",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "international jurisprudence interpreting and applying the international model law, as well as",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b57",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "interpretative aids and commentary published by international bodies regarding the international",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b58",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "model law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-b59",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "2",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b1",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b2",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "9.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b3",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Submission to jurisdiction",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b4",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "(1)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b5",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "The DIFC Court shall determine any matter before it in accordance with the laws that may apply",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b6",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "by virtue of Article 8.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b7",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "An Arbitrator shall determine any matter before them in accordance with the laws that may apply",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b8",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "(2)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b9",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "by virtue of Article 8.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-b10",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "3",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b1",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b2",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "SCHEDULE 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b3",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "INTERPRETATION",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b4",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "1.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b5",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Rules of interpretation",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b6",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "In the Law, a reference to:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b7",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(1)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b8",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a statutory provision includes a reference to the statutory provision as amended or re-enacted from",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b9",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(a)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b10",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "time to time;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b11",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(b)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b12",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a person includes any natural person, body corporate or body unincorporate, including a company,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b13",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "partnership, unincorporated association, government or state;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b14",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "an obligation to publish or cause to be published a particular document shall, unless expressly",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b15",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(c)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b16",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "provided otherwise in the Law, include publishing or causing to be published in printed or",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b17",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "electronic form;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b18",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a day shall refer to a business day, being a calendar day, excluding Saturdays, Sundays and official",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b19",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(d)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b20",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "public holidays;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b21",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a calendar year shall mean a year of the Gregorian calendar;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b22",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(e)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b23",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a reference to the masculine gender includes the feminine.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b24",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(f)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b25",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "The headings in the Law shall not affect its interpretation.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b26",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(2)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b27",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "References in this Law to a body corporate include a body corporate incorporated outside DIFC.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b28",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(3)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b29",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "A reference in this Law to a Part, Article or Schedule by number only, and without further identification, is",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b30",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(4)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b31",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a reference to the Part, Article or Schedule of that number in this Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b32",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "A reference in an Article or other division of this Law to a paragraph, sub-paragraph or Article by number",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b33",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(5)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b34",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "or letter only, and without further identification, is a reference to the paragraph, sub-paragraph or Article of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b35",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "that number or letter contained in the Article or other division of this Law in which that reference occurs.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b36",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Unless the context otherwise requires, where this Law refers to an enactment, the reference is to that",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b37",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(6)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b38",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "enactment as amended from time to time, and includes a reference to that enactment as extended or applied",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b39",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "by or under another enactment, including any other provision of that enactment.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b40",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "References to this Law to a writing, filing, instrument or certificate include any mode of communication that",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b41",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(7)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b42",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "preserves a record of the information contained therein and is capable of being reproduced in tangible form,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b43",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "including electronic means.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-b44",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "4",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b1",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "LAW ON THE APPLICATION OF CIVIL AND COMMERCIAL LAWS IN THE DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b2",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "2.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b3",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Legislation in the DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b4",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "References to legislation and Guidance in the Law shall be construed in accordance with the following",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b5",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "provisions:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b6",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Federal Law is law made by the federal government of the United Arab Emirates;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b7",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(a)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b8",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Dubai Law is law made by the Ruler, as applicable in the Emirate of Dubai; and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b9",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(b)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b10",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the Law on the Application of Civil and Commercial Law, DIFC Law No. 3 of 2004 is made by the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b11",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(c)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b12",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Ruler.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b13",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Defined Terms",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b14",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "3.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b15",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "In the Law, unless the context indicates otherwise, the defined terms listed below shall have the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b16",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "corresponding meanings.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b17",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Terms",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b18",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Definitions",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b19",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Arbitrator",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b20",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "an Arbitrator appointed by the parties for the purpose of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b21",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "arbitrating matters between the parties.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b22",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "DIFC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b23",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the Dubai International Financial Centre.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b24",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "DIFC Bodies",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b25",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the bodies established pursuant to Article (3) of Law No. 9 of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b26",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "2004 concerning the Dubai International Financial Centre (as",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b27",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "amended).",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b28",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the DIFC Court of First Instance and the DIFC Court of Appeal.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b29",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "DIFC Court",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b30",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "DIFC Law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b31",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the law of the DIFC as established by DIFC Statute and the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b32",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "decisions of the DIFC Courts.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b33",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "DIFC Statute",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b34",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "laws enacted by the Ruler as proposed by DIFC Bodies, and any",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b35",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "regulations or rules issued by them pursuant to such laws.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b36",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Jurisdiction",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b37",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "any jurisdiction in any country for the time being recognised by",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b38",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the UAE.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b39",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Law",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b40",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the Law on the Application of Civil and Commercial Law 2004.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b41",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "has the meaning given in Article 1 of Schedule 1 of the Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b42",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "person",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b43",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the ruler of the Emirate of Dubai.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b44",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Ruler",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b45",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Schedule",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b46",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "a schedule to the Law.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b47",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "the United Arab Emirates.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b48",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "UAE",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-b49",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "5",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": [
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p2-t1",
+      "page_number": 2,
+      "bbox": null,
+      "raw_json": {
+        "rows": [
+          [
+            "PART 1: GENERAL",
+            "..1",
+            ""
+          ],
+          [
+            "1.",
+            "Title ..",
+            "..1"
+          ],
+          [
+            "2.",
+            "Legislative Authority ...",
+            ". 1"
+          ],
+          [
+            "3.",
+            "Application of the Law ..",
+            ". 1"
+          ],
+          [
+            "4.",
+            "Date of enactment..",
+            ". 1"
+          ],
+          [
+            "5.",
+            "Commencement....",
+            ". 1"
+          ],
+          [
+            "6.",
+            "Interpretation.....",
+            ". 1"
+          ],
+          [
+            "7.",
+            "The objectives of this Law .",
+            ". 1"
+          ],
+          [
+            "PART 2: APPLICATION OF LAWS.",
+            ".2",
+            ""
+          ],
+          [
+            "8.",
+            "Choice of applicable law ..",
+            ".2"
+          ],
+          [
+            "8A.",
+            "Content of DIFC law .....",
+            ".2"
+          ],
+          [
+            "8B.",
+            "Interpretation of DIFC Statutes ..",
+            "..2"
+          ],
+          [
+            "9.",
+            "Submission to jurisdiction....",
+            "..3"
+          ],
+          [
+            "SCHEDULE 1..",
+            "…4",
+            ""
+          ]
+        ]
+      },
+      "raw_html": "<table><tr><th>PART 1: GENERAL</th><th>..1</th><th></th></tr><tr><td>1.</td><td>Title ..</td><td>..1</td></tr><tr><td>2.</td><td>Legislative Authority ...</td><td>. 1</td></tr><tr><td>3.</td><td>Application of the Law ..</td><td>. 1</td></tr><tr><td>4.</td><td>Date of enactment..</td><td>. 1</td></tr><tr><td>5.</td><td>Commencement....</td><td>. 1</td></tr><tr><td>6.</td><td>Interpretation.....</td><td>. 1</td></tr><tr><td>7.</td><td>The objectives of this Law .</td><td>. 1</td></tr><tr><td>PART 2: APPLICATION OF LAWS.</td><td>.2</td><td></td></tr><tr><td>8.</td><td>Choice of applicable law ..</td><td>.2</td></tr><tr><td>8A.</td><td>Content of DIFC law .....</td><td>.2</td></tr><tr><td>8B.</td><td>Interpretation of DIFC Statutes ..</td><td>..2</td></tr><tr><td>9.</td><td>Submission to jurisdiction....</td><td>..3</td></tr><tr><td>SCHEDULE 1..</td><td>…4</td><td></td></tr></table>",
+      "linked_context_block_id": null
+    },
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p3-t1",
+      "page_number": 3,
+      "bbox": null,
+      "raw_json": {
+        "rows": [
+          [
+            "1.",
+            "Title"
+          ],
+          [
+            "2.",
+            "Legislative Authority"
+          ],
+          [
+            "3.",
+            "Application of the Law"
+          ],
+          [
+            "4.",
+            "Date of enactment"
+          ],
+          [
+            "5.",
+            "Commencement"
+          ],
+          [
+            "6.",
+            "Interpretation"
+          ],
+          [
+            "7.",
+            "The objectives of this Law"
+          ],
+          [
+            "(a)",
+            "provide certainty as to the rights, liabilities and obligations of persons in relation to civil and"
+          ],
+          [
+            "(b)",
+            "assist in the development of the non-statutory law of the DIFC through decisions of the DIFC"
+          ],
+          [
+            "(c)",
+            "allow persons to adopt the laws of another jurisdiction in relation to civil and commercial matters"
+          ]
+        ]
+      },
+      "raw_html": "<table><tr><th>1.</th><th>Title</th></tr><tr><td>2.</td><td>Legislative Authority</td></tr><tr><td>3.</td><td>Application of the Law</td></tr><tr><td>4.</td><td>Date of enactment</td></tr><tr><td>5.</td><td>Commencement</td></tr><tr><td>6.</td><td>Interpretation</td></tr><tr><td>7.</td><td>The objectives of this Law</td></tr><tr><td>(a)</td><td>provide certainty as to the rights, liabilities and obligations of persons in relation to civil and</td></tr><tr><td>(b)</td><td>assist in the development of the non-statutory law of the DIFC through decisions of the DIFC</td></tr><tr><td>(c)</td><td>allow persons to adopt the laws of another jurisdiction in relation to civil and commercial matters</td></tr></table>",
+      "linked_context_block_id": null
+    },
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p4-t1",
+      "page_number": 4,
+      "bbox": null,
+      "raw_json": {
+        "rows": [
+          [
+            "8.",
+            "Choice of applicable law"
+          ],
+          [
+            "(1)",
+            "Since by virtue of Article 3 of Federal Law No. 8 of 2004, DIFC Law is able to apply in the DIFC"
+          ],
+          [
+            "(2)",
+            "The relevant Jurisdiction is to be the one first ascertained under the following paragraphs:"
+          ],
+          [
+            "(a)",
+            "so far as there is a regulatory content, any applicable DIFC Statute; failing which,"
+          ],
+          [
+            "(b)",
+            "the law of any Jurisdiction other than that of the DIFC expressly chosen by any DIFC"
+          ],
+          [
+            "(c)",
+            "the laws of a Jurisdiction as agreed between all the relevant persons concerned in the"
+          ],
+          [
+            "(d)",
+            "the laws of any Jurisdiction which appears to the DIFC Court or Arbitrator to be the one"
+          ],
+          [
+            "(e)",
+            "DIFC Law."
+          ],
+          [
+            "8A.",
+            "Content of DIFC Law"
+          ],
+          [
+            "(1)",
+            "The following provisions apply where DIFC Law is the law applicable to a civil or commercial"
+          ],
+          [
+            "(2)",
+            "The content of DIFC Law shall be determined by any applicable DIFC Statute, and any DIFC Court"
+          ],
+          [
+            "(3)",
+            "The common law (including the principles and rules of equity) supplements DIFC Statute except"
+          ],
+          [
+            "(4)",
+            "The common law of the DIFC (including the principles and rules of equity), as determined by the"
+          ],
+          [
+            "8B.",
+            "Interpretation of DIFC Statutes"
+          ],
+          [
+            "(1)",
+            "The interpretation of DIFC Statutes may be guided by:"
+          ],
+          [
+            "(a)",
+            "jurisprudence from common law jurisdictions regarding the interpretation and application"
+          ],
+          [
+            "(b)",
+            "the rules and principles of statutory interpretation from common law jurisdictions."
+          ],
+          [
+            "(2)",
+            "Article 8B(1) applies to all DIFC Statutes, regardless of whether the relevant DIFC Statute is based"
+          ],
+          [
+            "(3)",
+            "If a DIFC Statute is based on an international model law, its interpretation may also be guided by"
+          ]
+        ]
+      },
+      "raw_html": "<table><tr><th>8.</th><th>Choice of applicable law</th></tr><tr><td>(1)</td><td>Since by virtue of Article 3 of Federal Law No. 8 of 2004, DIFC Law is able to apply in the DIFC</td></tr><tr><td>(2)</td><td>The relevant Jurisdiction is to be the one first ascertained under the following paragraphs:</td></tr><tr><td>(a)</td><td>so far as there is a regulatory content, any applicable DIFC Statute; failing which,</td></tr><tr><td>(b)</td><td>the law of any Jurisdiction other than that of the DIFC expressly chosen by any DIFC</td></tr><tr><td>(c)</td><td>the laws of a Jurisdiction as agreed between all the relevant persons concerned in the</td></tr><tr><td>(d)</td><td>the laws of any Jurisdiction which appears to the DIFC Court or Arbitrator to be the one</td></tr><tr><td>(e)</td><td>DIFC Law.</td></tr><tr><td>8A.</td><td>Content of DIFC Law</td></tr><tr><td>(1)</td><td>The following provisions apply where DIFC Law is the law applicable to a civil or commercial</td></tr><tr><td>(2)</td><td>The content of DIFC Law shall be determined by any applicable DIFC Statute, and any DIFC Court</td></tr><tr><td>(3)</td><td>The common law (including the principles and rules of equity) supplements DIFC Statute except</td></tr><tr><td>(4)</td><td>The common law of the DIFC (including the principles and rules of equity), as determined by the</td></tr><tr><td>8B.</td><td>Interpretation of DIFC Statutes</td></tr><tr><td>(1)</td><td>The interpretation of DIFC Statutes may be guided by:</td></tr><tr><td>(a)</td><td>jurisprudence from common law jurisdictions regarding the interpretation and application</td></tr><tr><td>(b)</td><td>the rules and principles of statutory interpretation from common law jurisdictions.</td></tr><tr><td>(2)</td><td>Article 8B(1) applies to all DIFC Statutes, regardless of whether the relevant DIFC Statute is based</td></tr><tr><td>(3)</td><td>If a DIFC Statute is based on an international model law, its interpretation may also be guided by</td></tr></table>",
+      "linked_context_block_id": null
+    },
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p5-t1",
+      "page_number": 5,
+      "bbox": null,
+      "raw_json": {
+        "rows": [
+          [
+            "9.",
+            "Submission to jurisdiction"
+          ],
+          [
+            "(1)",
+            "The DIFC Court shall determine any matter before it in accordance with the laws that may apply"
+          ],
+          [
+            "(2)",
+            "An Arbitrator shall determine any matter before them in accordance with the laws that may apply"
+          ]
+        ]
+      },
+      "raw_html": "<table><tr><th>9.</th><th>Submission to jurisdiction</th></tr><tr><td>(1)</td><td>The DIFC Court shall determine any matter before it in accordance with the laws that may apply</td></tr><tr><td>(2)</td><td>An Arbitrator shall determine any matter before them in accordance with the laws that may apply</td></tr></table>",
+      "linked_context_block_id": null
+    },
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p6-t1",
+      "page_number": 6,
+      "bbox": null,
+      "raw_json": {
+        "rows": [
+          [
+            "1.",
+            "Rules of interpretation"
+          ],
+          [
+            "(1)",
+            "In the Law, a reference to:"
+          ],
+          [
+            "(a)",
+            "a statutory provision includes a reference to the statutory provision as amended or re-enacted from"
+          ],
+          [
+            "(b)",
+            "a person includes any natural person, body corporate or body unincorporate, including a company,"
+          ],
+          [
+            "(c)",
+            "an obligation to publish or cause to be published a particular document shall, unless expressly"
+          ],
+          [
+            "(d)",
+            "a day shall refer to a business day, being a calendar day, excluding Saturdays, Sundays and official"
+          ],
+          [
+            "(e)",
+            "a calendar year shall mean a year of the Gregorian calendar;"
+          ],
+          [
+            "(f)",
+            "a reference to the masculine gender includes the feminine."
+          ],
+          [
+            "(2)",
+            "The headings in the Law shall not affect its interpretation."
+          ],
+          [
+            "(3)",
+            "References in this Law to a body corporate include a body corporate incorporated outside DIFC."
+          ],
+          [
+            "(4)",
+            "A reference in this Law to a Part, Article or Schedule by number only, and without further identification, is"
+          ],
+          [
+            "(5)",
+            "A reference in an Article or other division of this Law to a paragraph, sub-paragraph or Article by number"
+          ],
+          [
+            "(6)",
+            "Unless the context otherwise requires, where this Law refers to an enactment, the reference is to that"
+          ],
+          [
+            "(7)",
+            "References to this Law to a writing, filing, instrument or certificate include any mode of communication that"
+          ]
+        ]
+      },
+      "raw_html": "<table><tr><th>1.</th><th>Rules of interpretation</th></tr><tr><td>(1)</td><td>In the Law, a reference to:</td></tr><tr><td>(a)</td><td>a statutory provision includes a reference to the statutory provision as amended or re-enacted from</td></tr><tr><td>(b)</td><td>a person includes any natural person, body corporate or body unincorporate, including a company,</td></tr><tr><td>(c)</td><td>an obligation to publish or cause to be published a particular document shall, unless expressly</td></tr><tr><td>(d)</td><td>a day shall refer to a business day, being a calendar day, excluding Saturdays, Sundays and official</td></tr><tr><td>(e)</td><td>a calendar year shall mean a year of the Gregorian calendar;</td></tr><tr><td>(f)</td><td>a reference to the masculine gender includes the feminine.</td></tr><tr><td>(2)</td><td>The headings in the Law shall not affect its interpretation.</td></tr><tr><td>(3)</td><td>References in this Law to a body corporate include a body corporate incorporated outside DIFC.</td></tr><tr><td>(4)</td><td>A reference in this Law to a Part, Article or Schedule by number only, and without further identification, is</td></tr><tr><td>(5)</td><td>A reference in an Article or other division of this Law to a paragraph, sub-paragraph or Article by number</td></tr><tr><td>(6)</td><td>Unless the context otherwise requires, where this Law refers to an enactment, the reference is to that</td></tr><tr><td>(7)</td><td>References to this Law to a writing, filing, instrument or certificate include any mode of communication that</td></tr></table>",
+      "linked_context_block_id": null
+    },
+    {
+      "table_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761-p7-t1",
+      "page_number": 7,
+      "bbox": null,
+      "raw_json": {
+        "rows": [
+          [
+            "2.",
+            "Legislation in the DIFC"
+          ],
+          [
+            "(a)",
+            "Federal Law is law made by the federal government of the United Arab Emirates;"
+          ],
+          [
+            "(b)",
+            "Dubai Law is law made by the Ruler, as applicable in the Emirate of Dubai; and"
+          ],
+          [
+            "(c)",
+            "the Law on the Application of Civil and Commercial Law, DIFC Law No. 3 of 2004 is made by the"
+          ],
+          [
+            "3.",
+            "Defined Terms"
+          ],
+          [
+            "Terms",
+            "Definitions"
+          ],
+          [
+            "Arbitrator",
+            "an Arbitrator appointed by the parties for the purpose of"
+          ],
+          [
+            "DIFC",
+            "the Dubai International Financial Centre."
+          ],
+          [
+            "DIFC Bodies",
+            "the bodies established pursuant to Article (3) of Law No. 9 of"
+          ],
+          [
+            "DIFC Court",
+            "the DIFC Court of First Instance and the DIFC Court of Appeal."
+          ],
+          [
+            "DIFC Law",
+            "the law of the DIFC as established by DIFC Statute and the"
+          ],
+          [
+            "DIFC Statute",
+            "laws enacted by the Ruler as proposed by DIFC Bodies, and any"
+          ],
+          [
+            "Jurisdiction",
+            "any jurisdiction in any country for the time being recognised by"
+          ],
+          [
+            "Law",
+            "the Law on the Application of Civil and Commercial Law 2004."
+          ],
+          [
+            "person",
+            "has the meaning given in Article 1 of Schedule 1 of the Law."
+          ],
+          [
+            "Ruler",
+            "the ruler of the Emirate of Dubai."
+          ],
+          [
+            "Schedule",
+            "a schedule to the Law."
+          ],
+          [
+            "UAE",
+            "the United Arab Emirates."
+          ]
+        ]
+      },
+      "raw_html": "<table><tr><th>2.</th><th>Legislation in the DIFC</th></tr><tr><td>(a)</td><td>Federal Law is law made by the federal government of the United Arab Emirates;</td></tr><tr><td>(b)</td><td>Dubai Law is law made by the Ruler, as applicable in the Emirate of Dubai; and</td></tr><tr><td>(c)</td><td>the Law on the Application of Civil and Commercial Law, DIFC Law No. 3 of 2004 is made by the</td></tr><tr><td>3.</td><td>Defined Terms</td></tr><tr><td>Terms</td><td>Definitions</td></tr><tr><td>Arbitrator</td><td>an Arbitrator appointed by the parties for the purpose of</td></tr><tr><td>DIFC</td><td>the Dubai International Financial Centre.</td></tr><tr><td>DIFC Bodies</td><td>the bodies established pursuant to Article (3) of Law No. 9 of</td></tr><tr><td>DIFC Court</td><td>the DIFC Court of First Instance and the DIFC Court of Appeal.</td></tr><tr><td>DIFC Law</td><td>the law of the DIFC as established by DIFC Statute and the</td></tr><tr><td>DIFC Statute</td><td>laws enacted by the Ruler as proposed by DIFC Bodies, and any</td></tr><tr><td>Jurisdiction</td><td>any jurisdiction in any country for the time being recognised by</td></tr><tr><td>Law</td><td>the Law on the Application of Civil and Commercial Law 2004.</td></tr><tr><td>person</td><td>has the meaning given in Article 1 of Schedule 1 of the Law.</td></tr><tr><td>Ruler</td><td>the ruler of the Emirate of Dubai.</td></tr><tr><td>Schedule</td><td>a schedule to the Law.</td></tr><tr><td>UAE</td><td>the United Arab Emirates.</td></tr></table>",
+      "linked_context_block_id": null
+    }
+  ]
+}

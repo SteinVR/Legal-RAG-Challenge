@@ -67,7 +67,6 @@ ingestion:
   opendataloader_reading_order: xycut
   opendataloader_hybrid_backend: docling-fast
   opendataloader_hybrid_mode: full
-  opendataloader_hybrid_fallback: false
   opendataloader_hybrid_url: http://localhost:5002
   opendataloader_hybrid_timeout_ms: 120000
   fail_fast_on_document_error: true

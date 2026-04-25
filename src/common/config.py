@@ -141,7 +141,6 @@ class IngestionSettings(BaseModel):
     opendataloader_reading_order: Literal["off", "xycut"] = "xycut"
     opendataloader_hybrid_backend: Literal["off", "docling-fast"] = "docling-fast"
     opendataloader_hybrid_mode: Literal["auto", "full"] = "auto"
-    opendataloader_hybrid_fallback: bool = False
     opendataloader_hybrid_url: str | None = None
     opendataloader_hybrid_timeout_ms: int = 30_000
     fail_fast_on_document_error: bool = True

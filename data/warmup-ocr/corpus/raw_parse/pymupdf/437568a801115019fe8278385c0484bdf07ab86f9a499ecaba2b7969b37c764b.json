@@ -1,0 +1,4435 @@
+{
+  "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+  "parser_name": "pymupdf",
+  "parser_route": "hybrid",
+  "parser_provenance": "pymupdf:native",
+  "page_count": 15,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "4": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "5": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "6": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "7": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "8": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "9": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "10": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "11": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "12": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "13": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "14": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "15": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {},
+  "route_decisions": [
+    "hybrid_selected"
+  ],
+  "nodes": [
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b1",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "CA 005/2025 LXT Real Estate Broker L.L.C v SIR Real Estate LLC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b2",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "JANUARY 21, 2026 COURT OF APPEAL - ORDERS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b3",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No: CA 005/2025",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b4",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b5",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN THE COURT OF APPEAL",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b6",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BEFORE H.E. CHIEF JUSTICE WAYNE MARTIN, H.E. JUSTICE SIR PETER GROSS AND H.E.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b7",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "JUSTICE RENE LE MIERE",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b8",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b9",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "LXT REAL ESTATE BROKER L.L.C",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b10",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claimant/Respondent",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b11",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b12",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "SIR REAL ESTATE LLC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b13",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Defendant/Appellant",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b14",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "REASONS OF THE COURT OF APPEAL FOR THE ORDER DATED 13 JANUARY 2026",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b15",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Introduction",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b16",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "1. This is the Court's judgment on an appeal from a decision of the Court of First Instance (\"CFI\")",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b17",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "concerning an application for security for costs. The Defendant appealed against an order of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b18",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Judge at first instance requiring the Claimant to provide security on specified terms. The Claimant",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b19",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "sought permission to cross-appeal.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b20",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "2. The appeal was heard on 12 January 2026. At the conclusion of the Hearing, the Court announced",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b21",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "that the appeal would be allowed, that the application for security for costs would be remitted to the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b22",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "CFI for reconsideration in accordance with directions to be given by this Court, and that permission to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b23",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "cross-appeal would be refused. The Court also announced its conclusions on interim arrangements for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p1-b24",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "security pending reconsideration by the CFl and on costs.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b1",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "3. These reasons explain why the Court reached those conclusions and set out the orders made. In",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b2",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "summary, the Court concluded that several key findings and evaluative judgments by the Judge at first",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b3",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "instance regarding the scope, quantum, and effect of the security for costs order could not stand.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b4",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Those matters must therefore be reconsidered afresh by the CFl, on the basis that the conditions for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b5",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "granting security for costs have been established and that the issues raised by the proposed cross-",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b6",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "appeal have been determined adversely to the Claimant.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b7",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "4. Until reconsideration, the existing order for security is to remain in place, and any security already",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b8",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "posted pursuant to that order is to be maintained unless and until varied or revoked by the CFl. The",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b9",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Court also determined the appropriate orders regarding the costs of the appeal, the applications for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b10",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "permission to appeal and cross-appeal, and the costs of the application for security for costs before",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b11",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "the CFI.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b12",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "5. The Court ordered:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b13",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1. The Appeal is allowed and the application for security is remitted to the Court of First Instance",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b14",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(CFI) for reconsideration on the terms set out in these orders.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b15",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "2. Pending reconsideration by the CFl, the order for security will remain in place, and any security",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b16",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "posted pursuant to its terms will be maintained unless and until varied or revoked by the CFl",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b17",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "following the remittal of the application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b18",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "3. Any findings or conclusions of the Judge at first instance on the following matters:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b19",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(a) the portion of the proceedings to be covered by the security,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b20",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(b) the posting or staging of further security,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b21",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(c) the existence of any natural barrier or cap on the amount of security,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b22",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(d) the assessment of whether an order for security would risk stifling the claim,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b23",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(e) the effect of the Claimant's success on the Strike out application on the provision of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b24",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "security for the remainder of the case,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b25",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(f) any proposition that the presence of a litigation funder automatically entitles the Claimant",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b26",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "to a reduction in the amount of the security to be posted, and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b27",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(g) the assessment of the quantum of the security to be provided, are set aside.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b28",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "4. The Claimant's application for permission to cross appeal is dismissed.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b29",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "5. The CFI is to deal with the remitted application for security on the basis that:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b30",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(a) the jurisdictional conditions for the grant of security have been satisfied; and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b31",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(b) the issues identified in Order 3and the issues pertaining to the proposed cross appeal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b32",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "have been determined adversely to the Claimant as at the time of the original application for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p2-b33",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "security",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b1",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "For the avoidance of doubt, nothing in these orders prevents the Claimant from raising any",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b2",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "argument based on the Crabtree principle if and when the question of security is reconsidered",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b3",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "following the filing of a counterclaim by the Defendant.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b4",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Otherwise, the quantum, timing and terms of the security to be posted by the Claimant are matters",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b5",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "to be left to the determination of the CFl on the remitted application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b6",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "6. The order that there be no order in respect of the costs of the application for security is set",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b7",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "aside and it is ordered that the costs of the application for security up to and including the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b8",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "determination by the Judge at first instance will be costs in the case.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b9",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "7. The Claimant shall pay the Defendant's costs of:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b10",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "(c) the initial application for permission to appeal;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b11",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "(d) the renewed application for permission to appeal;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b12",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "(e) the application for permission to cross-appeal; and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b13",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "(f) the appeal;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b14",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "assessed and fixed in the amount of AED 550,000, to be paid within 14 days. If not paid in full",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b15",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "within that period, interest shall accrue on any unpaid amount at the rate prescribed in respect of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b16",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "judgments of the Court.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b17",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "8. The Defendant's application for permission to appeal against the costs order made by the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b18",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Judge at first instance is dismissed as moot.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b19",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "9. There is no order as to costs in respect of that application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b20",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Background",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b21",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "6. The Claimant and the Defendant entered into a 10-year Partnership and Services Agreement under",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b22",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "which the Claimant provided marketing and branding services in return for annual Partnership Fees,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b23",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "calculated as the higher of fixed minimum amounts or a percentage of the Defendant's gross",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b24",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "revenues, together with specified financial reporting obligations.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b25",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "7. The Claimant alleges that the Defendant breached the Agreement by failing to provide the required",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b26",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "audited and accurate financial statements, underreporting gross revenue, underpaying Partnership",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b27",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Fees between January 2021 and June 2023, and unlawfully terminating the Agreement on 28",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b28",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "September 2023, thereby constituting repudiation.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b29",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "8. The Claimant claims debt or damages of AED 405,351,504, exclusive of interest, costs, and any",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b30",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "further discretionary relief.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b31",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "9. On 17 October 2024, the Claimant filed its Claim Form.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b32",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "10. On 27 November 2024, the Defendant filed an acknowledgement of service stating that it intends",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p3-b33",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "to defend the claim.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b1",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Security for costs application",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b2",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "11. On 10 December 2024, the Defendant filed an application for security for its costs of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b3",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "proceedings in the amount of USD 1,750,000.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b4",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "12. On 16 December 2024, the Defendant filed an application for an order that the Claim be struck out",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b5",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "pursuant to Rule 4.16 of the Rules of the Dubai International Financial Centre Court (\"RDC\") and/or",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b6",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "that immediate judgment be entered for the Defendant pursuant to RDC 24.1 (the \"Strike-out",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b7",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Application\"). The Defendant asserted that the Claimant's claims disclose no reasonable grounds,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b8",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "have been artificially inflated to obstruct the just disposal of proceedings, and/or constitute an abuse of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b9",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "the DIFC Court's process.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b10",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "13. On 19 March 2025, the Judge at first instance delivered reasons for judgment on the security for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b11",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "costs application and ordered the Claimant to provide security for costs in the amount of USD",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b12",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "250,499.26, in respect of the Defendant's projected costs up to and including the Case Management",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b13",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Conference. His orders included an order that: \"Security for costs may be extended post Case",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b14",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Management Conference subject to the outcome of the Strike-out Application.\"",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b15",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "14. The day after the Judge's orders with reasons were published, the Claimant emailed the Court",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b16",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "seeking clarification of inconsistencies between the reasons and the orders",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b17",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "15. On 26 March 2025, the Judge published amended orders with reasons, although the appended",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b18",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "reasons were unchanged. The amended orders are:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b19",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "1. The Application is granted; Security for Costs for the projected costs amount will be permitted",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b20",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "until the Strike-out Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b21",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "2. Quantum for Security for Costs shall be USD 250,499.26.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b22",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "3. The Security shall be paid into the Court account within 10 days from the date of issue of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b23",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "amended Order.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b24",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "4. Costs of the Application shall be assessed on the standard basis. Parties shall file their costs",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b25",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "submissions, to be no longer than 3 pages, within 7 working days of the date of issue of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b26",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "amended Order.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b27",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(the \"Security Order\").",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b28",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Appeal and cross-appeal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b29",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "16. On 16 April 2025, the Defendant filed an application for permission to appeal those parts of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b30",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "Security Order by which the Judge",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b31",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "(1) Ordered the Claimant to provide security for the Defendant's costs, but only in the sum of USD",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b32",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "250,499.26 and only up to the hearing of the Defendant's application to strike out the Claimant's",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b33",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "claim (in circumstances where the Defendant's total costs of defending the claim to trial were",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p4-b34",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "estimated to be USD 2.5 million); and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b1",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "(2) Amended the original version of his Order, which had been issued a week earlier, by removing",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b2",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "or limiting the Defendant's absolute right (which was reflected in the original version of the Order,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b3",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "and which in any event arises as a matter of law) to apply for further security for costs following",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b4",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "any case management conference, on the basis that the level and quantum of security would \"not",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b5",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "be subject to change or extension\" (as stated at paragraphs 42 and 57 of the Amended Reasons).",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b6",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "17. On 2 July 2025, the Judge refused permission to appeal.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b7",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "18. Also on 2 July 2025, having considered the parties' submissions on the costs of the security for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b8",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "costs application, the Judge ordered that there be no order as to costs (the \"Costs Order\"). In his",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b9",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "reasons, the Judge found that the Defendant was not entirely successful because the security ordered",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b10",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "was less than sought, and concluded that the most reasonable outcome was to make no order as to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b11",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "costs.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b12",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "19. On 22 July 2025, the Defendant filed a renewed application seeking permission to appeal the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b13",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Security Order.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b14",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "20. On 23 July 2025, the Defendant applied for permission to appeal the Costs Order. The Defendant",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b15",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "contends that the Judge erred in making no order as to costs and that the Judge should have held that",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b16",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "the Defendant was the successful party, with no reason to displace the general rule that the successful",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b17",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "party should be awarded its costs",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b18",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "21. On 25 August 2025, H.E. the Chief Justice allowed the renewed application in part, granted",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b19",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "permission to appeal on ground 1, and refused permission on the other grounds. Ground 1 is:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b20",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "\"The Judge wrongly exercised his discretion, and/or wrongly evaluated the evidence before the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b21",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Court, by ordering security only up to the hearing of [the Defendant's]'s strike out application and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b22",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "awarding only USD 250,499.26 as security for its costs. In particular, but without prejudice to all of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b23",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "the submissions to made in support of [the Defendant's] appeal:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b24",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "(1) The Judge erred in principle and/or erred by taking into account an irrelevant consideration",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b25",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "(that was unsupported by the evidence before the Court) in concluding that granting security up to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b26",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "trial risked stifling [the Claimant's] claim. [The Claimant] had not raised any argument nor adduced",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b27",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "any admissible or reliable evidence that its claim would be stifled if security was ordered up to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b28",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "trial, and, on the contrary, [the Claimant's] own evidence (which was not admitted by the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b29",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "Defendant, in the absence of any disclosure by [the Claimant] of its own financial statements, or",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b30",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "the financial statements of its shareholders) was that the Claimant] had available resources from",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b31",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "third party litigation funders to [the provide security for costs at least up to the sum of USD 1",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b32",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "million. The potential risk of 'stifling', therefore, was not a factor that the Judge was entitled to rely",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b33",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "upon, and it was not a conclusion that he was entitled to draw on the evidence before the Court.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b34",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "(2) The Judge erred in principle and/or erred by taking into account an irrelevant consideration in",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b35",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "concluding that [the Claimant] would be in a better financial position if it succeeded on the Strike-",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b36",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "out Application and obtained an order for payment of its costs, and/or that [the Defendant] could",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p5-b37",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "suspend payment of any costs order in those circumstances. The Judge was not in a position to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b1",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "assess, or to predict, or to pre-Judge, the hypothetical outcomes of [the Defendant's] Strike-out",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b2",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Application and the Judge's implied suggestion that [the Claimant] might be able to set off a costs",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b3",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "order against any security was too speculative to be properly considered as part of his evaluation.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b4",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(3) The Judge erred in principle and/or erred by taking into account an irrelevant consideration in",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b5",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "concluding that the existence of an alleged litigation funder (or funders) automatically entitled [the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b6",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Claimant] to provide a reduced security figure. That conclusion is unsupported by any legal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b7",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "authority and is wrong as a matter of principle.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b8",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(4) The Judge failed to take into account a relevant consideration, being the additional prejudice to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b9",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "[the Defendant] associated with a lack of costs protection, and/or additional uncertainty and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b10",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "additional expense involved in only ordering security for costs up to the Strike-out Application,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b11",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "rather than ordering security for [the Defendant's] costs of defending the whole proceedings (even",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b12",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "if that security was to be paid in tranches).\"",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b13",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "22. On 18 September 2025, the Claimant applied for permission to cross-appeal on the following",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b14",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "ground.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b15",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "\"The learned Judge wrongly exercised his discretion and/or did not take into consideration a",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b16",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "relevant factor in his multi-factorial assessment by ordering security when [the Defendant] (i) had",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b17",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "not yet filed its defence, but (ii) had made multiple indications that it intends to file a counterclaim",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b18",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "and/or cross-claims that overlap substantially with the subject matter of the claim. In particular:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b19",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(1) The principle established in B J Crabtree (Insulations) Ltd v GPT Communications Systems",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b20",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Ltd (1990) 59 BLR 43 (\"the Crabtree principle\") is that where a counterclaim is based wholly or in",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b21",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "a very substantial part on the same facts or substantially the same facts as the Claimant's own",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b22",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "claim, the default position is that the Court will not order security for costs.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b23",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(2) The Crabtree principle is a well-established principle in evaluating whether to order security for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b24",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "costs.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b25",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(3) In [26] of the Judgment, the learned Judge recognised [the Claimant's] reliance on the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b26",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Crabtree principle. However, the learned Judge then failed to state his reasons on why the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b27",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Crabtree principle should not be followed in the circumstances of this case.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b28",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(4) Had the learned Judge taken into account the Crabtree principle and applied it, the learned",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b29",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Judge would have found that security for the costs of the claim should not be ordered.\"",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b30",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "23. The Claimant sought orders that the Security Order be set aside, the Defendant's security",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b31",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "application be dismissed, the security be released to the Claimant, and the Defendant pay the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b32",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Claimant's costs of the Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b33",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "24. In its Respondent's Notice, the Claimant submits that, alternatively, the Security Order should be",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b34",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "upheld for the following further or alternative reason:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b35",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "(1) The learned Judge ordered that security for costs shall be provided until the resolution of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p6-b36",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "Strike-out Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b1",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(2) The learned Judge refused to order security in respect of costs to be incurred after the Strike-",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b2",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "out Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b3",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(3) That conclusion should be upheld for the following further reason.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b4",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(4) There is presently no basis, upon which the quantum of security may be assessed adequately",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b5",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "in circumstances where the Strike-out Application remains extant, no defence and/or counterclaim",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b6",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "or cross-claims have been pleaded, there is therefore no clarity on what the issues in the claim",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b7",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "will be. There is also no agreed time estimate for trial, no agreement on whether expert evidence",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b8",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "should be allowed, and no realistic basis upon which the expenses associated with disclosure can",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b9",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "be estimated. Therefore, the proper time for [the Defendant] to make a reasoned application for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b10",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "security for costs would be at the first case management conference. Prior to that point, the only",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b11",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "costs for which [the Defendant] may want to seek security are those of the Strike-out Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b12",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Strike-out application",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b13",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "25. The Strike-out Application was heard by the case management Judge on 10 and 11 December",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b14",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "2025.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b15",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "26. On 9 January 2026, the case management Judge ordered:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b16",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(1) The Strike-out and Immediate Judgment Application is dismissed, save in respect of the claims",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b17",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "for breach of fiduciary duty advanced at paragraphs 7.2 and 33.15 of the Amended Particulars of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b18",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Claim, which paragraphs and claims are hereby struck out pursuant to RDC 4.16 (1).",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b19",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(2) The Claimant has permission to amend its Particulars of Claim in the form appended to this",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b20",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Order, subject to the order at 1 above striking out the paragraphs referred to.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b21",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(3) Failing agreement between the Parties in relation thereto, the allocation of liability for costs of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b22",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "and incidental to the Applications and their assessment, shall be decided on written submissions",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b23",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "to be provided in accordance with directions to be agreed by the Parties or determined by the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b24",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Court.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b25",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "(4) Reasons are to follow.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b26",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "Legal Framework",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b27",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "27. The RDC adopts a two-stage analysis for security for costs. Stage 1 is a mandatory factual",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b28",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "gateway, while Stage 2 involves the Court's discretion.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b29",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "28. At Stage 1, the applicant must establish that at least one of the conditions in RDC 25.103 is met.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b30",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "These conditions are jurisdictional prerequisites: unless a gateway condition is satisfied, the Court has",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b31",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "no power to order security. This is a question of fact. In the present case, the Judge found that",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b32",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "condition (2) was satisfied—namely, that the Claimant is a company and there is reason to believe it",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p7-b33",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "will be unable to pay the Defendant's costs if ordered to do so.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b1",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "29. Once a gateway is established, the Court proceeds to Stage 2 and determines whether, in all the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b2",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "circumstances, it is just to order security. This is a discretionary assessment that considers factors",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b3",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "such as whether security would stifle a genuine claim, the parties' conduct, proportionality, and the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b4",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "overall justice of the case.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b5",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "30. A satisfied gateway does not entitle the applicant to security; it merely permits the Court to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b6",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "consider it. The ultimate decision is discretionary and guided by the overriding objective.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b7",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "31. Where litigation is third-party funded, Practice Direction 2 of 2017 requires disclosure of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b8",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "funder's identity and the existence of the funding agreement, although the terms of the agreement",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b9",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "need not be disclosed unless ordered. The Practice Direction provides that the DiFC Courts may take",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b10",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "into account a party's disclosure that it is a funded party when making determinations on applications",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b11",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "for security for costs, but that the fact that a party is a funded party shall not by itself be determinative.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b12",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "32. Where the appeal is directed solely at the Judge's exercise of discretion at Stage 2, the appellate",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b13",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "court's intervention is constrained. Under RDC 44.117, an appeal may only be allowed where the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b14",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "decision was \"wrong\" or \"unjust because of a serious procedural or other irregularity.\"",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b15",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "33. In the context of discretionary case-management decisions, this standard means that the appellate",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b16",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "court will interfere only if the Judge erred in principle, took into account irrelevant matters, failed to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b17",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "consider relevant matters, or reached a conclusion that falls outside the range of reasonable decisions",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b18",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "open to a Judge properly directing themselves.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b19",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "34. Against that framework, the Defendant submits that the Judge wrongly exercised his discretion",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b20",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "and/or wrongly evaluated the evidence in limiting security to the costs up to the strike-out hearing and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b21",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "in fixing the amount at USD 250,499.26. The Judge is said to have failed to properly assess the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b22",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "evidence of likely costs, given undue weight to factors said to justify a limited order, and failed to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b23",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "consider whether the order would adequately protect the Defendant from the real risk of irrecoverable",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b24",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "costs. These errors, individually and cumulatively, if made out, render the decision \"wrong\" within the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b25",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "meaning of RDC 44.117 and justify appellate intervention.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b26",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "35. If the Court of Appeal concludes that the Judge's discretionary assessment was wrong within the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b27",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "meaning of RDC 44.117, it has broad powers to intervene. Those powers include the ability to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b28",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "substitute its own order, for example, by increasing the amount of security or extending it beyond the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b29",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "strike-out hearing, where the evidential record is sufficiently clear for the Court to determine the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b30",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "appropriate order itself.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b31",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "36. Alternatively, the Court may remit the matter to the CFI for reconsideration. Remittal may be more",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b32",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "appropriate where the Judge's error affects the factual evaluation in a way that requires fresh",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b33",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "assessment, or where circumstances have materially changed since the original decision.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b34",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "Interpretation of the Security Order",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b35",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "37. In its skeleton argument of 3 November 2025, the Claimant contended that the Security Order",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p8-b36",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "expressly leaves open the possibility of seeking further security thereafter.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b1",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "38. In oral submissions, senior counsel for the Claimant, Mr Farhaz Khan KC, submitted that the Court",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b2",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "should dismiss the appeal on the basis that, read fairly and generously, the Security Order permits the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b3",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "Defendant to seek further security after the resolution of the Strike-out Application, and that the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b4",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "Judge's reasons to the contrary are wrong.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b5",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "39. The Court rejects that argument.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b6",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "40. The Security Order, like any court order, must be interpreted in light of the reasons that led to it. As",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b7",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "Lord Sumption explained in Sans Souci Ltd v VRL Services Ltd [2012] UKPC 6 at [13], the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b8",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "construction of a judicial order is a single, integrated process that goes beyond its bare language or",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b9",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "the resolution of linguistic ambiguities. Its meaning depends on what the language would convey in the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b10",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "circumstances in which it was made, including the court's reasons, which provide an authoritative",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b11",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "statement of the context and issues the order was intended to address and which are always",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b12",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "admissible in interpretation.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b13",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "41. Australian authorities support the proposition that ambiguity is not required before going beyond",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b14",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "the court order. Court orders, whether ambiguous or not, should always be interpreted in the context of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b15",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "the reasons for judgment. It is therefore important to appreciate the close connection between court",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b16",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "orders and the reasons for judgment from which they have derived. See, for example, Athens v",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b17",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "Randwick City Council (2005) 64 NSWLR 58; Yates Property Corporation Pty Ltd v Boland (1998) 89",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b18",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "FCR 78; and Australian Energy Ltd v Lennard Oil NL (No 2) [1988] 2 Qd R 230.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b19",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "42. Read together, the operative orders and the Schedule of Reasons confine security to the period up",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b20",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "to and including the determination of the Strike-out Application, and they expressly state that the \"level",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b21",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "and quantum of Security is not subject to change\". On that construction, the Defendant is not",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b22",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "permitted to apply for further security after the determination of the Strike-out Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b23",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "43. That construction is supported by the following reasoning.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b24",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "\"1 Text of the order: Order [1] provides that \"Security for Costs for the projected costs amount will",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b25",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "be permitted until the Strike Out Application.\" The temporal limit \"until the Strike Out Application\"",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b26",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "fixes the endpoint.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b27",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "2 In the \"Level for Security for Costs\" section of the reasons, the Judge identifies the strike-out as",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b28",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "the \"natural barrier\" and, in [42], explains that granting security up to trial would risk stifling the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b29",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "claim by forcing the Claimant to commit excessive funds, thereby hindering its ability to meet its",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b30",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "own costs beyond the Strike-out Application and Case Management Conference. This would be",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b31",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "contrary to the overriding objective of proportionate case management. Security, therefore, \"will",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b32",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "not be subject to change or extension.\" The reasons make clear that this is a deliberate case",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b33",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "management choice to avoid stifling the claim.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b34",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "3. The Conclusion section of the reasons reiterates at [57] that the amount of security will remain",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b35",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "fixed, \"the level and quantum of Security is not subject to change\", because, if the Strike-out",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b36",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "Application fails, the Claimant will recover its costs, restoring financial balance between the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p9-b37",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "parties.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b1",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "4. Close attention to the Judge's reasons is essential because the Judge amended the orders by",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b2",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "omitting the order made on 19 March 2025 that \"Security for Costs may be extended post Case",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b3",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "Management Conference subject to the outcome of the Strike Out Application\" because it was",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b4",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "inconsistent with the reasons for judgment delivered on 19 March 2025.\"",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b5",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "44. The proper interpretation of the Security Order has the following practical implications",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b6",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "\"1 If the Strike Out Application is substantially granted, the case ends (subject to any residual",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b7",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "issues), so further security is moot.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b8",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "2 If the Strike Out Application is substantially dismissed: the Judge's express bar on changing or",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b9",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "extending security means the Defendant cannot rely on this order to seek more security for steps",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b10",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "beyond the strike-out. Any attempt would need to be made by a fresh application on a new legal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b11",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "and factual basis (e.g., a material change of circumstances), and even then, it would run straight",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b12",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "into the finding that security \"is not subject to change or extension.\"",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b13",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "45. On the proper interpretation of the Security Order, the Defendant cannot apply for further security",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b14",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "after the Strike-out Application has been determined. Any contrary attempt would require a new",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b15",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "application contending a material change—and would still have to overcome the Judge's explicit",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b16",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "case-management decision fixing the endpoint at the strike-out.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b17",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "Grounds for allowing the appeal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b18",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "46. The Appellant contends that the Judge erred in principle by confining security to the Strike-out",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b19",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b20",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "47. In our judgment, the appeal must be allowed. The decision below was wrong and affected by",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b21",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "errors of principle.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b22",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "48. First, there was no evidential foundation for the finding that ordering security beyond strikeout",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b23",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "would stifle the Claimant's claim. To the contrary, the Claimant relied on a funding facility providing",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b24",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "security of up to USD 1 million, and the Judge expressly acknowledged that the ordered security was",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b25",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "well below that limit; yet gave no reason why a higher amount (still below USD 1 million) would",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b26",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "prevent the claim from progressing. Further, there was no evidence excluding the prospect that the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b27",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "Claimant may have access to financial resources other than those available through the funding",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b28",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "agreement which might be used to fund the claim and provide security for the Defendant's costs.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b29",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "Treating stifling as a determinative consideration without evidence is an error of principle.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b30",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "49. Secondly, the Judge reasoned that if the Claimant succeeded on strike-out, it would recover costs",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b31",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "and be in a \"better position\", and that the Defendant could \"suspend payment\" of any adverse costs",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b32",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "award if further security were needed. The Defendant had no right to suspend payment of any adverse",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b33",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "costs order, a matter exclusively for the Court. Those considerations are in any event speculative",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b34",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "and/or irrelevant to the present risk addressed by security for costs; the Court must assess current",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b35",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "risk, not hypothesise post-application outcomes. Considering irrelevant considerations is an error of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p10-b36",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "principle.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b1",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "50. Thirdly, the Judge erred and misdirected himself in law in concluding at [46] that the mere",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b2",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "existence of a litigation funder and a funding agreement automatically justified a reduction in the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b3",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "amount of security for costs. The correct approach is not to treat funding as a categorical discount but",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b4",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "to undertake a fact-sensitive, discretionary assessment of the evidence before the court. That",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b5",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "assessment requires evaluating the substance of the funding arrangement and, critically, the funder's",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b6",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "financial capacity and the extent of its commitment to meet any adverse costs order. A presumption",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b7",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "that the existence of litigation funding justifies a discount is inconsistent with that evaluative exercise",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b8",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "and risks distorting the proper exercise of the court's discretion.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b9",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "51. Fourthly, the Judge failed to consider prejudice to the Defendant. Having found reason to believe",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b10",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "the Claimant would be unable to pay the Defendant's costs, the Judge did not weigh the prejudice to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b11",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "the Defendant of being left entirely unsecured for costs beyond strike-out if that application failed. That",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b12",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "was a material consideration, the omission of which vitiates the exercise of the Judge's discretion.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b13",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "52. Fifthly, the Judge arbitrarily determined the quantum of security. The Judge's method of halving the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b14",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "Defendant's total estimate and then halving it again lacked a principled analysis of the work required",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b15",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "for the selected milestone. That is an error of principle.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b16",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "53. The errors identified go to the core of the reasoning and outcome, so the decision cannot stand.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b17",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "On a proper application of principle, these errors render the decision wrong, thereby satisfying the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b18",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "appellate standard under RDC 44.117.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b19",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "Disposition of appeal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b20",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "54. The question is whether this Court should substitute a new security order or remit the security",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b21",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "application to the CFI.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b22",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "55. The Defendant submitted that this Court should reject the staged approach to the provision of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b23",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "security and order that an appropriate amount should be posted now to secure the likely costs to be",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b24",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "incurred by the Defendant up to and including trial. This is consistent with the position it took before",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b25",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "the Judge, when it sought security of USD 1.75m to be provided in one single instalment. That amount",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b26",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "was sought again before this Court.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b27",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "56. In this context, there was argument about whether the Court should adopt a default position to the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b28",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "effect that security should be provided in a single instalment, subject to variation in an appropriate",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b29",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "case, or whether the default position should be the provision of security in instalments, subject to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b30",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "variation in an appropriate case, noting that both positions find support in decisions in different",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b31",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "common law jurisdictions.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b32",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "57. This Court should follow the procedure mandated by the RDC, described above, without any fetter",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b33",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "on the exercise of discretion in the second phase of the process by the assumption of a default",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b34",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "position. The question of whether security should be provided in one instalment or in stages can only",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b35",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "be answered by a consideration of all the relevant circumstances of the particular case, without a",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p11-b36",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "presumption or default position one way or the other.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b1",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "58. Almost 11 months have passed since the application was heard, and, critically, the Strike-out",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b2",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "Application has now been determined, altering the procedural landscape and the scope of costs",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b3",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "exposure.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b4",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "59. These developments and the fact-sensitive nature of security quantum and staging make it more",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b5",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "suitable for the Judge actively managing the proceedings to reconsider the issue afresh.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b6",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "60. Remittal avoids an artificial determination on an incomplete evidential foundation and permits",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b7",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "integrated case-management directions. The appeal was therefore allowed, the Security Order set",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b8",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "aside, and the security application remitted to the CFI for rehearing and fresh determination.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b9",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "Cross-Appeal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b10",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "61. The Claimant seeks permission to cross-appeal, contending that the Judge erred by failing to",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b11",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "apply (or to explain the non-application of) the Crabtree principle, namely that security is generally",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b12",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "inappropriate where a defendant advances a counterclaim raising substantially the same issues.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b13",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "62. Applying RDC 44.19, we are not satisfied that the proposed cross-appeal has a real prospect of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b14",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "success, nor is there any compelling reason for it to be heard.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b15",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "63. At the time of the security application, there was no pleaded defence or counterclaim, and the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b16",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "alleged overlap was speculative and unparticularised. In those circumstances, the Crabtree principle",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b17",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "was not engaged. Had the Judge expressly considered its application, it could not have affected the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b18",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "outcome of the security application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b19",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "64. The Judge was entitled to assess security by reference to the claim as pleaded. The asserted",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b20",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "omission to give reasons on the Crabtree principle does not render the order wrong or unjust.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b21",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "Permission to cross-appeal is therefore refused. This is not to say that the Crabtree principle might not",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b22",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "be engaged at some time in the future, if a Counterclaim is brought.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b23",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "Respondent's Notice",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b24",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "65. By the Respondent's Notice, the Claimant contends that the order should be affirmed because",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b25",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "there was \"presently no proper basis\" to assess the quantum of security before defence/strike-out",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b26",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "decisions and pleadings were settled. The absence of closed pleadings does not preclude the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b27",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "exercise of jurisdiction under RDC Part 25. Courts routinely adopt a stage-based approach, assessing",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b28",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "security to the next procedural milestone. The Defendant's evidence of costs incurred to date and its",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b29",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "estimate of future costs provided a proper and sufficient basis for that assessment. Accepting the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b30",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "Claimant's contention would undermine the protective purpose of security and render the mechanism",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b31",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "ineffective. The alternative ground is therefore rejected.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b32",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "Interim arrangements",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b33",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "66. Although the appeal has succeeded, it is appropriate that the existing security order remain in",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b34",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "place until the CFl reconsiders the application. Maintaining the order preserves the status quo and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p12-b35",
+      "kind": "paragraph",
+      "page_number": 12,
+      "text": "avoids prejudice to either party during the remittal process. Keeping the security in place does not",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b1",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "impose any additional financial burden on the Claimant, who has already arranged security under the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b2",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "Security Order. Immediate discharge could lead to renewed applications and procedural disruption,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b3",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "which would not serve the overriding objective.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b4",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "67. Maintaining the order ensures that the Defendant retains the protection originally granted, while",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b5",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "leaving it open to the CFl to vary or revoke the order after a full reconsideration on the correct",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b6",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "principles. Any security already posted will therefore be maintained unless and until the CFl",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b7",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "determines otherwise.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b8",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "Findings and conclusions set aside",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b9",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "68. The appeal succeeds because the Judge's determinations on several key matters disclose errors",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b10",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "of principle and cannot stand. The Judge's findings and conclusions on the following matters are",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b11",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "therefore set aside.\":",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b12",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "(a) the portion of the proceedings to be covered by the security posted;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b13",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "(b) the posting or staging of further security;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b14",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "(c) the existence of any natural barrier or cap at which to limit security;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b15",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "(d) the assessment of whether an order for security would risk stifling the claim;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b16",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "(e) the effect of the Claimant's success on the Strike Out Application on the provision of security",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b17",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "for the remainder of the case;",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b18",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "(f) any proposition that the presence of a litigation funder automatically entitles the Claimant to a",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b19",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "reduction in the amount of security; and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b20",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "(g) the assessment of the quantum of security to be provided.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b21",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "69. The Judge's findings and conclusions on these matters were determined on incorrect principles",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b22",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "and without proper regard to the relevant considerations. The application is therefore remitted to the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b23",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "CFI for reconsideration in accordance with the guidance given in this judgment.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b24",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "Directions on remittal",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b25",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "70. The application for security is remitted to the CFI for reconsideration on a defined basis to ensure",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b26",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "clarity and procedural fairness. First, the CFl is to proceed on the footing that the jurisdictional",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b27",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "conditions for granting security have been established; those matters are not in dispute and do not",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b28",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "require further determination.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b29",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "71. Secondly, the issues identified in Order 3—being the findings of the Judge at first instance that",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b30",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "have been set aside—and the issues raised in the proposed cross-appeal are to be treated as having",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b31",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "been determined adversely to the Claimant as at the time of the original application. This approach",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p13-b32",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "reflects the Court's conclusions and avoids reopening matters that have already been resolved.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b1",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "72. For the avoidance of doubt, nothing in these orders prevents the Claimant from advancing any",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b2",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "argument based on the Crabtree principle if or when the Defendant files a counterclaim and should the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b3",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "security question be reconsidered thereafter.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b4",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "73. Subject to these directions, the quantum, timing, and terms of any security to be posted by the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b5",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "Claimant are matters for the CFl to determine on the remitted application, applying the correct",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b6",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "principles and the guidance given in this judgment.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b7",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "Costs Appeal Dismissed as Moot",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b8",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "74. The Defendant's application for permission to appeal against the costs order made by the Judge at",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b9",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "first instance is dismissed as moot. This is because the costs order under challenge no longer exists: it",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b10",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "has been set aside on the basis of the substantive appeal. With the underlying order vacated, there is",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b11",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "nothing left for a separate costs appeal to determine. In these circumstances, it is appropriate that the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b12",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "application be dismissed and that there be no order as to costs in respect of that application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b13",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "Costs",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b14",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "75. The Judge ordered that there be no order as to costs of the security application, reasoning that",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b15",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "neither party was wholly successful: security was granted, but at a significantly lower quantum and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b16",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "limited to the Strike-out Application, reflecting the Claimant's submissions. That reasoning",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b17",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "substantially applies even after this appeal, as each party was partly successful and partly",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b18",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "unsuccessful in the positions taken at the original hearing.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b19",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "76. However, the fairer outcome is that the party ultimately successful in the case should receive the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b20",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "benefit of its costs of the original application. For that reason, the order for no costs is set aside, and it",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b21",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "is ordered that the costs of the application for security up to and including the determination by the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b22",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "Judge at first instance will be costs in the case.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b23",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "77. The Defendant has achieved substantial success on this appeal. While not every argument",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b24",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "advanced was accepted, and although the Defendant was not granted permission to appeal on all the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b25",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "grounds it sought in the initial and renewed applications, the Defendant ultimately obtained the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b26",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "principal relief sought.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b27",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "78. The Court applies a practical and holistic approach—taking the rough with the smooth— which",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b28",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "means acknowledging that, despite partial setbacks, the Defendant's overall success warrants an",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b29",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "order for costs. This approach reflects that minor failures are outweighed by the main success, and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b30",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "the justice of the case is that the Defendant should recover its costs because it prevailed on the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b31",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "central issues and secured the relief sought.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b32",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "79. Accordingly, the Claimant shall pay the Defendant's costs of: (a) the initial application for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b33",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "permission to appeal; (b) the renewed application for permission to appeal; (c) the application for",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p14-b34",
+      "kind": "paragraph",
+      "page_number": 14,
+      "text": "permission to cross-appeal; and (d) the appeal itself.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p15-b1",
+      "kind": "paragraph",
+      "page_number": 15,
+      "text": "Issued by:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p15-b2",
+      "kind": "paragraph",
+      "page_number": 15,
+      "text": "Delvin Sumo",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p15-b3",
+      "kind": "paragraph",
+      "page_number": 15,
+      "text": "Assistant Registrar",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p15-b4",
+      "kind": "paragraph",
+      "page_number": 15,
+      "text": "Date of Issue: 21 January 2026",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b-p15-b5",
+      "kind": "paragraph",
+      "page_number": 15,
+      "text": "At: 10am",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}

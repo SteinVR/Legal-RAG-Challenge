@@ -24,7 +24,7 @@ from src.answering.service_helpers import (
 )
 from src.answering.service_types import extract_query_metadata
 from src.common.config import DEFAULT_CONFIG_PATH, AppConfig, load_app_config
-from src.common.schemas import QuestionRecord
+from src.common.schemas import Phase, QuestionRecord
 from src.evaluation.contracts import (
     PageReference,
     ReferenceAnswerRecord,
@@ -82,7 +82,7 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--phase",
-        choices=("warmup", "final"),
+        choices=[phase.value for phase in Phase],
         default=None,
         help="Optional phase override.",
     )

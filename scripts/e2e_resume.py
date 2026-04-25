@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from src.common.config import load_app_config
+from src.common.schemas import Phase
 from src.evaluation.contracts import (
     AnswerScoreBreakdown,
     AnswerType,
@@ -98,7 +99,7 @@ def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Checkpointed e2e runner for warmup/full.")
     parser.add_argument("--config", default="configs/baseline/v001/config.yaml")
     parser.add_argument("--env-file", default=".env")
-    parser.add_argument("--phase", choices=("warmup", "final"), required=True)
+    parser.add_argument("--phase", choices=[phase.value for phase in Phase], required=True)
     parser.add_argument("--questions-path", required=True)
     parser.add_argument("--documents-dir", required=True)
     parser.add_argument("--output-dir", required=True, help="Run bundle directory for one e2e execution.")

@@ -28,10 +28,12 @@ def test_ingestion_smoke_creates_canonical_artifacts(tmp_path: Path) -> None:
     assert phase_paths.debug_dir.exists()
     assert (phase_paths.debug_dir / f"{fixture.document_id}.md").exists()
     assert (raw_parse_dir / "pymupdf" / f"{fixture.document_id}.json").exists()
+    assert (raw_parse_dir / "opendataloader" / f"{fixture.document_id}.json").exists()
 
     corpus_rows = read_jsonl(phase_paths.corpus_path)
     page_map_rows = read_json(phase_paths.page_map_path)
     manifest = read_json(phase_paths.corpus_manifest_path)
+    opendataloader_sidecar = read_json(raw_parse_dir / "opendataloader" / f"{fixture.document_id}.json")
 
     assert len(corpus_rows) == 2
     assert any("30 days" in row["text"] for row in corpus_rows)
@@ -41,4 +43,5 @@ def test_ingestion_smoke_creates_canonical_artifacts(tmp_path: Path) -> None:
     assert manifest["document_count"] == 1
     assert manifest["page_count"] == 2
     assert manifest["failed_document_count"] == 0
-
+    assert opendataloader_sidecar["parser_route"] == "local_only"
+    assert opendataloader_sidecar["parser_provenance"] == "opendataloader:local_only"

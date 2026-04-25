@@ -1,0 +1,469 @@
+{
+  "doc_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13",
+  "parser_name": "pymupdf",
+  "parser_route": "hybrid",
+  "parser_provenance": "pymupdf:native",
+  "page_count": 2,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {},
+  "route_decisions": [
+    "hybrid_selected"
+  ],
+  "nodes": [
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b1",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "CFI 067/2025 Coinmena B.S.C. (C) v Foloosi Technologies Ltd",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b2",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "FEBRUARY 06, 2026 COURT OF FIRST INSTANCE - ORDERS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b3",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No: CFI 067/2025",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b4",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b5",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN THE COURT OF FIRST INSTANCE",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b6",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b7",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "COINMENA B.S.C. (C)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b8",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claimant",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b9",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b10",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "FOLOOSI TECHNOLOGIES LTD",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b11",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Defendant",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b12",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "ORDER WITH REASONS OF H.E. JUSTICE SHAMLAN AL SAWALEHI",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b13",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UPON the Defendant's Application No. CFl-067-2025/1 dated 4 August 2025 seeking immediate",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b14",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "judgment pursuant to Rule 24.1 of the Rules of the DIFC Courts (the \"RDC\") and/or strike out pursuant",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b15",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "to RDC 4.16 (the \"Application\")",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b16",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Order of H.E. Justice Shamlan Al Sawalehi dated 26 January 2026, by which the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b17",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Application was dismissed and the Applicant was ordered to pay the Respondent's costs of the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b18",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Application on the standard basis",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b19",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Respondent's Statement of Costs dated 2 February 2026",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b20",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON considering RDC Part 38 and Practice Direction No. 4 of 2017 (Interest on Judgments)",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b21",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IT IS HEREBY ORDERED THAT:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b22",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "1. The Applicant shall pay the Respondent 80% of the Respondent's costs of the Application,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p1-b23",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "assessed on the standard basis, in the total sum of USD 155,879.50 (the \"Costs Award\").",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b1",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "2. The Applicant shall pay the Costs Award within 14 days of the date of this Order, pursuant to RDC",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b2",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "38.40.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b3",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "3. In the event that the Applicant fails to pay the Costs Award within 14 days of the date of this Order,",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b4",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "interest shall accrue at the rate of 9% per annum from the date of this Order until payment in full, in",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b5",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "accordance with Practice Direction No. 4 of 2017.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b6",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Issued By:",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b7",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Delvin Sumo",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b8",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Assistant Registrar",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b9",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Date of issue: 6 February 2026",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b10",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "At: 10am",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b11",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "SCHEDULE OF REASONS",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b12",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1. This Order concerns the costs of the Defendant's Application for immediate judgment and/or strike",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b13",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "out, which was dismissed by Order of H.E. Justice Shamlan Al Sawalehi dated 26 January 2026.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b14",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "2. By that Order, the Applicant was directed to pay the Respondent's costs of the Application on the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b15",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "standard basis, with a Statement of Costs to be filed within five working days.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b16",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "3. The Respondent duly filed a Statement of Costs dated 2 February 2026, claiming a total sum of",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b17",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "USD 194,849.38, comprising professional fees and disbursements incurred in opposing the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b18",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b19",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "4. In determining the appropriate costs recovery, the Court has had regard to RDC 38.7, 38.8 and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b20",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "38.23, and to the requirement that costs allowed on the standard basis be reasonable and",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b21",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "proportionate.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b22",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "5. Although the Respondent was successful in resisting the Application, I consider it appropriate, in the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b23",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "exercise of the Court's discretion, to limit recovery to 80% of the total costs claimed, reflecting",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b24",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "proportionality and the nature of the Application.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b25",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "6. The Applicant shall therefore pay the Respondent the sum of USD 155,879.50, as set out in the",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13-p2-b26",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "operative part of this Order.",
+      "bbox": null,
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}

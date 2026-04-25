@@ -35,7 +35,6 @@ def apply_env_overrides(config: "AppConfig", env: Mapping[str, str]) -> "AppConf
     ocr_model_root_dir_override = env.get("COMPETITION_OCR_MODEL_ROOT_DIR")
     ocr_text_detection_model_dir_override = env.get("COMPETITION_OCR_TEXT_DETECTION_MODEL_DIR")
     ocr_text_recognition_model_dir_override = env.get("COMPETITION_OCR_TEXT_RECOGNITION_MODEL_DIR")
-    opendataloader_hybrid_fallback_override = env.get("COMPETITION_OPENDATALOADER_HYBRID_FALLBACK")
     enable_semantic_table_blocks_override = env.get("COMPETITION_ENABLE_SEMANTIC_TABLE_BLOCKS")
     pass_a_enabled_override = env.get("COMPETITION_PASS_A_ENABLED")
     page_validation_mode_override = env.get("COMPETITION_PAGE_VALIDATION_MODE")
@@ -112,8 +111,6 @@ def apply_env_overrides(config: "AppConfig", env: Mapping[str, str]) -> "AppConf
         ingestion_updates["ocr_text_recognition_model_dir"] = Path(
             ocr_text_recognition_model_dir_override.strip()
         ).expanduser()
-    if opendataloader_hybrid_fallback_override:
-        ingestion_updates["opendataloader_hybrid_fallback"] = parse_bool(opendataloader_hybrid_fallback_override)
     if enable_semantic_table_blocks_override:
         ingestion_updates["enable_semantic_table_blocks"] = parse_bool(enable_semantic_table_blocks_override)
 

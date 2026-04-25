@@ -95,7 +95,7 @@ This section reflects the currently implemented module layout.
 - `service.py` - parse orchestration, artifact completeness checks, raw sidecar writes
 - `pdf_parser.py` - native parse plus OCR fallback plus parser routing
 - `ocr_engine.py` - PaddleOCR adapter
-- `parser_routing.py` - route decisions (`tagged`, `hybrid`, `local_only`, `baseline_fallback`)
+- `parser_routing.py` - route decisions (`tagged`, `hybrid`, `local_only`); missing OpenDataLoader is fatal
 - `opendataloader_adapter.py` - OpenDataLoader bridge and sidecar construction
 - `sidecars.py` - sidecar IO
 - `structural_normalizer.py` - structural normalization

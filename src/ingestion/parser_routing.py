@@ -32,11 +32,15 @@ class RouteBatch:
     doc_ids: list[str]
 
 
+class ParserRoutingError(RuntimeError):
+    """Raised when no structural parser route can satisfy the ingestion contract."""
+
+
 def resolve_parser_route(profile: DocumentStructuralProfile, availability: ParserAvailability) -> ParserRoute:
     """Resolve the parser route for one document."""
 
     if not availability.opendataloader_available:
-        return ParserRoute.BASELINE_FALLBACK
+        raise ParserRoutingError("OpenDataLoader is required for structural ingestion but is unavailable.")
 
     if profile.has_struct_tree:
         return ParserRoute.TAGGED
@@ -56,7 +60,6 @@ def plan_route_batches(routes_by_doc_id: dict[str, ParserRoute]) -> list[RouteBa
         ParserRoute.TAGGED,
         ParserRoute.HYBRID,
         ParserRoute.LOCAL_ONLY,
-        ParserRoute.BASELINE_FALLBACK,
     )
     batches: list[RouteBatch] = []
     for route in route_order:
@@ -64,4 +67,3 @@ def plan_route_batches(routes_by_doc_id: dict[str, ParserRoute]) -> list[RouteBa
         if doc_ids:
             batches.append(RouteBatch(route=route, doc_ids=doc_ids))
     return batches
-

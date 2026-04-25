@@ -6,6 +6,7 @@ from pathlib import Path
 
 from src.answering import service_helpers as answering_helpers
 from src.answering.service_types import _PageCandidate
+from src.common.config import load_app_config
 from src.common.schemas import QuestionRecord
 from src.evaluation.contracts import AnswerType, PageReference, ReferenceAnswerRecord
 from src.evaluation.goldset_core import (
@@ -15,6 +16,8 @@ from src.evaluation.goldset_core import (
     split_questions_stratified,
 )
 from src.main_handlers import _resolve_assistant_scores_path
+from src.submission.pipeline_utils import _config_aligned_to_documents_dir
+from src.submission.sync import PhasePaths
 
 
 def _question(*, question_id: str, text: str, answer_type: str) -> QuestionRecord:
@@ -131,3 +134,21 @@ def test_benchmark_assistant_score_path_auto_resolution(tmp_path: Path) -> None:
         benchmark_path=str(benchmark_path),
     )
     assert explicit == assistant_scores_path
+
+
+def test_warmup_ocr_documents_dir_aligns_runtime_phase(tmp_path: Path) -> None:
+    """Ensure the OCR stress corpus can run through phase-local pipeline paths."""
+
+    documents_dir = tmp_path / "data" / "warmup-ocr" / "documents" / "pdfs"
+    documents_dir.mkdir(parents=True)
+    config = load_app_config(
+        Path("configs/baseline/v001/config.yaml"),
+        env_file=tmp_path / ".env.missing",
+    )
+
+    aligned = _config_aligned_to_documents_dir(config, documents_dir)
+    phase_paths = PhasePaths.from_config(aligned)
+
+    assert aligned.phase.value == "warmup-ocr"
+    assert phase_paths.documents_extract_dir == documents_dir
+    assert phase_paths.questions_path == tmp_path / "data" / "warmup-ocr" / "questions" / "questions.json"

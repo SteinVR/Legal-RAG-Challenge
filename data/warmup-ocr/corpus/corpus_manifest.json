@@ -1,0 +1,249 @@
+{
+  "phase": "warmup-ocr",
+  "parsed_at": "2026-04-24T20:56:03.167922Z",
+  "document_count": 30,
+  "page_count": 590,
+  "failed_document_count": 0,
+  "records": [
+    {
+      "doc_id": "03b621728fe29eb6113fcdb57f6458d793fd2d5c5b833ae26d40f04a29c85359",
+      "filename": "03b621728fe29eb6113fcdb57f6458d793fd2d5c5b833ae26d40f04a29c85359.pdf",
+      "sha256": "51ced4dd5a14b7379c450ba999c496124ff47c44fcd0027d5a01ba2ab3c9e7bc",
+      "page_count": 3,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "0471e83c1ea18086cfb6b3ff51da6f22b0efee337f10315b2593f782297ccb84",
+      "filename": "0471e83c1ea18086cfb6b3ff51da6f22b0efee337f10315b2593f782297ccb84.pdf",
+      "sha256": "8fb7130600797c337cc0f56e9bf9e98108472171897e4e64323401c27279c807",
+      "page_count": 2,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917",
+      "filename": "09660f78c26cd56c08c7253ed21ba01fb246092f482ccd8acd8e6f9b6fd2d917.pdf",
+      "sha256": "3c4f7184ea8cde4bcec2329a6ee9217b55684e2c55e6ced9c0516306e8cb4d0a",
+      "page_count": 12,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "1a255edc261961ec64870466a27ac4e25b5ebc2abe298e1b69f8dd2fc27288f6",
+      "filename": "1a255edc261961ec64870466a27ac4e25b5ebc2abe298e1b69f8dd2fc27288f6.pdf",
+      "sha256": "dc109aaa96e125ef196cd76e425921e4ce4c0b5def7d403897bf0a0df58c3478",
+      "page_count": 112,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+      "filename": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1.pdf",
+      "sha256": "d166cde7376faa564739ef01fdc62ccf24e274266180df75a79e4346c5225938",
+      "page_count": 3,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "22442c5ee999e2519c68de908be511875a84f2b810ed540c2dcfcbcc65031434",
+      "filename": "22442c5ee999e2519c68de908be511875a84f2b810ed540c2dcfcbcc65031434.pdf",
+      "sha256": "64566ce39eb9b3e9a520b871c03a69edaebf8825b6155aba2beadfe3dadd687b",
+      "page_count": 47,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425",
+      "filename": "302a0bd8d67775e8dc5960ecec7879be566300d8b32c4b0153ba15ebdb279425.pdf",
+      "sha256": "36fb7aa8090b70fdd325c8ebfd60255e524b875c62a505f39b31dd8e3cf731a2",
+      "page_count": 23,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16",
+      "filename": "33bc02044716acdfedb164b065bdaec098aaadcae863c591f9931c88e7307d16.pdf",
+      "sha256": "833424f24cf6eb4456d28f96d12584ad81615f23891222fe7e8db800ac5be82b",
+      "page_count": 44,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "3a574fc4f0baa5ec7ff0dcc822d7c55e4f9c493c24addc217c8df3d848c16fa5",
+      "filename": "3a574fc4f0baa5ec7ff0dcc822d7c55e4f9c493c24addc217c8df3d848c16fa5.pdf",
+      "sha256": "c0441682bd00a716a1b905f1a063f532803533976ca3f2157fe769f4e1bbaf58",
+      "page_count": 5,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+      "filename": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e.pdf",
+      "sha256": "744f94c983d3bf85726d1c0ece39d1e7e1173ccbfa54f968efa15d9442480586",
+      "page_count": 25,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b",
+      "filename": "437568a801115019fe8278385c0484bdf07ab86f9a499ecaba2b7969b37c764b.pdf",
+      "sha256": "d4a63779baa6d3b23ac7ff905e2a948b109502e873c4b5bf841b86dab791b966",
+      "page_count": 15,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032",
+      "filename": "443e04bc1a78940b3fcd5438d24b6c5f182a276d354a3108e738b193675de032.pdf",
+      "sha256": "1e52b633cd0083b76652fb589bc1d327b8e1122bef3f1f634603490c0a0bd610",
+      "page_count": 3,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "4e387152960c1029b3711cacb05b287b13c977bc61f2558059a62b7b427a62eb",
+      "filename": "4e387152960c1029b3711cacb05b287b13c977bc61f2558059a62b7b427a62eb.pdf",
+      "sha256": "6d5adfc2a615f31d406ce00992e06d8798390af82daad8757540a17e04075fb7",
+      "page_count": 53,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f",
+      "filename": "536bbce854b9406cc22697e04fcdabd645e030c0e55b918252643b00e0b2b25f.pdf",
+      "sha256": "42b1e794270066bdc055d92ce858882032646d1ef9fbf541a0488b3fa8398d46",
+      "page_count": 21,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545",
+      "filename": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545.pdf",
+      "sha256": "89741975e91bcb1c8d9ee0f8383cc168c15546647fc8e4b733cd812b4e994d52",
+      "page_count": 4,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2",
+      "filename": "5d3df6d69fac3ef91e13ac835b43a35e9e434fbc7e72ea5c01e288d69b66e6a2.pdf",
+      "sha256": "24a63a6ad331e1632d1f868c4afd08747f367410d68201a21873b2d196e2ed52",
+      "page_count": 19,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e",
+      "filename": "6248961b681ea0deb189f354be0c8286f35974dcdb211c13c921c3dd0e566a6e.pdf",
+      "sha256": "4fd616717782e20b07fd9a27c7871d73e773ef2156342eaeb0602f520a870c92",
+      "page_count": 7,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30",
+      "filename": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30.pdf",
+      "sha256": "7cb91ae00a2929317da287c2572d846e37227c430ead127a5017b564fecc097c",
+      "page_count": 4,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "6306079a16b1dec85690f75c715cdbd78b0685a3e19ee30250d481bc32f2e29a",
+      "filename": "6306079a16b1dec85690f75c715cdbd78b0685a3e19ee30250d481bc32f2e29a.pdf",
+      "sha256": "a0727e02926f7ae8839e3e5045d47aad23e969a5015c0fd37521ba5ce2a02d10",
+      "page_count": 6,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849",
+      "filename": "72ea171147bf30326fe6fd2e6798f607c7cef4bf9d43761dbccd2f1b6a356849.pdf",
+      "sha256": "27eb70a53acbc089f2ebc4017c54a1d6e5d3456cb478069a6881b36cfe8e9462",
+      "page_count": 43,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26",
+      "filename": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26.pdf",
+      "sha256": "15d35d51e3bb77bfd3af5ba07fd294d47c52d41ceee0dddb2ef15ae051432c1e",
+      "page_count": 5,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "839de9798f377492eee68f82b202d7cd3544be83d799f6226a02f3678c9bb914",
+      "filename": "839de9798f377492eee68f82b202d7cd3544be83d799f6226a02f3678c9bb914.pdf",
+      "sha256": "9ebc9126739b0820682988a46a811d659d47711b7d5e053684b51a354cac2b3a",
+      "page_count": 41,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13",
+      "filename": "897ab23ed5a70034d3d708d871ad1da8bc7b6608d94b1ca46b5d578d985d3c13.pdf",
+      "sha256": "031ac509964ed28b1a613b00d3b741186afa1c4b3f103ea825ced9e350515755",
+      "page_count": 2,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "b82ac8228e051d96bf8d706d3251893ebff1c9457b066fce3b7cb99af956f2a7",
+      "filename": "b82ac8228e051d96bf8d706d3251893ebff1c9457b066fce3b7cb99af956f2a7.pdf",
+      "sha256": "e0e260c1cf4130a225ac313cab0a668bbfb9e28bb59fc7e601539af63b7e2e3e",
+      "page_count": 25,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8",
+      "filename": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8.pdf",
+      "sha256": "98dcb173f1b376377bd3eede5693e1aca06b2dd35b75c060f989eb733b93a9bd",
+      "page_count": 14,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "c98c1475692bc22f4abab6a7a7d7969467c94e46a7e68919aaf127179ebf3f54",
+      "filename": "c98c1475692bc22f4abab6a7a7d7969467c94e46a7e68919aaf127179ebf3f54.pdf",
+      "sha256": "a8a2f458d9c1220192d56a9f2b48e740040c98bda8cf4636ebcda5e0ab509d7a",
+      "page_count": 13,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "d32e76d495ac7d855d805fb71682b98d254520e3799aa4529ebc983212648335",
+      "filename": "d32e76d495ac7d855d805fb71682b98d254520e3799aa4529ebc983212648335.pdf",
+      "sha256": "cb0fe96df4a2aee294818dd1e7288808eaad44dcd14b17f52a87ffa75d5a4e61",
+      "page_count": 11,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "f4c4d051d514270964adcf58e124569e396602340b7d9172671759de10a95897",
+      "filename": "f4c4d051d514270964adcf58e124569e396602340b7d9172671759de10a95897.pdf",
+      "sha256": "154dafc9685438a7251f7f3fd50e98fe3188626512e83fce0c63ae0c5ae5c24f",
+      "page_count": 4,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071",
+      "filename": "fbdd7f9dd299d83b1f398778da2e6765dfaaed62005667264734a1f76ec09071.pdf",
+      "sha256": "89a72586815b3ee7d63942fee676c457cf928f088e2026eb6e00d0d37997d0fa",
+      "page_count": 17,
+      "parse_status": "parsed",
+      "failure_reason": null
+    },
+    {
+      "doc_id": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761",
+      "filename": "ff746f7b583490a80ba104361c0a82a1ebbf7ed9097cd03dc49d744cb5057761.pdf",
+      "sha256": "32859b652428645d1c24ccbcb5ba9b7ea6f25056682363a9e4a2b34813ab6136",
+      "page_count": 7,
+      "parse_status": "parsed",
+      "failure_reason": null
+    }
+  ]
+}

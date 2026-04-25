@@ -1,0 +1,2548 @@
+{
+  "doc_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 14,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "4": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "5": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "6": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "7": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "8": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "9": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "10": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "11": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "12": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "13": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "14": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 156,
+    "table_count": 2
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n148",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "Oskar v (1) Olindo (2) Onita (3) Oron [2024] DIFC CA 009",
+      "bbox": [
+        25.0,
+        674.253,
+        489.0,
+        696.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n149",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OCTOBER 30, 2024 COURT OF APPEAL - JUDGMENTS",
+      "bbox": [
+        24.667,
+        656.587,
+        318.0,
+        672.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n150",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No. CA 009/2024",
+      "bbox": [
+        440.333,
+        611.587,
+        571.667,
+        625.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n151",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No. ENF 316/2023",
+      "bbox": [
+        433.667,
+        588.92,
+        571.667,
+        602.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n152",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "IN THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": [
+        123.667,
+        558.92,
+        473.0,
+        572.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n153",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "In the name of His Highness Sheikh Mohammad Bin Rashid Al Maktoum; Ruler of Dubai IN THE COURT OF APPEAL",
+      "bbox": [
+        25.0,
+        498.92,
+        542.667,
+        542.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n154",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BEFORE CHIEF JUSTICE WAYNE MARTIN, H.E. DEPUTY CHIEF JUSTICE ALI AL MADHANI AND JUSTICE ANDREW MORAN",
+      "bbox": [
+        24.333,
+        446.253,
+        572.0,
+        483.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n155",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": [
+        25.0,
+        418.92,
+        87.0,
+        432.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n156",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OSKAR",
+      "bbox": [
+        275.667,
+        388.92,
+        320.333,
+        402.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n158",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": [
+        287.0,
+        333.587,
+        309.667,
+        345.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n159",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OLINDO",
+      "bbox": [
+        281.667,
+        302.92,
+        331.0,
+        316.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-1",
+      "kind": "list",
+      "page_number": 1,
+      "text": "(2) ONITA\n(3) ORON",
+      "bbox": [
+        269.667,
+        222.253,
+        325.667,
+        258.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-2",
+      "kind": "list_item",
+      "page_number": 1,
+      "text": "(2) ONITA",
+      "bbox": [
+        270.333,
+        244.253,
+        325.0,
+        258.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-3",
+      "kind": "list_item",
+      "page_number": 1,
+      "text": "(3) ORON",
+      "bbox": [
+        269.667,
+        222.253,
+        325.667,
+        236.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n157",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "ClaimantAppellant",
+      "bbox": [
+        467.0,
+        358.253,
+        572.667,
+        375.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n160",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Defendant/Respondent",
+      "bbox": [
+        445.667,
+        273.587,
+        571.667,
+        288.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n163",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Applicants/Respondents",
+      "bbox": [
+        438.333,
+        192.587,
+        571.667,
+        208.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-t164-node",
+      "kind": "table",
+      "page_number": 1,
+      "text": "| Hearing | 17 October 2024 |\n| --- | --- |\n| Counsel | Mr Rupert Reed KC and Mr Max Marenbon instructed by Eversheds Sutherland International LLP for the AppellantClaimant Mr Rajdeep Choudhury instructed by Al Aidarous Advocates and Legal Consultants for the Applicants/Respondents |",
+      "bbox": [
+        26.953,
+        19.993,
+        570.287,
+        160.299
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-t165-node",
+      "kind": "table",
+      "page_number": 2,
+      "text": "| Judgment | 30 October 2024 |\n| --- | --- |",
+      "bbox": [
+        25.947,
+        779.822,
+        571.023,
+        827.751
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n166",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "JUDGMENT OF THE COURT OF APPEAL",
+      "bbox": [
+        182.333,
+        716.587,
+        413.667,
+        731.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n167",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "UPON the hearing of the Appellant's appeal against the Order of H.E Justice Nassir Al Nasser (the \"Judge\") of 17 2024 (the \"Order\"), granting the relief sought by the Respondents in their Urgent Application of 1 April 2024 in Claim No. ENF-316-2023/2, (the Application\"), pursuant to permission granted by him on 10 July 2024 May",
+      "bbox": [
+        23.333,
+        600.253,
+        572.0,
+        680.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n168",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON reviewing the Orders of the Assistant Registrar Hayley Norton dated 11 January and 25 March 2024, (the \"First Part 50 Order\" and the \"Second Part 50 Order\" respectively) .",
+      "bbox": [
+        25.333,
+        550.587,
+        572.0,
+        588.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n169",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON reviewing the documents and materials on the court file in the Application and in the Appeal, and the Bundle for the hearing of the Appeal (the \"Bundle\"), the Grounds of Appeal and the Skeleton Arguments of the parties",
+      "bbox": [
+        25.333,
+        479.587,
+        572.0,
+        537.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n170",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON hearing Counsel for the Appellant and Counsel for the Respondents at the Appeal hearing held before Chief Justice Wayne Martin; H.E. Deputy Chief Justice Ali Al Madhani and Justice Andrew Moran on 17 October 2024",
+      "bbox": [
+        24.667,
+        410.587,
+        571.333,
+        467.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n171",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "IT IS HEREBY ORDERED AND DIRECTED THAT:",
+      "bbox": [
+        25.0,
+        381.92,
+        293.667,
+        395.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n172",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1 The Appeal is allowed; to the following extent.",
+      "bbox": [
+        26.333,
+        351.253,
+        282.0,
+        369.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n173",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Save and insofar as the Judge ordered that the Second Part 50 Order should continue to apply against Orvell and be stayed its effect against the Third Respondent; Oron the Order is otherwise set aside_",
+      "bbox": [
+        23.333,
+        285.587,
+        572.0,
+        339.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n174",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The Second Part 50 Order is restored and shall take effect as amended below, against Orvell and the Second Respondent; Onita; with changed dates for action and compliance with its requirements; as follows:",
+      "bbox": [
+        24.0,
+        217.587,
+        571.333,
+        271.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n175",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "PENAL NOTICE",
+      "bbox": [
+        47.667,
+        188.253,
+        137.667,
+        201.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n176",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "\"YOU, (i) ORVELL (ii) ONITA MUST OBEY THIS ORDER: IF YOU DO NOT, YOU MAY BE FINED OR REFERRED TO THE ATTORNEY GENERAL OF DUBAI FOR CONTEMPT OF COURT.",
+      "bbox": [
+        47.667,
+        135.587,
+        571.667,
+        172.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n177",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1 An examination hearing to be held before H.E. Justice Maha Al Mheiri at 11am on Wednesday 20 November 2024 (the \"Second Examination Hearing\") .",
+      "bbox": [
+        46.667,
+        84.587,
+        572.0,
+        123.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n178",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Pursuant to RDC 50.2(2), the Judgment Debtor's Representatives must attend the virtual Second Examination Hearing.",
+      "bbox": [
+        47.333,
+        36.587,
+        571.667,
+        73.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n179",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "An electronic link to the virtual hearing will be circulated by email to the parties approximately 7 days before the Second Examination Hearing.",
+      "bbox": [
+        45.667,
+        788.587,
+        570.667,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n180",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "At the Second Examination Hearing, the Judgment Debtor's Representatives shall answer on oath such questions as the Court may require and as may be asked by the Court or the Judgment Creditor andlor the Judgment Creditor's legal representative.",
+      "bbox": [
+        47.0,
+        720.253,
+        572.0,
+        779.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n181",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Pursuant to RDC 50.10 and 50.5(6) the Judgment Debtor's Representatives shall provide information about the Judgment Debtor's assets; means and any other information which is required to enforce the judgment against the Judgment Debtor made in CFI-051-2022 (the \"Judgment\" including the information identified in Schedule A of this Order. \"),",
+      "bbox": [
+        46.333,
+        631.587,
+        572.333,
+        709.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n182",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Pursuant to RDC 50.5(6), the Judgment Debtor's Representatives shall produce all documents in the Judgment Debtor's and Judgment Debtor's Representatives' control to the Judgment Debtor's means of satisfying the Judgment. The documents produced must include those identified in Schedule A to this Order.",
+      "bbox": [
+        46.333,
+        545.587,
+        572.0,
+        621.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n183",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "7 . The Judgment Debtor's Representatives shall produce to the Court and to the Judgment Creditors the documents set out in Schedule A to this Order; by email on enforcement@difccourts.ae by no later than 12 November 2024.",
+      "bbox": [
+        47.0,
+        473.253,
+        572.667,
+        532.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n184",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The Judgment Debtor must contact the Court by no later than 13 November 2024 by emailing enforcement@difccourts.ae to make their email addresses and contact details known to the Registry.",
+      "bbox": [
+        47.333,
+        403.253,
+        571.667,
+        460.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n185",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "9 Costs shall be determined at the Second Examination Hearing:",
+      "bbox": [
+        48.0,
+        374.92,
+        398.333,
+        393.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n186",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "4 That the Respondents shall pay the Appellant's costs of the Appeal assessed in the amount USD 60,541.25.",
+      "bbox": [
+        25.0,
+        335.587,
+        572.0,
+        371.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n187",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Issued by:",
+      "bbox": [
+        401.667,
+        307.587,
+        459.667,
+        322.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n188",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Delvin Sumo Assistant Registrar",
+      "bbox": [
+        402.333,
+        263.92,
+        506.0,
+        299.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n189",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "Date of Issue: 30 October 2024",
+      "bbox": [
+        402.333,
+        246.253,
+        571.667,
+        259.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n190",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "At: Ilam",
+      "bbox": [
+        402.333,
+        226.253,
+        451.667,
+        238.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n191",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "SCHEDULE OF THE COURT'S REASONS",
+      "bbox": [
+        24.333,
+        195.587,
+        255.333,
+        209.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n192",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "Introduction and Background:",
+      "bbox": [
+        25.0,
+        163.587,
+        193.667,
+        178.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n193",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "1. These are the Court's reasons for its orders 1-4 above, allowing the Appellant Judgment Creditor's",
+      "bbox": [
+        25.333,
+        135.587,
+        571.333,
+        152.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n194",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "appeal against the Order, setting that order aside (to the extent stated) and restoring the order sought",
+      "bbox": [
+        24.333,
+        114.587,
+        572.0,
+        133.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n195",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "by it, in its Part 50 Application in enforcement proceedings ENF-316-2023,",
+      "bbox": [
+        24.667,
+        95.253,
+        442.0,
+        111.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n196",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "The",
+      "bbox": [
+        548.333,
+        98.253,
+        571.667,
+        110.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n197",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "order hereby restored (with different dates for compliance inserted), as now amended.",
+      "bbox": [
+        24.667,
+        74.587,
+        394.667,
+        92.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n198",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "is the Second Part 50 Order of Assistant Registrar Hayley Norton; of 25 March 2024, she having made the First Part 50 Order on 11 January 2024. Permission to Appeal against the Order was granted by the Judge himself; on 10 July 2024.",
+      "bbox": [
+        397.667,
+        77.587,
+        572.333,
+        90.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-4",
+      "kind": "list",
+      "page_number": 4,
+      "text": "2 The relevant background facts and procedural history; sufficient for the purposes of these reasons; may be substantially taken from the Appellant's succinct exposition of them in its Skeleton Argument with some added detail as follows.\n3. The First Respondent (\"Olindo\") is an LLC incorporated onshore in Dubai, UAE Olindo is the developer of Orly Tower. The Claimant \"Oskar\") , is a contractor engaged in the provision of construction services; also incorporated in Dubai. The Second Respondent Ms Onita (\"Ms Onita is the registered holder of 99% of Olindo's share capital; while the Third Respondent; Mr Oron (\"Mr Oron \"), holds 1%. Ms Onita was formerly the Manager of Olindo but transferred that role to Orvell, on 26 October 2022.",
+      "bbox": [
+        24.0,
+        573.587,
+        572.0,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-5",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "2 The relevant background facts and procedural history; sufficient for the purposes of these reasons; may be substantially taken from the Appellant's succinct exposition of them in its Skeleton Argument with some added detail as follows.",
+      "bbox": [
+        25.333,
+        702.92,
+        572.0,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-6",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "3. The First Respondent (\"Olindo\") is an LLC incorporated onshore in Dubai, UAE Olindo is the developer of Orly Tower. The Claimant \"Oskar\") , is a contractor engaged in the provision of construction services; also incorporated in Dubai. The Second Respondent Ms Onita (\"Ms Onita is the registered holder of 99% of Olindo's share capital; while the Third Respondent; Mr Oron (\"Mr Oron \"), holds 1%. Ms Onita was formerly the Manager of Olindo but transferred that role to Orvell, on 26 October 2022.",
+      "bbox": [
+        24.0,
+        573.587,
+        572.0,
+        689.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n201",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "In 2022, Oskar and Olindo were in dispute with each other. Following commencement of proceedings by Oskar against Olindo in onshore Dubai for sums allegedly due to it under the construction contract between them, Olindo brought proceedings against Oskar in the DIFC Court of First Instance; seeking various declarations concerning the binding effect of an arbitration agreement in that contract. In response; Oskar filed an application on 26 August 2022, seeking a declaration that the court had no jurisdiction to hear the claim or grant the relief sought by Olindo. On 25 November 2022, by his Order with Reasons of that date; Justice Sir Jeremy Cooke; found in favour of Oskar; declaring upon Oskar's application before him; that the Court of First Instance had no jurisdiction to hear Olindo's Claim against Oskar, or grant the relief it had sought. He ordered that Oskar's costs incurred on the claim and the application for his declaration and order, were to be paid by Olindo. By a Final Costs Certificate dated 31 2023, the Registrar of the Court ordered Olindo to pay Oskar AED 189,880.96. May",
+      "bbox": [
+        23.333,
+        322.92,
+        572.333,
+        562.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n202",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "5. Olindo did not pay the costs ordered against it, and on 20 an \"Application for an Order Requiring an Officer of a Judgment Debtor Company or Corporation to Attend Court to Provide Information under rule 50.2 of the Rules of the Dubai International Financial Centre Courts (the \"RDC\"). On the 11 January 2024, the Assistant Registrar of the Court ordered; inter alia, by her \"First Part 50 Order\" that pursuant to RDC 50.10 and 50.5(6), the Judgment Debtor's Representatives (including Ms Onita and Mr Oron) shall attend before the Judge on 7 February 2024, for questioning on oath; and that \"shall provide information about the Judgment Debtor's assets; means and any other information which is required to enforce the judgment against the Judgment Debtor made in CFI-051-2022 (the \"Judgment\") , including the information identified in Schedule A. of the Order. Following the failure of the Judgment Debtor's Representatives to attend and be questioned, and an alternative service by the Judge of 15 March 2024, the Assistant Registrar of the Court, by her \"Second Part 50 Order\" , made an order in the terms now substantially restored and given effect by the order at paragraph 3 above. they",
+      "bbox": [
+        24.0,
+        49.587,
+        573.333,
+        310.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n203",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "6 . On 1 April 2024, the Respondents made the Application seeking relief by way of an order sought that the Judge set out at paragraph 1 of his reasons thus:",
+      "bbox": [
+        24.0,
+        787.92,
+        573.667,
+        827.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-7",
+      "kind": "list",
+      "page_number": 5,
+      "text": "(a) A declaration from the Courts that it has no jurisdiction to hear the claim or grant reliefls or orderls sought by the Judgment Creditor against the Applicants;\n(b) Alternatively; the Court declares that it should not exercise any jurisdiction which it may have to hear the claim or reliefls or orderls sought by the Judgment Creditor against the Applicants; grant\n(c) Consequent to any of the above; andlor alternatively; the Order dated 25 March 2024 issued by Assistant Registrar Hayley Norton and the Order dated 15 March 2024 issued by H.E. Justice Nassir Al Nasser be discharged; set aside; varied andlor stayed;\n(d) In the interim; pending the listing andlor disposal of the Application; the order dated 25 March 2024 be stayed andlor suspended;\n(e) Alternatively; and without prejudice to and subject to the reliefls sought above, the Applicants are granted a retrospective extension of time in relation to the directions in the Order dated 25 March 2024 andlor the order dated 25 March 2024 be amended andlor varied; and",
+      "bbox": [
+        46.333,
+        510.253,
+        572.0,
+        778.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-8",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(a) A declaration from the Courts that it has no jurisdiction to hear the claim or grant reliefls or orderls sought by the Judgment Creditor against the Applicants;",
+      "bbox": [
+        47.0,
+        738.587,
+        572.0,
+        778.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-9",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(b) Alternatively; the Court declares that it should not exercise any jurisdiction which it may have to hear the claim or reliefls or orderls sought by the Judgment Creditor against the Applicants; grant",
+      "bbox": [
+        46.667,
+        692.253,
+        572.0,
+        730.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-10",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(c) Consequent to any of the above; andlor alternatively; the Order dated 25 March 2024 issued by Assistant Registrar Hayley Norton and the Order dated 15 March 2024 issued by H.E. Justice Nassir Al Nasser be discharged; set aside; varied andlor stayed;",
+      "bbox": [
+        46.667,
+        624.253,
+        572.0,
+        681.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-11",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(d) In the interim; pending the listing andlor disposal of the Application; the order dated 25 March 2024 be stayed andlor suspended;",
+      "bbox": [
+        46.333,
+        575.92,
+        571.333,
+        615.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-12",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(e) Alternatively; and without prejudice to and subject to the reliefls sought above, the Applicants are granted a retrospective extension of time in relation to the directions in the Order dated 25 March 2024 andlor the order dated 25 March 2024 be amended andlor varied; and",
+      "bbox": [
+        46.667,
+        510.253,
+        572.0,
+        566.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n209",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "The costs occasioned by this Application; are to be by the Judgment Creditor to the Applicants; to be assessed if not agreed. paid",
+      "bbox": [
+        47.333,
+        460.253,
+        572.0,
+        496.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n210",
+      "kind": "paragraph",
+      "page_number": 5,
+      "text": "7 The hearing of the Application took place on 29 April 2024 and on 17 2024, the Judge made the Order under appeal in the following terms: May",
+      "bbox": [
+        24.0,
+        412.253,
+        572.0,
+        450.55
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-13",
+      "kind": "list",
+      "page_number": 5,
+      "text": "(1) The Application is granted.\n(2) The Order insofar as its terms apply to the Applicants shall be stayed. The terms of the Order shall continue to apply against Orvell is his capacity as Officer of the Judgment Debtor.\n(3) The Judgment Creditor shall pay the Applicants the costs of the Application to be assessed by the Registrar if not agreed.",
+      "bbox": [
+        46.667,
+        288.253,
+        572.0,
+        401.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-14",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(1) The Application is granted.",
+      "bbox": [
+        47.333,
+        384.253,
+        208.333,
+        401.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-15",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(2) The Order insofar as its terms apply to the Applicants shall be stayed. The terms of the Order shall continue to apply against Orvell is his capacity as Officer of the Judgment Debtor.",
+      "bbox": [
+        46.667,
+        335.587,
+        572.0,
+        373.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-16",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "(3) The Judgment Creditor shall pay the Applicants the costs of the Application to be assessed by the Registrar if not agreed.",
+      "bbox": [
+        46.667,
+        288.253,
+        572.0,
+        325.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n214",
+      "kind": "heading",
+      "page_number": 5,
+      "text": "The Order and the Judge's reasons",
+      "bbox": [
+        25.333,
+        259.253,
+        222.0,
+        275.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n215",
+      "kind": "heading",
+      "page_number": 5,
+      "text": "(references in this section 'Sn' are to paragraphs of the Reasons)",
+      "bbox": [
+        24.0,
+        227.92,
+        385.333,
+        245.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-17",
+      "kind": "list",
+      "page_number": 5,
+      "text": "8. We have set out the order sought in the Application and the Order made in full, because unfortunately; the Order does not accurately record what the Judge decided and, as appears from his (8846-47) (which ruling is not challenged in this Appeal) and that the question that arose on the Application; was whether the Applicants were \"Officers\" within the meaning of RDC 50.2. which question he went on to answer in the negative.\n9. Secondly; therefore; and contrary to paragraph 1 of the Order, it is clear from his reasons, that he did not intend to grant the Application for an order in the terms of paragraphs (a) and (b) of the order sought; that the Court had no jurisdiction in the matter or should not exercise any that it had:. Instead;",
+      "bbox": [
+        23.667,
+        29.253,
+        572.333,
+        217.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-18",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "8. We have set out the order sought in the Application and the Order made in full, because unfortunately; the Order does not accurately record what the Judge decided and, as appears from his (8846-47) (which ruling is not challenged in this Appeal) and that the question that arose on the Application; was whether the Applicants were \"Officers\" within the meaning of RDC 50.2. which question he went on to answer in the negative.",
+      "bbox": [
+        24.0,
+        99.253,
+        572.0,
+        217.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-19",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "9. Secondly; therefore; and contrary to paragraph 1 of the Order, it is clear from his reasons, that he did not intend to grant the Application for an order in the terms of paragraphs (a) and (b) of the order sought; that the Court had no jurisdiction in the matter or should not exercise any that it had:. Instead;",
+      "bbox": [
+        23.667,
+        29.253,
+        572.333,
+        88.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-20",
+      "kind": "list",
+      "page_number": 6,
+      "text": "he ruled positively that the Court had jurisdiction and exercised it by determining and ruling that the Applicant/Respondents; (2) and (3), were not \"Officers\" of the Company ($ 52) within the meaning of RDC 50.2. Although that determination and ruling ought; in our view; to have resulted in an order setting aside the Second Part 50 Order insofar as it applied to the ApplicantslRespondents; (2) and (3), the Judge ordered that insofar as that order applied to them; it would be stayed but continue in effect against Orvell:.\n10. In those circumstances this court considers it appropriate to treat the Order as a ruling and order by the Judge; made within his jurisdiction; that the Assistant Registrar had no power to require the Applicants (1) and (2), the active Respondents to this Appeal; to attend Court to provide information about Zaya's means or other matter needed to enforce a judgment under RDC 52.5, because were not \"Officers\" of the judgment debtor. they\n11 Some expansion of that description of what occurred and was decided in the court below; that is the subject of this appeal; is required.\n12. The Judge set out the different statutory bases of the Courts jurisdiction and the Respondent's submissions that the Court had no jurisdiction over them; and no jurisdiction to make the Part 50 Order against them and that the order should be set aside (8812-13).\n13. The Judge summarised the Applicants' /Respondents' submissions to the effect that RDC Part 50 does not extend beyond an \"Officer\" and its reliance on the Companies Law (DIFC Law No. 5 of 2018) definition of what an \"Officer\" of a company is or may be. We record in passing that the submission that the Companies Law definition of an \"Officer\" should be adopted as the applicable definition of \"Officer\" in RDC 50.2, was abandoned at the hearing before this court by Counsel for the Respondents; after a member of the Court asked him to clarify the Respondents' position on that issue. This intervention followed submissions which were confusing; unclear; inconsistent with their skeleton argument and the position taken before the Judge, urging him in effect, to adopt the Companies Law definition of \"Officer\" The position now taken by the Respondents in this court; on interpretation of the word \"Officer\" in the rule; is set out below.\n14. The Judge recited the submission (816) that; \"an 'employee of a company can be an 'officer' of the company. An 'officer' of a company can have many different roles in a company; but none of those roles can ever include ownership of the company. This was a submission that was unfortunately incorporated into a later repeated recital of the Companies Law definition (851). As the Appellant now include the words of the submission. The definition was misquoted at $52; it was then misinterpreted; and consequently misled the Judge to his erroneous finding at 852 that:",
+      "bbox": [
+        23.667,
+        123.587,
+        573.667,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n218",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "he ruled positively that the Court had jurisdiction and exercised it by determining and ruling that the Applicant/Respondents; (2) and (3), were not \"Officers\" of the Company ($ 52) within the meaning of RDC 50.2. Although that determination and ruling ought; in our view; to have resulted in an order setting aside the Second Part 50 Order insofar as it applied to the ApplicantslRespondents; (2) and (3), the Judge ordered that insofar as that order applied to them; it would be stayed but continue in effect against Orvell:.",
+      "bbox": [
+        23.667,
+        706.587,
+        572.0,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-21",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "10. In those circumstances this court considers it appropriate to treat the Order as a ruling and order by the Judge; made within his jurisdiction; that the Assistant Registrar had no power to require the Applicants (1) and (2), the active Respondents to this Appeal; to attend Court to provide information about Zaya's means or other matter needed to enforce a judgment under RDC 52.5, because were not \"Officers\" of the judgment debtor. they",
+      "bbox": [
+        24.667,
+        599.253,
+        572.0,
+        698.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-22",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "11 Some expansion of that description of what occurred and was decided in the court below; that is the subject of this appeal; is required.",
+      "bbox": [
+        24.0,
+        550.587,
+        572.0,
+        587.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-23",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "12. The Judge set out the different statutory bases of the Courts jurisdiction and the Respondent's submissions that the Court had no jurisdiction over them; and no jurisdiction to make the Part 50 Order against them and that the order should be set aside (8812-13).",
+      "bbox": [
+        25.0,
+        482.253,
+        572.0,
+        540.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-24",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "13. The Judge summarised the Applicants' /Respondents' submissions to the effect that RDC Part 50 does not extend beyond an \"Officer\" and its reliance on the Companies Law (DIFC Law No. 5 of 2018) definition of what an \"Officer\" of a company is or may be. We record in passing that the submission that the Companies Law definition of an \"Officer\" should be adopted as the applicable definition of \"Officer\" in RDC 50.2, was abandoned at the hearing before this court by Counsel for the Respondents; after a member of the Court asked him to clarify the Respondents' position on that issue. This intervention followed submissions which were confusing; unclear; inconsistent with their skeleton argument and the position taken before the Judge, urging him in effect, to adopt the Companies Law definition of \"Officer\" The position now taken by the Respondents in this court; on interpretation of the word \"Officer\" in the rule; is set out below.",
+      "bbox": [
+        23.667,
+        272.92,
+        572.0,
+        471.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-25",
+      "kind": "list_item",
+      "page_number": 6,
+      "text": "14. The Judge recited the submission (816) that; \"an 'employee of a company can be an 'officer' of the company. An 'officer' of a company can have many different roles in a company; but none of those roles can ever include ownership of the company. This was a submission that was unfortunately incorporated into a later repeated recital of the Companies Law definition (851). As the Appellant now include the words of the submission. The definition was misquoted at $52; it was then misinterpreted; and consequently misled the Judge to his erroneous finding at 852 that:",
+      "bbox": [
+        24.333,
+        123.587,
+        573.667,
+        261.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n224",
+      "kind": "paragraph",
+      "page_number": 6,
+      "text": "\"In accordance with the DIFC Company Law; the Applicants as owners of the Judgment Creditor [sic Debtor], cannot be deems [sic deemed] to be an Officer of the Company.\"",
+      "bbox": [
+        46.667,
+        75.253,
+        572.0,
+        113.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n225",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "The Judge summarised the Appellant's submissions (822-33) that the term \"Officer\" comes from the Rules and noted its reliance on RDC 50.5(4)(b) implying, by the requirement t0 state the position of the person required to attend for questioning; that the power of summons was not limited to officers strictly defined, but could other positions. Further; that the word was to be interpreted in accordance with the wider (than the Companies Law) definition; found in the DIFC Law No. 7 \"the Operating Law\" which notably includes in its definition of \"Officer\", a \"partner\" and \"an individual who is a controller of the Registered Person",
+      "bbox": [
+        23.333,
+        687.92,
+        572.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n226",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "16. The Judge recorded the Appellant's important submission (834) that partners in a business would have valuable information to provide. Part 50 Rules consider this and therefore allow for a judgment creditor to name any relevant officer with the inclusion of their name in a Part 50 Order. He also recorded that his attention was drawn to the Trade Licences of Olindo Zaya; revealing the material fact that Onita was named as its manager in the 2023 licence before Orvell, who was named as such, in the 2024 licence.",
+      "bbox": [
+        24.333,
+        560.253,
+        572.333,
+        676.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n227",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "The Judge's finding and interpretation of the word \"Officer\" was to reject the Appellant's submission that it was to be interpreted in accordance with the Operating Law and he accepted the Respondents' submission to the contrary; which was that the Operating Law did not apply to Olindo; being a company incorporated and registered in onshore Dubai. He consequently held (850) \"that the explained at paragraph 14 above, he consequently went on to find that the Respondents cannot be deemed to be Officers of the company and proceeded to order that the Second Part 50 Order; insofar as it applied to \"shall be stayed\" Thus, it appears the Judge did approach the application and interpretation of the word \"Officer\" in the rule, by making a binary choice between applying the Companies Law definition and the Operating Law definition; holding that reading the word in accordance with the latter definition; was invalid.",
+      "bbox": [
+        23.333,
+        329.253,
+        572.667,
+        548.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n228",
+      "kind": "heading",
+      "page_number": 7,
+      "text": "The Grounds of Appeal",
+      "bbox": [
+        25.333,
+        298.253,
+        156.0,
+        314.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n229",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "18. There are two grounds of appeal which are elaborated in the Appellant's skeleton argument at Section F thereof . are that the Judge was wrong in his decision and in making the Order because it was: They",
+      "bbox": [
+        25.0,
+        232.92,
+        572.0,
+        287.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-26",
+      "kind": "list",
+      "page_number": 7,
+      "text": "(1) based on an obvious misquotation (and misapplication) of the Companies Law of the DIFC (DIFC Law No.5 of 2018) (the \"Companies Law\") (Ground 1); and\n(2) reached (a) without any or due consideration of, andlor (b) contrary to; the correct interpretation of the term \"officer\" in the context of RDC 50.2(2) (Ground 2).",
+      "bbox": [
+        46.333,
+        134.253,
+        572.333,
+        218.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-27",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "(1) based on an obvious misquotation (and misapplication) of the Companies Law of the DIFC (DIFC Law No.5 of 2018) (the \"Companies Law\") (Ground 1); and",
+      "bbox": [
+        46.667,
+        181.92,
+        572.0,
+        218.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-28",
+      "kind": "list_item",
+      "page_number": 7,
+      "text": "(2) reached (a) without any or due consideration of, andlor (b) contrary to; the correct interpretation of the term \"officer\" in the context of RDC 50.2(2) (Ground 2).",
+      "bbox": [
+        46.333,
+        134.253,
+        572.333,
+        170.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n232",
+      "kind": "heading",
+      "page_number": 7,
+      "text": "19. The Appellant submits (Skeleton $ 5) that",
+      "bbox": [
+        25.333,
+        106.587,
+        268.0,
+        123.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n233",
+      "kind": "paragraph",
+      "page_number": 7,
+      "text": "\"If Ground 1 or either limb of Ground 2 succeeds; the Judge's decision cannot stand and so the appeal should be allowed. If so; however; given that the second limb of Ground 2 raises the same issues that would fall to be determined if the matter were remitted to the Court of First Instance;",
+      "bbox": [
+        46.0,
+        39.587,
+        572.0,
+        95.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n234",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "Oskarwill respectfully invite this Court to determine the matter afresh by making a positive ruling that the Olindo Representatives are indeed \"officers\" for the purposes of RDC5O.2(2) and granting orders accordingly:'",
+      "bbox": [
+        46.667,
+        768.587,
+        572.667,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n235",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "20 The Court agrees that the second ground the more important substantive objection to the Order; and inevitably (and usefully) requires this court to determine the proper approach to interpretation of the term 'Officer\" in the context of RDC Part 50 and rule 50.2 in particular. Accordingly; the court proceeds to deal with the second ground first in giving these reasons. It will address the issue of its determination of the Application in preference to remission to the court below; later in these reasons.",
+      "bbox": [
+        23.667,
+        640.92,
+        572.667,
+        757.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n236",
+      "kind": "heading",
+      "page_number": 8,
+      "text": "The Appellant's skeletal and oral submissons",
+      "bbox": [
+        25.333,
+        610.253,
+        277.333,
+        626.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n237",
+      "kind": "heading",
+      "page_number": 8,
+      "text": "(references are to its skeleton SkSn and the Appeal Bundle page ABIn)",
+      "bbox": [
+        24.333,
+        579.587,
+        418.333,
+        597.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-29",
+      "kind": "list",
+      "page_number": 8,
+      "text": "21. Whilst the Court has considered and weighed all of the parties' submissions and supporting authorities in depth and detail, those submissions which the Court considers material and useful for the determination of the second ground of appeal; are extracted and summarised here together for brevity; with focus on their final iteration orally before the Court. key\n22. Referring to rule 50.2 (hereafter \"the rule\") which provides that:",
+      "bbox": [
+        24.0,
+        463.92,
+        572.0,
+        568.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-30",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "21. Whilst the Court has considered and weighed all of the parties' submissions and supporting authorities in depth and detail, those submissions which the Court considers material and useful for the determination of the second ground of appeal; are extracted and summarised here together for brevity; with focus on their final iteration orally before the Court. key",
+      "bbox": [
+        24.0,
+        491.253,
+        572.0,
+        568.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-31",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "22. Referring to rule 50.2 (hereafter \"the rule\") which provides that:",
+      "bbox": [
+        24.0,
+        463.92,
+        381.333,
+        481.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n240",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "\"Ajudgment creditor may apply for an order requiring:",
+      "bbox": [
+        46.667,
+        434.92,
+        335.333,
+        452.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n241",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "a judgment debtor; or",
+      "bbox": [
+        46.667,
+        407.92,
+        182.667,
+        423.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n242",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "(2) if a judgment debtor is a company or other corporation; an officer of that body; to attend Court to provide information about:",
+      "bbox": [
+        46.667,
+        359.92,
+        572.667,
+        396.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-32",
+      "kind": "list",
+      "page_number": 8,
+      "text": "(a) the judgment debtor's means; or\n(b) any other matter about which information is needed to enforce a judgment or order:",
+      "bbox": [
+        46.667,
+        304.587,
+        508.667,
+        348.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-33",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "(a) the judgment debtor's means; or",
+      "bbox": [
+        46.667,
+        332.587,
+        241.333,
+        348.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-34",
+      "kind": "list_item",
+      "page_number": 8,
+      "text": "(b) any other matter about which information is needed to enforce a judgment or order:",
+      "bbox": [
+        46.667,
+        304.587,
+        508.667,
+        320.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n245",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "It was submitted the issue on the Appeal is an issue of the construction of RDC 50.2 and in particular of an officer' for its purposes; which in turn informs an issue of law as to the intended scope of the Courts power to require the attendance before it of representatives of companies that have failed to discharge their debts under judgments of the Court (Sk810 with Court's emphasis added) .",
+      "bbox": [
+        23.333,
+        210.92,
+        572.333,
+        293.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n246",
+      "kind": "paragraph",
+      "page_number": 8,
+      "text": "23. The Appellant expended much time and energy in advancing a comparative academic treatise on the definition and meaning of the word \"Officer\" in various different statutes and rules; for various purposes in this jurisdiction and across the common law world. It urged us to apply them analogously; and in particular; to adopt a definition in line with the Operating Law definition of \"Officer\" , including as it does, a partner or controller. That law; it was submitted, is more relevant; due to its focus on the public interest and financial services regulations and runs parallel to the public interest in enforcing judgment debts.",
+      "bbox": [
+        23.0,
+        61.587,
+        572.0,
+        202.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-35",
+      "kind": "list",
+      "page_number": 9,
+      "text": "24. However; in our view; it was more appropriately and persuasively submitted, relying on the Earl of Normanton v Giles and another [1980] 1 WLR 28, 31B-E (per Lord Wilberforce) , that the same term may have different meanings in different statutes. It was further submitted [SkI35], that the relevance of the Operating Law and the Companies Law definitions to that question; was merely as illustrations of the way that DIFC law defines an \"officer\" in other, related; contexts. In construing any statute; the Court must consider both the text of the relevant provision and the context of both the statute and the relevant provision. The legislative intent of the specific statute and the relevant provision are of course the most significant components.\n25. Relying on a passage from the text; DIFC Courts Practice (Second Edition) at paragraph 1.15 [ABI1193] Mr Reed KC for the Appellant; reminded us that:",
+      "bbox": [
+        24.0,
+        618.587,
+        574.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-36",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "24. However; in our view; it was more appropriately and persuasively submitted, relying on the Earl of Normanton v Giles and another [1980] 1 WLR 28, 31B-E (per Lord Wilberforce) , that the same term may have different meanings in different statutes. It was further submitted [SkI35], that the relevance of the Operating Law and the Companies Law definitions to that question; was merely as illustrations of the way that DIFC law defines an \"officer\" in other, related; contexts. In construing any statute; the Court must consider both the text of the relevant provision and the context of both the statute and the relevant provision. The legislative intent of the specific statute and the relevant provision are of course the most significant components.",
+      "bbox": [
+        24.0,
+        666.92,
+        574.0,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-37",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "25. Relying on a passage from the text; DIFC Courts Practice (Second Edition) at paragraph 1.15 [ABI1193] Mr Reed KC for the Appellant; reminded us that:",
+      "bbox": [
+        24.0,
+        618.587,
+        572.0,
+        656.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n249",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "\"The DIFC Courts have often looked to English law for guidance on the approach that should be taken to interpreting DIFC Laws; including the application of the four principles of statutory interpretation: a literal interpretation; a purposive interpretation; the mischief rule (construing the statute to overcome the mischief) and the golden rule (following the plain meaning unless it leads to absurdity)",
+      "bbox": [
+        47.333,
+        511.587,
+        573.0,
+        609.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n250",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "And founding on those principles; he submitted that there are two approaches to interpreting the word \"Officer\" in the rule. The first being to ask, whether the person holds an office pursuant to an appointment? The second being to adopt a functional approach to hold an officer to be someone who exercises power and control in the management of the company.",
+      "bbox": [
+        24.333,
+        421.587,
+        572.0,
+        501.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n251",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "26. Mr Reed KC further submitted that there were four possible approaches by which the Respondents could be held to be officers for the purposes of the rule. These were as them being: put",
+      "bbox": [
+        25.0,
+        373.92,
+        571.667,
+        410.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-38",
+      "kind": "list",
+      "page_number": 9,
+      "text": "(a) Partners in a UAE LLC: a partner is not a shareholder in the western context but has much wider obligations and rights\n(b) Controllers: as in other common law jurisdictions someone who has control of the company is an officer\n(c) Someone who purports to act as an officer: should be treated as an officer\n(d) Someone who is a former officer",
+      "bbox": [
+        46.667,
+        222.92,
+        572.0,
+        362.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-39",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "(a) Partners in a UAE LLC: a partner is not a shareholder in the western context but has much wider obligations and rights",
+      "bbox": [
+        46.667,
+        325.92,
+        571.333,
+        362.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-40",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "(b) Controllers: as in other common law jurisdictions someone who has control of the company is an officer",
+      "bbox": [
+        46.667,
+        280.92,
+        572.0,
+        314.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-41",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "(c) Someone who purports to act as an officer: should be treated as an officer",
+      "bbox": [
+        46.667,
+        249.92,
+        462.0,
+        266.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-42",
+      "kind": "list_item",
+      "page_number": 9,
+      "text": "(d) Someone who is a former officer",
+      "bbox": [
+        46.667,
+        222.92,
+        242.0,
+        238.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n256",
+      "kind": "paragraph",
+      "page_number": 9,
+      "text": "27 . The Court was then taken to a collection of late-coming social media and marketing posts (as the Respondents' counsel disparagingly described them) , concerning the Respondents' roles in Olindo; to substantiate the claim that were both officers by reference to those four roles or actions listed above. Objection was taken to the late introduction of this evidence by the Respondents and we rule immediately and briefly; that insofar as these materials were not before the Judge and have been lately introduced into evidence for the appeal, the well-known Ladd V Marshall principles are not satisfied in relation to them. For that reason; we have disregarded them in reaching our decision: they Furthermore, in the circumstances of this case, we regard the production of such materials in advertising blurbs, to be an unsatisfactory and inadequate means of demonstrating that a subject of social media and marketing materials, is an Officer within the meaning of that term in the rule such",
+      "bbox": [
+        23.333,
+        72.92,
+        572.0,
+        212.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-43",
+      "kind": "list",
+      "page_number": 10,
+      "text": "28. The Appellant placed much emphasis in its submissions on the role; concept and powers of a partner in a UAE LLC; to show that as a holder of 99% of the shares in the company the First Respondent is in control and undoubtedly an \"Officer\" within the meaning of the rule [Sk 8846-50]. It was submitted that she knows where the assets of the company lie; that she has the capacity to affect the company's financial standing; that she is able to give management instructions; and that thereby; she is a controller of the company. She also held the office and acted as manager of the company for some two years before the appointment of Mr Orvell. Authority cited; shows that courts have upheld orders where former officers have been summoned for questioning under similar provisions; because may have relevant knowledge and information from their time in office. they\n29. As for the Second Respondent, it was submitted that although he holds only 1% of the shares in Olindo; he is also a partner and falls within the definition of an \"Officer\" for the purposes of the rule. He too; should be required to attend to answer questions and provide information to the Court; under it.\n30. It was submitted that as a matter of law; and consistently with the definition adopted in the Operating Law; most common law jurisdictions have historically afforded a great deal of breadth and flexibility to the term \"officer\" in relation to a corporation. This submission was bolstered by extensive reference to statutes and rules in pari materia to the rule; and to authorities in those jurisdictions interpreting them [Sk $42-45] We do not consider it necessary to recite the dicta relied upon in this judgment; but it will be seen that have been taken into account; in our fashioning of the approach that we consider should be adopted in the DIFC Courts, when an issue arises as to whether a person summoned before the court under the rule, is an \"Officer\" of a company or not. they",
+      "bbox": [
+        23.0,
+        341.253,
+        572.667,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-44",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "28. The Appellant placed much emphasis in its submissions on the role; concept and powers of a partner in a UAE LLC; to show that as a holder of 99% of the shares in the company the First Respondent is in control and undoubtedly an \"Officer\" within the meaning of the rule [Sk 8846-50]. It was submitted that she knows where the assets of the company lie; that she has the capacity to affect the company's financial standing; that she is able to give management instructions; and that thereby; she is a controller of the company. She also held the office and acted as manager of the company for some two years before the appointment of Mr Orvell. Authority cited; shows that courts have upheld orders where former officers have been summoned for questioning under similar provisions; because may have relevant knowledge and information from their time in office. they",
+      "bbox": [
+        24.0,
+        577.587,
+        572.667,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-45",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "29. As for the Second Respondent, it was submitted that although he holds only 1% of the shares in Olindo; he is also a partner and falls within the definition of an \"Officer\" for the purposes of the rule. He too; should be required to attend to answer questions and provide information to the Court; under it.",
+      "bbox": [
+        24.0,
+        510.253,
+        571.667,
+        567.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-46",
+      "kind": "list_item",
+      "page_number": 10,
+      "text": "30. It was submitted that as a matter of law; and consistently with the definition adopted in the Operating Law; most common law jurisdictions have historically afforded a great deal of breadth and flexibility to the term \"officer\" in relation to a corporation. This submission was bolstered by extensive reference to statutes and rules in pari materia to the rule; and to authorities in those jurisdictions interpreting them [Sk $42-45] We do not consider it necessary to recite the dicta relied upon in this judgment; but it will be seen that have been taken into account; in our fashioning of the approach that we consider should be adopted in the DIFC Courts, when an issue arises as to whether a person summoned before the court under the rule, is an \"Officer\" of a company or not. they",
+      "bbox": [
+        23.0,
+        341.253,
+        572.0,
+        499.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n260",
+      "kind": "heading",
+      "page_number": 10,
+      "text": "The Respondents' submissions:",
+      "bbox": [
+        25.667,
+        312.253,
+        205.0,
+        326.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n261",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "It should be noted at the outset that extensive parts of the Respondents' submissions in their skeleton argument were (wisely) not referred to or pressed before Also; that the Respondents counsel adopted a different position from that adopted before the Judge and in the Respondents skeleton argument where at $54, it was submitted that the Judge was \"fully within his rights\" to cite the Companies law definition as \"The DIFC Companies Law is the most relevant; logical, and closely related legislation to the RDC in this context\" This position metamorphosed into a position taken at the hearing, in response t0 questioning by the Deputy Chief Justice; which was that the Company's Law definition is not the correct definition for the Court to adopt and neither it, nor the definition of an officer in the Operating Law should be applied.",
+      "bbox": [
+        24.0,
+        120.587,
+        572.333,
+        299.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n262",
+      "kind": "paragraph",
+      "page_number": 10,
+      "text": "32. Instead, and in summary; Counsel advanced the following propositions as to what the proper approach to interpreting and applying RDC 50.2 should be:",
+      "bbox": [
+        24.333,
+        72.92,
+        571.667,
+        112.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n263",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "(a) That Olindo is an SPV in which Ms Onita is a major shareholder but there is no vacuum that would justify questioning of her, because there is a man in place as the manager (referring to Mr Orvell) who is competent and compellable to answer the questions that might be asked under the rule",
+      "bbox": [
+        46.667,
+        750.92,
+        572.667,
+        825.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n264",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "included in the Prescribed Law; none of those laws listed apply to Olindo and there is no reason why Ms Onita, as a major shareholder; should be elevated to the status of an officer for the purposes of the rule",
+      "bbox": [
+        46.667,
+        660.253,
+        571.667,
+        717.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-47",
+      "kind": "list",
+      "page_number": 11,
+      "text": "(c) Next; taking us to the Companies' Law definition [AB/662], it was proposed that if that definition was adopted, Mr Orvell is within it. He has access to relevant information about the company. The interpretation of \"Officer\" should not be extended to include shareholders who do not exercise to day operational control; and who will not be able to answer questions under Part 50. day\n(d) The purpose of the rule is to information that in this case, is in the hands of Mr Orvell, by virtue of his position: None of the approaches relied on by the Appellant to defining \"Officer\" stretch so far as to shareholders. get\n(e) Although accepting that Ms Onita; by virtue of her position may have some knowledge about the company; there was no need for the assistance of a shareholder and a judgment creditor should not \"be given the green light\" as it was to pick as many individuals as wish, and probe with questions of them. It should be limited to summoning an \"officer\" who exercises to management under an operational duty. Those individuals are defined by law. (It was these propositions that prompted the Deputy Chief Justice to seek clarification of the Respondents' position on the applicability of the Companies Law and the answer noted above ) put they away day day",
+      "bbox": [
+        46.333,
+        353.587,
+        573.0,
+        649.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-48",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "(c) Next; taking us to the Companies' Law definition [AB/662], it was proposed that if that definition was adopted, Mr Orvell is within it. He has access to relevant information about the company. The interpretation of \"Officer\" should not be extended to include shareholders who do not exercise to day operational control; and who will not be able to answer questions under Part 50. day",
+      "bbox": [
+        46.667,
+        570.92,
+        572.0,
+        649.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-49",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "(d) The purpose of the rule is to information that in this case, is in the hands of Mr Orvell, by virtue of his position: None of the approaches relied on by the Appellant to defining \"Officer\" stretch so far as to shareholders. get",
+      "bbox": [
+        46.667,
+        505.587,
+        573.0,
+        559.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-50",
+      "kind": "list_item",
+      "page_number": 11,
+      "text": "(e) Although accepting that Ms Onita; by virtue of her position may have some knowledge about the company; there was no need for the assistance of a shareholder and a judgment creditor should not \"be given the green light\" as it was to pick as many individuals as wish, and probe with questions of them. It should be limited to summoning an \"officer\" who exercises to management under an operational duty. Those individuals are defined by law. (It was these propositions that prompted the Deputy Chief Justice to seek clarification of the Respondents' position on the applicability of the Companies Law and the answer noted above ) put they away day day",
+      "bbox": [
+        46.333,
+        353.587,
+        572.333,
+        494.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n268",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "33. It should finally be recorded; that Mr Reed KC, in reply to the proposition that there was no need to have recourse to a shareholder in this case, made the telling observation that although the order was been ordered to produce to date. It is thereby manifestly wrong to assert there is no need to pursue the shareholders; to appear for questioning and to produce information.",
+      "bbox": [
+        24.0,
+        245.253,
+        572.0,
+        342.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n269",
+      "kind": "heading",
+      "page_number": 11,
+      "text": "Discussion and Determination of the Appeal",
+      "bbox": [
+        25.333,
+        214.92,
+        272.0,
+        231.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n270",
+      "kind": "paragraph",
+      "page_number": 11,
+      "text": "34 This Court has reached the conclusion that the Appeal must be allowed to the extent now ordered; in circumstances where we have concluded that the Judge was led into error by the parties' competing contentions before him. These were to the principal effect from one side, that the Court should adopt and apply the Operating Law definition of \"Officer\"; and from the other side; that it should apply the more restricted Companies Law definition; when acting under the rule. It is unsurprising in those circumstances that he approached the matter as a binary question; rejected the wider Operating Law definition because that statute did not apply to Olindo; and held \"in accordance with the DIFC Company Law the Applicants as owners of the Judgment Creditor (sic Debtor) cannot be deems (sic deemed) to be an Officer of the Company'-",
+      "bbox": [
+        24.667,
+        25.253,
+        573.333,
+        204.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-51",
+      "kind": "list",
+      "page_number": 12,
+      "text": "35. With the parties' focus of their arguments before him being on those alternative options; it is our judgment that the Judge was distracted from the straightforward exercise of statutory interpretation of the rule that arose before him on the application: He was prevented from seeing the wood of the rule for the trees planted around it, of different statutes made for different purposes in the same or different jurisdictions; which were deployed before him and now before us, to an even greater extent. We were not greatly assisted by that industry; in circumstances where in our judgment; the interpretative focus should have been on the function and purpose of the rule in the DIFC Courts; in the myriad of different circumstances of corporate structures; membership and management that might come before it.\n36 . The DIFC Courts are international commercial courts; the first of their type; and the corporate before these courts; may come from many different jurisdictions; with different governing laws concerning ownership; membership and management of companies. It is reasonable to assume that the draftsmen of the RDC, and this rule in particular; would have had those differences in mind, and drafted this vital rule for delivering effective justice; with the intention that it should be interpreted and applied to serve the function and purpose of discovering assets for enforcement. In our judgment therefore, the word \"Officer\" is a term that was deliberately left undefined, to be interpreted flexibly and purposively as the circumstances require. It is designed and drafted to function accordingly to meet that particular requirement of justice, of asset tracing for enforcement of judgments.\n37 . We accept the Appellant's submissions summarised at 824 above that the same term may have different meanings in different statutory contexts; and that we must consider the text of the relevant provision having regard to the legislative intent. We also accept the applicability of the four principles of statutory interpretation; with the relevant ones in this case being to adopt a purposive interpretation to avoid the mischief of a judgment debtor's assets for enforcement being concealed. We consider that the Appellant's submission (supra 825) that we should adopt a functional approach to be correct; and we have adopted that approach in fashioning our guidance which follows on the interpretation of the rule whenever that need arises. We accept the thrust of the Appellant submission (supra $30) that the DIFC Courts should adopt a broad and flexible approach to the interpretation of this rule; in order to serve its purpose _\n38. Whilst the Respondents shifted their ground to advocate for a more restricted purposive approach; sought to limit the use of the power the rule provides, to what might be termed the obvious candidates to be questioned and provide information; where there was no vacuum and a manager in place. In those circumstances; it would not be necessary to have recourse to summoning of shareholders to answer questions. We do not accept such a limitation. It is sufficient that under the rule; it will always be for an applicant for a Part 50 order to satisfy a court that the requirements of the rule are met in the person the judgment creditor seeks to have questioned or provide information. We accept the Respondents' submission (supra $32 d.) that the purpose of the rule is to information; but we reject the submissions (supra $S 32 c. and e.) that if there is a manager or similar officer in they get place; a judgment creditor should be limited to the questioning of that person, and not have access to others including shareholders; who it believes may have information or documents that would facilitate enforcement and can satisfy a court of that fact.",
+      "bbox": [
+        23.0,
+        57.253,
+        572.667,
+        826.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-52",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "35. With the parties' focus of their arguments before him being on those alternative options; it is our judgment that the Judge was distracted from the straightforward exercise of statutory interpretation of the rule that arose before him on the application: He was prevented from seeing the wood of the rule for the trees planted around it, of different statutes made for different purposes in the same or different jurisdictions; which were deployed before him and now before us, to an even greater extent. We were not greatly assisted by that industry; in circumstances where in our judgment; the interpretative focus should have been on the function and purpose of the rule in the DIFC Courts; in the myriad of different circumstances of corporate structures; membership and management that might come before it.",
+      "bbox": [
+        23.0,
+        666.92,
+        572.667,
+        826.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-53",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "36 . The DIFC Courts are international commercial courts; the first of their type; and the corporate before these courts; may come from many different jurisdictions; with different governing laws concerning ownership; membership and management of companies. It is reasonable to assume that the draftsmen of the RDC, and this rule in particular; would have had those differences in mind, and drafted this vital rule for delivering effective justice; with the intention that it should be interpreted and applied to serve the function and purpose of discovering assets for enforcement. In our judgment therefore, the word \"Officer\" is a term that was deliberately left undefined, to be interpreted flexibly and purposively as the circumstances require. It is designed and drafted to function accordingly to meet that particular requirement of justice, of asset tracing for enforcement of judgments.",
+      "bbox": [
+        23.0,
+        456.587,
+        572.333,
+        656.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-54",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "37 . We accept the Appellant's submissions summarised at 824 above that the same term may have different meanings in different statutory contexts; and that we must consider the text of the relevant provision having regard to the legislative intent. We also accept the applicability of the four principles of statutory interpretation; with the relevant ones in this case being to adopt a purposive interpretation to avoid the mischief of a judgment debtor's assets for enforcement being concealed. We consider that the Appellant's submission (supra 825) that we should adopt a functional approach to be correct; and we have adopted that approach in fashioning our guidance which follows on the interpretation of the rule whenever that need arises. We accept the thrust of the Appellant submission (supra $30) that the DIFC Courts should adopt a broad and flexible approach to the interpretation of this rule; in order to serve its purpose _",
+      "bbox": [
+        24.0,
+        247.587,
+        572.667,
+        445.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-55",
+      "kind": "list_item",
+      "page_number": 12,
+      "text": "38. Whilst the Respondents shifted their ground to advocate for a more restricted purposive approach; sought to limit the use of the power the rule provides, to what might be termed the obvious candidates to be questioned and provide information; where there was no vacuum and a manager in place. In those circumstances; it would not be necessary to have recourse to summoning of shareholders to answer questions. We do not accept such a limitation. It is sufficient that under the rule; it will always be for an applicant for a Part 50 order to satisfy a court that the requirements of the rule are met in the person the judgment creditor seeks to have questioned or provide information. We accept the Respondents' submission (supra $32 d.) that the purpose of the rule is to information; but we reject the submissions (supra $S 32 c. and e.) that if there is a manager or similar officer in they get place; a judgment creditor should be limited to the questioning of that person, and not have access to others including shareholders; who it believes may have information or documents that would facilitate enforcement and can satisfy a court of that fact.",
+      "bbox": [
+        24.667,
+        57.253,
+        572.0,
+        236.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n275",
+      "kind": "paragraph",
+      "page_number": 13,
+      "text": "39. In our judgment; therefore; the correct approach to the interpretation of the word \"Officer\" in RDC 50.2 is a purposive or functional one. The description \"Officer\" is intended to refer to anyone who; by reason of hislher position in the company or corporation or relationship to it; past or present; it appears the judgment debtor's means (or any other matter about which information is needed) to enforce a judgment or order. A person who meets that description or is so qualified; is a person who may be required to appear before the Court to be questioned and required to provide information; under the rule_",
+      "bbox": [
+        23.333,
+        601.587,
+        572.0,
+        757.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n276",
+      "kind": "heading",
+      "page_number": 13,
+      "text": "Should this court remit the matter to the Judge or decide the Application itself?",
+      "bbox": [
+        24.667,
+        568.253,
+        466.0,
+        587.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-56",
+      "kind": "list",
+      "page_number": 13,
+      "text": "40. In circumstances where we have decided that the judge erred in his approach and was wrong in his decision; the question in the heading arises for our consideration. We are urged by the Appellant to deal with the Application and make our own decision on it, in the event which has occurred, of us allowing the appeal. The Respondent did not oppose that contingent request.\n41 In circumstances where we have propounded the correct approach and test for interpretation of the rule and have before of the materials and submissions that are needed to follow that approach and apply the test, in a fair and just manner, we consider that in accordance with the overriding objective; we should ourselves decide the Application before the Court.\n42. We have been satisfied by the Appellant which bears that burden, on all of the admissible material before us, and particularly by the undisputed facts that Ms Onita is the 99% owner of Olindo and was until recently its manager; that by reason of her and present position and relationship to the company; she may be in possession or control of information about the judgment debtor's means (or any other matter about which information is needed) to enforce a judgment or order. She is therefore a person who; in our judgment; meets the description of, or is qualified as, an \"Officer\" of the company; within the meaning of the rule. She is a person who may be required to appear before the Court to be questioned and required to provide information; under the rule. We accordingly restore the Second Part 50 order insofar as it relates to her. past\n43. We are not so satisfied in relation to Mr Oron. We have weighed the Appellant's submission that he is a person within the meaning of the term Officer in the rule; because he is a partner in Olindo under UAE law; with certain rights beyond those of an ordinary shareholder in other laws or other corporate structures. However; we have not been persuaded by any admissible evidence before us;, that he may be in possession of information that is needed to enforce the judgment for costs; or that he has such a degree of control over Olindo; that he could obtain and provide any such information from it. He accordingly succeeds on the Appeal, in that we uphold the Judge's Order staying",
+      "bbox": [
+        23.333,
+        52.92,
+        572.667,
+        557.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-57",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "40. In circumstances where we have decided that the judge erred in his approach and was wrong in his decision; the question in the heading arises for our consideration. We are urged by the Appellant to deal with the Application and make our own decision on it, in the event which has occurred, of us allowing the appeal. The Respondent did not oppose that contingent request.",
+      "bbox": [
+        23.333,
+        480.253,
+        572.0,
+        557.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-58",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "41 In circumstances where we have propounded the correct approach and test for interpretation of the rule and have before of the materials and submissions that are needed to follow that approach and apply the test, in a fair and just manner, we consider that in accordance with the overriding objective; we should ourselves decide the Application before the Court.",
+      "bbox": [
+        24.333,
+        392.587,
+        572.0,
+        468.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-59",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "42. We have been satisfied by the Appellant which bears that burden, on all of the admissible material before us, and particularly by the undisputed facts that Ms Onita is the 99% owner of Olindo and was until recently its manager; that by reason of her and present position and relationship to the company; she may be in possession or control of information about the judgment debtor's means (or any other matter about which information is needed) to enforce a judgment or order. She is therefore a person who; in our judgment; meets the description of, or is qualified as, an \"Officer\" of the company; within the meaning of the rule. She is a person who may be required to appear before the Court to be questioned and required to provide information; under the rule. We accordingly restore the Second Part 50 order insofar as it relates to her. past",
+      "bbox": [
+        24.333,
+        204.92,
+        572.0,
+        380.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-60",
+      "kind": "list_item",
+      "page_number": 13,
+      "text": "43. We are not so satisfied in relation to Mr Oron. We have weighed the Appellant's submission that he is a person within the meaning of the term Officer in the rule; because he is a partner in Olindo under UAE law; with certain rights beyond those of an ordinary shareholder in other laws or other corporate structures. However; we have not been persuaded by any admissible evidence before us;, that he may be in possession of information that is needed to enforce the judgment for costs; or that he has such a degree of control over Olindo; that he could obtain and provide any such information from it. He accordingly succeeds on the Appeal, in that we uphold the Judge's Order staying",
+      "bbox": [
+        23.667,
+        52.92,
+        572.667,
+        190.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-61",
+      "kind": "list",
+      "page_number": 14,
+      "text": "Conclusion\n44. For all of the foregoing reasons; we have allowed the Appeal to the extent shown in our order above; restoring the Second Part 50 order in its amended form against Ms Onitaand dismissing the Appeal against the Order, insofar as it relates to Mr Oron.\n45. We have reached this conclusion by accepting the validity of the second ground of appeal. In those circumstances; the first ground is moot; and it is unnecessary for us to determine if there was a typographical and formatting error or a mistaken importation of a submission into a recital of a statutory provision and; in consequence, a misinterpretation of it. This Appeal succeeds on the ground that the Judge was wrong in his approach to and interpretation of the rule; and in his finding that Ms Onitawas not an Officer within its meaning. Costs\n46. The Appellant has succeeded in the appeal to a substantial degree, in terms of establishing the principles it relied on, and establishing that the was wrong in his approach and order in respect of Ms Onita. It has however failed in respect of the other target for questioning it had pursued. Consequently; the Appellant is in principle entitled to its costs with a measure of discount. Judge\n47. The court has before it Statements of Costs from both parties; which vary enormously. The total number of hours spent by all lawyers for the Appellant is 77 and for the Respondents only 39 slightly above half. Both parties instructed counsel but the Appellant instructed leading and junior counsel at a total cost of USD 76,00O; whereas the Respondents instructed a junior counsel at a cost of only USD 5,000. The Appellant's total bill of costs amounts to USD 121,082.50 and the Respondents to USD 38,000 less than one third of the Appellant's costs.\n48. This amounts to a substantial disparity; which can only be partly explained and justified by reference to the extensive research undertaken and the product thereof; deployed by the Appellant in its submissions before the court. In our view, there is evident disproportionality and unnecessary excess in the amounts of time spent and costs incurred by the Appellant's legal team; having regard to the amount at stake.\n49 Taking those reducing factors into account; the court considers that a fair; reasonable and proportionate award of costs for the Appellant in this appeal; is 50% of the amount it has claimed; namely the sum of USD 60,541.25.",
+      "bbox": [
+        23.0,
+        185.92,
+        572.333,
+        822.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n281",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "Conclusion",
+      "bbox": [
+        25.667,
+        809.587,
+        89.667,
+        822.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-62",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "44. For all of the foregoing reasons; we have allowed the Appeal to the extent shown in our order above; restoring the Second Part 50 order in its amended form against Ms Onitaand dismissing the Appeal against the Order, insofar as it relates to Mr Oron.",
+      "bbox": [
+        24.667,
+        737.92,
+        572.0,
+        795.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-63",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "45. We have reached this conclusion by accepting the validity of the second ground of appeal. In those circumstances; the first ground is moot; and it is unnecessary for us to determine if there was a typographical and formatting error or a mistaken importation of a submission into a recital of a statutory provision and; in consequence, a misinterpretation of it. This Appeal succeeds on the ground that the Judge was wrong in his approach to and interpretation of the rule; and in his finding that Ms Onitawas not an Officer within its meaning. Costs",
+      "bbox": [
+        23.0,
+        582.253,
+        572.333,
+        728.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-64",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "46. The Appellant has succeeded in the appeal to a substantial degree, in terms of establishing the principles it relied on, and establishing that the was wrong in his approach and order in respect of Ms Onita. It has however failed in respect of the other target for questioning it had pursued. Consequently; the Appellant is in principle entitled to its costs with a measure of discount. Judge",
+      "bbox": [
+        24.0,
+        491.253,
+        572.0,
+        569.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-65",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "47. The court has before it Statements of Costs from both parties; which vary enormously. The total number of hours spent by all lawyers for the Appellant is 77 and for the Respondents only 39 slightly above half. Both parties instructed counsel but the Appellant instructed leading and junior counsel at a total cost of USD 76,00O; whereas the Respondents instructed a junior counsel at a cost of only USD 5,000. The Appellant's total bill of costs amounts to USD 121,082.50 and the Respondents to USD 38,000 less than one third of the Appellant's costs.",
+      "bbox": [
+        24.667,
+        361.92,
+        572.0,
+        479.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-66",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "48. This amounts to a substantial disparity; which can only be partly explained and justified by reference to the extensive research undertaken and the product thereof; deployed by the Appellant in its submissions before the court. In our view, there is evident disproportionality and unnecessary excess in the amounts of time spent and costs incurred by the Appellant's legal team; having regard to the amount at stake.",
+      "bbox": [
+        24.333,
+        255.587,
+        572.333,
+        352.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-n-auto-67",
+      "kind": "list_item",
+      "page_number": 14,
+      "text": "49 Taking those reducing factors into account; the court considers that a fair; reasonable and proportionate award of costs for the Appellant in this appeal; is 50% of the amount it has claimed; namely the sum of USD 60,541.25.",
+      "bbox": [
+        24.333,
+        185.92,
+        572.0,
+        243.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": [
+    {
+      "table_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-t164",
+      "page_number": 1,
+      "bbox": [
+        26.953,
+        19.993,
+        570.287,
+        160.299
+      ],
+      "raw_json": {
+        "type": "table",
+        "id": 164,
+        "level": "2",
+        "page number": 1,
+        "bounding box": [
+          26.953,
+          19.993,
+          570.287,
+          160.299
+        ],
+        "number of rows": 2,
+        "number of columns": 2,
+        "rows": [
+          {
+            "type": "table row",
+            "row number": 1,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 1,
+                "bounding box": [
+                  26.953,
+                  90.146,
+                  298.62,
+                  160.299
+                ],
+                "row number": 1,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 141,
+                    "page number": 1,
+                    "bounding box": [
+                      26.953,
+                      90.146,
+                      298.62,
+                      160.299
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Hearing"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 1,
+                "bounding box": [
+                  298.62,
+                  90.146,
+                  570.287,
+                  160.299
+                ],
+                "row number": 1,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 142,
+                    "page number": 1,
+                    "bounding box": [
+                      298.62,
+                      90.146,
+                      570.287,
+                      160.299
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "17 October 2024"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table row",
+            "row number": 2,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 1,
+                "bounding box": [
+                  26.953,
+                  19.993,
+                  298.62,
+                  90.146
+                ],
+                "row number": 2,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 143,
+                    "page number": 1,
+                    "bounding box": [
+                      26.953,
+                      19.993,
+                      298.62,
+                      90.146
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Counsel"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 1,
+                "bounding box": [
+                  298.62,
+                  19.993,
+                  570.287,
+                  90.146
+                ],
+                "row number": 2,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 144,
+                    "page number": 1,
+                    "bounding box": [
+                      298.62,
+                      19.993,
+                      570.287,
+                      90.146
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Mr Rupert Reed KC and Mr Max Marenbon instructed by Eversheds Sutherland International LLP for the AppellantClaimant Mr Rajdeep Choudhury instructed by Al Aidarous Advocates and Legal Consultants for the Applicants/Respondents"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "raw_html": null,
+      "linked_context_block_id": null
+    },
+    {
+      "table_id": "bd2d222ee0a636a745434cfb457321cd658db5bb32b5f0a3f5643236cc1503d8-t165",
+      "page_number": 2,
+      "bbox": [
+        25.947,
+        779.822,
+        571.023,
+        827.751
+      ],
+      "raw_json": {
+        "type": "table",
+        "id": 165,
+        "level": "3",
+        "page number": 2,
+        "bounding box": [
+          25.947,
+          779.822,
+          571.023,
+          827.751
+        ],
+        "number of rows": 1,
+        "number of columns": 2,
+        "rows": [
+          {
+            "type": "table row",
+            "row number": 1,
+            "cells": [
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  25.947,
+                  779.822,
+                  298.485,
+                  827.751
+                ],
+                "row number": 1,
+                "column number": 1,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 146,
+                    "page number": 2,
+                    "bounding box": [
+                      25.947,
+                      779.822,
+                      298.485,
+                      827.751
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "Judgment"
+                  }
+                ]
+              },
+              {
+                "type": "table cell",
+                "page number": 2,
+                "bounding box": [
+                  298.485,
+                  779.822,
+                  571.023,
+                  827.751
+                ],
+                "row number": 1,
+                "column number": 2,
+                "row span": 1,
+                "column span": 1,
+                "kids": [
+                  {
+                    "type": "paragraph",
+                    "id": 147,
+                    "page number": 2,
+                    "bounding box": [
+                      298.485,
+                      779.822,
+                      571.023,
+                      827.751
+                    ],
+                    "font": null,
+                    "font size": 12.0,
+                    "content": "30 October 2024"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "raw_html": null,
+      "linked_context_block_id": null
+    }
+  ]
+}

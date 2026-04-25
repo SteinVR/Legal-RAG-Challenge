@@ -29,6 +29,7 @@ from .page_triage import (
 from .parser_routing import (
     DocumentStructuralProfile,
     ParserAvailability,
+    ParserRoutingError,
     RouteBatch,
     plan_route_batches,
     resolve_parser_route,
@@ -74,6 +75,7 @@ __all__ = [
     "PageSignals",
     "PageTableAssignments",
     "ParserAvailability",
+    "ParserRoutingError",
     "PaddleOcrAdapter",
     "ParsedDocument",
     "ParsedPage",

@@ -21,7 +21,6 @@ from src.common.schemas import (
     NormalizedStructuralBlock,
     PageMapRecord,
     ParsedDocument,
-    ParserRoute,
     ParseStatus,
     TableBlock,
 )
@@ -446,12 +445,9 @@ class CorpusParseService:
             return False
 
         try:
-            pymupdf_sidecar = load_raw_parse_sidecar(pymupdf_sidecar_path)
+            load_raw_parse_sidecar(pymupdf_sidecar_path)
         except Exception:
             return False
-
-        if pymupdf_sidecar.parser_route is ParserRoute.BASELINE_FALLBACK:
-            return True
 
         return (self.paths.raw_parse_dir / "opendataloader" / f"{doc_id}.json").exists()
 

@@ -1,0 +1,777 @@
+{
+  "doc_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 4,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "4": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 52,
+    "table_count": 0
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n53",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ARB 034/2025 Ohtli v Onora",
+      "bbox": [
+        25.667,
+        677.253,
+        260.667,
+        695.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n54",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DECEMBER 19, 2025 ARBITRATION ORDERS",
+      "bbox": [
+        25.667,
+        656.92,
+        273.667,
+        670.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n55",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No. ARB 034/2025",
+      "bbox": [
+        432.333,
+        611.587,
+        571.667,
+        624.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n56",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "IN THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": [
+        123.667,
+        581.587,
+        473.0,
+        594.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n57",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN THE COURT OF FIRST INSTANCE",
+      "bbox": [
+        25.0,
+        551.587,
+        230.333,
+        564.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n58",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": [
+        25.0,
+        523.587,
+        87.0,
+        537.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n59",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OHTLI",
+      "bbox": [
+        279.0,
+        494.253,
+        317.667,
+        507.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n61",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": [
+        287.0,
+        438.253,
+        309.667,
+        450.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n62",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "ONORA",
+      "bbox": [
+        275.0,
+        408.253,
+        321.0,
+        421.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n60",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claimant",
+      "bbox": [
+        521.0,
+        465.587,
+        571.667,
+        479.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n63",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Defendant",
+      "bbox": [
+        513.0,
+        380.253,
+        571.667,
+        394.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n64",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ORDER WITH REASONS OF H.E JUSTICE SHAMLAN AL SAWALEHI",
+      "bbox": [
+        106.333,
+        331.587,
+        489.667,
+        345.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n65",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UPON the Claimant's Application No. ARB-034-2025/1 dated 9 September 2025 under Part 25 of the Rules of the DIFC Courts seeking interim anti-suit relief",
+      "bbox": [
+        24.333,
+        257.92,
+        572.0,
+        294.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n66",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Order of H.E. Justice Shamlan Al Sawalehi dated 12 September 2025 granting interim anti-suit relief (the \"ASI Order\")",
+      "bbox": [
+        25.0,
+        210.587,
+        571.333,
+        246.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n67",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON considering the procedural position as at the return date, including the status of the onshore proceedings and the parties' dispute resolution arrangements",
+      "bbox": [
+        24.333,
+        161.587,
+        571.667,
+        200.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n68",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Defendant's Application No. ARB-034-2025/3 dated 25 November 2025 to set aside the ASI Order (the \"Set Aside Application\")",
+      "bbox": [
+        24.667,
+        114.253,
+        572.0,
+        150.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n69",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON reviewing the parties' submissions and hearing Counsel for the Claimant and Counsel for the Defendant on the Return Date Hearing held on 26 November 2025 before H.E. Justice Shamlan AI Sawalehi (the \"Return Date hearing\")",
+      "bbox": [
+        24.0,
+        45.92,
+        572.0,
+        104.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n70",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "IT IS HEREBY ORDERED THAT:",
+      "bbox": [
+        25.0,
+        809.587,
+        201.667,
+        823.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n71",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1 The ASI Order is discharged with immediate effect.",
+      "bbox": [
+        26.0,
+        779.253,
+        308.667,
+        795.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n72",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The Defendant's Set Aside Application is granted.",
+      "bbox": [
+        24.667,
+        750.92,
+        303.0,
+        768.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n73",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The Claimant shall pay the Defendant its costs of the Set Aside Application on the standard basis. The Defendant shall submit a Statement of Costs not exceeding three pages within 5 days of this Order.",
+      "bbox": [
+        25.333,
+        685.587,
+        572.0,
+        740.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n74",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Issued by:",
+      "bbox": [
+        389.667,
+        656.253,
+        447.667,
+        670.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n75",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Hayley Norton Assistant Registrar",
+      "bbox": [
+        388.667,
+        612.587,
+        494.0,
+        649.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n76",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Date of issue: 19 December 2025",
+      "bbox": [
+        391.0,
+        594.92,
+        571.667,
+        608.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n77",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "At: 9am",
+      "bbox": [
+        391.0,
+        574.92,
+        433.667,
+        587.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n78",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "SCHEDULE OF REASONS",
+      "bbox": [
+        24.0,
+        544.92,
+        172.667,
+        558.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n79",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "Introduction",
+      "bbox": [
+        25.0,
+        514.92,
+        95.0,
+        527.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n80",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "This is an Order following the Return Date hearing in the proceedings concerning the continuation of the ASI Order dated 12 September 2025. The Defendant's Set Aside Application shall also be considered in light of its relevance to this Order.",
+      "bbox": [
+        24.667,
+        443.92,
+        571.667,
+        502.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n81",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "2 The issue for determination is whether, in light of the procedural developments that have occurred since the ASI Order was issued; it is appropriate and necessary to continue the ASI Order.",
+      "bbox": [
+        24.667,
+        394.587,
+        572.0,
+        433.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n82",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "For the reasons set out below; the ASI Order is dismissed.",
+      "bbox": [
+        25.333,
+        369.587,
+        348.333,
+        383.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n83",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "Background",
+      "bbox": [
+        25.667,
+        338.92,
+        95.667,
+        353.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n84",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "4 The background and the parties' submissions are summarised only to the extent necessary for the determination of the Applications. omission of any fact; submission; or argument should not be taken as an indication that it was overlooked but merely reflects my focus on the matters material to my determination of these Applications. Any",
+      "bbox": [
+        24.0,
+        249.587,
+        572.0,
+        326.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n85",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Defendant from pursuing proceedings in the Dubai onshore courts in relation to a commercial dispute.",
+      "bbox": [
+        24.333,
+        201.253,
+        565.333,
+        218.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n86",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The parties' underlying dispute arises from trading terms dated 17 January 2025, which contains an arbitration clause providing for arbitration under the rules of DIAC with the DIFC as the seat.",
+      "bbox": [
+        24.333,
+        153.92,
+        571.333,
+        190.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n87",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "7 . On 12 September 2025 an ASI Order was issued and that order was intended to preserve the position pending inter partes consideration at the Return Date hearing:",
+      "bbox": [
+        24.0,
+        105.587,
+        572.0,
+        142.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n88",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "By the time of the Return Date hearing; the onshore Dubai court proceedings that prompted the ASI Order were no longer pursued; and steps had been taken to advance the dispute through arbitration. being",
+      "bbox": [
+        24.667,
+        39.587,
+        572.0,
+        94.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n89",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "The Claimants submissions",
+      "bbox": [
+        24.667,
+        809.587,
+        182.333,
+        822.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-1",
+      "kind": "list",
+      "page_number": 3,
+      "text": "9 The Claimant submitted that the ASI Order should be continued and made final. It argued that there is a binding arbitration agreement; that the Defendant breached that agreement by commencing proceedings in the Dubai courts; and that discontinuance of those proceedings does not undo the breach\n10 The Claimant further submitted that there remains a real risk of future proceedings being commenced outside the agreed arbitral forum in the absence of a continuing injunction; and that final anti-suit relief is required to protect the parties' bargain and the integrity of the arbitration agreement. The Defendant's submissions\n11 . The Defendant submitted that there is no longer any basis It emphasised that the Dubai Court proceedings had been withdrawn and that there are no foreign proceedings presently which require restraint.\n12. The Defendant further submitted that the dispute is now proceeding in the agreed arbitral forum and that, in those circumstances; the interim order has no further practical function.\n13. The Defendant argued that any asserted risk of future proceedings was speculative and insufficient to justify the continuation of coercive relief; particularly where the relief would operate only in a preventative or punitive manner. Discussion\n14. The Court approaches applications for anti-suit relief with caution: Such relief is discretionary and must be directed to a real and present need to restrain conduct that undermines the agreed dispute resolution mechanism.\n15. The interim anti-suit injunction in this case was granted to preserve the position pending inter partes consideration: The question at the Return Date is whether there remains sufficient justification; in terms of necessity and proportionality; to maintain or extend that relief.\n16. The Court accepts that; at the time of the hearing, the onshore Dubai Court proceedings that gave rise to the interim order were no longer being pursued. There was no evidence before me of any existing foreign proceedings requiring restraint.\n17 . The Court also took into account that the parties' dispute is now being progressed through arbitration in accordance with the dispute resolution clause relied upon by the Claimant.\n18. In those circumstances; am not satisfied that continuing injunctive relief would serve a useful or proportionate purpose. The absence of any live proceedings means that the interim order has no further practical function.",
+      "bbox": [
+        23.333,
+        84.587,
+        572.0,
+        795.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-2",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "9 The Claimant submitted that the ASI Order should be continued and made final. It argued that there is a binding arbitration agreement; that the Defendant breached that agreement by commencing proceedings in the Dubai courts; and that discontinuance of those proceedings does not undo the breach",
+      "bbox": [
+        24.333,
+        721.253,
+        572.0,
+        795.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-3",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "10 The Claimant further submitted that there remains a real risk of future proceedings being commenced outside the agreed arbitral forum in the absence of a continuing injunction; and that final anti-suit relief is required to protect the parties' bargain and the integrity of the arbitration agreement. The Defendant's submissions",
+      "bbox": [
+        24.667,
+        622.253,
+        572.0,
+        707.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-4",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "11 . The Defendant submitted that there is no longer any basis It emphasised that the Dubai Court proceedings had been withdrawn and that there are no foreign proceedings presently which require restraint.",
+      "bbox": [
+        23.333,
+        550.92,
+        572.0,
+        608.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-5",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "12. The Defendant further submitted that the dispute is now proceeding in the agreed arbitral forum and that, in those circumstances; the interim order has no further practical function.",
+      "bbox": [
+        24.667,
+        503.92,
+        571.333,
+        540.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-6",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "13. The Defendant argued that any asserted risk of future proceedings was speculative and insufficient to justify the continuation of coercive relief; particularly where the relief would operate only in a preventative or punitive manner. Discussion",
+      "bbox": [
+        24.0,
+        408.253,
+        571.667,
+        492.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-7",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "14. The Court approaches applications for anti-suit relief with caution: Such relief is discretionary and must be directed to a real and present need to restrain conduct that undermines the agreed dispute resolution mechanism.",
+      "bbox": [
+        25.0,
+        339.587,
+        572.0,
+        394.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-8",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "15. The interim anti-suit injunction in this case was granted to preserve the position pending inter partes consideration: The question at the Return Date is whether there remains sufficient justification; in terms of necessity and proportionality; to maintain or extend that relief.",
+      "bbox": [
+        24.0,
+        269.253,
+        572.0,
+        325.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-9",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "16. The Court accepts that; at the time of the hearing, the onshore Dubai Court proceedings that gave rise to the interim order were no longer being pursued. There was no evidence before me of any existing foreign proceedings requiring restraint.",
+      "bbox": [
+        23.333,
+        200.253,
+        572.0,
+        258.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-10",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "17 . The Court also took into account that the parties' dispute is now being progressed through arbitration in accordance with the dispute resolution clause relied upon by the Claimant.",
+      "bbox": [
+        24.333,
+        152.92,
+        571.333,
+        190.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-11",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "18. In those circumstances; am not satisfied that continuing injunctive relief would serve a useful or proportionate purpose. The absence of any live proceedings means that the interim order has no further practical function.",
+      "bbox": [
+        23.333,
+        84.587,
+        572.0,
+        143.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-12",
+      "kind": "list",
+      "page_number": 4,
+      "text": "19 While the Claimant expressed concern about the possibility of future proceedings; am not persuaded that such concern justifies the continuation of an injunction where the conduct complained of has ceased and the agreed arbitral mechanism is now engaged.\n20 The appropriate course, in the exercise of my discretion; is therefore to refuse final anti-suit relief and to discharge the ASI Order.\n21 For the reasons set out above; the ASI Order is dismissed. The Defendant's Set Aside Application is granted.",
+      "bbox": [
+        24.0,
+        672.253,
+        572.667,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-13",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "19 While the Claimant expressed concern about the possibility of future proceedings; am not persuaded that such concern justifies the continuation of an injunction where the conduct complained of has ceased and the agreed arbitral mechanism is now engaged.",
+      "bbox": [
+        24.0,
+        767.587,
+        572.333,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-14",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "20 The appropriate course, in the exercise of my discretion; is therefore to refuse final anti-suit relief and to discharge the ASI Order.",
+      "bbox": [
+        24.0,
+        720.253,
+        572.667,
+        758.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "58eae81bf668e7f6c58619f419a49b5e35e2e5c9c7475475ace28ec562580545-n-auto-15",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "21 For the reasons set out above; the ASI Order is dismissed. The Defendant's Set Aside Application is granted.",
+      "bbox": [
+        24.0,
+        672.253,
+        571.333,
+        709.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}

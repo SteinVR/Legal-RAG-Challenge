@@ -40,6 +40,7 @@ dependencies = [
     { name = "accelerate" },
     { name = "httpx" },
     { name = "numpy" },
+    { name = "opendataloader-pdf" },
     { name = "pydantic" },
     { name = "pymupdf" },
     { name = "python-dotenv" },
@@ -66,6 +67,7 @@ requires-dist = [
     { name = "accelerate", specifier = ">=1.0" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "numpy", specifier = ">=1.26" },
+    { name = "opendataloader-pdf", specifier = ">=2.3.0" },
     { name = "paddleocr", marker = "extra == 'paddle'", specifier = ">=3.0" },
     { name = "pydantic", specifier = ">=2.0" },
     { name = "pymupdf", specifier = ">=1.25" },
@@ -712,6 +714,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/b0/e0/8f5d065ebb2e5941d289c5f653f944318f9e418bc5167bc6a346ab5e0f6a/opencv_contrib_python-4.10.0.84-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a261223db41f6e512d76deaf21c8fcfb4fbbcbc2de62ca7f74a05f2c9ee489ef", size = 68681489, upload-time = "2024-06-17T18:30:32.918Z" },
     { url = "https://files.pythonhosted.org/packages/36/30/7041bd7350cb1a26fa80415a7664b6f04f7ccbf0c12b9318d564cdf35932/opencv_contrib_python-4.10.0.84-cp37-abi3-win32.whl", hash = "sha256:2a36257ec1375d1bec2a62177ea39828ff9804de6831ee39646bdc875c343cec", size = 34506122, upload-time = "2024-06-17T18:28:29.922Z" },
     { url = "https://files.pythonhosted.org/packages/a7/9e/7110d2c5d543ab03b9581dbb1f8e2429863e44e0c9b4960b766f230c1279/opencv_contrib_python-4.10.0.84-cp37-abi3-win_amd64.whl", hash = "sha256:47ec3160dae75f70e099b286d1a2e086d20dac8b06e759f60eaf867e6bdecba7", size = 45541421, upload-time = "2024-06-17T18:28:46.012Z" },
+]
+
+[[package]]
+name = "opendataloader-pdf"
+version = "2.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/94/89/7904cbff3befb0219b30486d80254409cb4f14b82364f7d7c763f3e4687f/opendataloader_pdf-2.3.0.tar.gz", hash = "sha256:4abb0737c70b6b6a42b04748945b598f3776d2af7bb26ed275ed1e1f26629ee2", size = 22474091, upload-time = "2026-04-21T12:16:04.512Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5f/a4/e8b350bbea4f56d990dbf6b599c7cfb43c5ed3914b0d9efab6ac62c24474/opendataloader_pdf-2.3.0-py3-none-any.whl", hash = "sha256:1a6245d3f774dab2414ae759b1fc04edfad2f6e17b3c9f9b386b74a58604e20d", size = 22487135, upload-time = "2026-04-21T12:16:01.724Z" },
 ]
 
 [[package]]

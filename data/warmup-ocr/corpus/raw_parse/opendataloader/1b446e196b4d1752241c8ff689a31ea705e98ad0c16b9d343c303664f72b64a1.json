@@ -1,0 +1,1065 @@
+{
+  "doc_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 3,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 73,
+    "table_count": 0
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n73",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "CFI 057/2025 Clyde & Co LLP v (1) Union Properties PJ.S.C. (2) UPP Capital Investment LLC",
+      "bbox": [
+        24.667,
+        649.92,
+        551.333,
+        697.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n74",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "FEBRUARY 02, 2026 COURT OF FIRST INSTANCE ORDERS",
+      "bbox": [
+        25.667,
+        632.92,
+        349.667,
+        646.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n75",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No. CFI 057/2025",
+      "bbox": [
+        438.333,
+        587.587,
+        571.667,
+        600.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n76",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "IN THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": [
+        123.667,
+        557.587,
+        473.0,
+        571.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n77",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN THE COURT OF FIRST INSTANCE",
+      "bbox": [
+        25.0,
+        527.587,
+        230.333,
+        540.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n78",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": [
+        25.0,
+        499.587,
+        87.0,
+        512.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n79",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "CLYDE & CO LLP",
+      "bbox": [
+        248.0,
+        469.587,
+        347.0,
+        483.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n81",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": [
+        287.0,
+        414.253,
+        309.667,
+        426.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n82",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UNION PROPERTIES PJ.S.C.",
+      "bbox": [
+        224.333,
+        384.253,
+        388.667,
+        397.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n83",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "(2) UPP CAPITAL INVESTMENT LLC",
+      "bbox": [
+        196.667,
+        359.92,
+        399.333,
+        376.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n80",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claimant",
+      "bbox": [
+        521.667,
+        442.253,
+        571.667,
+        454.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n84",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Defendants",
+      "bbox": [
+        507.667,
+        333.587,
+        571.667,
+        346.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n85",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ORDER WITH REASONS OF H.E. JUSTICE ROGER STEWART KC",
+      "bbox": [
+        115.667,
+        284.92,
+        480.333,
+        299.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n86",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UPON the Claimant's Claim Form and Particulars of Claim dated 10 June 2025 (the \"Claim\")",
+      "bbox": [
+        24.667,
+        230.92,
+        517.0,
+        245.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n87",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Order with Reasons of H.E. Justice Roger Stewart KC dated 9 December 2025 (the \"Order\")",
+      "bbox": [
+        24.667,
+        180.253,
+        572.0,
+        215.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n88",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Defendant's Appeal Notice dated 31 December 2025 (the \"Permission to Appeal Application\") seeking permission to appeal the Order",
+      "bbox": [
+        25.333,
+        128.253,
+        572.0,
+        165.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n89",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Claimant's submissions opposing the Permission to Appeal Application",
+      "bbox": [
+        26.0,
+        97.92,
+        489.333,
+        115.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n90",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND PURSUANT TO the Rules of the DIFC Courts (\"RDC\")",
+      "bbox": [
+        26.0,
+        70.253,
+        344.667,
+        86.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n91",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IT IS HEREBY ORDERED THAT:",
+      "bbox": [
+        25.0,
+        41.587,
+        202.333,
+        55.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n92",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1 The Permission to Appeal Application is refused.",
+      "bbox": [
+        26.0,
+        809.253,
+        296.667,
+        825.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n93",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The Defendant should pay the Claimant's costs of the application for the Permission to Appeal",
+      "bbox": [
+        40.0,
+        780.587,
+        572.0,
+        799.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n94",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Application to be assessed as follows:",
+      "bbox": [
+        24.667,
+        761.253,
+        231.0,
+        777.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n95",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(a) The Claimant is to file and serve a Statement of Costs and any short submissions in support of",
+      "bbox": [
+        46.667,
+        732.587,
+        572.667,
+        749.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n96",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "the cost claimed within 21 days of the date of this Order;",
+      "bbox": [
+        46.667,
+        712.587,
+        349.333,
+        729.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n97",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(b) The Defendant shall provide any submissions in response to the costs claimed within 14 days",
+      "bbox": [
+        46.667,
+        685.253,
+        572.333,
+        701.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n98",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "of the service of the Statement of Costs; and",
+      "bbox": [
+        47.667,
+        666.92,
+        287.0,
+        681.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n99",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(c The Claimant is to provide any submissions in reply to the Defendant's response within 7 days",
+      "bbox": [
+        48.333,
+        638.92,
+        60.333,
+        652.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n100",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "of service of that response.",
+      "bbox": [
+        47.667,
+        618.253,
+        192.333,
+        632.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n101",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(d) The quantum of costs to be",
+      "bbox": [
+        47.0,
+        590.253,
+        216.333,
+        605.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n104",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "on the papers.",
+      "bbox": [
+        47.333,
+        568.587,
+        125.333,
+        584.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n103",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "by the Defendant to the Claimant will thereafter be assessed",
+      "bbox": [
+        242.667,
+        589.253,
+        572.0,
+        605.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n102",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "paid",
+      "bbox": [
+        215.773,
+        591.35,
+        243.561,
+        603.823
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n105",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Issued by:",
+      "bbox": [
+        403.0,
+        541.587,
+        461.0,
+        556.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n106",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Delvin Sumo",
+      "bbox": [
+        404.333,
+        521.587,
+        475.667,
+        534.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n107",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Assistant Registrar",
+      "bbox": [
+        404.0,
+        498.587,
+        507.333,
+        514.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n108",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Date of Issue: 2 February 2026",
+      "bbox": [
+        404.0,
+        478.587,
+        572.0,
+        494.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n109",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "At: Ilam",
+      "bbox": [
+        404.333,
+        460.92,
+        453.0,
+        473.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n110",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "SCHEDULE OF REASONS",
+      "bbox": [
+        24.0,
+        430.92,
+        172.333,
+        445.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n113",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "application by the Defendant for permission to appeal against that part of my Order with",
+      "bbox": [
+        94.0,
+        399.253,
+        571.333,
+        418.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n112",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "This is an",
+      "bbox": [
+        39.0,
+        402.92,
+        94.333,
+        415.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n111",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1",
+      "bbox": [
+        26.0,
+        403.92,
+        34.0,
+        414.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n116",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "December 2025",
+      "bbox": [
+        132.333,
+        382.587,
+        224.333,
+        396.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n114",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Reasons dated",
+      "bbox": [
+        26.333,
+        382.92,
+        75.0,
+        394.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n117",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "which granted declarations as to the meaning of the PSA",
+      "bbox": [
+        229.0,
+        382.92,
+        261.667,
+        394.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n115",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "9",
+      "bbox": [
+        117.333,
+        383.92,
+        126.0,
+        394.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n118",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "substantially as sought by the Claimant. No permission is sought against that part of the Order which",
+      "bbox": [
+        24.333,
+        359.253,
+        571.333,
+        377.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n119",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "refused immediate judgment for a money sum.",
+      "bbox": [
+        24.667,
+        339.92,
+        272.667,
+        355.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n121",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The test for the grant of permission to appeal is that the Court must consider that the appeal would",
+      "bbox": [
+        38.667,
+        311.253,
+        571.333,
+        328.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n120",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "2",
+      "bbox": [
+        25.333,
+        315.253,
+        35.333,
+        326.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n123",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "compelling reason why the appeal should be",
+      "bbox": [
+        325.0,
+        290.587,
+        572.0,
+        308.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n122",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "have a real prospect of success or there is some other",
+      "bbox": [
+        25.333,
+        291.253,
+        326.0,
+        307.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n124",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "heard in accordance with Rule 44.19 of the Rules of the DIFC Courts (\"RDC\")",
+      "bbox": [
+        25.333,
+        272.587,
+        465.0,
+        288.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n125",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "A real prospect of",
+      "bbox": [
+        469.333,
+        271.253,
+        572.667,
+        287.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n126",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "success means that there is a realistic rather than fanciful prospect of success and requires more than",
+      "bbox": [
+        24.667,
+        250.253,
+        571.333,
+        268.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n127",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "mere arguability.",
+      "bbox": [
+        25.333,
+        231.253,
+        115.333,
+        247.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n128",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "3. Judgment on the issues of construction in favour of the Claimant",
+      "bbox": [
+        24.667,
+        203.253,
+        264.0,
+        219.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n129",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "24.1(b) which required that",
+      "bbox": [
+        24.667,
+        182.253,
+        177.333,
+        200.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n131",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "no real prospect of defending the",
+      "bbox": [
+        384.0,
+        181.92,
+        572.0,
+        200.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n130",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "considered that the Defendant had was given pursuant to RDC",
+      "bbox": [
+        187.0,
+        184.92,
+        381.667,
+        198.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n133",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The applicable test is, accordingly; materially the same",
+      "bbox": [
+        153.333,
+        161.92,
+        459.667,
+        180.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n132",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "issues of construction.",
+      "bbox": [
+        24.333,
+        164.92,
+        148.333,
+        177.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n134",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "permission to appeal.",
+      "bbox": [
+        24.0,
+        141.92,
+        141.667,
+        159.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n135",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The conclusions which as that for granting reached in relation to matters of construction were; in my view; clear once",
+      "bbox": [
+        39.0,
+        117.253,
+        163.0,
+        130.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n138",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "have considered carefully the three grounds of",
+      "bbox": [
+        310.667,
+        94.587,
+        572.667,
+        111.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n136",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "the rival construction arguments",
+      "bbox": [
+        24.667,
+        94.253,
+        203.333,
+        110.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n137",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "were considered.",
+      "bbox": [
+        205.667,
+        96.92,
+        300.333,
+        110.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n140",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "do not consider that any of them affords the Defendant a realistic prospect of succeeding in",
+      "bbox": [
+        75.333,
+        73.92,
+        571.333,
+        91.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n139",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "appeal.",
+      "bbox": [
+        24.333,
+        73.587,
+        67.667,
+        89.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n141",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "the Court of Appeal:",
+      "bbox": [
+        24.0,
+        53.253,
+        134.667,
+        69.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n-auto-1",
+      "kind": "list",
+      "page_number": 3,
+      "text": "(a) Ground 1 alleges that the construction reached lacked commercial common sense with the result that a different construction should have been reached. do not agree. The bargain made was unique and each party's case involved some possibly surprising commercial consequences. What was necessary was a clear analysis of the language of the bargain which considered was plainly in favour of the Claimant.\n(b) Ground 2 alleges that there was a misconstruction of the termination provisions on the basis of what is said to be \"boiler-plate\" provisions. The relevant language was; however; completely clear. There was no necessity to imply a term.\n(c) Ground 3 seeks to rely on a \"contra proferentum rule There is no room for this rule where the terms of the agreement are clear.",
+      "bbox": [
+        46.667,
+        611.587,
+        572.0,
+        824.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n-auto-2",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "(a) Ground 1 alleges that the construction reached lacked commercial common sense with the result that a different construction should have been reached. do not agree. The bargain made was unique and each party's case involved some possibly surprising commercial consequences. What was necessary was a clear analysis of the language of the bargain which considered was plainly in favour of the Claimant.",
+      "bbox": [
+        46.667,
+        728.587,
+        572.0,
+        824.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n-auto-3",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "(b) Ground 2 alleges that there was a misconstruction of the termination provisions on the basis of what is said to be \"boiler-plate\" provisions. The relevant language was; however; completely clear. There was no necessity to imply a term.",
+      "bbox": [
+        46.667,
+        659.92,
+        572.0,
+        717.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "1b446e196b4d1752241c8ff689a31ea705e98ad0c16b9d343c303664f72b64a1-n-auto-4",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "(c) Ground 3 seeks to rely on a \"contra proferentum rule There is no room for this rule where the terms of the agreement are clear.",
+      "bbox": [
+        46.667,
+        611.587,
+        571.667,
+        649.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}

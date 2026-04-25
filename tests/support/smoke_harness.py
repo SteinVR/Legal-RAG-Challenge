@@ -162,7 +162,6 @@ def build_smoke_config(root_dir: Path) -> AppConfig:
                 "enable_ocr": False,
                 "ocr_unavailable_policy": "degraded",
                 "opendataloader_hybrid_backend": "off",
-                "opendataloader_hybrid_fallback": True,
                 "enable_semantic_table_blocks": False,
             },
             "logging": {"jsonl": False, "console": False},

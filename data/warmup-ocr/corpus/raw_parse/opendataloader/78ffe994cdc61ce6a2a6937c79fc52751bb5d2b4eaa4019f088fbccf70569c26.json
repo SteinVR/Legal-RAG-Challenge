@@ -1,0 +1,825 @@
+{
+  "doc_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 5,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "4": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "5": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 55,
+    "table_count": 0
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n53",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "CA 004/2025 (1) Mr Oran (2) Oaken v Oved",
+      "bbox": [
+        25.0,
+        674.92,
+        379.667,
+        696.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n54",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DECEMBER 2025 COURT OF APPEAL - ORDERS 08,",
+      "bbox": [
+        25.667,
+        656.299,
+        303.667,
+        671.207
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n55",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Case No: CA 004/2025",
+      "bbox": [
+        443.0,
+        610.587,
+        571.667,
+        624.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n56",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "THE DUBAI INTERNATIONAL FINANCIAL CENTRE COURTS",
+      "bbox": [
+        131.0,
+        581.587,
+        465.0,
+        594.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n57",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "IN THE COURT OF APPEAL",
+      "bbox": [
+        25.0,
+        551.587,
+        181.667,
+        564.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n58",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": [
+        25.0,
+        523.587,
+        87.0,
+        537.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n59",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "MR ORAN (2) OAKEN",
+      "bbox": [
+        267.0,
+        470.253,
+        336.333,
+        506.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n61",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": [
+        286.333,
+        415.587,
+        310.0,
+        428.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n62",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "OVED",
+      "bbox": [
+        280.333,
+        385.587,
+        316.333,
+        399.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n60",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Appellants",
+      "bbox": [
+        512.0,
+        441.253,
+        572.0,
+        457.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n63",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Respondent",
+      "bbox": [
+        504.333,
+        356.253,
+        572.333,
+        370.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n64",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ORDER WITH REASONS OF H.E. CHIEF JUSTICE WAYNE MARTIN",
+      "bbox": [
+        111.667,
+        309.587,
+        483.333,
+        322.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n65",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UPON the Order of the Court of Appeal dated 20 October 2025 which ordered the Respondent to pay the Appellants' costs of the proceedings; including the Discharge Application; the Jurisdictional Objection; Renewed Permission Application; the Permission Applications; and the appeal",
+      "bbox": [
+        24.333,
+        212.587,
+        571.333,
+        269.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n66",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Reasons for the Order of the Court of Appeal dated 28 October 2025",
+      "bbox": [
+        25.333,
+        182.587,
+        478.667,
+        199.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n67",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON review of the parties' submissions on costs dated 3 and 10 November 2025",
+      "bbox": [
+        26.0,
+        152.92,
+        494.0,
+        169.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n68",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "IT IS HEREBY ORDERED THAT:",
+      "bbox": [
+        25.0,
+        125.587,
+        202.333,
+        139.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n69",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "The Appellants costs of the proceedings to be paid by the Respondent pursuant to the orders of the Court of Appeal issued on 20 October 2025 are quantified and assessed in the amount of AED 720,000",
+      "bbox": [
+        25.333,
+        56.253,
+        572.0,
+        112.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n70",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "If these costs are not to the Appellants within fourteen (14) days of the date of this order; interest will accrue on the amount outstanding from the date of this order until payment in full at the rate of 9% per annum. paid",
+      "bbox": [
+        24.667,
+        768.587,
+        572.0,
+        825.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n71",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Issued by:",
+      "bbox": [
+        396.0,
+        741.587,
+        454.333,
+        756.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n72",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Hayley Norton Assistant Registrar",
+      "bbox": [
+        395.667,
+        698.587,
+        500.667,
+        734.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n73",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Date of issue: 8 December 2025",
+      "bbox": [
+        397.667,
+        680.253,
+        571.667,
+        693.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n74",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "At: 1Oam",
+      "bbox": [
+        397.667,
+        660.253,
+        447.0,
+        672.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n75",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "SCHEDULE OF REASONS",
+      "bbox": [
+        223.333,
+        630.253,
+        372.333,
+        644.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n76",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "Summary",
+      "bbox": [
+        24.667,
+        597.587,
+        81.0,
+        613.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n77",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1 After hearing argument on the appeal, the Court pronounced orders allowing the appeal, discharging the anti-suit injunction and upholding the Appellants' objection to the jurisdiction of the Court for reasons which were later published. The Court also ordered the Respondent to pay the Appellants' costs of the proceedings; including the various steps that were taken during the proceedings. The Court further directed a timetable for the exchange of submissions relating to the quantum of the costs claimed by the Appellants in the Statements of Costs which had been filed and further directed that the quantum of those costs would be determined by the Chief Justice on behalf of the Court of Appeal by process of immediate assessment on the papers.",
+      "bbox": [
+        24.0,
+        427.92,
+        572.667,
+        587.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n78",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Having undertaken that assessment, for the reasons which follow; are quantified and assessed in the amount of AED 720,000.",
+      "bbox": [
+        24.667,
+        381.253,
+        571.333,
+        418.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n79",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "The Statements of Costs",
+      "bbox": [
+        25.667,
+        352.92,
+        165.0,
+        365.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n80",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The first Statement of Costs filed by the Appellants covered all work done up to and including the hearing of the return of the anti-suit injunction on 5 February 2025. That Statement was in the amount of AED 291,278.78 of which AED solicitors and counsel.",
+      "bbox": [
+        24.0,
+        264.253,
+        572.0,
+        340.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n81",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The second Statement of Costs filed by the Appellants covered all work done between the hearing on 5 February 2025 up to and including the hearing of the appeal on 16 October 2025. The amount of that Statement was AED 468,453.15, of which AED 331,106.42 comprised disbursements to English solicitors and counsel.",
+      "bbox": [
+        24.667,
+        175.587,
+        572.667,
+        250.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n82",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The combined total of the two Statements is AED 759,731.93.",
+      "bbox": [
+        25.667,
+        146.92,
+        366.333,
+        161.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n83",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "The Respondent's Statements of Costs",
+      "bbox": [
+        25.667,
+        116.253,
+        244.333,
+        131.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n84",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "6 . During the course of the proceedings the Respondent has filed six separate Statements of Costs which together total AED 1,316,016.06. While it is noted that the Respondent carried the burden of initiating the proceedings; it is also to be noted that the Appellants carried the burden of prosecuting",
+      "bbox": [
+        24.0,
+        47.253,
+        572.0,
+        105.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n85",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "the appeal and the objection to jurisdiction. Accordingly; the costs claimed by the Respondent provide quantum of those costs is within the reasonable range.",
+      "bbox": [
+        24.0,
+        768.587,
+        572.333,
+        826.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n86",
+      "kind": "heading",
+      "page_number": 3,
+      "text": "The Respondents objections",
+      "bbox": [
+        25.667,
+        739.587,
+        189.667,
+        754.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-1",
+      "kind": "list",
+      "page_number": 3,
+      "text": "7 The Respondent has raised a number of objections to the costs claimed by the Appellants. will be considered in turn. They\n8. costs have not been adequately particularised. The complaint has two components. First it is said that the Statements of Costs do not differentiate between the time spent on different aspects of the proceedings; and second it is said that the Statements do not particularise the amounts to English solicitors and counsel in a way which enables the Court to assess the reasonableness of those amounts. paid",
+      "bbox": [
+        24.0,
+        583.253,
+        572.0,
+        729.217
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-2",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "7 The Respondent has raised a number of objections to the costs claimed by the Appellants. will be considered in turn. They",
+      "bbox": [
+        25.667,
+        692.92,
+        571.667,
+        729.217
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-3",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "8. costs have not been adequately particularised. The complaint has two components. First it is said that the Statements of Costs do not differentiate between the time spent on different aspects of the proceedings; and second it is said that the Statements do not particularise the amounts to English solicitors and counsel in a way which enables the Court to assess the reasonableness of those amounts. paid",
+      "bbox": [
+        24.0,
+        583.253,
+        572.0,
+        680.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n89",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "In relation to the first aspect of the complaint; the Court has ordered the Respondent to pay the Appellants' costs of the proceedings; without differentiation between particular components of the proceedings. Accordingly; there was no need for the Appellants to particularise the costs by reference to particular aspects of the proceedings and the Court is quite able to assess whether the amount claimed for the proceedings as a whole is reasonable.",
+      "bbox": [
+        24.667,
+        473.587,
+        572.0,
+        570.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-4",
+      "kind": "list",
+      "page_number": 3,
+      "text": "10. In relation to the complaint relating to the disbursements to English solicitors and counsel; it is the usual practice in this Court for disbursements to counsel to be claimed as a lump sum; without particularisation: However; where, as in this case, the amount of the disbursement comprises a significant component of the costs claimed; it will usually be appropriate to provide particulars of the rates and hours claimed; or a copy of counsel's fee note. In this case the Appellants have provided the hourly rates charged by their English solicitors in their written submissions; and the Court is able to assess the reasonableness of the amounts disbursed to the English lawyers by reference to the corresponding amounts disbursed by the Respondent to its English lawyers; and by reference to the costs incurred by the Respondent generally. By reference to those materials the Court concludes that the amounts disbursed by the Appellants to their English lawyers are reasonable.\n11. The Respondent contends that the Appellants' objection to jurisdiction was unnecessary and that the Appellants' costs should be reduced accordingly. The Respondent contends that it would have been sufficient for the Appellants to raise jurisdictional issues in their appeal against the anti-suit injunction.\n12. This submission is rejected. The objection to jurisdiction was necessary and appropriate. Without such an objection; the success of the appeal would have resulted in the discharge of the injunction; but would have left the proceedings on foot. The objection to jurisdiction was necessary to bring the proceedings to a conclusion.",
+      "bbox": [
+        23.0,
+        58.587,
+        572.667,
+        463.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-5",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "10. In relation to the complaint relating to the disbursements to English solicitors and counsel; it is the usual practice in this Court for disbursements to counsel to be claimed as a lump sum; without particularisation: However; where, as in this case, the amount of the disbursement comprises a significant component of the costs claimed; it will usually be appropriate to provide particulars of the rates and hours claimed; or a copy of counsel's fee note. In this case the Appellants have provided the hourly rates charged by their English solicitors in their written submissions; and the Court is able to assess the reasonableness of the amounts disbursed to the English lawyers by reference to the corresponding amounts disbursed by the Respondent to its English lawyers; and by reference to the costs incurred by the Respondent generally. By reference to those materials the Court concludes that the amounts disbursed by the Appellants to their English lawyers are reasonable.",
+      "bbox": [
+        23.0,
+        262.587,
+        572.667,
+        463.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-6",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "11. The Respondent contends that the Appellants' objection to jurisdiction was unnecessary and that the Appellants' costs should be reduced accordingly. The Respondent contends that it would have been sufficient for the Appellants to raise jurisdictional issues in their appeal against the anti-suit injunction.",
+      "bbox": [
+        24.0,
+        175.587,
+        572.333,
+        253.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-7",
+      "kind": "list_item",
+      "page_number": 3,
+      "text": "12. This submission is rejected. The objection to jurisdiction was necessary and appropriate. Without such an objection; the success of the appeal would have resulted in the discharge of the injunction; but would have left the proceedings on foot. The objection to jurisdiction was necessary to bring the proceedings to a conclusion.",
+      "bbox": [
+        24.667,
+        58.587,
+        572.0,
+        136.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-8",
+      "kind": "list",
+      "page_number": 4,
+      "text": "13. The Respondent further contends that the Appellants costs should be reduced because include work done in applying for an extension of time to appeal from the dismissal of the objection to jurisdiction an application which would have been unnecessary if the appeal had been brought within time That objection is sound; and is accepted. they\n14 The Respondent further contends that the costs claimed by the Appellants should be reduced proportionately because the decision of the Court of Appeal constituted a change in the law. This submission is outside the ambit of quantification of the costs ordered to be by the Court of Appeal; and challenges the substance of that order. In any event; it is wrong. paid\n15. The submissions advanced in support of this contention repeat the arguments that were rejected by the Court of Appeal. For the reasons given by the Court of Appeal, neither Brookfield Multiplex v DIFC Investments; nor Ledger V Leeor? support the proposition that the Court has jurisdiction to grant an anti-suit injunction in support of arbitration not seated in the DIFC without some other available gateway to jurisdiction: Nor does the commentary relied upon by the Respondent support that proposition. To the contrary; the commentary cited 3 refers to the decision in Lateef v Leila 4 in terms which correctly draw attention to the source of the Court's jurisdiction to grant freezing orders 5 resting upon the enforcement principle enunciated in Broad Idea V Convoy Collateral Ltd and the Court's jurisdiction to enforce foreign judgments and awards. That analysis is entirely contrary to the proposition underpinning these proceedings to the effect that there is a freestanding jurisdiction to grant injunctions of any kind against any person.\n16. The which the Respondent appears unwilling is that the legislative provisions empowering the Court to grant interim and permanent injunctive relief are sources of power to be utilized in the exercise of the Court's jurisdiction; rather than sources of jurisdiction in themselves. So, in the case orders the power to grant injunctive relief is exercised pursuant to the Court's jurisdiction to protect the possible future exercise of the Court's jurisdiction to enforce judgments; including foreign judgments and arbitral awards. In the case of anti-suit injunctions to protect and enforce arbitration agreements; unless there is some other gateway to jurisdiction (as there was in Brookfield) the relevant jurisdiction conferred upon the Court by the DIFC Arbitration Law is limited to arbitration agreements providing for arbitrations seated in the DIFC. So; in this case; when the Judge concluded that he was not satisfied that the arbitration agreement provided for an arbitration seated in the DIFC; it followed that the Court lacked jurisdiction to grant the injunctive relief sought.",
+      "bbox": [
+        23.0,
+        195.253,
+        572.333,
+        826.222
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-9",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "13. The Respondent further contends that the Appellants costs should be reduced because include work done in applying for an extension of time to appeal from the dismissal of the objection to jurisdiction an application which would have been unnecessary if the appeal had been brought within time That objection is sound; and is accepted. they",
+      "bbox": [
+        23.0,
+        747.587,
+        572.0,
+        826.222
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-10",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "14 The Respondent further contends that the costs claimed by the Appellants should be reduced proportionately because the decision of the Court of Appeal constituted a change in the law. This submission is outside the ambit of quantification of the costs ordered to be by the Court of Appeal; and challenges the substance of that order. In any event; it is wrong. paid",
+      "bbox": [
+        24.333,
+        659.253,
+        572.333,
+        736.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-11",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "15. The submissions advanced in support of this contention repeat the arguments that were rejected by the Court of Appeal. For the reasons given by the Court of Appeal, neither Brookfield Multiplex v DIFC Investments; nor Ledger V Leeor? support the proposition that the Court has jurisdiction to grant an anti-suit injunction in support of arbitration not seated in the DIFC without some other available gateway to jurisdiction: Nor does the commentary relied upon by the Respondent support that proposition. To the contrary; the commentary cited 3 refers to the decision in Lateef v Leila 4 in terms which correctly draw attention to the source of the Court's jurisdiction to grant freezing orders 5 resting upon the enforcement principle enunciated in Broad Idea V Convoy Collateral Ltd and the Court's jurisdiction to enforce foreign judgments and awards. That analysis is entirely contrary to the proposition underpinning these proceedings to the effect that there is a freestanding jurisdiction to grant injunctions of any kind against any person.",
+      "bbox": [
+        23.667,
+        428.92,
+        572.0,
+        648.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-12",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "16. The which the Respondent appears unwilling is that the legislative provisions empowering the Court to grant interim and permanent injunctive relief are sources of power to be utilized in the exercise of the Court's jurisdiction; rather than sources of jurisdiction in themselves. So, in the case orders the power to grant injunctive relief is exercised pursuant to the Court's jurisdiction to protect the possible future exercise of the Court's jurisdiction to enforce judgments; including foreign judgments and arbitral awards. In the case of anti-suit injunctions to protect and enforce arbitration agreements; unless there is some other gateway to jurisdiction (as there was in Brookfield) the relevant jurisdiction conferred upon the Court by the DIFC Arbitration Law is limited to arbitration agreements providing for arbitrations seated in the DIFC. So; in this case; when the Judge concluded that he was not satisfied that the arbitration agreement provided for an arbitration seated in the DIFC; it followed that the Court lacked jurisdiction to grant the injunctive relief sought.",
+      "bbox": [
+        24.0,
+        195.253,
+        572.0,
+        419.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n97",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "For the reasons given by the Court of Appeal, neither the proceedings nor the decision at first instance were sustainable by reference to previous authority.",
+      "bbox": [
+        24.667,
+        147.253,
+        572.0,
+        183.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n98",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "18. The Respondent also contends that some of the costs incurred by the Appellants arose from errors made by the Court; including the inconsistency between the orders made by the Court and the reasons given for those orders, and the obscure reference to the provision of security for the undertaking of damages a \"non issue\"_ being",
+      "bbox": [
+        24.333,
+        57.287,
+        572.0,
+        135.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-13",
+      "kind": "list",
+      "page_number": 5,
+      "text": "19. It must be accepted that these are not matters for which the Respondent is directly responsible. However; it must also be accepted that are not matters for which the Appellants were responsible. The Appellants have incurred costs in responding to proceedings which the Respondent brought in a Court which had no jurisdiction to entertain them. As between the Respondent and the Appellants; the Respondent should bear the reasonable costs incurred by the Appellants in responding to those proceedings. they\n20 The Respondent further contends that the Appellants' costs should be reduced because permission was refused in respect of some of the grounds of appeal which were proposed. That proposition should be accepted.\n21_ The Respondent further contends that the fact that the Appellants obtained an anti-arbitration relevant to the assessment of the costs to be awarded to the Appellants in these proceedings. However; steps taken in the English proceedings subsequent to the determination of these proceedings are obviously irrelevant to costs issues in these proceedings. Summary\n22. The costs claimed by the Appellants should be reduced taking into account that the costs claimed include costs incurred applying for an extension of time to appeal from the decision on the objection to jurisdiction and costs incurred applying for permission to appeal on grounds which had no real prospect of success. However, in assessing the amount of the deduction; it should also be borne in mind that the Appellants have incurred additional costs responding to objections to its claims for costs which have largely failed.\n23. Taking these various matters into account; the Appellants' costs are assessed in the amount of AED 720,000.",
+      "bbox": [
+        23.0,
+        325.92,
+        572.667,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-14",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "19. It must be accepted that these are not matters for which the Respondent is directly responsible. However; it must also be accepted that are not matters for which the Appellants were responsible. The Appellants have incurred costs in responding to proceedings which the Respondent brought in a Court which had no jurisdiction to entertain them. As between the Respondent and the Appellants; the Respondent should bear the reasonable costs incurred by the Appellants in responding to those proceedings. they",
+      "bbox": [
+        24.333,
+        707.92,
+        572.0,
+        827.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-15",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "20 The Respondent further contends that the Appellants' costs should be reduced because permission was refused in respect of some of the grounds of appeal which were proposed. That proposition should be accepted.",
+      "bbox": [
+        24.0,
+        638.92,
+        572.667,
+        696.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-16",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "21_ The Respondent further contends that the fact that the Appellants obtained an anti-arbitration relevant to the assessment of the costs to be awarded to the Appellants in these proceedings. However; steps taken in the English proceedings subsequent to the determination of these proceedings are obviously irrelevant to costs issues in these proceedings. Summary",
+      "bbox": [
+        24.0,
+        501.253,
+        571.667,
+        627.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-17",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "22. The costs claimed by the Appellants should be reduced taking into account that the costs claimed include costs incurred applying for an extension of time to appeal from the decision on the objection to jurisdiction and costs incurred applying for permission to appeal on grounds which had no real prospect of success. However, in assessing the amount of the deduction; it should also be borne in mind that the Appellants have incurred additional costs responding to objections to its claims for costs which have largely failed.",
+      "bbox": [
+        23.0,
+        371.92,
+        572.0,
+        489.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "78ffe994cdc61ce6a2a6937c79fc52751bb5d2b4eaa4019f088fbccf70569c26-n-auto-18",
+      "kind": "list_item",
+      "page_number": 5,
+      "text": "23. Taking these various matters into account; the Appellants' costs are assessed in the amount of AED 720,000.",
+      "bbox": [
+        25.0,
+        325.92,
+        572.667,
+        362.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}

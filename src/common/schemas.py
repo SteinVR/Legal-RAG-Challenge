@@ -31,6 +31,7 @@ class Phase(StrEnum):
     """Competition phases supported by the local workspace."""
 
     WARMUP = "warmup"
+    WARMUP_OCR = "warmup-ocr"
     FINAL = "final"
 
 
@@ -64,7 +65,6 @@ class ParserRoute(StrEnum):
     TAGGED = "tagged"
     HYBRID = "hybrid"
     LOCAL_ONLY = "local_only"
-    BASELINE_FALLBACK = "baseline_fallback"
 
 
 class ContentBlockType(StrEnum):

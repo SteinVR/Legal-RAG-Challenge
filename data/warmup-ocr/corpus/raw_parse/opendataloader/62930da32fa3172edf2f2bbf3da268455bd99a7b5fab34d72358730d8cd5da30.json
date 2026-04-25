@@ -1,0 +1,917 @@
+{
+  "doc_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30",
+  "parser_name": "opendataloader",
+  "parser_route": "hybrid",
+  "parser_provenance": "opendataloader:hybrid",
+  "page_count": 4,
+  "page_geometry": {
+    "1": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "2": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "3": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ],
+    "4": [
+      0.0,
+      0.0,
+      595.9199829101562,
+      841.9199829101562
+    ]
+  },
+  "diagnostics": {
+    "adapter_mode": "executed",
+    "table_method": "cluster",
+    "reading_order": "xycut",
+    "hybrid_backend": "docling-fast",
+    "hybrid_mode": "full",
+    "node_count": 62,
+    "table_count": 0
+  },
+  "route_decisions": [
+    "hybrid_selected",
+    "opendataloader_convert_executed"
+  ],
+  "nodes": [
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n60",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "TCD 001/2024 Architeriors Interior Design (LLC) v Emirates National Investment Co (LL.C)",
+      "bbox": [
+        24.333,
+        650.92,
+        526.0,
+        697.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n61",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "DECEMBER 03, 2025 TECHNOLOGY AND CONSTRUCTION DIVISION ORDERS",
+      "bbox": [
+        25.667,
+        632.92,
+        450.333,
+        647.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n62",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claim No: TCD 001/2024",
+      "bbox": [
+        432.667,
+        587.587,
+        571.667,
+        600.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n63",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "IN THE COURTS OF DUBAI INTERNATIONAL FINANCIAL CENTRE IN THE COURT OF FIRST INSTANCE",
+      "bbox": [
+        25.0,
+        527.587,
+        482.333,
+        571.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n64",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "BETWEEN",
+      "bbox": [
+        25.0,
+        499.587,
+        87.0,
+        512.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n65",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ARCHITERIORS INTERIOR DESIGN (LLC)",
+      "bbox": [
+        178.667,
+        468.253,
+        417.667,
+        484.253
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n66",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Claimant",
+      "bbox": [
+        521.667,
+        442.253,
+        571.667,
+        454.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n67",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "and",
+      "bbox": [
+        287.0,
+        414.253,
+        309.667,
+        426.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n68",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "EMIRATES NATIONAL INVESTMENT CO (LLC)",
+      "bbox": [
+        166.333,
+        382.92,
+        430.333,
+        397.92
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n69",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "Defendant AND UPON the Defendant's submissions in response dated 19 November 2025",
+      "bbox": [
+        513.667,
+        356.253,
+        571.667,
+        369.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n70",
+      "kind": "heading",
+      "page_number": 1,
+      "text": "ORDER WITH REASONS OF H.E. JUSTICE ROGER STEWART",
+      "bbox": [
+        125.667,
+        307.587,
+        470.0,
+        321.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n71",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "UPON the Part 7 Claim Form dated 24 April 2024 (the \"Claim\")",
+      "bbox": [
+        24.667,
+        252.587,
+        359.333,
+        268.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n72",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Judgment of H.E. Justice Roger Stewart dated 31 July 2025 (the \"Judgment'\")",
+      "bbox": [
+        26.0,
+        221.253,
+        524.0,
+        239.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n73",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Order with Reasons of H.E. Justice Roger Stewart dated 22 August 2025 (the \"Order\")",
+      "bbox": [
+        26.0,
+        191.253,
+        571.333,
+        208.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n74",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Defendant's Appeal Notice dated 2 September 2025 seeking permission to appeal the Judgment",
+      "bbox": [
+        24.0,
+        141.92,
+        572.0,
+        179.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n75",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Order with Reasons of H.E. Justice Roger Stewart dated 16 October 2025 (the \"Order of 16 October 2025\")",
+      "bbox": [
+        25.0,
+        93.587,
+        572.0,
+        128.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n76",
+      "kind": "paragraph",
+      "page_number": 1,
+      "text": "AND UPON the Claimant's cost submissions and accompanying statement of costs dated 6 November 2025",
+      "bbox": [
+        25.667,
+        43.587,
+        570.667,
+        77.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n77",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND UPON the Claimant's submissions in reply dated 27 November 2025",
+      "bbox": [
+        26.0,
+        776.587,
+        420.667,
+        793.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n78",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "AND PURSUANT TO the Rules of the DIFC Courts (the \"RDC\")",
+      "bbox": [
+        25.333,
+        747.587,
+        364.333,
+        764.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n79",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "IT IS HEREBY ORDERED THAT the Defendant is to pay the Claimant the sum of AED 60,000 by 15 December 2025 which the Court assesses as being the costs of the Permission to Appeal Application and the Application as defined in the Order of 16 October 2025",
+      "bbox": [
+        24.667,
+        676.587,
+        572.0,
+        733.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n80",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Issued by: Delvin Sumo Assistant Registrar Date of issue: 3 December 2025 At: 3pm",
+      "bbox": [
+        396.333,
+        564.92,
+        571.667,
+        664.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n81",
+      "kind": "heading",
+      "page_number": 2,
+      "text": "SCHEDULE OF REASONS",
+      "bbox": [
+        223.333,
+        537.587,
+        371.667,
+        551.587
+      ],
+      "heading_level": 1,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n82",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "1 By the Order with Reasons dated 16 October 2025, the Defendant was ordered to pay the Claimant's costs of the Permission to Appeal Application and the Application. Further; the Claimant was ordered to file and serve a Statement of Costs and any short submissions in support of the costs claimed within 21 days of the date of the Order.",
+      "bbox": [
+        24.667,
+        446.587,
+        572.0,
+        523.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n83",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "Pursuant to the RDC:",
+      "bbox": [
+        25.0,
+        421.253,
+        155.667,
+        435.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n84",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(a) It is the duty of the parties and their legal representatives to assist the Judge in making an",
+      "bbox": [
+        46.667,
+        390.92,
+        571.333,
+        409.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n86",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "applies (RDC 38.33);",
+      "bbox": [
+        396.667,
+        369.253,
+        515.0,
+        389.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n85",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "immediate assessment of costs in any cause to which RDC 38.30",
+      "bbox": [
+        47.333,
+        371.253,
+        398.667,
+        387.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n87",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(b) Each party who intends to claim costs must prepare a written statement of the costs he intends",
+      "bbox": [
+        46.667,
+        343.253,
+        572.0,
+        359.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n88",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "to claim showing separately in the form of a schedule:",
+      "bbox": [
+        46.667,
+        323.253,
+        336.667,
+        339.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n89",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "i.The number of hours to be claimed;",
+      "bbox": [
+        69.667,
+        297.253,
+        271.667,
+        310.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n90",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The hourly rate to be claimed;",
+      "bbox": [
+        69.667,
+        268.92,
+        243.667,
+        283.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n91",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "iii.The qualifications and seniority of fee earner;",
+      "bbox": [
+        69.333,
+        240.587,
+        327.333,
+        256.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n92",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "The amount and nature of any disbursement to be claimed;",
+      "bbox": [
+        69.333,
+        212.587,
+        402.0,
+        228.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n93",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "V The amount of the legal representative's costs to be claimed for attending or appearing at the hearing; and",
+      "bbox": [
+        69.333,
+        163.92,
+        572.0,
+        202.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n94",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "tax to be claimed on these amounts (RDC 38.34); and Any",
+      "bbox": [
+        69.667,
+        135.625,
+        398.333,
+        154.215
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n95",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(c) The statement of costs should follow as closely as possible Form P38/01 and must be signed",
+      "bbox": [
+        48.0,
+        108.587,
+        572.0,
+        125.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n96",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "by the party or his legal representative (RDC 38.35);",
+      "bbox": [
+        46.667,
+        88.253,
+        329.0,
+        105.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n97",
+      "kind": "paragraph",
+      "page_number": 2,
+      "text": "(d) The failure by a party; without reasonable excuse; to comply with RDC 38.33 to RDC 38.36 will be taken into account by the Court in deciding what order to make about the costs of the claim; hearing or application; and about the costs of any further hearing or detailed assessment hearing",
+      "bbox": [
+        46.0,
+        19.587,
+        572.0,
+        77.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n98",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "that may be necessary s a result of that failure (RDC 38.37). 3. The Claimants statement of costs: (a) Identifies a series of hourly rates for different categories of fee-earner ranging from AED 1000 to AED 3000 per hour; (b) Put forward a cost schedule totalling AED 153,380 made up as to: i.AED 60,000 for the September Invoice (Appeal); ii. AED 28,794 for the October invoice (Appeal); iii. AED 16,132 for the November invoice (Appeal); iv. AED 20,000 for External Counsel Fee (Appeal); V AED 774.50 for application fees; vi. AED 20,000 for Enforcement (Fixed Fee); vii. AED 5,000 for Dubai Court Enforcement Fee; viii. AED 2,680 for translation of orders; and (c) Contains a note saying that all amounts were exclusive of VAT and a further note stating that the Claimant's fees for enforcement were charged on a fixed fee basis. The Claimant's submissions in support of the application: (a) Asserted that the costs should be assessed on the indemnity basis; (b) Stated: 1. that the Claimant was represented pursuant to a legal fee agreement entered into in September 2025 specifically for the appeal proceedings: ii. That the legal fees were to be charged on an hourly earner providing the service with a monthly aggregate cap of AED 60,000; and iii. That external counsel fees of AED 20,000 were also incurred in relation to the skeleton argument:. 5. The Defendant submitted: (a) That the Claimant should not be awarded any costs as it had not submitted a statement of costs which complied with the RDC which hampered the Court from making an assessment; (b) That the Statement of Costs was not in form P38/01 and did not follow the form as closely as possible; (c) That the Statement failed to particularise the number of hours claimed by each fee earner and",
+      "bbox": [
+        25.0,
+        64.587,
+        572.667,
+        825.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n99",
+      "kind": "paragraph",
+      "page_number": 3,
+      "text": "failed to set out the qualifications and seniority of each fee earner;",
+      "bbox": [
+        46.0,
+        44.587,
+        400.333,
+        61.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-1",
+      "kind": "list",
+      "page_number": 4,
+      "text": "(d) That the form was not signed by the Claimant or its legal representatives;\n(e) That some of the costs claimed did not relate to the application and others were very difficult to understand in relation to the November invoice; and",
+      "bbox": [
+        46.667,
+        762.92,
+        572.333,
+        825.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-2",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(d) That the form was not signed by the Claimant or its legal representatives;",
+      "bbox": [
+        46.667,
+        808.92,
+        456.667,
+        825.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-3",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(e) That some of the costs claimed did not relate to the application and others were very difficult to understand in relation to the November invoice; and",
+      "bbox": [
+        46.667,
+        762.92,
+        572.333,
+        800.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n102",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "There was no basis for an assessment on an indemnity basis.",
+      "bbox": [
+        61.667,
+        733.92,
+        391.333,
+        750.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n103",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "In Reply; the Claimant asserted:",
+      "bbox": [
+        25.333,
+        712.92,
+        211.333,
+        729.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-4",
+      "kind": "list",
+      "page_number": 4,
+      "text": "(a) That the statement of costs was signed electronically;\n(b) That the Defendant's submissions ignored the commercial fee structure agreed;\n(c) That the Claimant did follow Form P38/01 as closely as possible;\n(d) That the Claimant was entitled to claim for enforcement costs and the November costs related to the of the present application; and filing\n(e) That there was no duplication of effort.",
+      "bbox": [
+        46.667,
+        554.587,
+        571.667,
+        701.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-5",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(a) That the statement of costs was signed electronically;",
+      "bbox": [
+        46.667,
+        685.253,
+        352.667,
+        701.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-6",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(b) That the Defendant's submissions ignored the commercial fee structure agreed;",
+      "bbox": [
+        46.667,
+        657.92,
+        491.333,
+        673.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-7",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(c) That the Claimant did follow Form P38/01 as closely as possible;",
+      "bbox": [
+        46.667,
+        629.92,
+        411.333,
+        646.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-8",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(d) That the Claimant was entitled to claim for enforcement costs and the November costs related to the of the present application; and filing",
+      "bbox": [
+        47.0,
+        580.954,
+        571.667,
+        617.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-9",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(e) That there was no duplication of effort.",
+      "bbox": [
+        46.667,
+        554.587,
+        272.0,
+        570.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n109",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "7 . consider that there is substantial force in relation to the Defendant's criticisms of the Claimant's statement of costs. In particular; there is no identification of what hours were spent by what fee-earner in what period on what tasks. do not consider the fact that there was a capped fee to be relevant to this failing. There would have been nothing to stop the Claimant identifying the total number of hours as justifying a fee of, say; AED 75,000 but that it was capped at AED 60,000.",
+      "bbox": [
+        24.333,
+        444.587,
+        572.0,
+        541.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n110",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "1 also consider that the Claimant is not entitled to recovery of the sums claimed as enforcement fees. simply do not fall within the scope of the order. They",
+      "bbox": [
+        24.333,
+        396.628,
+        572.0,
+        433.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n111",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "consider that the Claimant can be said to have signed the statement by submission electronically:",
+      "bbox": [
+        25.333,
+        369.92,
+        562.0,
+        386.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n112",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "The Claimants failures means that the assessment of the appropriate fees is more difficult than it should be. In the circumstances , propose to allow the amount which can be satisfied is due to the Claimant despite the unsatisfactory nature of the schedule of costs. It is very likely that the amount would have been greater had a proper schedule been provided.",
+      "bbox": [
+        24.667,
+        280.92,
+        572.0,
+        359.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n113",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "11 That amount is AED 60,000 made up by rounding down the following totals;",
+      "bbox": [
+        25.667,
+        253.253,
+        447.333,
+        270.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-10",
+      "kind": "list",
+      "page_number": 4,
+      "text": "(a) AED 20,000 for Counsel's fees for the skeleton argument which I consider reasonable:\n(b) AED 774.50 for application fees;\n(c) AED 35,517.60 for the September and October invoices being 40% of the amount claimed and reflecting the lack of detail;",
+      "bbox": [
+        46.0,
+        149.587,
+        572.0,
+        241.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-11",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(a) AED 20,000 for Counsel's fees for the skeleton argument which I consider reasonable:",
+      "bbox": [
+        46.667,
+        225.92,
+        527.333,
+        241.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-12",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(b) AED 774.50 for application fees;",
+      "bbox": [
+        46.667,
+        197.621,
+        238.969,
+        214.587
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n-auto-13",
+      "kind": "list_item",
+      "page_number": 4,
+      "text": "(c) AED 35,517.60 for the September and October invoices being 40% of the amount claimed and reflecting the lack of detail;",
+      "bbox": [
+        46.0,
+        149.587,
+        572.0,
+        186.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n117",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "of detail and the unsatisfactory nature of the costs submissions.",
+      "bbox": [
+        47.333,
+        101.92,
+        386.0,
+        118.92
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    },
+    {
+      "node_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30-n118",
+      "kind": "paragraph",
+      "page_number": 4,
+      "text": "This is also not a case where consider it appropriate to award costs on an indemnity basis. Further as the basis of assessment only has limited effects; such an award would not have changed my assessment. The basis of costs sought does not justify failing to provide basic information",
+      "bbox": [
+        25.333,
+        33.587,
+        572.0,
+        91.253
+      ],
+      "heading_level": null,
+      "linked_content_id": null
+    }
+  ],
+  "tables": []
+}
