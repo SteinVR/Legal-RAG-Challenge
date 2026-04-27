@@ -1,0 +1,23 @@
+{
+  "trace_id": "aed25dfdb8744024ab9062c63f22d19b",
+  "question_id": "fdeb03aecacff6f7d78a86ff22a13e95abe014855c18282b142d6ad1f46daa0a",
+  "answer_type": "boolean",
+  "model_name": "decomposition_w4e",
+  "candidate_count": 0,
+  "reranked_count": 0,
+  "evidence_chunk_count": 0,
+  "retrieved_chunk_pages": [
+    {
+      "doc_id": "3f8a5ea0e051ba3af7a02da340c911fe0970ebece6c852c3e61a10c00cac6d6e",
+      "page_numbers": [
+        1
+      ]
+    },
+    {
+      "doc_id": "62930da32fa3172edf2f2bbf3da268455bd99a7b5fab34d72358730d8cd5da30",
+      "page_numbers": [
+        1
+      ]
+    }
+  ]
+}

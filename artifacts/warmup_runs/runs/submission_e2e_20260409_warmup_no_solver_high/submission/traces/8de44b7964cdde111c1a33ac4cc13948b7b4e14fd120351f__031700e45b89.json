@@ -1,0 +1,10 @@
+{
+  "trace_id": "3c2beebf86fb45f893faf6f871caacf5",
+  "question_id": "8de44b7964cdde111c1a33ac4cc13948b7b4e14fd120351fcb5a5bfb2b2dfff0",
+  "answer_type": "name",
+  "model_name": "gpt-5.4-mini",
+  "candidate_count": 24,
+  "reranked_count": 8,
+  "evidence_chunk_count": 4,
+  "retrieved_chunk_pages": []
+}
