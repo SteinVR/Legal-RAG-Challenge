@@ -82,55 +82,34 @@ artifacts/warmup_runs/runs/submission_e2e_20260424_solver_narrowing_no_guard/
 
 7. **Auditable submission packaging.** `build-submission` checkpoints answers and traces, packs retrieval and latency telemetry for every answer, validates `submission.json`, writes a code archive, and stores enough run data to inspect failures question by question.
 
-## Core Pipeline Modules
+## Pipeline Internals
 
 ### Ingestion
 
-Turns mixed legal PDFs into a page-stable corpus for retrieval and citation.
+Ingestion turns noisy legal PDFs into citation-safe page records. The core decision is page-level source selection: trust native extraction, route to OCR, or keep a degraded record with explicit quality signals.
 
-- Page triage: text volume, image coverage, encoding noise, table presence, and legal-marker density.
-- Parser routing: native extraction for clean pages; PaddleOCR for scanned or suspicious pages; OpenDataLoader structural routes for tagged, hybrid, or local-only parsing.
-- OCR models: `PP-OCRv5_server_det` and `en_PP-OCRv5_mobile_rec`.
-- Structure handling: normalized blocks, serialized tables, parser sidecars, OCR/native selection notes.
-- Outputs: canonical `corpus.jsonl` and `page_map.json`, so every chunk, answer trace, and citation keeps document/page provenance.
+- **Page triage:** computes text length, image area, encoding noise, detected tables, and legal-marker density. Pages are classified as clean native text, suspicious extraction, or likely scan.
+- **Source selection:** clean pages keep native PyMuPDF extraction; scanned pages require PaddleOCR; suspicious pages use OCR only when it improves the extracted text. Each page records `source_mode`, `parse_status`, quality flags, and OCR/native resolution notes.
+- **OCR path:** PaddleOCR uses `PP-OCRv5_server_det` and `en_PP-OCRv5_mobile_rec`; OCR output is stored as text blocks, table candidates, and page-level fallback text.
+- **Structural path:** document-level routing chooses tagged, hybrid, or local-only parsing through OpenDataLoader sidecars and the `docling-fast` hybrid backend. Parser nodes are normalized into headings, clauses, list items, table context, `heading_path`, and block roles.
+- **Table path:** tables are extracted from native or OCR results, headers are inferred, multi-page continuations are merged when signatures and continuation cues match, and rows are serialized into retrievable text blocks with page anchors.
+- **Artifacts:** `corpus.jsonl`, `page_map.json`, parse manifest, parser sidecars, and debug markdown. Every downstream chunk inherits document id, page number, parser provenance, quality signals, structural blocks, and table ids.
 
 ### Indexing
 
-Builds multiple retrieval views over the same corpus.
-
-- Chunk families: page, section, clause, microchunk, table.
-- Dense vectors: `Qwen/Qwen3-Embedding-0.6B`.
-- Sparse vectors: local BM25 encoder.
-- Storage: Qdrant collections plus sidecars for page-parent and sparse-encoder state.
+Indexing keeps several representations of the same page-stable corpus instead of betting on one chunk size. Page chunks preserve citation boundaries; section and clause chunks keep legal context; microchunks improve exact matching; table chunks expose row-level facts. Each chunk is embedded with `Qwen/Qwen3-Embedding-0.6B`, encoded with BM25, stored in Qdrant, and linked back to its parent page.
 
 ### Retriever
 
-Finds evidence with recall-first search and precision-oriented reranking.
-
-- Hybrid search: dense + sparse candidate retrieval with fusion and metadata boosts.
-- Reranker: `Qwen/Qwen3-Reranker-0.6B`.
-- Question budgets: wider for cross-case questions, tighter for simple factual/statute questions.
-- Evidence compression: limits context before answering to reduce noisy page citations.
-- Page lifting: maps chunk hits back to candidate source pages for grounding.
+Retrieval starts wide, then narrows before answering. Dense and sparse candidates are fused, metadata boosts favor useful legal signals, and `Qwen/Qwen3-Reranker-0.6B` reranks the evidence. Budgets depend on the question class: cross-case questions search wider, case questions keep more context, simple factual/statute questions stay tighter. Evidence compression and page lifting keep the final context answerable without flooding attribution with weak pages.
 
 ### Answering and Grounding
 
-Produces typed answers and final source pages as separate decisions.
-
-- Structured types: `boolean`, `number`, `name`, `names`, `date` with type-specific extraction, normalization, confidence checks, and validation.
-- Free text: `gpt-5.4-mini` through strict JSON-schema provider outputs.
-- Page attribution: solver narrowing, retrieval fallback, repeated-boilerplate suppression, validation repair.
-- Traceability: answer path, selected evidence, final pages, latency, and retrieval telemetry per question.
-- Saved run: expected page support recovered for all 95 questions with annotated source-page evidence.
+Answering is typed because the failure modes differ. Booleans, numbers, names, name lists, and dates use type-specific extraction, normalization, confidence checks, and validation. Free-text answers use `gpt-5.4-mini` through strict JSON-schema outputs. Page attribution is a separate step: solver narrowing, retrieval fallback, boilerplate suppression, and validation repair decide which pages deserve to be cited. The saved run recovered expected page support for all 95 questions with annotated source-page evidence.
 
 ### Submission and Operations
 
-- Checkpointed answers and traces.
-- Validated `submission.json`.
-- Required telemetry packing.
-- Code archive for reproducibility.
-- Locked setup through `.python-version` and `uv.lock`.
-- Public gate through `scripts/03_lint_and_test.sh`.
+The submission layer is built for auditability: checkpointed answers, per-question traces, packed telemetry, validated `submission.json`, score artifacts, grounding ledgers, and a code archive. Operator scripts keep setup and gate checks reproducible through `.python-version`, `uv.lock`, explicit dataset sync, model-cache provisioning, and `scripts/03_lint_and_test.sh`.
 
 ## Evaluation
 
