@@ -39,5 +39,4 @@ logs/project/runtime/**/*.jsonl
 run.log
 
 .apm/
-
-# Experiment heavy artifacts
+.DS_Store
