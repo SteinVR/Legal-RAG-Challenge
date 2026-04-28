@@ -1,10 +1,12 @@
 # Agentic RAG Legal Challenge 2026
 
-Best warm-up run: **0.759380** | Final blind leaderboard: **0.697287 | Top 9**
+Saved evaluation run: **0.759380 score** | **0.891790 source-page grounding** | Final blind leaderboard: **0.697287, Top 9**
 
-An end-to-end legal question-answering pipeline for the Agentic RAG Legal Challenge 2026, a competition focused on production-grade RAG systems: answer quality, source grounding, latency, telemetry, and reproducible engineering.
+An end-to-end legal RAG pipeline for answering questions over large PDF collections with page-level citations, structured answer validation, latency telemetry, and reproducible submission artifacts.
 
-The system answers legal questions over competition PDF collections. It downloads the inputs, parses and normalizes legal documents, builds a hybrid retrieval index, reranks evidence, generates typed answers, narrows source pages, packs the required telemetry, validates the output, and produces a submission bundle. The public snapshot includes the complete saved output for the best warm-up run:
+Legal QA over PDFs is difficult for reasons that are easy to underestimate: relevant evidence may live in scanned pages, dense legal clauses, tables, repeated headers, or multi-page case context. This system handles that with OCR-backed ingestion, multi-granularity hybrid retrieval, Qwen reranking, typed answer routing, source-page narrowing, and traceable submission packaging.
+
+Among 100 evaluated legal questions, 95 had annotated source-page evidence; the pipeline recovered expected source-page evidence for all 95, with 0 questions missing all required page support. The saved evaluation run is included so the result can be inspected through `submission.json`, answer traces, score breakdowns, and grounding ledgers:
 
 ```text
 artifacts/warmup_runs/runs/submission_e2e_20260424_solver_narrowing_no_guard/
@@ -56,51 +58,51 @@ artifacts/warmup_runs/runs/submission_e2e_20260424_solver_narrowing_no_guard/
     +------------------------+       +------------------------+
 ```
 
-## How It Works
+## Pipeline Logic
 
-1. **Dataset sync.** `scripts/02a_sync_datasets.sh` downloads and extracts the selected competition split. Inputs land in predictable paths such as `data/warmup/questions/questions.json` and `data/warmup/documents/pdfs`.
+1. **Stable data entrypoint.** `scripts/02a_sync_datasets.sh` downloads and extracts the selected competition split into predictable paths. The pipeline treats downloaded questions and PDFs as immutable inputs, which keeps later parsing, indexing, and evaluation runs reproducible.
 
-2. **Corpus construction.** `parse-corpus` reads each PDF page, tries native text extraction first, routes scanned or suspicious pages through OCR, applies structural normalization, serializes tables, and writes a canonical corpus plus a page map. Every downstream chunk keeps document and page provenance.
+2. **Page-first corpus construction.** Legal answers must cite source pages, so ingestion preserves page identity from the first processing step. `parse-corpus` reads each PDF page, tries native text extraction, routes scanned or suspicious pages through OCR, normalizes legal structure, serializes tables, and writes a canonical corpus plus a page map.
 
-3. **Hybrid indexing.** `build-indices` creates multiple chunk families: page, section, clause, microchunk, and table. Dense embeddings and sparse text features are stored with stable metadata so retrieval can combine lexical recall with semantic matching.
+3. **Multi-granularity indexing.** Legal evidence can be a whole page, a section, a clause, a small phrase, or a table cell. `build-indices` creates page, section, clause, microchunk, and table views, then stores dense embeddings and sparse text features with document/page metadata.
 
-4. **Question-aware retrieval.** At QA time the pipeline classifies the question shape and answer type, expands case-style queries when useful, applies candidate and rerank budgets, runs hybrid search, and reranks candidates with the Qwen reranker. Evidence selection keeps enough context for answer quality while limiting extra pages that hurt grounding precision.
+4. **Recall before precision.** Retrieval starts broad enough to avoid losing the answer, then narrows aggressively before generation. The QA layer classifies question shape and answer type, expands case-style queries when useful, applies candidate and rerank budgets, runs hybrid dense/sparse search, and reranks candidates with the Qwen reranker.
 
-5. **Answer routing.** Structured types (`boolean`, `number`, `name`, `names`, `date`) go through typed normalization and validation. `free_text` answers use the provider path with retrieved evidence and answer-type constraints. Unanswerable behavior is handled explicitly instead of leaking empty or malformed answers into the final payload.
+5. **Answer-type routing.** Booleans, numbers, names, dates, lists, and free-text answers fail in different ways. Structured types (`boolean`, `number`, `name`, `names`, `date`) go through typed normalization and validation; `free_text` answers use the provider path with retrieved evidence and answer-type constraints.
 
-6. **Page attribution.** The answerer emits a page trace. The attribution layer collapses candidate chunks into final source pages, suppresses repeated boilerplate, validates the chosen pages against answer evidence, and records whether the final pages came from solver narrowing, retrieval fallback, or validation repair.
+6. **Attribution after answering.** A correct answer still loses value if its cited pages are weak. The attribution layer collapses candidate chunks into final source pages, suppresses repeated boilerplate, validates chosen pages against answer evidence, and records whether pages came from solver narrowing, retrieval fallback, or validation repair.
 
-7. **Submission packaging.** `build-submission` checkpoints answers and traces, packs the required retrieval/latency telemetry for every answer, validates `submission.json`, writes a code archive, and stores the metrics needed to audit the run question by question.
+7. **Auditable submission packaging.** `build-submission` checkpoints answers and traces, packs retrieval and latency telemetry for every answer, validates `submission.json`, writes a code archive, and stores enough run data to inspect failures question by question.
 
-## Core Engineering Ideas
+## Retrieval, Answering, and Grounding
 
-### Preserve the Legal Source
+### PDF and OCR Ingestion
 
-Legal PDFs mix clean text, scans, tables, repeated headers, and long case documents. The parser handles that variety with native extraction, OCR fallback, table serialization, and structural cleanup. The output is a stable page-level corpus, so every later decision can still point back to a concrete document page.
+Legal PDFs mix clean text, scans, tables, repeated headers, and long case documents. The parser handles that variety with native extraction, OCR fallback, table serialization, and structural cleanup. The output is a stable page-level corpus, so every later decision can still point back to concrete document pages.
 
 This matters because legal RAG is judged by both the answer and the cited evidence. Page identity is preserved from ingestion onward instead of being reconstructed after generation.
 
-### Retrieve Broadly, Answer Narrowly
+### Hybrid Retrieval and Reranking
 
-The index uses several granularities at once. Page chunks preserve grounding, section and clause chunks capture legal context, microchunks improve exact matching, and table chunks keep tabular evidence searchable. Retrieval starts broad enough to avoid missing the answer, then reranking and evidence budgets shrink the context before generation.
+The index uses several granularities at once. Page chunks preserve grounding, section and clause chunks capture legal context, microchunks improve exact matching, and table chunks keep tabular evidence searchable. Hybrid dense/sparse retrieval protects recall; Qwen reranking and evidence budgets shrink context before generation.
 
 The pipeline adapts candidate and evidence budgets by question shape. Case-style questions can search wider; simple factual questions can stay narrow. The goal is high recall before reranking and high precision before emitting final source pages.
 
-### Treat Answer Types Differently
+### Typed Answering
 
-The benchmark mixes booleans, numbers, names, dates, lists, and free text. The pipeline does not send all of them through the same generic answer path. Structured answers get type-specific normalization and validation; free-text answers use retrieved evidence with stricter grounding controls.
+The benchmark mixes booleans, numbers, names, dates, lists, and free text. Structured answers get type-specific normalization and validation; free-text answers use retrieved evidence with stricter grounding controls.
 
-Generation and page attribution are separate steps. The model can propose an answer, but the system still decides which pages deserve to be cited. In the saved warm-up run, all 95 questions with page-level evidence were assigned at least one correct final source page.
+Generation and page attribution are separate steps. The model can propose an answer, but the system still decides which pages deserve to be cited. In the saved evaluation run, expected page support was recovered for all 95 questions with annotated source-page evidence.
 
-### Make Each Answer Auditable
+### Traceable Runs
 
 Every answer carries retrieval telemetry, selected pages, latency data, and a trace of the answering path. That makes failures inspectable: a wrong answer can be traced back to missing retrieval, reranking, evidence compression, answer normalization, or final page selection.
 
 The operator path is reproducible: dependencies come from `.python-version` and `uv.lock`, datasets are synced through the competition API, model caches are prepared explicitly, and the public gate runs from a clean checkout.
 
-## Scoring Model
+## Evaluation
 
-The included warm-up evaluation scores 100 legal questions with a multiplicative formula. A strong answer must be correct, grounded, well-formed, and fast enough:
+The saved evaluation scores 100 legal questions with a multiplicative formula. A strong answer must be correct, grounded, well-formed, and fast enough:
 
 ```text
 answer_quality = 0.7 * deterministic + 0.3 * assistant
@@ -115,7 +117,7 @@ Component meanings:
 - `telemetry`: 1.0 for well-formed telemetry, 0.9 when required telemetry is malformed or missing.
 - `ttft_multiplier`: latency factor from answer telemetry. Faster first-token responses receive a higher multiplier; slower responses reduce the final score.
 
-Saved warm-up run metrics:
+Saved evaluation run metrics:
 
 ```text
 scored_questions:        100
@@ -131,7 +133,7 @@ ttft_multiplier:         0.937594
 total_score:             0.759380
 ```
 
-Final source-page quality for the same run:
+Source-page attribution quality for the same run:
 
 ```text
 questions_with_page_evidence: 95
@@ -142,11 +144,11 @@ final_page_precision:         0.739474
 final_page_grounding:         0.891790
 ```
 
-The two grounding numbers answer different questions. `grounding=0.847201` is the benchmark component used inside `total_score` across all 100 answers. `final_page_grounding=0.891790` focuses only on the 95 questions that have page-level evidence and measures the quality of the final pages emitted by the attribution layer.
+The two grounding numbers measure different layers. `grounding=0.847201` is the benchmark component used inside `total_score` across all 100 answers. `final_page_grounding=0.891790` measures final source-page attribution on the 95 questions with annotated page evidence.
 
-## Saved Warm-up Run
+## Saved Evaluation Run
 
-The public snapshot includes one complete warm-up run:
+The repository includes one complete saved evaluation run for inspection:
 
 ```text
 artifacts/warmup_runs/
@@ -169,7 +171,7 @@ artifacts/warmup_runs/
         `-- ledger.csv
 ```
 
-Use the bundle to inspect the run without executing the full GPU-backed pipeline:
+Use these artifacts to inspect the run without executing the full GPU-backed pipeline:
 
 - `submission/submission.json`: final payload shape sent to the challenge platform.
 - `submission/qa_checkpoint.json`: checkpointed answer state.
