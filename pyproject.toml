@@ -61,7 +61,6 @@ target-version = "py312"
 select = ["E", "F", "I", "W"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
 pythonpath = ["."]
 markers = [
     "integration: tests that exercise cross-module orchestration or persisted artifacts",

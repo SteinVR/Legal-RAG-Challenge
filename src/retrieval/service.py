@@ -36,7 +36,6 @@ _STATUTE_MULTI_LAW_PATTERN = re.compile(
 _CASE_ID_TOKEN_PATTERN = re.compile(r"\b\d{1,4}\s*/\s*\d{4}\b", re.IGNORECASE)
 _DEFAULT_PAGE_MAP_CANDIDATE_PATHS = (
     Path("data/warmup/corpus/page_map.json"),
-    Path("data/full/corpus/page_map.json"),
     Path("data/final/corpus/page_map.json"),
 )
 
@@ -630,7 +629,7 @@ class RetrievalService:
         return self._page_count_map_cache
 
     def _resolved_page_map_paths(self) -> tuple[Path, ...]:
-        """Resolve page-map paths without implicitly mixing warmup/full corpora."""
+        """Resolve page-map paths without implicitly mixing warmup/final corpora."""
 
         if self.page_map_paths is not None:
             return tuple(Path(path) for path in self.page_map_paths)

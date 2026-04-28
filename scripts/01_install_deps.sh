@@ -9,7 +9,12 @@ if [ -n "$GIT_COMMON_DIR" ]; then
     COMMON_ROOT="$(dirname "$GIT_COMMON_DIR")"
 fi
 
-PYTHON_REQUESTED="${PYTHON_BIN:-${PYTHON_VERSION:-3.12}}"
+if [ -f "$PROJECT_ROOT/.python-version" ]; then
+    DEFAULT_PYTHON_VERSION="$(tr -d '[:space:]' < "$PROJECT_ROOT/.python-version")"
+else
+    DEFAULT_PYTHON_VERSION="3.12"
+fi
+PYTHON_REQUESTED="${PYTHON_BIN:-${PYTHON_VERSION:-$DEFAULT_PYTHON_VERSION}}"
 SKIP_PADDLE_GPU=0
 VERIFY=1
 PADDLE_GPU_VERSION="3.3.0"
@@ -19,14 +24,14 @@ usage() {
 Usage: ./scripts/01_install_deps.sh [options]
 
 Options:
-  --python BIN           Python interpreter/version for a new .venv (default: $PYTHON_BIN, $PYTHON_VERSION, then 3.12).
+  --python BIN           Python interpreter/version for a new .venv (default: $PYTHON_BIN, $PYTHON_VERSION, .python-version, then 3.12).
   --skip-paddle-gpu      Do not install the pinned Paddle CUDA wheel.
   --cpu                  Alias for --skip-paddle-gpu.
   --no-verify            Install only; skip import/CLI verification.
   -h, --help             Show this help.
 
 Canonical install includes:
-  - project editable install with paddle+dev extras
+  - locked project sync from uv.lock with paddle+dev extras
   - opendataloader-pdf[hybrid] / Docling hybrid backend runtime
   - pinned Paddle GPU wheel unless --skip-paddle-gpu is used
 USAGE
@@ -101,6 +106,10 @@ select_paddle_gpu_wheel_url() {
 }
 
 require_cmd uv
+if [ ! -f "$PROJECT_ROOT/uv.lock" ]; then
+    echo "FAIL: uv.lock is required for deterministic setup." >&2
+    exit 1
+fi
 PYTHON="$(resolve_python)"
 VENV_DIR="$(cd "$(dirname "$PYTHON")/.." && pwd)"
 HF_BIN="$VENV_DIR/bin/hf"
@@ -116,8 +125,7 @@ echo "Project root: $PROJECT_ROOT"
 echo "Common root: $COMMON_ROOT"
 echo "Python: $PYTHON ($($PYTHON --version 2>&1))"
 
-uv pip install --python "$PYTHON" -e ".[paddle,dev]"
-uv pip install --python "$PYTHON" "opendataloader-pdf[hybrid]>=2.3.0"
+UV_PROJECT_ENVIRONMENT="$VENV_DIR" uv sync --locked --python "$PYTHON" --extra paddle --extra dev
 
 if [ "$SKIP_PADDLE_GPU" -eq 0 ]; then
     PADDLE_GPU_WHEEL_URL="$(select_paddle_gpu_wheel_url)"

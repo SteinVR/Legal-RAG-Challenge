@@ -1,5 +1,4 @@
 # IDE / tools
-external/
 .codex/
 .opencode/
 .claude/
@@ -18,11 +17,9 @@ build/
 data/warmup/corpus/
 data/warmup/index/
 data/warmup/manifests/
-data/full/corpus/
-data/full/index/
-data/full/manifests/
-data/full/questions/
-data/full/submission_e2e_20260408_full_resume
+data/warmup/documents/documents.zip
+data/final/
+data/warmup-ocr/
 *.parquet
 *.faiss
 
@@ -32,6 +29,12 @@ qdrant_data/
 # Submission artifacts
 *.zip
 submission*.json
+
+# Curated public demo artifacts
+!artifacts/warmup_runs/configs/solver_narrowing_true.yaml
+!artifacts/warmup_runs/summary_runs.tsv
+!artifacts/warmup_runs/top_failures.tsv
+!artifacts/warmup_runs/runs/submission_e2e_20260424_solver_narrowing_no_guard/**
 
 # Agent/runtime logs
 logs/agents/

@@ -33,7 +33,7 @@ Options:
   --no-smoke         Skip the local opendataloader-pdf smoke parse.
   -h, --help         Show this help.
 
-This project uses the PyPI opendataloader-pdf package, not a vendored external build.
+This project uses the PyPI opendataloader-pdf package; no vendored build is used.
 The hybrid backend is provided by opendataloader-pdf[hybrid] and exposed as:
   .venv/bin/opendataloader-pdf-hybrid --host 127.0.0.1 --port 5002 --device cpu --force-ocr
 USAGE

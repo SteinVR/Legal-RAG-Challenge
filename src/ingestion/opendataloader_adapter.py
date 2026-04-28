@@ -7,7 +7,6 @@ import importlib.util
 import json
 import os
 import re
-import sys
 from dataclasses import dataclass, field
 from functools import lru_cache
 from itertools import count
@@ -18,14 +17,6 @@ from typing import Any, Callable, Iterable
 from src.common.config import AppConfig
 from src.common.schemas import ParserRoute, RawParseNode, RawParseSidecar, RawParseTable
 
-_OPEN_DATALOADER_VENDORED_SRC = (
-    Path(__file__).resolve().parents[2]
-    / "external"
-    / "opendataloader-pdf"
-    / "python"
-    / "opendataloader-pdf"
-    / "src"
-)
 _NON_ALNUM_PATTERN = re.compile(r"[^0-9A-Za-z._-]+")
 _HEADING_LEVEL_PATTERN = re.compile(r"\d+")
 
@@ -177,11 +168,6 @@ def _run_opendataloader_convert(
 
 def _load_convert_callable() -> Callable[..., None]:
     """Load convert callable."""
-    if importlib.util.find_spec("opendataloader_pdf") is None and _OPEN_DATALOADER_VENDORED_SRC.exists():
-        vendored_src = str(_OPEN_DATALOADER_VENDORED_SRC)
-        if vendored_src not in sys.path:
-            sys.path.insert(0, vendored_src)
-
     module_spec = importlib.util.find_spec("opendataloader_pdf")
     if module_spec is None:
         raise OpenDataLoaderExecutionError("opendataloader_pdf package is not importable.")

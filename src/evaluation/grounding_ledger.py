@@ -1,4 +1,4 @@
-"""Grounding layer ledger builders for recall-first autoresearch analysis."""
+"""Grounding layer ledger builders for recall-first run analysis."""
 
 from __future__ import annotations
 

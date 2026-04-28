@@ -44,7 +44,7 @@ echo "Python: $PY_VERSION"
 
 # .env file
 if [ -z "$ENV_FILE" ]; then
-    echo "FAIL: .env file not found. Copy .env.example and fill in API keys."
+    echo "FAIL: .env file not found. Create .env with API keys or export them in the process environment."
     exit 1
 fi
 echo ".env: present ($ENV_FILE)"
@@ -198,13 +198,30 @@ if [ -d "$PROJECT_ROOT/data/warmup/documents/pdfs" ]; then
     PDF_COUNT=$(find "$PROJECT_ROOT/data/warmup/documents/pdfs" -name "*.pdf" | wc -l)
     echo "Warmup PDFs: $PDF_COUNT"
 else
-    echo "Warmup PDFs: not downloaded yet"
+    echo "Warmup PDFs: not present"
+    echo "Hint: run ./scripts/02a_sync_datasets.sh --phase warmup"
 fi
 
 if [ -f "$PROJECT_ROOT/data/warmup/questions/questions.json" ]; then
     echo "Warmup questions: present"
 else
-    echo "Warmup questions: not downloaded yet"
+    echo "Warmup questions: not present"
+    echo "Hint: run ./scripts/02a_sync_datasets.sh --phase warmup"
+fi
+
+if [ -d "$PROJECT_ROOT/data/final/documents/pdfs" ]; then
+    FINAL_PDF_COUNT=$(find "$PROJECT_ROOT/data/final/documents/pdfs" -name "*.pdf" | wc -l)
+    echo "Final PDFs: $FINAL_PDF_COUNT"
+else
+    echo "Final PDFs: not present"
+    echo "Hint: run ./scripts/02a_sync_datasets.sh --phase final"
+fi
+
+if [ -f "$PROJECT_ROOT/data/final/questions/questions.json" ]; then
+    echo "Final questions: present"
+else
+    echo "Final questions: not present"
+    echo "Hint: run ./scripts/02a_sync_datasets.sh --phase final"
 fi
 
 if [ "$WARN_COUNT" -gt 0 ]; then
