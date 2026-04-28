@@ -102,7 +102,6 @@ Builds multiple retrieval views over the same corpus.
 - Dense vectors: `Qwen/Qwen3-Embedding-0.6B`.
 - Sparse vectors: local BM25 encoder.
 - Storage: Qdrant collections plus sidecars for page-parent and sparse-encoder state.
-- Purpose: support clause-level facts, table answers, exact legal wording, and page-level citation from one index.
 
 ### Retriever
 
@@ -203,8 +202,6 @@ artifacts/warmup_runs/
         |-- ledger.jsonl
         `-- ledger.csv
 ```
-
-Use these artifacts to inspect the run without executing the full GPU-backed pipeline:
 
 - `submission/submission.json`: final payload shape sent to the challenge platform.
 - `submission/qa_checkpoint.json`: checkpointed answer state.
