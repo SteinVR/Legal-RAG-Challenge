@@ -28,6 +28,7 @@ qdrant_data/
 
 # Submission artifacts
 *.zip
+!artifacts/warmup_runs/runs/submission_e2e_20260424_solver_narrowing_no_guard/submission/code_archive.zip
 submission*.json
 
 # Curated public demo artifacts
