@@ -1,4 +1,4 @@
-# Agentic RAG Legal Challenge 2026
+# RAG Legal Challenge 2026
 
 Saved evaluation run: **0.759380 score** | **0.891790 source-page grounding** | Final blind leaderboard: **0.697287, Top 9**
 
@@ -6,11 +6,7 @@ An end-to-end legal RAG pipeline for answering questions over large PDF collecti
 
 Legal QA over PDFs is difficult for reasons that are easy to underestimate: relevant evidence may live in scanned pages, dense legal clauses, tables, repeated headers, or multi-page case context. This system handles that with OCR-backed ingestion, multi-granularity hybrid retrieval, Qwen reranking, typed answer routing, source-page narrowing, and traceable submission packaging.
 
-Among 100 evaluated legal questions, 95 had annotated source-page evidence; the pipeline recovered expected source-page evidence for all 95, with 0 questions missing all required page support. The saved evaluation run is included so the result can be inspected through `submission.json`, answer traces, score breakdowns, and grounding ledgers:
-
-```text
-artifacts/warmup_runs/runs/submission_e2e_20260424_solver_narrowing_no_guard/
-```
+Among 100 evaluated legal questions, 95 had annotated source-page evidence; the pipeline recovered expected source-page evidence for all 95, with 0 questions missing all required page support.
 
 ---
 
