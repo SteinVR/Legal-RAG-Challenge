@@ -1,4 +1,4 @@
-# RAG Legal Challenge
+# Legal RAG Challenge
 
 Saved evaluation run: **0.759380 score** | **0.891790 source-page grounding** | Final blind leaderboard: **0.697287, Top 9**
 
