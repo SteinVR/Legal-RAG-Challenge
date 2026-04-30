@@ -1,8 +1,8 @@
-# RAG Legal Challenge 2026
+# RAG Legal Challenge
 
 Saved evaluation run: **0.759380 score** | **0.891790 source-page grounding** | Final blind leaderboard: **0.697287, Top 9**
 
-An end-to-end legal RAG pipeline for answering questions over large PDF collections with page-level citations, structured answer validation, latency telemetry, and reproducible submission artifacts.
+An end-to-end legal RAG pipeline for answering questions over large PDF collections with page-level citations, structured answer validation, latency telemetry, and validated submission artifacts.
 
 **Competition context:** the [Agentic Legal RAG Challenge](https://agentic-challenge.ai/) is a Machines Can See / Dubai AI Week competition for evaluation-ready legal RAG systems over real regulations, case law, and long-form contracts.
 
@@ -72,13 +72,13 @@ Among 100 evaluated legal questions, 95 had annotated source-page evidence; the 
 
 3. **Multi-granularity indexing.** Legal evidence can be a whole page, a section, a clause, a small phrase, or a table cell. `build-indices` creates page, section, clause, microchunk, and table views, then stores dense embeddings and sparse text features with document/page metadata.
 
-4. **Recall before precision.** Retrieval starts broad enough to avoid losing the answer, then narrows aggressively before generation. The QA layer classifies question shape and answer type, expands case-style queries when useful, applies candidate and rerank budgets, runs hybrid dense/sparse search, and reranks candidates with the Qwen reranker.
+4. **Recall before precision.** The QA layer classifies question shape and answer type, applies question-class candidate/rerank/evidence budgets, expands case-style queries, runs hybrid dense/sparse search, and reranks candidates with the Qwen reranker before generation.
 
 5. **Answer-type routing.** Booleans, numbers, names, dates, lists, and free-text answers fail in different ways. Structured types (`boolean`, `number`, `name`, `names`, `date`) go through typed normalization and validation; `free_text` answers use the provider path with retrieved evidence and answer-type constraints.
 
-6. **Attribution after answering.** A correct answer still loses value if its cited pages are weak. The attribution layer collapses candidate chunks into final source pages, suppresses repeated boilerplate, validates chosen pages against answer evidence, and records whether pages came from solver narrowing, retrieval fallback, or validation repair.
+6. **Attribution after answering.** The attribution layer collapses candidate chunks into final source pages, suppresses repeated boilerplate, validates selected pages against answer evidence, and records whether pages came from solver narrowing, retrieval fallback, or validation repair.
 
-7. **Auditable submission packaging.** `build-submission` checkpoints answers and traces, packs retrieval and latency telemetry for every answer, validates `submission.json`, writes a code archive, and stores enough run data to inspect failures question by question.
+7. **Auditable submission packaging.** `build-submission` checkpoints answers, writes `trace_manifest.json` and per-question traces, packs retrieval and latency telemetry for every answer, validates `submission.json`, and writes a code archive. The saved warm-up bundle adds benchmark reports and grounding ledgers for question-level inspection.
 
 ## Pipeline Internals
 
@@ -99,11 +99,11 @@ Indexing keeps several representations of the same page-stable corpus instead of
 
 ### Retriever
 
-Retrieval starts wide, then narrows before answering. Dense and sparse candidates are fused, metadata boosts favor useful legal signals, and `Qwen/Qwen3-Reranker-0.6B` reranks the evidence. Budgets depend on the question class: cross-case questions search wider, case questions keep more context, simple factual/statute questions stay tighter. Evidence compression and page lifting keep the final context answerable without flooding attribution with weak pages.
+Retrieval fuses dense and sparse candidates, applies metadata boosts, reranks evidence with `Qwen/Qwen3-Reranker-0.6B`, and then applies evidence budgets before answering. Budgets depend on the question class: cross-case questions use larger candidate pools, case questions keep more page context, and simple factual/statute questions use smaller evidence windows. Evidence compression and page lifting pass selected chunks and parent-page anchors into answering and attribution.
 
 ### Answering and Grounding
 
-Answering is typed because the failure modes differ. Booleans, numbers, names, name lists, and dates use type-specific extraction, normalization, confidence checks, and validation. Free-text answers use `gpt-5.4-mini` through strict JSON-schema outputs. Page attribution is a separate step: solver narrowing, retrieval fallback, boilerplate suppression, and validation repair decide which pages deserve to be cited. The saved run recovered expected page support for all 95 questions with annotated source-page evidence.
+Answering is typed because the failure modes differ. Booleans, numbers, names, name lists, and dates use type-specific extraction, normalization, confidence checks, and validation. Free-text answers use `gpt-5.4-mini` through strict JSON-schema outputs. Page attribution is a separate step: solver narrowing, retrieval fallback, boilerplate suppression, and validation repair select and validate emitted source pages. The saved run recovered expected page support for all 95 questions with annotated source-page evidence.
 
 ### Submission and Operations
 
@@ -111,7 +111,7 @@ The submission layer is built for auditability: checkpointed answers, per-questi
 
 ## Evaluation
 
-The saved evaluation scores 100 legal questions with a multiplicative formula. A strong answer must be correct, grounded, well-formed, and fast enough:
+The saved evaluation scores 100 legal questions with a multiplicative formula. The score combines answer correctness, grounding, format validity, and first-token latency:
 
 ```text
 answer_quality = 0.7 * deterministic + 0.3 * assistant
@@ -157,7 +157,7 @@ The two grounding numbers measure different layers. `grounding=0.847201` is the 
 
 ## Saved Evaluation Run
 
-The repository includes one complete saved evaluation run for inspection:
+The repository includes a saved warm-up evaluation artifact bundle for inspection:
 
 ```text
 artifacts/warmup_runs/
@@ -187,6 +187,8 @@ artifacts/warmup_runs/
 - `grounding/summary.json` and `grounding/ledger.*`: source-page evaluation data.
 - `manifest.json`: run metadata and artifact paths.
 
+The generated `submission/code_archive.zip` listed in `manifest.json` is intentionally omitted from Git and can be rebuilt with `build-submission`.
+
 ## Running
 
 Create the deterministic environment, sync warm-up inputs, prepare model caches, and run the public preflight:
@@ -201,11 +203,26 @@ Create the deterministic environment, sync warm-up inputs, prepare model caches,
 Run the pipeline wrappers:
 
 ```bash
+.venv/bin/opendataloader-pdf-hybrid \
+  --host 127.0.0.1 \
+  --port 5002 \
+  --device cpu \
+  --log-level info
+
 ./scripts/04_parse_corpus.sh --phase warmup --force
 ./scripts/05_build_indices.sh --phase warmup --force
 ./scripts/06_build_submission.sh --phase warmup --checkpoint-every 1
 ./scripts/07_validate_submission.sh --phase warmup
 ```
+
+Hybrid backend flags:
+
+- `--host`, `--port`: bind address. Must match `ingestion.opendataloader_hybrid_url`; any reachable address/port works if the config is updated.
+- `--device`: Docling backend device. `cpu` is the baseline value; other accepted values depend on the installed OpenDataLoader/Docling runtime.
+- `--force-ocr`: optional backend-side OCR forcing. Omit it for the saved-run variant; adding it changes parser behavior.
+- `--log-level`: backend verbosity. Typical values are `debug`, `info`, `warning`, and `error`.
+
+The pipeline disables hybrid fallback, so this backend must be running before `parse-corpus`.
 
 Full execution expects a GPU-backed runtime for OCR and reranking. Dataset sync requires `COMPETITION_API_KEY`; model and provider credentials are checked by the setup scripts before expensive stages run.
 
@@ -221,8 +238,8 @@ For the public quality gate:
 src/                     Pipeline implementation and CLI entrypoint
 scripts/                 Operator scripts and public quality gate
 configs/                 Baseline runtime configuration
-data/warmup/             Warmup questions and document placeholders
-artifacts/warmup_runs/   Kept best-run demo bundle and summaries
+data/warmup/             Warmup input questions and PDFs
+artifacts/warmup_runs/   Saved warmup evaluation artifacts and summaries
 tools/                   Shared operator helpers
 pyproject.toml           Package metadata and tool config
 uv.lock                  Locked dependency graph
@@ -232,4 +249,4 @@ uv.lock                  Locked dependency graph
 
 Full and final-phase datasets are downloaded through `scripts/02a_sync_datasets.sh --phase warmup` or `scripts/02a_sync_datasets.sh --phase final`.
 
-Generated runtime logs, parsed corpora, indices, downloaded final data, model caches, and new submissions are intentionally ignored. The checked-in warm-up output is the curated demonstration run.
+Generated runtime logs, parsed corpora, indices, downloaded final data, model caches, and new submissions are intentionally ignored. The checked-in warm-up output is the saved evaluation bundle.
