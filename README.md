@@ -2,6 +2,7 @@
 
 Saved evaluation run: **0.759380 score** | **0.891790 source-page grounding** | Final blind leaderboard: **0.697287, Top 9**
 
+Competition-grade legal RAG pipeline with OCR-backed PDF ingestion, hybrid retrieval, typed QA, and evaluated page-level citations.
 An end-to-end legal RAG pipeline for answering questions over large PDF collections with page-level citations, structured answer validation, latency telemetry, and validated submission artifacts.
 
 **Competition context:** the [Agentic Legal RAG Challenge](https://agentic-challenge.ai/) is a Machines Can See / Dubai AI Week competition for evaluation-ready legal RAG systems over real regulations, case law, and long-form contracts.
